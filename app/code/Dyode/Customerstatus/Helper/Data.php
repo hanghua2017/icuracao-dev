@@ -71,7 +71,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
       $soapClient = $this->setSoapClient();
       $soapResponse = $soapClient->EstimateOk(array('cust_id' => $customerId));
       $response = json_decode($soapResponse->EstimateOkResult);
-      var_dump($response);exit;
       $returnValue = $response->CODE;
       return $returnValue; //return code value
     }
