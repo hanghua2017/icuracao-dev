@@ -33,11 +33,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             #incomplete ...
         }
         else {
-            return $accountNumberFormatted;
+            return $accountNumberFormatted; //Formatted Account Number
         }
     }
-
-    //Setting up the Soap Client
+    
+    // Setting up the Soap Client
     public function setSoapClient()
     {
         $wsdlUrl = 'https://exchangeweb.lacuracao.com:2007/ws1/test/ecommerce/Main.asmx?WSDL';
@@ -47,8 +47,32 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             'Password' => 'ecom12');
         //Create Soap Header.
         $header = new \SOAPHeader($xmlns, 'TAuthHeader', $headerbody);
-        //set the Headers of Soap Client.
+        //Setting the Headers of Soap Client.
         $soapHeader = $soapClient->__setSoapHeaders($header);
         return $soapClient;
     }
+
+    // Create Invoice using API - CreateEstimateRev
+    public function createInvoiceRev($inputArray)
+    {
+        $soapClient = $this->setSoapClient();
+        $soapResponse = $soapClient->CreateEstimateRev($inputArray);
+        // echo $soapResponse->CreateEstimateRevResult;
+        // var_dump($soapResponse);
+        return $soapResponse->CreateEstimateRevResult;
+    }
+
+    // Create Invoice using API - CreateEstimateReg
+    public function createInvoiceReg($inputArray)
+    {
+        $soapClient = $this->setSoapClient();
+        $soapResponse = $soapClient->CreateEstimateReg($inputArray);
+        // var_dump($soapResponse);
+        // echo $soapResponse->CreateEstimateRegResult;
+        return $soapResponse->CreateEstimateRegResult;
+    }
 }
+
+ 
+
+        
