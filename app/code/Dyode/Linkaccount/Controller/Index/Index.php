@@ -59,8 +59,8 @@ class Index extends Action
         } else {    
             $postVariables = (array) $this->getRequest()->getPost();
             $postVariables['curacao_account'] = '53752001';
-            $postVariables['email'] = "ervice@icuracao.com";
-            $postVariables['password'] = "kavi@123";
+            $postVariables['email'] = "cservice@icuracao.com";
+            $postVariables['password'] = "Consumer";
             $alreadyExist = 0;
             $result = '';
             if(count($postVariables)> 0){
@@ -76,6 +76,7 @@ class Index extends Action
                     //check already linked with credit app
                     $result   =  $this->helper->getARCustomerInfoAction($accountNumber);
                     print_r($result);
+                    exit;
                     if($result){
                         // if linked echo "error message";
                     } else{
