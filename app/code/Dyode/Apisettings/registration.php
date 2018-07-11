@@ -4,3 +4,4 @@
     'Dyode_Apisettings',
     __DIR__
 );
+?>
