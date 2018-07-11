@@ -15,26 +15,48 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
     /**
      * @var \Magento\Sales\Model\ResourceModel\Order\CollectionFactory
      **/
-    protected $orderCollectionFactory;
+    protected $_orderCollectionFactory;
 
+    /**
+     * @var \Magento\Framework\View\Result\PageFactory $pageFactory
+     **/
     protected $_pageFactory;
     
-    protected $data;
-    
-    protected $_helper;
+    /**
+     * @var \Magento\Sales\Model\ResourceModel\Order\Status\CollectionFactory $statusCollectionFactory
+     */
+    protected $_statusCollectionFactory;
+    /**
+     * @var \Dyode\ArInvoice\Helper\Data $arInvoiceHelper
+     **/
+    protected $_arInvoiceHelper;
 
+    /**
+     * Construct
+     *
+     * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Framework\View\Result\PageFactory $pageFactory,
+     * @param \Magento\Sales\Model\ResourceModel\Order\Status\CollectionFactory $statusCollectionFactory
+     * @param \Dyode\ArInvoice\Helper\Data $arInvoiceHelper
+     * @param \Magento\Framework\Registry $data
+     */
 	public function __construct(
 		\Magento\Framework\Model\Context $context,
 		\Magento\Framework\View\Result\PageFactory $pageFactory,
-        \Dyode\ArInvoice\Helper\Data $helper,
+        \Magento\Sales\Model\ResourceModel\Order\Status\CollectionFactory $statusCollectionFactory,
+        \Dyode\ArInvoice\Helper\Data $arInvoiceHelper,
         \Magento\Framework\Registry $data
     ) {
-		$this->helper = $helper;
+		// $this->helper = $helper;
         $this->_pageFactory = $pageFactory;
-        $this->_helper = $helper;
+        $this->_statusCollectionFactory = $statusCollectionFactory;
+        $this->_arInvoiceHelper = $arInvoiceHelper;
 		return parent::__construct($context, $data);
 	}
 
+    /**
+     * Get Sales Order Collection for AR Invoice
+     */
     public function getSalesOrderCollection()
     {       
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
@@ -59,7 +81,7 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
 
             // Validating the Account Number
             // if (!empty($order->getCustomerId())) {
-            //     echo $this->_helper->validateAccountNumber($order->getCustomerId());
+            //     echo $this->_arInvoiceHelper->validateAccountNumber($order->getCustomerId());
             //     // var_dump($order->getCustomerId());    
             // } else {
             //     echo "Account Number not found!";
@@ -153,11 +175,11 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         
         if (!$hasPaymentPlan) {
             // Creating Invoice using API CreateInvoiceRev
-            $createInvoiceResponse = $this->_helper->createInvoiceRev($inputArray);
+            $createInvoiceResponse = $this->_arInvoiceHelper->createInvoiceRev($inputArray);
         }
         else {
             // Creating Invoice using API CreateInvoiceReg
-            $createInvoiceResponse = $this->_helper->createInvoiceReg($inputArray1);
+            $createInvoiceResponse = $this->_arInvoiceHelper->createInvoiceReg($inputArray1);
         }
 
         // Validating the Payment Method
@@ -170,8 +192,19 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
 
         die();
         // $collection = $this->_orderCollectionFactory->create()->addAttributeToSelect('*');
-        // // $this->orderCollectionFactory->addFieldToFilter('status','complete');
+        // // $this->_orderCollectionFactory->addFieldToFilter('status','complete');
         // return $collection;
     }
+
     
+    /**
+     * Get status options
+     *
+     * @return array
+     */
+    public function getStatusOptions()
+    {       
+        $options = $this->_statusCollectionFactory->create()->toOptionArray();        
+        return $options;
+    }
 }

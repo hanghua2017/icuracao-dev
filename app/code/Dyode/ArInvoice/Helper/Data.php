@@ -8,7 +8,9 @@ namespace Dyode\ArInvoice\Helper;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
-    // To check the account number is required format
+    /**
+     * To check the account number is required format
+     */
     public function validateAccountNumber($accountNumber)
     {
         // dummy content
@@ -37,7 +39,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         }
     }
     
-    // Setting up the Soap Client
+    /**
+     * Setting up the Soap Client
+     */
     public function setSoapClient()
     {
         $wsdlUrl = 'https://exchangeweb.lacuracao.com:2007/ws1/test/ecommerce/Main.asmx?WSDL';
@@ -52,7 +56,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         return $soapClient;
     }
 
-    // Create Invoice using API - CreateEstimateRev
+    /**
+     * Create Invoice using API -> CreateEstimateRev
+     */
     public function createInvoiceRev($inputArray)
     {
         $soapClient = $this->setSoapClient();
@@ -62,7 +68,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         return $soapResponse->CreateEstimateRevResult;
     }
 
-    // Create Invoice using API - CreateEstimateReg
+    /**
+     * Create Invoice using API -> CreateEstimateReg
+     */
     public function createInvoiceReg($inputArray)
     {
         $soapClient = $this->setSoapClient();
