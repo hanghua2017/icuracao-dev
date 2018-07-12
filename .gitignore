@@ -13,7 +13,7 @@ atlassian*
 /pub/sitemap
 /pub/sitemap.xml
 /.idea
-/.gitattributes
+!/.gitattributes
 /app/config_sandbox
 /app/etc/env.php
 /app/code/Magento/TestModule*
