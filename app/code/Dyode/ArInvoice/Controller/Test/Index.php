@@ -18,8 +18,9 @@ class Index extends \Magento\Framework\App\Action\Action
     }
     public function execute()
     {   
-        $orders = $this->orderCollection->getSalesOrderCollection();
-        var_dump($orders);
+        // $orders = $this->orderCollection->getSalesOrderCollection();
+        $this->orderCollection->createInvoice(2);
+        // var_dump($orders);
         die();
     }
 }
