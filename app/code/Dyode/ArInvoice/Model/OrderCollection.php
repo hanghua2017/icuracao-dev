@@ -60,9 +60,9 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
     /**
      * Get Sales Order Collection for AR Invoice
      */
-    public function createInvoice()
+    public function createInvoice($orderId)
     {
-
+        
     }
 
     /**
