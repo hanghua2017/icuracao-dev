@@ -11245,6 +11245,7 @@
         {
             "name": "zendframework/zend-diactoros",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             "version": "1.7.0",
             "source": {
                 "type": "git",
@@ -11255,6 +11256,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/ed6ce7e2105c400ca10277643a8327957c0384b7",
                 "reference": "ed6ce7e2105c400ca10277643a8327957c0384b7",
+=======
+            "version": "1.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zend-diactoros.git",
+                "reference": "63d920d1c9ebc009d860c3666593a66298727dd6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/63d920d1c9ebc009d860c3666593a66298727dd6",
+                "reference": "63d920d1c9ebc009d860c3666593a66298727dd6",
+>>>>>>> Stashed changes
 =======
             "version": "1.8.1",
             "source": {
@@ -11306,7 +11319,11 @@
                 "psr-7"
             ],
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             "time": "2018-01-04T18:21:48+00:00"
+=======
+            "time": "2018-07-09 21:17:27"
+>>>>>>> Stashed changes
 =======
             "time": "2018-07-09 21:17:27"
 >>>>>>> Stashed changes
