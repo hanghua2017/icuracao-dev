@@ -68,6 +68,7 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
     public function createInvoice($orderId)
     {
         $order = $this->getOrderInfo($orderId);
+        $accountNumber = $order->getCustomerId();
         // Getting the Payment Method
         $paymentMethod = $order->getPayment()->getMethod();
         // Validating the Payment Method
@@ -75,12 +76,28 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
             echo 'Authorize.net';
             // Signify_Required
             $signifyRequired = True;    //Setting Signify Required = True
+            
+            # Loading Transactional Details
+            $amountPaid = $order->getPayment()->getAmountPaid();
+            $orderTotal = $order->getGrandTotal();
+            if ($amountPaid >= $orderTotal || $accountNumber == '500-0000') {
+                # code...
+                $cashAmount = $amountPaid;
+                $accountNumber = '500-8555';
+                $orderType = "full-curacao-credit";
+            }
+            else {
+                # code...
+                $cashAmount = $amountPaid;
+                $orderType = "partial-curacao-credit";
+            }
         }
         else {
             echo 'false';
             $orderType = "full-curacao-credit";     // Setting Order Type = Full Curacao Credit
         }
-        $accountNumber = $order->getCustomerId();
+        
+        echo $orderType;
         // Validating the Account Number
         if (!empty($order->getCustomerId())) {
             $accountNumber = $this->_arInvoiceHelper->validateAccountNumber($accountNumber);
@@ -107,24 +124,7 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         else {
             # code... incomplete ... Prepare Order Items
         }
-        echo " ";
-        // print_r($order->getShippingAddress()->getData());
-        echo " ";
-        // echo 
-        echo " ";
-        // echo $order->getData("shipping_discount_amount");
-        echo " ";
-        foreach ($order->getAllItems() as $item)
-        {
-            // echo $item->getId()  . " ";
-            // echo $item->getName() . " ";
-            // echo $item->getProductType() . " ";
-            // echo $item->getQtyOrdered() . " ";
-            // echo $item->getPrice() . " ";
-        }
-        // echo date('Y-m-d\Th:i:s', strtotime($order->getData("created_at")));
-		// echo date('h:i A', strtotime($order->getData("created_at")));
-        // die();
+        
         $createdDate = date('Y-m-d\Th:i:s', strtotime($order->getData("created_at")));
         $createdTime = date('h:i A', strtotime($order->getData("created_at")));
         $subTotal = $order->getSubTotal() + $order->getShippingAmount() + $order->getDiscountAmount();
@@ -141,7 +141,7 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         $accountNumber = "157514";
         $soapClient = $this->_arInvoiceHelper->setSoapClient();
         $result = $soapClient->isCustomerActive($accountNumber);
-        var_dump($result);
+        // var_dump($result);
 
         // dummy value
         $hasPaymentPlan = false;
