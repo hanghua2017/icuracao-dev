@@ -1,0 +1,22 @@
+{
+    "name": "dyode/module-arwebservice",
+    "description": "",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "email": "info@mage2gen.com",
+            "name": "Mage2Gen"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Dyode\\ARWebservice\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}
