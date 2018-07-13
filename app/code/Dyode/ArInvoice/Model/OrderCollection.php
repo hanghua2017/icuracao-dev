@@ -67,7 +67,7 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
      */
     public function createInvoice($orderId)
     {
-        $order = $this->getOrderInfo(2);
+        $order = $this->getOrderInfo($orderId);
         // Getting the Payment Method
         $paymentMethod = $order->getPayment()->getMethod();
         // Validating the Payment Method
@@ -91,14 +91,14 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         // Regular expression for Account Numbers
         $regex = "/^[0-9]{3}-[0-9]{4}$/";
 
-        if (preg_match($regex, $accountNumber)) {
+        if (!preg_match($regex, $accountNumber)) {
             $soapClient = $this->_arInvoiceHelper->setSoapClient();
             $customerStatusResponse = $soapClient->checkCustomerStatus($accountNumber);
             // var_dump($customerStatusResponse);
             # code... incomplete ... Check Customer Status
         }
         else {
-            echo $accountNumber;    // Formatted Account Number
+            $accountNumber;    // Formatted Account Number
         }
         
         if ($signifyRequired == True) {
@@ -107,101 +107,157 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         else {
             # code... incomplete ... Prepare Order Items
         }
+        echo " ";
+        // print_r($order->getShippingAddress()->getData());
+        echo " ";
+        // echo 
+        echo " ";
+        // echo $order->getData("shipping_discount_amount");
+        echo " ";
+        foreach ($order->getAllItems() as $item)
+        {
+            // echo $item->getId()  . " ";
+            // echo $item->getName() . " ";
+            // echo $item->getProductType() . " ";
+            // echo $item->getQtyOrdered() . " ";
+            // echo $item->getPrice() . " ";
+        }
+        // echo date('Y-m-d\Th:i:s', strtotime($order->getData("created_at")));
+		// echo date('h:i A', strtotime($order->getData("created_at")));
+        // die();
+        $createdDate = date('Y-m-d\Th:i:s', strtotime($order->getData("created_at")));
+        $createdTime = date('h:i A', strtotime($order->getData("created_at")));
+        $subTotal = $order->getSubTotal() + $order->getShippingAmount() + $order->getDiscountAmount();
+        $taxAmount = $order->getTaxAmount();
+        $postCode = $order->getShippingAddress()->getPostCode();
+        $shippingAmount = $order->getShippingAmount();
+        $shippingDescription = $order->getShippingDescription();
+        $discountAmount = $order->getDiscountAmount();
+        $discountDescription = $order->getData("discount_description");
+        $shippingDiscount = $order->getShippingDiscountAmount();
+        $storeId = $order->getStoreId();
+    
+        // Testing the API 
+        $accountNumber = "157514";
+        $soapClient = $this->_arInvoiceHelper->setSoapClient();
+        $result = $soapClient->isCustomerActive($accountNumber);
+        var_dump($result);
 
         // dummy value
         $hasPaymentPlan = false;
-        $customerId = "500-8555";
-        $string = "hello";
-        $int = 123;
-        $float = 405.20;
-        $boolean = true;
-        $inputArray = array();
-        $inputArray1 = array();
-        $inputArray = array(
-            'CustomerID' => '658138',
-            'CreateDate' => '2018-06-08',
-            'CreateTime' => '2:31:23',
-            'WebReference' => $string,
-            'SubTotal' => '$199.99',
-            'TaxAmount' => '$18.50',
-            'DestinationZip' => '93906',
-            'ShipCharge' => '$15.28',
-            'ShipDescription' => 'United Parcel Service',
-            'DownPmt' => '0',
-            'EmpID' => $string,
-            'DiscountAmount' => '$15.00',
-            'DiscountDescription' => $string,
-            'ShippingDiscount' => '$0',
-            'Detail' => array(
-                'TEstLine' => array(
-                    'ItemType' => $string,
-                    'Item_ID' => $string,
-                    'Item_Name' => $string,
-                    'Model' => 'Apple',
-                    'ItemSet' => 'Watches',
-                    'Qty' => 1,
-                    'Price' => '199.99',
-                    'Cost' => '199.99',
-                    'Taxable' => $string,
-                    'WebVendor' => 2,
-                    'From' => $string,
-                    'PickUp' => 'false',
-                    'OrdItemID' => $int,
-                    'Tax_Amt' => '$18.50',
-                    'Tax_Rate' => '9.25'  
-                )
-            )
-        );
-
-        $inputArray1 = array(
-            'CustomerID' => '658138',
-            'CreateDate' => '2018-06-08',
-            'CreateTime' => '2:31:23',
-            'WebReference' => $string,
-            'SubTotal' => '$199.99',
-            'TaxAmount' => '$18.50',
-            'DestinationZip' => '93906',
-            'ShipCharge' => '$15.28',
-            'ShipDescription' => 'United Parcel Service',
-            'DownPmt' => '0',
-            'EmpID' => $string,
-            'SubAcct' => $string,
-            'NoOfPmts' => $string,
-            'DueDate' => $string,
-            'RegAcctInfo' => $string,
-            'DiscountAmount' => '$15.00',
-            'DiscountDescription' => $string,
-            'ShippingDiscount' => '$0',
-            'Detail' => array(
-                'TEstLine' => array(
-                    'ItemType' => $string,
-                    'Item_ID' => $string,
-                    'Item_Name' => $string,
-                    'Model' => 'Apple',
-                    'ItemSet' => 'Watches',
-                    'Qty' => 1,
-                    'Price' => '199.99',
-                    'Cost' => '199.99',
-                    'Taxable' => $string,
-                    'WebVendor' => 2,
-                    'From' => $string,
-                    'PickUp' => 'false',
-                    'OrdItemID' => $int,
-                    'Tax_Amt' => '$18.50',
-                    'Tax_Rate' => '9.25'
-                )
-            )
-        );
-
-        
         if (!$hasPaymentPlan) {
+            // Assigning values to input Array
+            $inputArray = array(
+                'CustomerID' => $accountNumber,
+                'CreateDate' => $createdDate,
+                'CreateTime' => $createdTime,
+                'WebReference' => $orderId,
+                'SubTotal' => $subTotal,
+                'TaxAmount' => $taxAmount,
+                'DestinationZip' => $postCode,
+                'ShipCharge' => $shippingAmount,
+                'ShipDescription' => $shippingDescription,
+                'DownPmt' => '', # incomplete...
+                'EmpID' => '', # incomplete...
+                'DiscountAmount' => $discountAmount,
+                'DiscountDescription' => $discountDescription,
+                'ShippingDiscount' => $shippingDiscount
+            );
+            foreach ($order->getAllItems() as $item)
+            {   
+                $itemType = $item->getProductType();
+                $itemSku = $item->getSku();
+                $itemName = $item->getName();
+                $itemQty = $item->getQtyOrdered();
+                $itemPrice = $item->getPrice();
+                $itemCost = $item->getBasePrice();
+                $itemId = $item->getId();
+                $itemTaxAmount = $item->getTaxAmount();
+                $itemTaxRate = $item->getTaxPercent();
+                // print_r($item->getData());
+                echo " ";
+                $inputArray['Detail'] = array(
+                    'TEstLine' => array(
+                        'ItemType' => $itemType,
+                        'Item_ID' => $itemSku,
+                        'Item_Name' => $itemName,
+                        'Model' => '', # incomplete...
+                        'ItemSet' => '', # incomplete...
+                        'Qty' => $itemQty,
+                        'Price' => $itemPrice,
+                        'Cost' => $itemCost,
+                        'Taxable' => '', # incomplete
+                        'WebVendor' => '', # incomplete...
+                        'From' => $storeId,
+                        'PickUp' => '', # incomplete...
+                        'OrdItemID' => $itemId,
+                        'Tax_Amt' => $itemTaxAmount,
+                        'Tax_Rate' => $itemTaxRate  
+                    )
+                );
+            }   
             // Creating Invoice using API CreateInvoiceRev
             $createInvoiceResponse = $this->_arInvoiceHelper->createInvoiceRev($inputArray);
         }
         else {
+            // Assigning values to input Array
+            $inputArray = array(
+                'CustomerID' => $accountNumber,
+                'CreateDate' => $createdDate,
+                'CreateTime' => $createdTime,
+                'WebReference' => $orderId,
+                'SubTotal' => $subTotal,
+                'TaxAmount' => $taxAmount,
+                'DestinationZip' => $postCode,
+                'ShipCharge' => $shippingAmount,
+                'ShipDescription' => $shippingDescription,
+                'DownPmt' => '', # incomplete...
+                'EmpID' => '', # incomplete...
+                'SubAcct' => '', # incomplete...
+                'NoOfPmts' => '', # incomplete...
+                'DueDate' => '', # incomplete...
+                'RegAcctInfo' => '', # incomplete...
+                'DiscountAmount' => $discountAmount,
+                'DiscountDescription' => $discountDescription,
+                'ShippingDiscount' => $shippingDiscount
+            );
+            foreach ($order->getAllItems() as $item)
+            {   
+                $itemType = $item->getProductType();
+                $itemSku = $item->getSku();
+                $itemName = $item->getName();
+                $itemQty = $item->getQtyOrdered();
+                $itemPrice = $item->getPrice();
+                $itemCost = $item->getBasePrice();
+                $itemId = $item->getId();
+                $itemTaxAmount = $item->getTaxAmount();
+                $itemTaxRate = $item->getTaxPercent();
+                // print_r($item->getData());
+                // echo " ";
+                $inputArray['Detail'] = array(
+                    'TEstLine' => array(
+                        'ItemType' => $itemType,
+                        'Item_ID' => $itemSku,
+                        'Item_Name' => $itemName,
+                        'Model' => '', # incomplete...
+                        'ItemSet' => '', # incomplete...
+                        'Qty' => $itemQty,
+                        'Price' => $itemPrice,
+                        'Cost' => $itemCost,
+                        'Taxable' => '', # incomplete
+                        'WebVendor' => '', # incomplete...
+                        'From' => $storeId,
+                        'PickUp' => '', # incomplete...
+                        'OrdItemID' => $itemId,
+                        'Tax_Amt' => $itemTaxAmount,
+                        'Tax_Rate' => $itemTaxRate  
+                    )
+                );
+            }
             // Creating Invoice using API CreateInvoiceReg
             $createInvoiceResponse = $this->_arInvoiceHelper->createInvoiceReg($inputArray1);
         }
+        die();
 
         // Validating the Create Invoice Response 
         if (strpos($createInvoiceResponse, 'ERROR') !== false) {
@@ -234,8 +290,15 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
             else {
                 $order->setState("processing")->setStatus("processing");    // Change the Order Status and Order State
                 $order->save();     // Save the Changes in Order Status & History
-                $this->_arInvoiceHelper->webDownPayment('532414', '20', '124', '13245');
-                $this->_arInvoiceHelper->goSupplyInvoice('12457', 'Sooraj', 'Sathyan', 'sooraj@dyode.com');
+                //Assigning demo values 
+                $downPaymentAmount = '20'; # incomplete...
+                $invoiceNumber = '124'; # incomplete...
+                $referId = '13425'; # incomplete...
+                $customerFirstName = $order->getCustomerFirstname();
+                $customerLastName = $order->getCustomerLastname();
+                $customerEmail = $order->getCustomerEmail();
+                $this->_arInvoiceHelper->webDownPayment($accountNumber, $downPaymentAmount, $invoiceNumber, $referId);
+                $this->_arInvoiceHelper->goSupplyInvoice($invoiceNumber, $customerFirstName, $customerLastName, $customerEmail);
                 # incomplete...
             }
         }

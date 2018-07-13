@@ -51,7 +51,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $soapClient = $this->setSoapClient();
         $soapResponse = $soapClient->CreateEstimateRev($inputArray);
-        // echo $soapResponse->CreateEstimateRevResult;
+        echo $soapResponse->CreateEstimateRevResult;
         // var_dump($soapResponse);
         return $soapResponse->CreateEstimateRevResult;
     }
@@ -64,7 +64,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $soapClient = $this->setSoapClient();
         $soapResponse = $soapClient->CreateEstimateReg($inputArray);
         // var_dump($soapResponse);
-        // echo $soapResponse->CreateEstimateRegResult;
+        echo $soapResponse->CreateEstimateRegResult;
         return $soapResponse->CreateEstimateRegResult;
     }
 
@@ -94,7 +94,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 //Set Address Mismatch flag
                 return $addressMismatch = False;
             } else {
-                //Set Address Mismatch
+                //Set Address Mismatch flag
                 return $addressMismatch = True;
             }
         }
