@@ -1,0 +1,68 @@
+<button id="sendtext" name="sendtext" value="Text"> <?php echo __('Text') ?> </button>
+<button id="voice" name="voice" value="Voice"> <?php echo __('Voice') ?> </button>
+<div class="verify-phone">
+    <form class="verifyform" id="verifyform" method="post" autocomplete="off" action="<?php echo $block->getCodeFormAction(); ?>" data-mage-init='{"validation":{}}'>
+    <fieldset class="fieldset">
+        <legend class="legend"><span><?php echo __('Verify by Phone:') ?></span></legend><br/>
+        <div class="field required">
+                <label for="link_account" class="label"><span><?php echo __('Verification Number') ?></span></label>
+                <div class="control">
+                    <input id="vid" type="text" name="verification_code" value="" placeholder="Verification" class="input-text" data-validate="{required:true}" />
+                </div>
+            </div
+    </fieldset>
+    <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" class="action submit primary" title="<?php  echo __('Submit') ?>"><span><?php echo __('Submit') ?></span></button>
+            </div>
+        </div>
+    </form
+</div>
+<div class="personal-infm">
+    <form class="pinfm" id="pinfm" method="post" autocomplete="off" action="<?php echo $block->getFormAction(); ?>" data-mage-init='{"validation":{}}'>
+    <fieldset class="fieldset">
+        <legend class="legend"><span><?php echo __('Verify Personal Information:') ?></span></legend><br/>
+        <div class="field required">
+                <label for="link_account" class="label"><span><?php echo __('Last 4 Digits of your Social Security Number ') ?></span></label>
+                <div class="control">
+                    <span><?php echo __('XXX - XX -') ?></span>
+                    <input id="ssn-verify" type="text" name="ssn-verify" class="input-text validate-number" placeholder="XXXX" data-validate="{required:true}">
+                </div>
+            </div>
+            <div class="field required">
+                <label for="link_email" class="label"><span><?php echo __('DOB') ?></span></label>
+                <div class="control">
+                <input type="text" class="input-text required-entry" id="calendar_inputField" name="calendar_inputField" aria-required="true" >
+                </div>
+            </div>
+            <div class="field required">
+                <label for="link_zipcode" class="label"><span><?php echo __('Zipcode') ?></span></label>
+                <div class="control">
+                    <input id="link_zipcode" type="text" name="link_zipcode" class="input-text validate-number" data-validate="{required:true}">
+                </div>
+            </div>
+            <div class="field required">
+                <label for="link_maiden" class="label"><span><?php echo __("Mother's Maiden Name") ?></span></label>
+                <div class="control">
+                    <input id="link_maiden" type="text" name="link_maiden" class="input-text" data-validate="{required:true}">
+                </div>
+            </div>
+    </fieldset>
+    <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" class="action submit primary" title="<?php  echo __('Submit') ?>"><span><?php echo __('Submit') ?></span></button>
+            </div>
+        </div>
+    </form
+</div>
+<script>
+     require([
+          "jquery",
+          "mage/calendar"
+     ], function($){
+         $("#calendar_inputField").calendar({
+              buttonText:"<?php echo __('Select Date') ?>",
+              dateFormat: "yy-mm-dd"
+         });
+       });
+</script>
