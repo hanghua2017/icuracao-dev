@@ -10,9 +10,10 @@ use Magento\Framework\Controller\ResultFactory;
 class Index extends Action
 {
 
-    protected $resultPageFactory;
-    protected $customerSession;
-
+    protected $_resultPageFactory;
+    protected $_customerSession;
+    protected $_customerRepositoryInterface;
+    protected $_helper;
     /**
      * Constructor
      *
@@ -23,12 +24,16 @@ class Index extends Action
         Context $context,
         PageFactory $resultPageFactory,
         ResultFactory $resultFactory,
-        \Magento\Customer\Model\Session $customerSession
+        \Dyode\ARWebservice\Helper\Data $helper,
+        \Magento\Customer\Model\Session $customerSession,
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface
     ) {
         parent::__construct($context);
-        $this->resultFactory = $resultFactory;
-        $this->resultPageFactory = $resultPageFactory;
-        $this->customerSession = $customerSession;
+        $this->_resultFactory = $resultFactory;
+        $this->_resultPageFactory = $resultPageFactory;
+        $this->_customerSession = $customerSession;
+        $this->_customerRepositoryInterface = $customerRepositoryInterface;
+        $this->_helper = $helper;
     }
 
     /**
@@ -39,20 +44,40 @@ class Index extends Action
     public function execute()
     {
       $postVariables = (array) $this->getRequest()->getPost();
-      $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+      $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
       if(!empty($postVariables)){
         //get the customer //
         $custEmail  = $this->_coreSession->getCustEmail();
-        $customerId = $this->customerSession->getCustomer()->getId();
+        $customerId = $this->_customerSession->getCustomer()->getId();
         if(!$customerId)
         {
           $resultRedirect->setPath('linkaccount/index');
           return $resultRedirect;
         }
         $accountNumber = $postVariables['curacao_account'];
+        $customer = $this->_customerRepositoryInterface->getById($customerId);
+        if($customer){
+            //Check customer already updated the curacao
+            $curaAccId = $customer->getCuracaocustid();
+            if($curaAccId != '' && $curaAccId == $accountNumber){
+                //Already linked with the Magento Account
+                $this->_messageManager->addError(__('We were unable to submit your request. Please try again!'));
+                return $this->_redirect('linkaccount/index');
+            }
+            $this->_coreSession->setCurAcc($accountNumber);
+            //Verify Credit Account Infm
+            $accountInfo   =  $this->_helper->getARCustomerInfoAction($accountNumber);
+
+            $this->_coreSession->setCustomerInfo($accountInfo);
+            if($accountInfo !== false){
+                $resultRedirect->setPath('linkaccount/verify/index');
+                return $resultRedirect;
+            }
+          }
+
 
       }
-      return $this->resultPageFactory->create();
+      return $this->_resultPageFactory->create();
 
     }
 

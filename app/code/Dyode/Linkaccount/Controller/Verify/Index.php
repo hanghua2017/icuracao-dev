@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Dyode\Linkaccount\Controller\Verify;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
@@ -10,14 +9,16 @@ use Magento\Framework\Controller\ResultFactory;
 class Index extends Action
 {
 
-    protected $resultPageFactory;
-    protected $customerSession;
-    protected $helper;
-    protected $messageManager;
-    protected $customerModel;
+    protected $_resultPageFactory;
+    protected $_customerSession;
+    protected $_helper;
+    protected $_messageManager;
+    protected $_customerModel;
     protected $_coreSession;
-    protected $storeManager;
-    protected $customerResourceFactory;
+    protected $_storeManager;
+    protected $_customerResourceFactory;
+    protected $_customerRepositoryInterface;
+    protected $_addressFactory;
     /**
      * Constructor
      *
@@ -36,17 +37,21 @@ class Index extends Action
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Session\SessionManagerInterface $coreSession,
         \Magento\Framework\Message\ManagerInterface $messageManager,
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
+        \Magento\Customer\Model\AddressFactory $addressFactory,
         \Magento\Customer\Model\ResourceModel\CustomerFactory $customerResourceFactory
     ) {
         parent::__construct($context);
-        $this->resultPageFactory = $resultPageFactory;
-        $this->customerSession = $customerSession;
-        $this->helper = $helper;
-        $this->storeManager = $storeManager;
+        $this->_resultPageFactory = $resultPageFactory;
+        $this->_customerSession = $customerSession;
+        $this->_helper = $helper;
+        $this->_storeManager = $storeManager;
         $this->_coreSession = $coreSession;
-        $this->messageManager = $messageManager;
-        $this->customerModel = $customerModel;
-        $this->customerResourceFactory = $customerResourceFactory;
+        $this->_messageManager = $messageManager;
+        $this->_customerModel = $customerModel;
+        $this->_customerRepositoryInterface = $customerRepositoryInterface;
+        $this->_customerResourceFactory = $customerResourceFactory;
+        $this->_addressFactory = $addressFactory;
     }
 
     /**
@@ -58,20 +63,18 @@ class Index extends Action
     {
         $postVariables = (array) $this->getRequest()->getPost();
         if(!empty($postVariables)){
-            print_r($postVariables);
-            $websiteId = $this->storeManager->getStore()->getWebsiteId();;
+
+            $websiteId = $this->_storeManager->getStore()->getWebsiteId();;
             $accountNumber = $this->_coreSession->getCurAcc();
             $custEmail  = $this->_coreSession->getCustEmail();
-          /*$zipCode  = $postVariables['link_zipcode'];
+            $customerInfo  = $this->_coreSession->getCustomerInfo();
+            //Get Customer Id
+            $customerId    = $this->_customerSession->getCustomer()->getId();
+            $zipCode  = $postVariables['link_zipcode'];$customerInfo  = $this->_coreSession->getCustomerInfo();
             $dob = $postVariables['calendar_inputField'];
             $ssnLast = $postVariables['ssn-verify'];
-            $maidenName = $postVariables['link_maiden']; */
+            $maidenName = $postVariables['link_maiden'];
 
-            $accountNumber = '53752001';
-            $zipCode  = '90015';
-            $dob = '08-16-1971';
-            $ssnLast = '5559';
-            $maidenName = 'consumer';
             $postData = array(
                 'CustID' => $accountNumber,
                 'Zip' => $zipCode,
@@ -82,51 +85,66 @@ class Index extends Action
                 'CCV' => ''
             );
             //Verify Credit Account Infm
-            $accountInfo   =  $this->helper->verifyPersonalInfm($postData);
-          //  print_r($accountInfo);
-            $accountInfo = "OK";
+            $accountInfo   =  $this->_helper->verifyPersonalInfm($postData);
             if($accountInfo == false){
                 // Personal Infm failed
-                $this->messageManager->addErrorMessage(__('Verification failed'));
+                $this->_messageManager->addErrorMessage(__('Verification failed'));
                 return $this;
             }
-             $customer   = $this->customerResourceFactory->create();
-             $customer->setWebsiteId($websiteId);
 
-             // Preparing data for new customer
-             //$customer->setEmail($email);
-            // $customer->setFirstname($firstName);
-          //   $customer->setLastname($lastName);
-             $customer->setCuracaocustid($accountNumber);
+             //Linking the account
+             if ($customerId) {
+               $customer = $this->_customerRepositoryInterface->getById($customerId);
+               $customer->setCustomAttribute('curacaocustid', $accountNumber);
+               $this->_customerRepositoryInterface->save($customer);
+             }
 
-             try
+             $customerInfo["ZIP"] = str_replace('-','',$customerInfo['ZIP']);//clearn up zip code
+
+             //assign what region the state is in
+             switch($customerInfo['STATE'])
              {
-                 $customer->save();
-                 $this->customerSession->setCustomerAsLoggedIn($customer);
-                 //$customerNew = $customerFactory->load($this->customerSession->getCustomer()->getId());
-                 $customerNew = $this->customerModel->load($this->customerSession->getCustomer()->getId());
-                 $this->_redirect('linkaccount/verify/success/');
-                 $this->messageManager->addSuccess(__('Successfully verified'));
-                 $resultPage = $this->resultPageFactory->create();
-                 return $resultPage;
-             } catch(\Exception $e) {
+                     case 'AZ' : $reg_id = 4; break;
+                     case 'CA' : $reg_id = 12; break;
+                     case 'NV' : $reg_id = 39; break;
+                     default   : $reg_id = 12; break;
+             }
+             //safe information t an array
+             $_custom_address = array('firstname' => $customerInfo['F_NAME'],
+                             'lastname' => $customerInfo['L_NAME'],
+                             'street' => array('0' => $customerInfo['STREET'], '1' => '',),
+                             'city' => $customerInfo['CITY'],
+                             'region_id' => $reg_id,
+                             'postcode' => $customerInfo['ZIP'],
+                             'country_id' => 'US',
+                             'telephone' => $customerInfo['PHONE']);
+
+
+             //get the customer address model and update the address information
+
+             $customAddress = $this->_addressFactory->create();
+             $customAddress  ->setData($_custom_address)
+                             ->setCustomerId($customerId)
+                             ->setIsDefaultBilling('1')
+                             ->setIsDefaultShipping('1')
+                             ->setSaveInAddressBook('1');
+
+             try{
+                   $customAddress->save();
+                   $customer->setAddress($customAddress);
+                   $this->_customerSession->setCustomerAsLoggedIn($customer);
+                   $this->_messageManager->addSuccess(__('Successfully verified'));
+                   $this->_redirect('linkaccount/verify/success');
+             }
+             catch(\Exception $e) {
                  $errorMessage = $e->getMessage();
                  $this->_messageManager->addError($errorMessage);
                  $this->_redirect('linkaccount/verify/index');
              }
 
-             $resultPage = $this->resultPageFactory->create();
-             return $resultPage;
-           }
-
-           return $this->resultPageFactory->create();
+          }
+       return $this->_resultPageFactory->create();
     }
 
-    /*
-    * Function to save the customer details
-    */
-    public function saveCustomerDetails(){
-
-    }
 
 }

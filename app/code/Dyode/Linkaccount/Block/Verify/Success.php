@@ -3,7 +3,7 @@
 
 namespace Dyode\Linkaccount\Block\Verify;
 
-class Index extends \Magento\Framework\View\Element\Template
+class Success extends \Magento\Framework\View\Element\Template
 {
      /**
      * Construct
@@ -18,21 +18,4 @@ class Index extends \Magento\Framework\View\Element\Template
     {
         parent::__construct($context, $data);
     }
-
-    /**
-     * Get form action URL for POST request
-     *
-     * @return string
-     */
-    public function getFormAction()
-    {
-        return '/linkaccount/verify/index';
-
-    }
-    public function getCodeFormAction()
-    {
-        return '/linkaccount/verify/codeverify';
-
-    }
-
 }

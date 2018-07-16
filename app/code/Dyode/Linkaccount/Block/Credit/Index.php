@@ -23,7 +23,7 @@ class Index extends \Magento\Framework\View\Element\Template
     }
 
     /**
-     * Get form action URL for POST booking request
+     * Get form action URL for POST
      *
      * @return string
      */

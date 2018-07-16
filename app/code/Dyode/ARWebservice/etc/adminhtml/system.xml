@@ -26,6 +26,18 @@
 					<label>Password</label>
 					<comment/>
 				</field>
+				<field id="phonewsdlurl" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>Phone WSDL Url</label>
+					<comment/>
+				</field>
+				<field id="licensekey" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>License Key</label>
+					<comment/>
+				</field>
+				<field id="callerid" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>Caller Id</label>
+					<comment/>
+				</field>
 			</group>
 		</section>
 	</system>

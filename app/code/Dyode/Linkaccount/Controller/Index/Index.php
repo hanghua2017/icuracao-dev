@@ -107,6 +107,7 @@ class Index extends Action
                         $this->_coreSession->setCustEmail($email);
                         //Verify Credit Account Infm
                         $accountInfo   =  $this->helper->getARCustomerInfoAction($accountNumber);
+                      
                         $this->_coreSession->setCustomerInfo($accountInfo);
                         if($accountInfo !== false){
 
