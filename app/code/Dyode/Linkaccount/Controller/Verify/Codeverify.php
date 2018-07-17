@@ -1,4 +1,8 @@
 <?php
+/*
+Date: 16/07/2018
+Author :Kavitha
+*/
 
 namespace Dyode\Linkaccount\Controller\Verify;
 use Magento\Framework\App\Action\Action;

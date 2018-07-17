@@ -1,4 +1,8 @@
 <?php
+/*
+Date: 03/07/2018
+Author :Kavitha
+*/
 
 namespace Dyode\ARWebservice\Helper;
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
@@ -150,7 +154,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
       if(trim($_enc) === trim(md5($salt . $_vid)))
           return 0;
       else
-          return -1;    
+          return -1;
   }
 }
 ?>

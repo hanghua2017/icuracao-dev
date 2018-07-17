@@ -1,5 +1,8 @@
 <?php
-
+/*
+Date: 06/07/2018
+Author :Kavitha
+*/
 
 namespace Dyode\Linkaccount\Controller\Index;
 use Magento\Framework\App\Action\Action;
@@ -107,7 +110,7 @@ class Index extends Action
                         $this->_coreSession->setCustEmail($email);
                         //Verify Credit Account Infm
                         $accountInfo   =  $this->helper->getARCustomerInfoAction($accountNumber);
-                      
+
                         $this->_coreSession->setCustomerInfo($accountInfo);
                         if($accountInfo !== false){
 
