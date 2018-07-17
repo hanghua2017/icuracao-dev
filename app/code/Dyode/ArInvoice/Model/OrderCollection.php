@@ -84,12 +84,12 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
                 # code...
                 $cashAmount = $amountPaid;
                 $accountNumber = '500-8555';
-                $orderType = "full-curacao-credit";
+                $orderType = "full-credit";
             }
             else {
                 # code...
                 $cashAmount = $amountPaid;
-                $orderType = "partial-curacao-credit";
+                $orderType = "partial-credit";
             }
         }
         else {
@@ -99,9 +99,8 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         
         echo $orderType;
         // Validating the Account Number
-        if (!empty($order->getCustomerId())) {
-            $accountNumber = $this->_arInvoiceHelper->validateAccountNumber($accountNumber);
-             
+        if (empty($accountNumber)) {
+            $accountNumber = $this->_arInvoiceHelper->validateAccountNumber($accountNumber); 
         }
         
         // $accountNumber = "000-0001";
@@ -323,7 +322,6 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         return $orderCollection->load();
     }
 
-    
     /**
      * Get status options
      *
