@@ -156,5 +156,17 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
       else
           return -1;
   }
+  /*==== Function to return the credit limit ===*/
+  public function getCreditLimit($cu_account){
+    if(!isset($cu_account)){return false; }
+    if(!is_numeric($cu_account)){return false;}
+
+    $soapClient =  $this->arConnect();
+    $soapResponse = $soapClient->ECCreditLimit(array('cust_id' => $cu_account));
+
+    $result = json_decode($soapResponse->ECCreditLimitResult);
+
+    return $result;
+  }
 }
 ?>

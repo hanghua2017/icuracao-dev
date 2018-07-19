@@ -1,0 +1,22 @@
+{
+    "name": "dyode/module-checkout",
+    "description": "",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "email": "kavitha@dyode.com",
+            "name": "Dyode"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Dyode\\Checkout\\": ""
+        }
+    }
+}
