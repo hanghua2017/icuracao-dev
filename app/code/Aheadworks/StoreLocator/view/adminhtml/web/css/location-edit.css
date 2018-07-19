@@ -1,0 +1,27 @@
+.field-image .upload,
+.field-custom_marker .upload {
+    float: left;
+}
+
+.field-image .preview,
+.field-custom_marker .preview {
+    float: left;
+    margin-right: 20px;
+}
+
+.field-image #location_image,
+.field-custom_marker #location_image {
+    display: block;
+    margin-top: 0;
+    padding-top: 10px;
+}
+
+.field-image .delete-image,
+.field-custom_marker .delete-image {
+    display: block;
+    padding-top: 20px;
+}
+
+#google-map-message {
+    margin-bottom: 20px;
+}
