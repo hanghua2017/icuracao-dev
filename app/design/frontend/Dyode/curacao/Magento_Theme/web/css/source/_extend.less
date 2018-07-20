@@ -1,0 +1,161 @@
+//ICuracao-Common Width LESS styles
+.navigation,
+.breadcrumbs,
+.page-header .header.panel,
+.header.content,
+.footer.content,
+.page-wrapper>.widget,
+.page-wrapper>.page-bottom,
+.block.category.event,
+.top-container,
+.page-main {
+	@media (min-width: 768px) {
+		max-width: 1500px;
+	}
+}
+
+//ICuracao-Header LESS styles
+.page-wrapper {
+	.page-header {
+		background-color: #97d700;
+		.header.content {
+			padding: 25px !important;
+			text-align: right;
+			transition: padding 250ms ease-out;
+      //ICuracao-Header Logo LESS styles
+			.logo {
+        float: left;
+				margin: 10px 15px 0 0;
+        transition: all 250ms ease-out;
+				width: 180px;
+				-webkit-transform: translate3d(0, 0, 0);
+			}
+			.block-search,
+			.header.links,
+			.minicart-wrapper {
+        display: inline-block;
+				float: none;
+			}
+      //ICuracao-Header Search LESS styles
+			.block-search {
+				float: left;
+				width: 56%;
+        .control{
+          ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: #b9b9b9;
+            font-size: 16px;
+            opacity: 1; /* Firefox */
+          }
+
+          :-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color:  #b9b9b9;
+            font-size: 16px;
+          }
+
+          ::-ms-input-placeholder { /* Microsoft Edge */
+            color:  #b9b9b9;
+            font-size: 16px;
+          }
+        }
+				.minisearch {
+					.search {
+						.input-text {
+							border: 0;
+							height: 50px;
+              padding-right: 0;
+							padding-left: 20px;
+						}
+					}
+					.actions {
+						.action {
+              background: #f0efef;
+							width: 48px;
+              height: 50px;
+              opacity: 1;
+							right: 0;
+							&::before {
+								color: #97d700;
+								font-size: 25px;
+							}
+						}
+					}
+				}
+			}
+      //ICuracao-Header Sign In LESS styles
+			.links {
+				list-style-type: none;
+				padding: 0;
+        font-size: 16px;
+				font-weight: 600;
+				margin: 14px 0;
+				a {
+            color: #333;
+						text-decoration: none;
+						&::before {
+							content: "";
+							background-image: url(../images/sign.png);
+							background-repeat: no-repeat;
+              display: inline-block;
+							height: 30px;
+              margin: 0;
+              overflow: hidden;
+							width: 35px;
+							-webkit-font-smoothing: antialiased;
+							-moz-osx-font-smoothing: grayscale;
+              vertical-align: top;
+							text-align: center;
+						}
+						&:hover,
+						&:focus {
+							color: #fff;
+							text-decoration: none;
+							&::before {
+								background-image: url(../images/sign-white.png);
+								background-repeat: no-repeat;
+							}
+						}
+					}
+			}
+      //ICuracao-Header Mini Cart LESS styles
+			.minicart-wrapper {
+				display: inline-block;
+				float: right;
+				z-index: 200;
+				margin-left: 20px;
+				padding-left: 20px;
+				position: relative;
+				@media (min-width: 768px) {
+					margin: 10px 0 10px 10px;
+				}
+				.action.showcart {
+					&::before {
+						content: "";
+						background-image: url(../images/minicart-cart.png);
+						background-repeat: no-repeat;
+						height: 30px;
+						width: 35px;
+					}
+				}
+			}
+		}
+	}
+	.nav-sections {
+		background: #84b90a;
+		.nav-sections-items {
+			.nav-sections-item-content {
+				.navigation {
+					background: #84ba09;
+					ul {
+						li {
+							a {
+								span {
+									color: white;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
