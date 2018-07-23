@@ -9,7 +9,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 		
 		$soapClient = $this->setSoapClient(); 
 		$soapResponse = $soapClient->BatchGetInventory(array('SkuList' => $skuList, 'location' => $location));
-		var_dump($soapResponse);exit;
+		return $soapResponse;
 	}
 
 	public function goSupplyInvoice($invoiceNumber,$firstName,$lastName,$email) {
