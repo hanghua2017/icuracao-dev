@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+<head>
+  <css src="css/source/theme.css"/>
+</head>
+    <body>
+        <referenceContainer name="content">
+                <block class="Magento\Cms\Block\Block" name="pricebeat" template="Magento_Theme::html/image.phtml"/>
+                <arguments>
+                    <argument name="pricebeat" xsi:type="string">bock1</argument>
+                </arguments>
+              </block>
+              <block class="Magento\Cms\Block\Block" name="interestbeat" template="Magento_Theme::html/image.phtml"/>
+            <arguments>
+                <argument name="interestbeat" xsi:type="string">block2</argument>
+            </arguments>
+        </block>
+        </referenceContainer>
+    </body>
+</page>
