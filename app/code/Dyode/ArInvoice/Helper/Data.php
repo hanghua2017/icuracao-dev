@@ -9,6 +9,109 @@ namespace Dyode\ArInvoice\Helper;
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * Initialize Rest Api Connection
+     */
+    public function initRestApiConnect($url)
+    {
+        /*
+        * Init Curl
+        */
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        /*
+        * Set Content Header
+        */
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'X-Api-Key: TEST-WNNxLUjBxA78J7s',
+            'Content-Type: application/json',
+            )
+        );
+        return $ch;
+    }
+    /**
+     * Create Invoice using API -> CreateRevEstimate
+     */
+    public function createRevInvoice($inputArray)
+    {
+        /*
+        * Initialize Rest Api Connection
+        */
+        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/CreateRevEstimate";
+        $ch = $this->initRestApiConnect($url);
+        /*
+        * Set Post Data
+        */
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($inputArray));
+        /**
+         * Get Response Data
+         */
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return json_decode($response);
+    }
+    /**
+     * Post Down Payment to Account/Invoice using API -> WebDownPayment
+     */
+    public function webDownPayment($custId, $amount, $invNo, $referId)
+    {
+        # Input Array
+        $inputArray = array(
+            "cust_id" => $custId,
+            "amount" => $amount,
+            "inv_no" => $invNo,
+            "referID" => $referId
+        );
+        /*
+        * Initialize Rest Api Connection
+        */
+        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/webDownpayment";
+        $ch = $this->initRestApiConnect($url);
+        /*
+        * Set Post Data
+        */
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($inputArray));
+        /**
+         * Get Response Data
+         */
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return json_decode($response);
+    }
+    /**
+     * Supply Invoice using API -> SupplyInvoice
+     */
+    public function supplyInvoice($invNo, $firstName, $lastName, $email)
+    {
+        # Input Array
+        $inputArray = array(
+            "InvNo" => $invNo,
+            "FirstName" => $firstName,
+            "LastName" => $lastName,
+            "eMail" => $email
+        );
+        /*
+        * Initialize Rest Api Connection
+        */
+        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/SupplyInvoice";
+        $ch = $this->initRestApiConnect($url);
+        /*
+        * Set Post Data
+        */
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($inputArray));
+        /**
+         * Get Response Data
+         */
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return $response;
+    }
+    /**
      * Validate Account Number
      */
     public function validateAccountNumber($accountNumber)
@@ -26,48 +129,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             return $accountNumberFormatted = $accountNumber;
         }
     }
-
-    /**
-     * Setting up the Soap Client
-     */
-    public function setSoapClient()
-    {
-        $wsdlUrl = 'https://exchangeweb.lacuracao.com:2007/ws1/test/ecommerce/Main.asmx?WSDL';
-        $soapClient = new \SoapClient($wsdlUrl,['version' => SOAP_1_2]);
-        $xmlns = 'http://lacuracao.com/WebServices/eCommerce/';
-        $headerbody = array('UserName' => 'mike',
-            'Password' => 'ecom12');
-        //Create Soap Header.
-        $header = new \SOAPHeader($xmlns, 'TAuthHeader', $headerbody);
-        //Setting the Headers of Soap Client.
-        $soapHeader = $soapClient->__setSoapHeaders($header);
-        return $soapClient;
-    }
-
-    /**
-     * Create Invoice using API -> CreateEstimateRev
-     */
-    public function createInvoiceRev($inputArray)
-    {
-        $soapClient = $this->setSoapClient();
-        $soapResponse = $soapClient->CreateEstimateRev($inputArray);
-        echo $soapResponse->CreateEstimateRevResult;
-        // var_dump($soapResponse);
-        return $soapResponse->CreateEstimateRevResult;
-    }
-
-    /**
-     * Create Invoice using API -> CreateEstimateReg
-     */
-    public function createInvoiceReg($inputArray)
-    {
-        $soapClient = $this->setSoapClient();
-        $soapResponse = $soapClient->CreateEstimateReg($inputArray);
-        // var_dump($soapResponse);
-        echo $soapResponse->CreateEstimateRegResult;
-        return $soapResponse->CreateEstimateRegResult;
-    }
-
     /**
      * Check if Customer is Active using API -> isCustomerActive
      */
@@ -102,7 +163,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             return $addressMismatch = True;   
         }
     }
-
     /**
      * Get Customer Contact Address using API -> getCustomerContact
      */
@@ -114,26 +174,22 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $customerInfo = json_decode(json_encode($response->DATA));
         return $customerInfo;
     }
-
     /**
-     * Post Down Payment to Account/Invoice using API -> WebDownPayment
+     * Setting up the Soap Client
      */
-    public function webDownPayment($custId, $amount, $invNo, $referId)
+    public function setSoapClient()
     {
-        $soapClient = $this->setSoapClient();
-        $soapResponse = $soapClient->WebDownPayment(
-            array(
-                'CustID' => $custId,
-                'Amount' => $amount,
-                'InvNo' => $invNo,
-                'ReferID' => $referId
-            )
-        );
-        $response = $soapResponse->WebDownPaymentResult;
-        // return $soapResponse;
-        var_dump($response);
+        $wsdlUrl = 'https://exchangeweb.lacuracao.com:2007/ws1/test/ecommerce/Main.asmx?WSDL';
+        $soapClient = new \SoapClient($wsdlUrl,['version' => SOAP_1_2]);
+        $xmlns = 'http://lacuracao.com/WebServices/eCommerce/';
+        $headerbody = array('UserName' => 'mike',
+            'Password' => 'ecom12');
+        //Create Soap Header.
+        $header = new \SOAPHeader($xmlns, 'TAuthHeader', $headerbody);
+        //Setting the Headers of Soap Client.
+        $soapHeader = $soapClient->__setSoapHeaders($header);
+        return $soapClient;
     }
-
     /**
      * Get Customer Contact Address using API -> geCustomerContact
      */
@@ -149,10 +205,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             )
         );
         $response = json_decode($soapResponse->GoSupplyInvoiceResult);
-        
         // return $soapResponse;
-        print_r($response);
+        // var_dump($response);
         die();
     }
-    
 }

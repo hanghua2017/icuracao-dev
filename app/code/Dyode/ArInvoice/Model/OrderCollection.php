@@ -9,22 +9,19 @@ use Dyode\ArInvoice\Helper\Data;
 use Magento\Sales\Model\Order;
 
 class OrderCollection extends \Magento\Framework\Model\AbstractModel// implements \Magento\Framework\DataObject\IdentityInterface
-{   
+{
     /**
      * @var \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory
      **/
     protected $_orderCollectionFactory;
-
     /**
      * @var \Magento\Sales\Model\OrderRepository $orderRepository
      **/
     protected $_orderRepository;
-
     /**
      * @var \Magento\Framework\View\Result\PageFactory $pageFactory
      **/
     protected $_pageFactory;
-    
     /**
      * @var \Magento\Sales\Model\ResourceModel\Order\Status\CollectionFactory $statusCollectionFactory
      */
@@ -33,7 +30,6 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
      * @var \Dyode\ArInvoice\Helper\Data $arInvoiceHelper
      **/
     protected $_arInvoiceHelper;
-
     /**
      * Construct
      *
@@ -68,49 +64,42 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
     public function createInvoice($orderId)
     {
         $order = $this->getOrderInfo($orderId);
-        $accountNumber = $order->getCustomerId();
-        // Getting the Payment Method
+        # Getting the Payment Method
         $paymentMethod = $order->getPayment()->getMethod();
-        // Validating the Payment Method
+        /**
+         * Validating the Payment Method
+         */
         if (strpos($paymentMethod, 'authorizenet') !== false) {
             echo 'Authorize.net';
             // Signify_Required
-            $signifyRequired = True;    //Setting Signify Required = True
+            $signifyRequired = True;    # Setting Signify Required = True
             
             # Loading Transactional Details
             $amountPaid = $order->getPayment()->getAmountPaid();
             $orderTotal = $order->getGrandTotal();
-            if ($amountPaid >= $orderTotal || $accountNumber == '500-0000') {
+            if ($amountPaid >= $orderTotal) {
                 # code...
                 $cashAmount = $amountPaid;
                 $accountNumber = '500-8555';
-                $orderType = "full-credit";
+                $orderType = "full_credit_card";
             }
             else {
                 # code...
                 $cashAmount = $amountPaid;
-                $orderType = "partial-credit";
+                $orderType = "partial_credit_card";
             }
         }
         else {
-            echo 'false';
-            $orderType = "full-curacao-credit";     // Setting Order Type = Full Curacao Credit
+            $orderType = "full_curacao_credit";     # Setting Order Type = Full Curacao Credit
         }
-        
-        echo $orderType;
-        // Validating the Account Number
         if (empty($accountNumber)) {
-            $accountNumber = $this->_arInvoiceHelper->validateAccountNumber($accountNumber); 
+            # code...
+            $accountNumber = $order->getCustomerId();
         }
-        
-        // $accountNumber = "000-0001";
-        // Regular expression for Account Numbers
-        $regex = "/^[0-9]{3}-[0-9]{4}$/";
+        # Validating the Account Number
+        $accountNumber = $this->_arInvoiceHelper->validateAccountNumber($accountNumber);
 
-        if (!preg_match($regex, $accountNumber)) {
-            $soapClient = $this->_arInvoiceHelper->setSoapClient();
-            $customerStatusResponse = $soapClient->checkCustomerStatus($accountNumber);
-            // var_dump($customerStatusResponse);
+        if ($accountNumber == "500-8555" and $orderType == "full_credit_card") {
             # code... incomplete ... Check Customer Status
         }
         else {
@@ -120,10 +109,8 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         if ($signifyRequired == True) {
             # code... incomplete ... Get Signify Score
         }
-        else {
-            # code... incomplete ... Prepare Order Items
-        }
-        
+        # code... incomplete ... Prepare Order Items
+
         $createdDate = date('Y-m-d\Th:i:s', strtotime($order->getData("created_at")));
         $createdTime = date('h:i A', strtotime($order->getData("created_at")));
         $subTotal = $order->getSubTotal() + $order->getShippingAmount() + $order->getDiscountAmount();
@@ -131,153 +118,148 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         $postCode = $order->getShippingAddress()->getPostCode();
         $shippingAmount = $order->getShippingAmount();
         $shippingDescription = $order->getShippingDescription();
+        $amountPaid = $order->getPayment()->getAmountPaid();
+        $orderTotal = $order->getGrandTotal();
+        if ($orderType == "full_credit_card" or $orderType == "full_curacao_credit") {
+            $downPaymentAmount = '0';
+        }
+        else {
+            $downPaymentAmount = $amountPaid;
+        }
         $discountAmount = $order->getDiscountAmount();
         $discountDescription = $order->getData("discount_description");
         $shippingDiscount = $order->getShippingDiscountAmount();
         $storeId = $order->getStoreId();
-    
-        // Testing the API 
-        $accountNumber = "157514";
-        $soapClient = $this->_arInvoiceHelper->setSoapClient();
-        $result = $soapClient->isCustomerActive($accountNumber);
-        // var_dump($result);
-
-        // dummy value
-        $hasPaymentPlan = false;
-        if (!$hasPaymentPlan) {
-            // Assigning values to input Array
-            $inputArray = array(
-                'CustomerID' => $accountNumber,
-                'CreateDate' => $createdDate,
-                'CreateTime' => $createdTime,
-                'WebReference' => $orderId,
-                'SubTotal' => $subTotal,
-                'TaxAmount' => $taxAmount,
-                'DestinationZip' => $postCode,
-                'ShipCharge' => $shippingAmount,
-                'ShipDescription' => $shippingDescription,
-                'DownPmt' => '', # incomplete...
-                'EmpID' => '', # incomplete...
-                'DiscountAmount' => $discountAmount,
-                'DiscountDescription' => $discountDescription,
-                'ShippingDiscount' => $shippingDiscount
+        # Assigning values to input Array
+        $inputArray = array(
+            'CustomerID' => $accountNumber,
+            'CreateDate' => $createdDate,
+            'CreateTime' => $createdTime,
+            'WebReference' => $orderId,
+            'SubTotal' => $subTotal,
+            'TaxAmount' => $taxAmount,
+            'DestinationZip' => $postCode,
+            'ShipCharge' => $shippingAmount,
+            'ShipDescription' => $shippingDescription,
+            'DownPmt' => $downPaymentAmount,
+            'EmpID' => '', # incomplete...
+            'DiscountAmount' => $discountAmount,
+            'DiscountDescription' => $discountDescription,
+            'ShippingDiscount' => $shippingDiscount
+        );
+        $items = array();
+        // Assigning values to input Array
+        foreach ($order->getAllItems() as $item)
+        {
+            $itemType = $item->getProductType();
+            $itemSku = $item->getSku();
+            $itemName = $item->getName();
+            $itemQty = $item->getQtyOrdered();
+            $itemPrice = $item->getPrice();
+            $itemCost = $item->getBasePrice();
+            $itemId = $item->getId();
+            $itemTaxAmount = $item->getTaxAmount();
+            $itemTaxRate = $item->getTaxPercent();
+            // print_r($item->getData());
+            echo " ";
+            array_push($items, array(
+                'ItemType' => $itemType,
+                'Item_ID' => $itemSku,
+                'Item_Name' => $itemName,
+                'Model' => '', # incomplete...
+                'ItemSet' => '', # incomplete...
+                'Qty' => $itemQty,
+                'Price' => $itemPrice,
+                'Cost' => $itemCost,
+                'Taxable' => '', # incomplete
+                'WebVendor' => '', # incomplete...
+                'From' => $storeId,
+                'PickUp' => '', # incomplete...
+                'OrdItemID' => $itemId,
+                'Tax_Amt' => $itemTaxAmount,
+                'Tax_Rate' => $itemTaxRate
+                )
             );
-            foreach ($order->getAllItems() as $item)
-            {   
-                $itemType = $item->getProductType();
-                $itemSku = $item->getSku();
-                $itemName = $item->getName();
-                $itemQty = $item->getQtyOrdered();
-                $itemPrice = $item->getPrice();
-                $itemCost = $item->getBasePrice();
-                $itemId = $item->getId();
-                $itemTaxAmount = $item->getTaxAmount();
-                $itemTaxRate = $item->getTaxPercent();
-                // print_r($item->getData());
-                echo " ";
-                $inputArray['Detail'] = array(
-                    'TEstLine' => array(
-                        'ItemType' => $itemType,
-                        'Item_ID' => $itemSku,
-                        'Item_Name' => $itemName,
-                        'Model' => '', # incomplete...
-                        'ItemSet' => '', # incomplete...
-                        'Qty' => $itemQty,
-                        'Price' => $itemPrice,
-                        'Cost' => $itemCost,
-                        'Taxable' => '', # incomplete
-                        'WebVendor' => '', # incomplete...
-                        'From' => $storeId,
-                        'PickUp' => '', # incomplete...
-                        'OrdItemID' => $itemId,
-                        'Tax_Amt' => $itemTaxAmount,
-                        'Tax_Rate' => $itemTaxRate  
-                    )
-                );
-            }   
-            // Creating Invoice using API CreateInvoiceRev
-            $createInvoiceResponse = $this->_arInvoiceHelper->createInvoiceRev($inputArray);
         }
-        else {
-            // Assigning values to input Array
-            $inputArray = array(
-                'CustomerID' => $accountNumber,
-                'CreateDate' => $createdDate,
-                'CreateTime' => $createdTime,
-                'WebReference' => $orderId,
-                'SubTotal' => $subTotal,
-                'TaxAmount' => $taxAmount,
-                'DestinationZip' => $postCode,
-                'ShipCharge' => $shippingAmount,
-                'ShipDescription' => $shippingDescription,
-                'DownPmt' => '', # incomplete...
-                'EmpID' => '', # incomplete...
-                'SubAcct' => '', # incomplete...
-                'NoOfPmts' => '', # incomplete...
-                'DueDate' => '', # incomplete...
-                'RegAcctInfo' => '', # incomplete...
-                'DiscountAmount' => $discountAmount,
-                'DiscountDescription' => $discountDescription,
-                'ShippingDiscount' => $shippingDiscount
-            );
-            foreach ($order->getAllItems() as $item)
-            {   
-                $itemType = $item->getProductType();
-                $itemSku = $item->getSku();
-                $itemName = $item->getName();
-                $itemQty = $item->getQtyOrdered();
-                $itemPrice = $item->getPrice();
-                $itemCost = $item->getBasePrice();
-                $itemId = $item->getId();
-                $itemTaxAmount = $item->getTaxAmount();
-                $itemTaxRate = $item->getTaxPercent();
-                // print_r($item->getData());
-                // echo " ";
-                $inputArray['Detail'] = array(
-                    'TEstLine' => array(
-                        'ItemType' => $itemType,
-                        'Item_ID' => $itemSku,
-                        'Item_Name' => $itemName,
-                        'Model' => '', # incomplete...
-                        'ItemSet' => '', # incomplete...
-                        'Qty' => $itemQty,
-                        'Price' => $itemPrice,
-                        'Cost' => $itemCost,
-                        'Taxable' => '', # incomplete
-                        'WebVendor' => '', # incomplete...
-                        'From' => $storeId,
-                        'PickUp' => '', # incomplete...
-                        'OrdItemID' => $itemId,
-                        'Tax_Amt' => $itemTaxAmount,
-                        'Tax_Rate' => $itemTaxRate  
-                    )
-                );
-            }
-            // Creating Invoice using API CreateInvoiceReg
-            $createInvoiceResponse = $this->_arInvoiceHelper->createInvoiceReg($inputArray1);
-        }
-        die();
+        $inputArray["items"] = $items;
+        # dummy values
+        $inputArray = array(
+            "CustomerID" => "53208833",
+            "CreateDate" => "2018-07-19",
+            "CreateTime" => "14:00:00",
+            "WebReference" => "123456789",
+            "SubTotal" => 30,
+            "TaxAmount" => 2,
+            "DestinationZip" => "91801",
+            "ShipCharge" => 0,
+            "ShipDescription" => "description here",
+            "DownPmt" => 0,
+            "EmpID" => "BPZ",
+            "DiscountAmount" => 0,
+            "DiscountDescription" => "",
+            "ShippingDiscount" => 0,
+            "items" =>  array(
+                array(
+                    "itemtype" => "CUR",
+                    "item_id" => "09A-RA3-RS16FT5050RB",
+                    "item_name" => "RACE SPORT 16FT RGB ST",
+                    "model" => "RS16FT5050RB",
+                    "itemset" => false,
+                    "qty" => 1,
+                    "price" => 10,
+                    "cost" => 5,
+                    "taxable" => false,
+                    "webvendor" => 0,
+                    "from" => "01",
+                    "pickup" => true,
+                    "orditemid" => 0,
+                    "tax_amt" => 1,
+                    "tax_rate" => 0
+                ),
+                array(
+                    "itemtype" => "CUR",
+                    "item_id" => "32O-285-42LB5600",
+                    "item_name" => "LG 42 1080P 60HZ LED",
+                    "model" => "42LB5600",
+                    "itemset" => false,
+                    "qty" => 1,
+                    "price" => 20,
+                    "cost" => 10,
+                    "taxable" => false,
+                    "webvendor" => 0,
+                    "from" => "01",
+                    "pickup" => true,
+                    "orditemid" => 0,
+                    "tax_amt" => 1,
+                    "tax_rate" => 0
+                )
+            )
+        );
 
-        // Validating the Create Invoice Response 
-        if (strpos($createInvoiceResponse, 'ERROR') !== false) {
+        $createInvoiceResponse = $this->_arInvoiceHelper->createRevInvoice($inputArray);    # Creating Invoice using API CreateInvoiceRev
+        /**
+         * Create Invoice Response Validation
+         */
+        if ($createInvoiceResponse->OK != true) {   # Create Invoice Response is false
+            # code...
             echo 'ERROR';
-            $order->setState("processing")->setStatus("estimate_issue");    // Change the Order Status and Order State
-            $order->addStatusToHistory($order->getStatus(), 'Estimate not Issued');     // Add Comment to Order History
-            $order->save();     // Save the Changes in Order Status & History
-        } else {
-            echo 'NOT ERROR';
-            // Save Estimate# in Order
-            $estimateNumber = 123;
-
-            $shippingStreet = '3325 W PICO BLVD APT 9';
-            $shippingZip = '90019';
-            $addressMismatch = $this->_arInvoiceHelper->validateAddress($order->getCustomerId(), $shippingStreet, $shippingZip);
-            $customerStatus = $this->_arInvoiceHelper->isCustomerActive($order->getCustomerId());
-            // echo " ";
-            if ($customerStatus == "Soft" || $customerStatus == "NO" || addressMismatch == True) {
-                $order->setState("payment_review")->setStatus("credit_review");    // Change the Order Status and Order State
-                $order->addStatusToHistory($order->getStatus(), 'Your Credit is being Reviewed');     // Add Comment to Order History
-                $order->save();     // Save the Changes in Order Status & History
+            $order->setState("processing")->setStatus("estimate_issue");    # Change the Order Status and Order State
+            $order->addStatusToHistory($order->getStatus(), 'Estimate not Issued');     # Add Comment to Order History
+            $order->save();     # Save the Changes in Order Status & History
+            # incomplete...
+        }
+        else {  # Create Invoice Response is true
+            $estimateNumber = $invoiceNumber = $createInvoiceResponse->DATA->INV_NO;    # Save Estimate Number in Order
+            # dummy values
+            $customerStatus = "Yes";
+            $addressMismatch = false;
+            /**
+             * Customer Status Validation
+             */
+            if ($customerStatus == "Soft" || $customerStatus == "NO" || $addressMismatch == True) {
+                $order->setState("payment_review")->setStatus("credit_review");    # Change the Order Status and Order State
+                $order->addStatusToHistory($order->getStatus(), 'Your Credit is being Reviewed');     # Add Comment to Order History
+                $order->save();     # Save the Changes in Order Status & History
                 # incomplete...
                 // echo $order->getState();
                 // echo $order->getStatus();
@@ -287,23 +269,31 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
                 // echo " ";
             }
             else {
-                $order->setState("processing")->setStatus("processing");    // Change the Order Status and Order State
-                $order->save();     // Save the Changes in Order Status & History
-                //Assigning demo values 
-                $downPaymentAmount = '20'; # incomplete...
-                $invoiceNumber = '124'; # incomplete...
-                $referId = '13425'; # incomplete...
+                $order->setState("processing")->setStatus("processing");    # Change the Order Status and Order State
+                $order->save();     # Save the Changes in Order Status & History
+                $referId = $orderId;
+                # dummy data
+                $accountNumber = "53208833";
+                $downPaymentAmount = 1.5;
+                $invoiceNumber = "ZEP58P4";
+                $referId = "refer#1";
+                # Web Down Payment API
+                $webDownPaymentResponse = $this->_arInvoiceHelper->webDownPayment($accountNumber, $downPaymentAmount, $invoiceNumber, $referId);
                 $customerFirstName = $order->getCustomerFirstname();
                 $customerLastName = $order->getCustomerLastname();
                 $customerEmail = $order->getCustomerEmail();
-                $this->_arInvoiceHelper->webDownPayment($accountNumber, $downPaymentAmount, $invoiceNumber, $referId);
-                $this->_arInvoiceHelper->goSupplyInvoice($invoiceNumber, $customerFirstName, $customerLastName, $customerEmail);
+                # dummy data
+                $invoiceNumber = "ZEP58P6";
+                $customerFirstName = "Joe";
+                $customerLastName = "Smith";
+                $customerEmail = "joe@smith.com";
+                # Supply Invoice API
+                $supplyInvoiceResponse = $this->_arInvoiceHelper->supplyInvoice($invoiceNumber, $customerFirstName, $customerLastName, $customerEmail);
                 # incomplete...
             }
         }
-        echo " ";
+        return;
     }
-
     /**
      * Get Sales Order Collection for AR Invoice
      */
@@ -311,7 +301,6 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
     {
         return $this->_orderRepository->get($orderId);
     }
-
     /**
      * Get Sales Order Collection for AR Invoice
      */
@@ -321,7 +310,6 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         $orderCollection = $objectManager->create('\Magento\Sales\Model\ResourceModel\Order\Collection');
         return $orderCollection->load();
     }
-
     /**
      * Get status options
      *
