@@ -1,0 +1,154 @@
+@gray-text:rgba(51,51,51,255);
+
+.catalog-category-view{
+  .page-main{
+    .columns{
+      .column{
+        .toolbar{
+          &.toolbar-products{
+            .category-heading{
+              float:left;
+              h1{
+                font-size:20px;
+                color:@gray-text;
+                margin-bottom: 0;
+              }
+            }
+            .modes{
+              float: right;
+              margin-right: 0;
+              margin-left:15px;
+              .modes-mode{
+                background: transparent !important;
+                box-shadow: none !important;
+                border:none !important;
+                &:before{
+                  color:#b8b8b8;
+                }
+                &.active{
+                  &:before{
+                    color:#6e6e6e;
+                  }
+                }
+                &.mode-grid{
+                  float: right;
+                }
+              }
+            }
+            .toolbar-amount{
+              display: none;
+            }
+            .toolbar-sorter{
+              .sorter-options{
+                box-shadow: none !important;
+                border-radius: 0px;
+                background:transparent url('../images/sorter-down-arrow.png') no-repeat 95% 50% !important;
+                background-size:10px !important;
+              }
+              .sorter-action{
+                display: none;
+              }
+            }
+          }
+        }
+        .products{
+          &.wrapper{
+            .product-item{
+              .product-item-info{
+                padding:10px;
+                &:hover,&:active{
+                  box-shadow: none;
+                  border:none;
+                  background:transparent;
+                  margin:0;
+                  padding:10px;
+                  position: static;
+                }
+                .product-item-details{
+                  .product-item-name{
+                    a{
+                      font-size: 18px;
+                      font-weight: 600;
+                      color:@gray-text;
+                    }
+                  }
+                  .price-box{
+                    text-align:center;
+                    .price{
+                      font-size: 22px;
+                      font-weight: 600;
+                      color:@gray-text;
+                    }
+                    .old-price{
+                      .price-label{
+                        display:none;
+                      }
+                      .price{
+                        font-size:14px;
+                        text-decoration: line-through;
+                        font-weight:400;
+                      }
+                    }
+                  }
+                  .product-item-inner{
+                    display:none;
+                  }
+                }
+              }
+            }
+          }
+          &.products-grid{
+            .product-item{
+              .product-item-info{
+                .product-item-details{
+                  text-align:center;
+                }
+                .price-box{
+                  text-align:center;
+                  .old-price{
+                    margin-right: 15px;
+                    .price{
+                      font-size:14px;
+                      color: rgba(255, 0, 36, 255);
+                    }
+                  }
+                }
+              }
+            }
+          }
+          &.products-list{
+            .product-item{
+              .product-item-info{
+                .product-item-details{
+                  .product-item-name{
+                    float: left;
+                    a{
+                      color:#4f4ff5;
+                    }
+                  }
+                }
+                .price-box{
+                  float:right;
+                  margin:0;
+                  .price{
+                    color:black;
+                  }
+                  .special-price,.old-price{
+                    width: 100%;
+                    float: left;
+                    text-align: right;
+                  }
+                  .old-price{
+                    .price{
+                      color:@gray-text;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
