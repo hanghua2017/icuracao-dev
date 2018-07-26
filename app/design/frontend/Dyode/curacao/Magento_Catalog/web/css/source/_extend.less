@@ -1,0 +1,444 @@
+@theme-color: #82b800;
+@desc-border: #e8e8e8;
+@content-light-grey: #aeaeae;
+@content-dark-grey: #5c5c5c;
+@box-orange: #f05c23;
+@link-blue: #4046d1;
+@color-orange: #f88203;
+@btn-orange: #f05c23;
+@green-color: #00993e;
+@org-price: 16px;
+@mrp-price: 26px;
+
+input, select {
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+
+.catalog-product-view {
+  .page-wrapper {
+    #maincontent {
+      max-width: 1500px; //Removable max
+
+      .columns {
+        .product.info.detailed {
+          .product.data.items {
+            border: 1px solid @desc-border;
+            .item.title {
+              &.active {
+                border-top:3px solid @theme-color;
+                .switch {
+                  padding-bottom: 2px;
+                }
+              }
+              .switch {
+                border: 1px solid @desc-border;
+                padding: 5px 40px 4px 40px;
+                border-bottom: none;
+                border-top: none;
+                text-transform: uppercase;
+                font-weight: 600;
+              }
+              &:first-child
+              {
+                .switch {
+                  border-left: none;
+                }
+              }
+            }
+            .item.content {
+              border: none;
+              margin-top: 49px;
+              border-top: 1px solid @desc-border;
+              padding: 15px 0;
+              .product.description {
+                .value {
+                  .product-description {
+                    .desc-block {
+                      border-bottom: 1px solid @desc-border;
+                      padding: 20px;
+                      &:last-child {
+                        border-bottom: none;
+                      }
+                      h3{
+                        margin-top: 0;
+                      }
+                      ul {
+                        margin-bottom: 0;
+                        padding-left: 20px;
+                      }
+                    }
+                  }
+                }
+              }
+              .review-add {
+                .block-content {
+                  padding: 20px;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .product-info-block {
+        clear: both;
+        float: left;
+        width: 100%;
+        -webkit-box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.21);
+        -moz-box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.21);
+        box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.21);
+
+        //styling for product information section - right side //
+        .product-info-main {
+            border: 1px solid red;
+            width: 56%;
+            padding: 25px;
+
+            //Product name
+            .page-title-wrapper {
+              .page-title {
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 8px;
+              }
+            }
+
+            //Product price block
+            .product-info-price {
+              display: inline-block;
+              clear: both;
+              border-top: 1px solid @content-light-grey;
+              border-bottom: 1px solid @content-light-grey;
+              float: left;
+              padding: 30px 0;
+              margin: 0;
+              .price-box.price-final_price {
+                width: 100%;
+                display: block;
+                padding: 0;
+                .prod-price, .credit-card-desc {
+                  clear: both;
+                  width: 100%;
+                  float: left;
+                }
+
+                //Styling for product price section
+                .prod-price {
+                  span {
+                    float: left;
+
+                    //Styling for orginal price (cut price if any special offer price added)
+                    &.old-price {
+                      .price-container {
+                          .price-label {
+                            font-size: @org-price;
+                            line-height: 36px;
+                          }
+                          #old-price-1 {
+                            margin-right: 30px;
+                            margin-left: 5px;
+                            .price {
+                              text-decoration: line-through;
+                              font-size: @org-price !important;
+                              font-weight: 600;
+                              color: @content-light-grey !important;
+                            }
+                          }
+                      }
+                    }
+
+                    //Styling for special price
+                    &.special-price {
+                      margin-right: 40px;
+                      .price-container {
+                          #product-price-1 {
+                            .price {
+                              color: @content-dark-grey;
+                              font-size: @mrp-price;
+                            }
+                          }
+                      }
+                    }
+
+                    //Styling for price, if no special price present
+                     &.org-price {
+                       .price-container {
+                           .price-label {
+                             font-size: @org-price;
+                             line-height: 36px;
+                             margin-right: 10px;
+                           }
+                           #product-price-2 {
+                             .price {
+                               color: @content-dark-grey;
+                               font-size: @mrp-price;
+                             }
+                           }
+                       }
+                     }
+
+                    //Styling for price discount box
+                    &.price-discount {
+                      border: 1px solid @box-orange;
+                      padding: 2px 20px;
+                      margin: 7px 0;
+                      text-transform: uppercase;
+                      font-size: 14px;
+                      font-weight: 600;
+                      color: @box-orange;
+                    }
+                  }
+                }
+
+                //styling for credit card button section
+                .credit-card-desc {
+                  display: inline-flex;
+                  padding-top: 25px;
+                  p.credit-desc {
+                    line-height: 20px;
+                    margin-top: 6px;
+                    margin-bottom: 0;
+                    margin-right: 5px;
+                    font-size: 16px;
+                    .emi-amount {
+                      color: @green-color;
+                      font-weight: 700;
+                      font-size: 18px;
+                    }
+                    img {
+                      position: relative;
+                      top: 3px;
+                      margin-right: 3px;
+                    }
+                  }
+                  a {
+                    color: @link-blue;
+                    border: 1px solid @link-blue;
+                    padding: 5px 20px;
+                    &:hover {
+                      text-decoration: none;
+                    }
+                  }
+                }
+
+              }
+            }
+            //End Product price block
+
+            //Quantity field
+            .product-add-form {
+              #product_addtocart_form {
+                .box-tocart {
+                  .fieldset {
+                    .field.qty {
+                      label {
+                        font-size: 16px;
+                        color: @content-light-grey;
+                        margin-right: 5px;
+                      }
+                      .control {
+                        display: inline-block;
+                        min-width: 50px;
+                        height: 40px;
+                      }
+                    }
+
+                    //Add to cart box
+                    .add-to-cart-block {
+                      border: 1px solid;
+                      width: 100%;
+                      .actions {
+                        display: inline-block;
+                        float: left;
+                        margin-right: 20px;
+                        #product-addtocart-button {
+                          background-color: @btn-orange;
+                          border-color: @btn-orange;
+                          color: #fff;
+                          width: 100%;
+                          border-radius: 0;
+                          padding: 12px 15px;
+                          text-transform: uppercase;
+                          span {
+                            position: relative;
+                            top: -3px;
+                          }
+                          img {
+                            position: relative;
+                            top: 5px;
+                          }
+                        }
+                      }
+
+                      .shipping-pickup-details {
+                        display: inline-block;
+                        p {
+                          font-size: 16px;
+                          margin-bottom: 5px;
+                          &.shipping {
+                            color: @green-color;
+
+                          }
+                          &.pickup-option {
+                            a {
+                              color: @link-blue;
+                              &:hover {
+                                text-decoration: none;
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+
+                  }
+                }
+              }
+            }
+
+            //Warranty block
+            .warranty-plan {
+              margin: 0;
+              padding-bottom: 20px;
+              h3 {
+                color: @color-orange;
+                font-size: 16px;
+                margin: 0;
+                padding-bottom: 20px;
+              }
+              .warranty-select {
+                font-size: 14px;
+                line-height: 18px;
+                #warranty-check {
+                    /* Warranty select green */
+                  .warranty-box {
+                      display: block;
+                      position: relative;
+                      padding-left: 25px;
+                      margin-bottom: 12px;
+                      cursor: pointer;
+                      font-size: 14px;
+                      -webkit-user-select: none;
+                      -moz-user-select: none;
+                      -ms-user-select: none;
+                      user-select: none;
+                      /* Hide the browser's default checkbox */
+                      input {
+                          position: absolute;
+                          opacity: 0;
+                          cursor: pointer;
+                      }
+                  }
+                  /* On mouse-over, add a grey background color */
+                  .warranty-box:hover input ~ .checkmark {
+                      background-color: #eee;
+                  }
+                  /* Create a custom checkbox */
+                  .checkmark {
+                      position: absolute;
+                      top: 0;
+                      left: 0;
+                      height: 15px;
+                      width: 15px;
+                      background-color: white;
+                      border: 1px solid rgb(166, 166, 166);
+                      border-radius: 4px;
+                      box-shadow: inset 0 2px 5px rgba(0,0,0,0.25);
+                      margin-right: 0.5em;
+                      /* Create the checkmark/indicator (hidden when not checked) */
+                      &:after {
+                          content: "";
+                          position: absolute;
+                          display: none;
+                      }
+
+                  }
+                  /* When the checkbox is checked, add a blue background */
+                  .warranty-box input:checked ~ .checkmark {
+                      background-color: #eee;
+                  }
+                  /* Show the checkmark when checked */
+                  .warranty-box input:checked ~ .checkmark:after {
+                      display: block;
+                  }
+                  /* Style the checkmark/indicator */
+                  .warranty-box {
+                    .checkmark {
+                      &:after {
+                        left: 4px;
+                          top: 2px;
+                          width: 4px;
+                          height: 7px;
+                          border: solid green;
+                          border-width: 0 3px 3px 0;
+                          -webkit-transform: rotate(40deg);
+                          -ms-transform: rotate(40deg);
+                          transform: rotate(40deg);
+                      }
+                    }
+                  }
+                }
+                a {
+                  color: @link-blue;
+                  text-decoration: underline;
+                }
+              }
+            }
+
+            //Check store box
+            .check-store {
+              padding-bottom: 25px;
+              padding-top: 10px;
+              a {
+                border: 1px solid @content-light-grey;
+                color: @link-blue;
+                font-size: 14px;
+                font-weight: 600;
+                padding: 5px 30px;
+                text-transform: uppercase;
+              }
+            }
+
+            //Social icons line wishlist, compare and email
+            .product-social-links {
+              .product-addto-links {
+                  display: none;
+              }
+            }
+
+            //Short product details on product info block
+            .product.attribute {
+              .value {
+                .short-desc {
+                  ul {
+                    list-style: none;
+                    padding-left: 17px;
+                    li::before {
+                      content: "•";
+                      color: @content-light-grey;
+                      display: inline-block;
+                      width: 1em;
+                      margin-left: -1em;
+                    }
+
+                  }
+                }
+              }
+            }
+        }
+
+        //Styling for product image section - left side //
+        .product {
+          &.media {
+            width: 40%;
+          }
+        }
+      }
+
+    }
+  }
+}

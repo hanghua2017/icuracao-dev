@@ -1,0 +1,136 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php if ($_product->isSaleable()): ?>
+<div class="box-tocart">
+    <div class="fieldset">
+        <?php if ($block->shouldRenderQuantity()): ?>
+        <div class="field qty">
+            <label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
+            <div class="control">
+
+                <!-- Static drop down to select quantity -->
+                <select name="qty" id="qty">
+                  <option value="1">1</option>
+                  <option value="1">2</option>
+                  <option value="1">3</option>
+                  <option value="1">4</option>
+                  <option value="1">5</option>
+                </select>
+                <!-- End Static drop down to select quantity -->
+
+                <!-- <input type="number"
+                       name="qty"
+                       id="qty"
+                       value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>"
+                       title="<?= /* @escapeNotVerified */ __('Qty') ?>"
+                       class="input-text qty"
+                       data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                       /> -->
+            </div>
+        </div>
+        <?php endif; ?>
+
+        <!-- Static block for warranty plan -->
+        <div class="warranty-plan">
+          <h3 class="warranty-title">Add a warranty plan</h3>
+          <div class="warranty-select">
+            <div id="warranty-check">
+                <label class="warranty-box">Include <a href="">1 year Apple Extended Warranty</a> for $300
+                  <input type="checkbox" id="cb1">
+                  <span class="checkmark"></span>
+                </label>
+                <label class="warranty-box">Include <a href="">2 year's Apple Extended Warranty</a> for $600
+                  <input type="checkbox" id="cb2">
+                  <span class="checkmark"></span>
+                </label>
+                 <!-- <input type="checkbox" id="cb3"/>
+                 <br />
+                 <input type="checkbox" id="cb4"/>
+                 <br /> -->
+            </div>
+
+          </div>
+        </div>
+        <div class="check-store">
+          <a href="">Check Store</a>
+        </div>
+        <!-- End Static block for warranty plan -->
+
+        <div class="add-to-cart-block">
+          <div class="actions">
+            <button type="submit"
+                    title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
+                    class="action primary tocart"
+                    id="product-addtocart-button">
+                <span>
+                  <img src="<?php echo $this->getViewFileUrl('images/cart-button.png'); ?>" />
+                  <?= /* @escapeNotVerified */ $buttonTitle ?>
+                </span>
+            </button>
+            <?= $block->getChildHtml('', true) ?>
+        </div>
+
+        <!-- Static block for pick up product  -->
+        <div class="shipping-pickup-details">
+          <p class="shipping"><strong>Free Shipping: </strong>Get it by Wed, Jul 11</p>
+          <p class="pickup-option">Want it today? <a href="#" id="pickup-location">Pict it up at Compton</a></p>
+        </div>
+        <!-- End Static block for pick up product  -->
+
+      </div>
+    </div>
+</div>
+<?php endif; ?>
+<?php if ($block->isRedirectToCartEnabled()) : ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/product/view/validation": {
+                "radioCheckboxClosest": ".nested"
+            }
+        }
+    }
+</script>
+<?php else : ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>
+<?php endif; ?>
+
+<script>
+require([
+      'jquery',
+
+  ], function($)
+     {
+       $('#warranty-check').click(function(e) {
+         e = e || event;
+         var cb = e.srcElement || e.target;
+         if (cb.type !== 'checkbox') {
+            return true;
+          }
+          var cbxs = document.getElementById('warranty-check').getElementsByTagName('input'), i=cbxs.length;
+          while(i--) {
+            if (cbxs[i].type && cbxs[i].type == 'checkbox' && cbxs[i].id !== cb.id) {
+                cbxs[i].checked = false;
+            }
+          }
+        });
+
+      }
+    );
+</script>
