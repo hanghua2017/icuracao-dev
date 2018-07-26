@@ -8,9 +8,9 @@
 
 /** @var $block \Magento\Catalog\Block\Product\List */
 ?>
-    <div class="toolbar toolbar-products" data-mage-init='<?= /* @escapeNotVerified */ $block->getWidgetOptionsJson() ?>'>
 
-        <?php include ($block->getTemplateFile('Magento_Catalog::section-heading.phtml')) ?>
+    <?php include ($block->getTemplateFile('Magento_Catalog::section-heading.phtml')) ?>
+    <div class="toolbar toolbar-products" data-mage-init='<?= /* @escapeNotVerified */ $block->getWidgetOptionsJson() ?>'>
 
         <?php if ($block->isExpanded()): ?>
             <?php include ($block->getTemplateFile('Magento_Catalog::product/list/toolbar/viewmode.phtml')) ?>
