@@ -74,13 +74,14 @@ class Index extends Action
             $customerInfo  = $this->_coreSession->getCustomerInfo();
             //Get Customer Id
             $customerId    = $this->_customerSession->getCustomer()->getId();
-            $zipCode  = $postVariables['link_zipcode'];$customerInfo  = $this->_coreSession->getCustomerInfo();
+            $zipCode  = $postVariables['link_zipcode'];
+            $customerInfo  = $this->_coreSession->getCustomerInfo();
             $dob = $postVariables['calendar_inputField'];
             $ssnLast = $postVariables['ssn-verify'];
             $maidenName = $postVariables['link_maiden'];
 
             $postData = array(
-                'CustID' => $accountNumber,
+                'CUST_ID' => $accountNumber,
                 'Zip' => $zipCode,
                 'DOB' => $dob,
                 'SSN' => $ssnLast,

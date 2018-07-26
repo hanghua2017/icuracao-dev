@@ -4,11 +4,11 @@
    <type name="Magento\Checkout\Model\CompositeConfigProvider">
        <arguments>
            <argument name="configProviders" xsi:type="array">
-               <item name="cms_block_config_provider" xsi:type="object">Dyode\CuracaoCredit\Model\ConfigProvider</item>
+               <item name="cms_block_config_provider" xsi:type="object">Dyode\Checkout\Model\ConfigProvider</item>
            </argument>
        </arguments>
    </type>
-   <type name="Dyode\CuracaoCredit\Model\ConfigProvider">
+   <type name="Dyode\Checkout\Model\ConfigProvider">
        <arguments>
            <argument name="blockId" xsi:type="string">curacao_checkout_block</argument>
        </arguments>

@@ -19,10 +19,11 @@
 																	<item name="component" xsi:type="string">Dyode_CuracaoCredit/js/view/payment/curacaopayment</item>
 																	<item name="methods" xsi:type="array">
 																		<item name="curacaopayment" xsi:type="array">
-																			<item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+																			<item name="isBillingAddressRequired" xsi:type="boolean">false</item>
 																		</item>
 																	</item>
 																</item>
+
 															</item>
 														</item>
 													</item>

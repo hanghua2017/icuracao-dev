@@ -5,17 +5,17 @@
 			<label>curacao</label>
 		</tab>
 		<section id="linkaccount" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
-			<label>linkaccount</label>
+			<label>Linkaccount</label>
 			<tab>curacao</tab>
 			<resource>Dyode_ARWebservice::config_dyode_arwebservice</resource>
 			<group id="curacao" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
 				<label>Settings</label>
-				<field id="wsdlurl" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
-					<label>WSDL Url</label>
-					<comment/>
-				</field>
 				<field id="apiurl" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
 					<label>API Url</label>
+					<comment/>
+				</field>
+				<field id="apikey" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>API Key</label>
 					<comment/>
 				</field>
 				<field id="apiuser" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
@@ -28,6 +28,10 @@
 				</field>
 				<field id="phonewsdlurl" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
 					<label>Phone WSDL Url</label>
+					<comment/>
+				</field>
+				<field id="backupurl" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>Phone Backup URL</label>
 					<comment/>
 				</field>
 				<field id="licensekey" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
