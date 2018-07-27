@@ -56,7 +56,6 @@ class Shipment extends \Magento\Framework\Model\AbstractModel// implements \Mage
         
         $orderShipment = $this->_convertOrder->toShipment($order);
         
-        
         foreach ($order->getAllItems() AS $orderItem) {
  
          // Check virtual item and item Quantity

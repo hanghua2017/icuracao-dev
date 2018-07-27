@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package   Dyode 
+ * @author    Sooraj Sathyan
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="shippingorder" frontName="shippingorder">
+            <module name="Dyode_ShippingOrder" />
+        </route>
+    </router>
+</config>
