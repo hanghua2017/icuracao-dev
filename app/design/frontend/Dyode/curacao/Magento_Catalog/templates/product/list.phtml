@@ -55,6 +55,13 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
                             . 'top:' . $productImage->getHeight() . 'px;"';
                     }
                     ?>
+
+
+                    <!-- Static content for price off -->
+                    <p class="price-off">$100 off</p>
+                    <!-- End Static content for price off -->
+
+                    
                     <?php // Product Image ?>
                     <a href="<?= /* @escapeNotVerified */ $_product->getProductUrl() ?>" class="product photo product-item-photo" tabindex="-1">
                         <?= $productImage->toHtml() ?>
@@ -77,6 +84,13 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
                               <?php echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
                             </div>
                         <?php endif; ?>
+
+
+                        <!-- static section for emi option -->
+                        <p class="emi-stat">Or as low as <span>$10/month</span></p>
+                        <!-- End static section for emi option -->
+
+
                     </div>
                 </div>
                 <?= ($iterator == count($_productCollection)+1) ? '</li>' : '' ?>
