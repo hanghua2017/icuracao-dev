@@ -113,6 +113,7 @@
             </container>
           </container>
           <referenceBlock name="product.info.sku" remove="true" />
+          <block class="Magento\Framework\View\Element\Template\product\view" name="custom.block" template="Magento_Catalog::product/view/frequently-bought.phtml" />
 
         </referenceContainer>
 

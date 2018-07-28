@@ -12,6 +12,38 @@
 <?php $buttonTitle = __('Add to Cart'); ?>
 <?php if ($_product->isSaleable()): ?>
 <div class="box-tocart">
+
+
+    <!-- Static content for product details -->
+    <div class="product-spec-details">
+      <div class="storage spec">
+        <label class="label"><span><?= /* @escapeNotVerified */ __('Storage') ?></span></label>
+        <div class="control">
+          <labe>64 GB</label>
+        </div>
+      </div>
+      <div class="color spec">
+        <label class="label"><span><?= /* @escapeNotVerified */ __('Color') ?></span></label>
+        <div class="control">
+          <ul>
+            <li><a href="" class="active"><img src="<?php echo $this->getViewFileUrl('images/iPhone-gold.png'); ?>" /></a>
+</li>
+            <li><a hred=""><img src="<?php echo $this->getViewFileUrl('images/iPhone-silver.png'); ?>" /></a>
+</li>
+            <li><a href=""><img src="<?php echo $this->getViewFileUrl('images/iPhone-grey.png'); ?>" /></a>
+</li>
+          </ul>
+        </div>
+      </div>
+      <div class="size spec">
+        <label class="label"><span><?= /* @escapeNotVerified */ __('Size') ?></span></label>
+        <div class="control">
+          <labe>49-inch</label>
+        </div>
+      </div>
+    </div>
+    <!-- End Static content for product details -->
+
     <div class="fieldset">
         <?php if ($block->shouldRenderQuantity()): ?>
         <div class="field qty">
@@ -40,6 +72,20 @@
         </div>
         <?php endif; ?>
 
+
+        <!-- TV wall mount option for tv -->
+        <div class="product-spec-details tv-wallmount">
+          <div class="wall-mount spec">
+            <label class="label"><span><?= /* @escapeNotVerified */ __('Storage') ?></span></label>
+            <div class="control">
+              <div class="input-radio"><input type="radio" id="without-installation" name="installation" value="without-installation" checked> <label for="without-installation">Without expert installation</label></div>
+              <div class="input-radio"><input type="radio" id="with-installation" name="installation" value="with-installation"> <label for="with-installation">Expert wall mounting: $80</label></div>
+            </div>
+          </div>
+        </div>
+        <!-- TV wall mount option for tv -->
+
+
         <!-- Static block for warranty plan -->
         <div class="warranty-plan">
           <h3 class="warranty-title">Add a warranty plan</h3>
@@ -61,13 +107,12 @@
 
           </div>
         </div>
-        <div class="check-store">
-          <a href="">Check Store</a>
-        </div>
         <!-- End Static block for warranty plan -->
 
         <div class="add-to-cart-block">
+
           <div class="actions">
+
             <button type="submit"
                     title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
                     class="action primary tocart"
@@ -77,7 +122,7 @@
                   <?= /* @escapeNotVerified */ $buttonTitle ?>
                 </span>
             </button>
-            <?= $block->getChildHtml('', true) ?>
+            <?=  $block->getChildHtml('', true) ?>
         </div>
 
         <!-- Static block for pick up product  -->
@@ -88,6 +133,12 @@
         <!-- End Static block for pick up product  -->
 
       </div>
+
+      <!-- Check store new static block -->
+      <div class="check-store">
+        <a href="">Check Store</a>
+      </div>
+      <!-- End Check store new static block -->
     </div>
 </div>
 <?php endif; ?>
@@ -130,6 +181,7 @@ require([
             }
           }
         });
+
 
       }
     );
