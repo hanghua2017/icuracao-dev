@@ -1,0 +1,47 @@
+
+  <?php
+   $Id = $block->getData('id_path');
+   $categoryId=filter_var($Id, FILTER_SANITIZE_NUMBER_INT);
+
+
+    $_objectManager =  \Magento\Framework\App\ObjectManager::getInstance();
+    $categoryFactory = $_objectManager->get('\Magento\Catalog\Model\CategoryFactory');
+    $categoryHelper = $_objectManager->get('\Magento\Catalog\Helper\Category');
+    $categoryRepository = $_objectManager->get('\Magento\Catalog\Model\CategoryRepository');
+    $imageHelper  = $_objectManager->get('\Magento\Catalog\Helper\Image');
+    $productHelper = $_objectManager->create('Magento\Catalog\Model\Product');
+    $productData = $_objectManager->create('Magento\Catalog\Model\ProductRepository');
+
+
+
+
+
+    $category = $categoryFactory->create()->load($categoryId);
+
+
+
+
+    $categoryProducts = $category->getProductCollection()
+                                 ->addAttributeToSelect('*');
+   if($block->getData('widgettitle')): ?>
+     <h2 class='widget-title'><?php echo $block->getData('widgettitle'); ?></h2>
+   <?php endif; ?><?php
+    foreach ($categoryProducts as $product) {
+      $_finalPrice= $product->getFinalPrice();
+      $_price= $product->getPrice();
+      $_savePercent = 100-round(($_finalPrice / $_price) * 100);
+        echo $_savePercent . "%" . '<br/>';
+        $image_url = $imageHelper->init($product, 'product_page_image_small')->setImageFile($product->getFile())->getUrl();
+        ?>
+        <img src="<?php echo $image_url;?>" alt="product"/>
+        <?php
+
+
+
+        echo $product->getName() . '<br/>';
+        echo $product->getPrice() . '<br/>';
+        echo $product->getFinalPrice() . '<br/>';
+        echo "or as low as $10/month <br/>";
+
+    }
+    ?>
