@@ -50,8 +50,8 @@ class BestSellerProducts extends \Mageplaza\Productslider\Block\AbstractSlider
 		$productCollection = $reportCollection->create('Magento\Sales\Model\ResourceModel\Report\Bestsellers\Collection');
         $productCollection->setPeriod('month');
         foreach ($productCollection as $product) {
-					echo $product->getProductId();
-            // $productIds[]=$this->getProductData($product->getProductId());
+				//	echo $product->getProductId();
+           $productIds[]=$this->getProductData($product->getProductId());
         }
         $collection      = $objectManager->create('\Magento\Catalog\Model\ResourceModel\Product\Collection')->addIdFilter($productIds);
         $collection->addMinimalPrice()
