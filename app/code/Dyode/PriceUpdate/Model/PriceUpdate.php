@@ -1,0 +1,86 @@
+<?php
+namespace Dyode\PriceUpdate\Model;
+
+use \Magento\Framework\Model\AbstractModel;
+
+class PriceUpdate extends \Magento\Framework\View\Element\Template {
+
+	protected $_productCollectionFactory;
+
+	public $data = array();
+
+	public $skuList = array();
+
+	public $location = '81';
+
+	public function __construct(
+	\Magento\Framework\View\Element\Template\Context $context,  
+	\Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory, 
+	\Dyode\PriceUpdate\Helper\Data $helper,
+	array $data = []
+	) {
+	    $this->_productCollectionFactory = $productCollectionFactory;
+	    $this->_helper = $helper;
+	    parent::__construct($context, $data);
+	}
+
+	public function updatePrice() {
+		$this->getProductSkulist();
+		$this->getBatchPrice();
+		var_dump("expression");exit;
+
+	} 
+
+	//get Sku list of all products
+	public function getProductSkulist(){
+		$productCollection = $this->_productCollectionFactory->create();
+	    /** Apply filters here */
+	    $productCollection->addAttributeToSelect('*');
+
+	    foreach ($productCollection as $product){
+	        $sku = utf8_encode(strtoupper(trim($product->getSku())));
+			//$this->data[] = "$sku";
+			$this->skuList[$sku]['entity_id'] = $product->getId();
+	    }  
+	} 
+
+	public function getBatchPrice(){
+		$this->data[0] = '21 -N13-5000';
+		$this->data[1] = '42C-F42-MARVISTA/6PC';
+		$this->data[2] = '48B-M25-4501/BK';
+		$this->data[3] = '21 -M35-HY/HME';
+		$this->data[4] = '21B-N77-82471795';
+		$items = array_chunk($this->data, 100);
+
+		foreach ($items as $item) {
+			$sku = implode(';', $item);
+			$batchPrice = $this->_helper->batchGetPrice($sku,$this->location);
+
+			$this->processBatchprice($batchPrice);
+		}
+		var_dump("expression");exit;
+	} 
+
+	public function processBatchprice($priceObject){
+		$pricelist = json_decode($priceObject->BatchGetPriceResult, true);
+		$items = $pricelist['SKULIST'];
+		foreach ($items as $item){
+				$obj = array( 
+					'err' => strtoupper(trim( $item[0] )),
+					'price' => $item[1],
+					'special_price' => $item[2],
+					'rebate' => $item[3],
+					'recycling_price' => $item[4],
+					'recycling_description' => trim( $item[5] ),
+					'cost' => $item[6],
+					'msrp' => $item[7],
+					'unknown' => $item[8],	
+					'sku' => utf8_encode(trim( $item[9] )),
+					'iqi' => trim( $item[10] ),
+					'ar_status' => trim( $item[11] )	
+				);
+
+				$this->skus[ $obj['sku'] ]= $obj;
+			}
+	}
+}
