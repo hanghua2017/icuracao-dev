@@ -7,16 +7,10 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-
-
         <referenceContainer name="footer-container">
             <container name="footer" as="footer" label="Page Footer" htmlTag="div" htmlClass="footer content">
                 <block class="Magento\Framework\View\Element\Template" name="custom-footer-link" as="custom-link" before="store_switcher" template="Magento_Theme::footer-custom-links.phtml"/>
-                <block class="Magento\Framework\View\Element\Html\Links" name="footer_links" remove="true">
-                    <arguments>
-                        <argument name="css_class" xsi:type="string">footer links</argument>
-                    </arguments>
-                </block>
+                <!-- <block class="Magento\Framework\View\Element\Html\Links" name="footer_links" remove="true"/> -->
                 <block class="Magento\Framework\View\Element\Template" name="trust_factors" as="trust" after="subscribe" template="Magento_Theme::trust-factor.phtml"/>
                 <block class="Magento\Framework\View\Element\Template" name="footer-bottom" after="trust" template="Magento_Theme::footer-bottom.phtml"/>
                 <block class="Magento\Framework\View\Element\Template" name="copy-right" after="footer-bottom" template="Magento_Theme::copy-right.phtml"/>
