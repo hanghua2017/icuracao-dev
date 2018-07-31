@@ -10,7 +10,7 @@
         <referenceContainer name="footer">
             <container name="legal" htmlTag="div" htmlClass="footer-legal">
                 <container name="legal.copyright" htmlTag="p" htmlClass="copyright col-m-6">
-                    <block class="Magento\Backend\Block\Page\Copyright" name="copyright" as="copyright" remove="true" />
+                    <!-- <block class="Magento\Backend\Block\Page\Copyright" name="copyright" as="copyright" remove="true" /> -->
                 </container>
             </container>
         </referenceContainer>
