@@ -45,28 +45,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function getApiKey(){
         return $this->getConfig('linkaccount/curacao/apikey');
     }
+
     /*
-    function to connect the AR using SOAP
-    */
-
-    /*public function arConnect(){
-        $userName =  $this->getApiuser();
-        $password =  $this->getApipass();
-        $headerbody =  array("UserName" => $userName, "Password" => $password);
-
-        $wsdlUrl = $this->getWsdlUrl();
-        $soapClient = new \SoapClient($wsdlUrl,['version' => SOAP_1_2]);
-        $xmlUrl = $this->getApiUrl();
-
-        //Create Soap Header.
-        $header = new \SOAPHeader($xmlUrl, 'TAuthHeader', $headerbody);
-        //set the Headers of Soap Client.
-        $soapHeader = $soapClient->__setSoapHeaders($header);
-        $this->soapClient = $soapClient;
-        return $soapClient;
-    }*/
-    /*
-    * function to connect the AR using SOAP
+    * function to connect the AR using REST
     * $fnName = fucntion namespace
     * type = GET/POST
     * $params as array
@@ -115,17 +96,14 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     /*=== Validate Customer Information and get DownPayment ===*/
     public function verifyPersonalInfm($customerDetails){
 
-        $soapClient =  $this->arConnect();
-        $soapResponse = $soapClient->ValidateDP($customerDetails);
+      $restResponse =  $this->arConnect('ValidateDP', 'GET',$customerDetails);
+      $result = json_decode($restResponse);
+      if($result->OK != true){
+         return false;
+      }
+      $verifiedResult = $result->DATA;
+      return $verifiedResult;
 
-
-        $verifiedResult = $soapResponse->ValidateDPResult;
-
-        if($verifiedResult->StatusMessage != 'OK'){
-            return false;
-        }
-
-        return $verifiedResult;
     }
 
     /*=== Function to send the verification code ===*/
@@ -141,24 +119,34 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
           if($_type == 1 )
           {
                   $wsdlUrl = $this->getConfig('linkaccount/curacao/phonewsdlurl');
-                  $params['CountryCode'] = '1';
-                  $params['PhoneNumber'] = $_phonenumber;
-                  $params['LicenseKey'] = $this->getConfig('linkaccount/curacao/licensekey');
-                  $params['CallerID'] = $this->getConfig('linkaccount/curacao/callerid');
-                  $params['Language'] = 'en';
-                  $params['VerificationCode'] = $code;
-                  $params['Extension'] = '';
-                  $params['ExtensionPauseTime'] = '';
+                  $countryCode = '1';
+                  $phone = $_phonenumber;
+                  $valuesToDelete = array('(', ')', '-', ' ');
+                  $phone = str_replace($valuesToDelete, '', $phone);
+                  $phoneNumber = $phone;
+                  $licenseKey = $this->getConfig('linkaccount/curacao/licensekey');
+                  $callerID = $this->getConfig('linkaccount/curacao/callerid');
+                  $language = 'en';
+                  $verifyCode = $code;
+                  $extension = '';
+                  $extensionPauseTime = '';
 
                 //  $soapClient = new \SoapClient($wsdlUrl,['version' => SOAP_1_2]);
 
-                  $soapClient = new \SoapClient($wsdlUrl, array( "trace" => 1 ));
-                  $response = $soapClient->PlaceCall($params);
-                  $result= $response->PlaceCallResult;
-                  if (isset($result->Error))
+                  $URL = $apiUrl.'SMS/'.$countryCode.'/'.$phoneNumber.'/'.$extension.'/'.$extensionPauseTime.'/'.$verifyCode.'/'.$callerID.'/'.$language.'/'.$licenseKey.'?format=json';
+                  // Get cURL resource
+                  $curl = curl_init();
+                  curl_setopt_array($curl, array(CURLOPT_RETURNTRANSFER => 1, CURLOPT_URL => $URL, CURLOPT_USERAGENT => 'Service Objects Telephone Verification'));
+                  curl_setopt($curl, CURLOPT_TIMEOUT, 50); //timeout in seconds
+                  // Send the request & save response to $resp
+                  $resp = curl_exec($curl);
+
+                  if($resp == false)
                   {
-                          return -1;
+                      curl_close($curl);
+                      return -1;
                   }
+
           }
           else
           {
@@ -174,8 +162,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                   //use backup url once given purchased license key
                   $backupURL = $this->getConfig('linkaccount/curacao/backupurl')."SendSMS?CountryCode=".urlencode($CountryCode)."&PhoneNumber=".urlencode($PhoneNumber)."&Message=".urlencode($Message)."&LicenseKey=".urlencode($LicenseKey);
 
-                  $URL = $apiUrl."SendSMS?CountryCode=".urlencode($countryCode)."&PhoneNumber=".urlencode($phoneNumber)."&Message=".urlencode($message)."&LicenseKey=".urlencode($licenseKey);
+                  //$URL = $apiUrl."SendSMS?CountryCode=".urlencode($countryCode)."&PhoneNumber=".urlencode($phoneNumber)."&Message=".urlencode($message)."&LicenseKey=".urlencode($licenseKey);
 
+                  $URL = $apiUrl.'SMS/'.$countryCode.'/'.$phoneNumber.'/'.$message.'/'.$licenseKey.'?format=json';
                   // Get cURL resource
                   $curl = curl_init();
                   curl_setopt_array($curl, array(CURLOPT_RETURNTRANSFER => 1, CURLOPT_URL => $URL, CURLOPT_USERAGENT => 'Service Objects Telephone Verification'));
@@ -215,8 +204,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
     $params = array('cust_id' => $cu_account);
 
-    $soapResponse =  $this->arConnect('GetCustomerCreditLimit', 'GET',$params);
-    $result = json_decode($soapResponse);
+    $restResponse =  $this->arConnect('GetCustomerCreditLimit', 'GET',$params);
+    $result = json_decode($restResponse);
 
     if($result->OK != 1){
        return false;

@@ -83,9 +83,6 @@ class Index extends Action
               $attempts +=1;
             }
             if(!empty($postVariables)){
-                $postVariables['curacao_account'] = '51333768';
-                $postVariables['email'] = "cservice@icuracao.com";
-                $postVariables['password'] = "kavi@123";
                 $alreadyExist = 0;
                 $result = '';
                 if(count($postVariables)> 0){

@@ -81,13 +81,13 @@ class Index extends Action
             $maidenName = $postVariables['link_maiden'];
 
             $postData = array(
-                'CUST_ID' => $accountNumber,
-                'Zip' => $zipCode,
-                'DOB' => $dob,
-                'SSN' => $ssnLast,
-                'MMaiden' => $maidenName,
-                'Amount' => 1,
-                'CCV' => ''
+                'cust_id' => $accountNumber,
+              //  'Zip' => $zipCode,
+                //'DOB' => $dob,
+              //  'SSN' => $ssnLast,
+              //  'MMaiden' => $maidenName,
+                'amount' => 1,
+            //    'CCV' => ''
             );
             //Verify Credit Account Infm
             $accountInfo   =  $this->_helper->verifyPersonalInfm($postData);
