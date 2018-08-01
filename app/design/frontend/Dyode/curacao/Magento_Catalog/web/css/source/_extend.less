@@ -87,6 +87,9 @@ input, select {
                       @media all and (max-width: 767px) {
                         font-size: 14px;
                       }
+                      @media all and (max-width: 478px) {
+                        font-size: 12px;
+                      }
                       &:last-child {
                         border-bottom: none;
                       }
@@ -94,6 +97,9 @@ input, select {
                         margin-top: 0;
                         @media all and (max-width: 767px) {
                           font-size: 16px;
+                        }
+                        @media all and (max-width: 478px) {
+                          font-size: 14px;
                         }
                       }
                       ul {
@@ -121,9 +127,10 @@ input, select {
         clear: both;
         float: left;
         width: 100%;
-        -webkit-box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.21);
-        -moz-box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.21);
-        box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.21);
+        -webkit-box-shadow: 0px 0px 7px 1px rgba(30,30,30,0.1);
+        -moz-box-shadow: 0px 0px 7px 1px rgba(30,30,30,0.1);
+        box-shadow: 0px 0px 7px 1px rgba(30,30,30,0.1);
+        margin-bottom: 30px;
         @media all and (max-width: 901px) {
           display: -webkit-flex;
           display: -ms-flexbox;
@@ -149,6 +156,7 @@ input, select {
               padding-left: 0;
               padding-right: 0;
               border-left: none;
+              padding-top: 0;
             }
 
 
@@ -158,10 +166,17 @@ input, select {
                 padding-left: 20px;
                 padding-right: 20px;
               }
+              @media all and (max-width: 478px) {
+                padding-left: 10px;
+                padding-right: 10px;
+              }
               .page-title {
                 font-size: 24px;
                 font-weight: bold;
                 margin-bottom: 8px;
+                @media all and (max-width: 991px) {
+                  font-size: 20px;
+                }
               }
             }
 
@@ -170,6 +185,11 @@ input, select {
               @media all and (max-width: 901px) {
                 padding-left: 20px;
                 padding-right: 20px;
+                margin: 0;
+              }
+              @media all and (max-width: 478px) {
+                padding-left: 10px;
+                padding-right: 10px;
               }
             }
 
@@ -182,9 +202,19 @@ input, select {
               float: left;
               padding: 30px 0;
               margin: 0;
+              @media all and (max-width: 991px) {
+                padding: 20px 0;
+              }
               @media all and (max-width: 901px) {
                 border: none;
               }
+              @media all and (max-width: 767px) {
+                width: 100% !important;
+              }
+              @media all and (max-width: 467px) {
+                padding: 10px 0;
+              }
+
               .price-box.price-final_price {
                 width: 100%;
                 display: block;
@@ -205,19 +235,37 @@ input, select {
                       @media all and (max-width: 901px) {
                         padding-left: 20px;
                       }
+                      @media all and (max-width: 467px) {
+                        padding-left: 10px;
+                      }
                       .price-container {
                           .price-label {
                             font-size: @org-price;
                             line-height: 36px;
+                            @media all and (max-width: 991px) {
+                              font-size: 14px;
+                            }
                           }
                           #old-price-1 {
                             margin-right: 30px;
                             margin-left: 5px;
+                            @media all and (max-width: 991px) {
+                              margin-right: 20px;
+                            }
+                            @media all and (max-width: 768px) {
+                              margin-right: 10px;
+                            }
                             .price {
                               text-decoration: line-through;
                               font-size: @org-price !important;
                               font-weight: 600;
                               color: @content-light-grey !important;
+                              @media all and (max-width: 991px) {
+                                font-size: 14px !important;
+                              }
+                              @media all and (max-width: 767px) {
+                                line-height: 36px;
+                              }
                             }
                           }
                       }
@@ -226,13 +274,31 @@ input, select {
                     //Styling for special price
                     &.special-price {
                       margin-right: 40px;
+                      @media all and (max-width: 991px) {
+                        margin-right: 30px;
+                      }
+                      @media all and (max-width: 476px) {
+                        margin-right: 20px;
+                      }
+                      @media all and (max-width: 375px) {
+                        margin-right: 15px;
+                      }
                       .price-container {
-                          #product-price-1 {
-                            .price {
-                              color: @content-dark-grey;
-                              font-size: @mrp-price;
+                        #product-price-1 {
+                          .price {
+                            color: @content-dark-grey;
+                            font-size: @mrp-price;
+                            @media all and (max-width: 991px) {
+                              font-size: 22px;
+                            }
+                            @media all and (max-width: 767px) {
+                              line-height: 36px;
+                            }
+                            @media all and (max-width: 476px) {
+                              font-size: 20px;
                             }
                           }
+                        }
                       }
                     }
 
@@ -251,6 +317,9 @@ input, select {
                              .price {
                                color: @content-dark-grey;
                                font-size: @mrp-price;
+                               @media all and (max-width: 991px) {
+                                 font-size: 22px;
+                               }
                              }
                            }
                        }
@@ -271,19 +340,33 @@ input, select {
                 //styling for credit card button section
                 .credit-card-desc {
                   padding-top: 25px;
+                  @media all and (max-width: 991px) {
+                    padding-top: 10px;
+                  }
                   p.credit-desc {
                     line-height: 20px;
                     margin-top: 6px;
                     margin-bottom: 20px;
                     margin-right: 5px;
                     font-size: 16px;
+                    @media all and (max-width: 991px) {
+                      font-size: 14px;
+                      margin-bottom: 10px;
+                    }
                     @media all and (max-width: 901px) {
                       padding-left: 20px;
+                    }
+                    @media all and (max-width: 467px) {
+                      padding-left: 10px;
+                      font-size: 13px;
                     }
                     .emi-amount {
                       color: @green-color;
                       font-weight: 700;
                       font-size: 18px;
+                      @media all and (max-width: 991px) {
+                        font-size: 16px;
+                      }
                     }
                     img {
                       position: relative;
@@ -291,12 +374,22 @@ input, select {
                       margin-right: 3px;
                     }
                   }
-                  a {
+                  a.credit-link {
                     color: @link-blue;
                     padding: 0 20px;
                     font-size: 16px;
+                    &:hover {
+                      text-decoration: underline;
+                    }
+                    @media all and (max-width: 991px) {
+                      font-size: 14px;
+                    }
                     @media all and (max-width: 901px) {
                       padding-left: 40px;
+                    }
+                    @media all and (max-width: 467px) {
+                      padding-left: 20px;
+                      font-size: 13px;
                     }
                   }
                 }
@@ -311,6 +404,11 @@ input, select {
                 padding-left: 20px;
                 padding-right: 20px;
               }
+              @media all and (max-width: 478px) {
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-top: 0;
+              }
               #product_addtocart_form {
                 .box-tocart {
 
@@ -318,16 +416,28 @@ input, select {
                   .product-spec-details {
                     .spec {
                        margin-bottom: 20px;
+                       @media all and (max-width: 991px) {
+                         margin-bottom: 15px;
+                       }
                       .label {
                         font-size: 16px;
                         color: @content-light-grey;
                         margin-right: 20px;
-                        font-weight: 600;
+                        font-weight: 500;
+                        @media all and (max-width: 991px) {
+                          font-size: 14px;
+                        }
+                        @media all and (max-width: 476px) {
+                          font-size: 13px;
+                        }
                       }
                       .control {
                         display: inline-block;
                         label {
                           font-size: 16px;
+                          @media all and (max-width: 467px) {
+                            font-size: 15px;
+                          }
                         }
                         ul {
                           padding-left: 0;
@@ -355,14 +465,42 @@ input, select {
                         }
                       }
                       &.wall-mount {
-                        display: inline-flex;
-                        margin-top: 20px;
+                        display: block;
+                        margin-top: 0;
+                        label {
+                          clear: both;
+                          float: left;
+                          width: 100%;
+                        }
                         .control {
-                          display: flex;
-                          .input-radio{
+                          clear: both;
+                          float: left;
+                          width: 100%;
+                          margin: 20px 0;
+                          @media all and (max-width: 467px) {
+                            text-align: center;
+                          }
+                          .input-radio {
                             display: inline-block;
                             margin-right: 10px;
                             margin-top: 0;
+                            display: inline-flex;
+                            //Media query for align the  mount option with same width
+                            @media all and (max-width: 1001px) and (min-width: 902px) {
+                              min-width: 240px;
+                              &:nth-child(1) {
+                                margin-bottom: 10px;
+                              }
+                              input[type=radio] + label {
+                                padding: 15px;
+                              }
+                            }
+                            @media all and (max-width: 467px) {
+                              min-width: 240px;
+                              &:nth-child(1) {
+                                margin-bottom: 10px;
+                              }
+                            }
                           }
                           input[type=radio] {
                             display: none;
@@ -370,6 +508,16 @@ input, select {
                           input[type=radio] + label {
                             padding: 20px;
                             border: 1px solid #ddd;
+                            @media all and (max-width: 767px) {
+                              padding: 15px;
+                              font-size: 14px;
+                            }
+                            @media all and (max-width: 599px) {
+                              padding: 13px 7px;
+                            }
+                            @media all and (max-width: 467px) {
+                              font-size: 13px;
+                            }
 
                           }
                          input[type=radio] + label:hover {
@@ -393,6 +541,15 @@ input, select {
                         font-size: 16px;
                         color: @content-light-grey;
                         margin-right: 20px;
+                        @media all and (max-width: 991px) {
+                          font-size: 14px;
+                        }
+                        @media all and (max-width: 476px) {
+                          font-size: 13px;
+                        }
+                        span {
+                          font-weight: 500;
+                        }
                       }
                       .control {
                         display: inline-block;
@@ -405,6 +562,9 @@ input, select {
                     .add-to-cart-block {
                       border: 1px solid;
                       width: 100%;
+                      clear: both;
+                      float: left;
+                      margin-bottom: 15px;
                       .actions {
                         display: inline-block;
                         float: left;
@@ -417,6 +577,7 @@ input, select {
                           border-radius: 0;
                           padding: 12px 15px;
                           text-transform: uppercase;
+                          margin-bottom: 0;
                           span {
                             position: relative;
                             top: -3px;
@@ -459,12 +620,17 @@ input, select {
             .warranty-plan {
               margin: 0;
               padding-bottom: 20px;
-
+              clear: both;
+              float: left;
+              width: 100%;
               h3 {
                 color: @color-orange;
                 font-size: 16px;
                 margin: 0;
                 padding-bottom: 20px;
+                @media all and (max-width: 991px) {
+                  font-size: 14px;
+                }
               }
               .warranty-select {
                 font-size: 14px;
@@ -482,6 +648,12 @@ input, select {
                       -moz-user-select: none;
                       -ms-user-select: none;
                       user-select: none;
+                      @media all and (max-width: 991px) {
+                        font-size: 14px;
+                      }
+                      @media all and (max-width: 476px) {
+                        font-size: 13px;
+                      }
                       /* Hide the browser's default checkbox */
                       input {
                           position: absolute;
@@ -511,6 +683,11 @@ input, select {
                           position: absolute;
                           display: none;
                       }
+                      @media all and (max-width: 467px) {
+                        height: 13px;
+                        width: 13px;
+                        top: 1px;
+                      }
 
                   }
                   /* When the checkbox is checked, add a blue background */
@@ -526,14 +703,18 @@ input, select {
                     .checkmark {
                       &:after {
                         left: 4px;
-                          top: 2px;
-                          width: 4px;
-                          height: 7px;
-                          border: solid green;
-                          border-width: 0 3px 3px 0;
-                          -webkit-transform: rotate(40deg);
-                          -ms-transform: rotate(40deg);
-                          transform: rotate(40deg);
+                        top: 2px;
+                        width: 4px;
+                        height: 7px;
+                        border: solid green;
+                        border-width: 0 3px 3px 0;
+                        -webkit-transform: rotate(40deg);
+                        -ms-transform: rotate(40deg);
+                        transform: rotate(40deg);
+                        @media all and (max-width: 467px) {
+                          left: 3px;
+                          top: 1px;
+                        }
                       }
                     }
                   }
@@ -552,6 +733,9 @@ input, select {
               float: left;
               clear: both;
               width: 100%;
+              @media all and (max-width: 767px) {
+                text-align: center;
+              }
               a {
                 border: 1px solid @content-light-grey;
                 color: @link-blue;
@@ -578,6 +762,10 @@ input, select {
               @media all and (max-width: 901px) {
                 padding-left: 20px;
                 padding-right: 20px;
+              }
+              @media all and (max-width: 467px) {
+                padding-left: 10px;
+                padding-right: 10px;
               }
               .value {
                 .short-desc {
@@ -617,8 +805,7 @@ input, select {
               -webkit-order: -1;
               order: -1;
               width: 100%;
-              padding-left: 0;
-              padding-right: 0;
+              padding: 20px 0;
             }
             .gallery-placeholder {
               @media all and (max-width: 901px) {
@@ -629,7 +816,7 @@ input, select {
                 .fotorama__wrap {
                   .fotorama__stage {
                     .fotorama__arr {
-                      display: none;
+                      display: none !important;
                     }
                     .fotorama__stage__frame {
                       .fotorama__img {
@@ -652,6 +839,22 @@ input, select {
                         .fotorama__thumb-border {
                           border: 1px solid @link-blue;
                         }
+                        .fotorama__nav__frame {
+                          &.fotorama__active {
+                            .fotorama__dot {
+                              background-color: @content-light-grey;
+                              border-color: @content-light-grey;
+                              // @content-light-grey: #aeaeae;
+                              // @content-dark-grey: #5c5c5c;
+                            }
+                          }
+                          .fotorama__dot {
+                            background-color: #efefef;
+                            border-color: @content-light-grey;
+                            width: 8px;
+                            height: 8px;
+                          }
+                        }
                       }
                     }
                   }
@@ -669,11 +872,20 @@ input, select {
         width: 100%;
         float: left;
         border-top: 1px solid @content-light-grey;
+        @media all and (max-width: 901px) {
+          border-top: none;
+        }
         h3 {
           text-align: center;
           margin-top: 30px;
+          @media all and (max-width: 901px) {
+            border-top: 1px solid @content-light-grey;
+            border-bottom: 1px solid @content-light-grey;
+            margin: 0;
+            padding: 15px 0;
+          }
         }
-        .frequently-product-block { border: 1px solid red;
+        .frequently-product-block {
           display: flex;
           width: 60%;
           margin: 0 auto;
@@ -683,6 +895,7 @@ input, select {
           }
           @media all and (max-width: 991px) {
             width: 100%;
+            margin-top: 20px;
           }
           .include-item {
             padding: 5px;
@@ -726,9 +939,10 @@ input, select {
                     width: 50%;
                   }
                   @media all and (max-width: 478px) {
-                    width: auto;
+                    width: 20px;
                     margin-right: 10px;
                   }
+
                 }
               }
             }
@@ -758,6 +972,7 @@ input, select {
                 }
                 @media all and (max-width: 478px) {
                   width: 95%;
+                  display: flex;
                 }
                 .prod-img {
                   width: 150px;
@@ -774,6 +989,9 @@ input, select {
                   @media all and (max-width: 478px) {
                     width: auto;
                     float: left;
+                  }
+                  @media all and (max-width: 375px) {
+                    width: 120px;
                   }
                 }
                 .price-details {
@@ -798,6 +1016,9 @@ input, select {
                     @media all and (max-width: 478px) {
                       font-size: 14px;
                     }
+                    @media all and (max-width: 375px) {
+                      font-size: 12px;
+                    }
                   }
                   .price {
                     margin-top: 10px;
@@ -814,6 +1035,9 @@ input, select {
                     }
                     @media all and (max-width: 478px) {
                       font-size: 16px;
+                    }
+                    @media all and (max-width: 375px) {
+                      font-size: 14px;
                     }
                     label {
                       font-weight: 600;
@@ -835,6 +1059,9 @@ input, select {
                         font-size: 14px;
                         margin-left: 20px;
                         margin-top: 2px;
+                      }
+                      @media all and (max-width: 375px) {
+                        font-size: 12px;
                       }
                     }
                   }
@@ -866,27 +1093,36 @@ input, select {
                 //0px 0px 4px 0px rgba(28, 28, 28, 0.75);
                 border: 1px solid #a6a6a6;
                 border-radius: 4px;
+                @media all and (max-width: 767px) {
+                  width: 17px;
+                  height: 17px;
+                }
             }
-            .frequent-checkbox:hover + label:before {
-                background-image: url(../images/frequent-select.png);
-            }
+            // .frequent-checkbox:hover + label:before {
+            //     background-image: url(../images/frequent-select.png);
+            // }
             .frequent-checkbox:checked + label:before {
                 background-color: #3857f3;
                 background-image: url(../images/frequent-select.png);
+                @media all and (max-width: 767px) {
+                  width: 17px;
+                  height: 17px;
+                  background-size: contain;
+                }
             }
             // .frequent-checkbox:focus + label:before {
             //     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
             // }
-            .frequent-checkbox:hover + label:before {
-                background-image: url(../images/frequent-select.png);
-          }
+            // .frequent-checkbox:hover + label:before {
+            //     background-image: url(../images/frequent-select.png);
+            // }
             //End Frequently items select checkbox
 
 
+          }
         }
-      }
 
-        .frequently-bought-adon-sum { border: 1px solid green;
+        .frequently-bought-adon-sum {
           width: 80%;
           padding: 20px 0;
           margin: 0 auto;
@@ -927,10 +1163,7 @@ input, select {
                 @media all and (max-width: 991px) {
                   padding: 0 45px;
                 }
-                @media all and (max-width: 768px) {
-                  padding: 0 35px;
-                }
-                @media all and (max-width: 768px) {
+                @media all and (max-width: 767px) {
                   padding: 0 35px;
                 }
                 @media all and (max-width: 699px) {
@@ -943,16 +1176,29 @@ input, select {
                   padding: 0 9px;
                 }
                 @media all and (max-width: 478px) {
-                  padding: 0 35px;
+                  padding: 0 28px;
                 }
+                @media all and (max-width: 420px) {
+                  padding: 0 23px;
+                }
+                @media all and (max-width: 380px) {
+                  padding: 0 20px;
+                }
+                @media all and (max-width: 345px) {
+                  padding: 0 15px;
+                }
+
                 label {
                   color: @content-light-grey;
                   font-size: 14px;
-                  @media all and (max-width: 768px) {
+                  @media all and (max-width: 767px) {
                     font-size: 12px;
                   }
-                  @media all and (max-width: 479px) {
+                  @media all and (max-width: 478px) {
                     font-size: 14px;
+                  }
+                  @media all and (max-width: 380px) {
+                    font-size: 12px;
                   }
                 }
                 .price {
@@ -965,14 +1211,18 @@ input, select {
                     font-size: 16px;
                     margin-top: 15px;
                   }
-                  @media all and (max-width: 768px) {
+                  @media all and (max-width: 767px) {
                     font-size: 15px;
                   }
                   @media all and (max-width: 599px) and (min-width: 479px) {
                     font-size: 14px;
                   }
-                  @media all and (max-width: 479px) {
+                  @media all and (max-width: 478px) {
                     font-size: 16px;
+                    margin-top: 5px;
+                  }
+                  @media all and (max-width: 380px) {
+                    font-size: 14px;
                   }
                 }
               }
@@ -987,8 +1237,11 @@ input, select {
                   font-size: 18px;
                   top: 25px;
                 }
-                @media all and (max-width: 768px) {
+                @media all and (max-width: 767px) {
                   top: 29px;
+                }
+                @media all and (max-width: 478px) {
+                  top: 20px;
                 }
               }
             }
