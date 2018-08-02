@@ -37,7 +37,7 @@ define([
                           data: {verifytype:1},
                           success:function(response){
                             if(response == -1){
-                              msg = '<p class="error">Failed to send the code..</p>';
+                              msg = '<p class="error">Failed to call..</p>';
                             }
                             else{
                               msg = '<p class="success">Verified...</p>';

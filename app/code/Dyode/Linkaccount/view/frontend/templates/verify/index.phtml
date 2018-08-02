@@ -1,3 +1,12 @@
+<?php
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$logger = $objectManager->get("Magento\Framework\Session\SessionManagerInterface");
+$logger->start();
+
+print_r($logger->getCustomerInfo());
+
+?>
 <div class="verifymsg"></div>
 <button id="sendtext" name="sendtext" value="Text"> <?php echo __('Text') ?> </button>
 <button id="voice" name="voice" value="Voice"> <?php echo __('Voice') ?> </button>
@@ -28,7 +37,7 @@
                 <label for="link_account" class="label"><span><?php echo __('Last 4 Digits of your Social Security Number ') ?></span></label>
                 <div class="control">
                     <span><?php echo __('XXX - XX -') ?></span>
-                    <input id="ssn-verify" type="text" name="ssn-verify" class="validate-length maximum-length-4 input-text" placeholder="XXXX" data-validate="{required:true,'validate-length':true}}">
+                    <input id="ssn-verify" type="text" name="ssn-verify" class="input-text" placeholder="XXXX" maxlength="4" data-validate="{required:true,'validate-number':true}">
                 </div>
             </div>
             <div class="field required">
@@ -40,13 +49,13 @@
             <div class="field required">
                 <label for="link_zipcode" class="label"><span><?php echo __('Zipcode') ?></span></label>
                 <div class="control">
-                    <input id="link_zipcode" type="text" name="link_zipcode" class="input-text validate-number" data-validate="{required:true}" placeholder="Zipcode">
+                    <input id="link_zipcode" type="text" name="link_zipcode" class="input-text" data-validate="{required:true, 'validate-zip-us':true}" placeholder="Zipcode">
                 </div>
             </div>
             <div class="field required">
                 <label for="link_maiden" class="label"><span><?php echo __("Mother's Maiden Name") ?></span></label>
                 <div class="control">
-                    <input id="link_maiden" type="text" name="link_maiden" class="input-text" data-validate="{required:true}" placeholder="Mother's Maiden name">
+                    <input id="link_maiden" type="text" name="link_maiden" class="input-text" data-validate="{required:true,'letters-only':true}" placeholder="Mother's Maiden name">
                 </div>
             </div>
     </fieldset>
@@ -66,5 +75,25 @@
               buttonText:"<?php echo __('Select Date') ?>",
               dateFormat: "yy-mm-dd"
          });
+         $("#ssn-verify").keypress(function(e){
+             var keyCode = e.which;
+             if ( (keyCode != 8 || keyCode ==32 ) && (keyCode < 48 || keyCode > 57)) {
+               return false;
+             }
+          });
+          $("#verification_code").keypress(function(e){
+              var keyCode = e.which;
+              if ( (keyCode != 8 || keyCode ==32 ) && (keyCode < 48 || keyCode > 57)) {
+                return false;
+              }
+           });
+           $("#link_maiden").keypress(function(e){
+               var keyCode = e.which;
+               if ( !( (keyCode >= 65 && keyCode <= 90)
+                 || (keyCode >= 97 && keyCode <= 122) )
+                 && keyCode != 8 && keyCode != 32) {
+                 e.preventDefault();
+               }
+            });
        });
 </script>

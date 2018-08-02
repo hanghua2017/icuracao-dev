@@ -67,7 +67,7 @@ class Index extends Action
     {
         $postVariables = (array) $this->getRequest()->getPost();
         if(!empty($postVariables)){
-
+            $this->_coreSession->start();
             $websiteId = $this->_storeManager->getStore()->getWebsiteId();;
             $accountNumber = $this->_coreSession->getCurAcc();
             $custEmail  = $this->_coreSession->getCustEmail();
@@ -82,19 +82,17 @@ class Index extends Action
 
             $postData = array(
                 'cust_id' => $accountNumber,
-              //  'Zip' => $zipCode,
-                //'DOB' => $dob,
-              //  'SSN' => $ssnLast,
-              //  'MMaiden' => $maidenName,
                 'amount' => 1,
-            //    'CCV' => ''
+
             );
+
             //Verify Credit Account Infm
             $accountInfo   =  $this->_helper->verifyPersonalInfm($postData);
+
             if($accountInfo == false){
                 // Personal Infm failed
                 $this->_messageManager->addErrorMessage(__('Verification failed'));
-                return $this;
+                $this->_redirect('linkaccount/verify/index');
             }
 
              //Linking the account

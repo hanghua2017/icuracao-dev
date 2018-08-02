@@ -15,6 +15,7 @@ class Code extends \Magento\Framework\App\Action\Action {
     protected $_resultJsonFactory;
     protected $_coreSession;
     protected $_helper;
+
     /**
      * Constructor
      * @param \Magento\Framework\App\Action\Context  $context
@@ -35,13 +36,21 @@ class Code extends \Magento\Framework\App\Action\Action {
    public function execute()
    {
       $verifytype = $this->getRequest()->getParam('verifytype', false);
-      $custInfo   = $this->_coreSession->getCustomerInfo();
-      $phone      = $custInfo['PHONE'];
+      $this->_coreSession->start();
+      $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+      $logger = $objectManager->get("Psr\Log\LoggerInterface");
+      $logger->info("test".$this->_coreSession->getCurAcc());
+
+      $accountNumber = $this->_coreSession->getCurAcc();
+      $accountInfo   =  $this->_helper->getARCustomerInfoAction($accountNumber);
+      $phone  =  $accountInfo->PHONE;
+
       $resultData = '';
+
       /* verifyType 0 -> Send code as text
       *             1-> Send code as Voice
       */
-      switch($verifytype){
+    switch($verifytype){
             case 0 :
                 $resultData = $this->_helper->phoneVerifyCode($phone, 1, 0);
                 break;
