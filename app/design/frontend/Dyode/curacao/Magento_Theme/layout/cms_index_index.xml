@@ -7,34 +7,39 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-      <referenceContainer name="content">
-        <container name='home.banner.container' htmlTag="div" htmlClass="banner-container" before="-">
-          <block class="Magestore\Bannerslider\Block\Bannerslider" name="bannerslider.cms.page.content.top" before="-">
-            <action method="setPosition">
-              <argument name="position" xsi:type="string">cms-page-content-top</argument>
+      <referenceContainer name="main">
+        <container name="content">
+          <container name='home.banner.container' htmlTag="div" htmlClass="banner-container" before="-">
+            <block class="Magestore\Bannerslider\Block\Bannerslider" name="bannerslider.cms.page.content.top" before="-">
+              <action method="setPosition">
+                <argument name="position" xsi:type="string">cms-page-content-top</argument>
+              </action>
+            </block>
+            <block class="Magento\Framework\View\Element\Template" name="side.banner" template="Magento_Theme::side-banner.phtml" after="bannerslider.cms.page.content.top"/>
+          </container>
+          <block class="Magento\Framework\View\Element\Template" name="guarantee.block" template="Magento_Theme::guarantee-block.phtml" after="home.banner.container"/>
+          <block class="Magento\Framework\View\Element\Template" name="todays.deals" template="Magento_Theme::todays-deals.phtml" after="guarantee.block"/>
+          <block class="Magento\Reports\Block\Product\Widget\Viewed" after="todays.deals" name="recently_viewed" cacheable="false" template="Magento_Reports::widget/viewed/content/viewed_grid.phtml">
+            <action method="setPageSize">
+               <argument name="page_size" xsi:type="number">10</argument>
             </action>
           </block>
-          <block class="Magestore\Bannerslider\Block\Bannerslider" name="bannerslider.popup.on.homepage">
-              <action method="setPopupOnHomePage" />
-          </block>
-          <block class="Magento\Framework\View\Element\Template" name="side.banner" template="Magento_Theme::side-banner.phtml" after="bannerslider.cms.page.content.top"/>
-        </container>
-        <block class="Magento\Framework\View\Element\Template" name="guarantee.block" template="Magento_Theme::guarantee-block.phtml" after="home.banner.container"/>
-        <block class="Magento\Framework\View\Element\Template" name="todays.deals" template="Magento_Theme::todays-deals.phtml" after="guarantee.block"/>
-        <block class="Magento\Reports\Block\Product\Widget\Viewed" after="todays.deals" name="recently_viewed" cacheable="false" template="Magento_Reports::widget/viewed/content/viewed_grid.phtml">
-          <action method="setPageSize">
-             <argument name="page_size" xsi:type="number">10</argument>
-          </action>
+          <block class="Magento\Framework\View\Element\Template" name="banner.block.1" template="Magento_Theme::home-banner-block-1.phtml" after="recently_viewed"/>
+          <block class="Mageplaza\Productslider\Block\BestSellerProducts" name="product.slider.bestsellerproducts" template="productslider.phtml" after="banner.block.1">
+        	<arguments>
+        	    <argument name="products_count" xsi:type="number">8</argument>
+        	    <argument name="margin" xsi:type="string">5</argument>
+        	    <argument name="heading" xsi:type="string">Best Sellers</argument>
+        	    <argument name="description" xsi:type="string">Here is your Best Sellers description </argument>
+        	</arguments>
         </block>
-        <block class="Magento\Framework\View\Element\Template" name="banner.block.1" template="Magento_Theme::home-banner-block-1.phtml" after="recently_viewed"/>
-        <block class="Mageplaza\Productslider\Block\BestSellerProducts" name="product.slider.bestsellerproducts" template="productslider.phtml" after="banner.block.1">
-      	<arguments>
-      	    <argument name="products_count" xsi:type="number">8</argument>
-      	    <argument name="margin" xsi:type="string">5</argument>
-      	    <argument name="heading" xsi:type="string">Best Sellers</argument>
-      	    <argument name="description" xsi:type="string">Here is your Best Sellers description </argument>
-      	</arguments>
-      </block>
-      </referenceContainer>
+        <block class="Magento\Framework\View\Element\Template" name="banner.block.2" template="Magento_Theme::home-banner-block-2.phtml" after="product.slider.bestsellerproducts"/>
+        <block class="Magento\Framework\View\Element\Template" name="category.block.1" template="Magento_Theme::category-1.phtml" after="banner.block.2"/>
+        <block class="Magento\Framework\View\Element\Template" name="banner.block.3" template="Magento_Theme::home-banner-block-3.phtml" after="category.block.1"/>
+        <block class="Magento\Framework\View\Element\Template" name="category.block.2" template="Magento_Theme::category-2.phtml" after="banner.block.3"/>
+        <block class="Magento\Framework\View\Element\Template" name="banner.block.4" template="Magento_Theme::home-banner-block-4.phtml" after="category.block.2"/>
+        <block class="Magento\Framework\View\Element\Template" name="curacao.banners" template="Magento_Theme::curacao-banners.phtml" after="banner.block.4"/>
+      </container>
+    </referenceContainer>
     </body>
 </page>

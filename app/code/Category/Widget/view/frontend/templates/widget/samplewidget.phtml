@@ -22,13 +22,13 @@
 
 
     $categoryProducts = $category->getProductCollection()
-                                 ->addAttributeToSelect('*');
+                                 ->addAttributeToSelect('*')->setPageSize(5);
    if($block->getData('widgettitle')): ?>
    <div class="slider-title">
      <h2 class='widget-title'><?php echo $block->getData('widgettitle'); ?></h2>
    </div>
    <?php endif; ?>
-   <div class="owl-carousel product-slider-home" id="todaysdeals">
+   <div class="owl-carousel product-slider-home" >
      <?php
       foreach ($categoryProducts as $product) {
         ?>

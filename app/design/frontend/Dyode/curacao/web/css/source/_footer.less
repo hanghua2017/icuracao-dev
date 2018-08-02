@@ -3,14 +3,14 @@
 footer {
   &.page-footer {
     background-color: @footer-background;
-    padding: 30px;
+    padding: 40px;
     padding-bottom: 0;
+    margin-top: 0;
     .footer {
       max-width: 1500px;
       margin: 0px auto;
       border: none;
-      padding-left: 0;
-      padding-right: 0;
+      padding: 0;
 
       //Footer link styling
       .custom-footer-links {
@@ -39,10 +39,11 @@ footer {
             min-height:auto;
           }
           h3{
-            font-family: 'HelveticaMedium';
-            font-size: 18px;
+            font-family: 'iCuracao-Medium';
+            font-size: 16px;
             color: #333333;
             margin-bottom: 35px;
+            margin-top: 0;
             @media all and (max-width: 767px){
               margin: 0px;
               padding-left: 0;
@@ -55,12 +56,12 @@ footer {
               list-style: none;
               padding: 0px;
               li {
-                padding: 7px 0px;
+                padding: 0 0 7px 0px;
                 a {
-                  font-family: 'HelveticaLight';
+                  font-family: 'iCuracao-Light';
                   text-decoration: none;
                   color: #333333;
-                  font-size: 16px;
+                  font-size: 14px;
                 }
               }
             }
@@ -118,8 +119,12 @@ footer {
           .title {
             display: block;
             text-align: left;
-            font-family: 'HelveticaLight';
+            font-family: 'iCuracao-Light';
             color: #666666;
+            strong {
+              font-weight: 500;
+              font-size: 14px;
+            }
           }
 
           .content {
@@ -137,7 +142,7 @@ footer {
                 margin-right: 80px;
                 margin-bottom: 0;
                 label {
-                  font-family: Roboto-light;
+                  font-family: 'iCuracao-Light';
                   color: #333333;
                 }
 
@@ -146,22 +151,22 @@ footer {
                     display: none;
                   }
                   ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-                    font-family: 'HelveticaLight';
+                    font-family: 'iCuracao-Light';
                     color: #a6a6a6;
                     line-height: 30px;
                   }
                   ::-moz-placeholder { /* Firefox 19+ */
-                    font-family: 'HelveticaLight';
+                    font-family: 'iCuracao-Light';
                     color: #a6a6a6;
                     line-height: 30px;
                   }
                   :-ms-input-placeholder { /* IE 10+ */
-                    font-family: 'HelveticaLight';
+                    font-family: 'iCuracao-Light';
                     color: #a6a6a6;
                     line-height: 30px;
                   }
                   :-moz-placeholder { /* Firefox 18- */
-                    font-family: 'HelveticaLight';
+                    font-family: 'iCuracao-Light';
                     color: #a6a6a6;
                     line-height: 30px;
                   }
@@ -169,7 +174,7 @@ footer {
                   input {
                     margin-top: 0;
                     min-width: 260px;
-                    font-family: 'HelveticaLight';
+                    font-family: 'iCuracao-Light';
                     padding: 10px 5px 10px 10px;
                     background-color: #e7e7e7;
                     color: #a6a6a6;
@@ -199,7 +204,7 @@ footer {
                   padding: 10px 11px;
                   border-radius: 0 2px 2px 0;
                   span {
-                    font-family: 'HelveticaMedium';
+                    font-family: 'iCuracao-Medium';
                     font-size: 14px;
                   }
                 }
@@ -258,7 +263,7 @@ footer {
                   p {
                     margin: 0;
                     &.title {
-                      font-family: 'HelveticaMedium';
+                      font-family: 'iCuracao-Medium';
                       font-size: 17px;
                       color: #666666;
                       text-transform: uppercase;
@@ -271,7 +276,7 @@ footer {
                     }
                     &.comment {
                       font-size: 15px;
-                      font-family: 'HelveticaLight';
+                      font-family: 'iCuracao-Light';
                       color: #999999;
                       margin-top: 5px;
                       @media all and (max-width: 1160px) {
@@ -393,11 +398,12 @@ footer {
            {
              margin-bottom: 20px;
              p {
-               font-size: 14px;
-               font-family: 'HelveticaLight';
+               font-size: 13px;
+               font-family: 'iCuracao-Light';
                margin: 0px;
                margin-top: 20px;
                color: #666666;
+               letter-spacing: 0.7px;
              }
            }
          }
@@ -419,7 +425,7 @@ footer {
             float: left;
             p{
               margin-top: 1rem;
-              font-family: 'HelveticaLight';
+              font-family: 'iCuracao-Light';
               font-size: 14px;
               color: #333333;
               a{
@@ -433,7 +439,7 @@ footer {
             float: right;
             p{
               margin-top: 1rem;
-              font-family: 'HelveticaLight';
+              font-family: 'iCuracao-Light';
               font-size: 14px;
               color: #999999;
             }
