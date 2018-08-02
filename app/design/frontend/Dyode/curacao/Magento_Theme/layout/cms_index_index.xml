@@ -26,6 +26,7 @@
              <argument name="page_size" xsi:type="number">10</argument>
           </action>
         </block>
+        <block class="Magento\Framework\View\Element\Template" name="banner.block" template="Magento_Theme::home-banner-block-1.phtml" after="recently_viewed"/>
       </referenceContainer>
     </body>
 </page>
