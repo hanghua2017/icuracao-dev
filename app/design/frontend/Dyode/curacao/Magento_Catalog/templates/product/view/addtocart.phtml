@@ -91,11 +91,11 @@
           <h3 class="warranty-title">Add a warranty plan</h3>
           <div class="warranty-select">
             <div id="warranty-check">
-                <label class="warranty-box">Include <a href="">1 year Apple Extended Warranty</a> for $300
+                <label class="warranty-box">Include <a href="" id="warranty-link1">1 year Apple Extended Warranty</a> for $300
                   <input type="checkbox" id="cb1">
                   <span class="checkmark"></span>
                 </label>
-                <label class="warranty-box">Include <a href="">2 year's Apple Extended Warranty</a> for $600
+                <label class="warranty-box">Include <a href="" id="warranty-link2">2 year's Apple Extended Warranty</a> for $600
                   <input type="checkbox" id="cb2">
                   <span class="checkmark"></span>
                 </label>
@@ -106,14 +106,52 @@
             </div>
 
           </div>
+          <div id="warrantyModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+              <div class="modal-title">
+                <span class="title"> Add to your cart</span>
+                <span class="close2">&times;</span>
+              </div>
+              <div class="product-details">
+                <div class="top-section">
+                    <h1><span>Protect your Apple Product</span></h1>
+                    <img src="<?php echo $this->getViewFileUrl('images/logo-apple.png'); ?>" alt="logo">
+
+                </div>
+
+                <p class="modal-details">Add applecare to your purchase</p>
+                <!-- <span class="rating"></span> -->
+                <div class="waranty-details">
+                  <p class="price">Price: <span>$300</span></p>
+                  <ul class="features">
+                    <li>One stop for technical support</li>
+                    <li>24/7 priority access to apple experts via chat or phone</li>
+                    <li>Global repair</li>
+                  </ul>
+                  <a href="#" class="learn-more-link">Learn More</a>
+                </div>
+
+                <div class="buttons-block">
+                  <button type="button" name="Add Button" id="addbtn"><span>Add</span></button>
+                  <button type="button" name="Add Button" id="skipbtn"><span>Skip</span></button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
         </div>
+
+
         <!-- End Static block for warranty plan -->
 
         <div class="add-to-cart-block">
 
           <div class="actions">
 
-            <button type="submit"
+            <!-- <button type="submit"
                     title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
                     class="action primary tocart"
                     id="product-addtocart-button">
@@ -121,8 +159,121 @@
                   <img src="<?php echo $this->getViewFileUrl('images/cart-button.png'); ?>" />
                   <?= /* @escapeNotVerified */ $buttonTitle ?>
                 </span>
+            </button> -->
+            <button type="submit"
+                title="addtocart"
+                class="custom-button"
+                id="product-addtocart-button">
+                <span>
+                  <img src="<?php echo $this->getViewFileUrl('images/cart-button.png'); ?>" />
+                  <?= /* @escapeNotVerified */ $buttonTitle ?>
+                </span>
             </button>
             <?=  $block->getChildHtml('', true) ?>
+        </div>
+        <!-- Add to cart Modal -->
+        <div id="addtocartModal" class="modal">
+
+          <!-- Modal content -->
+          <div class="modal-content">
+            <div class="modal-title">
+              <span class="title"> Add to your cart</span>
+              <span class="close1">&times;</span>
+            </div>
+            <div class="apple-content" >
+              <div class="product-details">
+                <div class="top-section">
+                    <h1><span>Apple iPhone 8 Plus</span></h1>
+                    <img src="<?php echo $this->getViewFileUrl('images/logo-apple.png'); ?>" alt="logo">
+                </div>
+                <p class="modal-details">Model #20T-878-MQ702LL/A</p>
+                <!-- <span class="rating"></span> -->
+                <div class="warranty-plan">
+                  <h3 class="warranty-title">Add a warranty plan</h3>
+                  <div class="warranty-select">
+                    <div id="warranty-check2">
+                        <label class="warranty-box">Include <a href="" id="warranty-link1">1 year Apple Extended Warranty</a> for $300
+                          <input type="checkbox" id="cb1">
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="warranty-box">Include <a href="" id="warranty-link2">2 year's Apple Extended Warranty</a> for $600
+                          <input type="checkbox" id="cb2">
+                          <span class="checkmark"></span>
+                        </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="buttons-block">
+                  <button type="button" name="Add Button" id="addbtn"><span>Add</span></button>
+                  <button type="button" name="Add Button" id="skipbtn"><span>Skip</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="tv-content" style="display:none">
+              <div class="product-details">
+                <div class="details-containers">
+                  <div class="left-section">
+                    <div class="top-section">
+                        <h1><span>Apple iPhone 8 Plus</span></h1>
+                    </div>
+                    <p class="modal-details">Model #20T-878-MQ702LL/A</p>
+                  </div>
+                  <!-- <span class="rating"></span> -->
+                  <div class="warranty-plan">
+                    <div class="warranty-select">
+                      <div id="warranty-check2">
+                          <label class="warranty-box">Include <a href="" id="warranty-link1">1 year Apple Extended Warranty</a> for $300
+                            <input type="checkbox" id="cb1">
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="warranty-box">Include <a href="" id="warranty-link2">2 year's Apple Extended Warranty</a> for $600
+                            <input type="checkbox" id="cb2">
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="warranty-box">Include <a href="" id="warranty-link3">3 year's Apple Extended Warranty</a> for $900
+                            <input type="checkbox" id="cb2">
+                            <span class="checkmark"></span>
+                          </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="details-containers">
+                  <div class="left-section">
+                    <div class="top-section">
+                        <h1><span>Apple iPhone 8 Plus</span></h1>
+                    </div>
+                    <p class="modal-details">Model #20T-878-MQ702LL/A</p>
+                  </div>
+                  <!-- <span class="rating"></span> -->
+                  <div class="warranty-plan">
+                    <div class="warranty-select">
+                      <div id="warranty-check2">
+                          <label class="warranty-box">Include <a href="" id="warranty-link1">1 year Apple Extended Warranty</a> for $300
+                            <input type="checkbox" id="cb1">
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="warranty-box">Include <a href="" id="warranty-link2">2 year's Apple Extended Warranty</a> for $600
+                            <input type="checkbox" id="cb2">
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="warranty-box">Include <a href="" id="warranty-link3">3 year's Apple Extended Warranty</a> for $900
+                            <input type="checkbox" id="cb2">
+                            <span class="checkmark"></span>
+                          </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="buttons-block">
+                  <button type="button" name="Add Button" id="addbtn"><span>Add</span></button>
+                  <button type="button" name="Add Button" id="skipbtn"><span>Skip</span></button>
+                </div>
+              </div>
+          </div>
+          </div>
+
         </div>
 
         <!-- Static block for pick up product  -->
@@ -181,8 +332,55 @@ require([
             }
           }
         });
+        $('#warranty-check2').click(function(e) {
+          e = e || event;
+          var cb = e.srcElement || e.target;
+          if (cb.type !== 'checkbox') {
+             return true;
+           }
+           var cbxs = document.getElementById('warranty-check').getElementsByTagName('input'), i=cbxs.length;
+           while(i--) {
+             if (cbxs[i].type && cbxs[i].type == 'checkbox' && cbxs[i].id !== cb.id) {
+                 cbxs[i].checked = false;
+             }
+           }
+         });
 
 
       }
     );
+</script>
+<script>
+require([
+      'jquery',
+
+  ], function($)
+     {
+       // pop up functionality for addtocart and warranty
+       popUp("addtocartModal","product-addtocart-button","close1");
+       popUp("warrantyModal","warranty-link1","close2");
+       popUp("warrantyModal","warranty-link2","close2");
+
+       function popUp(modelID, btnID ,closebtn){
+         var modal = document.getElementById(modelID);
+         var btn = document.getElementById(btnID);
+         var span = document.getElementsByClassName(closebtn)[0];
+
+         btn.onclick = function(e) {
+            e.preventDefault();
+             modal.style.display = "block";
+         }
+         span.onclick = function() {
+             modal.style.display = "none";
+         }
+         window.onclick = function(event) {
+             if (event.target == modal) {
+                 modal.style.display = "none";
+             }
+         }
+
+       }
+      }
+    );
+
 </script>
