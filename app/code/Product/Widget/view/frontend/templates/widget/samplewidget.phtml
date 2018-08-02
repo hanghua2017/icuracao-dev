@@ -35,25 +35,39 @@
       <div class="item">
         <a href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>">
           <?php
-          $_finalPrice= $product->getFinalPrice();
-          $_price= $product->getPrice();
-          $_savePercent = 100-round(($_finalPrice / $_price) * 100);
+  $_price= $product->getPrice();
+
+              $_finalPrice= $product->getSpecialPrice();
+              $specialPriceFromDate = $product->getSpecialFromDate();
+              $specialPriceToDate = $product->getSpecialToDate();
+              $today =  time();
+              if ($_finalPrice && ($product->getPrice()>$product->getFinalPrice())):
+                if($today >= strtotime( $specialPriceFromDate) && $today <= strtotime($specialPriceToDate) ||
+                $today >= strtotime( $specialPriceFromDate) && is_null($specialPriceToDate)):
+                //product in sales
+                $_savePercent = 100-round(($_finalPrice / $_price) * 100);
+                ?>
+                  <span class="discount-flag"><?php echo $_savePercent . "%";?></span>
+                  <?php
+                endif;
+                endif;
+
           ?>
-          <span class="discount-flag"><?php echo $_savePercent . "%";?></span>
+
           <?php $image_url = $imageHelper->init($product, 'product_page_image_small')->setImageFile($product->getFile())->getUrl();?>
           <img src="<?php echo $image_url;?>" alt="product"/>
           <h3><?php echo $product->getName();?></h3>
-          <p class="price"><span class="original-price"><?php echo $product->getPrice();?></span><span class="discount-price"><?php echo $product->getFinalPrice();?></span></p>
+          <p class="price"><span class="original-price <?php echo $product->getSpecialPrice() ? 'has-special-price' : '' ?>"><?php echo $product->getPrice();?></span><span class="discount-price"><?php echo $product->getSpecialPrice();?></span></p>
           <p class="subtext"><?php echo "or as low as";?><span class="amount"><?php echo" $10/month";?></span></p>
         </a>
       </div>
   <?php
       }
       ?>
-  <div>
+  </div>
     <script type="text/x-magento-init">
         {
-        ".product-slider": {
+        "#todaysdeals": {
             "OwlCarousel": {
               "items": 5,
               "dots":false,

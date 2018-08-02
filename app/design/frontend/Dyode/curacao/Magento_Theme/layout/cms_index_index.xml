@@ -21,6 +21,11 @@
         </container>
         <block class="Magento\Framework\View\Element\Template" name="guarantee.block" template="Magento_Theme::guarantee-block.phtml" after="home.banner.container"/>
         <block class="Magento\Framework\View\Element\Template" name="todays.deals" template="Magento_Theme::todays-deals.phtml" after="guarantee.block"/>
+        <block class="Magento\Reports\Block\Product\Widget\Viewed" after="todays.deals" name="recently_viewed" cacheable="false" template="Magento_Reports::widget/viewed/content/viewed_grid.phtml">
+          <action method="setPageSize">
+             <argument name="page_size" xsi:type="number">10</argument>
+          </action>
+        </block>
       </referenceContainer>
     </body>
 </page>
