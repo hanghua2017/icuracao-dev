@@ -26,7 +26,15 @@
              <argument name="page_size" xsi:type="number">10</argument>
           </action>
         </block>
-        <block class="Magento\Framework\View\Element\Template" name="banner.block" template="Magento_Theme::home-banner-block-1.phtml" after="recently_viewed"/>
+        <block class="Magento\Framework\View\Element\Template" name="banner.block.1" template="Magento_Theme::home-banner-block-1.phtml" after="recently_viewed"/>
+        <block class="Mageplaza\Productslider\Block\BestSellerProducts" name="product.slider.bestsellerproducts" template="productslider.phtml" after="banner.block.1">
+      	<arguments>
+      	    <argument name="products_count" xsi:type="number">8</argument>
+      	    <argument name="margin" xsi:type="string">5</argument>
+      	    <argument name="heading" xsi:type="string">Best Sellers</argument>
+      	    <argument name="description" xsi:type="string">Here is your Best Sellers description </argument>
+      	</arguments>
+      </block>
       </referenceContainer>
     </body>
 </page>
