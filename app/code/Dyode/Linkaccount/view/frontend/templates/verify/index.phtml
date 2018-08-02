@@ -1,12 +1,3 @@
-<?php
-
-$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-$logger = $objectManager->get("Magento\Framework\Session\SessionManagerInterface");
-$logger->start();
-
-print_r($logger->getCustomerInfo());
-
-?>
 <div class="verifymsg"></div>
 <button id="sendtext" name="sendtext" value="Text"> <?php echo __('Text') ?> </button>
 <button id="voice" name="voice" value="Voice"> <?php echo __('Voice') ?> </button>
