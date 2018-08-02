@@ -1,0 +1,50 @@
+//ICuracao-Account With LESS styles
+.account{
+	background-color: #fcfcfc;
+	.page-wrapper{
+		.page-main{
+			@media (min-width: 768px) {
+				max-width:1500px;
+			}
+			.sidebar-main{
+
+				.block-collapsible-nav{
+					border: 3px solid #ffffff;
+    			-webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+    			-moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+    			box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+    			margin-bottom: 15px;
+					@media (min-width: 768px) {
+						border: 15px solid #ffffff;
+					}
+					.content{
+						background: #ffffff;
+						.items{
+							.item{
+								margin: 0;
+								border-bottom: 1px solid #d1d1d169;
+								&:last-child {
+    							border: none;
+								}
+								a{
+									// color: #1b66b2;
+									color: #333333;
+									padding: 12px 18px 12px 15px;
+									border-color: transparent !important;
+									@media (min-width: 768px) {
+										font-size: 16px;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+//ICuracao-Account-Dashboard With LESS styles
+	.customer-account-index{
+
+	}
