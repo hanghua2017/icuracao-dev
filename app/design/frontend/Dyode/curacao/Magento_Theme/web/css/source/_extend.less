@@ -1,0 +1,270 @@
+//ICuracao-Common Width LESS styles
+.navigation,
+.breadcrumbs,
+.page-header .header.panel,
+.header.content,
+.footer.content,
+.page-wrapper>.widget,
+.page-wrapper>.page-bottom,
+.block.category.event,
+.top-container,
+.page-main,
+.navigation {
+	@media (min-width: 768px) {
+		max-width: 1500px;
+	}
+}
+
+//ICuracao-Header LESS styles
+.page-wrapper {
+	.page-header {
+		background-color: #97d700;
+		.header.content {
+			padding: 15px !important;
+			@media (min-width: 768px) {
+				padding: 25px !important;
+			}
+			@media all and (max-width:767px){
+				padding-bottom: 65px !important;
+				margin-top:0 !important;
+			}
+			text-align: right;
+			transition: padding 250ms ease-out;
+			.nav-toggle:before {
+    		color: #fff;
+			}
+      //ICuracao-Header Logo LESS styles
+			.logo {
+        float: left;
+				transition: all 250ms ease-out;
+				-webkit-transform: translate3d(0, 0, 0);
+				margin: 5px 0px 0 35px;
+				width: 113px;
+				@media all and (min-width:768px){
+				margin: 10px 15px 0 0;
+				width: 180px;
+				}
+				@media all and (min-width:479px){
+				 width: 150px;
+				}
+				@media all and (min-width:400px){
+				 width: 130px;
+				}
+			}
+			.block-search,
+			.header.links,
+			.minicart-wrapper {
+        display: inline-block;
+				float: none;
+			}
+      //ICuracao-Header Search LESS styles
+			.block-search {
+				float: left;
+				width: 48%;
+				@media (min-width: 991px) {
+					width: 50%;
+				}
+				@media all and (max-width:767px){
+					position: absolute;
+					padding:0 15px;
+			    left: 0;
+			    top: 50px;
+					@media all and (min-width:768px){
+						top: 65px;
+					}
+			    width: 100%;
+				}
+        .control{
+          ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: #b9b9b9;
+            font-size: 16px;
+            opacity: 1; /* Firefox */
+          }
+
+          :-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color:  #b9b9b9;
+            font-size: 16px;
+          }
+
+          ::-ms-input-placeholder { /* Microsoft Edge */
+            color:  #b9b9b9;
+            font-size: 16px;
+          }
+        }
+				.minisearch {
+					.search {
+						@media all and (max-width:767px){
+							position:relative;
+						}
+						label{
+							@media all and (max-width:767px){
+								margin: 0;
+						    padding: 0;
+						    position: absolute;
+						    right: 0;
+						    width:50px;
+								height:100%;
+								background: #f0efef;
+								&:before{
+									margin-top:10px;
+									margin-right:13px;
+									color:#97d700;
+								}
+							}
+						}
+						.control{
+							@media all and (max-width:767px){
+								border-top:none !important;
+							}
+							.input-text {
+								border: 0;
+								height: 50px;
+								padding-right: 0;
+								padding-left: 20px;
+								@media all and (max-width:767px){
+									position:static !important;
+									margin:0 !important;
+								}
+							}
+						}
+					}
+					.actions {
+						.action {
+              background: #f0efef;
+							width: 48px;
+              height: 50px;
+              opacity: 1;
+							right: 0;
+							&::before {
+								color: #97d700;
+								font-size: 25px;
+							}
+						}
+					}
+				}
+			}
+      //ICuracao-Header Sign In LESS styles
+			.links {
+				list-style-type: none;
+				padding: 0;
+        font-size: 16px;
+				font-weight: 600;
+				margin: 5px 0;
+				@media all and (min-width:768px){
+					margin: 14px 0;
+				}
+				a {
+            color: #fff;
+						text-decoration: none;
+						&::before {
+							content: "";
+							background-image: url(../images/sign-white.png);
+							background-repeat: no-repeat;
+              display: inline-block;
+							height: 30px;
+              margin: 0;
+              overflow: hidden;
+							width: 30px;
+							-webkit-font-smoothing: antialiased;
+							-moz-osx-font-smoothing: grayscale;
+              vertical-align: top;
+							text-align: center;
+						}
+						&:hover,
+						&:focus {
+							text-decoration: none;
+						}
+					}
+			}
+      //ICuracao-Header Mini Cart LESS styles
+			.minicart-wrapper {
+				display: inline-block;
+				float: right;
+				z-index: 200;
+				margin-left: 5px;
+				padding-left: 5px;
+				position: relative;
+				margin: 5px 0 10px 0px;
+				@media all and (min-width:768px){
+					margin: 14px 0 14px 14px;
+					margin-left: 20px;
+					padding-left: 20px;
+				}
+				.action.showcart {
+					&::before {
+						content: "";
+						background-image: url(../images/minicart-cart.png);
+						background-repeat: no-repeat;
+						height: 30px;
+						width: 35px;
+					}
+				}
+			}
+		}
+	}
+	.nav-sections {
+		background: #fff;
+		@media all and (min-width:768px){
+		 background:#84b90a;
+		}
+		.section-items{
+			.nav-sections-item-title{
+				@media all and (max-width:767px){
+				 background: #84b90a;
+				 border:none;
+
+				a{
+					color: #fff;
+				}
+				a:hover, .alink:hover {
+					color: #97d700;
+					text-decoration: none;
+				}
+					}
+			}
+			.nav-sections-item-title.active {
+				@media all and (max-width:767px){
+				 background-color: #fff !important;
+				 a{
+					 	color: #97d700;
+				 }
+				}
+			}
+		}
+		.nav-sections-items {
+			.nav-sections-item-content {
+
+
+						@media all and (max-width:767px){
+							padding:0;
+						}
+				.navigation {
+					a{
+
+						@media all and (max-width:767px){
+						 	font-size: 14px;
+						}
+					}
+					@media all and (max-width:767px){
+						border:none;
+					}
+					background: #fff;
+					@media all and (min-width:768px){
+					 background: #84b90a;
+
+					}
+				}
+				.navigation{
+					.level0{
+						&>a{
+							@media (min-width: 768px) {
+								padding: 10px;
+							}
+							text-transform: none;
+						}
+					}
+				}
+			}
+		}
+	}
+}
