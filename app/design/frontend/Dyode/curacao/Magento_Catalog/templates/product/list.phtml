@@ -58,10 +58,18 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
 
 
                     <!-- Static content for price off -->
-                    <p class="price-off">$100 off</p>
+                    <?php
+                    $originalPrice = $_product->getPrice();
+                    $finalPrice = $_product->getFinalPrice();
+                    ?>
+                    <?php
+                    if ($finalPrice && ($_product->getPrice()>$_product->getFinalPrice())):?>
+                    <p class="price-off"><?php echo $this->helper('Discount\Discountpercentage\Helper\Data')->DisplayDiscountLabel($_product); ?></p>
                     <!-- End Static content for price off -->
+                    <?php
+                  endif;
+                   ?>
 
-                    
                     <?php // Product Image ?>
                     <a href="<?= /* @escapeNotVerified */ $_product->getProductUrl() ?>" class="product photo product-item-photo" tabindex="-1">
                         <?= $productImage->toHtml() ?>
