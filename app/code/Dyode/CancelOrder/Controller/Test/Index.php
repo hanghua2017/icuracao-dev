@@ -18,14 +18,18 @@ class Index extends \Magento\Framework\App\Action\Action
         $this->_cancelOrderHelper = $cancelOrderHelper;
         parent::__construct($context);
     }
-
+    
     public function execute()
     {
-        $invoiceNumber = "ZEP58P6";
-        $itemId = "09A-RA3-RS16FT5050RB";
-        $qty = 2;
-        $this->_cancelOrderHelper->adjustItem($invoiceNumber, $itemId, $qty);//, $newSubTotal, $newTotalTax, $newPrice, $newDescription);
-
-        // $this->_cancelOrderHelper->cancelEstimate($invoiceNumber);
+        $invoiceNumber = "ZEP58QX";
+        $itemId = "32O-285-42LB5600";
+        $qty = 1;
+        // $this->_cancelOrderHelper->adjustItem($invoiceNumber, $itemId, $qty);//, $newSubTotal, $newTotalTax, $newPrice, $newDescription);
+        $this->_cancelOrderHelper->adjustItem($invoiceNumber, $itemId, $qty, 30.0, 2.0, 32.0);
+        // $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+		// $logger = $objectManager->get("Psr\Log\LoggerInterface");
+        // $response = $this->_cancelOrderHelper->cancelEstimate($invoiceNumber);
+        // print_r($response->INFO);
+        // $logger->info('Response: ' . $response->INFO);
     }
 }
