@@ -222,6 +222,10 @@ body{
 @item-color:#666666;
 @head-color:#333333;
 @white: #ffffff;
+//ICuracao-Account border color
+.multicheckout .block-title, .multicheckout .block-content .title, .account .legend, .form-giftregistry-search .legend, .block-giftregistry-results .block-title, .block-giftregistry-shared-items .block-title, .block-wishlist-search-form .block-title, .block-wishlist-search-results .block-title, .customer-review .review-details .title {
+    border-bottom: 1px solid @border-color;
+}
 //ICuracao-Account With LESS styles
 .account{
 	background-color: @background-white;
@@ -301,7 +305,10 @@ body{
 					}
 					a{
 						text-decoration: none;
-					}
+            &:hover {
+              color: @hover-green-color;
+            }
+            }
 					.page-title-wrapper{
 						border-bottom: 1px solid @border-color;
 						padding: 10px;
@@ -450,3 +457,17 @@ body{
 			}
 	  }
 	}
+  .customer-address-form{
+    .form-address-edit{
+      padding: 10px;
+      @media all and (min-width:768px){
+        padding:10px 20px;
+      }
+      input{
+				border-radius: 5px;
+			}
+      .actions-toolbar .action.primary, .box-tocart .action.instant-purchase {
+          padding: 8px 17px;
+      }
+    }
+  }
