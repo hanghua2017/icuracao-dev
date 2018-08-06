@@ -1,1 +1,72 @@
- 
+.customer-account-create{
+  #maincontent{
+    background-image: url(../images/login-background.png);
+    background-color: #eaeaea;
+    .columns{
+      max-width: 600px;
+      margin:0 auto;
+      background-color:white;
+      padding: 30px;
+      form.form-create-account{
+        min-width: auto;
+        width: 90%;
+        margin:0px auto 0;
+        label,.password-strength-meter{
+          display: none;
+        }
+        input{
+           background-color: white;
+           border: 0;
+           border-bottom: 1px solid #b4b4b4;
+           border-left: 1px solid #b4b4b4;
+           border-right: 1px solid #b4b4b4;
+           height: 50px;
+           font-size: 14px;
+           color: #000;
+        }
+        input::placeholder{
+          color: red;
+          font-size: 20px;
+        }
+        input{
+            &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+            color: #aeaeae;
+            font-size: 16px;
+            }
+            &::-moz-placeholder { /* Firefox 19+ */
+              color: #aeaeae;
+              font-size: 16px;
+            }
+            &:-ms-input-placeholder { /* IE 10+ */
+              color: #aeaeae;
+              font-size: 16px;
+            }
+            &:-moz-placeholder { /* Firefox 18- */
+              color: #aeaeae;
+              font-size: 16px;
+            }
+        }
+        input#firstname{
+             border-top: 1px solid #b4b4b4;
+             border-top-left-radius: 5px;
+             border-top-right-radius: 5px;
+        }
+        input#password-confirmation{
+          border-bottom-left-radius: 5px;
+          border-bottom-right-radius: 5px;
+        }
+        .newsletter{
+          label{
+            display: inline;
+          }
+        }
+        .fieldset{
+          margin:0;
+          .field{
+            margin:0;
+          }
+        }
+      }
+    }
+  }
+}

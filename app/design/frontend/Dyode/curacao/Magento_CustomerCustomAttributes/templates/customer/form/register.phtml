@@ -51,17 +51,18 @@
         <?php endif;?>
 
     </fieldset>
+    <!--added this line of php to enable address fields  -->
 <?php $this->setShowAddressFields(true); ?>
 <?php if ($block->getShowAddressFields()): ?>
-    <fieldset class="fieldset address">
-        <!-- <legend class="legend"><span><?= /* @escapeNotVerified */ __('Address Information') ?></span></legend><br> -->
+    <!-- <fieldset class="fieldset address">
+        <legend class="legend"><span><?= /* @escapeNotVerified */ __('Address Information') ?></span></legend><br>
         <input type="hidden" name="create_address" value="1"/>
-        <!-- <div class="field company">
+        <div class="field company">
             <label for="company" class="label"><span><?= /* @escapeNotVerified */ __('Company') ?></span></label>
             <div class="control">
                 <input type="text" name="company" id="company" value="<?= $block->escapeHtml($block->getFormData()->getCompany()) ?>" title="<?= /* @escapeNotVerified */ __('Company') ?>" class="input-text <?= /* @escapeNotVerified */ $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('company') ?>"/>
             </div>
-        </div> -->
+        </div>
         <div class="field telephone required">
             <label for="telephone" class="label"><span><?= /* @escapeNotVerified */ __('Phone Number') ?></span></label>
             <div class="control">
@@ -130,15 +131,21 @@
             <?php endif;?>
         <input type="hidden" name="default_billing" value="1"/>
         <input type="hidden" name="default_shipping" value="1"/>
-    </fieldset>
+    </fieldset> -->
 
 <?php endif; ?>
     <fieldset class="fieldset create account" data-hasrequired="<?= /* @escapeNotVerified */ __('* Required Fields') ?>">
-        <legend class="legend"><span><?= /* @escapeNotVerified */ __('Sign-in Information') ?></span></legend><br>
+        <!-- <legend class="legend"><span><?= /* @escapeNotVerified */ __('Sign-in Information') ?></span></legend><br> -->
         <div class="field required">
             <label for="email_address" class="label"><span><?= /* @escapeNotVerified */ __('Email') ?></span></label>
             <div class="control">
-                <input type="email" name="email" id="email_address" autocomplete="email" value="<?= $block->escapeHtml($block->getFormData()->getEmail()) ?>" title="<?= /* @escapeNotVerified */ __('Email') ?>" class="input-text" data-validate="{required:true, 'validate-email':true}"/>
+                <input type="email" name="email" id="email_address" placeholder="Email" autocomplete="email" value="<?= $block->escapeHtml($block->getFormData()->getEmail()) ?>" title="<?= /* @escapeNotVerified */ __('Email') ?>" class="input-text" data-validate="{required:true, 'validate-email':true}"/>
+            </div>
+        </div>
+        <div class="field telephone required">
+            <label for="telephone" class="label"><span><?= /* @escapeNotVerified */ __('Mobile Number') ?></span></label>
+            <div class="control">
+                <input type="text" name="telephone" id="telephone" placeholder="Mobile Number" value="<?= $block->escapeHtml($block->getFormData()->getTelephone()) ?>" title="<?= /* @escapeNotVerified */ __('Phone Number') ?>" class="input-text <?= /* @escapeNotVerified */ $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('telephone') ?>"/>
             </div>
         </div>
         <div class="field password required">
@@ -146,6 +153,7 @@
             <div class="control">
                 <input type="password" name="password" id="password"
                        title="<?= /* @escapeNotVerified */ __('Password') ?>"
+                       placeholder = "Password"
                        class="input-text"
                        data-password-min-length="<?= $block->escapeHtml($block->getMinimumPasswordLength()) ?>"
                        data-password-min-character-sets="<?= $block->escapeHtml($block->getRequiredCharacterClassesNumber()) ?>"
@@ -164,7 +172,7 @@
         <div class="field confirmation required">
             <label for="password-confirmation" class="label"><span><?= /* @escapeNotVerified */ __('Confirm Password') ?></span></label>
             <div class="control">
-                <input type="password" name="password_confirmation" title="<?= /* @escapeNotVerified */ __('Confirm Password') ?>" id="password-confirmation" class="input-text" data-validate="{required:true, equalTo:'#password'}"/>
+                <input type="password" name="password_confirmation" placeholder="Confirm Password" title="<?= /* @escapeNotVerified */ __('Confirm Password') ?>" id="password-confirmation" class="input-text" data-validate="{required:true, equalTo:'#password'}"/>
             </div>
         </div>
         <?= $block->getChildHtml('form_additional_info') ?>
