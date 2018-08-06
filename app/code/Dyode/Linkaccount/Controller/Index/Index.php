@@ -104,11 +104,13 @@ class Index extends Action
                             return $this->_redirect('linkaccount/index');
                         }
                         $this->_coreSession->setCurAcc($accountNumber);
+
                         $this->_coreSession->setCustEmail($email);
                         //Verify Credit Account Infm
                         $accountInfo   =  $this->helper->getARCustomerInfoAction($accountNumber);
 
                         $this->_coreSession->setCustomerInfo($accountInfo);
+
                         if($accountInfo !== false){
 
                             $resultRedirect->setPath('linkaccount/verify/index');

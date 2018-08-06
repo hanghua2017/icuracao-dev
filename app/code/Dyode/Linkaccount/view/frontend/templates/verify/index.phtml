@@ -7,7 +7,7 @@
     <fieldset class="fieldset">
         <legend class="legend"><span><?php echo __('Verify by Phone:') ?></span></legend><br/>
         <div class="field required">
-                <label for="link_account" class="label"><span><?php echo __('Verification Number') ?></span></label>
+                <label for="verification_code" class="label"><span><?php echo __('Verification Number') ?></span></label>
                 <div class="control">
                     <input id="verification_code" type="text" name="verification_code" value="" placeholder="Verification" class="input-text" data-validate="{required:true}" />
                 </div>
@@ -25,7 +25,7 @@
     <fieldset class="fieldset">
         <legend class="legend"><span><?php echo __('Verify Personal Information:') ?></span></legend><br/>
         <div class="field required">
-                <label for="link_account" class="label"><span><?php echo __('Last 4 Digits of your Social Security Number ') ?></span></label>
+                <label for="ssn-verify" class="label"><span><?php echo __('Last 4 Digits of your Social Security Number ') ?></span></label>
                 <div class="control">
                     <span><?php echo __('XXX - XX -') ?></span>
                     <input id="ssn-verify" type="text" name="ssn-verify" class="input-text" placeholder="XXXX" maxlength="4" data-validate="{required:true,'validate-number':true}">
@@ -61,7 +61,7 @@
      require([
           "jquery",
           "mage/calendar"
-     ], function($){
+     ], function($,calendar){
          $("#calendar_inputField").calendar({
               buttonText:"<?php echo __('Select Date') ?>",
               dateFormat: "yy-mm-dd"
@@ -78,6 +78,12 @@
                 return false;
               }
            });
+           $("#link_zipcode").keypress(function(e){
+               var keyCode = e.which;
+               if ( (keyCode != 8 || keyCode ==32 ) && (keyCode < 48 || keyCode > 57)) {
+                 return false;
+               }
+            });
            $("#link_maiden").keypress(function(e){
                var keyCode = e.which;
                if ( !( (keyCode >= 65 && keyCode <= 90)

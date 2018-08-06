@@ -23,6 +23,7 @@ class Index extends Action
     protected $_customerResourceFactory;
     protected $_customerRepositoryInterface;
     protected $_addressFactory;
+    protected $_resultFactory;
     /**
      * Constructor
      *
@@ -35,6 +36,7 @@ class Index extends Action
     public function __construct(
         Context $context,
         PageFactory $resultPageFactory,
+        ResultFactory $resultFactory,
         \Magento\Customer\Model\Customer $customerModel,
         \Dyode\ARWebservice\Helper\Data $helper,
         \Magento\Customer\Model\Session $customerSession,
@@ -46,6 +48,7 @@ class Index extends Action
         \Magento\Customer\Model\ResourceModel\CustomerFactory $customerResourceFactory
     ) {
         parent::__construct($context);
+        $this->_resultFactory = $resultFactory;
         $this->_resultPageFactory = $resultPageFactory;
         $this->_customerSession = $customerSession;
         $this->_helper = $helper;
@@ -68,6 +71,7 @@ class Index extends Action
         $postVariables = (array) $this->getRequest()->getPost();
         if(!empty($postVariables)){
             $this->_coreSession->start();
+            $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
             $websiteId = $this->_storeManager->getStore()->getWebsiteId();;
             $accountNumber = $this->_coreSession->getCurAcc();
             $custEmail  = $this->_coreSession->getCustEmail();
@@ -89,10 +93,11 @@ class Index extends Action
             //Verify Credit Account Infm
             $accountInfo   =  $this->_helper->verifyPersonalInfm($postData);
 
-            if($accountInfo == false){
+            if($accountInfo == 0 || $accountInfo ==''){
                 // Personal Infm failed
                 $this->_messageManager->addErrorMessage(__('Verification failed'));
-                $this->_redirect('linkaccount/verify/index');
+                $resultRedirect->setPath('linkaccount/verify/index');
+                return $resultRedirect;
             }
 
              //Linking the account
@@ -136,8 +141,9 @@ class Index extends Action
                    $customAddress->save();
                    $customer->setAddress($customAddress);
                    $this->_customerSession->setCustomerAsLoggedIn($customer);
-                   $this->_messageManager->addSuccess(__('Successfully verified'));
-                   $this->_redirect('linkaccount/verify/success');
+                   //$this->_redirect('linkaccount/verify/success');
+                   $resultRedirect->setPath('linkaccount/verify/success');
+                   return $resultRedirect;
              }
              catch(\Exception $e) {
                  $errorMessage = $e->getMessage();

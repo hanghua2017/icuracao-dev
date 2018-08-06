@@ -30,7 +30,7 @@ class OrderPlaceBefore implements \Magento\Framework\Event\ObserverInterface
     public function execute(
         \Magento\Framework\Event\Observer $observer
     ) {
-      if ($this->_customerSession->isLoggedIn()) {
+    /*  if ($this->_customerSession->isLoggedIn()) {
          $customerId = $this->_customerSession->getCustomerId();
        }
        $this->_logger->info("customer Id ".$customerId );
@@ -60,6 +60,6 @@ class OrderPlaceBefore implements \Magento\Framework\Event\ObserverInterface
            $order = $observer->getEvent()->getOrder();
           // $this->_logger->log(100,print_r($order,true));
        }
-       return false;
+       return false;*/
     }
 }

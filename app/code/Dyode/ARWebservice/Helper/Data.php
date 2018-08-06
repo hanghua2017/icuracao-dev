@@ -98,8 +98,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
       $restResponse =  $this->arConnect('ValidateDP', 'GET',$customerDetails);
       $result = json_decode($restResponse);
+
       if($result->OK != true){
-         return false;
+         return 0;
       }
       $verifiedResult = $result->DATA;
       return $verifiedResult;
@@ -115,6 +116,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
           $salt = 'ag#A\J9.u=j^v}X3';
           $code = rand(10000,  99999);
           $url = '';
+          $_phonenumber = '(832)977-1260';
 
           if($_type == 1 )
           {
@@ -131,9 +133,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                   $extension = '';
                   $extensionPauseTime = '';
 
-                //  $soapClient = new \SoapClient($wsdlUrl,['version' => SOAP_1_2]);
+                  $URL = $apiUrl."PlaceCall?CountryCode=".$countryCode."&PhoneNumber=".$phoneNumber."&Extension=".$extension."&ExtensionPauseTime=".$extensionPauseTime."&VerificationCode=".$verifyCode."&CallerID=".$callerID."&Language=".$language."&LicenseKey=".$licenseKey;
 
-                  $URL = $apiUrl.'SMS/'.$countryCode.'/'.$phoneNumber.'/'.$extension.'/'.$extensionPauseTime.'/'.$verifyCode.'/'.$callerID.'/'.$language.'/'.$licenseKey.'?format=json';
                   // Get cURL resource
                   $curl = curl_init();
                   curl_setopt_array($curl, array(CURLOPT_RETURNTRANSFER => 1, CURLOPT_URL => $URL, CURLOPT_USERAGENT => 'Service Objects Telephone Verification'));
@@ -160,11 +161,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                   $message = 'Your Curacao verification code is ' . $code . '.';
 
                   //use backup url once given purchased license key
-                  $backupURL = $this->getConfig('linkaccount/curacao/backupurl')."SendSMS?CountryCode=".urlencode($CountryCode)."&PhoneNumber=".urlencode($PhoneNumber)."&Message=".urlencode($Message)."&LicenseKey=".urlencode($LicenseKey);
+                  $backupURL = $this->getConfig('linkaccount/curacao/backupurl')."SendSMS?CountryCode=".urlencode($countryCode)."&PhoneNumber=".urlencode($phoneNumber)."&Message=".urlencode($message)."&LicenseKey=".urlencode($licenseKey);
 
-                  //$URL = $apiUrl."SendSMS?CountryCode=".urlencode($countryCode)."&PhoneNumber=".urlencode($phoneNumber)."&Message=".urlencode($message)."&LicenseKey=".urlencode($licenseKey);
+                  $URL = $apiUrl."SendSMS?CountryCode=".$countryCode."&PhoneNumber=".$phoneNumber."&Message=".$message."&LicenseKey=".$licenseKey;
 
-                  $URL = $apiUrl.'SMS/'.$countryCode.'/'.$phoneNumber.'/'.$message.'/'.$licenseKey.'?format=json';
                   // Get cURL resource
                   $curl = curl_init();
                   curl_setopt_array($curl, array(CURLOPT_RETURNTRANSFER => 1, CURLOPT_URL => $URL, CURLOPT_USERAGENT => 'Service Objects Telephone Verification'));

@@ -15,6 +15,8 @@ class Index extends Action
     protected $_helper;
     protected $_customerModel;
     protected $_coreSession;
+    protected $_messageManager;
+    protected $_resultFactory;
     /**
      * Constructor
      *
@@ -28,6 +30,7 @@ class Index extends Action
         \Magento\Customer\Model\Customer $customerModel,
         \Dyode\ARWebservice\Helper\Data $helper,
         \Magento\Framework\Session\SessionManagerInterface $coreSession,
+        \Magento\Framework\Message\ManagerInterface $messageManager,
         \Magento\Customer\Model\Session $customerSession
     ) {
         parent::__construct($context);
@@ -37,6 +40,7 @@ class Index extends Action
         $this->_helper = $helper;
         $this->_customerModel = $customerModel;
         $this->_coreSession = $coreSession;
+        $this->_messageManager = $messageManager;
     }
 
     /**
@@ -66,7 +70,7 @@ class Index extends Action
 
             if($curaAccId != '' && $curaAccId == $accountNumber){
                 //Already linked with the Magento Account
-                $this->_messageManager->addError(__('We were unable to submit your request. Please try again!'));
+                $this->_messageManager->addError(__('Your account is already linked.'));
                 return $this->_redirect('linkaccount/index');
             }
             $this->_coreSession->setCurAcc($accountNumber);
