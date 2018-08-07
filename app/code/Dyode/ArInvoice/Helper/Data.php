@@ -1,6 +1,9 @@
 <?php
 /**
- * @package   Dyode
+ * ArInoice Helper
+ *
+ * @category  Dyode
+ * @package   Dyode_ArInvoice
  * @author    Sooraj Sathyan
  */
 
