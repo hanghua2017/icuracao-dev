@@ -34,17 +34,21 @@ body{
   }
 	.page-wrapper{
 		.page-main{
-			@media (min-width: 768px) {
+      padding-left: 0;
+      padding-right: 0;
+			@media only screen and (min-width: 768px){
 				max-width:1500px;
 			}
 			//ICuracao-Account sidebar navigation tab styles
 			.sidebar-main{
 				.block-collapsible-nav{
-					border: 0px solid @white;
-					-webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
-					-moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
-					box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
-					@media (min-width: 768px) {
+					border: 1px solid @border-color;
+          @media only screen and (min-width: 768px){
+            -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+  					-moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+  					box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+    			}
+					@media only screen and (min-width: 768px){
 						border: 15px solid @white;
             margin-bottom: 15px;
 					}
@@ -76,7 +80,7 @@ body{
 									color: @head-color;
 									padding: 12px 18px 12px 15px;
 									border-color: transparent !important;
-									@media (min-width: 768px) {
+									@media only screen and (min-width: 768px){
 										font-size: 14px;
 									}
 									&:hover {
@@ -124,7 +128,6 @@ body{
         }
       }
     .column.main .block:not(.widget) .block-title > .action {
-
           @media only screen and (max-width: 767px){
              margin-top: 0px;
          }
@@ -135,9 +138,13 @@ body{
 					background-color: @white;
 	        border: 4px solid @white;
 					color: @item-color;
+          font-size: 14px !important;
 	        -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
 	        -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
 	        box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+          @media only screen and (min-width: 768px){
+            font-size: 14px !important;
+          }
 					span{
 						font-size: 12px !important;
 						font-weight:600;
@@ -149,7 +156,7 @@ body{
 						font-size: 14px;
 						font-weight: 600 !important;
 						line-height: 1.1;
-						@media all and (min-width:768px){
+						@media only screen and (min-width: 768px){
 							font-size:16px;
 						}
 					}
@@ -221,7 +228,7 @@ body{
 									color:@item-color;
 								}
 								p{
-									@media all and (max-width:767px){
+									@media only screen and (max-width: 767px){
 										font-size: 14px;
 									}
 								}
@@ -239,7 +246,7 @@ body{
 					.block-dashboard-orders{
 						margin-bottom: 20px;
 						.order{
-							@media all and (min-width:640px){
+						@media only screen and (min-width: 640px){
 								border:none;
 							}
 							.view{
@@ -341,4 +348,80 @@ body{
 }
 .block-wishlist{
   display: none;
+}
+.block, .customer-review .product-details, .block-banners, .block-banners-inline {
+  @media only screen and (max-width: 767px){
+    margin-bottom: 0;
+  }
+}
+//ICuracao-My orders tab With LESS styles
+
+.table-wrapper{
+  margin: 10px 0;
+  border-bottom: 1px solid @border-color !important;
+  border-top: none;
+  &.orders-history{
+    @media all and (min-width:768px) and (max-width:900px){
+      overflow-x: scroll;
+    }
+  }
+  @media only screen and (min-width: 768px){
+    margin: 20px;
+  }
+  .table{
+    border-color: #fff;
+    @media only screen and (max-width: 767px){
+      margin: 0 10px;
+    }
+    .actions{
+      text-transform: uppercase;
+    }
+    td{
+      .price{
+        font-weight: 400;
+      }
+    }
+  }
+  .table:not(.totals):not(.cart):not(.table-comparison) tbody > tr > td:last-child {
+      border-bottom: none;
+  }
+  .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr td, .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr th {
+    @media only screen and (max-width: 639px){
+      padding: 5px 0px;
+    }
+  }
+  .table > tbody > tr > th, .table > tbody > tr > td {
+    @media only screen and (min-width: 991px){
+      border: none;
+    }
+  }
+  .table > thead > tr > th, table > tbody > tr > th{
+    background: #f6f6f6;
+    text-transform: uppercase;
+    color: #6e6e6e;
+    vertical-align: top;
+    @media only screen and (min-width: 991px){
+      padding:15px 10px;
+    }
+  }
+}
+.block-addresses-list .items.addresses .item.actions .action:after, .account .data.table .col.actions .action:after, [class^='sales-guest-'] .data.table .col.actions .action:after, .sales-guest-view .data.table .col.actions .action:after, .block .box-actions .action:after {
+  border-left: none;
+}
+.order-products-toolbar {
+  margin: 10px 0;
+  @media only screen and (min-width: 768px){
+    margin: 20px;
+  }
+}
+.toolbar{
+  select {
+      background-color: #fff;
+      border-radius: 0;
+  }
+}
+.account .page-main, .cms-privacy-policy .page-main {
+  @media only screen and (max-width: 767px){
+    padding-top: 14px;
+  }
 }
