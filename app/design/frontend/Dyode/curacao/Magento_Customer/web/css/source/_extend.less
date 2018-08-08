@@ -1,0 +1,273 @@
+@theme-color: #82b800;
+@desc-border: #e8e8e8;
+@content-light-grey: #aeaeae;
+@content-dark-grey: #5c5c5c;
+@box-orange: #f05c23;
+@link-blue: #4046d1;
+@color-orange: #f88203;
+@btn-orange: #f05c23;
+@green-color: #81b800;
+@darkgreen-color:#4a9f28;
+@org-price: 16px;
+@mrp-price: 26px;
+@popup-header:#d9d8d8;
+@button-greybg:#787878;
+@red-color:#c50606;
+@button-color: #7dac0f;
+@link-blue: #4046d1;
+@field-border: #b4b4b4;
+@field-text: #919191;
+@title-text: #000;
+
+.customer-account-login {
+  .page-wrapper {
+    background-color: #fff;
+
+    //background image for login pagesti
+    #maincontent {
+      background-image: url("../images/login-background.png");
+      max-width: 100%;
+      padding: 0;
+      @media all and (max-width: 599px) {
+        background-image: none;
+        background-color: #ffffff;
+      }
+      //hide the page title - common title used in all pages
+      .page-title-wrapper {
+        display: none;
+      }
+      .columns {
+        max-width: 1500px;
+        margin: 40px auto;
+        @media all and (max-width: 599px) {
+          margin: 0;
+        }
+        .column.main {
+          @media all and (max-width: 599px) {
+            padding-bottom: 0;
+          }
+          .login-container {
+            max-width: 485px;
+            margin: 50px auto;
+            width: 487px;
+            box-shadow: 0px 3px 13px rgba(27,32,42,0.1);
+            background-color: #ffffff;
+            @media all and (max-width: 599px) {
+              max-width: 100%;
+              width: 100%;
+              box-shadow: none;
+              margin: 0;
+            }
+            .block-customer-login {
+              width: 75%;
+              margin: 0 auto 10px;
+              float: none;
+              clear: both;
+              overflow: hidden;
+              @media all and (max-width: 599px) and (min-width: 468px) {
+                width: 65%;
+              }
+              @media all and (max-width: 420px) {
+                width: 85%;
+              }
+              @media all and (max-width: 375px) {
+                width: 90%;
+              }
+              //title for login
+              .block-title {
+                border: none;
+                text-align: center;
+                margin-top: 40px;
+                #block-customer-login-heading {
+                  font-size: 28px;
+                  line-height: 24px;
+                  color: rgb(0,0,0);
+                  font-family: "iCurucao-Regular";
+                  font-weight: 500;
+                }
+              }
+
+              //content area -> Login section
+              .block-content {
+                .form-login {
+                  fieldset {
+
+                    //Login form
+                    &.login {
+                      &::after {
+                        display: none;
+                      }
+                      .field {
+                        margin: 0;
+                        padding: 3px 0;
+                        border-bottom: 1px solid @field-border;
+                        border-left: 1px solid @field-border;
+                        border-right: 1px solid @field-border;
+                        &.email {
+                          border-top: 1px solid @field-border;
+                          border-top-left-radius: 5px;
+                          border-top-right-radius: 5px;
+                        }
+                        &.password {
+                          border-bottom-left-radius: 5px;
+                          border-bottom-right-radius: 5px;
+                        }
+                        .label {
+                          display: none;
+                        }
+                        .control {
+                          width: 100%;
+                          input {
+                            background-color: transparent;
+                            border: 0;
+                            padding: 5px 9px;
+                            font-size: 14px;
+                            color: #000;
+                            &:focus {
+                              outline: none;
+                              box-shadow: none;
+                            }
+                          }
+                        }
+                        &.note {
+                          display: none;
+                        }
+                      }
+                    }
+
+                    //buttons and forget password
+                    .actions-toolbar {
+                      .secondary {
+                        width: 100%;
+                        margin-top: 20px;
+                        .forget-password {
+                          float: left;
+                          font-size: 13px;
+                          color: rgb(213,22,44);
+                          font-family: "iCuracao-Light";
+                          margin: 0;
+                          width: auto;
+                          @media all and (max-width: 375px) {
+                            width: 100%;
+                            text-align: center;
+                          }
+                          &:hover {
+                            text-decoration: none;
+                          }
+                        }
+                        .sign-up {
+                          float: right;
+                          font-size: 12px;
+                          color: rgb(102,102,102);
+                          font-family: "iCuracao-Light";
+                          @media all and (max-width: 375px) {
+                            width: 100%;
+                            text-align: center;
+                            margin-top: 10px;
+                            a {
+                              float: none !important;
+                            }
+                          }
+                          a.primary {
+                            font-size: 12px;
+                            padding: 0;
+                            color: @link-blue;
+                            margin: 0;
+                            float: right;
+                            background: none;
+                            border: none;
+                            font-weight: 500;
+                            font-family: "iCuracao-Light";
+                            width: auto;
+                          }
+                        }
+                      }
+
+                      .primary {
+                        width: 100%;
+                        button.login {
+                          width: 100%;
+                          height: 44px;
+                          border-radius: 5px;
+                          background-color: @green-color;
+                          border-color: @green-color;
+                          margin-top: 20px;
+                          margin-right: 0;
+                          span {
+                              font-size: 19px;
+                              color: white;
+                              font-family: "iCuracao-Regular";
+                          }
+                        }
+                      }
+                    }
+
+                  }
+                }
+              }
+
+              //Card for curacao
+              .curacao-card {
+                padding-top: 20px;
+                .card-images {
+                  img {
+                    @media all and (max-width: 768px) {
+                      width: 35%;
+                    }
+                  }
+                  .credit-card-logo {
+                    float: left;
+                  }
+                  .credit-card {
+                    float: right;
+                  }
+                }
+              }
+
+            }
+          }
+
+          //apply now - block
+          .curacao-card-apply {
+            background-image: url('../images/curacao-card-background.png');
+            background-repeat: no-repeat;
+            border-radius: 0 0 4px 4px;
+            @media all and (max-width: 768px) and (min-width: 467px) {
+              background-size: cover;
+            }
+            .content {
+              padding: 30px;
+              p {
+                text-align: center;
+                font-size: 24px;
+                color: rgb(255,255,255);
+                font-family: "iCuracao-Medium";
+                text-align: center;
+                margin-top: 55px;
+                margin-bottom: 0;
+              }
+            }
+            .apply-now-button {
+              text-align: center;
+              padding-bottom: 32px;
+              .apply-now {
+                margin: 0 auto;
+                width: 145px;
+                height: 42px;
+                border-radius: 3px;
+                background-color: #f9f9f9;
+                font-size: 16px;
+                color: rgb(51,51,51);
+                font-family: "iCuracao-Medium";
+                font-weight: bold;
+                padding: 10px 30px;
+              }
+            }
+
+          }
+        }
+      }
+    }
+
+  }
+}
