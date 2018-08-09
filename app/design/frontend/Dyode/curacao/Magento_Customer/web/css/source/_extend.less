@@ -1,3 +1,4 @@
+@import "_typography.less";
 @theme-color: #82b800;
 @desc-border: #e8e8e8;
 @content-light-grey: #aeaeae;
@@ -66,7 +67,7 @@
               clear: both;
               overflow: hidden;
               @media all and (max-width: 599px) and (min-width: 468px) {
-                width: 65%;
+                width: 68%;
               }
               @media all and (max-width: 420px) {
                 width: 85%;
@@ -83,7 +84,7 @@
                   font-size: 28px;
                   line-height: 24px;
                   color: rgb(0,0,0);
-                  font-family: "iCurucao-Regular";
+                  font-family: "iCuracao-Light";
                   font-weight: 500;
                 }
               }
@@ -119,6 +120,7 @@
                         .control {
                           width: 100%;
                           input {
+                            font-family: "iCuracao-Regular";
                             background-color: transparent;
                             border: 0;
                             padding: 5px 9px;
@@ -127,6 +129,24 @@
                             &:focus {
                               outline: none;
                               box-shadow: none;
+                            }
+                            &::-webkit-input-placeholder { /* Chrome */
+                              color: #8a8888;
+                              font-family: "iCuracao-light";
+                            }
+                            &:-ms-input-placeholder { /* IE 10+ */
+                              color: #8a8888;
+                              font-family: "iCuracao-light";
+                            }
+                            &::-moz-placeholder { /* Firefox 19+ */
+                              color: #8a8888;
+                              opacity: 1;
+                              font-family: "iCuracao-light";
+                            }
+                            &:-moz-placeholder { /* Firefox 4 - 18 */
+                              color: #8a8888;
+                              opacity: 1;
+                              font-family: "iCuracao-light";
                             }
                           }
                         }
@@ -143,12 +163,12 @@
                         margin-top: 20px;
                         .forget-password {
                           float: left;
-                          font-size: 13px;
+                          font-size: 12px;
                           color: rgb(213,22,44);
-                          font-family: "iCuracao-Light";
+                          font-family: "iCuracao-Regular";
                           margin: 0;
                           width: auto;
-                          @media all and (max-width: 375px) {
+                          @media all and (max-width: 478px) {
                             width: 100%;
                             text-align: center;
                           }
@@ -160,8 +180,8 @@
                           float: right;
                           font-size: 12px;
                           color: rgb(102,102,102);
-                          font-family: "iCuracao-Light";
-                          @media all and (max-width: 375px) {
+                          font-family: "iCuracao-Regular";
+                          @media all and (max-width: 478px) {
                             width: 100%;
                             text-align: center;
                             margin-top: 10px;
@@ -178,7 +198,7 @@
                             background: none;
                             border: none;
                             font-weight: 500;
-                            font-family: "iCuracao-Light";
+                            font-family: "iCuracao-Regular";
                             width: auto;
                           }
                         }
@@ -197,7 +217,8 @@
                           span {
                               font-size: 19px;
                               color: white;
-                              font-family: "iCuracao-Regular";
+                              font-family: "iCuracao-Light";
+                              letter-spacing: 1px;
                           }
                         }
                       }
@@ -209,7 +230,7 @@
 
               //Card for curacao
               .curacao-card {
-                padding-top: 20px;
+                padding-top: 30px;
                 .card-images {
                   img {
                     @media all and (max-width: 768px) {
@@ -237,20 +258,23 @@
               background-size: cover;
             }
             .content {
-              padding: 30px;
+              padding: 30px 30px 0;
               p {
                 text-align: center;
                 font-size: 24px;
                 color: rgb(255,255,255);
                 font-family: "iCuracao-Medium";
                 text-align: center;
-                margin-top: 55px;
-                margin-bottom: 0;
+                margin-top: 45px;
+                margin-bottom: 35px;
+                @media all and (max-width: 478px) {
+                  font-size: 20px;
+                }
               }
             }
             .apply-now-button {
               text-align: center;
-              padding-bottom: 32px;
+              padding-bottom: 45px;
               .apply-now {
                 margin: 0 auto;
                 width: 145px;
@@ -259,9 +283,12 @@
                 background-color: #f9f9f9;
                 font-size: 16px;
                 color: rgb(51,51,51);
-                font-family: "iCuracao-Medium";
+                font-family: "iCuracao-Regular";
                 font-weight: bold;
                 padding: 10px 30px;
+                &:hover {
+                  text-decoration: none;
+                }
               }
             }
 
