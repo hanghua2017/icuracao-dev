@@ -86,6 +86,9 @@
                   color: rgb(0,0,0);
                   font-family: "iCuracao-Light";
                   font-weight: 500;
+                  @media all and (max-width: 599px) {
+                    font-size: 24px;
+                  }
                 }
               }
 
@@ -257,6 +260,9 @@
             @media all and (max-width: 768px) and (min-width: 467px) {
               background-size: cover;
             }
+            @media all and (max-width: 420px) {
+              background-position: center;
+            }
             .content {
               padding: 30px 30px 0;
               p {
@@ -269,6 +275,9 @@
                 margin-bottom: 35px;
                 @media all and (max-width: 478px) {
                   font-size: 20px;
+                }
+                @media all and (max-width: 420px){
+                  font-size: 18px;
                 }
               }
             }
@@ -288,6 +297,10 @@
                 padding: 10px 30px;
                 &:hover {
                   text-decoration: none;
+                }
+                @media all and (max-width: 599px) {
+                  font-size: 14px;
+                  padding: 10px 25px;
                 }
               }
             }
