@@ -22,7 +22,7 @@
     <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
     <fieldset class="fieldset create info">
         <legend class="legend"><span><?= /* @escapeNotVerified */ __('Signup with Curacao') ?></span></legend><br>
-        <legend class="legend sub-heading"><span><?= /* @escapeNotVerified */ __('Sign in Using One of your accounts') ?></span></legend><br>
+        <!-- <legend class="legend sub-heading"><span><?= /* @escapeNotVerified */ __('Sign in Using One of your accounts') ?></span></legend><br> -->
         <input type="hidden" name="success_url" value="<?= /* @escapeNotVerified */ $block->getSuccessUrl() ?>"/>
         <input type="hidden" name="error_url" value="<?= /* @escapeNotVerified */ $block->getErrorUrl() ?>"/>
         <?= $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>

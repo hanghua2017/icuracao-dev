@@ -1,3 +1,4 @@
+@import "_typography.less";
 @button-color: #7dac0f;
 @link-blue: #4046d1;
 @field-border: #b4b4b4;
@@ -62,9 +63,14 @@
               border-bottom: none;
               text-align: center;
               color: @title-text;
+              padding-bottom: 0;
 
               span {
-                font-size: 30px;
+                font-size: 28px;
+                line-height: 24px;
+                color: rgb(0,0,0);
+                font-family: "iCuracao-Light";
+                font-weight: 500;
               }
 
               &.sub-heading {
@@ -109,6 +115,7 @@
                 width: 100%;
 
                 input {
+                  font-family: "iCuracao-Regular";
                   background-color: transparent;
                   border: 0;
                   padding: 5px 9px;
@@ -119,33 +126,41 @@
                     outline: none;
                     box-shadow: none;
                   }
-                }
 
-                input {
                   &::-webkit-input-placeholder {
                     /* Chrome/Opera/Safari */
-                    font-size: 12px;
+                    font-size: 14px;
                     text-transform: capitalize;
+                    color: #8a8888;
+                    font-family: "iCuracao-light";
                   }
 
                   &::-moz-placeholder {
                     /* Firefox 19+ */
-                    font-size: 12px;
+                    font-size: 14px;
                     text-transform: capitalize;
+                    color: #8a8888;
+                    font-family: "iCuracao-light";
                   }
 
                   &:-ms-input-placeholder {
                     /* IE 10+ */
-                    font-size: 12px;
+                    font-size: 14px;
                     text-transform: capitalize;
+                    color: #8a8888;
+                    font-family: "iCuracao-light";
                   }
 
                   &:-moz-placeholder {
                     /* Firefox 18- */
-                    font-size: 12px;
+                    font-size: 14px;
                     text-transform: capitalize;
+                    color: #8a8888;
+                    font-family: "iCuracao-light";
                   }
+
                 }
+
               }
 
               &.note {
@@ -156,7 +171,7 @@
 
           .newsletter {
             position: relative;
-            width: 180px;
+            width: 160px;
             margin: 20px auto;
             text-align: center;
 
@@ -167,10 +182,13 @@
             .newsletter-box {
               display: block;
               position: relative;
-              padding-left: 25px;
+              padding-left: 20px;
               margin-bottom: 12px;
               cursor: pointer;
-              font-size: 14px;
+              font-size: 13px;
+              line-height: 16px;
+              color: rgb(102,102,102);
+              font-family: "iCuracao-Light";
               -webkit-user-select: none;
               -moz-user-select: none;
               -ms-user-select: none;
@@ -198,8 +216,8 @@
               position: absolute;
               top: 0;
               left: 0;
-              height: 15px;
-              width: 15px;
+              height: 13px;
+              width: 13px;
               background-color: white;
               border: 1px solid rgb(166, 166, 166);
               border-radius: 4px;
@@ -229,8 +247,8 @@
             .newsletter-box {
               .checkmark {
                 &:after {
-                  left: 4px;
-                  top: 2px;
+                  left: 3px;
+                  top: 0px;
                   width: 4px;
                   height: 7px;
                   border: solid green;
@@ -254,11 +272,17 @@
               button {
                 background-color: @button-color;
                 border: 1px solid @button-color;
-                padding: 15px;
                 width: 100%;
+                height: 44px;
+                border-radius: 5px;
                 font-size: 20px;
-                border-radius: 8px;
-                cursor: pointer;
+                margin-right: 0;
+                span {
+                  font-size: 19px;
+                  color: white;
+                  font-family: "iCuracao-Light";
+                  letter-spacing: 1px;
+                }
                 @media all and (max-width: 460px) {
                   padding: 10px;
                   font-size: 16px;
@@ -269,10 +293,13 @@
 
           .sign-in-section {
             text-align: center;
+            font-size: 12px;
+            line-height: 24px;
+            color: rgb(102,102,102);
+            font-family: "iCuracao-Light";
 
             a {
               color: @link-blue;
-              cursor: pointer;
               text-decoration: none;
             }
           }
