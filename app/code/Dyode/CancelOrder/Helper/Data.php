@@ -1,6 +1,9 @@
 <?php
 /**
- * @package   Dyode
+ * Cancel Order Helper
+ *
+ * @category  Dyode
+ * @package   Dyode_CancelOrder
  * @author    Sooraj Sathyan
  */
 namespace Dyode\CancelOrder\Helper;
@@ -25,6 +28,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $this->_arInvoiceHelper = $arInvoiceHelper;
     }
 
+    /**
+     * Cancel Order Item using API -> AdjustItem
+     */
     public function adjustItem($invNo, $itemId, $qty, $newSubTotal = '', $newTotalTax = '', $newPrice = '', $newDescription = '')
     {
         /**
@@ -53,15 +59,12 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
          * Get Response Data
          */
         $response = curl_exec($ch);
-        print_r($response);
         curl_close($ch);
         return json_decode($response);
     }
 
     public function cancelEstimate($invNo)
     {
-        // echo "Hello World123";
-        // die();
         /**
          * Initialize Rest Api Connection
          */
@@ -71,13 +74,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
          * Set Data
          */
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-        // curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($inputArray));
         /**
          * Get Response Data
          */
         $response = curl_exec($ch);
-        print_r($response);
-        die();
         curl_close($ch);
         return json_decode($response);
     }
