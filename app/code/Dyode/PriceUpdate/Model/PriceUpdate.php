@@ -19,7 +19,6 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template {
 	\Magento\Framework\View\Element\Template\Context $context,  
 	\Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory, 
 	\Dyode\PriceUpdate\Helper\Data $helper,
-	\Magento\Framework\HTTP\Client\Curl $curl,
 	array $data = []
 	) {
 	    $this->_productCollectionFactory = $productCollectionFactory;
