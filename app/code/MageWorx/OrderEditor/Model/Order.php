@@ -120,6 +120,12 @@ class Order extends \Magento\Sales\Model\Order
     protected $quoteRepository;
 
     /**
+     * @var \Dyode\CancelOrder\Helper\Data
+     */
+    protected $cancelOrderHelper;
+
+    /**
+     * @param \Dyode\CancelOrder\Helper\Data $cancelOrderHelper
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\Framework\Api\ExtensionAttributesFactory $extensionFactory
@@ -163,6 +169,7 @@ class Order extends \Magento\Sales\Model\Order
      * @param array $data
      */
     public function __construct(
+        \Dyode\CancelOrder\Helper\Data $cancelOrderHelper,
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Framework\Api\ExtensionAttributesFactory $extensionFactory,
@@ -205,6 +212,7 @@ class Order extends \Magento\Sales\Model\Order
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         array $data = []
     ) {
+        $this->cancelOrderHelper = $cancelOrderHelper;
         $this->taxConfig = $taxConfig;
         $this->item = $item;
         $this->quote = $quote;
@@ -409,10 +417,31 @@ class Order extends \Magento\Sales\Model\Order
     protected function loadOrderItem($id, $params)
     {
         $item = clone $this->item;
-
+        $writer = new \Zend\Log\Writer\Stream(BP . "/var/log/mylogfile.log");
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
         if (!isset($params['quote_item'])) {
             if (isset($params['action']) && $params['action'] == 'remove') {
                 $this->removedItems[] = $id;
+                $invoiceNumber = "ZEP58QX";
+                $itemId = "32O-285-42LB5600";
+                $qty = 1;
+                $response = $this->cancelOrderHelper->adjustItem($invoiceNumber, $itemId, $qty);
+                // $logger->info("Hello");
+                // $logger->info($response->INFO);
+                // $logger->info("World");
+                // $logger->info($response->OK);
+                if ($response->OK == true) {
+                    # code...
+                    $logger->info("Hello");
+                    $logger->info($response->DATA);
+                }
+                else {
+                    # code...
+                    $logger->info("World");
+                    $logger->info($response->INFO);
+                    throw new \Exception($response->INFO);
+                }
             }
             $item = $item->load($id);
         }
