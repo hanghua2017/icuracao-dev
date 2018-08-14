@@ -90,12 +90,12 @@
         <div class="warranty-plan">
           <h3 class="warranty-title">Add a warranty plan</h3>
           <div class="warranty-select">
-            <div id="warranty-check">
+            <div id="warranty-check" class="js-warranty-select">
                 <label class="warranty-box">Include <a href="" id="warranty-link1">1 year Apple Extended Warranty</a> for $300
                   <input type="checkbox" id="cb1">
                   <span class="checkmark"></span>
                 </label>
-                <label class="warranty-box">Include <a href=""id=" warranty-link2">2 year's Apple Extended Warranty</a> for $600
+                <label class="warranty-box">Include <a href="" id="warranty-link2">2 year's Apple Extended Warranty</a> for $600
                   <input type="checkbox" id="cb2">
                   <span class="checkmark"></span>
                 </label>
@@ -135,8 +135,8 @@
                 </div>
 
                 <div class="buttons-block">
-                  <button type="button" name="Add Button" id="addbtn"><span>Add</span></button>
-                  <button type="button" name="Add Button" id="skipbtn"><span>Skip</span></button>
+                  <button type="button" name="Add Button" class="addbtn"><span>Add</span></button>
+                  <button type="button" name="Add Button" class="skipbtn"><span>Skip</span></button>
                 </div>
               </div>
 
@@ -147,7 +147,6 @@
         <!-- End Static block for warranty plan -->
 
         <div class="add-to-cart-block">
-
           <div class="actions">
 <!--
             <button type="submit"
@@ -179,6 +178,7 @@
               <span class="title"> Add to your cart</span>
               <span class="close1">&times;</span>
             </div>
+            <!-- Apple pop up content Details -->
             <div class="apple-content" >
               <div class="product-details">
                 <div class="top-section">
@@ -190,7 +190,7 @@
                 <div class="warranty-plan">
                   <h3 class="warranty-title">Add a warranty plan</h3>
                   <div class="warranty-select">
-                    <div id="warranty-check2">
+                    <div id="warranty-check2" class="js-warranty-select">
                         <label class="warranty-box">Include <a href="" id="warranty-link1">1 year Apple Extended Warranty</a> for $300
                           <input type="checkbox" id="cb1">
                           <span class="checkmark"></span>
@@ -204,11 +204,12 @@
                 </div>
 
                 <div class="buttons-block">
-                  <button type="button" name="Add Button" id="addbtn"><span>Add</span></button>
-                  <button type="button" name="Add Button" id="skipbtn"><span>Skip</span></button>
+                  <button type="button" name="Add Button" class="addbtn"><span>Add</span></button>
+                  <button type="button" name="Add Button" class="skipbtn"><span>Skip</span></button>
                 </div>
               </div>
             </div>
+            <!-- Tv pop up content details -->
             <div class="tv-content" style="display:none">
               <div class="product-details">
                 <div class="details-containers">
@@ -221,7 +222,7 @@
                   <!-- <span class="rating"></span> -->
                   <div class="warranty-plan">
                     <div class="warranty-select">
-                      <div id="warranty-check2">
+                      <div id="warranty-check2" class="js-warranty-select">
                           <label class="warranty-box">Include <a href="" id="warranty-link1">1 year Apple Extended Warranty</a> for $300
                             <input type="checkbox" id="cb1">
                             <span class="checkmark"></span>
@@ -231,7 +232,7 @@
                             <span class="checkmark"></span>
                           </label>
                           <label class="warranty-box">Include <a href="" id="warranty-link3">3 year's Apple Extended Warranty</a> for $900
-                            <input type="checkbox" id="cb2">
+                            <input type="checkbox" id="cb3">
                             <span class="checkmark"></span>
                           </label>
                       </div>
@@ -248,7 +249,7 @@
                   <!-- <span class="rating"></span> -->
                   <div class="warranty-plan">
                     <div class="warranty-select">
-                      <div id="warranty-check2">
+                      <div id="warranty-check2" class="js-warranty-select">
                           <label class="warranty-box">Include <a href="" id="warranty-link1">1 year Apple Extended Warranty</a> for $300
                             <input type="checkbox" id="cb1">
                             <span class="checkmark"></span>
@@ -258,7 +259,7 @@
                             <span class="checkmark"></span>
                           </label>
                           <label class="warranty-box">Include <a href="" id="warranty-link3">3 year's Apple Extended Warranty</a> for $900
-                            <input type="checkbox" id="cb2">
+                            <input type="checkbox" id="cb3">
                             <span class="checkmark"></span>
                           </label>
                       </div>
@@ -266,8 +267,8 @@
                   </div>
                 </div>
                 <div class="buttons-block">
-                  <button type="button" name="Add Button" id="addbtn"><span>Add</span></button>
-                  <button type="button" name="Add Button" id="skipbtn"><span>Skip</span></button>
+                  <button type="button" name="Add Button" class="addbtn"><span>Add</span></button>
+                  <button type="button" name="Add Button" class="skipbtn"><span>Skip</span></button>
                 </div>
               </div>
           </div>
@@ -316,23 +317,24 @@
 require([
       'jquery',
 
-  ], function($)
+  ],
+  function($)
      {
-       $('#warranty-check').click(function(e) {
-         e = e || event;
-         var cb = e.srcElement || e.target;
-         if (cb.type !== 'checkbox') {
-            return true;
-          }
-          var cbxs = document.getElementById('warranty-check').getElementsByTagName('input'), i=cbxs.length;
-          while(i--) {
-            if (cbxs[i].type && cbxs[i].type == 'checkbox' && cbxs[i].id !== cb.id) {
-                cbxs[i].checked = false;
-            }
-          }
-        });
+       // to select only one check box in warranty options
+        $('.js-warranty-select').click(function(e) {
+          e = e || event;
+          var cb = e.srcElement || e.target;
+          if (cb.type !== 'checkbox') {
+             return true;
+           }
+           var cbxs = $(this).find("input"), i=cbxs.length;
 
-
+           while(i--) {
+             if (cbxs[i].type && cbxs[i].type == 'checkbox' && cbxs[i].id !== cb.id) {
+                 cbxs[i].checked = false;
+             }
+           }
+         });
       }
     );
 </script>
