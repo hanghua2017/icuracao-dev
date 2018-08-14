@@ -18,7 +18,7 @@ class Index extends \Magento\Framework\App\Action\Action
 	public function execute()
 	{
 		//$customerId = '53670063';
-		$Customer_Status = $this->helper->validateAddress('54420459');
+		$Customer_Status = $this->helper->isCustomerActive('54421729');
 	}
 
 }

@@ -51,43 +51,85 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
   //API for getting customer contactaddress
   public function getCustomerContact($customerId)
 	{
-    $ch = curl_init("https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/GetCustomerContact?cust_id=$customerId");
-      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-      curl_setopt($ch, CURLOPT_ENCODING, "UTF-8");
-      curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "X-Api-Key: TEST-WNNxLUjBxA78J7s"));
-      $result = curl_exec($ch);
-      $response = json_decode($result)->DATA);
-      return $response;
+    $httpHeaders = new \Zend\Http\Headers();
+    $httpHeaders->addHeaders([
+       'Accept' => 'application/json',
+       'Content-Type' => 'application/json',
+       'X-Api-Key' => 'TEST-WNNxLUjBxA78J7s'
+    ]);
+
+    $request = new \Zend\Http\Request();
+    $request->setHeaders($httpHeaders);
+    $request->setUri("https://exchangeweb.lacuracao.com:2007/ws2/test/restapi/ecommerce/GetCustomerContact?cust_id=$customerId");
+    $request->setMethod(\Zend\Http\Request::METHOD_GET);
+
+    $client = new \Zend\Http\Client();
+    $options = [
+       'adapter'   => 'Zend\Http\Client\Adapter\Curl',
+       'curloptions' => [CURLOPT_FOLLOWLOCATION => true],
+       'maxredirects' => 0,
+       'timeout' => 30
+    ];
+    $client->setOptions($options);
+    $response = $client->send($request);
+    $data = $response->getBody();
+    echo "<pre>";
+    print_r(json_decode($data));exit;
 	}
 
   //API for checking whether a customer account is active
   public function isCustomerActive($customerId)
     {
-      $ch = curl_init("https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/IsCustomerActive?cust_id=$customerId");
-      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-      curl_setopt($ch, CURLOPT_ENCODING, "UTF-8");
-      curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "X-Api-Key: TEST-WNNxLUjBxA78J7s"));
-      $result = curl_exec($ch);
-      var_dump($result);exit;
+      $httpHeaders = new \Zend\Http\Headers();
+      $httpHeaders->addHeaders([
+         'Accept' => 'application/json',
+         'Content-Type' => 'application/json',
+         'X-Api-Key' => 'TEST-WNNxLUjBxA78J7s'
+      ]);
+
+      $request = new \Zend\Http\Request();
+      $request->setHeaders($httpHeaders);
+      $request->setUri("https://exchangeweb.lacuracao.com:2007/ws2/test/restapi/ecommerce/getStock?top50=false");
+      $request->setMethod(\Zend\Http\Request::METHOD_GET);
+
+      $client = new \Zend\Http\Client();
+      $options = [
+         'adapter'   => 'Zend\Http\Client\Adapter\Curl',
+         'curloptions' => [CURLOPT_FOLLOWLOCATION => true]
+      ];
+      $client->setOptions($options);
+      $response = $client->send($request);
+      $data = $response->getBody();
+      echo "<pre>";
+      print_r(json_decode($data));exit;
     }
 
     //API for reactivating a customer account
     public function estimateOk($customerId)
     {
-      $ch = curl_init("https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/EstimateOk?cust_id=$customerId");
-      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-      curl_setopt($ch, CURLOPT_ENCODING, "UTF-8");
-      curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "X-Api-Key: TEST-WNNxLUjBxA78J7s"));
-      $result = curl_exec($ch);
-      var_dump($result);exit;
+      $httpHeaders = new \Zend\Http\Headers();
+      $httpHeaders->addHeaders([
+         'Accept' => 'application/json',
+         'Content-Type' => 'application/json',
+         'X-Api-Key' => 'TEST-WNNxLUjBxA78J7s'
+      ]);
+
+      $request = new \Zend\Http\Request();
+      $request->setHeaders($httpHeaders);
+      $request->setUri("https://exchangeweb.lacuracao.com:2007/ws2/test/restapi/ecommerce/EstimateOk?cust_id=$customerId");
+      $request->setMethod(\Zend\Http\Request::METHOD_GET);
+
+      $client = new \Zend\Http\Client();
+      $options = [
+         'adapter'   => 'Zend\Http\Client\Adapter\Curl',
+         'curloptions' => [CURLOPT_FOLLOWLOCATION => true],
+         'maxredirects' => 0,
+         'timeout' => 30
+      ];
+      $client->setOptions($options);
+      $response = $client->send($request);
+      $data = $response->getBody();
+      echo "<pre>";
+      print_r(json_decode($data));exit;
     }
 }
