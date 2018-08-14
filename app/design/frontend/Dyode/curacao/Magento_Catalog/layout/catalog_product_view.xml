@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+          <container name="product.info-block" htmlTag="div" htmlClass="product-info-block" before="-">
+            <block class="Magento\Catalog\Block\Product\View\Description" name="product.block" template="Magento_Catalog::product/view/category-block-1.phtml" after="product.info.type">
+            </block>
+          </container>
+        </referenceContainer>
+      </body>
+  </page>
