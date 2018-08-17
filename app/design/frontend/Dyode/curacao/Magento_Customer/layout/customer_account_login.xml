@@ -7,12 +7,8 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceContainer name="content">
-
-          <!-- Removed create customer section from login page -->
-          <referenceBlock name="customer.new" remove="true" />
-
-        </referenceContainer>
+      <!-- Removed create customer section from login page -->
+      <referenceBlock name="customer.new" remove="true" />
 
     </body>
 </page>
