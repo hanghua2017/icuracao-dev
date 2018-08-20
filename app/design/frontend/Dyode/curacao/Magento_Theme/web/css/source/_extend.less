@@ -20,9 +20,21 @@
 	}
 }
 //ICuracao-Header LESS styles
+
+// .page-header .panel.wrapper {
+// 	@media all and (min-width: 768px){
+// 		display: none;
+// 	}
+// }
+
 .page-wrapper {
 	.page-header {
 		background-color: @green-color;
+		.panel.wrapper {
+			@media all and (min-width: 768px){
+				display: none;
+			}
+		}
 		.header.content {
 			padding: 15px !important;
 			@media (min-width: 768px) {
@@ -146,76 +158,168 @@
 				}
 			}
 			//ICuracao-Header Sign In LESS styles
-			.links {
-				list-style-type: none;
-				padding: 0;
-				font-size: 16px;
-				font-weight: 600;
-				margin: 5px 0;
-				@media all and (min-width:768px){
-					margin: 14px 0;
-				}
-				li{
-					.customer-name{
-						color: @white;
-						&::before {
-							content: "";
-							background-image: url(../images/sign-white.png);
-							background-repeat: no-repeat;
+			// .links {
+			// 	list-style-type: none;
+			// 	padding: 0;
+			// 	font-size: 16px;
+			// 	font-weight: 600;
+			// 	margin: 5px 0;
+			// 	@media all and (min-width:768px){
+			// 		margin: 14px 0;
+			// 	}
+				.customer-signin{
+					margin-left: 5px;
+					padding-left: 5px;
+					margin: 5px 0 10px 0px;
+					@media all and (min-width:768px){
+						margin: 14px 0 14px 14px;
+						margin-left: 20px;
+						padding-left: 20px;
+					}
+						list-style: none;
+						display: inline-block;
+						.account-wrapper{
 							display: inline-block;
-							height: 30px;
-							margin: 0;
-							overflow: hidden;
-							width: 30px;
-							-webkit-font-smoothing: antialiased;
-							-moz-osx-font-smoothing: grayscale;
-							vertical-align: top;
-							text-align: center;
+							a{
+								font-size: 14px;
+								text-decoration: none;
+								@media all and (min-width:768px){
+									font-size: 17px;
+								}
+								color: @white;
+								&::before {
+									content: "";
+									background-image: url(../images/sign-white.png);
+									background-repeat: no-repeat;
+									display: inline-block;
+									height: 30px;
+									margin: 0;
+									overflow: hidden;
+									width: 30px;
+									-webkit-font-smoothing: antialiased;
+									-moz-osx-font-smoothing: grayscale;
+									vertical-align: top;
+									text-align: center;
+								}
+							}
 						}
 					}
-				}
-				&>a {
-					color: @white;
-					text-decoration: none;
-					&::before {
-						content: "";
-						background-image: url(../images/sign-white.png);
-						background-repeat: no-repeat;
-						display: inline-block;
-						height: 30px;
-						margin: 0;
-						overflow: hidden;
-						width: 30px;
-						-webkit-font-smoothing: antialiased;
-						-moz-osx-font-smoothing: grayscale;
-						vertical-align: top;
-						text-align: center;
+					.customer-welcome{
+						margin-left: 5px;
+						padding-left: 5px;
+						margin: 5px 0 10px 0px;
+						@media all and (min-width:768px){
+							margin: 14px 0 14px 14px;
+							margin-left: 20px;
+							padding-left: 20px;
+						}
+						@media all and (max-width:768px){
+							display: none;
+						}
+						ul{
+							@media all and (min-width:768px){
+							 	border: 1px solid transparent;
+								margin-top: 10px;
+						 }
+						}
+						&>span {
+							color: @white;
+							font-size: 14px;
+							text-decoration: none;
+							@media all and (min-width:768px){
+								font-size: 17px;
+							}
+							text-decoration: none;
+							&::before {
+								content: "";
+								background-image: url(../images/sign-white.png);
+								background-repeat: no-repeat;
+								display: inline-block;
+								height: 30px;
+								margin: 0;
+								overflow: hidden;
+								width: 30px;
+								-webkit-font-smoothing: antialiased;
+								-moz-osx-font-smoothing: grayscale;
+								vertical-align: middle;
+								text-align: center;
+							}
+							&:hover,
+							&:focus{
+								text-decoration: none;
+							}
+						}
+						.authorization-link:hover {
+							@media (min-width: 768px){
+								background-color: transparent;
+								cursor: default;
+								a:hover{
+									background-color: #97d700;
+								}
+							}
+						}
 					}
-					&:hover,
-					&:focus{
-						text-decoration: none;
-					}
-				}
-			}
 			.customer-menu{
 				.header{
-					text-align: center;
-					padding: 10px 20px;
-					.authorization-link{
-						background-color: @dark-green-color;
-						border-radius: 5px;
+					text-align: left;
+    			padding: 15px 17px;
+					li:first-child, .wishlist, .orders{
 						a{
+							&::before {
+								content: "";
+								background-repeat: no-repeat;
+								display: inline-block;
+								height: 30px;
+								width: 30px;
+								margin: 0;
+								overflow: hidden;
+								-webkit-font-smoothing: antialiased;
+								-moz-osx-font-smoothing: grayscale;
+								vertical-align: middle;
+								text-align: center;
+							}
+						}
+					}
+				 	li:first-child{
+						a{
+							&::before {
+								background-image: url(../images/account.png);
+							}
+						}
+					}
+					.wishlist{
+						a{
+							&::before {
+								background-image: url(../images/wishlist.png);
+							}
+						}
+					}
+					.orders{
+						a{
+							&::before {
+								background-image: url(../images/orders.png);
+							}
+						}
+					}
+					.authorization-link{
+						text-align: center;
+						a{
+							background-color: @dark-green-color;
+							border-radius: 5px;
 							color: @white ;
+							margin: 0 20px;
 						}
 					}
 					li{
 						a{
 							font-weight: 500;
 							font-size: 14px;
+							padding: 7px;
 						}
 					}
 				}
 			}
+
 			//ICuracao-Header Mini Cart LESS styles
 			.minicart-wrapper {
 				display: inline-block;
@@ -246,6 +350,25 @@
 		background: @white;
 		@media all and (min-width:768px){
 			background:#84b90a;
+		}
+		.header.links{
+			a, a:hover {
+					@media only screen and (max-width: 767px){
+						color: #333;
+						text-decoration: none;
+						display: block;
+						font-weight: 300;
+						line-height: 50px;
+						padding: 0 10px;
+						font-size: 14px;
+					}
+				}
+			 li > a {
+				 @media only screen and (max-width: 767px){
+					  border-bottom: 1px solid #f2f2f2;
+						border-top: 1px solid transparent;
+				 }
+			 }
 		}
 		.section-items{
 			.nav-sections-item-title{

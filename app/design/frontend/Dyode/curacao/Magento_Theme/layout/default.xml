@@ -1,15 +1,30 @@
 <?xml version="1.0"?>
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+      <link src="Magento_Customer::customer-data.js"/>
+      <link src="Magento_Customer::view/customer.js"/>
+      <link src="Magento_Customer::view/authentication-popup.js"/>
+    </head>
     <body>
       <!-- Top panel wrapper with sign in and create an account if want to remove -->
-      <referenceBlock name="header.panel.wrapper" remove="true" />
+      <!-- <referenceBlock name="header.panel.wrapper" remove="true" /> -->
       <referenceBlock name="header" remove="true" />
       <referenceBlock name="register-link" remove="true" />
       <referenceBlock name="authorization-link-login" remove="true" />
       <!-- Keep minicart next to search block -->
-      <move element="header.links" destination="header-wrapper" after="top.search"/>
+      <!-- <move element="header.links" destination="header-wrapper" after="top.search"/> -->
+      <referenceContainer name="header-wrapper">
+            <block class="Magento\Customer\Block\Account\Customer" name="top.line"  after="top.search" template="Magento_Customer::account/customer-menu.phtml"/>
+            <block class="Magento\Customer\Block\Account\Navigation" name="top.links">
+                <arguments>
+                    <argument name="css_class" xsi:type="string">header links</argument>
+                </arguments>
+            </block>
+      </referenceContainer>
       <!-- Move top All Header Links next to minicart -->
-      <move element="minicart" destination="header-wrapper" after="header.links"/>
+      <!-- <move element="minicart" destination="header-wrapper" after="header.links"/> -->
+      <!-- <move element="customer" destination="header-wrapper" after="top.search"/> -->
+      <move element="minicart" destination="header-wrapper" after="top.line"/>
       <referenceBlock name="logo">
                   <arguments>
                       <argument name="logo_file" xsi:type="string">images/icuracao-logo.png</argument>
