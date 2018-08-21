@@ -1,5 +1,5 @@
 <?php
-namespace Customcategory\CatewithimgWidget\Block\Adminhtml;
+namespace Dyode\CategoryImageWidget\Block\Adminhtml;
 
 class Chooser extends \Magento\Backend\Block\Template {
 

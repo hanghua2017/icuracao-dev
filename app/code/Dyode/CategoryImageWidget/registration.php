@@ -1,6 +1,6 @@
 <?php
 \Magento\Framework\Component\ComponentRegistrar::register(
     \Magento\Framework\Component\ComponentRegistrar::MODULE,
-    'Customcategory_CatewithimgWidget',
+    'Dyode_CategoryImageWidget',
     __DIR__
 );

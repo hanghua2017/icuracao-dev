@@ -1,6 +1,6 @@
 {
-    "name": "Customcategory/CatewithimgWidget",
-    "description": "Customcategory Category List Widget with images",
+    "name": "Dyode/CategoryImageWidget",
+    "description": "Dyode Category List Widget with images",
     "require": {
         "php": "~5.5.0|~5.6.0|~7.0.0"
     },
@@ -12,7 +12,7 @@
     "autoload": {
         "files": [ "registration.php" ],
         "psr-4": {
-            "Customcategory\\CatewithimgWidget\\": ""
+            "Dyode\\CategoryImageWidget\\": ""
         }
     }
 }

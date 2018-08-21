@@ -1,0 +1,27 @@
+<?php
+    $categories = $this->getCategoryCollection();
+    $categoryHelper = $this->getCategoryHelper();
+?>
+  <div class="content">
+      <div class="gateway-fashionBeauty-section container">
+          <!--Mens-Grooming-items-->
+              <div class="category-widget">
+                <h2><?php echo $this->getMainTitle(); ?></h2>
+                   <div class="category-items">
+                   <?php foreach($categories as $category):
+                       $cat = $this->getCategorymodel($category->getId());
+                       $image = $cat->getImageUrl();
+                    ?>
+                      <?php if($image != null): ?>
+                        <div class="single-item">
+                        <a href="<?php echo $cat->getUrl(); ?>">
+                        <img src="<?php echo $image; ?>" alt="<?php echo $cat->getName(); ?>" />
+                       <h3><?php echo $cat->getName(); ?> </h3>
+                      </div>
+                    <?php endif; ?>
+
+               <?php endforeach; ?>
+             </div>
+         </div>
+    </div>
+</div>

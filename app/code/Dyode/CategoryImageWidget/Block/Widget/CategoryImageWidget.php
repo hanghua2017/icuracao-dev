@@ -1,7 +1,7 @@
 <?php
-namespace Customcategory\CatewithimgWidget\Block\Widget;
+namespace Dyode\CategoryImageWidget\Block\Widget;
 
-class CatewithimgWidget extends \Magento\Framework\View\Element\Template implements \Magento\Widget\Block\BlockInterface
+class CategoryImageWidget extends \Magento\Framework\View\Element\Template implements \Magento\Widget\Block\BlockInterface
 {
 	protected $_template = 'widget/categorywidget.phtml';
 

@@ -1,5 +1,5 @@
 <?php
-namespace Customcategory\CatewithimgWidget\Model\Config\Source;
+namespace Dyode\CategoryImageWidget\Model\Config\Source;
 
 use Magento\Framework\Option\ArrayInterface;
 use Magento\Catalog\Helper\Category;
