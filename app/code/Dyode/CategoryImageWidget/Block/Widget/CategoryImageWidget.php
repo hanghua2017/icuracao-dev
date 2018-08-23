@@ -77,6 +77,7 @@ class CategoryImageWidget extends \Magento\Framework\View\Element\Template imple
 		/**
 		* function name : getClassName
      * Retrieve classname
+		 *
     */
 		public function getClassName()
 	  {

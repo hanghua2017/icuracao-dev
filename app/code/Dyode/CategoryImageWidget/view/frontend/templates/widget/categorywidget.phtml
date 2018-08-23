@@ -1,13 +1,14 @@
 <?php
     $categories = $this->getCategoryCollection();
     $categoryHelper = $this->getCategoryHelper();
-
-?>
+    // classname
+    $classname=$this->getClassName();
+    ?>
   <div class="content">
       <div class="gateway-fashionBeauty-section container">
             <div class="category-widget">
-              <!-- widget title -->
-              <h2><?php echo $this->getClassName(); ?></h2>
+                <!-- widget title -->
+
                 <h2><?php echo $this->getMainTitle(); ?></h2>
                   <!-- slider added -->
                    <div class="owl-carousel category-items category-items-carousel">
