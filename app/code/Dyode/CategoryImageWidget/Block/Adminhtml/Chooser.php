@@ -1,6 +1,6 @@
 <?php
 namespace Dyode\CategoryImageWidget\Block\Adminhtml;
-
+//category chooser
 class Chooser extends \Magento\Backend\Block\Template {
 
     protected $_elementFactory;

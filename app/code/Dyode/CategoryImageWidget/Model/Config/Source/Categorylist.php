@@ -1,18 +1,21 @@
 <?php
 namespace Dyode\CategoryImageWidget\Model\Config\Source;
-
+/**
+ * @category Dyode
+ * @package  Dyode_CategoryImageWidget
+ * @module   CategoryImageWidget
+ * @author  Nismath V I
+ */
 use Magento\Framework\Option\ArrayInterface;
 use Magento\Catalog\Helper\Category;
 
 class Categorylist implements ArrayInterface
 {
-    protected $_categoryHelper;
-
-    public function __construct(\Magento\Catalog\Helper\Category $catalogCategory)
-    {
-        $this->_categoryHelper = $catalogCategory;
-    }
-
+  protected $_categoryHelper;
+  public function __construct(\Magento\Catalog\Helper\Category $catalogCategory)
+  {
+    $this->_categoryHelper = $catalogCategory;
+  }
     /*
      * Return categories helper
      */
@@ -23,6 +26,7 @@ class Categorylist implements ArrayInterface
     }
 
     /*
+    * function name : toOptionArray
      * Option getter
      * @return array
      */
@@ -46,6 +50,7 @@ class Categorylist implements ArrayInterface
     }
 
     /*
+    * function name : toArray
      * Get options in "key-value" format
      * @return array
      */

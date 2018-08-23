@@ -50,6 +50,7 @@ class CategoryImageWidget extends \Magento\Framework\View\Element\Template imple
             return $_category;
     }
     /**
+		* function name : getCategoryCollection
      * Retrieve current store categories
      *
      * @param bool|string $sorted
@@ -59,7 +60,7 @@ class CategoryImageWidget extends \Magento\Framework\View\Element\Template imple
      */
 
     /**
-     * Retrieve collection of selected categories
+	     * Retrieve collection of selected categories
     */
    public function getCategoryCollection()
     {
@@ -74,6 +75,10 @@ class CategoryImageWidget extends \Magento\Framework\View\Element\Template imple
         return $collection;
     }
 
+		/**
+		* function name : getMainTitle
+     * Retrieve blocktitle
+    */
     public function getMainTitle()
     {
         $mainTitle = $this->getData('blocktitle');
