@@ -15,7 +15,7 @@ class CategoryImageWidget extends \Magento\Framework\View\Element\Template imple
      protected $_categoryFactory;
 
      protected $mainTitle;
-     protected $tagLine;
+     protected $className;
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -74,7 +74,15 @@ class CategoryImageWidget extends \Magento\Framework\View\Element\Template imple
                       ->addIdFilter($rootCat);
         return $collection;
     }
-
+		/**
+		* function name : getClassName
+     * Retrieve classname
+    */
+		public function getClassName()
+	  {
+	      $className = $this->getData('classname');
+	       return $className;
+	  }
 		/**
 		* function name : getMainTitle
      * Retrieve blocktitle

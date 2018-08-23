@@ -1,14 +1,16 @@
 <?php
     $categories = $this->getCategoryCollection();
     $categoryHelper = $this->getCategoryHelper();
+
 ?>
   <div class="content">
       <div class="gateway-fashionBeauty-section container">
             <div class="category-widget">
               <!-- widget title -->
+              <h2><?php echo $this->getClassName(); ?></h2>
                 <h2><?php echo $this->getMainTitle(); ?></h2>
-                <!-- slider added -->
-                   <div class="owl-carousel category-items">
+                  <!-- slider added -->
+                   <div class="owl-carousel category-items category-items-carousel">
                      <!-- items -->
                    <?php foreach($categories as $category):
                        $cat = $this->getCategorymodel($category->getId());
@@ -20,7 +22,7 @@
                           <!-- displaying category image -->
                         <img src="<?php echo $image; ?>" alt="<?php echo $cat->getName(); ?>" />
                         <!-- displaying category name -->
-                       <h3><?php echo $cat->getName(); ?> </h3>
+                       <h3><?php echo $cat->getName(); ?> </h3></a>
                       </div>
                     <?php endif; ?>
                <?php endforeach; ?>
@@ -29,30 +31,30 @@
     </div>
 </div>
 <script type="text/x-magento-init">
-{
-".category-items": {
-"OwlCarousel": {
-"items": 5,
-"dots":false,
-"loop": true,
-"nav":true,
-"margin": 0,
-"navText": ["<div class='custom-prev'><div class='left'></div></div>", "<div class='custom-next'><div class='right'></div></div>"],
-"responsive": {
-"0": {
-"items": 1
-},
-"400": {
-"items": 2
-},
-"768": {
-"items": 3
-},
-"1045": {
-"items": 5
-}
-}
-}
-}
-}
+    {
+    ".category-items-carousel": {
+        "OwlCarousel": {
+          "items": 5,
+          "dots":false,
+          "loop": true,
+          "nav":true,
+          "margin": 0,
+          "navText": ["<div class='custom-prev'><div class='left'></div></div>", "<div class='custom-next'><div class='right'></div></div>"],
+          "responsive": {
+            "0": {
+              "items": 1
+            },
+            "400": {
+              "items": 2
+            },
+            "768": {
+              "items": 3
+            },
+            "1045": {
+              "items": 5
+            }
+          }
+        }
+      }
+    }
 </script>
