@@ -9,7 +9,7 @@
                 <label translate="true">Block Title</label>
             </parameter>
             <!-- class name to distiguish widget -->
-            <parameter name="classname" xsi:type="text"  visible="true" required="true" sort_order="2">
+            <parameter name="classname" xsi:type="select"  source_model="Dyode/CategoryImageWidget/Model/Config/Source/classname" visible="true" required="true" sort_order="2">
                 <label translate="true">class</label>
             </parameter>
             <parameter name="parentcat" xsi:type="block" visible="true" required="true" sort_order="10">
