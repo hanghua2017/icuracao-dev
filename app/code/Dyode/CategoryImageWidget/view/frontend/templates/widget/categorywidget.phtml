@@ -31,7 +31,7 @@
 
 <script type="text/x-magento-init">
     {
-    ".category-items-carousel": {
+    ".category-widget .category-items-carousel": {
         "OwlCarousel": {
           "items": 5,
           "dots":false,
@@ -51,6 +51,34 @@
             },
             "1045": {
               "items": 5
+            }
+          }
+        }
+      }
+    }
+</script>
+<script type="text/x-magento-init">
+    {
+    ".brand-widget .category-items-carousel": {
+        "OwlCarousel": {
+          "items": 6,
+          "dots":false,
+          "loop": true,
+          "nav":true,
+          "margin": 0,
+          "navText": ["<div class='custom-prev'><div class='left'></div></div>", "<div class='custom-next'><div class='right'></div></div>"],
+          "responsive": {
+            "0": {
+              "items": 1
+            },
+            "400": {
+              "items": 2
+            },
+            "768": {
+              "items": 3
+            },
+            "1045": {
+              "items": 6
             }
           }
         }
