@@ -8,7 +8,7 @@
             <parameter name="blocktitle" xsi:type="text"  visible="true" required="true" sort_order="1">
                 <label translate="true">Block Title</label>
             </parameter>
-            //class name to distiguish widget
+            <!-- class name to distiguish widget -->
             <parameter name="classname" xsi:type="text"  visible="true" required="true" sort_order="2">
                 <label translate="true">class</label>
             </parameter>
