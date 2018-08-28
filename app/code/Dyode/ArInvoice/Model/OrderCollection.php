@@ -14,22 +14,27 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
      * @var \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory
      **/
     protected $_orderCollectionFactory;
+
     /**
      * @var \Magento\Sales\Model\OrderRepository $orderRepository
      **/
     protected $_orderRepository;
+
     /**
      * @var \Magento\Framework\View\Result\PageFactory $pageFactory
      **/
     protected $_pageFactory;
+
     /**
      * @var \Magento\Sales\Model\ResourceModel\Order\Status\CollectionFactory $statusCollectionFactory
      */
     protected $_statusCollectionFactory;
+    
     /**
      * @var \Dyode\ArInvoice\Helper\Data $arInvoiceHelper
      **/
     protected $_arInvoiceHelper;
+
     /**
      * Construct
      *
@@ -59,7 +64,7 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
 	}
 
     /**
-     * Get Sales Order Collection for AR Invoice
+     * Create AR Invoice by Order Id
      */
     public function createInvoice($orderId)
     {
@@ -294,13 +299,15 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         }
         return;
     }
+
     /**
-     * Get Sales Order Collection for AR Invoice
+     * Get Order Info by Order Id
      */
     public function getOrderInfo($orderId)
     {
         return $this->_orderRepository->get($orderId);
     }
+
     /**
      * Get Sales Order Collection for AR Invoice
      */
@@ -310,6 +317,7 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         $orderCollection = $objectManager->create('\Magento\Sales\Model\ResourceModel\Order\Collection');
         return $orderCollection->load();
     }
+
     /**
      * Get status options
      *
@@ -319,5 +327,32 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
     {       
         $options = $this->_statusCollectionFactory->create()->toOptionArray();        
         return $options;
+    }
+
+    /**
+     * Prepare Order Items for AR Invoice
+     * 
+     * @return array
+     */
+    public function prepareOrderItems($orderId)
+    {
+        /**
+         * Initialize Order Items Location Array 
+         */
+        $orderItemsLocation = array();
+        /**
+         * Get Order Info by Order Id
+         */
+        $order = $this->getOrderInfo($orderId);
+        $orderItems = $order->getAllItems();
+        foreach ($orderItems as $orderItem) {
+            # code...
+            // print_r($orderItem->getData());
+            // die();
+            // $this->_arInvoiceHelper->assignInventoryLocation($orderItem);
+            $orderItemsLocation[$orderItem->getItemId()] = $this->_arInvoiceHelper->assignInventoryLocation($orderItem);
+        }
+        print_r($orderItemsLocation);
+        return $orderItemsLocation;
     }
 }
