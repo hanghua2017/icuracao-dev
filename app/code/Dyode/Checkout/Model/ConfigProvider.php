@@ -1,4 +1,9 @@
 <?php
+/**
+ * @package   Dyode
+ * @author    kavitha@dyode.com
+ * Date       02/08/2018
+ */
 namespace Dyode\Checkout\Model;
 
 use Magento\Checkout\Model\ConfigProviderInterface;
@@ -15,6 +20,7 @@ class ConfigProvider implements ConfigProviderInterface
    protected $_curacaoId;
    protected $_cart;
    protected $_priceHelper;
+   protected $_canApply;
 
    public function __construct(\Magento\Framework\Pricing\Helper\Data $priceHelper,\Magento\Customer\Model\Session $customerSession,\Magento\Checkout\Model\Cart $cart, \Dyode\ARWebservice\Helper\Data $helper,\Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface, LayoutInterface $layout, $blockId)
    {
@@ -36,6 +42,7 @@ class ConfigProvider implements ConfigProviderInterface
    public function getConfig()
    {
       $configArr ['cms_block'] = $this->_cmsBlock;
+      $configArr['canapply'] = $this->_canApply;
       $configArr['limit'] = $this->getLimit();
       $configArr['total']= $this->getDownPayment();
       return $configArr;
@@ -52,7 +59,8 @@ class ConfigProvider implements ConfigProviderInterface
       $this->_curacaoId = $curaAccId;
     //  $result = $this->_helper->getCreditLimit($curaAccId);
     //  $limit = (float)$result->CREDITLIMIT;
-    $limit = 500.00;
+      $limit = 500.00;
+      $this->_canApply = 1;
       $formattedCurrencyValue = $this->_priceHelper->currency($limit, true, false);
       return $formattedCurrencyValue;
    }
@@ -64,6 +72,7 @@ class ConfigProvider implements ConfigProviderInterface
       $params = array('cust_id'=>$curaAccId,'amount'=>$subTotal);
     //  $result = $this->_helper->verifyPersonalInfm($params);
       $result = 10.00;
+      $this->_customerSession->setDownPayment($result);
       $formattedCurrencyValue = $this->_priceHelper->currency($result, true, false);
       return $formattedCurrencyValue;
    }
