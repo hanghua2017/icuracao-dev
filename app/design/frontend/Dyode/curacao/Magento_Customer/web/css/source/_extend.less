@@ -13,7 +13,7 @@ body{
 }
 
 //ICuracao-Account variables
-@active-blue-color:rgba(27, 102, 178, 255);
+@active-blue-color:#006bb4;
 @hover-green-color:#97d700;
 @background-white:#fcfcfc;
 @border-color:#f2f2f2;
@@ -40,6 +40,11 @@ body{
         margin-bottom: 15px;
       }
   }
+  .column{
+    .main {
+      margin-bottom: 0px;
+    }
+  }
 	.page-wrapper{
 		.page-main{
       padding-left: 0;
@@ -48,13 +53,14 @@ body{
 				max-width:1500px;
 			}
 			//ICuracao-Account sidebar navigation tab styles
-			.sidebar-main{
+      .sidebar-main{
 				.block-collapsible-nav{
-					border: 1px solid @border-color;
+					border: none;
           @media only screen and (min-width: 768px){
             -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
   					-moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
   					box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+            border: 1px solid @border-color;
     			}
 					@media only screen and (min-width: 768px){
 						border: 15px solid @white;
@@ -113,6 +119,9 @@ body{
       .block-wishlist-management .wishlist-select .wishlist-name:after,
       .block-collapsible-nav .title:after {
         color: @active-blue-color !important;
+        @media only screen and (max-width: 767px){
+          margin: 10px 0 0 0;
+        }
       }
       .abs-visually-hidden-desktop, .modes-label,
       .block-search .label,
@@ -129,9 +138,9 @@ body{
       .block-collapsible-nav {
         background-color: @white;
         strong{
-          color: @active-blue-color !important;
-          @media only screen and (min-width: 768px){
-           color: @head-color !important;
+          color:  @head-color !important;
+          @media only screen and (max-width: 767px){
+           font-size: 22px;
          }
         }
         .content{
@@ -149,7 +158,7 @@ body{
 			.columns{
 				.column{
 					background-color: @white;
-	        border: 4px solid @white;
+	        border: none;
 					color: @item-color;
           font-size: 14px !important;
 	        -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
@@ -158,11 +167,14 @@ body{
           @media only screen and (min-width: 768px){
             font-size: 14px !important;
           }
+          @media only screen and (max-width: 767px){
+            padding-bottom: 0;
+          }
 					span{
-						font-size: 12px !important;
+						font-size: 12px;
 						font-weight:600;
 						@media only screen and (min-width: 768px){
-							font-size: 14px !important;
+							font-size: 14px;
 						}
 					}
 					strong{
@@ -181,13 +193,21 @@ body{
             }
 					.page-title-wrapper{
 						border-bottom: 1px solid @border-color;
-						padding: 10px;
+						padding: 13px 10px;
 						@media only screen and (min-width: 768px){
 							padding: 30px 20px;
+
 						}
+            @media only screen and (max-width: 767px){
+              border-left: 4px solid #97d700;
+            }
 						.page-title{
 							color:@head-color;
 							.base{
+                @media only screen and (max-width: 767px){
+                  font-size: 20px !important;
+                  color: @active-blue-color;
+                }
 								font-size: 35px !important;
 								font-weight: 400 !important;
 								text-transform: capitalize !important;
@@ -207,9 +227,12 @@ body{
 					}
 					.dashboard_msg{
 	          h3{
+              color: @head-color !important;
+              font-size: 1.8rem;
 	            padding-bottom: 5px;
 	            @media only screen and (min-width: 768px){
 	              padding-bottom: 10px;
+                font-size: 18px !important;
 	            }
 	          }
 	        }
@@ -225,7 +248,7 @@ body{
 						padding:10px 0;
 						border-bottom: 1px solid @border-color;
 						strong{
-							font-size: 18px !important;
+							font-size: 20px !important;
 						}
             a{
               span{
@@ -265,11 +288,15 @@ body{
 						}
 					}
 					.block-dashboard-orders{
-						margin-bottom: 20px;
+
+            @media only screen and (min-width: 991px){
+                margin-bottom: 20px;
+              }
 						.order{
 						@media only screen and (min-width: 640px){
 								border:none;
 							}
+
 							.view{
 								span{
 									text-transform: uppercase;
@@ -281,11 +308,20 @@ body{
 							}
 							.table-wrapper{
 								margin:0;
+                border-bottom: none !important;
 								@media all and (min-width:768px) and (max-width:900px){
 									overflow-x: scroll;
 								}
 							}
 						}
+            .table-wrapper .table > thead > tr > th{
+              font-weight: 400;
+            }
+            .table-wrapper table > tbody > tr > td {
+              @media only screen and (min-width: 768px){
+                font-weight: 600 !important;
+              }
+            }
 						.actions-toolbar{
 							padding: 10px;
 							@media only screen and (min-width: 768px){
@@ -381,7 +417,6 @@ body{
 //ICuracao-My orders tab With LESS styles
 
 .table-wrapper{
-  margin: 10px 0;
   border-bottom: 1px solid @border-color !important;
   border-top: none;
   &.orders-history{
@@ -395,7 +430,8 @@ body{
   .table{
     border-color: @white;
     @media only screen and (max-width: 767px){
-      margin: 0 10px;
+      margin: 0;
+      padding: 0 8px;
     }
     .actions{
       text-transform: uppercase;
@@ -438,9 +474,9 @@ body{
   border-left: none;
 }
 .order-products-toolbar {
-  margin: 10px 0;
+  padding: 10px 0;
   @media only screen and (min-width: 768px){
-    margin: 20px;
+    padding: 20px;
   }
 }
 .toolbar{
@@ -449,9 +485,249 @@ body{
       border-radius: 0;
   }
 }
-.account .page-main,
-.cms-privacy-policy .page-main {
+.account .page-main, .cms-privacy-policy .page-main {
   @media only screen and (max-width: 767px){
     padding-top: 14px;
+  }
+}
+.sales-order-history{
+  .table-wrapper{
+    border-bottom: none !important;
+  }
+  .order-products-toolbar{
+    margin: 15px;
+    padding-bottom: 20px;
+    .limiter{
+      select {
+        background-color: #fff;
+      }
+      .limiter-text{
+        display: none;
+      }
+    }
+    @media only screen and (max-width: 767px){
+      display: none;
+    }
+    @media only screen and (min-width: 991px){
+      border-bottom: 1px solid @border-color !important;
+    }
+  }
+  .actions-toolbar{
+    text-align: right;
+    @media only screen and (max-width: 767px){
+      display: none;
+    }
+    .secondary{
+      .back{
+        display: block;
+        color: #6e6e6e;
+        &:before {
+            font-size: 20px;
+            line-height: 22px;
+            color: inherit;
+            content: '\003C';
+            margin-right: 5px;
+            vertical-align: middle;
+            display: inline-block;
+            font-weight: normal;
+            overflow: hidden;
+            speak: none;
+            text-align: center;
+        }
+      }
+    }
+  }
+  .sidebar{
+    .block-reorder{
+      .block-content{
+        .actions-toolbar{
+          padding: 0 !important;
+          margin:17px 0 !important;
+        }
+      }
+    }
+  }
+}
+
+.customer-address-index{
+  .block{
+    @media only screen and (min-width: 768px){
+    margin-bottom: 0px;
+    }
+  }
+  .primary {
+    background-image: none !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    button {
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        span{
+          font-size: 14px !important;
+          font-weight: 600 !important;
+          color: #006bb4 !important;
+        }
+    }
+  }
+}
+
+.sales-order-view{
+  .page-main{
+    .page-title-wrapper{
+      .page-title{
+        margin-left:-2px;
+        margin-right: 0;
+        float: left;
+      }
+      .order-status{
+        border: none;
+        text-transform: capitalize;
+        color: #cccccc;
+        font-style: italic;
+        padding-left: 0;
+        @media only screen and (min-width: 991px){
+          font-size: 20px !important;
+          float: left;
+        }
+        @media all and (max-width:767px){
+          margin:10px 0;
+        }
+      }
+      .order-date{
+
+        @media only screen and (min-width: 991px){
+              display: none;
+        }
+      }
+      .actions-toolbar{
+        padding-right: 0 !important;
+
+        @media all and (max-width:767px){
+        padding: 0px !important;
+        }
+      }
+      .order-actions-toolbar{
+        @media all and (max-width:767px){
+          margin-bottom:0;
+        }
+        @media only screen and (min-width: 991px){
+            float: right;
+        }
+        .actions{
+          @media only screen and (min-width: 991px){
+            display: inline-block;
+          }
+          .action{
+            margin-right: 0;
+
+            @media only screen and (min-width: 991px){
+                  padding: 0 10px;
+            }
+          }
+          .order{
+            @media only screen and (min-width: 991px){
+                border-right: 2px solid #ccc;
+            }
+
+          }
+        }
+      }
+    }
+    .block-order-details-view{
+      margin-bottom:25px;
+      padding:10px 20px;
+      @media all and (max-width:767px){
+        padding:10px;
+      }
+      .block-title{
+        padding-top:0;
+        padding-bottom:10px;
+      }
+      .block-content{
+        @media all and (max-width:767px){
+          padding:10px !important;
+        }
+      }
+    }
+  }
+  .box{
+      .box-title{
+        @media only screen and (min-width: 768px){
+          float: left;
+          padding-right: 10px;
+        }
+      }
+      .box-content{
+        @media only screen and (min-width: 768px){
+          float: left;
+        }
+      }
+    }
+  .order-details-items {
+    border: none;
+    @media only screen and (min-width: 768px){
+      margin-bottom: 10px;
+    }
+    .order-title {
+      @media only screen and (max-width: 767px){
+        padding: 10px 0;
+      }
+
+    }
+  }
+  .order-links{
+      @media only screen and (min-width: 768px){
+        padding: 15px 15px 15px 0;
+      }
+      .item strong {
+        border: none;
+        @media only screen and (max-width: 768px){
+          display: none;
+        }
+      }
+    }
+    .table-wrapper .table > thead > tr > th, .table-wrapper table > tbody > tr > th {
+        @media only screen and (min-width: 991px){
+            text-transform: capitalize;
+            border-bottom: none !important;
+            font-weight: 500;
+        }
+    }
+    .table-wrapper table > tbody > tr > td, .table-wrapper .table > thead > tr > th, .table-wrapper table > tbody > tr > th {
+        @media only screen and (min-width: 991px){
+            padding: 11px 10px;
+        }
+    }
+    .order-details-items .col.name {
+      padding-left: 11px;
+    }
+    .table > tbody + tbody {
+      @media only screen and (min-width: 991px){
+        border-top: none;
+      }
+    }
+    .order-items{
+      .table{
+        tfoot, .amount {
+
+          @media only screen and (min-width: 991px){
+              background: transparent;
+          }
+        }
+        .amount {
+
+          @media only screen and (min-width: 991px){
+              border-left: 1px solid #ccc !important;
+          }
+        }
+      }
+    }
+}
+//Mobile tablet View
+.account .column.main .block:not(.widget) .order > .view {
+  @media only screen and (max-width: 767px){
+    float: none;
   }
 }

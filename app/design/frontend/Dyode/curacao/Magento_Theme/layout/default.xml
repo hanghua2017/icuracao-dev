@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
-      <link src="Magento_Customer::customer-data.js"/>
+      <!-- <link src="Magento_Customer::customer-data.js"/>
       <link src="Magento_Customer::view/customer.js"/>
-      <link src="Magento_Customer::view/authentication-popup.js"/>
+      <link src="Magento_Customer::view/authentication-popup.js"/> -->
     </head>
     <body>
       <!-- Top panel wrapper with sign in and create an account if want to remove -->
