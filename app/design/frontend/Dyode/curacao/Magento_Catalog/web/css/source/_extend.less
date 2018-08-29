@@ -62,7 +62,7 @@
                 top: 9px;
                 padding: 0 10px;
                 margin: 7px 0;
-                margin-right: 10px;
+                margin-right: 15px;
                 font-size: 14px;
                 color: #888888;
                 border-right: 1px solid #888;
@@ -288,8 +288,9 @@
                 display: inline-block ;
               }
               float: right  !important;
-              margin-right: 0  !important;
+              margin-right: 10px  !important;
               margin-left:15px  !important;
+              height:40px;
               .modes-label {
                 display: none !important;
               }
@@ -323,10 +324,11 @@
                     overflow: hidden !important;
                     speak: none !important;
                     text-align: center !important;
-                    padding: 7px 10px !important;
+                    padding:7px 10px !important;
                   }
                 }
                 &.active{
+                  padding: 0px !important;
                   &:before{
                     content:'' !important;
                     padding:0 !important;
@@ -503,7 +505,34 @@
                 }
               }
               ~ .toolbar{
-                display: none !important;
+                width:100%;
+                margin:0;
+                .pages{
+                  float: none;
+                  padding: 0 10px;
+                  margin: 20px 0;
+                  .items{
+                    .item{
+                      text-transform: uppercase;
+                      a{
+                        color:#333;
+                        &.link{
+                          color: #006bb4;
+                          text-decoration: none !important;
+                        }
+                      }
+                    }
+                    strong.page{
+                      border-radius: 100%;
+                      width: 20px;
+                      color:white;
+                      background:#81b800;
+                    }
+                  }
+                }
+                .filter-products,.limiter,.modes{
+                  display: none !important;
+                }
               }
             }
             &.products-grid{
@@ -606,7 +635,8 @@
                         position:relative;
                         @media all and (max-width:767px){
                           display: block !important;
-                          width: calc(100% - 125px) !important;
+                          padding-left: 20px;
+                          width:57%;
                         }
                       .product-item-name{
                         width:70%;
