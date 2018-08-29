@@ -37,16 +37,19 @@ $filterModel = $this->helper('\Mageplaza\LayeredNavigation\Helper\Data')->getFil
                 </div>
             <?php else: ?>
                 <a href="<?php echo $block->escapeUrl($filterModel->getItemUrl($filterItem)) ?>">
+                  <div class="input-container">
                     <?php if ($filterItem->getCount() > 0): ?>
                         <input type="<?php echo $filterModel->isMultiple($filter) ? 'checkbox' : 'radio' ?>" <?php echo $filterModel->isSelected($filterItem) ? 'checked="checked"' : ''  ?> />
                     <?php else: ?>
                         <input type="<?php echo $filterModel->isMultiple($filter) ? 'checkbox' : 'radio' ?>" disabled="disabled" />
                     <?php endif; ?>
-
-                    <?php echo $filterItem->getLabel() ?>
-                    <?php if ($filterModel->isShowCounter($filter)): ?>
-                        <span class="count"><?php echo $filterItem->getCount()?><span class="filter-count-label"><?php echo ($filterItem->getCount() == 1) ? 'item' : 'items'; ?></span></span>
-                    <?php endif; ?>
+                    <label>
+                      <?php echo $filterItem->getLabel() ?>
+                      <?php if ($filterModel->isShowCounter($filter)): ?>
+                          <span class="count"><?php echo $filterItem->getCount()?><span class="filter-count-label"><?php echo ($filterItem->getCount() == 1) ? 'item' : 'items'; ?></span></span>
+                      <?php endif; ?>
+                    </label>
+                  </div>
                 </a>
             <?php endif; ?>
         </li>
