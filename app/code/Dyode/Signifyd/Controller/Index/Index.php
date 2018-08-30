@@ -2,30 +2,31 @@
 
 namespace Dyode\Signifyd\Controller\Index;
 
-
+/**
+ * Class  Index
+ * @category Dyode
+ * @package  Dyode_Signifyd
+ * @author   Nithin
+ */
 class Index extends \Magento\Framework\App\Action\Action
 {
     public function __construct(
-		\Magento\Framework\App\Action\Context $context,
-		\Magento\Framework\View\Result\PageFactory $pageFactory,
-		\Magento\Sales\Api\Data\OrderInterface $orderInterface,
-		\Magento\Signifyd\Api\CaseManagementInterface $caseManagement,
-		\Dyode\Signifyd\Helper\Data $helper)
-	{
-		$this->helper = $helper;
-		$this->_pageFactory = $pageFactory;
-		$this->orderInterface = $orderInterface;
-		$this->caseManagement = $caseManagement;
-		return parent::__construct($context);
-	}
+        \Magento\Framework\App\Action\Context $context,
+        \Magento\Framework\View\Result\PageFactory $pageFactory,
+        \Dyode\Signifyd\Model\Signifyd $signifydModel
+    ) {
+        $this->_pageFactory = $pageFactory;
+        $this->signifydModel = $signifydModel;
+        return parent::__construct($context);
+    }
 
-	public function execute()
+    /**
+     * function name : execute
+     * description : used for testing purpose
+     */
+    public function execute()
     {
-    	$order = $this->orderInterface->loadByIncrementId('000000008'); 
-    	$orderIncrementId = $order->getEntityId();
-
-    	$gurantee = $this->caseManagement->getByOrderId($orderIncrementId)->getGuaranteeDisposition();
-    	var_dump($gurantee);
-    	echo "custom module";
+        //uncomment the bellow code for testing this module using controller URL
+        //$this->signifydModel->processSignifyd('000000008');
     }
 }
