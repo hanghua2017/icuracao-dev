@@ -12,6 +12,7 @@
         <referenceContainer name="content">
           <container name="product.info-block" htmlTag="div" htmlClass="product-info-block" before="-">
             <container name="product.info.main" htmlTag="div" htmlClass="product-info-main" before="-">
+                <block class="Magento\Framework\View\Element\Template" name="price-beat" template="Magento_Catalog::product/view/price-beat.phtml" before="product.info.price" />
                 <container name="product.info.price" label="Product info auxiliary container" htmlTag="div" htmlClass="product-info-price">
                     <container name="product.info.stock.sku" label="Product auxiliary info" htmlTag="div" htmlClass="product-info-stock-sku">
                         <container name="product.info.type" before="-"/>
@@ -112,6 +113,7 @@
                 </block>
             </container>
             <block class="Magento\Framework\View\Element\Template" name="freq-bought" template="Magento_Catalog::product/view/frequently-bought.phtml" />
+
           </container>
           <referenceBlock name="product.info.sku" remove="true" />
 
