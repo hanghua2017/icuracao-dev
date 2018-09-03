@@ -2,6 +2,6 @@
 
 \Magento\Framework\Component\ComponentRegistrar::register(
     \Magento\Framework\Component\ComponentRegistrar::MODULE,
-    'Dyode_InventoryBundle',
+    'Dyode_SetInventory',
     __DIR__
 );

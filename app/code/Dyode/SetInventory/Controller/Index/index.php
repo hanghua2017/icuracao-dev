@@ -1,5 +1,5 @@
 <?php
-namespace Dyode\InventoryBundle\Controller\Index;
+namespace Dyode\SetInventory\Controller\Index;
 
 class Index extends \Magento\Framework\App\Action\Action
 {
@@ -8,7 +8,7 @@ class Index extends \Magento\Framework\App\Action\Action
 	public function __construct(
 		\Magento\Framework\App\Action\Context $context,
 		\Magento\Framework\View\Result\PageFactory $pageFactory,
-		\Dyode\InventoryBundle\Model\Update $update)
+		\Dyode\SetInventory\Model\Update $update)
 	{
 		$this->update = $update;
 		$this->_pageFactory = $pageFactory;
