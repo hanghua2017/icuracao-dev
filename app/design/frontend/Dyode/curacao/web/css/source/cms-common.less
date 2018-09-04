@@ -1,0 +1,78 @@
+@import "order&returns.less";
+@import "accordion.less";
+@import "privacy-policy.less";
+@import "order-tracking.less";
+@import "return-policy.less";
+@import "instore.less";
+@import "faq.less";
+@import "contact.less";
+@import "beat.less";
+@import "var.less";
+body{
+  margin: 0;
+}
+input,select,button{outline: none;}
+
+  .cms-container{
+    font-family: 'Roboto', sans-serif !important;
+    background: url("../images/Order&returns-BG.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    .inner-container{
+      .cms-content{
+        .cms-heading{
+          font-size: 28px;
+          color: @black;
+          text-transform: capitalize;
+          font-weight: lighter;
+          @media all and(max-width: 768px){
+            font-size: 24px;
+          }
+        }
+        button{
+          background-color: @curacao-green;
+          border-radius: 4px;
+          color: white;
+          border: none;
+          box-shadow: none;
+        }
+        input,textarea{
+          border:none;
+          width: 100%;
+          outline: none;
+          &::placeholder{
+            font-size:15px;
+            @media all and (max-width: 425px){
+              font-size: 13px;
+            }
+          }
+        }
+      }
+    }
+    .inner-cms-container{
+      .cms-content{
+        max-width: 1090px;
+        margin: 0 auto;
+        padding: 30px 0;
+        @media all and(max-width: 1250px){
+          max-width: 860px;
+        }
+        @media all and (max-width: 991px){
+          max-width: 655px;
+        }
+        @media all and(max-width: 768px) {
+          max-width: 768px;
+          margin: 0 15px
+        }
+        @media all and(max-width: 425px) {
+          padding: 35px 0;
+        }
+        .cms-heading{
+          text-align: left;
+          margin: 0;
+          padding-bottom: 30px;
+          font-weight: lighter;
+        }
+      }
+    }
+  }

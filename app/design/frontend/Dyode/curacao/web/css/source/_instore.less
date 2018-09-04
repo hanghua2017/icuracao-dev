@@ -1,0 +1,76 @@
+@import "var";
+//STYLES FOR IN-STORE PICK-UP PAGE
+.cms-container{
+  .inner-cms-banner{
+    position: relative;
+    max-width: 1150px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    @media all and(max-width: 1250px){
+        max-width: 930px;
+    }
+    @media all and (max-width: 991px){
+      max-width: 700px;
+    }
+    @media all and(max-width: 768px) {
+      max-width: 768px;
+      margin: 25px 15px 0 15px;
+    }
+    img{
+      width: 100%;
+    }
+    .large {
+        display: block;
+        @media all and(max-width: 768px) {
+            display: none;
+        }
+    }
+    .small {
+        display: none;
+        @media all and(max-width: 768px) {
+            display: block;
+        }
+    }
+    .banner-text{
+      position: absolute;
+      background-color: $white;
+      border-radius: 0px 10px 10px 0px;
+      top: 37px;
+      left: 0px;
+      font-size: 29px;
+      text-transform: uppercase;
+      padding: 20px 34px 20px 60px;
+      color: #81b800;
+      @media all and(max-width: 768px){
+      padding: 15px 65px 15px 15px;
+      }
+      @media all and(max-width: 575px){
+      font-size: 22px;
+      padding: 15px 40px 15px 15px;
+      }
+      @media all and(max-width: 425px){
+        font-size: 16px;
+        padding: 10px 17px 10px 10px;
+      }
+      p{
+        margin: 0;
+        font-weight: bold;
+      }
+      p:nth-child(2){
+            font-weight: lighter;
+      }
+    }
+  }
+.inner-cms-container{
+  .cms-content{
+    .cms-heading{
+      span{
+        color: @span-color;
+      }
+      @media all and(max-width: 425px){
+        font-size: 22px;
+        }
+      }
+    }
+  }
+}

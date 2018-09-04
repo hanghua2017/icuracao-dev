@@ -1,0 +1,94 @@
+@import "var";
+//STYLING FOR RETURN POLICY
+.cms-container{
+  .inner-cms-container{
+    .cms-content{
+      .cms-heading{
+        @media all and(max-width: 768px){
+                  padding-bottom: 20px;
+        }
+      }
+      .main-content{
+        padding: 0 30px;
+        @media all and(max-width: 768px){
+          padding: 15px 0;
+        }
+        @media all and(max-width: 425px){
+          font-size: 15px;
+        }
+        p{
+          margin: 0 !important;
+          font-weight: lighter !important;
+          @media all and(max-width: 425px){
+                line-height: 1.5;
+          }
+        }
+        p:nth-child(2){
+          padding-top: 13px;
+          @media all and(max-width: 425px){
+            padding-top:0;
+          }
+        }
+        .list{
+              padding: 15px 0;
+          ul{
+            @media all and(max-width: 425px){
+              margin-top: 0;
+            }
+            li{
+              font-weight: lighter;
+              font-size: 15px;
+              line-height: 2;
+            }
+          }
+        }
+      }
+      .accordion-wrapper{
+        .extra{
+          h4{
+            @media all and(max-width: 425px){
+              font-size: 15px;
+            }
+          }
+          @media all and (max-width: 768px){
+            padding: 25px 10px 15px 10px;
+          }
+        }
+        .expand {
+            padding-bottom: 30px;
+            p{
+              font-size: 15px;
+              font-weight: lighter;
+              &:nth-child(3){
+                color:#a6a6a6;
+                font-weight: normal;
+              }
+              @media all and(max-width: 375px){
+                font-size: 13px;
+              }
+            }
+        }
+      }
+      .content-data{
+        padding: 25px 0;
+        .data{
+              padding-bottom: 5px;
+              p{
+                    margin-top: 10px;
+                    margin-top: 10px;
+                    font-size: 15px;
+                    @media all and(max-width: 425px){
+                      font-size: 14px;
+                      line-height: 1.5;
+                    }
+              }
+              p:nth-child(1){
+                color: @curacao-green;
+                margin-bottom: 0;
+                font-size: 16px;
+              }
+          }
+       }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+@import "var";
+//STYLE FOR FAQ PAGE
+.cms-container{
+  .inner-cms-container{
+    .cms-content{
+      .accordion-container{
+        .faq-table{
+          div{
+              padding-top: 45px;
+              @media all and(max-width: 768px){
+                padding-top: $commonPadding;
+              }
+              table{
+                width: 80%;
+                border: 1px solid @accordion-border;
+                border-right:none;
+                @media all and(max-width: 768px){
+                  width: 100%;
+                }
+                tbody{
+                  td{
+                    border-bottom: 1px solid @accordion-border;
+                    border-right: 1px solid @accordion-border;
+                    padding: 6px 10px;
+                    vertical-align: top;
+                    text-align: left;
+                    p{
+                      font-size: 14px;
+                      padding-bottom: 15px;
+                      margin: 0;
+                      color: #676767;
+                      @media all and(max-width: 374px){
+                        font-size: 11px;
+                        padding-bottom: 0;
+                      }
+                    }
+                  }
+                  .table-last{
+                    border-bottom: none;
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+}
