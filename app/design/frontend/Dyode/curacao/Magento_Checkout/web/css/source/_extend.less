@@ -17,9 +17,16 @@
 @table-border: #efefef;
 @del-item: #59d6e1;
 
+input, select {
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
 .checkout-cart-index {
   .page-wrapper {
     .page-main {
+      max-width: 1500px; //Removable max
       .columns {
         .column {
           .cart-container {
@@ -28,11 +35,18 @@
             -moz-box-shadow: 0px 5px 21px 5px rgba(27,32,42,0.1);
             box-shadow: 0px 5px 21px 5px rgba(27,32,42,0.1);
             background-color: #ffffff;
+            @media all and (max-width: 767px) {
+              padding: 15px;
+              box-shadow: none;
+            }
             /* cart table styling */
             .form-cart{
               width: 100%;
               padding: 20px;
               .table-wrapper {
+                @media all and (max-width: 767px) {
+                  border: 1px solid @table-border;
+                }
                 /* Table headings */
                 thead {
                   tr {
@@ -47,17 +61,36 @@
                 tbody {
                   border: 1px solid @table-border;
                   border-right: none;
+                  @media all and (max-width: 767px) {
+                    border: none;
+                  }
                   .item-info {
                     padding-top: 10px;
                     padding-bottom: 10px;
                     td {
-                      padding-left: 0;
-                      padding-right: 0;
+                      @media all and (min-width: 768px) {
+                        width: 15%;
+                        padding-left: 0;
+                        padding-right: 0;
+                      }
+                      @media all and (max-width: 767px) {
+                        &:not(.item) {
+                          position: relative;
+                          left: 160px;
+                          width: auto;
+                        }
+                      }
                       &.subtotal {
                         border-right: 1px solid @table-border;
+                        @media all and (max-width: 767px) {
+                          border: none;
+                        }
                       }
                       &.price, &.qty, &.subtotal {
                         text-align: center;
+                        @media all and (max-width: 767px) {
+                          padding-top: 0;
+                        }
                       }
                       .price-excluding-tax, .field.qty {
                         border-left: 1px solid @table-border;
@@ -65,21 +98,56 @@
                       }
                       .price-excluding-tax {
                         padding: 30px 0;
+                        @media all and (max-width: 767px) {
+                          padding: 30px;
+                        }
+                        @media all and (max-width: 699px) {
+                          padding: 20px;
+                        }
                       }
                       /* Product name */
                       &.item {
+                        width: 100%;
                         position: relative;
+                        @media all and (max-width: 767px) {
+                          padding: 30px 15px 10px 160px;
+                          min-height: 50px;
+                          width: auto;
+                        }
                         .product-item-photo {
+                          @media all and (max-width: 991px) {
+                            padding-right: 0;
+                          }
+                          @media all and (max-width: 767px) {
+                            max-width: initial;
+                            left: 0;
+                          }
                           .product-image-photo {
-                            max-width: 60%;
+                            @media all and (min-width: 768px) {
+                              max-width: 60%;
+                            }
+                            @media all and (max-width: 767px) {
+                              max-width: 125px;
+                            }
+                          }
+                        }
+                        .product-item-details {
+                          .product-item-name {
+                            @media all and (min-width: 768px) {
+                              width: 90%;
+                            }
                           }
                         }
                         /* Remove action button */
                         .product-name-action {
                           position: absolute;
-                          top: 0;
-                          right: 0;
+                          top: 5px;
+                          right: 15px;
+                          @media all and (max-width: 767px) {
+                            top: 0;
+                          }
                           .action-delete {
+                            font-size: 20px;
                             &::before {
                               content: 'x';
                               color: @del-item;
@@ -95,6 +163,10 @@
                         .field.qty {
                           padding-top: 15px;
                           padding-bottom: 0;
+                          @media all and (max-width: 767px) {
+                            padding-left: 15px;
+                            padding-right: 15px;
+                          }
                         }
                         /* Edit action button */
                         .quantity-action {
