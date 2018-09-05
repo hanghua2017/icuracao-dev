@@ -39,7 +39,7 @@
                </block>
            </parameter>
            <!-- mobile image chooser for dropdown value= single-->
-           <parameter name="mobile_image" xsi:type="block" required="true" visible="true" sort_order="11">
+           <parameter name="mobile_image" xsi:type="block" required="false" visible="true" sort_order="11">
              <label translate="true">Mobile Image</label>
               <description>Upload Image for Mobile view</description>
                <!-- added dependen parameter -->
@@ -394,7 +394,7 @@
 </parameter>
 
 <!-- third mobile image chooser for dropdown value=quadruple -->
-<parameter name="mobile_image_double_third" xsi:type="block" required="true" visible="true" sort_order="35">
+<parameter name="mobile_image_quadruple_third" xsi:type="block" required="true" visible="true" sort_order="35">
 <label translate="true">Mobile Image 3</label>
 <description>Upload Image for Mobile view</description>
 <!-- added dependen parameter -->
@@ -436,7 +436,7 @@
 </parameter>
 
 <!-- fourth mobile image chooser for dropdown value=quadruple -->
-<parameter name="mobile_image_double_fourth" xsi:type="block" required="true" visible="true" sort_order="38">
+<parameter name="mobile_image_quadruple_fourth" xsi:type="block" required="true" visible="true" sort_order="38">
 <label translate="true">Mobile Image 4</label>
 <description>Upload Image for Mobile view</description>
 <!-- added dependen parameter -->
