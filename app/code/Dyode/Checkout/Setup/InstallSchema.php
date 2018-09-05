@@ -29,9 +29,15 @@ public function install (SchemaSetupInterface $setup, ModuleContextInterface $co
         'use_credit' => [
             'type' => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
             'nullable' => true,
+            'default' => '1',
             'comment' => 'credit balance',
         ],
-
+        'curacaocredit_used' => [
+            'type' => \Magento\Framework\DB\Ddl\Table::TYPE_DECIMAL,
+            'nullable' => true,
+            'default' => '0.0000',
+            'comment' => 'credit used',
+        ],
     ];
 
     $connection = $installer->getConnection();

@@ -24,6 +24,12 @@ class Index extends Action
     protected $_customerRepositoryInterface;
     protected $_addressFactory;
     protected $_resultFactory;
+    protected $_quote;
+    protected $_checkoutSession;
+    /**
+     * @var \Magento\Quote\Api\CartRepositoryInterface
+     */
+    protected $quoteRepository;
     /**
      * Constructor
      *
@@ -45,7 +51,10 @@ class Index extends Action
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
         \Magento\Customer\Model\AddressFactory $addressFactory,
-        \Magento\Customer\Model\ResourceModel\CustomerFactory $customerResourceFactory
+        \Magento\Quote\Model\Quote $quote,
+        \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
+        \Magento\Customer\Model\ResourceModel\CustomerFactory $customerResourceFactory,
+        \Magento\Checkout\Model\Session $checkoutSession
     ) {
         parent::__construct($context);
         $this->_resultFactory = $resultFactory;
@@ -59,6 +68,10 @@ class Index extends Action
         $this->_customerRepositoryInterface = $customerRepositoryInterface;
         $this->_customerResourceFactory = $customerResourceFactory;
         $this->_addressFactory = $addressFactory;
+
+        $this->_quote = $quote;
+        $this->quoteRepository = $quoteRepository;
+        $this->_checkoutSession = $checkoutSession;
     }
 
     /**
@@ -69,8 +82,10 @@ class Index extends Action
     public function execute()
     {
         $postVariables = (array) $this->getRequest()->getPost();
+
         if(!empty($postVariables)){
             $this->_coreSession->start();
+            $downPayment = 0;
             $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
             $websiteId = $this->_storeManager->getStore()->getWebsiteId();;
             $accountNumber = $this->_coreSession->getCurAcc();
@@ -84,22 +99,49 @@ class Index extends Action
             $ssnLast = $postVariables['ssn-verify'];
             $maidenName = $postVariables['link_maiden'];
 
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $cart   = $objectManager->get('\Magento\Checkout\Model\Cart');
+            echo "cart".$cartId = $cart->getQuote()->getId();
+
+            $quote  = $this->quoteRepository->getActive($cartId);
+          //  $quote->setCustomerEmail($quote->getBillingAddress()->getEmail());
+
+        //$shippingAddress = $cart->getQuote()->getShippingAddress();
+
+            echo "Quote";
+
+            var_dump($this->_coreSession->getData());
+            $totals = $cart->getQuote()->getTotals();
+
+            $subtotal = $totals['subtotal']['value'];
+            echo "subtotal".$subtotal;
+            exit;
+            $totals = $cart->getQuote()->getTotals();
+
+            $subtotal = $totals['subtotal']['value'];
+
+            if($subtotal){
+              $amount =   $subtotal;
+            } else{
+              $amount = '30.00';
+            }
             $postData = array(
                 'cust_id' => $accountNumber,
-                'amount' => 1,
+                'amount' => $amount,
 
             );
 
             //Verify Credit Account Infm
             $accountInfo   =  $this->_helper->verifyPersonalInfm($postData);
 
-            if($accountInfo == 0 || $accountInfo ==''){
+            if($accountInfo == false){
                 // Personal Infm failed
                 $this->_messageManager->addErrorMessage(__('Verification failed'));
                 $resultRedirect->setPath('linkaccount/verify/index');
                 return $resultRedirect;
             }
 
+             $downPayment = $accountInfo->DOWNPAYMENT;
              //Linking the account
              if ($customerId) {
                $customer = $this->_customerRepositoryInterface->getById($customerId);
@@ -127,7 +169,8 @@ class Index extends Action
                              'country_id' => 'US',
                              'telephone' => $customerInfo['PHONE']);
 
-
+                             print_r($_custom_address);
+                             exit;
              //get the customer address model and update the address information
 
              $customAddress = $this->_addressFactory->create();
@@ -141,8 +184,9 @@ class Index extends Action
                    $customAddress->save();
                    $customer->setAddress($customAddress);
                    $this->_customerSession->setCustomerAsLoggedIn($customer);
+                   $this->_customerSession->setDownPayment($downpayment);
                    //$this->_redirect('linkaccount/verify/success');
-                   $resultRedirect->setPath('linkaccount/verify/success');
+                   $resultRedirect->setPath('checkout/cart/index');
                    return $resultRedirect;
              }
              catch(\Exception $e) {

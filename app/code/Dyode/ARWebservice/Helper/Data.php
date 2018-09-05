@@ -59,15 +59,14 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
           $paramVal = '?';
           $cnt = 0;
           foreach($params as $key=>$value){
-            if($cnt != 0 || $cnt != (count($params)-1))
+            if($cnt == 0)
               $paramVal .= $key."=".$value;
             else
-              $paramVal .= $key."=".$value."&";
+              $paramVal .= "&".$key."=".$value;
             $cnt++;
           }
         }
         $curlUrl = $apiUrl."/".$fnName.$paramVal;
-
         $ch = curl_init($curlUrl);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $type);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -95,12 +94,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }
     /*=== Validate Customer Information and get DownPayment ===*/
     public function verifyPersonalInfm($customerDetails){
-
       $restResponse =  $this->arConnect('ValidateDP', 'GET',$customerDetails);
       $result = json_decode($restResponse);
 
       if($result->OK != true){
-         return 0;
+         return false;
       }
       $verifiedResult = $result->DATA;
       return $verifiedResult;

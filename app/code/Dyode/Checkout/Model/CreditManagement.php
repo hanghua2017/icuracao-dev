@@ -14,13 +14,15 @@ class CreditManagement extends \Magento\Framework\Model\AbstractModel implements
      * @var \Magento\Quote\Api\CartRepositoryInterface
      */
     protected $cartRepository;
-
+    protected $_customerSession;
     /**
      * @param \Magento\Quote\Api\CartRepositoryInterface $cartRepository
      */
     public function __construct(
+        \Magento\Customer\Model\Session $customerSession,
         \Magento\Quote\Api\CartRepositoryInterface $cartRepository
     ) {
+        $this->_customerSession = $customerSession;
         $this->cartRepository = $cartRepository;
     }
 
@@ -30,10 +32,13 @@ class CreditManagement extends \Magento\Framework\Model\AbstractModel implements
     public function apply($cartId)
     {
         /** @var \Magento\Quote\Api\Data\CartInterface $quote */
-        $quote = $this->cartRepository->get($cartId);
-        $quote->setUseCredit(true);
-        $quote->collectTotals();
-        $quote->save();
+        if($this->_customerSession->isLoggedIn()){
+          $quote = $this->cartRepository->get($cartId);
+          $quote->setUseCredit(true);
+          $quote->collectTotals();
+          $quote->save();
+          return true;
+        }
         return true;
     }
 

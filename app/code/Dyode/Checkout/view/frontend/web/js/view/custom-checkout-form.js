@@ -98,8 +98,12 @@ define([
             fullScreenLoader.stopLoader();
           });
         },
+        getGuestEmail: function () {
+            return quote.guestEmail;
+        },
+
         getCuracaoId:function(){
-          if(this.customerData.custom_attributes.curacaocustid.value){
+          if(this.customerData.custom_attributes.curacaocustid){
               var curacaoid = this.customerData.custom_attributes.curacaocustid.value;
               var last4digits = curacaoid.slice(-4);
               return last4digits;
@@ -130,6 +134,8 @@ define([
            },this);
             //this.getDiscount();
             console.log(customer);
+            console.log(quote.guestEmail);
+            console.log(window.checkoutConfig.customerData.email);
             // component initialization logic
             return this;
         },

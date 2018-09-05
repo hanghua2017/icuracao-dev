@@ -17,8 +17,11 @@ define(
                 return true;
             },
             getCustomdiscountTotal : function () {
-                var price = 10;
-                return this.getFormattedPrice(price);
+              var price = 0;
+              if (this.totals() && this.totals()['total_segments'][4].value) {
+                  price = parseFloat(this.totals()['total_segments'][4].value);
+              }
+              return this.getFormattedPrice(price);
             }
          });
     }

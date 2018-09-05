@@ -58,14 +58,17 @@ class Index extends Action {
 
     $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
     if(!empty($postVariables)){
+        print_r($postVariables);
+        exit;
         $accountNumber = $postVariables['curacao_account'];
+    //    $customerEmail = $postVariables['customer_email'];
         //Verify Credit Account Infm
         $accountInfo   =  $this->_helper->getARCustomerInfoAction($accountNumber);
-      
+
         $this->_coreSession->setCurAcc($accountNumber);
+      //  $this->_coreSession->setCustEmail($customerEmail);
         $this->_coreSession->setCustomerInfo($accountInfo);
         $this->_coreSession->setPrevpage('checkout');
-        $this->_coreSession->setCustEmail('kavitha@terrificminds.com');
 
         if($accountInfo !== false){
             $resultRedirect->setPath('linkaccount/verify/index');

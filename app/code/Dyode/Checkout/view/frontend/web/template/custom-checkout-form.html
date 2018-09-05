@@ -1,7 +1,8 @@
-<div>
-  <div class="linkaccount">
+<div class='curacao-outer'>
+  <div class="linkaccount" data-bind="if: (!isLogedIn || getCuracaoId()== null)">
     <form id="custom-checkout-form" method="post" action="/creditapp/credit/index" class="form" data-bind="attr: {'data-hasrequired': $t('* Required Fields')}">
         <fieldset class="fieldset">
+            <input type="hidden" data-bind="value: getGuestEmail()" name="customer_email"/>
             <legend data-bind="i18n: 'Pay with Curacao credit'"></legend>
             <!-- ko foreach: getRegion('custom-checkout-form-fields') -->
             <!-- ko template: getTemplate() --><!-- /ko -->

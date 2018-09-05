@@ -103,26 +103,7 @@
 
                                 </item>
                             </item>
-                            <!-- <item name="block-totals" xsi:type="array">
-                               <item name="children" xsi:type="array">
-                                  <item name="before_grandtotal" xsi:type="array">
-                                     <item name="children" xsi:type="array">
-                                        <item name="creditappdiscount" xsi:type="array"> -->
-                                           <!-- <item name="config" xsi:type="array">
-                                              <item name="title" xsi:type="string" translate="true">Credit</item>
-                                           </item> -->
-                                           <!-- <item name="component"  xsi:type="string">Dyode_Checkout/js/view/summary/creditapp</item>
-                                           <item name="config" xsi:type="array">
-                                                <item name="title" xsi:type="string">Credit</item>
-                                           </item>
-                                           <item name="sortOrder" xsi:type="string">95</item>
-                                        </item>
-                                     </item>
-                                  </item>
-                               </item>
-                            </item> -->
-
-                        </item>
+                          </item>
                     </argument>
                 </arguments>
 
