@@ -6,14 +6,18 @@
 
 // @codingStandardsIgnoreFile
 
-/** @var $block \Magento\Checkout\Block\Cart\Item\Renderer */
+/**
+ * @var $block \Magento\Checkout\Block\Cart\Item\Renderer
+ * @var $helper  \Magento\Msrp\Helper\Data
+ * @var $emiBlock \Magento\Framework\View\Element\Template
+ */
 
 $_item = $block->getItem();
 $product = $_item->getProduct();
 $isVisibleProduct = $product->isVisibleInSiteVisibility();
-/** @var \Magento\Msrp\Helper\Data $helper */
 $helper = $this->helper('Magento\Msrp\Helper\Data');
 $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinimalPriceLessMsrp($product);
+$emiBlock = $block->getLayout()->getBlock('cart.emi.suggestion');
 ?>
 <tbody class="cart item">
     <tr class="item-info">
@@ -79,12 +83,12 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
                         <span><?= /* @escapeNotVerified */ __("What's this?") ?></span>
                     </a>
                 </span>
-                <p class="credit-desc">or as low as <span class="emi-amount">$30/mo</span>.</p>
+                <?= $emiBlock->setItem($_item)->toHtml() ?>
             </td>
         <?php else: ?>
             <td class="col price" data-th="<?= $block->escapeHtml(__('Price')) ?>">
                 <?= $block->getUnitPriceHtml($_item) ?>
-                <p class="credit-desc">or as low as <span class="emi-amount">$30/mo</span>.</p>
+                <?= $emiBlock->setItem($_item)->toHtml() ?>
             </td>
         <?php endif; ?>
         <td class="col qty" data-th="<?= $block->escapeHtml(__('Qty')) ?>">
