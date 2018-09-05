@@ -34,7 +34,9 @@
       foreach ($categoryProducts as $product) {
         ?>
       <div class="item">
-        <a href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>">
+        <li class="product-item product-slider">
+        <div class="product-item-info">
+        <a href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>" class="product-item-photo">
           <?php
   $_price= $product->getPrice();
 
@@ -56,11 +58,15 @@
 
           <?php $image_url = $imageHelper->init($product, 'product_page_image_small')->setImageFile($product->getFile())->getUrl();?>
           <img src="<?php echo $image_url;?>" alt="product"/>
-          <h3><?php echo $product->getName();?></h3>
+            <div class="product-item-details">
+          <h3 class="product-item-name"><?php echo $product->getName();?></h3>
           <p class="price"><span class="original-price <?php echo $product->getSpecialPrice() ? 'has-special-price' : '' ?>"><?php echo $product->getPrice();?></span><span class="discount-price"><?php echo $product->getSpecialPrice();?></span></p>
           <p class="subtext"><?php echo "or as low as";?><span class="amount"><?php echo" $10/month";?></span></p>
         </a>
       </div>
+      </div>
+    </li>
+    </div>
   <?php
       }
       ?>
