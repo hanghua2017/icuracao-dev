@@ -25,7 +25,8 @@
         <table id="shopping-cart-table"
                class="cart items data table"
                data-mage-init='{"shoppingCart":{"emptyCartButton": "action.clear",
-               "updateCartActionContainer": "#update_cart_action_container"}}'>
+               "updateCartActionContainer": "#update_cart_action_container"},
+               "updateCart":{"updateCartBtn": "#update_cart_btn"}}'>
             <caption role="heading" aria-level="2" class="table-caption"><?= /* @escapeNotVerified */ __('Shopping Cart Items') ?></caption>
             <thead>
                 <tr>
@@ -61,8 +62,6 @@
             </div>
         <?php endif; ?>
 
-        <?= $block->getChildHtml('totals' ) ?>
-
         <div class="cart main actions">
             <?php if ($block->getContinueShoppingUrl()): ?>
                 <a class="action continue"
@@ -72,6 +71,25 @@
                 </a>
             <?php endif; ?>
             <?= $block->getChildHtml('checkout.bottom.button') ?>
+
+            <?php
+            /**
+             * Note: This button should not be removed as it is required to update the cart items qty
+             * when it changes. This is purposefully hided from the html.
+             */
+            ?>
+            <div style="display: none;">
+                <button type="submit"
+                        id="update_cart_btn"
+                        name="update_cart_action"
+                        data-cart-item-update=""
+                        value="update_qty"
+                        title="<?= $block->escapeHtml(__('Update Shopping Cart')) ?>"
+                        class="action update">
+                    <span><?= /* @escapeNotVerified */ __('Update Shopping Cart') ?></span>
+                </button>
+                <input type="hidden" value="" id="update_cart_action_container" data-cart-item-update=""/>
+            </div>
         </div>
     </div>
 
