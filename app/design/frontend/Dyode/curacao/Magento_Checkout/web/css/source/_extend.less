@@ -1,3 +1,4 @@
+@import "_typography.less";
 @theme-color: #82b800;
 @desc-border: #e8e8e8;
 @content-light-grey: #aeaeae;
@@ -43,6 +44,9 @@ input, select {
             .form-cart{
               width: 100%;
               padding: 20px;
+              @media all and (max-width: 767px) {
+                padding: 20px 0;
+              }
               .table-wrapper {
                 @media all and (max-width: 767px) {
                   border: 1px solid @table-border;
@@ -54,6 +58,14 @@ input, select {
                       text-align: center;
                       text-transform: uppercase;
                       border-bottom: none;
+                      font-size: 12px;
+                      letter-spacing: 0px;
+                      line-height: 18px;
+                      color: @content-light-grey;
+                      font-family: "iCuracao-Regular";
+                      &.col {
+                        padding-bottom: 5px;
+                      }
                     }
                   }
                 }
@@ -62,7 +74,10 @@ input, select {
                   border: 1px solid @table-border;
                   border-right: none;
                   @media all and (max-width: 767px) {
-                    border: none;
+                    border-bottom: 1px solid @table-border;
+                    &:last-child {
+                      border-bottom: none;
+                    }
                   }
                   .item-info {
                     padding-top: 10px;
@@ -73,46 +88,67 @@ input, select {
                         padding-left: 0;
                         padding-right: 0;
                       }
+                      /*Styling expect first td*/
                       @media all and (max-width: 767px) {
                         &:not(.item) {
                           position: relative;
                           left: 160px;
-                          width: auto;
+                          width: 28%;
+                          border: 1px solid red;
+                          margin-bottom: 15px;
+                        }
+                        &.qty {
+                          width: 110px;
+                          border-left: 1px solid @table-border;
+                          border-right: 1px solid @table-border;
+                          padding: 0;
+                        }
+                        /*Price, Qty and price label in mobile view*/
+                        &::before {
+                          padding-bottom: 0;
+                          font-size: 11px;
+                          color: @content-light-grey;
+                          text-transform: uppercase;
                         }
                       }
-                      &.subtotal {
-                        border-right: 1px solid @table-border;
-                        @media all and (max-width: 767px) {
-                          border: none;
+                      @media all and (max-width: 650px) {
+                        &.price, &.subtotal {
+                          width: 25%;
                         }
                       }
-                      &.price, &.qty, &.subtotal {
-                        text-align: center;
-                        @media all and (max-width: 767px) {
-                          padding-top: 0;
+                      @media all and (max-width: 599px) {
+                        &:not(.item) {
+                          left: 120px;
+                          padding-left: 0;
+                          padding-right: 0;
+                        }
+                        &.price, &.subtotal {
+                          width: 27%;
+                        }
+                        &.qty {
+                          width: 100px;
                         }
                       }
-                      .price-excluding-tax, .field.qty {
-                        border-left: 1px solid @table-border;
-                        border: 1px solid red;
-                      }
-                      .price-excluding-tax {
-                        padding: 30px 0;
-                        @media all and (max-width: 767px) {
-                          padding: 30px;
+                      @media all and (max-width: 530px) {
+                        &.price, &.subtotal {
+                          width: 25%;
                         }
-                        @media all and (max-width: 699px) {
-                          padding: 20px;
+                        &.qty {
+                          width: 90px;
                         }
                       }
+
                       /* Product name */
                       &.item {
                         width: 100%;
                         position: relative;
-                        @media all and (max-width: 767px) {
+                        @media all and (max-width: 767px) and (min-width: 600px) {
                           padding: 30px 15px 10px 160px;
                           min-height: 50px;
                           width: auto;
+                        }
+                        @media all and (max-width: 599px) and (min-width: 479px) {
+                          padding-left: 120px;
                         }
                         .product-item-photo {
                           @media all and (max-width: 991px) {
@@ -126,31 +162,44 @@ input, select {
                             @media all and (min-width: 768px) {
                               max-width: 60%;
                             }
-                            @media all and (max-width: 767px) {
+                            @media all and (max-width: 767px) and (min-width: 600px) {
                               max-width: 125px;
+                            }
+                            @media all and (max-width: 599px) and (min-width: 479px) {
+                              max-width: 110px;
+                              margin: 0;
                             }
                           }
                         }
                         .product-item-details {
+                          padding-top: 15px;
                           .product-item-name {
+                            a {
+                              font-family: 'iCuracao-Medium';
+                              font-size: 16px;
+                              color: @content-dark-grey;
+                            }
                             @media all and (min-width: 768px) {
                               width: 90%;
+                            }
+                            a:hover {
+                              text-decoration: none;
                             }
                           }
                         }
                         /* Remove action button */
                         .product-name-action {
                           position: absolute;
-                          top: 5px;
+                          top: 0;
                           right: 15px;
-                          @media all and (max-width: 767px) {
-                            top: 0;
-                          }
                           .action-delete {
                             font-size: 20px;
                             &::before {
                               content: 'x';
                               color: @del-item;
+                              font-family: 'iCuracao-Light';
+                              font-size: 20px;
+                              padding: 0 5px;
                             }
                           }
                           .action-edit {
@@ -164,8 +213,7 @@ input, select {
                           padding-top: 15px;
                           padding-bottom: 0;
                           @media all and (max-width: 767px) {
-                            padding-left: 15px;
-                            padding-right: 15px;
+                            padding: 22px 15px 0;
                           }
                         }
                         /* Edit action button */
@@ -179,6 +227,8 @@ input, select {
                           {
                             position: static;
                             margin: 0;
+                            color: @content-light-grey;
+                            font-size: 13px;
                             &::before {
                               display: none;
                             }
@@ -188,6 +238,67 @@ input, select {
                           }
                         }
                       }
+
+                      /*font styling for info inside table*/
+                      &.col {
+                        letter-spacing: 0px;
+                        line-height: 18px;
+                        font-family: 'iCuracao-Regular';
+                        .price {
+                          font-size: 16px;
+                          color: @content-dark-grey;
+                          @media all and (max-width: 991px) {
+                            font-size: 14px;
+                          }
+                        }
+                        .input-text.qty {
+                          font-size: 14px;
+                          color: @content-dark-grey;
+                          @media all and (max-width: 599px) {
+                            font-size: 13px;
+                            padding: 0;
+                            width: 40px;
+                          }
+                        }
+                      }
+                      &.subtotal {
+                        border-right: 1px solid @table-border;
+                        @media all and (max-width: 767px) {
+                          border: none;
+                        }
+                      }
+                      &.price, &.qty, &.subtotal {
+                        text-align: center;
+                        @media all and (max-width: 767px) {
+                          padding-top: 0;
+                        }
+                        .credit-desc {
+                          position: relative;
+                          top: -25px;
+                          margin: 0;
+                          color: @content-light-grey;
+                          font-size: 12px;
+                          font-family: 'iCuracao-Medium';
+                          @media all and (max-width: 767px) {
+                            top: -15px;
+                          }
+                          .emi-amount {
+                            color: @theme-color;
+                          }
+                        }
+                      }
+                      .price-excluding-tax, .field.qty {
+                        @media all and (min-width: 768px) {
+                            border-left: 1px solid @table-border;
+                        }
+                      }
+                      .price-excluding-tax {
+                        padding: 30px 0;
+                        @media all and (max-width: 767px) {
+                          padding: 20px 0;
+                        }
+                      }
+
                     }
                   }
                   /* Remove the action button from default position */

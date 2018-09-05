@@ -15,6 +15,32 @@ $isVisibleProduct = $product->isVisibleInSiteVisibility();
 $helper = $this->helper('Magento\Msrp\Helper\Data');
 $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinimalPriceLessMsrp($product);
 ?>
+
+<?php
+/**
+ * Calculate emi based on price.
+ *
+ * @todo  this needs to move into a module as a helper method.
+ *
+ * @param $price
+ * @return float|int
+ */
+function monthlyEmi($price)
+{
+    switch ($price) {
+        case $price > 1000:
+            return $price * 0.05;
+        case ($price > 500 && $price <= 1000):
+            return $price * 0.075;
+        case ($price > 200 && $price <= 500):
+            return $price * 0.1;
+        case ($price > 40 && $price <= 200):
+            return 20;
+        default:
+            return 0;
+    }
+}
+?>
 <tbody class="cart item">
     <tr class="item-info">
         <td data-th="<?= $block->escapeHtml(__('Item')) ?>" class="col item">
@@ -79,10 +105,12 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
                         <span><?= /* @escapeNotVerified */ __("What's this?") ?></span>
                     </a>
                 </span>
+                <p class="credit-desc">or as low as <span class="emi-amount">$30/mo</span>.</p>
             </td>
         <?php else: ?>
             <td class="col price" data-th="<?= $block->escapeHtml(__('Price')) ?>">
                 <?= $block->getUnitPriceHtml($_item) ?>
+                <p class="credit-desc">or as low as <span class="emi-amount">$30/mo</span>.</p>
             </td>
         <?php endif; ?>
         <td class="col qty" data-th="<?= $block->escapeHtml(__('Qty')) ?>">
@@ -105,7 +133,7 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
                 <div class="actions-toolbar quantity-action">
                     <?= /* @escapeNotVerified */ $block->getActions($_item) ?>
                 </div>
-            </div>            
+            </div>
         </td>
 
         <td class="col subtotal" data-th="<?= $block->escapeHtml(__('Subtotal')) ?>">
