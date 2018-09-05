@@ -45,7 +45,7 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
 			<div class="products-<?php /* @escapeNotVerified */ echo $mode; ?> <?php /* @escapeNotVerified */ echo $mode; ?>">
                 <ol class="product-items <?php /* @escapeNotVerified */ echo $type; ?>">
                     <?php $iterator = 1; ?>
-					<div class="owl-carousel product-slider-home" id="mageplaza-product-slider-<?php echo $productsliderId; ?>">
+					<div class="owl-carousel product-slider-seller" id="mageplaza-product-slider-<?php echo $productsliderId; ?>">
 					<?php foreach ($items as $_item): ?>
 						<div class="item">
 						<?php /* @escapeNotVerified */ echo($iterator++ == 1) ? '<li class="product-item product-slider"">' : '</li><li class="product-item product-slider"">' ?>
@@ -137,3 +137,31 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
         </div>
 			</div>
 <?php endif;?>
+<script type="text/x-magento-init">
+    {
+    ".product-slider-seller": {
+        "OwlCarousel": {
+          "items": 5,
+          "dots":false,
+          "loop": true,
+          "nav":true,
+          "margin": 0,
+          "navText": ["<div class='custom-prev'><div class='left'></div></div>", "<div class='custom-next'><div class='right'></div></div>"],
+          "responsive": {
+            "0": {
+              "items": 1
+            },
+            "400": {
+              "items": 2
+            },
+            "768": {
+              "items": 3
+            },
+            "1045": {
+              "items": 5
+            }
+          }
+        }
+      }
+    }
+</script>
