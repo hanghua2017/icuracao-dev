@@ -29,7 +29,7 @@
      <h2 class="widget-title"><?php echo $block->getData('widgettitle'); ?></h2>
    </div>
    <?php endif; ?>
-   <div class="owl-carousel product-slider-home product-slider-seller" >
+   <div class="owl-carousel product-slider-home product-slider-category" >
      <?php
       foreach ($categoryProducts as $product) {
         ?>
@@ -74,7 +74,7 @@
   </div>
   <script type="text/x-magento-init">
       {
-      ".product-slider-seller": {
+      ".product-slider-category": {
           "OwlCarousel": {
             "items": 5,
             "dots":false,
