@@ -15,32 +15,6 @@ $isVisibleProduct = $product->isVisibleInSiteVisibility();
 $helper = $this->helper('Magento\Msrp\Helper\Data');
 $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinimalPriceLessMsrp($product);
 ?>
-
-<?php
-/**
- * Calculate emi based on price.
- *
- * @todo  this needs to move into a module as a helper method.
- *
- * @param $price
- * @return float|int
- */
-function monthlyEmi($price)
-{
-    switch ($price) {
-        case $price > 1000:
-            return $price * 0.05;
-        case ($price > 500 && $price <= 1000):
-            return $price * 0.075;
-        case ($price > 200 && $price <= 500):
-            return $price * 0.1;
-        case ($price > 40 && $price <= 200):
-            return 20;
-        default:
-            return 0;
-    }
-}
-?>
 <tbody class="cart item">
     <tr class="item-info">
         <td data-th="<?= $block->escapeHtml(__('Item')) ?>" class="col item">

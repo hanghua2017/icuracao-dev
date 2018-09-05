@@ -94,7 +94,6 @@ input, select {
                           position: relative;
                           left: 160px;
                           width: 28%;
-                          border: 1px solid red;
                           margin-bottom: 15px;
                         }
                         &.qty {
@@ -109,6 +108,9 @@ input, select {
                           font-size: 11px;
                           color: @content-light-grey;
                           text-transform: uppercase;
+                          @media all and (max-width: 478px) {
+                            font-size: 10px;
+                          }
                         }
                       }
                       @media all and (max-width: 650px) {
@@ -137,24 +139,58 @@ input, select {
                           width: 90px;
                         }
                       }
+                      /*To regain the default styling*/
+                      @media all and (max-width: 479px) {
+                        &:not(.item) {
+                          left: 15px;
+                          width: 34%;
+                          margin-top: 10px;
+                        }
+                        &.qty {
+                          width: 100px;
+                        }
+                      }
+                      @media all and (max-width: 420px) {
+                        &:not(.item) {
+                          width: auto;
+                          left: 0;
+                          padding-left: 4%;
+                          padding-right: 4%;
+                        }
+                        &.qty {
+                          padding-left: 14px;
+                          padding-right: 14px;
+                        }
+                      }
+                      @media all and (max-width: 345px) {
+                        &.subtotal {
+                          padding-right: 0;
+                        }
+                      }
+
 
                       /* Product name */
                       &.item {
                         width: 100%;
                         position: relative;
+                        /*To regain the default styling, used max and min width*/
                         @media all and (max-width: 767px) and (min-width: 600px) {
                           padding: 30px 15px 10px 160px;
                           min-height: 50px;
                           width: auto;
                         }
-                        @media all and (max-width: 599px) and (min-width: 479px) {
+                        @media all and (max-width: 599px) and (min-width: 480px) {
                           padding-left: 120px;
                         }
+                        @media all and (max-width: 599px) {
+                          width: auto;
+                        }
                         .product-item-photo {
-                          @media all and (max-width: 991px) {
+                          /*To regain the default styling, used max and min width*/
+                          @media all and (max-width: 991px) and (min-width: 768px) {
                             padding-right: 0;
                           }
-                          @media all and (max-width: 767px) {
+                          @media all and (max-width: 767px) and (min-width: 480px) {
                             max-width: initial;
                             left: 0;
                           }
@@ -162,10 +198,11 @@ input, select {
                             @media all and (min-width: 768px) {
                               max-width: 60%;
                             }
+                            /*To regain the default styling, used max and min width*/
                             @media all and (max-width: 767px) and (min-width: 600px) {
                               max-width: 125px;
                             }
-                            @media all and (max-width: 599px) and (min-width: 479px) {
+                            @media all and (max-width: 599px) and (min-width: 480px) {
                               max-width: 110px;
                               margin: 0;
                             }
@@ -177,7 +214,14 @@ input, select {
                             a {
                               font-family: 'iCuracao-Medium';
                               font-size: 16px;
+                              letter-spacing: 0.5px;
                               color: @content-dark-grey;
+                              @media all and (max-width: 768px) {
+                                font-size: 15px;
+                              }
+                              @media all and (max-width: 478px) {
+                                font-size: 14px;
+                              }
                             }
                             @media all and (min-width: 768px) {
                               width: 90%;
@@ -215,11 +259,20 @@ input, select {
                           @media all and (max-width: 767px) {
                             padding: 22px 15px 0;
                           }
+                          @media all and (max-width: 479px) {
+                            padding-top: 15px;
+                          }
+                          @media all and (max-width: 375px) {
+                            padding: 15px 0 0;
+                          }
                         }
                         /* Edit action button */
                         .quantity-action {
                           text-align: center;
                           padding: 7px 0 8px;
+                          @media all and (max-width: 420px) {
+                            padding-bottom: 0;
+                          }
                           .action-delete {
                             display: none;
                           }
@@ -249,6 +302,9 @@ input, select {
                           color: @content-dark-grey;
                           @media all and (max-width: 991px) {
                             font-size: 14px;
+                          }
+                          @media all and (max-width: 478px){
+                            font-size: 13px;
                           }
                         }
                         .input-text.qty {
@@ -282,6 +338,9 @@ input, select {
                           @media all and (max-width: 767px) {
                             top: -15px;
                           }
+                          @media all and (max-width: 478px) {
+                            font-size: 11px;
+                          }
                           .emi-amount {
                             color: @theme-color;
                           }
@@ -296,6 +355,9 @@ input, select {
                         padding: 30px 0;
                         @media all and (max-width: 767px) {
                           padding: 20px 0;
+                        }
+                        @media all and (max-width: 479px) {
+                          padding: 15px 0;
                         }
                       }
 
