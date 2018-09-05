@@ -42,7 +42,7 @@
            <parameter name="mobile_image" xsi:type="block" required="false" visible="true" sort_order="11">
              <label translate="true">Mobile Image</label>
               <description>Upload Image for Mobile view</description>
-               <!-- added dependen parameter -->
+               <!-- added dependent parameter -->
                  <depends>
                    <parameter name="select_type" value="single" />
                 </depends>
