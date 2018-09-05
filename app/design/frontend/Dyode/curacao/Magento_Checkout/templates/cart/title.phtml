@@ -1,0 +1,23 @@
+<?php
+/**
+ * Copyright © Dyode
+ *
+ */
+?>
+<?php
+/**
+ * @var $block Magento\Checkout\Block\Cart
+ */
+?>
+
+<?php if ($block->getItemsSummaryQty() > 0): ?>
+    <?php if ($block->getItemsSummaryQty() == 1): ?>
+        <span>(<?= $block->escapeHtml('1 item') ?>)</span>
+    <?php else: ?>
+        <span>
+            (<?= /* @escapeNotVerified */ $block->getItemsSummaryQty()?> <?= $block->escapeHtml('items') ?>)
+        </span>
+    <?php endif; ?>
+<?php endif; ?>
+
+<?= $block->getChildHtml() ?>
