@@ -356,7 +356,7 @@ class CustomWidget extends \Magento\Framework\View\Element\Template implements \
     */
     public function getMobileImagequadrupleThird()
     {
-      return $this->getData('mobile_image_double_third');
+      return $this->getData('mobile_image_quadruple_third');
     }
     /**
     * function name : getReferenceUrlquadrupleThird
@@ -384,7 +384,7 @@ class CustomWidget extends \Magento\Framework\View\Element\Template implements \
     */
     public function getMobileImagequadrupleFourth()
     {
-      return $this->getData('mobile_image_double_fourth');
+      return $this->getData('mobile_image_quadruple_fourth');
     }
     /**
     * function name : getReferenceUrlquadrupleFourth
