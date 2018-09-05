@@ -1,0 +1,59 @@
+<!--Use 'stepCode' as id attribute-->
+<li data-bind="fadeVisible: isVisible, attr: { id: stepCode }">
+<!-- <div class="step-title" data-bind="i18n: stepTitle" data-role="title"></div> -->
+
+    <div id="checkout-step-title"
+         class="step-content"
+         data-role="content">
+         <div class="step-title"  data-role="title">How do you want to get your Order?</div>
+
+        <!-- Product listing along with delivery methods -->
+        <div class="delivery-method-product-listing" data-bind="foreach: getProductItems()">
+          <div class="delivery-method-product-item">
+            <h2>Order Details (<span data-bind="text: $index() + 1"></span>)</h2>
+            <div>
+              <div class="delivery-method-product-image">
+                <img data-bind="attr: {'src': product_image_url}, src: product_image_url" />
+              </div>
+              <div class="delivery-method-product-details">
+                <h4 data-bind="text: product_name"></h4>
+                <h5 data-bind="text:product_price"></h5>
+                <h6 data-bind="text: product_qty"></h6>
+              </div>
+            </div>
+            <div class="delivery-methods-options">
+              <h4>Delivery Method</h4>
+              <label>
+                  <input  type="radio" value="Shipping"
+                           data-bind="attr: { name: 'delivery-product-' + $index() },checked: $parent.deliveryMethod" />
+                  Ship to Home
+              </label>
+
+              <label>
+                  <input  type="radio" value="StorePickup"
+                           data-bind="attr: { name: 'delivery-product-' + $index() },checked: $parent.deliveryMethod" />
+                  Store Pickup
+              </label>
+              <div class="store-pickup-pincode" data-bind="visible: $parent.state">
+                <input type="text" placeholder="Pin Code" name="pickup-pincode" value="" />
+                <input type="submit" name="pickup-submit" value="submit" />
+              </div>
+            </div>
+
+            <!-- -->
+          </div>
+        </div>
+
+
+        <!--- Next button -->
+        <form data-bind="submit: navigateToNextStep" novalidate="novalidate">
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button data-role="opc-continue" type="submit" class="button action continue primary">
+                        <span><!-- ko i18n: 'Next'--><!-- /ko --></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</li>
