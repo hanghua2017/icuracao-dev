@@ -337,22 +337,38 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
     public function prepareOrderItems($orderId)
     {
         /**
-         * Initialize Order Items Location Array 
+         * Initialize Order Items Location & Grouped Items Array
          */
         $orderItemsLocation = array();
+        $groupedItemsLocation = array();
+        // $orderItemsLocation = array("134"=>"01", "135"=>"16");
         /**
          * Get Order Info by Order Id
          */
-        $order = $this->getOrderInfo($orderId);
-        $orderItems = $order->getAllItems();
-        foreach ($orderItems as $orderItem) {
+        $order = $this->_orderRepository->get($orderId);
+        foreach ($order->getAllItems() as $orderItem) {
+            if ($orderItem->getParentItemId() == null) {
+                $orderItemsLocation[$orderItem->getItemId()] = $this->_arInvoiceHelper->assignInventoryLocation($orderItem);
+                // if ($orderItemsLocation[$orderItem->getItemId()] == "k") {
+                //     # code...
+                //     $orderItems[$orderItem->getItemId()] = array(
+                //         "ProductId" => $orderItem->getProductId(),
+                //         "ItemQty" => $orderItem->getQtyOrdered()
+                //     );
+                //     unset($orderItemsLocation[$orderItem->getItemId]);
+                // }
+            }
+        }
+
+        if (!empty($orderItems)) {
             # code...
-            // print_r($orderItem->getData());
-            // die();
-            // $this->_arInvoiceHelper->assignInventoryLocation($orderItem);
-            $orderItemsLocation[$orderItem->getItemId()] = $this->_arInvoiceHelper->assignInventoryLocation($orderItem);
+            $groupedItemsLocation = $this->_arInvoiceHelper->getGroupedLocation($order,$orderItems);
+            $orderItemsLocation = $orderItemsLocation + $groupedItemsLocation;
+            ksort($orderItemsLocation);
         }
         print_r($orderItemsLocation);
+        die();
+        // $orderItemsLocation = array("133"=>"01", "134"=>"k", "135"=>"09", "136"=>"k", "137"=>"k");
         return $orderItemsLocation;
     }
 }
