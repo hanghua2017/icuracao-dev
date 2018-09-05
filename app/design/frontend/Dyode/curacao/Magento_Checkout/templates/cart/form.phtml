@@ -18,7 +18,9 @@
     <?= $block->getBlockHtml('formkey') ?>
     <div class="cart table-wrapper<?= $mergedCells == 2 ? ' detailed' : '' ?>">
         <?php if ($block->getPagerHtml()): ?>
-            <div class="cart-products-toolbar cart-products-toolbar-top toolbar" data-attribute="cart-products-toolbar-top"><?= $block->getPagerHtml() ?></div>
+            <div class="cart-products-toolbar cart-products-toolbar-top toolbar" data-attribute="cart-products-toolbar-top">
+                <?= $block->getPagerHtml() ?>
+            </div>
         <?php endif ?>
         <table id="shopping-cart-table"
                class="cart items data table"
@@ -38,35 +40,41 @@
             <?php endforeach ?>
         </table>
         <?php if ($block->getPagerHtml()): ?>
-            <div class="cart-products-toolbar cart-products-toolbar-bottom toolbar" data-attribute="cart-products-toolbar-bottom"><?= $block->getPagerHtml() ?></div>
+            <div class="cart-products-toolbar cart-products-toolbar-bottom toolbar" data-attribute="cart-products-toolbar-bottom">
+                <?= $block->getPagerHtml() ?>
+            </div>
         <?php endif ?>
     </div>
-    <div class="cart main actions">
-        <?php if ($block->getContinueShoppingUrl()): ?>
-            <a class="action continue"
-               href="<?= $block->escapeUrl($block->getContinueShoppingUrl()) ?>"
-               title="<?= $block->escapeHtml(__('Continue Shopping')) ?>">
-                <span><?= /* @escapeNotVerified */ __('Continue Shopping') ?></span>
-            </a>
+
+    <div class="cart bottom">
+
+        <?php if (isset($block->getTotals()['grand_total'])): ?>
+            <?php
+                /** @var $_addressTotal \Magento\Quote\Model\Quote\Address\Total **/
+                $_checkoutHelper = $this->helper('Magento\Checkout\Helper\Data');
+                $_addressTotal = $block->getTotals()['grand_total'];
+            ?>
+            <div class="cart grand-total">
+                <strong>
+                    <?= $block->escapeHtml('Estimated Total') ?>: <?= /* @escapeNotVerified */ $_checkoutHelper->formatPrice($_addressTotal->getValue()) ?>
+                </strong>
+            </div>
         <?php endif; ?>
-        <button type="submit"
-                name="update_cart_action"
-                data-cart-empty=""
-                value="empty_cart"
-                title="<?= $block->escapeHtml(__('Clear Shopping Cart')) ?>"
-                class="action clear" id="empty_cart_button">
-            <span><?= /* @escapeNotVerified */ __('Clear Shopping Cart') ?></span>
-        </button>
-        <button type="submit"
-                name="update_cart_action"
-                data-cart-item-update=""
-                value="update_qty"
-                title="<?= $block->escapeHtml(__('Update Shopping Cart')) ?>"
-                class="action update">
-            <span><?= /* @escapeNotVerified */ __('Update Shopping Cart') ?></span>
-        </button>
-        <input type="hidden" value="" id="update_cart_action_container" data-cart-item-update=""/>
+
+        <?= $block->getChildHtml('totals' ) ?>
+
+        <div class="cart main actions">
+            <?php if ($block->getContinueShoppingUrl()): ?>
+                <a class="action continue"
+                   href="<?= $block->escapeUrl($block->getContinueShoppingUrl()) ?>"
+                   title="<?= $block->escapeHtml(__('Continue Shopping')) ?>">
+                    <span><?= /* @escapeNotVerified */ __('Continue Shopping') ?></span>
+                </a>
+            <?php endif; ?>
+            <?= $block->getChildHtml('checkout.bottom.button') ?>
+        </div>
     </div>
+
 </form>
 <?= $block->getChildHtml('checkout.cart.order.actions') ?>
 <?= $block->getChildHtml('shopping.cart.table.after') ?>

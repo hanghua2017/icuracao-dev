@@ -7,19 +7,29 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceContainer name="page.main.title">
-            <block
-                    class="Magento\Checkout\Block\Cart"
-                    name="cart.item.count.title"
-                    after="page.main.title"
-                    template="Magento_Checkout::count_title.phtml"
-                    cacheable="false"
-            />
-        </referenceContainer>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument name="title" translate="true" xsi:type="string">Shopping Bag</argument>
+            </action>
+
+            <block class="Magento\Checkout\Block\Cart" name="cart.item.count.title" template="Magento_Checkout::cart/title.phtml" cacheable="false">
+                <block class="Magento\Checkout\Block\Cart" name="checkout.cart.methods.bottom" template="Magento_Checkout::cart/title/methods.phtml">
+                    <container name="checkout.cart.buttons" as="methods" label="Checkout Button on the title section">
+                        <block class="Magento\Checkout\Block\Onepage\Link" name="title.checkout.button" template="Magento_Checkout::onepage/link.phtml" />
+                    </container>
+                </block>
+            </block>
+        </referenceBlock>
+
+        <referenceBlock name="checkout.cart.form">
+            <block class="Magento\Checkout\Block\Onepage\Link" name="checkout.bottom.button" template="Magento_Checkout::onepage/link.phtml" />
+        </referenceBlock>
 
         <!-- REMOVED BLOCKS -->
         <referenceBlock name="cart.summary" remove="true" />
         <referenceBlock name="checkout.cart.crosssell" remove="true" />
+        <referenceBlock name="checkout.cart.coupon" remove="true" />
+        <referenceBlock name="checkout.cart.giftcardaccount" remove="true" />
     </body>
 
 </page>
