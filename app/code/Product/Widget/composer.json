@@ -1,0 +1,6 @@
+{
+"name": "Product/Widget",
+"autoload": {
+    "psr-4": { "Product\\Widget\\": "" },
+    "files": [ "registration.php" ]
+} }
