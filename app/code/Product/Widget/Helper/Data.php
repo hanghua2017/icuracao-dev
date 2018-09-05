@@ -6,13 +6,13 @@ use \Magento\Framework\App\Helper\AbstractHelper;
 class Data extends AbstractHelper
 {
   public function __construct(
-		\Magento\Backend\Block\Template\Context $context,
-		\Magento\Catalog\Model\ProductRepository $productRepository,
-		array $data = []
+		\Magento\Framework\App\Helper\Context $context,
+		\Magento\Catalog\Model\ProductRepository $productRepository
+
 	)
 	{
 		$this->_productRepository = $productRepository;
-		parent::__construct($context, $data);
+		parent::__construct($context);
 	}
   public function getProductById($id)
 	{
