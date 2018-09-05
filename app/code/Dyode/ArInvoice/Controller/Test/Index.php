@@ -18,7 +18,6 @@ class Index extends \Magento\Framework\App\Action\Action
      * @var \Dyode\ArInvoice\Helper\Data $_arInvoiceHelper 
      **/
     protected $_arInvoiceHelper;
-    
 
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
@@ -29,8 +28,9 @@ class Index extends \Magento\Framework\App\Action\Action
         $this->_arInvoiceHelper = $arInvoiceHelper;
         parent::__construct($context);
     }
+
     public function execute()
-    {   
+    {
         // $orders = $this->orderCollection->getSalesOrderCollection();
         // $this->orderCollection->createInvoice(3);
         $itemId = '32A-061-101946';
@@ -50,10 +50,9 @@ class Index extends \Magento\Framework\App\Action\Action
         //     # code...
         //     throw new Exception("Inventory Level : " . $inventoryLevel->INFO);
         // }
-        // $inventoryLevel = $this->_arInvoiceHelper->getDomesticInventory($itemId, 3);
+        // $inventoryLevel = $this->_arInvoiceHelper->getDomesticInventoryLocation($itemId, 3, 35801);
         // die();
-        $this->orderCollection->prepareOrderItems(1);
-        echo "Hello";
+        $this->orderCollection->prepareOrderItems(95);
         // var_dump($orders);
         die();
     }

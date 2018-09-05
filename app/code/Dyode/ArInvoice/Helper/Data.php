@@ -209,7 +209,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Inventory Level using API -> InventoryLevel
      * 
-     * @return array 
+     * @return Array
      */
     public function inventoryLevel($itemId, $locations)
     {
@@ -261,42 +261,42 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->_productRepository->get($sku);
     }
 
-    /**
-     * getGroupedLocation() returns a grouped location for items
-     */
-    public function getGroupedLocation($item) {
-        $skuInv = array();
-        foreach($this->_orderItems as $item) {
-        $threshold = 0;
-        $itemSku = $item->getSku();
-        #Load Product Info
-        $product = $this->getProductBySku($itemSku);
-        $qty = (int) $item->getQtyOrdered();
+    // /**
+    //  * getGroupedLocation() returns a grouped location for items
+    //  */
+    // public function getGroupedLocation($item) {
+    //     $skuInv = array();
+    //     foreach($this->_orderItems as $item) {
+    //     $threshold = 0;
+    //     $itemSku = $item->getSku();
+    //     #Load Product Info
+    //     $product = $this->getProductBySku($itemSku);
+    //     $qty = (int) $item->getQtyOrdered();
 
-        if ($product->getVendorid() == '2139' && strtolower($product->getShprate()) != 'domestic' && $product->getSet() != 1) {
-        $skuInv[$itemSku] = $this->getSkuInventory($itemSku);
-        $pending = $this->getPendingEstimates($sku);
-        # Iterate through pending orders
-        foreach ($pending as $valueRunningEstimates) {
-        if (isset($skuInv[$sku][$valueRunningEstimates['store_location']])) {
-        if ($skuInv[$sku][$valueRunningEstimates['store_location']] == $actualLocation) {
-        $skuInv[$sku][$valueRunningEstimates['store_location']] -= ($valueRunningEstimates['pending'] - $qty);
-        } else {
-        $skuInv[$sku][$valueRunningEstimates['store_location']] -= $valueRunningEstimates['pending'];
-        }
-        if ($skuInv[$sku][$valueRunningEstimates['store_location']] < 0) {
-        $skuInv[$sku][$valueRunningEstimates['store_location']] = 0;
-        }
-        }
-        }
-        #After Pending
+    //     if ($product->getVendorid() == '2139' && strtolower($product->getShprate()) != 'domestic' && $product->getSet() != 1) {
+    //     $skuInv[$itemSku] = $this->getSkuInventory($itemSku);
+    //     $pending = $this->getPendingEstimates($sku);
+    //     # Iterate through pending orders
+    //     foreach ($pending as $valueRunningEstimates) {
+    //     if (isset($skuInv[$sku][$valueRunningEstimates['store_location']])) {
+    //     if ($skuInv[$sku][$valueRunningEstimates['store_location']] == $actualLocation) {
+    //     $skuInv[$sku][$valueRunningEstimates['store_location']] -= ($valueRunningEstimates['pending'] - $qty);
+    //     } else {
+    //     $skuInv[$sku][$valueRunningEstimates['store_location']] -= $valueRunningEstimates['pending'];
+    //     }
+    //     if ($skuInv[$sku][$valueRunningEstimates['store_location']] < 0) {
+    //     $skuInv[$sku][$valueRunningEstimates['store_location']] = 0;
+    //     }
+    //     }
+    //     }
+    //     #After Pending
 
 
-        }
+    //     }
 
-        }
-        return '01';
-    }
+    //     }
+    //     return '01';
+    // }
     /*
     *
     * getLocation() function will get an item sku as a parameter.
@@ -395,157 +395,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         }
     }
 
-    /*
-    *
-    * getLnt() function is the call to the google api that returns latitude and longitude from zipcode
-    *
-    */
-    private function getLnt($zip)
-    {
-        $url = "http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($zip) . "&sensor=false";
-        $result_string = file_get_contents($url);
-        $result = json_decode($result_string, true);
-        if ($result['status'] != 'OVER_QUERY_LIMIT') {
-            $result1[] = $result['results'][0];
-            $result2[] = $result1[0]['geometry'];
-            $result3[] = $result2[0]['location'];
-            return $result3[0];
-        }
-        else
-            return false;
-    }
-
-    /**
-     * getDistance() function will return the number of miles between two zipcodes
-     */
-    public function getDistance($zip1, $zip2)
-    {
-        $first_lat = $this->getLnt($zip1);
-        $next_lat = $this->getLnt($zip2);
-        if ($first_lat && $next_lat) {
-            $lat1 = $first_lat['lat'];
-            $lon1 = $first_lat['lng'];
-            $lat2 = $next_lat['lat'];
-            $lon2 = $next_lat['lng'];
-            $theta = $lon1 - $lon2;
-            $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
-            $dist = acos($dist);
-            $dist = rad2deg($dist);
-            $miles = $dist * 60 * 1.1515;
-        }
-        else {
-            $miles = 0;
-        }
-
-        return $miles;
-    }
-
-    /**
-    * 
-    * 
-    * getPendingEstimate() 
-    * 
-    * 
-    */
-    public function getPendingEstimate($sku)
-    {
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of object manager
-        $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
-        $connection = $resource->getConnection();
-
-        //Sql Query which takes the pending sku details of order processing
-        $sql = "SELECT it.sku, SUM(it.qty_ordered - it.qty_invoiced) as pending
-        FROM sales_order_item it
-        LEFT JOIN sales_order o
-        ON o.entity_id = it.order_id
-
-        WHERE date(it.created_at) > DATE_SUB(Now(),INTERVAL 60 DAY)
-        AND o.status != 'complete'
-        AND o.status != 'canceled'
-        AND o.status != 'closed'
-        AND it.sku = '$sku'
-
-        AND (it.qty_ordered - it.qty_invoiced) > 0
-        GROUP BY it.sku
-        ";
-        $result = $connection->fetchAll($sql);
-        if (count($result) > 0)
-        {
-            return $result;
-        }
-        else
-        {
-            return 0;
-        } 
-    }
-
-    /**
-     * getDomesticInventory() function will check if the product is available in inventory using API
-     */
-    public function getDomesticInventory($itemSku, $qtyOrdered)
-    {
-        //Quantity of given item in Domestic Inventory
-        $skuInventoryFromAR = 0;
-        // Get Encoded json of location and quantity
-        $inventoryLevel = $this->inventoryLevel($itemSku, $this->_domesticLocation);
-        if ($inventoryLevel->OK) {
-            # code...
-            $domesticItemInventory = $inventoryLevel->LIST[0]->quantity;
-            $pendingItems = $this->getPendingEstimate($itemSku); # get Pending Items List 
-        } else {
-            # code...
-            throw new Exception("Inventory Level : " . $inventoryLevel->INFO);
-        }
-        
-        // Get qty of given item in domestic location
-        $skuInventoryFromAR = $locationInv[0]->quantity;
-        $pending = $this->getPendingEstimate($itemSku);
-        if ($pending != 0) {
-            foreach ($pending as $valueRunningEstimates) {
-                $val0 = (string)$valueRunningEstimates['sku'];
-                $val1 = intval($valueRunningEstimates['pending']);
-
-                if(array_key_exists ( $val0 , $skuPending )) {
-                    $skuPending[$val0] += $val1;
-                }
-                else {
-                    $skuPending[$val0] = $val1;
-                }
-            }
-        }
-        else {
-            $skuPending = null;
-        }
-        $inventory = $skuInventoryFromAR - ($skuPending - $qtyOrdered);
-        if ($inventory < $qty)
-            $inventory = 0;
-        return $inventory;
-    }
-
-
-    /**
-     * checkDomesticInventory() function will first get inventory for domestic items
-     * then it will compare with different location and assign 33 if the destination is greater than 80 miles
-     */
-    private function checkDomesticInventory($productSku, $qtyOrdered)
-    {
-
-        if ($this->getDomesticInventory($productSku, $qtyOrdered) > 0) {
-            foreach ($this->_allLocationsZipcodes as $store => $zip) {
-                #Incomplete Get zipcode of shipment
-                if ($this->getDistance($zip, 686106) < 80)
-                    return 06;
-            }
-            return 33;
-        }
-        else {
-            // $this->sendOutOfStockNotification($sku);
-            return 01;
-        }
-    }
-
     /**
      * Get Order Info by Order Id
+     *
+     * @return Object
      */
     public function getOrderInfo($orderId)
     {
@@ -554,6 +407,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
     /**
      * Assign a inventory location to order items
+     *
+     * @return Array
      */
     public function assignInventoryLocation($item)
     {
@@ -563,54 +418,565 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
         # Setting Up values
         $itemId = $item->getItemId();
-        $itemProductSku = $item->getSku();
-        $itemQuantity = $item->getQtyOrdered();
+        $itemSku = $item->getSku();
+        $itemQty = $item->getQtyOrdered();
         $itemQtyInvoiced = $item->getQtyInvoiced();
+        $productId = $item->getProductId();
 
-        echo $this->getDistance(72201, 85055);
-        die();
         /**
          * Get Product Info by Sku
          */
-        $product = $this->getProductBySku($itemProductSku);
+        $product = $this->getProductById($productId);
         /**
          * Get Product Vendor Id
          */
         $vendorId = $product->getVendorId();
-
-        # Check if vendor is Curacao
-        if ($vendorId != '2139') {
-            //Check if shipping type is 'store pickup'
-            # $pickup = strtolower(trim($item->getshippingtype())) == 'storepickup' ? TRUE : FALSE;
-            # Dummy Values
+        /**
+         * Getting the Inventory Level from Product Attribute
+         */
+        if (!empty($product->getInventoryLevel())) {
+            # code...
+            $inventoryLevel = explode(", ", $product->getInventoryLevel());
+            $inventoryLocations =  Array();
+            foreach ($inventoryLevel as $value) {
+                # code...
+                $inventoryLocations[explode(":", $value)[0]] = explode(":", $value)[1];
+            }
+            unset($inventoryLevel);
+        } else {
+            # code...
+            throw new Exception("Product Inventory Level Not Found", 1);
+        }
+        // print_r($inventoryLocations);
+        die();
+        if ($vendorId != '2139') {  # If the vendor is not Curacao
+            return '33';
+        } else { # If the vendor is Curacao
+            # Get Order Details
             $order = $this->getOrderInfo($item->getOrderId());
-            $order->getShippingMethod();
-            
-            echo $pickup = strtolower(trim($order->getShippingMethod())) == 'storepickup' ? True : False;   # incomplete...
-            die();
-            
-            if ($pickup === True) {
-                //Get the pickup location of the item
-                $pickupLocationCode = $item->getPickupLocation();   # incomplete...
-                return $pickupLocationCode;
-            } else {
-                if ($shippingRate == "domestic") {
-                    $this->checkDomesticInventory($itemProductSku, $itemQuantity);
-                    # dummy values
-                    $pickupLocationCode = '89';
+            # Get Delivery Method
+            $storePickup = strtolower(trim($order->getShippingMethod())) == 'storepickup' ? True : False;   # incomplete...
+            if ($storePickup == True) { # If the Delivery Type is Store Pickup
+                # incomplete...
+                $storeLocationCode = $item->getPickupLocation();
+                return $storeLocationCode;
+            } else { # If the Delivery Type is Shipping
+                $shippingRate = $product->getShippingRate();
+                $shippingZipCode = $order->getShippingAddress()->getPostCode();
+                if ($shippingRate == "Domestic") {
+                    # dummy values...
+                    $itemSku = '32A-061-101946';
+                    $shippingZipCode = 35801;
+                    if (array_key_exists('06', $inventoryLocations)) {
+                        # code...
+                        $domesticItemInventory = $inventoryLocations['06'];
+                        $storeLocationCode = $this->getDomesticInventoryLocation($itemSku, $itemQty, $shippingZipCode, $inventoryLocations['06']);
+                    } else {
+                        # Send Out of Stock Notification
+                        $storeLocationCode = 01;
+                    }
+                    $storeLocationCode = $this->getDomesticInventoryLocation($itemSku, $itemQty, $shippingZipCode, $inventoryLocations);
+                    return $storeLocationCode;
                 } else {
-                    if ($set === 'Y') {
-                        //virtual product
-                        $pickupLocationCode = getSetInventory($itemProductSku, $itemQuantity);
+                    $set = $product->getIsSet();
+                    if ($set == 'Yes') {
+                        $locations = implode(array_keys($this->_allLocationsZipcodes),',');
+                        $itemSkuArray = Array("32O-285-42LB5600", "32A-061-101946", "08T-P22-3DS001U");
+                        // $magentoSkuArray = Array('Test', 'Test2', 'Bundle1-Test-Test2');
+                        // $inventoryLevelArray = Array();
+                        // $pendingArray = Array();
+                        // $i = 0;
+                        // foreach ($magentoSkuArray as $itemSku) {
+                        //     $pendingItems = $this->getPendingEstimate($itemSku);
+                        //     if (!empty($pendingItems)) {
+                        //         # code...
+                        //         $pendingArray[$itemSkuArray[$i]] = $pendingItems[0]['pending'];
+                        //     } else {
+                        //         # code...
+                        //         $pendingArray[$itemSkuArray[$i]] = 0;
+                        //     }
+                        //     $i++;
+                        // }
+                        // $pendingArray["32O-285-42LB5600"] = 3;
+                        // $pendingArray["32A-061-101946"] = 4;
+                        // $pendingArray["08T-P22-3DS001U"] = 2;
+                        $thresholdArray = Array();
+                        $thresholdArray["32O-285-42LB5600"] = 3;
+                        $thresholdArray["32A-061-101946"] = 2;
+                        $thresholdArray["08T-P22-3DS001U"] = 1;
+                        // echo count($itemSkuArray);
+                        // die();
+                        foreach ($itemSkuArray as $itemSku) {
+                            # code...
+                            $this->getPendingEstimate('Test2');
+                            $inventoryLevel = $this->inventoryLevel($itemSku, $locations);
+
+                            if ($inventoryLevel->OK) {
+                                # code...
+                                foreach ($inventoryLevel->LIST as $value) {
+                                    # code...
+                                    if ($value->location != "TOTAL") {
+                                        # code...
+                                        $inventoryLevelArray[$value->location][$itemSku] = $value->quantity;
+                                    }
+                                    $pendingArray[$value->location][$itemSku] = rand(1, 9);
+                                }
+                            } else {
+                                # code...
+                                throw new Exception("Inventory Level : " . $inventoryLevel->INFO);
+                            }
+                        }
+                        foreach ($inventoryLevelArray as $location => $skuInventory) {
+                            # code...
+                            foreach ($skuInventory as $itemSku => $inventory) {
+                                # code...
+                                if ($inventory <= 0) {
+                                    # code...
+                                    unset($inventoryLevelArray[$location]);
+                                    break;
+                                } elseif (count($inventoryLevelArray[$location]) != count($itemSkuArray)) {
+                                    # code...
+                                    unset($inventoryLevelArray[$location]);
+                                }
+                            }
+                        }
+                        $availableInventory = Array();
+                        foreach ($inventoryLevelArray as $location => $skuInventory) {
+                            # code...
+                            foreach ($skuInventory as $itemSku => $inventory) {
+                                # code...
+                                $availableInventory[$location][$itemSku] = $inventory - $pendingArray[$location][$itemSku] - $thresholdArray[$itemSku];
+                                // echo " ";
+                                // echo "<pre>";
+                                // echo ' ';
+                                // echo $pendingArray[$itemSku];
+                                // echo ' ';
+                                // echo $thresholdArray[$itemSku];
+                                // echo ' ';
+                                // echo $availableInventory = $inventory -$pendingArray[$itemSku] - $thresholdArray[$itemSku];
+                                // echo ' ' . $itemQty . ' ';
+                                // $availableInventory =
+                                // // if ($availableInventory >= $itemQty) {
+                                // //     echo "Hello";
+                                // // }
+                                // die();
+                            }
+                            // echo "<pre>";
+                            // echo $location;
+                            // // print_r($skuInventory);
+                            // print_r($pendingArray);
+                            // // print_r($thresholdArray);
+                            // echo "</pre>";
+                            // die();
+                        }
+                        $invExists = 0;
+                        foreach ($availableInventory as $location => $skuInventory) {
+                            # code...
+                            echo "<pre>";
+                            echo $location;
+                            echo " ";
+                            // print_r(array_values($skuInventory));
+                            echo min(array_values($skuInventory));
+                            // die();
+                            echo " ";
+                            echo $itemQty;
+                            echo " ";
+                            echo "</pre>";
+
+                            if (min(array_values($skuInventory)) > $itemQty) {
+                                # code...
+                                // echo "loc " . $location;
+                                $invExists += 1;
+                                $storeLocationCode = $location;
+                                break;
+                            }
+                        }
+                        echo "loc ";
+                        if ($invExists == 0) {
+                            # code...
+                            # Send out of Stock Location
+                            echo $storeLocationCode = 01;
+                        } else {
+                            # code...
+                            echo $storeLocationCode;
+                        }
+                        // echo "<pre>";
+                        // print_r($inventoryLevelArray);
+                        // print_r($availableInventory);
+                        // echo "</pre>";
+                        die();
+                        // $inventoryLevel = $this->inventoryLevel($itemSku, $locations);
+                        // $inventoryLevelArray = Array();
+                        // if ($inventoryLevel->OK) {
+                        //     # code...
+                        //     foreach ($inventoryLevel->LIST as $value) {
+                        //         # code...
+                        //         // print_r($value->location);
+                        //         // echo " : ";
+                        //         // print_r($value->quantity);
+                        //         // echo " || ";
+                        //         $inventoryLevelArray[$value->location] = $value->quantity;
+                        //     }
+                        //     print_r($inventoryLevelArray);
+                        //     die();
+                        // } else {
+                        //     # code...
+                        //     throw new Exception("Inventory Level : " . $inventoryLevel->INFO);
+                        // }
+                        $storeLocationCode = getSetInventory($itemSku, $itemQuantity);
                     } else {
                         # code...
                         //A simple product
-                        $pickupLocationCode = $this->getLocation($sku);
+                        if (!empty($orderItemsLocation)) {
+                            # code...
+                            // echo "Hello";
+                            foreach ($orderItemsLocation as $key => $value) {
+                                # code...
+                                if (isset($inventoryLocations[$value])) {
+                                    # code...
+                                    if ($inventoryLocations[$value] > $itemQty) {
+                                        # code...
+                                        echo $value;
+                                    } else {
+                                        echo 01;
+                                    }
+                                }
+                            }
+                            # code...
+                            foreach ($inventoryLocations as $location => $stock) {
+                                # code...
+                                if ($stock > $itemQty) {
+                                    # code...
+                                    return $location;
+                                } else {
+                                    return 01;
+                                }
+                            }
+                        }
                     }
                 }
             }
-        } else {
-            return '33'; 
         }
+    }
+
+    /**
+     * Get Latitute and Logitude of a ZipCode using Google Geocode API
+     *
+     * @return Array
+     */
+    private function getCoordinates($zipCode)
+    {
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($zipCode) . "&sensor=false";
+        $result_string = file_get_contents($url);
+        $result = json_decode($result_string, true);
+        if ($result['status'] == 'OK') {
+            $result1[] = $result['results'][0];
+            $result2[] = $result1[0]['geometry'];
+            $result3[] = $result2[0]['location'];
+            return $result3[0];
+        } else {
+            throw new Exception($result['status'] . " for " . $zip);
+        }
+    }
+
+    /**
+     * Get Distance in miles between two zipcodes in US
+     *
+     * @return Float
+     */
+    public function getDistance($zipCode1, $zipCode2)
+    {
+        $first_lat = $this->getCoordinates($zipCode1);
+        $next_lat = $this->getCoordinates($zipCode2);
+
+        $first_lat = Array(
+            'lat' => 34.7499657,
+            'lng' => -92.2852014
+        );
+
+        $next_lat =  Array(
+            'lat' => 34.7364493,
+            'lng' => -86.5501654
+        );
+
+        if (isset($first_lat) && isset($next_lat)) {
+            $lat1 = $first_lat['lat'];
+            $lon1 = $first_lat['lng'];
+            $lat2 = $next_lat['lat'];
+            $lon2 = $next_lat['lng'];
+            $theta = $lon1 - $lon2;
+            $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+            $dist = acos($dist);
+            $dist = rad2deg($dist);
+            $miles = $dist * 60 * 1.1515;
+        } else {
+            $miles = 0;
+        }
+        return $miles;
+    }
+
+    /**
+     * Get Pending Estimate of Item by Sku
+     *
+     * @return Array
+     */
+    public function getPendingEstimate($itemSku)
+    {
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+        $connection = $resource->getConnection();
+
+        # Sql Query which takes the pending sku details of order processing
+        $sql = "SELECT it.sku, SUM(it.qty_ordered - it.qty_invoiced) as pending
+            FROM sales_order_item it
+            LEFT JOIN sales_order o
+            ON o.entity_id = it.order_id
+
+            WHERE date(it.created_at) > DATE_SUB(Now(),INTERVAL 60 DAY)
+            AND o.status != 'complete'
+            AND o.status != 'canceled'
+            AND o.status != 'closed'
+            AND it.sku = '$itemSku'
+
+            AND (it.qty_ordered - it.qty_invoiced) > 0
+            GROUP BY it.sku";
+
+        $result = $connection->fetchAll($sql);
+        if (count($result) > 0) {
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * Get Domestic Inventory Location function using Inventory Level API
+     */
+    public function getDomesticInventory($itemSku)
+    {
+        $inventoryLevel = $this->inventoryLevel($itemSku, $this->_domesticLocation);
+
+        if ($inventoryLevel->OK) {
+            # code...
+            $domesticItemInventory = $inventoryLevel->LIST[0]->quantity;
+
+            $itemSku = "Test2";
+            $pendingItems = $this->getPendingEstimate($itemSku); # get Pending Items List 
+            if (!empty($pendingItems)) {
+                # code...
+                $pending = $pendingItems[0]['pending'];
+            } else {
+                # code...
+                $pending = 0;
+            }
+            $availableInventory = $domesticItemInventory - $pending;
+            // print_r($domesticItemInventory);
+            // print_r($pending);
+            // print_r($availableInventory);
+            // die();
+            return $availableInventory;
+        } else {
+            # code...
+            throw new Exception("Inventory Level : " . $inventoryLevel->INFO);
+        }
+    }
+
+    /**
+     * Get Domestic Items Inventory Location
+     *
+     * @return Integer
+     */
+    public function getDomesticInventoryLocation($productSku, $qtyOrdered, $shippingZipCode)
+    {
+        $availableInventory = $this->getDomesticInventory($productSku);
+
+        if ($availableInventory >= $qtyOrdered) {
+            # code...
+            $zipCode1 = 72201;
+            $distance = $this->getDistance($zipCode1, $shippingZipCode);
+            if (round($distance) <= 80) {
+                # code...
+                echo round($distance);
+                $storeLocationCode = 06;
+            } else {
+                # code...
+                $storeLocationCode = 33;
+            }
+        } else {
+            # code...
+            # Send the Out of Stock Notification
+            $storeLocationCode = 01;
+        }
+        return $storeLocationCode;
+    }
+
+    /**
+     * Get Grouped Items Location
+     *
+     * @return Array
+     */
+    public function getGroupedLocation($order,$orderItems)
+    {
+        $groupedLocationFound = 0;
+        $availableLocations = array();
+        $groupedLocation = array();
+        // $availableLocationsInv = array();
+        // echo count($orderItems);
+        // die();
+        foreach ($orderItems as $itemId => $productInfo) {
+            # code...
+            $product = $this->getProductById($productInfo['ProductId']);
+            $inventoryLevel = explode(", ",$product->getInventoryLevel());
+            // $availableLocationsInv[$itemId] = array();
+            $locations = array();
+            foreach ($inventoryLevel as $inventoryLoc) {
+                # code...
+                if (empty($availableLocations[explode(":", $inventoryLoc)[0]])) {
+                    # code...
+                    $availableLocations[explode(":", $inventoryLoc)[0]] = array();
+                }
+                if (explode(":", $inventoryLoc)[1] > $productInfo['ItemQty']) {
+                    # code...
+                    array_push($availableLocations[explode(":", $inventoryLoc)[0]], $itemId);
+                    // array_push($locations, explode(":", $inventoryLoc)[0]);
+                }
+            }
+            // $availableLocationsInv[$itemId] = $locations;
+        }
+
+        // echo "<pre>";
+        // print_r($availableLocations);
+        // echo "</pre>";
+        // die();
+        foreach ($availableLocations as $location => $items) {
+            # code...
+            if (count($items) == count($orderItems)) {
+                # code...
+                foreach ($items as $itemId) {
+                    # code...
+                    $groupedItemsLocation[$itemId] = $location;
+                }
+                // echo "<pre>";
+                // print_r($groupedItemsLocation);
+                // echo "</pre>";
+                $groupedLocationFound = 1;
+                // break;
+                return $groupedItemsLocation;
+            }
+        }
+        # dummy values...
+        // $orderItems = array(
+        //     '133' => array(
+        //         'ProductId' => 5,
+        //         'ItemQty' => 1.0000
+        //     ),
+        //     '134' => array(
+        //         'ProductId' => 4,
+        //         'ItemQty' => 1.0000
+        //     ),
+        //     '135' => array(
+        //         'ProductId' => 3,
+        //         'ItemQty' => 1.0000
+        //     ),
+        //     '136' => array(
+        //         'ProductId' => 2,
+        //         'ItemQty' => 1.0000
+        //     ),
+        //     '137' => array(
+        //         'ProductId' => 1,
+        //         'ItemQty' => 1.0000
+        //     )
+        // );
+        // $groupedLocationFound = 0;
+
+        // $availableLocations = array(
+        //     '01' => array(
+        //         133,
+        //         136,
+        //         137
+        //     ),
+        //     '09' => array(
+        //         133,
+        //         134,
+        //         136,
+        //         137
+        //     ),
+        //     '16' => array(
+        //         133,
+        //         134,
+        //         137
+        //     ),
+        //     '21' => array(
+        //         134,
+        //         135,
+        //         136
+        //     )
+        // );
+        // echo "<pre>";
+        // print_r($orderItems);
+        // print_r($groupedLocationFound);
+        // print_r($availableLocations);
+        // echo "</pre>";
+        // die();
+        // $orderItems =
+        if ($groupedLocationFound != 1) {
+            # code...
+            $previous = array();
+            foreach ($orderItems as $itemId => $productInfo) {
+                #code...
+                if (isset($previous)) {
+                    # code...
+                    $foundInPrevious = 0;
+                    foreach ($previous as $location) {
+                        # code...
+                        if (in_array($itemId, $availableLocations[$location])) {
+                            # code...
+                            $groupedItemsLocation[$itemId] = $location;
+                            $foundInPrevious = 1;
+                            break;
+                        }
+                    }
+                    if ($foundInPrevious == 1) {
+                        # code...
+                        echo "Hello";
+                        continue;
+                    }
+                }
+                foreach ($availableLocations as $location => $value) {
+                    # code...
+                    if (in_array($itemId, $availableLocations[$location])) {
+                        # code...
+                        $groupedItemsLocation[$itemId] = $location;
+                        array_push($previous, $location);
+                        break;
+                    }
+                }
+            }
+        }
+        // echo "<pre>";
+        ksort($groupedItemsLocation);
+        // print_r($groupedItemsLocation);
+        // echo "</pre>";
+        // $availableLocationsInv = array();
+        // foreach ($availableLocations as $location => $items) {
+        //     # code...
+        //     foreach ($items as $key => $itemId) {
+        //         # code...
+        //         if (empty($availableLocationsInv[$itemId])) {
+        //             # code...
+        //             $availableLocationsInv[$itemId] = array();
+        //         }
+        //         // $availableLocationsInv[$itemId] = $location;
+        //         array_push($availableLocationsInv[$itemId], $location);
+        //     }
+        // }
+        // echo "<pre>";
+        // print_r($availableLocationsInv);
+        // echo "</pre>";
+        // echo "<pre>";
+        // print_r($groupedItemsLocation);
+        // echo "</pre>";
+        // die();
+        return $groupedItemsLocation;
     }
 }
