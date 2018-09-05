@@ -1,7 +1,5 @@
 <?php
-
 namespace Dyode\PromotionWidget\Block;
-
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 
@@ -29,7 +27,7 @@ class CustomWidget extends \Magento\Framework\View\Element\Template implements \
         $this->setTemplate('promotion_block_widget.phtml');
     }
     /**
-    * function name : getTitle
+    * function name : getTitle of the widget
      * Retrieve tile of the block
      *
     */
