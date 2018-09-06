@@ -517,6 +517,7 @@
 @media all and (min-width:1025px),
 print {
     .navigation {
+        background: #97d700 !important;
         box-sizing: border-box;
         margin-left: auto;
         margin-right: auto;
