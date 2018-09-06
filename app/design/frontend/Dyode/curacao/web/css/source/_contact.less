@@ -1,4 +1,4 @@
-@import "var";
+@import "_var";
 .clear-fix {
     overflow: hidden;
 }
@@ -122,7 +122,7 @@
                         margin-bottom: 1em;
                     }
                     @media all and (max-width: 768px) {
-                        padding: 8px;
+                        // padding: 8px;
                         font-size: 14px;
                     }
                 }
@@ -230,8 +230,12 @@
                         margin-bottom: 15px;
                         font-size: 18px;
                         font-weight: normal;
+                        @media all and (max-width:768px) {
+                            font-size: 15px;
+                            margin-bottom: 5px;
+                        }
                         @media all and (max-width: 400px) {
-                            font-size: 14px;
+                            font-size: 12px;
                             margin-bottom: 5px;
                         }
                     }
@@ -252,7 +256,7 @@
                             font-size: 15px;
                         }
                         @media all and (max-width: 400px) {
-                            font-size: 12px;
+                            font-size: 10px;
                         }
                     }
                     &.left-align {

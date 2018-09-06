@@ -1,4 +1,4 @@
-@import "var";
+@import "_var";
 //STYLES FOR IN-STORE PICK-UP PAGE
 .cms-container{
   .inner-cms-banner{
@@ -33,7 +33,7 @@
     }
     .banner-text{
       position: absolute;
-      background-color: $white;
+      background-color: @white;
       border-radius: 0px 10px 10px 0px;
       top: 37px;
       left: 0px;
@@ -64,6 +64,7 @@
 .inner-cms-container{
   .cms-content{
     .cms-heading{
+      font-size: 32px;
       span{
         color: @span-color;
       }

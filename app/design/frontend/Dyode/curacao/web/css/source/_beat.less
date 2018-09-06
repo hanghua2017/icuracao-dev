@@ -1,4 +1,4 @@
-@import "var";
+@import "_var";
 /*styling of price-beat-cms-page starts here*/
 .cms-container{
   .desktop-display{
@@ -14,7 +14,7 @@
     }
   }
   &.cms-price-beat-container{
-    background: transparent;
+    background:@white;
     padding-top: 0;
     a{
       font-family: Roboto;
@@ -24,7 +24,7 @@
     }
   }
   &.cms-interest-beat-container{
-    background: transparent;
+    background:@white;
     padding-top: 0;
     a{
       font-family: Roboto;
@@ -92,7 +92,12 @@
             width: auto;
             margin: 0;
             padding-bottom: 10px;
-            border-bottom: 3px solid @curacao-red;
+            border-bottom: 3px solid @curacao-green;
+        }
+      }
+      .interest-heading{
+        h2{
+          border-bottom: 3px solid @curacao-red !important;
         }
       }
       .cms-button{
@@ -101,7 +106,7 @@
         button{
           font-family: Roboto;
           background: @curacao-green;
-          color: $white;
+          color: @white;
           font-size: 16px;
           padding: 12px 25px;
           font-weight: bold;
@@ -192,9 +197,14 @@
             margin-bottom:15px;
             span{
               text-transform: uppercase;
-              color:#d51730;
+              color:@curacao-green;
               font-weight: bold;
             }
+          }
+        }
+        .alt-content{
+          span{
+            color:@curacao-red !important;
           }
         }
       }
@@ -298,7 +308,7 @@
 /*styling of price-beat-form and interest-beat-form starts here*/
 
 .cms-container.cms-form-container{
-  background: url("../images/cms-container-bg.png");
+  background: url("../../images/cms-container-bg.png");
   padding: 60px 0;
   @media all and (max-width: 768px){
     padding: 0;
@@ -358,6 +368,7 @@
               border-bottom: 1px solid @faq-border-color;
               border-radius: 5px 5px 0 0px;
               box-sizing: border-box;
+              min-height: 50px;
               &::placeholder{
                 font-size:14px;
                 text-transform: capitalize;
@@ -469,19 +480,26 @@
               color:@text-light-gray;
               margin-top:10px;
               .btn {
-                color: $white;
+                color:@white;
                 background-color: @text-light-gray;
                 padding: 14px 20px;
                 border-radius: 5px 0 0 5px;
                 margin:0;
                 width:120px;
                 font-size: 14px;
+                @media all and(max-width: 425px){
+                  width: 95px;
+                  padding: 14px 0px;
+                }
               }
               label{
                 font-family: Roboto;
                 font-size:14px;
                 color:@text-light-gray;
                 margin-left:10px;
+                @media all and(max-width: 425px){
+                  margin-left:4px;
+                }
               }
               input[type=file] {
                 font-size: 100px;
@@ -509,11 +527,11 @@
       padding-bottom: 30px;
       text-align: center;
       &.price-beat-banner{
-        background:url("../images/price-beat-form-bg.png");
+        background:url("../../images/price-beat-form-bg.png");
         background-size: 100% 100%;
       }
       &.interest-beat-banner{
-        background:url("../images/interest-beat-form-bg.png");
+        background:url("../../images/interest-beat-form-bg.png");
         background-size: 100% 100%;
       }
       .beat-banner-content{

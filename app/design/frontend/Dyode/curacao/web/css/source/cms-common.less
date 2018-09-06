@@ -1,23 +1,40 @@
-@import "order&returns.less";
-@import "accordion.less";
-@import "privacy-policy.less";
-@import "order-tracking.less";
-@import "return-policy.less";
-@import "instore.less";
-@import "faq.less";
-@import "contact.less";
-@import "beat.less";
-@import "var.less";
+@import "_order&returns";
+@import "_accordion";
+@import "_privacy-policy";
+@import "_order-tracking";
+@import "_return-policy";
+@import "_instore";
+@import "_faq";
+@import "_contact";
+@import "_beat";
+@import "_var";
 body{
   margin: 0;
 }
 input,select,button{outline: none;}
-
-  .cms-container{
+.cms-contact-us,.cms-privacy-policy,.cms-return-policy,.cms-faq,.cms-order-tracking,.cms-order-returns,.cms-store-pickup,
+.cms-shipping-information,.cms-terms-conditions,.cms-interest-beat-form,.cms-price-beat-form,.cms-price-beat,
+.cms-interest-beat{
+  main{
     font-family: 'Roboto', sans-serif !important;
-    background: url("../images/Order&returns-BG.png");
+    background: url("../../images/Order-returns-BG.png");
     background-size: cover;
     background-repeat: no-repeat;
+    .column,.main{
+      padding-bottom: 0 !important;
+    }
+  }
+  .page-main{
+        max-width: none !important;
+        padding: 0 !important;
+  }
+}
+.cms-price-beat,.cms-interest-beat,.cms-store-pickup{
+    .page-main{
+        background: @white !important;
+  }
+}
+  .cms-container{
     .inner-container{
       .cms-content{
         .cms-heading{
@@ -32,9 +49,10 @@ input,select,button{outline: none;}
         button{
           background-color: @curacao-green;
           border-radius: 4px;
-          color: white;
+          color: @white;
           border: none;
           box-shadow: none;
+          cursor: pointer;
         }
         input,textarea{
           border:none;

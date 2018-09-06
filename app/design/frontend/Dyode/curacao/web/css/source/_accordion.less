@@ -1,4 +1,4 @@
-@import "var";
+@import "_var";
 .accordion-container{
   .accordion-content{
     margin:20px 0;
@@ -15,11 +15,11 @@
         text-align: left;
         outline: none;
         font-family: Roboto;
-        font-size: 22px;
+        font-size: 17px !important;
         transition: 0.4s;
         position: relative;
         @media all and (max-width: 768px){
-          font-size:18px;
+          font-size:14px;
         }
         &:after{
           content: '\002B';
@@ -43,6 +43,22 @@
           content: "\2212";
           color:@curacao-green;
           transition:all 0.5s;
+        }
+      }
+      .interest-title{
+        @media all and(max-width: 768px){
+          font-size: 15px !important;
+        }
+        &.active{
+          color: @curacao-red !important;
+        }
+        &.active:after{
+          color: @curacao-red !important;
+        }
+      }
+      .price-title{
+        @media all and(max-width: 768px){
+          font-size: 15px !important;
         }
       }
       .accordion-panel {
@@ -91,6 +107,13 @@
                 font-weight: 500;
               }
             }
+         }
+         .alternate{
+           ul{
+             li{
+               color: @curacao-red !important;
+             }
+           }
          }
          div.accordion-panel.show{
            max-height: 1800px;
@@ -221,7 +244,7 @@
            font-size: 16px;
            width: 100%;
            @media all and(max-width: 425px){
-             font-size: 15px !important;
+             font-size: 14px !important;
            }
            span{
              color: #676767 !important;
@@ -233,14 +256,14 @@
            }
          }
        }
-       p:nth-child(3){
-         color: #a6a6a6;
-         font-weight: normal;
-       }
        .info{
              margin-top: 15px;
        }
-     }
-   }
- }
+       .reference{
+         color: #a6a6a6;
+         font-weight: normal;
+        }
+      }
+    }
+  }
 }

@@ -1,4 +1,4 @@
-@import "var.less";
+@import "_var";
 //STYLING FOR ORDER RETURNS FORM
 .cms-container{
   padding: 60px 0;
@@ -36,8 +36,9 @@
       .form-details{
             padding-top: 35px;
             @media all and (max-width: 768px){
-              padding-top: 30px;
+              padding-top: 12px;
             }
+
         h3{
           text-transform: capitalize;
           font-weight: lighter;
@@ -61,6 +62,7 @@
               border: none;
               border-bottom: 1px solid @form-label;
               border-radius: 5px 5px 0 0px;
+              min-height: 50px;
               &::placeholder{
                 font-size:16px;
                 text-transform: capitalize;
@@ -81,10 +83,8 @@
               font-weight: bolder;
               color: #8a8888;
               min-width: 112px;
-              @media all and (max-width: 425px){
-                font-size: 15px;
-                min-width: 100px;
-              }
+              padding-top: 5px;
+              font-size: 15px;
             }
             select{
               width: 100%;
@@ -93,14 +93,15 @@
               color: #8a8888;
               font-weight: lighter;
               -webkit-appearance: none;
-              background-image: url("../images/arrow.png");
+              background-image: url("../../images/arrow.png");
               background-repeat: no-repeat;
               background-position: right;
-              @media all and (max-width: 425px){
-                font-size: 15px;
-              }
-              @media all and (max-width: 345px){
-                background-position: 89px -2px;
+              padding-top: 0px;
+              font-size: 15px;
+              @media all and (max-width: 375px){
+                background-position: 83px 2px;
+                padding-left: 0px;
+                background-size: 34%;
               }
             }
           }
@@ -109,6 +110,8 @@
           width: 100%;
           margin-top: 30px;
           padding: 15px;
+          min-height: 50px;
+          font-size: 17px;
         }
       }
     }

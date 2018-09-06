@@ -1,4 +1,4 @@
-@import "var";
+@import "_var";
 //STYLING FOR ORDER TRACKING FORM
 .cms-container{
   .order-container{
@@ -30,10 +30,7 @@
           width: 480px;
         }
         @media all and(max-width: 768px){
-          width: 100%;
-          padding: 0 30px;
-        }
-        @media all and(max-width: 520px){
+          width: unset;
           padding: 0 15px;
         }
         label{
@@ -51,44 +48,61 @@
             border-radius: 5px;
             select{
               min-width: 160px;
-              padding: 10px;
+              padding: 0px 10px 3px 10px;
               background: #e2e2e2;
               border: none;
               border-right: 1px solid @form-label;
               font-weight: lighter;
               -webkit-appearance: none;
-              background-image: url("../images/arrow.jpeg");
+              background-image: url("../../images/arrow.jpeg");
               background-repeat: no-repeat;
-              background-position: 133px 16px;
+              background-position: 136px 14px;
               font-size: 15px;
               border-radius: 5px 0px 0 5px;
+              min-height: 40px;
+              @media all and(max-width: 768px){
+                width: unset;
+                min-width: 160px !important;
+              }
               @media all and (max-width: 520px){
                 font-size: 13px;
                 background-position: 117px 15px;
-                min-width: 140px;
+                min-width: 140px !important;
               }
               @media all and(max-width: 425px){
                 font-size: 11px;
-                background-position: 97px 13px;
-                min-width: 115px;
+                background-position: 99px 15px;
+                min-width: 115px !important;
                 background-size: 12%;
+                padding: 0px 10px 3px 8px;
               }
             }
             input{
               border:none;
+              min-height: 40px;
               min-width: 398px;
-              padding: 0 20px;
+              padding:0 20px;
               border-radius: 0px 5px 5px 0px;
+              padding: 0px 10px 3px 10px;
               @media all and(max-width: 991px){
                 min-width: 300px;
-                padding: 0 15px;
               }
               @media all and(max-width: 768px){
                 min-width: 0;
                 width: 100%;
               }
               @media all and(max-width: 520px){
-                padding: 0 8px;
+                padding: 0 10px 3px 8px !important;
+                font-size: 13px;
+              }
+              &::placeholder{
+                font-size: 15px;
+                @media all and(max-width: 520px){
+                  font-size: 13px !important;
+                }
+                @media all nad(max-width: 425px){
+                  font-size: 11px !important;
+                }
               }
             }
           }
@@ -96,27 +110,33 @@
             padding: 30px;
             text-align: center;
             @media all and(max-width: 768px){
-              padding: 30px 0 20px 0;
+              padding: 0 0 20px 0;
             }
             button{
-              padding: 10px;
+              padding: 15px;
               width: 210px;
+              font-size: 18px;
               @media all and(max-width: 425px){
-                padding: 6px;
-                width: 170px;
+                padding: 6px !important;
+                width: 170px !important;
+                min-height: 40px !important;
               }
             }
           }
         }
         .contact-details{
           text-align: center;
-          @media all and(max-width: 768px){
-            font-size: 13px;
-          }
           p{
             font-weight: lighter;
+            font-size: 16px;
             span{
               color: @curacao-green;
+            }
+            @media all and(max-width: 768px){
+              font-size: 15px;
+            }
+            @media all and(max-width: 425px){
+              font-size: 13px;
             }
           }
         }
