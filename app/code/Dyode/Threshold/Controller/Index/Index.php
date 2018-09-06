@@ -1,6 +1,6 @@
 <?php
 
-namespace Dyode\InventoryUpdate\Controller\Index;
+namespace Dyode\Threshold\Controller\Index;
 
 class Index extends \Magento\Framework\App\Action\Action
 {
@@ -9,9 +9,9 @@ class Index extends \Magento\Framework\App\Action\Action
 	public function __construct(
 		\Magento\Framework\App\Action\Context $context,
 		\Magento\Framework\View\Result\PageFactory $pageFactory,
-		\Dyode\InventoryUpdate\Model\Inventory $inventory)
+		\Dyode\Threshold\Model\Threshold $thresholdModel)
 	{
-		$this->inventory = $inventory;
+		$this->thresholdModel = $thresholdModel;
 		$this->_pageFactory = $pageFactory;
 		return parent::__construct($context);
 	}
@@ -19,8 +19,8 @@ class Index extends \Magento\Framework\App\Action\Action
 	public function execute()
 	{
 		
-		$this->inventory->updateInventory();
-		var_dump("success");exit;
+		$this->thresholdModel->getThreshold();
 	}
 
 }
+

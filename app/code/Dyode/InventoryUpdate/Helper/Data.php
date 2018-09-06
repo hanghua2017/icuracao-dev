@@ -5,28 +5,31 @@ namespace Dyode\InventoryUpdate\Helper;
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
 
-	public function batchGetInventory($skuList,$location) {
-		
-		$soapClient = $this->setSoapClient(); 
-		$soapResponse = $soapClient->BatchGetInventory(array('SkuList' => $skuList, 'location' => $location));
-		return $soapResponse;
+	public function getStock() {
+		$httpHeaders = new \Zend\Http\Headers();
+		$httpHeaders->addHeaders([
+		   'Accept' => 'application/json',
+		   'Content-Type' => 'application/json',
+		   'X-Api-Key' => 'TEST-WNNxLUjBxA78J7s'
+		]);
+
+		$request = new \Zend\Http\Request();
+		$request->setHeaders($httpHeaders);
+		$request->setUri("https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/getStock?top50=true");
+		$request->setMethod(\Zend\Http\Request::METHOD_GET);
+
+		$client = new \Zend\Http\Client();
+		$options = [
+		   'adapter'   => 'Zend\Http\Client\Adapter\Curl',
+		   'curloptions' => [CURLOPT_FOLLOWLOCATION => true],
+		   'maxredirects' => 0,
+		   'timeout' => 30
+		];
+		$client->setOptions($options);
+
+		$response = $client->send($request);
+		$data = json_decode($response->getBody());
+		return $data;
 	}
 
-	public function goSupplyInvoice($invoiceNumber,$firstName,$lastName,$email) {
-		$soapClient = $this->setSoapClient(); 
-		$soapResponse = $soapClient->GoSupplyInvoice(array('InvNo' => $invoiceNumber, 'FirstName' => $firstName, 'LastName' => $lastName, 'eMail' => $email));
-	}
-
-	public function setSoapClient() {
-	$wsdlUrl = 'https://exchangeweb.lacuracao.com:2007/ws1/test/ecommerce/Main.asmx?WSDL';
-		$soapClient = new \SoapClient($wsdlUrl,['version' => SOAP_1_2]);
-		$xmlns = 'http://lacuracao.com/WebServices/eCommerce/';
-		$headerbody = array('UserName' => 'mike',
-		  'Password' => 'ecom12');
-		//Create Soap Header.
-		$header = new \SOAPHeader($xmlns, 'TAuthHeader', $headerbody);
-		//set the Headers of Soap Client.
-		$soapHeader = $soapClient->__setSoapHeaders($header);
-		return $soapClient;
-	}	
 }

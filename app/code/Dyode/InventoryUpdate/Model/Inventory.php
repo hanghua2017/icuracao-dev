@@ -34,12 +34,14 @@ class Inventory extends \Magento\Framework\View\Element\Template {
     \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
 	\Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory, 
 	\Dyode\InventoryUpdate\Helper\Data $helper,
+	\Dyode\Threshold\Model\Threshold $thresholdModel,
 	array $data = []
 	) {
 	    $this->_productCollectionFactory = $productCollectionFactory;  
 	    $this->_orderCollectionFactory = $orderCollectionFactory;
 	    $this->_productRepository = $productRepository;
 	    $this->helper = $helper;
+	    $this->threshold = $thresholdModel;
 	    parent::__construct($context, $data);
 	}
 
@@ -54,24 +56,11 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 			$this->productIDs[$productSKU] = $productId;
 		}
 
-		$staticitems = array('21B-H32-65102401800','21A-J12-F006284809','12S-F94-13003A/AS','20A-R68-MSD32U1HYU','21A-994-A0111603');
-		$items = array_chunk($staticitems,1000);
-
-		foreach ($items as $item){
-			$skuList = implode(';', $item);	
-			foreach ($this->locations as $location) {
-				//get inventory details from each location
-				$getInventory = $this->helper->batchGetInventory($skuList, $location);
-				array_push($this->batchInventory,$getInventory);
-			}
-		}
-
-		foreach ($this->batchInventory as $inventoryResult) {
-			$this->processBatchInventory($inventoryResult);
-		}
-		print_r($this->skus);exit;
-		$this->helper->batchGetInventory($item,'01');
-		var_dump($this->productIDs);exit;
+		$this->processBatchInventory();
+		$this->getAllPending();
+		$this->getAllThreshold();
+		$this->processThreshold();
+		$this->executeProductSkus();
 	}	
 
 	//get product collection
@@ -82,15 +71,23 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 	}
 
 	//processing the API responses
-	public function processBatchInventory($inventoryResult){
-		$getInventoryResult = json_decode($inventoryResult->BatchGetInventoryResult);
-		$items = $getInventoryResult->SKULIST;
-		foreach ($items as $item){
-			$sku = trim( $item[0] ); //product sku
-			$store = $item[1]; //store location
-			$stock = $item[2]; //current stock from AR
-			$this->productSKUs[$sku][$store] = $stock;
+	public function processBatchInventory(){
+		$arInventory = $this->helper->getStock();
+		if($arInventory){
+		if($arInventory->OK){
+			foreach ($arInventory->LIST as $item) {
+				$sku = trim( $item->item_id ); //product sku
+				foreach ($item->stock as $location => $quantity) {
+					$store = $location; //store location
+			        $stock = $quantity; //current stock from AR
+			        $this->productSKUs[$sku][$store] = $stock;
+				}
+			}
 		}
+		if ($arInventory->CONTINUE) {
+			$this->processBatchInventory();
+		}
+	    }
 	}	
 
 	// Get all pending order items
@@ -121,21 +118,20 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 
 	//Get all threshold values for the products
 	public function getAllThreshold(){
-		//get threshold values from the corresponding tables
-		//$data = SELECT department, sku, threshold FROM curacao_admin.mch_threshold");
+
+		$data = $this->threshold->getThreshold();
 		foreach ($data as $item) {	
-			$department = $item['department'];
-			$sku = trim( $item['sku'] );
+			$department = $item['Sub Departments Name'];
+			$sku = trim( $item['Sub Code'] );
 			
 			if(!isset($sku) || empty($sku)){				
 				// Department
-				$this->thresh[$department] = $item['threshold'];
+				$this->thresh[$department] = $item['Threshold'];
 			}else{				
 				// Sku
-				$this->thresh[$sku] = $item['threshold'];
+				$this->thresh[$sku] = $item['Threshold'];
 			}
 		}
-
 	}
 
 	public function processThreshold(){
@@ -153,7 +149,8 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 					}else{
 						$threshold = 0;
 					}
-					$this->pendingthreshold[$sku][$location] -= $threshold;
+
+					$this->pendingthreshold[$sku][$location] -= (int)$threshold;
 					if ($this->pendingthreshold[$sku][$location] < 0){	
 						$this->pendingthreshold[$sku][$location] = 0; 
 					}
@@ -164,6 +161,30 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 
 	//execute all available products in the inventory
 	public function executeProductSkus(){
+		foreach ($this->productSKUs as $sku => $inv)
+		{			
+			if (isset($this->productIDs[$sku]))
+			{
+				$eid = $this->productIDs[$sku];
+				if (count($inv) == 0)
+				{
+										
+				}
+				else
+				{
+					$jsonAR_inv = json_encode($inv, true);
+					$jsonAR_invAfterPending = json_encode($this->pending[$sku], true);
+					$jsonAR_invAfterPendingAndThreshold = json_encode($this->pendingthreshold[$sku], true);
+					$finalInv = max($this->pendingthreshold[$sku]);
+					$finalLocation = array_search($finalInv, $this->pendingthreshold[$sku]);
+					
+					// Company-wide Inventory
+					$inventory_values = array_values($this->pendingthreshold[$sku]);
+					$company_wide_inventory = array_sum($inventory_values);
+					var_dump($company_wide_inventory);exit;
+				}
+			}
+		}
 		$productCollection = $this->_productCollectionFactory->create()->addAttributeToSelect('*');
 		foreach($productCollection as $product) {
 			//$item = $this->_productRepository->getById($product->getId());
