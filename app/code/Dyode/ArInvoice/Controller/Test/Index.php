@@ -32,7 +32,8 @@ class Index extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         // $orders = $this->orderCollection->getSalesOrderCollection();
-        // $this->orderCollection->createInvoice(3);
+        $this->orderCollection->createInvoice(3);
+        die();
         $itemId = '32A-061-101946';
         $_allLocationsZipcodes = array('01' => 90015, '09' => 91402, '16' => 90280, '22' => 90255, '29' => 92408, '33' => 90280, '35' => 92708, '38' => 91710, '51' => 92801, '40' => 85033, '57' => 85713, '64' => 89107);
         $locations = implode(array_keys($_allLocationsZipcodes),',');

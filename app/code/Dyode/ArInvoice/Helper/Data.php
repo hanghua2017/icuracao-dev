@@ -626,33 +626,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                         $storeLocationCode = getSetInventory($itemSku, $itemQuantity);
                     } else {
                         # code...
-                        //A simple product
-                        if (!empty($orderItemsLocation)) {
-                            # code...
-                            // echo "Hello";
-                            foreach ($orderItemsLocation as $key => $value) {
-                                # code...
-                                if (isset($inventoryLocations[$value])) {
-                                    # code...
-                                    if ($inventoryLocations[$value] > $itemQty) {
-                                        # code...
-                                        echo $value;
-                                    } else {
-                                        echo 01;
-                                    }
-                                }
-                            }
-                            # code...
-                            foreach ($inventoryLocations as $location => $stock) {
-                                # code...
-                                if ($stock > $itemQty) {
-                                    # code...
-                                    return $location;
-                                } else {
-                                    return 01;
-                                }
-                            }
-                        }
+                        return "k";
                     }
                 }
             }

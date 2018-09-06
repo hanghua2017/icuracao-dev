@@ -36,6 +36,11 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
     protected $_arInvoiceHelper;
 
     /**
+     * @var \Dyode\Customerstatus\Helper\Data $customerStatusHelper
+     **/
+    protected $_customerStatusHelper;
+
+    /**
      * Construct
      *
      * @param \Magento\Framework\Model\Context $context
@@ -44,6 +49,7 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
      * @param \Magento\Framework\View\Result\PageFactory $pageFactory
      * @param \Magento\Sales\Model\ResourceModel\Order\Status\CollectionFactory $statusCollectionFactory
      * @param \Dyode\ArInvoice\Helper\Data $arInvoiceHelper
+     * @param \Dyode\Customerstatus\Helper\Data $customerStatusHelper
      * @param \Magento\Framework\Registry $data
      */
 	public function __construct(
@@ -53,6 +59,7 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
 		\Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Sales\Model\ResourceModel\Order\Status\CollectionFactory $statusCollectionFactory,
         \Dyode\ArInvoice\Helper\Data $arInvoiceHelper,
+        \Dyode\Customerstatus\Helper\Data $customerStatusHelper,
         \Magento\Framework\Registry $data
     ) {
         $this->_orderCollectionFactory = $orderCollectionFactory;
@@ -60,6 +67,7 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         $this->_pageFactory = $pageFactory;
         $this->_statusCollectionFactory = $statusCollectionFactory;
         $this->_arInvoiceHelper = $arInvoiceHelper;
+        $this->_customerStatusHelper = $customerStatusHelper;
 		return parent::__construct($context, $data);
 	}
 
@@ -104,6 +112,11 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         # Validating the Account Number
         $accountNumber = $this->_arInvoiceHelper->validateAccountNumber($accountNumber);
 
+        $customerStatusResponse = $this->_customerStatusHelper->checkCustomerStatus($order, '54421729');
+        $customerStatus = json_decode($customerStatusResponse);
+        print_r($customerStatus);
+
+        die();
         if ($accountNumber == "500-8555" and $orderType == "full_credit_card") {
             # code... incomplete ... Check Customer Status
         }
@@ -255,17 +268,16 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         }
         else {  # Create Invoice Response is true
             $estimateNumber = $invoiceNumber = $createInvoiceResponse->DATA->INV_NO;    # Save Estimate Number in Order
-            # dummy values
-            $customerStatus = "Yes";
-            $addressMismatch = false;
             /**
              * Customer Status Validation
              */
-            if ($customerStatus == "Soft" || $customerStatus == "NO" || $addressMismatch == True) {
+            if ($customerStatus['customerstatus'] == False || $customerStatus["addressmismatch"] == True || $customerStatus["soft"] == True) {
                 $order->setState("payment_review")->setStatus("credit_review");    # Change the Order Status and Order State
                 $order->addStatusToHistory($order->getStatus(), 'Your Credit is being Reviewed');     # Add Comment to Order History
                 $order->save();     # Save the Changes in Order Status & History
                 # incomplete...
+                # Notify Customer
+                # Notify Credit Department to Review
                 // echo $order->getState();
                 // echo $order->getStatus();
                 // $histories = $order->getStatusHistories();
