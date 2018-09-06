@@ -29,7 +29,7 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
      * @var \Magento\Sales\Model\ResourceModel\Order\Status\CollectionFactory $statusCollectionFactory
      */
     protected $_statusCollectionFactory;
-    
+
     /**
      * @var \Dyode\ArInvoice\Helper\Data $arInvoiceHelper
      **/
@@ -41,6 +41,11 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
     protected $_customerStatusHelper;
 
     /**
+     * @var \Dyode\Signifyd\Model\Signifyd $signifydModel
+     */
+    protected $_signifydModel;
+
+    /**
      * Construct
      *
      * @param \Magento\Framework\Model\Context $context
@@ -50,6 +55,7 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
      * @param \Magento\Sales\Model\ResourceModel\Order\Status\CollectionFactory $statusCollectionFactory
      * @param \Dyode\ArInvoice\Helper\Data $arInvoiceHelper
      * @param \Dyode\Customerstatus\Helper\Data $customerStatusHelper
+     * @param \Dyode\Signifyd\Model\Signifyd $signifydModel
      * @param \Magento\Framework\Registry $data
      */
 	public function __construct(
@@ -60,6 +66,7 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         \Magento\Sales\Model\ResourceModel\Order\Status\CollectionFactory $statusCollectionFactory,
         \Dyode\ArInvoice\Helper\Data $arInvoiceHelper,
         \Dyode\Customerstatus\Helper\Data $customerStatusHelper,
+        \Dyode\Signifyd\Model\Signifyd $signifydModel,
         \Magento\Framework\Registry $data
     ) {
         $this->_orderCollectionFactory = $orderCollectionFactory;
@@ -68,6 +75,7 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         $this->_statusCollectionFactory = $statusCollectionFactory;
         $this->_arInvoiceHelper = $arInvoiceHelper;
         $this->_customerStatusHelper = $customerStatusHelper;
+        $this->_signifydModel = $signifydModel;
 		return parent::__construct($context, $data);
 	}
 
@@ -117,6 +125,7 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         print_r($customerStatus);
 
         die();
+
         if ($accountNumber == "500-8555" and $orderType == "full_credit_card") {
             # code... incomplete ... Check Customer Status
         }
@@ -125,7 +134,8 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         }
         
         if ($signifyRequired == True) {
-            # code... incomplete ... Get Signify Score
+            # code... Signify Score
+            $this->_signifydModel->processSignifyd($order->getIncrementId());
         }
         # code... incomplete ... Prepare Order Items
 
