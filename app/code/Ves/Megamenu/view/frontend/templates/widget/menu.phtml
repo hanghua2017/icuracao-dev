@@ -83,7 +83,7 @@ if ($menu = $this->getMenu()) {
 	if ($disableItemBlocks = $menu->getData("disable_iblocks")) {
 		$classes .= ' hide-blocks';
 	}
-	
+
 	$checked = true;
 	$html2 = "";
 
@@ -92,7 +92,7 @@ if ($menu = $this->getMenu()) {
 	} catch (\Exception $e) {
 		$checked = false;
 	}
-	
+
 	if($checked) {
 		$html = $html2;
 	}
@@ -219,7 +219,7 @@ if ($menu = $this->getMenu()) {
 								$("#<?php echo $navId ?> ."+id).parent().find(".dynamic-item").removeClass("dynamic-active");
 								$("#<?php echo $navId ?> ."+id).addClass("dynamic-active");
 							}
-							
+
 							if ($(this).data('hovericon')) {
 								$(this).children('.nav-anchor').find('.item-icon').attr('src', $(this).data('hovericon'));
 							}
@@ -243,7 +243,7 @@ if ($menu = $this->getMenu()) {
 									if (mHeight < mParentHeight) {
 										mTop = $(this).offset().top - mParent.offset().top + mHeight;
 									}
-									$(this).children('.submenu').css({top:mTop});	
+									$(this).children('.submenu').css({top:mTop});
 								}
 								<?php } ?>
 
@@ -276,25 +276,25 @@ if ($menu = $this->getMenu()) {
 									    var container2 = $("#<?php echo $navId ?> .nav-item.level2.current");
 									    var container3 = $("#<?php echo $navId ?> .nav-item.level3.current");
 									    // if the target of the click isn't the container nor a descendant of the container
-									    if (!container.is(e.target) && container.has(e.target).length === 0) 
+									    if (!container.is(e.target) && container.has(e.target).length === 0)
 									    {
 									        $(container).removeClass('current');
 									        $(container).find(".nav-anchor").removeClass("actived");
 									        return;
 									    }
-									    if (!container1.is(e.target) && container1.has(e.target).length === 0) 
+									    if (!container1.is(e.target) && container1.has(e.target).length === 0)
 									    {
 									        $(container1).removeClass('current');
 									        $(container1).find(".nav-anchor").removeClass("actived");
 									        return;
 									    }
-									    if (!container2.is(e.target) && container2.has(e.target).length === 0) 
+									    if (!container2.is(e.target) && container2.has(e.target).length === 0)
 									    {
 									        $(container2).removeClass('current');
 									        $(container2).find(".nav-anchor").removeClass("actived");
 									        return;
 									    }
-									    if (!container3.is(e.target) && container3.has(e.target).length === 0) 
+									    if (!container3.is(e.target) && container3.has(e.target).length === 0)
 									    {
 									        $(container3).removeClass('current');
 									        $(container3).find(".nav-anchor").removeClass("actived");
@@ -304,7 +304,7 @@ if ($menu = $this->getMenu()) {
 
 									$("#<?php echo $navId ?> .nav-item > .nav-anchor").click(function(e) {
 										if($(this).hasClass("actived")) {
-											if ($(window).width() < 768) {
+											if ($(window).width() < 1025) {
 												return true;
 											}
 											var obj = $(this).parents(".nav-item").eq(0);
@@ -321,22 +321,22 @@ if ($menu = $this->getMenu()) {
 											    var container3 = $("#<?php echo $navId ?> .nav-item.level3.current");
 											    // if the target of the click isn't the container nor a descendant of the container
 
-											    if (!container.is(e.target) && container.has(e.target).length === 0) 
+											    if (!container.is(e.target) && container.has(e.target).length === 0)
 											    {
 											        $(container).removeClass('current');
 											        return false;
 											    }
-											    if (!container1.is(e.target) && container1.has(e.target).length === 0) 
+											    if (!container1.is(e.target) && container1.has(e.target).length === 0)
 											    {
 											        $(container1).removeClass('current');
 											        return false;
 											    }
-											    if (!container2.is(e.target) && container2.has(e.target).length === 0) 
+											    if (!container2.is(e.target) && container2.has(e.target).length === 0)
 											    {
 											        $(container2).removeClass('current');
 											        return false;
 											    }
-											    if (!container3.is(e.target) && container3.has(e.target).length === 0) 
+											    if (!container3.is(e.target) && container3.has(e.target).length === 0)
 											    {
 											        $(container3).removeClass('current');
 											        return false;
@@ -355,7 +355,7 @@ if ($menu = $this->getMenu()) {
 													$(obj).addClass('current');
 													$(this).addClass("actived");
 												}
-												
+
 												if ($(obj).data('hovericon')) {
 													$(obj).children('.nav-anchor').find('.item-icon').attr('src', $(obj).data('hovericon'));
 												}
@@ -397,13 +397,13 @@ if ($menu = $this->getMenu()) {
 													if (mHeight < mParentHeight) {
 														mTop = $(this).offset().top - mParent.offset().top + mHeight;
 													}
-													$(this).children('.submenu').css({top:mTop});	
+													$(this).children('.submenu').css({top:mTop});
 												}
 												<?php } ?>
 
 												if ($(this).hasClass('vertical-item')) $('#<?php echo $blockId ?> .header-overlay').show();
 										}
-										
+
 										}, function() {
 											var id = $(this).data("dynamic-id");
 											if(id) {
@@ -423,9 +423,9 @@ if ($menu = $this->getMenu()) {
 											}
 										});
 								}
-								
+
 							<?php } ?>
-						
+
 
 							/** ACCORDION */
 							<?php if ($desktopTemplate == 'accordion') { ?>
@@ -460,7 +460,7 @@ if ($menu = $this->getMenu()) {
 									var subMenu = $(parent).find(".submenu").eq(0);
 									subMenu.stop().slideToggle();
 									subMenu.css({'height':''});
-									return false;	
+									return false;
 								});
 
 								/* TOGGLE */
@@ -503,7 +503,7 @@ if ($menu = $this->getMenu()) {
 								var mobileDrill, desktopDrill;
 								/* WINDOW RESIZE */
 								$(window).on("resize", function() {
-									if ($(window).width() < 768) {
+									if ($(window).width() < 1025) {
 										$("#<?php echo $blockId ?>").addClass("nav-mobile").removeClass('nav-desktop');
 
 										<?php if ($desktopTemplate == 'drill') { ?>
@@ -548,7 +548,7 @@ if ($menu = $this->getMenu()) {
 													$(this).css('width', subWidth);
 												});
 											<?php } ?>
-												
+
 											/** DRILLDOWN MOBILE MENU */
 											<?php if ($desktopTemplate=='drill') { ?>
 												$('#<?php echo $blockId ?> .drill-opener').show();
@@ -564,12 +564,12 @@ if ($menu = $this->getMenu()) {
 												});
 											<?php } ?>
 
-											
+
 											}
 
 					// TABLET
 					$("#<?php echo $navId ?> .nav-item").click(function() {
-						if ($(window).width() >= 768 && $(window).width() < 1024) {
+						if ($(window).width() >= 1025 && $(window).width() < 1024) {
 							var parent = $(this).parent();
 							if ($(parent).children('.submenu').length == 1) {
 								if ($(parent).hasClass('level0')) {
