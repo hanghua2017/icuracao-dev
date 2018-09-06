@@ -56,8 +56,8 @@
 
           ?>
 
-          <?php $image_url = $imageHelper->init($product, 'product_page_image_small')->setImageFile($product->getFile())->getUrl();?>
-          <img src="<?php echo $image_url;?>" alt="product"/>
+          <?php $image_url = $imageHelper->init($product, 'product_page_image_large')->setImageFile($product->getFile())->getUrl();?>
+          <img src="<?php echo $image_url;?>" alt="<?php echo $product->getName();?>"/>
             <div class="product-item-details">
           <h3 class="product-item-name"><?php echo $product->getName();?></h3>
           <p class="price"><span class="original-price <?php echo $product->getSpecialPrice() ? 'has-special-price' : '' ?>"><?php echo $product->getPrice();?></span><span class="discount-price"><?php echo $product->getSpecialPrice();?></span></p>
