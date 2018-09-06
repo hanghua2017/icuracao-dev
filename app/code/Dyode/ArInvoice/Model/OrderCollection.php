@@ -120,14 +120,10 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         # Validating the Account Number
         $accountNumber = $this->_arInvoiceHelper->validateAccountNumber($accountNumber);
 
-        $customerStatusResponse = $this->_customerStatusHelper->checkCustomerStatus($order, '54421729');
-        $customerStatus = json_decode($customerStatusResponse);
-        print_r($customerStatus);
-
-        die();
-
         if ($accountNumber == "500-8555" and $orderType == "full_credit_card") {
-            # code... incomplete ... Check Customer Status
+            # Getting the Check Customer Status
+            $customerStatusResponse = $this->_customerStatusHelper->checkCustomerStatus($order, '54421729');
+            $customerStatus = json_decode($customerStatusResponse);
         }
         else {
             $accountNumber;    // Formatted Account Number

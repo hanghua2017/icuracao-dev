@@ -37,9 +37,14 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     protected $_productRepository;
 
     /**
-     * @var \Magento\Sales\Model\OrderRepository $orderRepository
+     * @var \Magento\Sales\Model\OrderRepository
      **/
     protected $_orderRepository;
+
+    /**
+     * \Magento\Framework\App\ResourceConnection
+     */
+    protected $_resourceConnection;
 
     /**
      * Constructor
@@ -51,11 +56,13 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function __construct(
         \Magento\Sales\Model\OrderRepository $orderRepository,
         \Magento\Framework\Json\Helper\Data $jsonHelper,
-        \Magento\Catalog\Model\ProductRepository $productRepository
+        \Magento\Catalog\Model\ProductRepository $productRepository,
+        \Magento\Framework\App\ResourceConnection $resourceConnection
     ) {
         $this->_orderRepository = $orderRepository;
         $this->jsonHelper = $jsonHelper;
         $this->_productRepository = $productRepository;
+        $this->_resourceConnection = $resourceConnection;
     }
 
     /**
@@ -261,54 +268,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->_productRepository->get($sku);
     }
 
-    // /**
-    //  * getGroupedLocation() returns a grouped location for items
-    //  */
-    // public function getGroupedLocation($item) {
-    //     $skuInv = array();
-    //     foreach($this->_orderItems as $item) {
-    //     $threshold = 0;
-    //     $itemSku = $item->getSku();
-    //     #Load Product Info
-    //     $product = $this->getProductBySku($itemSku);
-    //     $qty = (int) $item->getQtyOrdered();
-
-    //     if ($product->getVendorid() == '2139' && strtolower($product->getShprate()) != 'domestic' && $product->getSet() != 1) {
-    //     $skuInv[$itemSku] = $this->getSkuInventory($itemSku);
-    //     $pending = $this->getPendingEstimates($sku);
-    //     # Iterate through pending orders
-    //     foreach ($pending as $valueRunningEstimates) {
-    //     if (isset($skuInv[$sku][$valueRunningEstimates['store_location']])) {
-    //     if ($skuInv[$sku][$valueRunningEstimates['store_location']] == $actualLocation) {
-    //     $skuInv[$sku][$valueRunningEstimates['store_location']] -= ($valueRunningEstimates['pending'] - $qty);
-    //     } else {
-    //     $skuInv[$sku][$valueRunningEstimates['store_location']] -= $valueRunningEstimates['pending'];
-    //     }
-    //     if ($skuInv[$sku][$valueRunningEstimates['store_location']] < 0) {
-    //     $skuInv[$sku][$valueRunningEstimates['store_location']] = 0;
-    //     }
-    //     }
-    //     }
-    //     #After Pending
-
-
-    //     }
-
-    //     }
-    //     return '01';
-    // }
-    /*
-    *
-    * getLocation() function will get an item sku as a parameter.
-    * it will check if there is a possibility of grouping the items and assign a location
-    *
-    */
-
-    private function getLocation($itemSku) {
-    // if ($this->getGroupedLocation()) {
-    // return $this->_groupedLocation;
-    // } 
-    }
     /**
      * getSkuInventory() function will check the inventory if a sku non-domestic non-set
      * and return an array of location and quantites
@@ -363,7 +322,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             }
             $inventory = 0;
         }
-
 
         //If no stock send Update to main HQ
         if(count($finalLocations)>0) 
@@ -447,8 +405,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             # code...
             throw new Exception("Product Inventory Level Not Found", 1);
         }
-        // print_r($inventoryLocations);
-        die();
         if ($vendorId != '2139') {  # If the vendor is not Curacao
             return '33';
         } else { # If the vendor is Curacao
@@ -467,19 +423,19 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                     # dummy values...
                     $itemSku = '32A-061-101946';
                     $shippingZipCode = 35801;
-                    if (array_key_exists('06', $inventoryLocations)) {
+                    if (array_key_exists($this->_domesticLocation, $inventoryLocations)) {
                         # code...
-                        $domesticItemInventory = $inventoryLocations['06'];
-                        $storeLocationCode = $this->getDomesticInventoryLocation($itemSku, $itemQty, $shippingZipCode, $inventoryLocations['06']);
+                        $domesticItemInventory = $inventoryLocations[$this->_domesticLocation];
+                        $storeLocationCode = $this->getDomesticInventoryLocation($itemSku, $itemQty, $shippingZipCode, $domesticItemInventory);
                     } else {
                         # Send Out of Stock Notification
                         $storeLocationCode = 01;
                     }
-                    $storeLocationCode = $this->getDomesticInventoryLocation($itemSku, $itemQty, $shippingZipCode, $inventoryLocations);
                     return $storeLocationCode;
                 } else {
                     $set = $product->getIsSet();
                     if ($set == 'Yes') {
+
                         $locations = implode(array_keys($this->_allLocationsZipcodes),',');
                         $itemSkuArray = Array("32O-285-42LB5600", "32A-061-101946", "08T-P22-3DS001U");
                         // $magentoSkuArray = Array('Test', 'Test2', 'Bundle1-Test-Test2');
@@ -658,34 +614,13 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      *
      * @return Float
      */
-    public function getDistance($zipCode1, $zipCode2)
+    public function getDistance($lat1, $lng1, $lat2, $lng2)
     {
-        $first_lat = $this->getCoordinates($zipCode1);
-        $next_lat = $this->getCoordinates($zipCode2);
-
-        $first_lat = Array(
-            'lat' => 34.7499657,
-            'lng' => -92.2852014
-        );
-
-        $next_lat =  Array(
-            'lat' => 34.7364493,
-            'lng' => -86.5501654
-        );
-
-        if (isset($first_lat) && isset($next_lat)) {
-            $lat1 = $first_lat['lat'];
-            $lon1 = $first_lat['lng'];
-            $lat2 = $next_lat['lat'];
-            $lon2 = $next_lat['lng'];
-            $theta = $lon1 - $lon2;
-            $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
-            $dist = acos($dist);
-            $dist = rad2deg($dist);
-            $miles = $dist * 60 * 1.1515;
-        } else {
-            $miles = 0;
-        }
+        $theta = $lng1 - $lng2;
+        $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+        $dist = acos($dist);
+        $dist = rad2deg($dist);
+        $miles = $dist * 60 * 1.1515;
         return $miles;
     }
 
@@ -724,64 +659,41 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get Domestic Inventory Location function using Inventory Level API
-     */
-    public function getDomesticInventory($itemSku)
-    {
-        $inventoryLevel = $this->inventoryLevel($itemSku, $this->_domesticLocation);
-
-        if ($inventoryLevel->OK) {
-            # code...
-            $domesticItemInventory = $inventoryLevel->LIST[0]->quantity;
-
-            $itemSku = "Test2";
-            $pendingItems = $this->getPendingEstimate($itemSku); # get Pending Items List 
-            if (!empty($pendingItems)) {
-                # code...
-                $pending = $pendingItems[0]['pending'];
-            } else {
-                # code...
-                $pending = 0;
-            }
-            $availableInventory = $domesticItemInventory - $pending;
-            // print_r($domesticItemInventory);
-            // print_r($pending);
-            // print_r($availableInventory);
-            // die();
-            return $availableInventory;
-        } else {
-            # code...
-            throw new Exception("Inventory Level : " . $inventoryLevel->INFO);
-        }
-    }
-
-    /**
      * Get Domestic Items Inventory Location
      *
      * @return Integer
      */
-    public function getDomesticInventoryLocation($productSku, $qtyOrdered, $shippingZipCode)
+    public function getDomesticInventoryLocation($productSku, $qtyOrdered, $shippingZipCode, $domesticItemInventory)
     {
-        $availableInventory = $this->getDomesticInventory($productSku);
-
-        if ($availableInventory >= $qtyOrdered) {
+        if ($domesticItemInventory >= $qtyOrdered) {
             # code...
-            $zipCode1 = 72201;
-            $distance = $this->getDistance($zipCode1, $shippingZipCode);
-            if (round($distance) <= 80) {
-                # code...
-                echo round($distance);
-                $storeLocationCode = 06;
+            $resourceConnection = $this->_resourceConnection->getConnection();
+            $query = "SELECT * FROM `locations` WHERE `zip` = $shippingZipCode";
+            $result = $resourceConnection->fetchAll($query);
+            if ($result[0]['lat'] and $result[0]['lng']) {
+                $shippingZipCodeLat = $result[0]['lat'];
+                $shippingZipCodeLng = $result[0]['lng'];
             } else {
-                # code...
-                $storeLocationCode = 33;
+                throw new Exception("Error Finding ZipCode Coordinates", 1);
             }
+            foreach ($this->_allLocationsZipcodes as $locationCode => $zipCode) {
+                $query = "SELECT * FROM `locations` WHERE `zip` = $zipCode ";
+                $result = $resourceConnection->fetchAll($query);
+                if ($result) {
+                    $storeZipCodeLat = $result[0]['lat'];
+                    $storeZipCodeLng = $result[0]['lng'];
+                    $distance = $this->getDistance($shippingZipCodeLat, $shippingZipCodeLng, $storeZipCodeLat, $storeZipCodeLng);
+                    if (round($distance) <= 80) {
+                        return $storeLocationCode = 06;
+                    }
+                }
+            }
+            return $storeLocationCode = 33;
         } else {
             # code...
             # Send the Out of Stock Notification
-            $storeLocationCode = 01;
+            return $storeLocationCode = 01;
         }
-        return $storeLocationCode;
     }
 
     /**
