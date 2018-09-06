@@ -31,7 +31,7 @@
 		}
 		.header.content {
 			padding: 15px !important;
-			@media (min-width: 768px) {
+			@media (min-width: 1025px) {
 				padding: 25px !important;
 			}
 			@media all and (max-width:767px){
@@ -393,6 +393,9 @@
 					padding:0;
 				}
 				.navigation {
+					@media all and (max-width:1024px){
+						background: #ffffff !important;
+					}
 					a{
 						@media all and (max-width:767px){
 							font-size: 14px;
@@ -409,9 +412,6 @@
 				.navigation{
 					.level0{
 						&>a{
-							@media (min-width: 768px) {
-								padding: 10px;
-							}
 							text-transform: none;
 						}
 					}
@@ -1013,7 +1013,7 @@ html.nav-before-open {
 @media only screen and (max-width: 1024px) {
   .logo{
     float: left;
-    margin: 0 0 10px 40px;
+    margin: 0 0 10px 40px !important;
     max-width: 50%;
     position: relative;
     z-index: 5;

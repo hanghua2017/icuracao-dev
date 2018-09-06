@@ -3,7 +3,7 @@
 }
 .sidebar-overlay {
   background: rgba(54, 25, 25, 0.5);
-  height: calc(100% - 183px);
+  height: calc(100% - 158px);
   left: -100%;
   position: absolute;
   width: 100%;
@@ -12,8 +12,8 @@
 nav.sidebar {
   background: #fff;
   color: #000;
-  height: calc(100% - 133px);
-  top: 133px;
+  height: calc(100% - 108px);
+  top: 108px;
   left: -50%;
   margin: 0;
   position: absolute;
@@ -25,7 +25,7 @@ nav.sidebar {
 }
 nav.sidebar .sidebar-container {
   position: relative;
-  background-color: #97d700;
+  background-color: #82b800;
   padding: 15px 0;
   padding-left:25px;
   color: #fff;
@@ -88,7 +88,7 @@ nav.sidebar > ul > li.hamburger-heading a {
 .btn-menu {
   position: absolute;
   left: 20px;
-  top: 138px;
+  top: 113px;
   background: transparent !important;
   font-size: 20px;
   border: none !important;
