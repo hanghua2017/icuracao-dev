@@ -20,6 +20,7 @@ define(
         * delivery-method - is the name of the component's .html template
         */
         var imageData = window.checkoutConfig.imageData;
+
         return Component.extend({
             defaults: {
                 template: 'Dyode_DeliveryMethod/delivery-method'
@@ -34,7 +35,8 @@ define(
             stepTitle: 'Delivery Method',
             getItems: ko.observableArray(quote.getItems()),
             getTotals: quote.getTotals(),
-            state: ko.observable(false),
+          //  state: ko.observable(false),
+
             /**
              * @param {Integer} item_id
              * @return {null}
@@ -54,28 +56,62 @@ define(
                 var productItems = [];
                 items.forEach(function(item) {
 
-                  var productItem = {
-                    item_id: item.item_id,
+                var productItem = {
+                    item_id: ko.observable(item.item_id),
+                    pid: item.item_id,
                     product_name: item.name,
                     product_price: Number(item.price).toFixed(2),
                     product_qty: item.qty,
                     product_image_url: self.getSrc(item.item_id),
+                    state:ko.observable(false),
+                    deliveryMethod: 'Shipping',
+                    setStorepickup: function(storeElement){
+                      console.log(storeElement.pid);
+
+                      if(storeElement.state()){
+                        storeElement.state(false);
+                      } else{
+                        storeElement.state(true);
+                      }
+                      // console.log("inside test",this,$(e.target));
+                    },
+                    setShiptohome:function(shipHome){
+                        console.log(shipHome);
+                        if(shipHome.state()){
+                          shipHome.state(false);
+                        } else{
+                          shipHome.state(true);
+                        }
+                    }
                 }
                   productItems.push(productItem);
                 });
                 return productItems.length !== 0 ? productItems: null;
+            },
+
+            storeLocation: function() {
+              console.log("inside fucntion");
+              jQuery("#dialog-message" ).dialog({
+                modal: true,
+                buttons: {
+                  Ok: function() {
+                    jQuery( this ).dialog( "close" );
+                  }
+                }
+              });
             },
             /**
             *
             * @returns {*}
             */
             initialize: function () {
-                
-                this._super().observe({
-                     deliveryMethod: ko.observable("Shipping")
-                 });
-                 
-                 this.deliveryMethod.subscribe(function (newValue) {
+
+              this._super().observe({
+                     deliveryMethod: ko.observable(true),
+
+              });
+
+              /*     this.deliveryMethod.subscribe(function (newValue) {
                    if(newValue === "StorePickup"){
                         console.log('checked'+newValue);
                         this.state = true;
@@ -84,7 +120,9 @@ define(
                        this.state = false;
                        console.log("Else:"+(this.state? "Yes":"No"));
                    }
+                   console.log("inside"+this.state);
                  },this);
+                 console.log("otside"+this.state);*/
                 // register your step
                 stepNavigator.registerStep(
                     this.stepCode,
