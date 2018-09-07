@@ -87,7 +87,6 @@ class NewWidget extends \Magento\Catalog\Block\Product\NewProduct implements \Ma
     {
         switch ($this->getDisplayType()) {
             case self::DISPLAY_TYPE_NEW_PRODUCTS:
-                    $categoryId =$this->getData('parentcat');
                     $collection = parent::_getProductCollection()->load($categoryId)
                     ->setPageSize($this->getPageSize())
                     ->setCurPage($this->getCurrentPage());
@@ -107,13 +106,9 @@ class NewWidget extends \Magento\Catalog\Block\Product\NewProduct implements \Ma
     protected function _getRecentlyAddedProductsCollection()
     {
         /** @var $collection \Magento\Catalog\Model\ResourceModel\Product\Collection */
-        $rootCat = $this->getData('parentcat');
-
-
         $collection = $this->_productCollectionFactory->create();
         $collection->setVisibility($this->_catalogProductVisibility->getVisibleInCatalogIds());
             $collection = $this->_addProductAttributesAndPrices($collection)
-            ->addIdFilter($rootCat)
             ->addStoreFilter()
             ->addAttributeToSort('created_at', 'desc')
             ->setPageSize($this->getPageSize())
