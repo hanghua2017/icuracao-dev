@@ -3,7 +3,8 @@
 }
 .sidebar-overlay {
   background: rgba(54, 25, 25, 0.5);
-  height: calc(100% - 158px);
+  height: calc(100% - 108px);
+  top:108px;
   left: -100%;
   position: absolute;
   width: 100%;
