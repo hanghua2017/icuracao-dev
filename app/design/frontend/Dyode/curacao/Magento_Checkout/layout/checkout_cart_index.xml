@@ -1,8 +1,14 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright © Dyode
+ * Dyode_curacao theme.
  *
+ * Extending Magento_Checkout
+ *
+ * @package Dyode
+ * @module  Dyode_curacao
+ * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
@@ -15,9 +21,9 @@
             </arguments>
         </block>
 
-        <!--<referenceContainer name="content">-->
-            <!--<block name="curacao.credit.card" template="Magento_Checkout::cart/creditcard.phtml" before="-" />-->
-        <!--</referenceContainer>-->
+        <referenceContainer name="page.wrapper">
+            <block name="curacao.credit.card" template="Magento_Checkout::cart/creditcard.phtml" before="main.content" />
+        </referenceContainer>
 
         <referenceBlock name="page.main.title">
             <action method="setPageTitle">
@@ -36,6 +42,10 @@
         <referenceBlock name="checkout.cart.form">
             <block class="Magento\Checkout\Block\Onepage\Link" name="checkout.bottom.button" template="Magento_Checkout::onepage/link.phtml" />
         </referenceBlock>
+
+        <referenceContainer name="checkout.cart.container">
+            <block name="checkout.cart.bottom.sticker" after="checkout.cart.form" template="Magento_Checkout::cart/bottom_sticker.phtml" />
+        </referenceContainer>
 
         <!-- REMOVED BLOCKS -->
         <referenceBlock name="cart.summary" remove="true" />
