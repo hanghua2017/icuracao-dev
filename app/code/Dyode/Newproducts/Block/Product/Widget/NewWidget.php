@@ -69,7 +69,7 @@ class NewWidget extends \Magento\Catalog\Block\Product\NewProduct implements \Ma
     ) {
         parent::__construct(
             $context,
-            $categoryFactory,
+            $productCollectionFactory,
             $catalogProductVisibility,
             $httpContext,
             $data
@@ -83,11 +83,14 @@ class NewWidget extends \Magento\Catalog\Block\Product\NewProduct implements \Ma
      *
      * @return \Magento\Catalog\Model\ResourceModel\Product\Collection|Object|\Magento\Framework\Data\Collection
      */
+
     protected function _getProductCollection()
     {
         switch ($this->getDisplayType()) {
             case self::DISPLAY_TYPE_NEW_PRODUCTS:
-                    $collection = parent::_getProductCollection()->load($categoryId)
+                $filterCats = explode(',',$this->getData('parentcat'));
+                $collection = parent::_getProductCollection()
+                    ->addCategoriesFilter(array('in' => $filterCats))
                     ->setPageSize($this->getPageSize())
                     ->setCurPage($this->getCurrentPage());
                 break;
@@ -105,12 +108,14 @@ class NewWidget extends \Magento\Catalog\Block\Product\NewProduct implements \Ma
      */
     protected function _getRecentlyAddedProductsCollection()
     {
-        /** @var $collection \Magento\Catalog\Model\ResourceModel\Product\Collection */
-
-        $collection = $this->_categoryFactory->create();
+        /* @var $collection \Magento\Catalog\Model\ResourceModel\Product\Collection */
+        $collection = $this->_productCollectionFactory->create();
         $collection->setVisibility($this->_catalogProductVisibility->getVisibleInCatalogIds());
-            $collection = $this->_addProductAttributesAndPrices($collection)
-            >addIdFilter($rootCat)
+
+        $filterCats = explode(',',$this->getData('parentcat'));
+
+        $collection = $this->_addProductAttributesAndPrices($collection)
+            ->addCategoriesFilter(array('in' => $filterCats))
             ->addStoreFilter()
             ->addAttributeToSort('created_at', 'desc')
             ->setPageSize($this->getPageSize())
@@ -168,11 +173,11 @@ class NewWidget extends \Magento\Catalog\Block\Product\NewProduct implements \Ma
       $rootCat = $this->getData('parentcat');
 
 
-        $category = $this->_categoryFactory->create();
-        $collection = $category
-                      ->getCollection()
-                      ->addIdFilter($rootCat);
-        return $collection;
+        // $category = $this->_categoryFactory->create();
+        // $collection = $category
+        //               ->getCollection()
+        //               ->addIdFilter($rootCat);
+        // return $collection;
     }
     /**
      * Retrieve block type
