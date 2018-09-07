@@ -1,0 +1,197 @@
+.aw-storelocator-search-block, .aw-storelocator-cms-block {
+    margin-bottom: 20px;
+}
+
+.aw-storelocator-content-block {
+    width: 100%;
+    min-height: 600px;
+    height: auto !important;
+}
+
+.aw-storelocator-navigation {
+    width: 35%;
+    height: 600px;
+    border: 1px solid #CCC;
+    float: left;
+    overflow: auto;
+}
+
+.aw-storelocator-google-map {
+    width: 64%;
+    min-height: 600px;
+    height: auto !important;
+    border: 1px solid #CCC;
+    float: right;
+}
+
+
+.aw-storelocator-info-window {
+    width: 100%;
+    padding-top: 10px;
+    min-height: 90px;
+    height: auto !important;
+}
+
+.aw-storelocator-store-image {
+    width: 80px;
+    float: right;
+}
+
+.aw-storelocator-store-image img {
+    width: 80px;
+    height: 80px;
+    border: none;
+}
+
+.aw-storelocator-navigation-item {
+    /*width: 94%;*/
+    min-height: 80px;
+    height: auto !important;
+    margin: 3%;
+    border: 1px solid #CCC;
+    padding: 15px;
+    cursor: pointer;
+}
+
+.aw-storelocator-navigation-item.active {
+    box-shadow: 0 0 3px 1px #68a8e0;
+}
+
+.aw-storelocator-navigation-item-image {
+    float: right;
+    min-height: 80px;
+    width: 30%;
+    text-align: center;
+}
+
+.aw-storelocator-navigation-item-image img {
+    border: none;
+    width: 80px;
+}
+
+.aw-storelocator-description {
+    float: left;
+    height: auto !important;
+    min-height: 100px;
+    width: 70%;
+    word-break: normal;
+}
+
+.aw-storelocator-info-window .aw-storelocator-description {
+    width: 200px;
+}
+
+.aw-storelocator-info-window .aw-storelocator-full-description {
+    float: left;
+    width: 100%;
+    font-size: 0.9em;
+}
+
+.aw-storelocator-info-window .aw-storelocator-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.aw-storelocator-info-window .aw-storelocator-address {
+    margin-bottom: 10px;
+}
+
+.aw-storelocator-info-window .aw-storelocator-desc {
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.aw-storelocator-navigation-item-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+/* remove required field notice (region) */
+.fieldset > .field.region.required > .label:after {
+    display: none;
+}
+
+.aw-storelocator-search-block .field.address #aw-find-location  {
+    width: 100%;
+}
+
+.aw-storelocator-search-block .field.address #street {
+    margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+    .aw-storelocator-search-block .field.address {
+        width: 100%;
+        min-width: 600px;
+    }
+
+    .aw-storelocator-search-block .field.address #street {
+        width: 73%;
+        min-width: 450px;
+        float: left;
+        margin-right: 2%;
+    }
+
+    .aw-storelocator-search-block .field.address #aw-find-location  {
+        width: 20%;
+        min-width: 150px;
+        float: right;
+    }
+
+    .aw-storelocator-search-block .actions-toolbar div.primary  {
+        width: 20%;
+    }
+
+    .aw-storelocator-search-block .actions-toolbar button.submit  {
+        width: 100%;
+    }
+
+    #aw-distance form .actions-toolbar,
+    #aw-address form .actions-toolbar {
+        margin-left: 0;
+    }
+
+    #aw-distance .fieldset > .field:not(.choice) > .label,
+    #aw-address .fieldset > .field:not(.choice) > .label {
+        text-align: left;
+    }
+}
+
+@media (max-width: 640px) {
+    .aw-storelocator-content-block {
+        display: table;
+        min-height: inherit;
+    }
+
+    .aw-storelocator-google-map {
+        display: table-header-group;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .aw-storelocator-navigation {
+        display: table-footer-group;
+        width: 100%;
+        float: none;
+    }
+}
+
+.field.radius {
+    clear: both;
+}
+
+.mage-error {
+    border: 1px solid #ccc;
+    display: block;
+    margin: 3%;
+    padding: 15px;
+    background: #fff8d6;
+    color: #555555;
+    font-weight: 500;
+    box-sizing: border-box;
+    max-width: 380px;
+}

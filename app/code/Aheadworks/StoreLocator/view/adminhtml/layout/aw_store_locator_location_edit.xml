@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2018 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Aheadworks_StoreLocator::css/location-edit.css"/>
+        <css src="Aheadworks_StoreLocator::css/store-locator-menu.css"/>
+    </head>
+    <body>
+        <referenceContainer name="page.main.actions">
+            <block class="Aheadworks\StoreLocator\Block\Adminhtml\Page\Menu" name="aheadworks_store_locator_menu" />
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Aheadworks\StoreLocator\Block\Adminhtml\Location\Edit" name="aheadworks_store_locator_location_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Aheadworks\StoreLocator\Block\Adminhtml\Location\Edit\Tabs" name="aheadworks_store_locator_location_edit_tabs">
+                <block class="Aheadworks\StoreLocator\Block\Adminhtml\Location\Edit\Tab\General" name="aheadworks_store_locator_location_edit_tab_general"/>
+                <block class="Aheadworks\StoreLocator\Block\Adminhtml\Location\Edit\Tab\GoogleMap" name="aheadworks_store_locator_location_edit_tab_google_map"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">general_section</argument>
+                    <argument name="block" xsi:type="string">aheadworks_store_locator_location_edit_tab_general</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">google_map_section</argument>
+                    <argument name="block" xsi:type="string">aheadworks_store_locator_location_edit_tab_google_map</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
