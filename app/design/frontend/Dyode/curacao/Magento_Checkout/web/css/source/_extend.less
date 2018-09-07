@@ -26,15 +26,80 @@ input, select {
 }
 .checkout-cart-index {
   .page-wrapper {
+    /*Credit card ad*/
+    .curacao-ad {
+      max-width: 1500px;
+      width: 100%;
+      margin: 0 auto;
+      .apply-credit-ad {
+        padding: 15px;
+        .desktop-view {
+          position: relative;
+          clear: both;
+          width: 100%;
+          float: left;
+          padding: 15px 0;
+          -webkit-box-shadow: 0px 0px 10px 1px rgba(27,32,42,0.1);
+          -moz-box-shadow: 0px 0px 10px 1px rgba(27,32,42,0.1);
+          box-shadow: 0px 0px 10px 1px rgba(27,32,42,0.1);
+          @media all and (max-width: 768px) {
+            box-shadow: none;
+          }
+          img {
+            width: auto;
+            float: left;
+            padding-left: 15px;
+            @media all and (max-width: 991px) {
+              width: 82%;
+            }
+            @media all and (max-width: 768px) {
+              padding-left: 0;
+            }
+          }
+          button.apply-card {
+            float: right;
+            background: @theme-color;
+            box-shadow: none;
+            color: #fff;
+            font-family: 'iCuracao-Light';
+            font-size: 16px;
+            padding: 12px 30px;
+            letter-spacing: 0.7px;
+            position: absolute;
+            top: 30px;
+            right: 20px;
+            @media all and (max-width: 991px) {
+              padding: 10px 20px;
+            }
+            @media all and (max-width: 768px) {
+              font-size: 14px;
+              right: 0;
+            }
+          }
+          @media all and (max-width: 599px) {
+            display: none;
+          }
+        }
+        .mobile-view {
+          img {
+            width: 100%;
+          }
+          @media all and (min-width: 599px) {
+            display: none;
+          }
+        }
+      }
+    }
     .page-main {
       max-width: 1500px; //Removable max
       /*page title with bag item count and checkout button*/
       .page-title-wrapper {
-        padding: 15px 20px;
+        background: white;
+        padding: 20px;
         border-bottom: 1px solid @table-border;
-        -webkit-box-shadow: 0px 5px 21px 5px rgba(27,32,42,0.1);
-        -moz-box-shadow: 0px 5px 21px 5px rgba(27,32,42,0.1);
-        box-shadow: 0px 5px 21px 5px rgba(27,32,42,0.1);
+        -webkit-box-shadow: 0px 5px 10px 0px rgba(27,32,42,0.1);
+        -moz-box-shadow: 0px 5px 10px 0px rgba(27,32,42,0.1);
+        box-shadow: 0px 5px 10px 0px rgba(27,32,42,0.1);
         clear: both;
         overflow: hidden;
         @media all and (max-width: 768px) {
@@ -84,9 +149,9 @@ input, select {
         .column {
           .cart-container {
             //box-shadow: 0px 5px 21px rgba(27,32,42,0.1);
-            -webkit-box-shadow: 0px 5px 21px 5px rgba(27,32,42,0.1);
-            -moz-box-shadow: 0px 5px 21px 5px rgba(27,32,42,0.1);
-            box-shadow: 0px 5px 21px 5px rgba(27,32,42,0.1);
+            -webkit-box-shadow: 0px 3px 10px 0 rgba(27,32,42,0.1);
+            -moz-box-shadow: 0px 3px 10px 0 rgba(27,32,42,0.1);
+            box-shadow: 0px 3px 10px 0 rgba(27,32,42,0.1);
             background-color: #ffffff;
             @media all and (max-width: 767px) {
               padding: 15px;
@@ -96,9 +161,9 @@ input, select {
             .form-cart{
               width: 100%;
               padding: 20px;
+              margin-bottom: 0;
               @media all and (max-width: 768px) {
                 padding: 0 0 20px 0;
-                margin-bottom: 0;
               }
               /*Product info table */
               .table-wrapper {
@@ -396,6 +461,9 @@ input, select {
                           @media all and (max-width: 767px) {
                             top: -15px;
                           }
+                          @media all and (max-width: 599px) and (min-width: 479px) {
+                            display: grid;
+                          }
                           @media all and (max-width: 478px) {
                             font-size: 11px;
                           }
@@ -506,6 +574,62 @@ input, select {
             /* Cart Summary */
             .cart-summary {
               position: static;
+            }
+            /*Payment feature block*/
+            .payment-features {
+              clear: both;
+              width: 97%;
+              margin: 0 auto;
+              @media all and (max-width: 768px) {
+                width: 100%;
+              }
+              p {
+                font-size: 12px;
+                color: @content-light-grey;
+                font-family: 'iCuracao-Regular';
+                b {
+                  color: @content-dark-grey;
+                }
+                img {
+                  position: relative;
+                  top: 2px;
+                  padding-right: 3px;
+                }
+                &.feature-1 {
+                  float: left;
+                   img {
+                     width: 10px;
+                   }
+                }
+                &.feature-2 {
+                  width: 65%;
+                  margin: 0 auto;
+                  text-align: center;
+                  float: none;
+                  img {
+                    width: 14px;
+                  }
+                }
+                &.feature-3 {
+                  float: right;
+                  position: relative;
+                  top: -15px;
+                  img {
+                    width: 12px;
+                  }
+                }
+                @media all and (max-width: 768px) {
+                  &.feature-1, &.feature-2, &.feature-3 {
+                    float: none;
+                    text-align: center;
+                    width: 100%;
+                    margin-bottom: 1rem;
+                  }
+                  &.feature-3 {
+                    position: static;
+                  }
+                }
+              }
             }
           }
         }
