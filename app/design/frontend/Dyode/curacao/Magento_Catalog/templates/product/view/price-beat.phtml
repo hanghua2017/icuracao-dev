@@ -1,3 +1,30 @@
+<?php
+/**
+ * Dyode_curacao theme.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package Dyode
+ * @module  Dyode_curacao
+ * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * @var $block \Magento\Framework\View\Element\Template
+ * @var $viewModel \Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\PriceBeat
+ */
+$viewModel = $block->getViewModel();
+$priceBeatUrl = $viewModel->getPriceBeatCmsPageUrl();
+?>
+
+<?php if ($priceBeatUrl): ?>
 <div class="price-beat-link">
-  <a href="" target="_blank" title="price beat description"><img src="<?php echo $this->getViewFileUrl('images/pricebeat_logo@1X.png'); ?>" /></a>
+  <a href="<?= $block->escapeUrl($priceBeatUrl) ?>" target="_blank" title="price beat description">
+      <img src="<?php echo $this->getViewFileUrl('images/pricebeat_logo@1X.png'); ?>" />
+  </a>
 </div>
+<?php endif; ?>
