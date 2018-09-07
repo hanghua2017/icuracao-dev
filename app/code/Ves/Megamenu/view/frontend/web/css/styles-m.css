@@ -517,6 +517,9 @@
   .ves-megamenu.ves-offcanvas .opener, .ves-megamenu.ves-maccordion .opener{
     display: block !important;
   }
+  .nav-sections-item-content > .hamburger-desktop{
+    display:none !important;
+  }
 }
 @media all and (max-width:599px){
   .ves-megamenu > .navigation .nav-item > a{
@@ -530,7 +533,7 @@
 }
 @media all and (max-width:479px){
   .nav-sections{
-    left:calc(-80%) !important;
+    left:calc(-80%);
     width: calc(80%) !important;
   }
 }
