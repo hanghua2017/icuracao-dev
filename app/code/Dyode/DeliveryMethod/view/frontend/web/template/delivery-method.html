@@ -24,21 +24,20 @@
             <div class="delivery-methods-options">
               <h4>Delivery Method</h4>
               <label>
-                    <input  type="radio" value="Shipping" data-bind="attr: { name: 'delivery-product-' + $data.item_id() ,id: 'shipping-'+$data.item_id()},click:setShiptohome.bind(this),change:$data.state()" />
+                    <input  type="radio" data-bind="attr: { name: 'delivery-product-' + $data.item_id() ,id: 'shipping-'+$data.item_id()},checked:'shipping',value:'shipping',event:{change:setStorepickup.bind(this)}" />
                    <span data-bind="i18n: 'Ship to home'"></span>
               </label>
 
               <label>
-                 <input  type="radio" value="StorePickup" data-bind="attr: { name: 'delivery-product-' + $data.item_id(),id: 'storepickup-'+$data.item_id()},click:setStorepickup.bind(this),change:$data.state()" />
+                 <input  type="radio" data-bind="attr: { name: 'delivery-product-' + $data.item_id(),id: 'storepickup-'+$data.item_id()},checked:$data.item_id(),value:'storepickup',event:{change:setStorepickup.bind(this)}" />
                  <span data-bind="i18n: 'Store Pickup'"></span>
               </label>
 
               <form class="form" data-bind="attr: {'data-hasrequired': $t('* Required Fields'),id:'deliveryform'+$data.item_id()}">
                 <div class="store-pickup-pincode" data-bind="visible: state">
                   <input type="hidden" name="type" value="1" />
-                  <input type="text" placeholder="Pin Code" name="pickup-pincode" value="" />
-                  <!-- <input type="submit" name="pickup-submit" value="submit" /> -->
-                  <button type="button" class="action" data-bind="click: $parent.storeLocation()">
+                  <input type="number" placeholder="Zipcode" name="pickup-zipcode" value="" />
+                  <button type="button" class="action" data-bind="event:{click:selectLocation.bind(this)}" >
                      <span data-bind="i18n: 'Submit'"></span>
                   </button>
 

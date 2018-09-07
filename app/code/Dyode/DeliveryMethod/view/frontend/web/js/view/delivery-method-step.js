@@ -5,6 +5,10 @@ define(
         'underscore',
         'Magento_Checkout/js/model/step-navigator',
         'Magento_Checkout/js/model/quote',
+        'Magento_Checkout/js/model/url-builder',
+        'mage/storage',
+        'mage/translate',
+        'Magento_Checkout/js/model/full-screen-loader',
         'Magento_Customer/js/model/customer'
     ],
     function (
@@ -13,6 +17,10 @@ define(
         _,
         stepNavigator,
         quote,
+        urlBuilder,
+        storage,
+        $t,
+        fullScreenLoader,
         customer
     ) {
         'use strict';
@@ -66,39 +74,72 @@ define(
                     state:ko.observable(false),
                     deliveryMethod: 'Shipping',
                     setStorepickup: function(storeElement){
-                      console.log(storeElement.pid);
-
-                      if(storeElement.state()){
-                        storeElement.state(false);
+                      var pid = storeElement.pid;
+                      var radioValue = jQuery("input[name='delivery-product-"+pid+"']:checked").val();
+                      console.log(radioValue);
+                      if(radioValue == 'shipping'){
+                         storeElement.state(false);
                       } else{
                         storeElement.state(true);
                       }
                       // console.log("inside test",this,$(e.target));
                     },
-                    setShiptohome:function(shipHome){
-                        console.log(shipHome);
-                        if(shipHome.state()){
-                          shipHome.state(false);
-                        } else{
-                          shipHome.state(true);
-                        }
-                    }
+                    selectLocation:function(formelement) {
+                      console.log("here");
+                      var pid = formelement.pid;
+                      var serviceUrl,storeParams;
+                      console.log(pid);
+                      var zipcode = jQuery("#deliveryform"+pid+" input[name=pickup-zipcode]").val();
+                      if(zipcode){
+                          storeParams = {
+                            'storepickup' : 1,
+                            'zipcode':zipcode
+                          };
+                          return storage.post(
+                          urlBuilder.createUrl('/storepickup/storelocation', {}),
+                          JSON.stringify(storeParams)
+                          ).done(function (response) {
+                           alert({
+                               content: $t('Action Successfully completed.'+response)
+                           });
+
+                         }).fail(function (response) {
+                            alert({
+                                content: $t('There was error during saving data')
+                            });
+                        });
+                        jQuery("#dialog-message" ).dialog({
+                          modal: true,
+                          buttons: {
+                            Ok: function() {
+                              jQuery( this ).dialog( "close" );
+                            }
+                          }
+                        });
+                      }
+
+                    },
+
                 }
                   productItems.push(productItem);
                 });
                 return productItems.length !== 0 ? productItems: null;
             },
 
-            storeLocation: function() {
-              console.log("inside fucntion");
-              jQuery("#dialog-message" ).dialog({
-                modal: true,
-                buttons: {
-                  Ok: function() {
-                    jQuery( this ).dialog( "close" );
-                  }
-                }
-              });
+            storeLocation: function(formelement,id) {
+              console.log(id);
+               // this.source.trigger('deliveryform'+id+'.data.validate');
+               // var formData = this.source.get('deliveryform'+id);
+               // // do something with form data
+               // console.dir(formData);
+              // jQuery("#dialog-message" ).dialog({
+              //   modal: true,
+              //   buttons: {
+              //     Ok: function() {
+              //       jQuery( this ).dialog( "close" );
+              //     }
+              //   }
+              // });
             },
             /**
             *
@@ -145,7 +186,19 @@ define(
 
                 return this;
             },
+            onSubmit: function() {
+                // trigger form validation
+                this.source.set('params.invalid', false);
+                this.source.trigger('customCheckoutForm.data.validate');
 
+                // verify that form data is valid
+                if (!this.source.get('params.invalid')) {
+                    // data is retrieved from data provider by value of the customScope property
+                    var formData = this.source.get('customCheckoutForm');
+                    // do something with form data
+                    console.dir(formData);
+                }
+            },
             /**
             * The navigate() method is responsible for navigation between checkout step
             * during checkout. You can add custom logic, for example some conditions
