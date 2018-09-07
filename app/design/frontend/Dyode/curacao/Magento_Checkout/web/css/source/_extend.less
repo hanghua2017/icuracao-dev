@@ -28,6 +28,58 @@ input, select {
   .page-wrapper {
     .page-main {
       max-width: 1500px; //Removable max
+      /*page title with bag item count and checkout button*/
+      .page-title-wrapper {
+        padding: 15px 20px;
+        border-bottom: 1px solid @table-border;
+        -webkit-box-shadow: 0px 5px 21px 5px rgba(27,32,42,0.1);
+        -moz-box-shadow: 0px 5px 21px 5px rgba(27,32,42,0.1);
+        box-shadow: 0px 5px 21px 5px rgba(27,32,42,0.1);
+        clear: both;
+        overflow: hidden;
+        @media all and (max-width: 768px) {
+          box-shadow: none;
+          border-bottom: none;
+          padding: 0 15px;
+        }
+        .page-title {
+          float: left;
+          margin-bottom: 0;
+          font-family: 'iCuracao-Medium';
+          font-size: 14px;
+          letter-spacing: 1px;
+          line-height: 2.5;
+          @media all and (max-width: 479px) {
+            font-size: 13px;
+          }
+        }
+        span.bag-qty {
+          font-family: 'iCuracao-Medium';
+          font-size: 14px;
+          padding-left: 3px;
+          line-height: 2.5;
+        }
+        .checkout-methods-items {
+          float: right;
+          list-style: none;
+          margin-bottom: 0;
+          padding-left: 0;
+          li {
+            margin-bottom: 0;
+            button.checkout {
+              padding: 8px 25px 8px 40px;
+              @media all and (max-width: 479px) {
+                padding: 7px 5px 7px 12px;
+                span {
+                  font-size: 13px;
+                  background-size: 17px;
+                  padding-right: 25px;
+                }
+              }
+            }
+          }
+        }
+      }
       .columns {
         .column {
           .cart-container {
@@ -44,9 +96,11 @@ input, select {
             .form-cart{
               width: 100%;
               padding: 20px;
-              @media all and (max-width: 767px) {
-                padding: 20px 0;
+              @media all and (max-width: 768px) {
+                padding: 0 0 20px 0;
+                margin-bottom: 0;
               }
+              /*Product info table */
               .table-wrapper {
                 @media all and (max-width: 767px) {
                   border: 1px solid @table-border;
@@ -163,6 +217,10 @@ input, select {
                         }
                       }
                       @media all and (max-width: 345px) {
+                        &:not(.item) {
+                          padding-left: 3%;
+                          padding-right: 3%;
+                        }
                         &.subtotal {
                           padding-right: 0;
                         }
@@ -343,6 +401,13 @@ input, select {
                           }
                           .emi-amount {
                             color: @theme-color;
+                            .price {
+                              color: @theme-color;
+                              font-size: 13px;
+                              @media all and (max-width: 478px) {
+                                font-size: 12px;
+                              }
+                            }
                           }
                         }
                       }
@@ -369,12 +434,104 @@ input, select {
                   }
                 }
               }
+              /*Estimated total with 2 buttons */
+              .estimated-total-block {
+                background-color: #f9f9f9;
+                padding: 20px;
+                @media all and (max-width: 768px) {
+                  padding: 20px 0;
+                }
+                .grand-total {
+                  text-align: right;
+                  @media all and (max-width: 768px) {
+                    text-align: center;
+                  }
+                  strong {
+                    color: @content-light-grey;
+                    font-size: 16px;
+                    line-height: 23px;
+                    font-family: 'iCuracao-Medium';
+                    letter-spacing: 1px;
+                    @media all and (max-width: 599px) {
+                      font-size: 14px;
+                    }
+                    .price {
+                      color: @content-dark-grey;
+                      padding-left: 7px;
+                    }
+                  }
+                }
+                .main.actions {
+                  padding-top: 15px;
+                  /*common styling button*/
+                  .continue, button.checkout {
+                    color: white;
+                    font-family: 'iCuracao-Medium';
+                    font-size: 14px;
+                    letter-spacing: 0.5px;
+                    @media all and (max-width: 768px) {
+                      width: 100%;
+                    }
+                    span {
+                      background-size: 20px;
+                      background-repeat: no-repeat;
+                    }
+                  }
+                  .continue {
+                    span {
+                      background-image: url(../images/arrow_BW_left.png);
+                      background-position: left center;
+                      background-position-x: 10px;
+                      padding-left: 40px;
+                    }
+                    display: block;
+                    float: left;
+                    background-color: @theme-color;
+                    border-radius: 3px;
+                    padding: 8px 20px 8px 5px;
+                    &:hover {
+                      text-decoration: none;
+                    }
+                    @media all and (max-width: 768px) {
+                      padding: 10px 0;
+                      margin-bottom: 15px;
+                    }
+                    @media all and (max-width: 478px) {
+                      padding: 8px 0;
+                    }
+                  }
+                }
+              }
             }
             /* Cart Summary */
             .cart-summary {
               position: static;
             }
           }
+        }
+      }
+      /*Common style for checkout button*/
+      button.checkout {
+        span {
+          background-image: url(../images/arrow_BW_right.png);
+          background-position: left center;
+          background-position-x: 95%;
+          padding-right: 35px;
+          background-repeat: no-repeat;
+          background-size: 20px;
+          font-family: 'iCuracao-Medium';
+          font-size: 14px;
+          letter-spacing: 0.5px;
+        }
+        background-color: @btn-orange;
+        border: 1px solid @btn-orange;
+        padding: 8px 25px 8px 40px;
+        line-height: 2rem;
+        @media all and (max-width: 768px) {
+          padding: 10px 0;
+        }
+        @media all and (max-width: 478px) {
+          padding: 8px 0;
         }
       }
     }
