@@ -69,7 +69,7 @@ class NewWidget extends \Magento\Catalog\Block\Product\NewProduct implements \Ma
     ) {
         parent::__construct(
             $context,
-            $productCollectionFactory,
+            $categoryFactory,
             $catalogProductVisibility,
             $httpContext,
             $data
@@ -106,9 +106,11 @@ class NewWidget extends \Magento\Catalog\Block\Product\NewProduct implements \Ma
     protected function _getRecentlyAddedProductsCollection()
     {
         /** @var $collection \Magento\Catalog\Model\ResourceModel\Product\Collection */
-        $collection = $this->_productCollectionFactory->create();
+
+        $collection = $this->_categoryFactory->create();
         $collection->setVisibility($this->_catalogProductVisibility->getVisibleInCatalogIds());
             $collection = $this->_addProductAttributesAndPrices($collection)
+            >addIdFilter($rootCat)
             ->addStoreFilter()
             ->addAttributeToSort('created_at', 'desc')
             ->setPageSize($this->getPageSize())
@@ -170,7 +172,7 @@ class NewWidget extends \Magento\Catalog\Block\Product\NewProduct implements \Ma
         $collection = $category
                       ->getCollection()
                       ->addIdFilter($rootCat);
-        return $rootCat;
+        return $collection;
     }
     /**
      * Retrieve block type
