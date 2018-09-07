@@ -24,9 +24,9 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
 	$items = $block->getProductCollection();
 	$info  = $block->getConfigValue('description');
 
-	$showWishlist = true;
-	$showCompare = true;
-	$showCart = true;
+	$showWishlist = false;
+	$showCompare = false;
+	$showCart = false;
 	$rating = 'short';
 	$description = ($mode == 'list') ? true : false;
 
