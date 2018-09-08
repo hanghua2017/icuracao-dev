@@ -53,7 +53,9 @@ class BestSellerProducts extends \Mageplaza\Productslider\Block\AbstractSlider
 				//	getProductId
            $productIds[]=$this->getProductData($product->getProductId());
         }
+        // get category // IDEA:
         $filterCats = explode(',',$this->getData('parentcat'));
+        // filter bestselling products using category id
         $collection      = $objectManager->create('\Magento\Catalog\Model\ResourceModel\Product\Collection')->addIdFilter($productIds)->addCategoriesFilter(array('in' => $filterCats));
         $collection->addMinimalPrice()
             ->addFinalPrice()
