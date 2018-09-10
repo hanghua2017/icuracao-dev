@@ -51,8 +51,9 @@ class Index extends \Magento\Framework\App\Action\Action
         //     # code...
         //     throw new Exception("Inventory Level : " . $inventoryLevel->INFO);
         // }
-        echo $inventoryLevel = $this->_arInvoiceHelper->getDomesticInventoryLocation($itemId, 41, 35801, 40);
-        die();
+
+        // echo $inventoryLevel = $this->_arInvoiceHelper->getDomesticInventoryLocation($itemId, 41, 35801, 40);
+        // die();
         $this->orderCollection->prepareOrderItems(95);
         // var_dump($orders);
         die();
