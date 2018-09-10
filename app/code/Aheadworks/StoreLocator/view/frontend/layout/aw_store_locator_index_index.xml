@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2018 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Aheadworks_StoreLocator::css/location-map.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Aheadworks\StoreLocator\Block\Search" name="aw_store_locator_search" template="Aheadworks_StoreLocator::search.phtml" cacheable="false"/>
+            <block class="Aheadworks\StoreLocator\Block\Cms" name="aw_store_locator_cms" template="Aheadworks_StoreLocator::cms.phtml" after="aw_store_locator_search" cacheable="false"/>
+            <block class="Aheadworks\StoreLocator\Block\Content" name="aw_store_locator_content" template="Aheadworks_StoreLocator::content.phtml" after="aw_store_locator_cms" cacheable="false">
+                <block class="Aheadworks\StoreLocator\Block\Location" name="aw_store_locator_location" template="Aheadworks_StoreLocator::location.phtml" cacheable="false"/>
+                <block class="Aheadworks\StoreLocator\Block\Map" name="aw_store_locator_map" template="Aheadworks_StoreLocator::map.phtml" after="aw_store_locator_location" cacheable="false"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

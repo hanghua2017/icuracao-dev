@@ -1,0 +1,86 @@
+/* Menu */
+.aw-modulename-menu {
+    color: #41362f;
+    float: left;
+    font-size: 1.6rem;
+    margin-top: .7rem;
+}
+.page-main-actions._hidden .aw-modulename-menu {
+    display: none;
+}
+.aw-modulename-menu .dropdown {
+    display: inline-block;
+    position: relative;
+}
+.aw-modulename-menu .dropdown:before, .aw-modulename-menu .dropdown:after {
+    content: "";
+    display: table;
+}
+.aw-modulename-menu .admin__action-dropdown {
+    font-size: 1.6rem;
+    letter-spacing: .025em;
+    background-color: #f8f8f8;
+    z-index: 520;
+    transition: border-color 0.15s ease;
+}
+.aw-modulename-menu .dropdown .dropdown-menu {
+    margin: 0;
+    padding: 6px 0 3px 0;
+    list-style: none none;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px #adadad solid;
+    position: absolute;
+    z-index: 500;
+    top: 100%;
+    line-height: 1.36;
+    min-width: 25.5rem;
+    margin-top: -1px;
+    display: none;
+    transition: all 0.15s ease;
+    visibility: hidden;
+    opacity: 0;
+}
+.aw-modulename-menu .dropdown.active .admin__action-dropdown-text:after {
+    background-color: #ffffff;
+    content: '';
+    height: 6px;
+    position: absolute;
+    top: 100%;
+    right: -6px;
+    left: 0;
+}
+.aw-modulename-menu .dropdown.active .admin__action-dropdown,
+.aw-modulename-menu .dropdown.active .dropdown-menu {
+    border-color: #adadad;
+    background-color: #fff;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+.aw-modulename-menu .dropdown.active .dropdown-menu {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+.aw-modulename-menu .dropdown .dropdown-menu li:hover,
+.aw-modulename-menu .dropdown .dropdown-menu li.current {
+    background: #e9e9e9;
+    cursor: pointer;
+}
+.aw-modulename-menu .dropdown-menu li {
+    margin: 0;
+    border: 0;
+    cursor: default;
+    font-size: 1.4rem;
+}
+.aw-modulename-menu .dropdown-menu li a {
+    text-decoration: none;
+    color: #41362f;
+    display: block;
+    padding: .6rem 1.8rem;
+}
+.aw-modulename-menu .dropdown-menu li.separator {
+    border-top: 1px #adadad solid;
+}
+.aw-modulename-menu .dropdown-menu li.separator a {
+    padding-top: .7rem;
+}

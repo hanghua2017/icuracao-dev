@@ -1,0 +1,6 @@
+{
+"name": "Category/Widget",
+"autoload": {
+    "psr-4": { "Category\\Widget\\": "" },
+    "files": [ "registration.php" ]
+} }
