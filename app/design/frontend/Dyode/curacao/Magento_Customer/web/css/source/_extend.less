@@ -1,0 +1,762 @@
+
+//ICuracao-Account common defualt style removal
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, strong, ol, ul, li, form, label, footer, header, nav, section{
+  	padding: 0;
+		margin: 0;
+    // font: inherit;
+}
+ol, ul {
+    list-style: none;
+}
+body{
+	// font-family: 'iCuracao-Regular';
+}
+
+//ICuracao-Account variables
+@active-blue-color:#006bb4;
+@hover-green-color:#97d700;
+@background-white:#fcfcfc;
+@border-color:#f2f2f2;
+@item-color:#666666;
+@head-color:#333333;
+@white: #ffffff;
+//ICuracao-Account border color
+.multicheckout .block-title,
+.multicheckout .block-content .title,
+.account .legend,
+.form-giftregistry-search .legend,
+.block-giftregistry-results .block-title,
+.block-giftregistry-shared-items .block-title,
+.block-wishlist-search-form .block-title,
+.block-wishlist-search-results .block-title,
+.customer-review .review-details .title {
+    border-bottom: 1px solid @border-color;
+}
+//ICuracao-Account With LESS styles
+.account{
+	background-color: @background-white;
+  .page.messages{
+      @media only screen and (max-width: 767px){
+        margin-bottom: 15px;
+      }
+  }
+  .column{
+    .main {
+      margin-bottom: 0px;
+    }
+  }
+	.page-wrapper{
+		.page-main{
+      padding-left: 0;
+      padding-right: 0;
+			@media only screen and (min-width: 768px){
+				max-width:1500px;
+			}
+			//ICuracao-Account sidebar navigation tab styles
+      .sidebar-main{
+				.block-collapsible-nav{
+					border: none;
+          @media only screen and (min-width: 768px){
+            -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+  					-moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+  					box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+            border: 1px solid @border-color;
+    			}
+					@media only screen and (min-width: 768px){
+						border: 15px solid @white;
+            margin-bottom: 15px;
+					}
+					.content{
+						background:@white;
+						color: @item-color;
+            @media only screen and (max-width: 767px){
+              border-bottom:none;
+            }
+						.items{
+							.item{
+								margin: 0;
+								border-bottom: 1px solid @border-color;
+								&:last-child {
+									border: none;
+								}
+								&.current a, &.current > strong{
+										border: none;
+										color: @active-blue-color !important;
+										font-size: 14px;
+										font-weight: 600;
+										padding: 12px 18px 12px 15px;
+                    @media only screen and (max-width: 767px){
+                      border-left:4px solid @hover-green-color;
+                    }
+								}
+								a{
+									color: @head-color;
+									padding: 12px 18px 12px 15px;
+									border-color: transparent !important;
+									@media only screen and (min-width: 768px){
+										font-size: 14px;
+									}
+									&:hover {
+										color: @hover-green-color;
+										background-color:@background-white;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+      .abs-toggling-title-mobile,
+      .block-wishlist-management .wishlist-select .wishlist-name,
+      .block-collapsible-nav .title {
+        @media only screen and (max-width: 767px){
+          border-top: none;
+          border-bottom: none;
+          padding: 15px 40px 15px 15px;
+        }
+      }
+      .abs-toggling-title-mobile:after,
+      .block-wishlist-management .wishlist-select .wishlist-name:after,
+      .block-collapsible-nav .title:after {
+        color: @active-blue-color !important;
+        @media only screen and (max-width: 767px){
+          margin: 10px 0 0 0;
+        }
+      }
+      .abs-visually-hidden-desktop, .modes-label,
+      .block-search .label,
+      .block-collapsible-nav .title {
+        @media only screen and (min-width: 768px){
+        clip: unset;
+        overflow: unset;
+        width: inherit;
+        padding: 15px 18px 5px 17px;
+        position: unset;
+        height: unset;
+      }
+      }
+      .block-collapsible-nav {
+        background-color: @white;
+        strong{
+          color:  @head-color !important;
+          @media only screen and (max-width: 767px){
+           font-size: 22px;
+         }
+        }
+        .content{
+          @media only screen and (max-width: 767px){
+           padding-top: 5px;
+         }
+        }
+      }
+    .column.main .block:not(.widget) .block-title > .action {
+          @media only screen and (max-width: 767px){
+             margin-top: 0px;
+         }
+        }
+			//ICuracao-Account content block styles
+			.columns{
+				.column{
+					background-color: @white;
+	        border: none;
+					color: @item-color;
+          font-size: 14px !important;
+	        -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+	        -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+	        box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+          @media only screen and (min-width: 768px){
+            font-size: 14px !important;
+          }
+          @media only screen and (max-width: 767px){
+            padding-bottom: 0;
+          }
+					span{
+						font-size: 12px;
+						font-weight:600;
+						@media only screen and (min-width: 768px){
+							font-size: 14px;
+						}
+					}
+					strong{
+						font-size: 14px;
+						font-weight: 600 !important;
+						line-height: 1.1;
+						@media only screen and (min-width: 768px){
+							font-size:16px;
+						}
+					}
+					a{
+						text-decoration: none;
+            &:hover {
+              color: @hover-green-color;
+            }
+            }
+					.page-title-wrapper{
+						border-bottom: 1px solid @border-color;
+						padding: 13px 10px;
+						@media only screen and (min-width: 768px){
+							padding: 30px 20px;
+
+						}
+            @media only screen and (max-width: 767px){
+              border-left: 4px solid #97d700;
+            }
+						.page-title{
+							color:@head-color;
+							.base{
+                @media only screen and (max-width: 767px){
+                  font-size: 20px !important;
+                  color: @active-blue-color;
+                }
+								font-size: 35px !important;
+								font-weight: 400 !important;
+								text-transform: capitalize !important;
+							}
+						}
+					}
+					.dashboard_msg,
+          .block-dashboard-info,
+          .block-dashboard-addresses,
+          .block-addresses-default,
+          .block-addresses-list,
+          .block-dashboard-orders{
+						padding: 10px;
+						@media only screen and (min-width: 768px){
+							padding: 15px 20px;
+						}
+					}
+					.dashboard_msg{
+	          h3{
+              color: @head-color !important;
+              font-size: 1.8rem;
+	            padding-bottom: 5px;
+	            @media only screen and (min-width: 768px){
+	              padding-bottom: 10px;
+                font-size: 18px !important;
+	            }
+	          }
+	        }
+					.block-content{
+						padding: 10px 0;
+						@media only screen and (min-width: 768px){
+							padding: 20px 0;
+						}
+					}
+					.block-title{
+						color: @head-color !important;
+						font-size: 1.8rem;
+						padding:10px 0;
+						border-bottom: 1px solid @border-color;
+						strong{
+							font-size: 20px !important;
+						}
+            a{
+              span{
+                text-transform: uppercase;
+              }
+            }
+					}
+					.block-dashboard-info,
+          .block-dashboard-addresses,
+          .box-address-shipping,
+          .block-addresses-default{
+						.box{
+							.box-title{
+								span{
+									font-size:16px !important;
+								}
+							}
+							.box-content{
+								font-size: 14px !important;
+								a{
+									color:@item-color;
+								}
+								p{
+									@media only screen and (max-width: 767px){
+										font-size: 14px;
+									}
+								}
+							}
+						}
+					}
+					.block-dashboard-info{
+						 margin-bottom: 20px;
+						.block-content{
+							a{
+								font-size: 14px;
+							}
+						}
+					}
+					.block-dashboard-orders{
+
+            @media only screen and (min-width: 991px){
+                margin-bottom: 20px;
+              }
+						.order{
+						@media only screen and (min-width: 640px){
+								border:none;
+							}
+
+							.view{
+								span{
+									text-transform: uppercase;
+									}
+								}
+							}
+							.block-content{
+								padding-top:0;
+							}
+							.table-wrapper{
+								margin:0;
+                border-bottom: none !important;
+								@media all and (min-width:768px) and (max-width:900px){
+									overflow-x: scroll;
+								}
+							}
+						}
+            .table-wrapper .table > thead > tr > th{
+              font-weight: 400;
+            }
+            .table-wrapper table > tbody > tr > td {
+              @media only screen and (min-width: 768px){
+                font-weight: 600 !important;
+              }
+            }
+						.actions-toolbar{
+							padding: 10px;
+							@media only screen and (min-width: 768px){
+							padding: 15px 20px;
+							}
+        			.primary{
+          			button{
+            			background: @hover-green-color;
+            			border-color: @hover-green-color;
+									border-radius: 0;
+            		span{
+              		font-size:16px;
+              		color:@white;
+            		}
+          		}
+        		}
+      		}
+				}
+			}
+		}
+	}
+}
+
+	//ICuracao-Address-information tab With LESS styles
+	.customer-account-edit{
+	  .page-main{
+	    .form-edit-account{
+	      padding:10px 20px;
+	      @media all and (max-width:767px){
+	        padding:10px;
+	      }
+	      .fieldset{
+	        margin-bottom:25px;
+					.legend{
+						color:@head-color;
+						padding-top:20px;
+						border-bottom: 1px solid @border-color;
+			      @media all and (max-width:767px){
+			        padding-top:10px;
+			      }
+					}
+	      }
+	    }
+			input[type="text"]{
+				border-radius: 5px;
+			}
+			.actions-toolbar{
+				border-top: 1px solid @border-color;
+				@media only screen and (min-width: 768px){
+				padding:20px 20px 20px 0 !important;
+				}
+			}
+	  }
+	}
+  .customer-address-form{
+    .form-address-edit{
+      padding: 10px;
+      @media all and (min-width:768px){
+        padding:10px 20px;
+      }
+      input{
+				border-radius: 5px;
+			}
+      .actions-toolbar .action.primary,
+      .box-tocart .action.instant-purchase {
+          padding: 8px 17px;
+      }
+      .fieldset{
+        .legend{
+          span{
+             color: @head-color !important;
+          }
+        }
+      }
+    }
+  }
+.form-newsletter-manage{
+  padding: 10px;
+  @media all and (min-width:768px){
+    padding:10px 20px;
+  }
+}
+.block-wishlist{
+  display: none;
+}
+.block, .customer-review .product-details,
+.block-banners,
+.block-banners-inline {
+  @media only screen and (max-width: 767px){
+    margin-bottom: 0;
+  }
+}
+//ICuracao-My orders tab With LESS styles
+
+.table-wrapper{
+  border-bottom: 1px solid @border-color !important;
+  border-top: none;
+  &.orders-history{
+    @media all and (min-width:768px) and (max-width:900px){
+      overflow-x: scroll;
+    }
+  }
+  @media only screen and (min-width: 768px){
+    margin: 20px;
+  }
+  .table{
+    border-color: @white;
+    @media only screen and (max-width: 767px){
+      margin: 0;
+      padding: 0 8px;
+    }
+    .actions{
+      text-transform: uppercase;
+    }
+    td{
+      .price{
+        font-weight: 400;
+      }
+    }
+  }
+  .table:not(.totals):not(.cart):not(.table-comparison) tbody > tr > td:last-child {
+      border-bottom: none;
+  }
+  .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr td,
+  .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr th {
+    @media only screen and (max-width: 639px){
+      padding: 5px 0px;
+    }
+  }
+  .table > tbody > tr > th, .table > tbody > tr > td {
+    @media only screen and (min-width: 991px){
+      border: none;
+    }
+  }
+  .table > thead > tr > th, table > tbody > tr > th{
+    background: #f6f6f6;
+    text-transform: uppercase;
+    color: #6e6e6e;
+    vertical-align: top;
+    @media only screen and (min-width: 991px){
+      padding:15px 10px;
+    }
+  }
+}
+.block-addresses-list .items.addresses .item.actions .action:after,
+.account .data.table .col.actions .action:after,
+[class^='sales-guest-'] .data.table .col.actions .action:after,
+.sales-guest-view .data.table .col.actions .action:after,
+.block .box-actions .action:after {
+  border-left: none;
+}
+.order-products-toolbar {
+  padding: 10px 0;
+  @media only screen and (min-width: 768px){
+    padding: 20px;
+  }
+}
+.toolbar{
+  select {
+      background-color: @white;
+      border-radius: 0;
+  }
+}
+.account .page-main, .cms-privacy-policy .page-main {
+  @media only screen and (max-width: 767px){
+    padding-top: 14px;
+  }
+}
+.sales-order-history{
+  .table-wrapper{
+    border-bottom: none !important;
+  }
+  .order-products-toolbar{
+    margin: 15px;
+    padding-bottom: 20px;
+    .limiter{
+      select {
+        background-color: #fff;
+      }
+      .limiter-text{
+        display: none;
+      }
+    }
+    @media only screen and (max-width: 767px){
+      display: none;
+    }
+    @media only screen and (min-width: 991px){
+      border-bottom: 1px solid @border-color !important;
+    }
+  }
+  .actions-toolbar{
+    text-align: right;
+    @media only screen and (max-width: 767px){
+      display: none;
+    }
+    .secondary{
+      .back{
+        display: block;
+        color: #6e6e6e;
+        &:before {
+            font-size: 20px;
+            line-height: 22px;
+            color: inherit;
+            content: '\003C';
+            margin-right: 5px;
+            vertical-align: middle;
+            display: inline-block;
+            font-weight: normal;
+            overflow: hidden;
+            speak: none;
+            text-align: center;
+        }
+      }
+    }
+  }
+  .sidebar{
+    .block-reorder{
+      .block-content{
+        .actions-toolbar{
+          padding: 0 !important;
+          margin:17px 0 !important;
+        }
+      }
+    }
+  }
+}
+
+.customer-address-index{
+  .block{
+    @media only screen and (min-width: 768px){
+    margin-bottom: 0px;
+    }
+  }
+  .primary {
+    background-image: none !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    button {
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        span{
+          font-size: 14px !important;
+          font-weight: 600 !important;
+          color: #006bb4 !important;
+        }
+    }
+  }
+}
+
+.sales-order-view{
+  .page-main{
+    .page-title-wrapper{
+      .page-title{
+        margin-left:-2px;
+        margin-right: 0;
+        float: left;
+      }
+      .order-status{
+        border: none;
+        text-transform: capitalize;
+        color: #cccccc;
+        font-style: italic;
+        padding-left: 0;
+        @media only screen and (min-width: 991px){
+          font-size: 20px !important;
+          float: left;
+        }
+        @media all and (max-width:767px){
+          margin:10px 0;
+        }
+      }
+      .order-date{
+
+        @media only screen and (min-width: 991px){
+              display: none;
+        }
+      }
+      .actions-toolbar{
+        padding-right: 0 !important;
+
+        @media all and (max-width:767px){
+        padding: 0px !important;
+        }
+      }
+      .order-actions-toolbar{
+        @media all and (max-width:767px){
+          margin-bottom:0;
+        }
+        @media only screen and (min-width: 991px){
+            float: right;
+        }
+        .actions{
+          @media only screen and (min-width: 991px){
+            display: inline-block;
+          }
+          .action{
+            margin-right: 0;
+
+            @media only screen and (min-width: 991px){
+                  padding: 0 10px;
+            }
+          }
+          .order{
+            @media only screen and (min-width: 991px){
+                border-right: 2px solid #ccc;
+            }
+
+          }
+        }
+      }
+    }
+    .block-order-details-view{
+      margin-bottom:25px;
+      padding:10px 20px;
+      @media all and (max-width:767px){
+        padding:10px;
+      }
+      .block-title{
+        padding-top:0;
+        padding-bottom:10px;
+      }
+      .block-content{
+        @media all and (max-width:767px){
+          padding:10px !important;
+        }
+      }
+    }
+  }
+  .box{
+      .box-title{
+        @media only screen and (min-width: 768px){
+          float: left;
+          padding-right: 10px;
+        }
+      }
+      .box-content{
+        @media only screen and (min-width: 768px){
+          float: left;
+        }
+      }
+    }
+  .order-details-items {
+    border: none;
+    @media only screen and (min-width: 768px){
+      margin-bottom: 10px;
+    }
+    .order-title {
+      @media only screen and (max-width: 767px){
+        padding: 10px 0;
+      }
+
+    }
+  }
+  .order-links{
+      @media only screen and (min-width: 768px){
+        padding: 15px 15px 15px 0;
+      }
+      .item strong {
+        border: none;
+        @media only screen and (max-width: 768px){
+          display: none;
+        }
+      }
+    }
+    .table-wrapper .table > thead > tr > th, .table-wrapper table > tbody > tr > th {
+        @media only screen and (min-width: 991px){
+            text-transform: capitalize;
+            border-bottom: none !important;
+            font-weight: 500;
+        }
+    }
+    .table-wrapper table > tbody > tr > td, .table-wrapper .table > thead > tr > th, .table-wrapper table > tbody > tr > th {
+        @media only screen and (min-width: 991px){
+            padding: 11px 10px;
+        }
+    }
+    .order-details-items .col.name {
+      padding-left: 11px;
+    }
+    .table > tbody + tbody {
+      @media only screen and (min-width: 991px){
+        border-top: none;
+      }
+    }
+    .order-items{
+      .table{
+        tfoot, .amount {
+
+          @media only screen and (min-width: 991px){
+              background: transparent;
+          }
+        }
+        .amount {
+
+          @media only screen and (min-width: 991px){
+              border-left: 1px solid #ccc !important;
+          }
+        }
+      }
+    }
+}
+.box-order-billing-address{
+  .box-content{
+    address{
+      a{
+        color: #666;
+      }
+
+    }
+  }
+}
+.block-addresses-list{
+  .block-content{
+    address{
+      a{
+        color: #666;
+      }
+
+    }
+  }
+}
+.choice{
+  input[type="checkbox"] {
+      margin: 0px 5px 0 0;
+      vertical-align: middle;
+  }
+  .label{
+    vertical-align: middle;
+  }
+}
+//Mobile tablet View
+.account .column.main .block:not(.widget) .order > .view {
+  @media only screen and (max-width: 767px){
+    float: none;
+  }
+}
