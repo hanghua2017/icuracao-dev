@@ -79,9 +79,11 @@
 			//ICuracao-Header Search LESS styles
 			.block-search {
 				float: left;
-				width: 48%;
 				@media (min-width: 991px) {
 					width: 50%;
+				}
+				@media all and (min-width:768px){
+					width:42%;
 				}
 				@media all and (max-width:767px){
 					position: absolute;
@@ -223,8 +225,8 @@
 							margin-left: 20px;
 							padding-left: 20px;
 						}
-						@media all and (max-width:1024px){
-							display: none;
+						@media all and (max-width:767px){
+							display:none;
 						}
 						ul{
 							@media all and (min-width:768px){
@@ -415,6 +417,9 @@
 						background: #ffffff !important;
 					}
 					a{
+						@media all and (max-width:1024px){
+							font-size: 16px;
+						}
 						@media all and (max-width:767px){
 							font-size: 14px;
 						}
