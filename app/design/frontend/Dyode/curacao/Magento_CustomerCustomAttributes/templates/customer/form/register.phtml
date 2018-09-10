@@ -25,6 +25,23 @@
         <!-- <legend class="legend sub-heading"><span><?= /* @escapeNotVerified */ __('Sign in Using One of your accounts') ?></span></legend><br> -->
         <input type="hidden" name="success_url" value="<?= /* @escapeNotVerified */ $block->getSuccessUrl() ?>"/>
         <input type="hidden" name="error_url" value="<?= /* @escapeNotVerified */ $block->getErrorUrl() ?>"/>
+        <div class="check-box">
+        <label  class="label">Create an account?</label>
+        <input type="checkbox" name="account-check" id="account-check" value="account-checkbox" />
+        <span class="checkmark"></span>
+      </div>
+        <?php $customerAttributes = $block->getChildBlock('customer_form_user_attributes');?>
+        <?php if ($customerAttributes): ?>
+            <?php $customerAttributes->setEntityType('customer')->setShowContainer(false);?>
+            <?php $block->restoreSessionData($customerAttributes->getMetadataForm());?>
+            <?= $customerAttributes->toHtml() ?>
+        <?php endif;?>
+        <!-- <div class="field field-curacaocustid">
+          <label for="curacaocustid" class="label"><span><?= /* @escapeNotVerified */ __('Curacao Account Number') ?></span></label>
+            <div class="control">
+              <input type="text" name="curacaocustid" placeholder="Curacao Account Number" id="curacaocustid" autocomplete="off" value="<?= $block->escapeHtml($block->getFormData()->getCuracaocustid()) ?>" title="<?= /* @escapeNotVerified */ __('Curacao Account Number') ?>" class="input-text validate-digits" >
+              </div>
+            </div> -->
         <?= $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
 
 
@@ -44,16 +61,9 @@
             <?= $_gender->setGender($block->getFormData()->getGender())->toHtml() ?>
         <?php endif ?>
 
-        <?php $customerAttributes = $block->getChildBlock('customer_form_user_attributes');?>
-        <?php if ($customerAttributes): ?>
-            <?php $customerAttributes->setEntityType('customer')->setShowContainer(false);?>
-            <?php $block->restoreSessionData($customerAttributes->getMetadataForm());?>
-            <?= $customerAttributes->toHtml() ?>
-        <?php endif;?>
+
 
     </fieldset>
-
-
     <fieldset class="fieldset create account" data-hasrequired="<?= /* @escapeNotVerified */ __('* Required Fields') ?>">
         <!-- <legend class="legend"><span><?= /* @escapeNotVerified */ __('Sign-in Information') ?></span></legend><br> -->
         <div class="field required">
@@ -104,7 +114,7 @@
         <input type="checkbox" name="is_subscribed" title="<?= /* @escapeNotVerified */ __('Sign Up for Newsletter') ?>" value="1" id="is_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox"/>
         <span class="checkmark"></span>
       </label>
-       
+
     </div>
         <?php /* Extensions placeholder */ ?>
         <?= $block->getChildHtml('customer.form.register.newsletter') ?>
@@ -155,4 +165,5 @@
             }
         }
     }
+
 </script>
