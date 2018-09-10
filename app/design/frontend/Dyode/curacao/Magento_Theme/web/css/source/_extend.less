@@ -383,6 +383,7 @@
 		.section-items{
 			.nav-sections-item-title{
 				@media all and (max-width:1024px){
+					display:block;
 					background: #84b90a;
 					border:none;
 					a{
@@ -1104,6 +1105,7 @@ html.nav-before-open {
 		border-bottom: 0;
 	}
 	.nav-sections-item-content {
+		display:none !important;
 		box-sizing: border-box;
 		float: right;
 		margin-left: -100%;
@@ -1119,6 +1121,14 @@ html.nav-before-open {
 			display: table;
 			clear: both;
 		}
+	}
+	.nav-sections-item-title.active{
+		+ .nav-sections-item-content{
+			display:block !important;
+		}
+	}
+	.nav-sections-item-content > .ves-megamenu{
+		display: block !important;
 	}
 	.nav-before-open {
 		body {
