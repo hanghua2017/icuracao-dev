@@ -1,0 +1,27 @@
+<?php
+/**
+ * Copyright 2018 aheadWorks. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?libraries=places<?= /* @noEscape */ $this->getApiKey(); ?>">
+</script>
+
+<div class="aw-storelocator-google-map" id="aw-storelocator-google-map" data-bind="scope:'locationMap'"></div>
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "locationMap": {
+                    "component": "Aheadworks_StoreLocator/js/view/location-map",
+                    "locationItems": <?= /* @noEscape */ $this->getLocationDataJson(); ?>,
+                    "mapSelector": "aw-storelocator-google-map"
+                }
+            }
+        }
+    }
+}
+</script>
