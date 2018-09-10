@@ -91,23 +91,23 @@ define(
                       console.log(pid);
                       var zipcode = jQuery("#deliveryform"+pid+" input[name=pickup-zipcode]").val();
                       if(zipcode){
-                          storeParams = {
-                            'storepickup' : 1,
-                            'zipcode':zipcode
-                          };
-                          return storage.post(
-                          urlBuilder.createUrl('/storepickup/storelocation', {}),
-                          JSON.stringify(storeParams)
-                          ).done(function (response) {
-                           alert({
-                               content: $t('Action Successfully completed.'+response)
-                           });
-
-                         }).fail(function (response) {
-                            alert({
-                                content: $t('There was error during saving data')
-                            });
-                        });
+                        //   storeParams = {
+                        //     'storepickup' : 1,
+                        //     'zipcode':zipcode
+                        //   };
+                        //   return storage.post(
+                        //   urlBuilder.createUrl('/storepickup/storelocation', {}),
+                        //   JSON.stringify(storeParams)
+                        //   ).done(function (response) {
+                        //    alert({
+                        //        content: $t('Action Successfully completed.'+response)
+                        //    });
+                        //
+                        //  }).fail(function (response) {
+                        //     alert({
+                        //         content: $t('There was error during saving data')
+                        //     });
+                        // });
                         jQuery("#dialog-message" ).dialog({
                           modal: true,
                           buttons: {
