@@ -10,7 +10,7 @@
         <referenceBlock name="head.components">
             <block class="Magento\Framework\View\Element\Js\Components" name="sales_page_head_components" template="Magento_Sales::js/components.phtml"/>
         </referenceBlock>
-        <!-- recently ordered products removed from left sidebar  -->
+        <!-- Recently ordered products removed from left sidebar  -->
         <referenceContainer name="sidebar.additional" remove="true"/>
           <referenceBlock name="footer_links">
             <block class="Magento\Sales\Block\Guest\Link" name="sales-guest-form-link">
