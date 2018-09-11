@@ -48,17 +48,39 @@
 
                 <block class="Magento\Framework\View\Element\Template" name="freq-bought" template="Magento_Catalog::product/view/frequently-bought.phtml" after="product.info.media"/>
             </container>
+            <container name="product.info.details.before" htmlTag="div" htmlClass="product-info-details-before" before="product.info.details" />
+            <container name="product.info.details.after" htmlTag="div" htmlClass="product-info-details-after" after="product.info.details">
+                <block class="Magento\Cms\Block\Block" name="offers.of.this.week.1">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">offers_of_the_week_1</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Catalog\Block\Widget\RecentlyViewed" name="recently_viewed" template="Magento_Catalog::product/widget/viewed/grid.phtml">
+                    <arguments>
+                        <argument name="uiComponent" xsi:type="string">widget_recently_viewed</argument>
+                        <argument name="page_size" xsi:type="number">5</argument>
+                        <argument name="show_attributes" xsi:type="string">name,image,price,learn_more</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Cms\Block\Block" name="offers.of.this.week.2">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">offers_of_the_week_2</argument>
+                    </arguments>
+                </block>
+            </container>
         </referenceContainer>
 
         <!-- MOVING BLOCKS -->
         <move element="product.info.main" destination="product.info-block" before="-" />
         <move element="product.info.media" destination="product.info-block" after="product.info.main" />
+        <move element="product.info.upsell" destination="product.info.details.before" />
 
 
         <!-- REMOVED BLOCKS -->
         <referenceBlock name="product.info.sku" remove="true"/>
         <referenceContainer name="product.info.stock.sku" remove="true" />
         <referenceBlock name="product.info.mailto" remove="true" />
+        <referenceBlock name="catalog.product.related" remove="true" />
 
 
     </body>
