@@ -111,7 +111,7 @@ define(
                                 //     x.push(n);
                                 // });
                                 console.log(storeResponse);
-                              
+
                                 jQuery("#dialog-message" ).dialog({
                                   modal: true,
                                   buttons: {
