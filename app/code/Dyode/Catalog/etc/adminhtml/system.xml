@@ -23,6 +23,9 @@
                     <label>Price Beat CMS Page</label>
                     <source_model>Magento\Cms\Model\Config\Source\Page</source_model>
                 </field>
+                <field id="emi_link" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Apply Now Link</label>
+                </field>
             </group>
         </section>
     </system>

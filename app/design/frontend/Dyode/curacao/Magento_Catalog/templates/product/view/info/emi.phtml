@@ -21,17 +21,20 @@
 $viewModel = $block->getViewModel();
 $emi = $viewModel->monthlyEmi($block->getProduct()->getFinalPrice());
 $helper = $viewModel->helper();
+$applyNowLink = $viewModel->applyNowLink();
 ?>
 
-<?php if ($emi): ?>
-<div class="credit-card-desc">
-    <img src="<?php echo $this->getViewFileUrl('images/price-tag.png'); ?>" />
-    <?= __('Or as low as ') ?>
-    <span class="emi-amount">
-        <?= $block->escapeHtml($helper->formatPrice($emi)); ?>/<?= __('month'); ?>
+<div class="credit-card-emi <?= ($emi <= 0) ? 'no-display' : ''?>">
+    <div class="credit-card-desc">
+        <img src="<?php echo $this->getViewFileUrl('images/price-tag.png'); ?>" />
+        <?= __('Or as low as ') ?>
+        <span class="emi-amount">
+        <?= $helper->formatPrice($emi, true, 0); ?>/<?= __('month'); ?>
     </span>
+    </div>
+    <?php if($applyNowLink): ?>
+    <div class="credti-card-apply">
+        <a href="<?= $block->escapeUrl($applyNowLink) ?>" class="credit-link"><?= __('Apply Now'); ?></a>
+    </div>
+    <?php endif; ?>
 </div>
-<div class="credti-card-apply">
-    <a href="#" class="credit-link"><?= __('Apply for Curacao credit card'); ?></a>
-</div>
-<?php endif; ?>

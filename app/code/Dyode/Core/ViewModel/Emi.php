@@ -12,13 +12,17 @@
 namespace Dyode\Core\ViewModel;
 
 use Magento\Checkout\Helper\Data;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
+use Magento\Store\Model\ScopeInterface;
 
 /**
  * Emi Suggestion View Model
  */
 class Emi implements ArgumentInterface
 {
+
+    const APPLY_NOW_CONFIG_PATH = 'curacao_catalog/curacao_product_page/emi_link';
 
     /**
      * Checkout helper
@@ -34,14 +38,18 @@ class Emi implements ArgumentInterface
      */
     protected $_item;
 
+    protected $_scopeConfig;
+
     /**
      * Emi constructor.
      *
-     * @param \Magento\Checkout\Helper\Data $helper
+     * @param \Magento\Checkout\Helper\Data                      $helper
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      */
-    public function __construct(Data $helper)
+    public function __construct(Data $helper, ScopeConfigInterface $scopeConfig)
     {
         $this->_helper = $helper;
+        $this->_scopeConfig = $scopeConfig;
     }
 
     /**
@@ -105,5 +113,21 @@ class Emi implements ArgumentInterface
             default:
                 return 0;
         }
+    }
+
+    /**
+     * Apply Now external link from system configuration.
+     *
+     * @return string|boolean
+     */
+    public function applyNowLink()
+    {
+        $applyLink = $this->_scopeConfig->getValue(self::APPLY_NOW_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
+
+        if ($applyLink) {
+            return $applyLink;
+        }
+
+        return false;
     }
 }
