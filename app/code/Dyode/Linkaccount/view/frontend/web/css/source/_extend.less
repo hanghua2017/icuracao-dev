@@ -1,0 +1,72 @@
+@curacao-green:#81b800;
+@white:#fff;
+@text-grey:#6b6b6b;
+.linkaccount-verify-success{
+  .sections{
+  margin-bottom:0;
+  }
+  .page-main{
+    max-width: none;
+    padding: 0 !important;
+  }
+}
+//Style for LINK-ACCOUNT-Success Page
+.success-container{
+    background: url("../images/BG.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 50px 0;
+  .success-inner-container{
+    width: 1150px;
+    margin:  0 auto;
+    background-color: @white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
+    @media all and(max-width: 1250px){
+      max-width: 930px;
+    }
+    @media all and (max-width: 991px){
+      max-width: 700px;
+    }
+    @media all and(max-width: 768px) {
+      max-width: 768px;
+      box-shadow: none;
+      width: 100%;
+    }
+    .success-content{
+      text-align: center;
+      padding: 50px 0;
+      .success-description{
+        color: @curacao-green;
+          p{
+            font-size: 27px;
+            margin: 0;
+          }
+          span{
+            font-size: 20px;
+          }
+       }
+       .card-image{
+         padding: 20px 0;
+       }
+       .card-description{
+         p{
+           font-size: 16px;
+           color: @text-grey;
+         }
+       }
+       .button{
+         padding-top: 35px;
+         button{
+           font-size: 14px;
+           background-color: @curacao-green;
+           color: @white;
+           width: 252px;
+           min-height: 45px;
+           border: none;
+           outline: none;
+           text-transform: capitalize;
+         }
+       }
+    }
+  }
+}
