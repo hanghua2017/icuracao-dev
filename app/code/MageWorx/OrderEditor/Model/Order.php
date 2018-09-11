@@ -10,6 +10,11 @@ use MageWorx\OrderEditor\Model\Order\Item;
 class Order extends \Magento\Sales\Model\Order
 {
     /**
+     * @var OrderId
+     */
+    protected $orderId;
+
+    /**
      * @var Item
      */
     protected $item;
@@ -125,7 +130,19 @@ class Order extends \Magento\Sales\Model\Order
     protected $cancelOrderHelper;
 
     /**
+     * @var \Magento\Sales\Model\OrderRepository
+     **/
+    protected $_orderRepository;
+
+    /**
+     * @var \Magento\Backend\Model\Auth\Session
+     */
+    protected $authSession;
+
+    /**
      * @param \Dyode\CancelOrder\Helper\Data $cancelOrderHelper
+     * @param \Magento\Sales\Model\OrderRepository $orderRepository
+     * @param \Magento\Backend\Model\Auth\Session $authSession,
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\Framework\Api\ExtensionAttributesFactory $extensionFactory
@@ -170,6 +187,7 @@ class Order extends \Magento\Sales\Model\Order
      */
     public function __construct(
         \Dyode\CancelOrder\Helper\Data $cancelOrderHelper,
+        \Magento\Backend\Model\Auth\Session $authSession, 
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Framework\Api\ExtensionAttributesFactory $extensionFactory,
@@ -177,6 +195,7 @@ class Order extends \Magento\Sales\Model\Order
         \Magento\Framework\Stdlib\DateTime\TimezoneInterface $timezone,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Sales\Model\Order\Config $orderConfig,
+        \Magento\Sales\Model\OrderRepository $orderRepository,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\Sales\Model\ResourceModel\Order\Item\CollectionFactory $orderItemCollectionFactory,
         \Magento\Catalog\Model\Product\Visibility $productVisibility,
@@ -213,6 +232,8 @@ class Order extends \Magento\Sales\Model\Order
         array $data = []
     ) {
         $this->cancelOrderHelper = $cancelOrderHelper;
+        $this->authSession = $authSession;
+        $this->_orderRepository = $orderRepository;
         $this->taxConfig = $taxConfig;
         $this->item = $item;
         $this->quote = $quote;
@@ -260,6 +281,14 @@ class Order extends \Magento\Sales\Model\Order
     }
 
     /**
+     * @return Array
+     */
+    public function getCurrentUser()
+    {
+        return $this->authSession->getUser();
+    }
+
+    /**
      * @return bool
      */
     public function hasItemsWithIncreasedQty()
@@ -268,11 +297,11 @@ class Order extends \Magento\Sales\Model\Order
     }
 
     /**
-     * @return bool
+     * @return boolorderRepository
      */
-    public function hasItemsWithDecreasedQty()
+    public function hasItemsWithorderRepositoryDecreasedQty()
     {
-        return array_sum($this->decreasedItems) > 0;
+        return array_sum($this->orderRepositorydecreasedItems) > 0;
     }
 
     /**
@@ -353,6 +382,7 @@ class Order extends \Magento\Sales\Model\Order
      */
     public function editItems($params)
     {
+        $this->orderId = $params['order_id'];
         $this->beforeEditItems();
         $this->prepareParamsForEditItems($params);
         //$this->checkStatus();
@@ -423,29 +453,39 @@ class Order extends \Magento\Sales\Model\Order
         if (!isset($params['quote_item'])) {
             if (isset($params['action']) && $params['action'] == 'remove') {
                 $this->removedItems[] = $id;
-                $invoiceNumber = "ZEP58QX";
-                $itemId = "32O-285-42LB5600";
-                $qty = 1;
-                $response = $this->cancelOrderHelper->adjustItem($invoiceNumber, $itemId, $qty);
-                // $logger->info("Hello");
-                // $logger->info($response->INFO);
-                // $logger->info("World");
-                // $logger->info($response->OK);
+                $order = $this->_orderRepository->get($this->orderId);
+                foreach ($order->getAllItems() as $orderItem) {
+                    # code...
+                    if ($orderItem->getId() == $params['item_id']) {
+                        # code...
+                        break;
+                    }
+                }
+                $invoiceNumber = "ZEP58XC";
+                $itemSku = "09A-RA3-RS16FT5050RB";
+                $qty = 0;
+                $response = $this->cancelOrderHelper->adjustItem($invoiceNumber, $itemSku, 0);
+                $user = $this->getCurrentUser();
                 if ($response->OK == true) {
                     # code...
-                    $logger->info("Hello");
-                    $logger->info($response->DATA);
-                }
-                else {
+                    $logger->info("Item Cancelled");
+                    # Send Notification to Customer
+                    $order->addStatusToHistory($order->getStatus(),
+                        'Item: ' .
+                        $orderItem->getName() .
+                        ' has been removed Successfully by Admin User: ' .
+                        $user->getUsername() .
+                        ' ( ' . $user->getEmail() . ' ). '
+                    );     # Add Comment to Order History
+                    $order->save();     # Save the Changes in Order Status & History
+                } else {
                     # code...
-                    $logger->info("World");
                     $logger->info($response->INFO);
                     throw new \Exception($response->INFO);
                 }
             }
             $item = $item->load($id);
         }
-
         return $item;
     }
 
