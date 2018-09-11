@@ -31,11 +31,7 @@
             </action>
 
             <block class="Magento\Checkout\Block\Cart" name="cart.item.count.title" template="Magento_Checkout::cart/title.phtml" cacheable="false">
-                <block class="Magento\Checkout\Block\Cart" name="checkout.cart.methods.bottom" template="Magento_Checkout::cart/title/methods.phtml">
-                    <container name="checkout.cart.buttons" as="methods" label="Checkout Button on the title section">
-                        <block class="Magento\Checkout\Block\Onepage\Link" name="title.checkout.button" template="Magento_Checkout::onepage/link.phtml" />
-                    </container>
-                </block>
+                <block class="Magento\Checkout\Block\Cart" name="checkout.cart.methods.bottom" template="Magento_Checkout::cart/title/methods.phtml" />
             </block>
         </referenceBlock>
 
