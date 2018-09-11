@@ -43,6 +43,7 @@ define(
             stepTitle: 'Delivery Method',
             getItems: ko.observableArray(quote.getItems()),
             getTotals: quote.getTotals(),
+            storeList:ko.observable(true),
           //  state: ko.observable(false),
 
             /**
@@ -91,30 +92,38 @@ define(
                       console.log(pid);
                       var zipcode = jQuery("#deliveryform"+pid+" input[name=pickup-zipcode]").val();
                       if(zipcode){
-                          storeParams = {
-                            'storepickup' : 1,
-                            'zipcode':zipcode
-                          };
-                          return storage.post(
-                          urlBuilder.createUrl('/storepickup/storelocation', {}),
-                          JSON.stringify(storeParams)
-                          ).done(function (response) {
-                           alert({
-                               content: $t('Action Successfully completed.'+response)
-                           });
-
-                         }).fail(function (response) {
-                            alert({
-                                content: $t('There was error during saving data')
-                            });
-                        });
-                        jQuery("#dialog-message" ).dialog({
-                          modal: true,
-                          buttons: {
-                            Ok: function() {
-                              jQuery( this ).dialog( "close" );
+                         jQuery.ajax({
+                            url: '/storeloc/storelocator/index',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                zipcode: zipcode,
+                                pid: pid,
+                            },
+                            success: function(response) {
+                                console.log(response);
+                                var storeResponse = jQuery.map(response, function(value, index) {
+                                    return [value];
+                                });
+                                // console.log(array);
+                                // var x=[];
+                                // jQuery.each(response, function(i,n) {
+                                //     x.push(n);
+                                // });
+                                console.log(storeResponse);
+                              
+                                jQuery("#dialog-message" ).dialog({
+                                  modal: true,
+                                  buttons: {
+                                    Ok: function() {
+                                      jQuery( this ).dialog( "close" );
+                                    }
+                                  }
+                                });
+                            },
+                            error: function (xhr, status, errorThrown) {
+                                console.log('Error happens. Try again.');
                             }
-                          }
                         });
                       }
 
@@ -125,7 +134,9 @@ define(
                 });
                 return productItems.length !== 0 ? productItems: null;
             },
+            assignStores:function(storesList){
 
+            },
             storeLocation: function(formelement,id) {
               console.log(id);
                // this.source.trigger('deliveryform'+id+'.data.validate');

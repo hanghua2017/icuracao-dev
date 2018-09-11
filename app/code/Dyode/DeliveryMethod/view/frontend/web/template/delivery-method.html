@@ -5,12 +5,12 @@
     <div id="checkout-step-title"
          class="step-content"
          data-role="content">
-         <div class="step-title"  data-role="title">How do you want to get your Order?</div>
+         <div class="step-title"  data-role="title"><span data-bind="i18n: 'How do you want to get your Order?'"></span></div>
 
         <!-- Product listing along with delivery methods -->
         <div class="delivery-method-product-listing" data-bind="foreach: getProductItems()">
           <div class="delivery-method-product-item">
-            <h2>Order Details (<span data-bind="text: $index() + 1"></span>)</h2>
+            <h2><span data-bind="i18n: 'Order Details '"></span>(<span data-bind="text: $index() + 1"></span>)</h2>
             <div>
               <div class="delivery-method-product-image">
                 <img data-bind="attr: {'src': product_image_url}, src: product_image_url" />
@@ -22,7 +22,7 @@
               </div>
             </div>
             <div class="delivery-methods-options">
-              <h4>Delivery Method</h4>
+              <h4><span data-bind="i18n: 'Delivery Method'"></span></h4>
               <label>
                     <input  type="radio" data-bind="attr: { name: 'delivery-product-' + $data.item_id() ,id: 'shipping-'+$data.item_id()},checked:'shipping',value:'shipping',event:{change:setStorepickup.bind(this)}" />
                    <span data-bind="i18n: 'Ship to home'"></span>
@@ -50,6 +50,8 @@
 <div data-bind="text: ko.toJSON($root)"></div>
 
             <div id="dialog-message" title="Download complete">
+              <div class="delivery-method-product-listing" data-bind="foreach: myObservableArray">
+              </div>
                   <p>
                     <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
                     Your files have downloaded successfully into the My Downloads folder.
