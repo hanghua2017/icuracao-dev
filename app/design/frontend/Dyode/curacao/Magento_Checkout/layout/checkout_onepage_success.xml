@@ -20,6 +20,10 @@
             <block class="Magento\Checkout\Block\Onepage\Success" name="checkout.success" template="Magento_Checkout::success.phtml" cacheable="false">
                 <container name="order.success.additional.info" label="Order Success Additional Info"/>
             </block>
+            <block class="Magento\Framework\View\Element\Template" name="you.may.like" template="Magento_Checkout::youmaylike.phtml" after="checkout.success"/>
+            <block class="Magento\Framework\View\Element\Template" name="banner.full" template="Magento_Checkout::promotion-banner-full.phtml" after="you.may.like"/>
+            <block class="Magento\Framework\View\Element\Template" name="product.slider" template="Magento_Checkout::product-slider.phtml" after="banner.full"/>
+            <block class="Magento\Framework\View\Element\Template" name="banner.double" template="Magento_Checkout::promotion-banner-double.phtml" after="product.slider"/>
 
             <block class="Magento\Checkout\Block\Registration" name="checkout.registration" template="Magento_Checkout::registration.phtml" cacheable="false"/>
 
