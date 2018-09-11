@@ -25,8 +25,8 @@
     <!-- <legend class="legend sub-heading"><span><?= /* @escapeNotVerified */ __('Sign in Using One of your accounts') ?></span></legend><br> -->
     <input type="hidden" name="success_url" value="<?= /* @escapeNotVerified */ $block->getSuccessUrl() ?>"/>
     <input type="hidden" name="error_url" value="<?= /* @escapeNotVerified */ $block->getErrorUrl() ?>"/>
-    <div class="check newsletter">
-      <label class="newsletter-box">
+    <div class="check checking-box">
+      <label class="checking-box-label">
         <label  class="label">Do you have a Curacao Account?</label>
         <input type="checkbox" name="account-check" id="account-check" value="account-checkbox" /><span class="checkmark"></span></label>
       </div>
@@ -94,8 +94,8 @@
         <?= $block->getChildHtml('form_additional_info') ?>
     </fieldset>
     <?php if ($block->isNewsletterEnabled()): ?>
-    <div class="field choice newsletter">
-      <label class="newsletter-box">
+    <div class="field choice checking-box">
+      <label class="checking-box-label">
         <label for="is_subscribed" class="label"><span><?= /* @escapeNotVerified */ __('Sign Up for Newsletter') ?></span></label>
         <input type="checkbox" name="is_subscribed" title="<?= /* @escapeNotVerified */ __('Sign Up for Newsletter') ?>" value="1" id="is_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox"/>
         <span class="checkmark"></span>
