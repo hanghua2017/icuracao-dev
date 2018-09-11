@@ -16,6 +16,7 @@
         <curacao_catalog>
             <curacao_product_page>
                 <price_beat_cms_page/>
+                <qty_dropdown_limit>10</qty_dropdown_limit>
             </curacao_product_page>
         </curacao_catalog>
     </default>

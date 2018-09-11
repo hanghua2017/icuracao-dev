@@ -5,37 +5,37 @@
  */
 
 // @codingStandardsIgnoreFile
-
-/** @var $block \Magento\Catalog\Block\Product\View */
 ?>
-<?php $_product = $block->getProduct(); ?>
-<?php $buttonTitle = __('Add to Cart'); ?>
+<?php
+/**
+ * @var $block \Magento\Catalog\Block\Product\View
+ * @var $viewModel \Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\Addtocart
+ */
+$_product = $block->getProduct();
+$buttonTitle = __('Add to Cart');
+$viewModel = $block->getViewModel();
+$qtySelectLimit = $viewModel->getQtyLimit();
+?>
 <?php if ($_product->isSaleable()): ?>
 <div class="box-tocart">
     <div class="fieldset">
+
         <?php if ($block->shouldRenderQuantity()): ?>
         <div class="field qty">
             <label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
             <div class="control">
+                <select
+                        name="qty"
+                        id="qty"
+                        title="<?= /* @escapeNotVerified */ __('Qty') ?>"
+                        class="input-text qty"
+                        data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>">
 
-                <!-- Static drop down to select quantity -->
-                <select name="qty" id="qty">
-                  <option value="1">1</option>
-                  <option value="1">2</option>
-                  <option value="1">3</option>
-                  <option value="1">4</option>
-                  <option value="1">5</option>
+                  <?php for($qtyIncr = 1; $qtyIncr <= $qtySelectLimit; $qtyIncr++): ?>
+                      <option value="<?= $qtyIncr ?>" <?= ($qtyIncr === 1) ? 'selected': '' ?>><?= $qtyIncr ?></option>
+                  <?php endfor; ?>
+
                 </select>
-                <!-- End Static drop down to select quantity -->
-
-                <!-- <input type="number"
-                       name="qty"
-                       id="qty"
-                       value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>"
-                       title="<?= /* @escapeNotVerified */ __('Qty') ?>"
-                       class="input-text qty"
-                       data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
-                       /> -->
             </div>
         </div>
         <?php endif; ?>

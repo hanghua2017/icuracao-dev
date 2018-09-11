@@ -42,8 +42,6 @@ if ($_attributeType && $_attributeType == 'text') {
     <?php if ($renderLabel): ?><strong class="type"><?= /* @escapeNotVerified */ $_attributeLabel ?></strong><?php endif; ?>
     <div class="value" <?= /* @escapeNotVerified */ $_attributeAddAttribute ?>><?= /* @escapeNotVerified */ $_attributeValue ?></div>
 
-    <!-- Static link for view details -->
-    <a href="#details-section" class="redirect-view-details">View all item details</a>
-    <!-- End Static link for view details -->
+    <a href="#details-section" class="redirect-view-details"><?= __('View all item details') ?></a>
 </div>
 <?php endif; ?>
