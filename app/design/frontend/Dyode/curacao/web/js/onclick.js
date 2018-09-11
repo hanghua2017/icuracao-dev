@@ -2,6 +2,7 @@ require([
   'jquery'
 ], function($){
   // $('input[name="curacaocustid"]').hide();
+   $('input[name="curacaocustid"]').attr("placeholder", "Do you have a Curacao Account?");  
   $('.field-curacaocustid').hide();
   //show it when the checkbox is clicked
   $('input[name="account-check"]').on('click', function () {
