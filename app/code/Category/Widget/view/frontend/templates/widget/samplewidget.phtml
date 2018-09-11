@@ -1,0 +1,100 @@
+
+  <?php
+   $Id = $block->getData('id_path');
+   $categoryId=filter_var($Id, FILTER_SANITIZE_NUMBER_INT);
+
+
+    $_objectManager =  \Magento\Framework\App\ObjectManager::getInstance();
+    $categoryFactory = $_objectManager->get('\Magento\Catalog\Model\CategoryFactory');
+    $categoryHelper = $_objectManager->get('\Magento\Catalog\Helper\Category');
+    $categoryRepository = $_objectManager->get('\Magento\Catalog\Model\CategoryRepository');
+    $imageHelper  = $_objectManager->get('\Magento\Catalog\Helper\Image');
+    $productHelper = $_objectManager->create('Magento\Catalog\Model\Product');
+    $productData = $_objectManager->create('Magento\Catalog\Model\ProductRepository');
+
+
+
+
+
+    $category = $categoryFactory->create()->load($categoryId);
+
+
+
+
+    $categoryProducts = $category->getProductCollection()
+                                 ->addAttributeToSelect('*')->setPageSize(5);?>
+<div class="block-products-list">
+   <?php if($block->getData('widgettitle')): ?>
+   <div class="slider-title">
+     <h2 class="widget-title"><?php echo $block->getData('widgettitle'); ?></h2>
+   </div>
+   <?php endif; ?>
+   <div class="owl-carousel product-slider-home product-slider-category" >
+     <?php
+      foreach ($categoryProducts as $product) {
+        ?>
+      <div class="item">
+        <li class="product-item product-slider">
+        <div class="product-item-info">
+        <a href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>" class="product-item-photo">
+          <?php
+  $_price= $product->getPrice();
+
+              $_finalPrice= $product->getSpecialPrice();
+              $specialPriceFromDate = $product->getSpecialFromDate();
+              $specialPriceToDate = $product->getSpecialToDate();
+              $today =  time();
+              if ($_finalPrice && ($product->getPrice()>$product->getFinalPrice())):
+                if($today >= strtotime( $specialPriceFromDate) && $today <= strtotime($specialPriceToDate) ||
+                $today >= strtotime( $specialPriceFromDate) && is_null($specialPriceToDate)):
+                //product in sales
+                $_savePercent = 100-round(($_finalPrice / $_price) * 100);
+                ?>
+                  <?php
+                endif;
+                endif;
+
+          ?>
+
+          <?php $image_url = $imageHelper->init($product, 'product_page_image_large')->setImageFile($product->getFile())->getUrl();?>
+          <img src="<?php echo $image_url;?>" alt="<?php echo $product->getName();?>"/>
+            <div class="product-item-details">
+          <h3 class="product-item-name"><?php echo $product->getName();?></h3>
+          <p class="price"><span class="original-price <?php echo $product->getSpecialPrice() ? 'has-special-price' : '' ?>"><?php echo $product->getPrice();?></span><span class="discount-price"><?php echo $product->getSpecialPrice();?></span></p>
+          <p class="subtext"><?php echo "or as low as";?><span class="amount"><?php echo" $10/month";?></span></p>
+        </a>
+      </div>
+      </div>
+    </li>
+    </div>
+  <?php  } ?>
+  </div>
+  </div>
+  <script type="text/x-magento-init">
+      {
+      ".product-slider-category": {
+          "OwlCarousel": {
+            "items": 5,
+            "dots":false,
+            "loop": true,
+            "nav":true,
+            "margin": 0,
+            "navText": ["<div class='custom-prev'><div class='left'></div></div>", "<div class='custom-next'><div class='right'></div></div>"],
+            "responsive": {
+              "0": {
+                "items": 1
+              },
+              "400": {
+                "items": 2
+              },
+              "768": {
+                "items": 3
+              },
+              "1045": {
+                "items": 5
+              }
+            }
+          }
+        }
+      }
+  </script>
