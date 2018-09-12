@@ -12,8 +12,9 @@
 <div class="order-confirmation-container">
   <div class="order-confirmation-content">
     <div class="top-section">
+      <!-- Order Confirmation Section with success message and order number  -->
       <div class="curacaoOrder-status">
-        <img src="<?php echo $block->getViewFileUrl('images/dart-board.png'); ?>" alt="">
+        <img src="<?php echo $block->getViewFileUrl('images/dart-board.png'); ?>" alt="Success Icon">
         <h1 class="success-message">Order Successfully Placed</h1>
       </div>
       <div class="status-details">
@@ -32,6 +33,7 @@
 
         <p>You will receive an order confirmation email with details of your order and a link to track its progress.</p>
       </div>
+      <!--       //shiipping info , billing info , payment , order details , delivery date block  -->
       <div class="section-wrapper">
         <div class="purchase-details">
           <div class="block">
@@ -67,7 +69,7 @@
                 <h2>Payment info.</h2>
               </div>
               <div class="details">
-                  <img src="<?php echo $block->getViewFileUrl('images/curacao-card.jpg'); ?>" alt="">
+                  <img src="<?php echo $block->getViewFileUrl('images/curacao-card.jpg'); ?>" alt="credit card icon">
                 <span> ending in XXXX 3135</span>
               </div>
             </div>
@@ -76,13 +78,14 @@
                 <h2>Initial payment</h2>
               </div>
               <div class="details">
-                    <img src="<?php echo $block->getViewFileUrl('images/visa-card.jpg'); ?>" alt="">
+                    <img src="<?php echo $block->getViewFileUrl('images/visa-card.jpg'); ?>" alt="credit card icon">
 
                 <span> ending in XXXX 3135</span>
               </div>
             </div>
           </div>
         </div>
+        <!--Cart product details   -->
         <div class="order-details">
           <div class="block ord-det">
             <div class="block-title">
@@ -91,7 +94,7 @@
             <div class="product-details">
               <div class="each-product">
                 <div class="product-image">
-                    <img src="<?php echo $block->getViewFileUrl('images/product-image.jpg'); ?>" alt="">
+                    <img src="<?php echo $block->getViewFileUrl('images/product-image.jpg'); ?>" alt="product image">
 
                 </div>
                 <div class="product-info">
@@ -109,6 +112,7 @@
               </div>
             </div>
           </div>
+          <!-- Estimated Delivery Date -->
           <div class="block delivery">
             <div class="block-title">
               <h2>Delivery</h2>
@@ -122,9 +126,7 @@
 
       </div>
     </div>
-    <!-- <div class="action-button">
-      <button class="continue">Continue Shopping</button>
-    </div> -->
+ <!--Continue Shopping action button  -->
     <div class="actions-toolbar">
         <div class="primary">
             <a class="action primary continue" href="<?= /* @escapeNotVerified */ $block->getContinueUrl() ?>"><span><?= /* @escapeNotVerified */ __('Continue Shopping') ?></span></a>
@@ -133,11 +135,11 @@
 
   </div>
 </div>
-</div>
+<!-- Price Beat and Interest Beat Block -->
 <div class="guarantee-block">
   <div class="left-block">
     <div class="image">
-          <img src="<?php echo $block->getViewFileUrl('images/price-beat.png'); ?>" alt="">
+          <img src="<?php echo $block->getViewFileUrl('images/price-beat.png'); ?>" alt="Price Beat Logo">
     </div>
     <div class="details">
       <h2>Price Beat</h1>
@@ -147,7 +149,7 @@
   </div>
   <div class="right-block">
     <div class="image">
-      <img src="<?php echo $block->getViewFileUrl('images/interest-beat.png'); ?>" alt="">
+      <img src="<?php echo $block->getViewFileUrl('images/interest-beat.png'); ?>" alt="Interest Beat Logo">
     </div>
     <div class="details">
       <h2>Interest Beat</h1>

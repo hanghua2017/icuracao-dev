@@ -1,316 +1,351 @@
+// Order Confirmation Pahe styling
+
 .order-confirmation-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-    .order-confirmation-content {
-        .top-section {
-            .curacaoOrder-status {
-                text-align: center;
-                 img {
-                    width: 143px;
-                    @media screen and (max-width: 600px) {
-                        width: 100px;
-                    }
-                }
-                h1.success-message {
-                    font-family: Roboto-bold;
-                    color: #4b9b3e;
-                    font-size: 26px;
-                    margin-top: 0;
-                    @media screen and (max-width: 600px) {
-                        font-size: 20px
-                    }
-                }
-            }
-            .status-details {
-                text-align: center;
-                h3 {
-                    font-family: Roboto-medium;
-                    font-weight: normal;
-                    color: #000;
-                    font-size: 16px;
-                    @media screen and (max-width: 600px) {
-                        font-size: 14px;
-                    }
-                }
-                p {
-                    font-family: Roboto-light;
-                    margin: 10px 0;
-                    font-size: 14px;
-                    @media screen and (max-width: 600px) {
-                        font-size: 12px;
-                    }
-                    span.order-no {
-                        font-family: Roboto-medium;
-                    }
-                }
-            }
-            .section-wrapper {
-                max-width: 600px;
-                margin: 30px auto 20px;
-                padding: 30px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
-                @media screen and (max-width: 600px) {
-                    margin: 15px auto 10px;
-                    padding: 15px;
-                }
-                .purchase-details {
-                    border-bottom: 1px solid #d2d2d2;
-                    padding-bottom: 30px;
-                    @media screen and (max-width: 600px) {
-                        padding-bottom: 15px;
-                    }
-                }
-                .purchase-details,
-                .order-details {
-                    display: flex;
-                    justify-content: space-between;
-                    @media screen and (max-width: 600px) {
-                        flex-direction: column;
-                    }
-                    .block {
-                        flex-basis: 33.333%;
-                        margin-bottom: 0;
-                        @media screen and (max-width: 600px) {
-                            flex-basis: auto;
-                            margin-bottom: 20px;
-                        }
-                        .block-title {
-                            h2 {
-                                font-family: Roboto-medium;
-                                font-size: 18px;
-                                font-weight: normal;
-                                color: black;
-                                margin: 20px 0 10px;
-                                @media screen and (max-width: 600px) {
-                                    font-size: 16px;
-                                }
-                            }
-                        }
-                        address {
-                            font-family: Roboto-regular;
-                            color: #818080;
-                            font-style: normal;
-                            font-size: 12px;
-                            @media screen and (max-width: 600px) {
-                                font-size: 12px;
-                            }
-                        }
-                        .details {
-                            img {
-                                vertical-align: middle;
-                            }
-                            span {
-                                font-family: Roboto-regular;
-                                color: #818080;
-                                font-size: 12px;
-                            }
-                        }
-                    }
-                }
-                .order-details {
-                    .block.ord-det {
-                        flex-basis: auto;
-                    }
-                    .block.delivery {
-                        flex-basis: 33.3333%;
-                        .est-date {
-                            font-family: Roboto-light;
-                            font-size: 14px;
-                            .date {
-                                font-family: Roboto-medium;
-                                font-weight: normal;
-                                color: black;
-                                margin-top: 10px;
-                            }
-                        }
-                    }
-                    .product-details {
-                        .each-product {
-                            display: flex;
-                            .product-image {
-                                max-width: 100%;
-                                img {
-                                    max-width: 100%;
-                                    height: auto;
-                                }
-                            }
-                            .product-info {
-                                padding-left: 15px;
-                                .pdt-name {
-                                    h3 {
-                                        margin: 14px 0 10px;
-                                        font-family: Roboto-regular;
-                                        color: #000;
-                                        font-size: 14px;
-                                    }
-                                }
-                                .pdt-price {
-                                    margin-bottom: 5px;
-                                    span {
-                                        font-family: Roboto-regular;
-                                        color: #d7102b;
-                                        font-size: 16px;
-                                    }
-                                }
-                                .qty {
-                                    font-family: Roboto-regular;
-                                    color: #000;
-                                    font-size: 14px;
-                                    span {}
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        .actions-toolbar{
-            text-align: center;
-            //margin-bottom: 30px;
-            @media screen and (max-width: 600px) {
-                margin-top: 20px;
-            }
-            .primary{
-              float: none;
-              a.continue {
-                  border: none;
-                  border-radius: 5px;
-                  background-color: #ef4800;
-                  color: #fff;
-                  font-family: Roboto-medium;
-                  font-size: 15px;
-                  text-transform: uppercase;
-                  padding: 10px 25px;
-                  margin-right: 0;
-                  @media screen and (max-width: 600px) {
-                      font-size: 13px;
-                      padding: 10px 20px;
-                  }
-              }
-            }
+  max-width: 1200px;
+  margin: 0 auto;
+ 
+
+  h1,
+  h2,
+  h3 {
+    font-weight: normal;
+  }
+  //success message and order details block styling
+  .order-confirmation-content {
+    .top-section {
+      .curacaoOrder-status {
+        text-align: center;
+
+        img {
+          width: 143px;
+          @media screen and (max-width: 600px) {
+            width: 100px;
+          }
         }
 
-    }
-}
-.guarantee-block {
-    display: flex;
-    margin-bottom: 30px;
-    .left-block,
-    .right-block {
-        width: 50%;
-        display: flex;
+        h1.success-message {
+          font-family: 'iCuracao-Medium';
+          color: #4b9b3e;
+          font-size: 26px;
+          margin-top: 0;
+          @media screen and (max-width: 600px) {
+            font-size: 20px;
+          }
+        }
+      }
+
+      .status-details {
+        text-align: center;
+
+        h3 {
+          font-family: 'iCuracao-Regular';
+          color: #000;
+          font-size: 16px;
+          @media screen and (max-width: 600px) {
+            font-size: 14px;
+          }
+        }
+
+        p {
+          font-family: 'iCuracao-Light';
+          margin: 10px 0;
+          font-size: 14px;
+          @media screen and (max-width: 600px) {
+            font-size: 12px;
+          }
+
+          span.order-no {
+            font-family: 'iCuracao-Regular';
+          }
+        }
+      }
+      //shiipping info , billing info , payment , order details , delivery date block styling
+      .section-wrapper {
+        max-width: 700px;
+        margin: 30px auto 20px;
+        padding: 30px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
-        padding: 10px;
-        border: 1px solid #d8d8d8;
-        .image {
-            width: 45%;
-            text-align: right;
-            margin-right: 15px;
-            img {
-                max-width: 100px;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                @media screen and (max-width: 991px) {
-                    //
-                }
-                @media screen and (max-width: 768px) {
-                    max-width: 80px;
-                }
-                @media screen and (max-width: 480px) {
-                    max-width: 100%;
-                    height: auto;
-                }
-                @media screen and (max-width: 400px) {
-                    height: 100%;
-                }
-            }
-            @media screen and (max-width: 890px) {
-                width: 30%;
-            }
-            @media screen and (max-width: 768px) {
-                text-align: left;
-                margin-right: 5px;
-                width: 100px;
-            }
-            @media screen and (max-width: 480px) {
-                //
-            }
+        @media screen and (max-width: 600px) {
+          margin: 15px auto 10px;
+          padding: 15px;
         }
-        .details {
-            width: 55%;
-            @media screen and (max-width: 890px) {
-                width: 70%;
+
+        .purchase-details {
+          border-bottom: 1px solid #d2d2d2;
+          padding-bottom: 30px;
+          @media screen and (max-width: 600px) {
+            padding-bottom: 15px;
+          }
+        }
+
+        .order-details,
+        .purchase-details {
+          display: flex;
+          justify-content: space-between;
+          @media screen and (max-width: 600px) {
+            flex-direction: column;
+          }
+          //common title styling
+          .block {
+            flex-basis: 33.333%;
+            margin-bottom: 0;
+            @media screen and (max-width: 600px) {
+              flex-basis: auto;
+              margin-bottom: 20px;
             }
-            @media screen and (max-width: 768px) {
-                width: 85%;
+
+            .block-title {
+              h2 {
+                font-family: 'iCuracao-Regular';
+                font-size: 18px;
+                color: black;
+                margin: 20px 0 10px;
+                @media screen and (max-width: 600px) {
+                  font-size: 16px;
+                }
+              }
             }
-            @media screen and (max-width: 400px) {
-                padding-top: 5px;
-            }
-            h2 {
-                font-family: Roboto-medium;
-                font-size: 20px;
-                font-weight: normal;
-                margin-bottom: 2px;
-                margin-top: 3px;
-                @media screen and (max-width: 991px) {
-                    font-size: 18px;
-                }
-                @media screen and (max-width: 768px) {
-                    font-size: 17px;
-                }
-                @media screen and (max-width: 480px) {
-                    font-size: 14px;
-                }
-            }
-            h3 {
-                font-family: Roboto-regular;
-                font-size: 14px;
-                font-weight: normal;
-                margin-bottom: 7px;
-                margin-top: 0;
-                @media screen and (max-width: 991px) {
-                    font-size: 13px;
-                }
-                @media screen and (max-width: 768px) {
-                    font-size: 12px;
-                    margin-bottom: 4px;
-                }
-                @media screen and (max-width: 480px) {
-                    font-size: 10px;
-                }
-            }
-            p {
-                font-family: Roboto-light;
+
+            address {
+              font-family: 'iCuracao-Light';
+              color: #818080;
+              font-style: normal;
+              font-size: 12px;
+              @media screen and (max-width: 600px) {
                 font-size: 12px;
-                margin-bottom: 0;
-                margin-top: 0;
-                text-transform: uppercase;
-                @media screen and (max-width: 991px) {
-                    //
-                }
-                @media screen and (max-width: 768px) {
-                    font-size: 11px;
-                }
-                @media screen and (max-width: 480px) {
-                    font-size: 7px;
-                }
+              }
             }
+
+            .details {
+              img {
+                vertical-align: middle;
+              }
+
+              span {
+                font-family: 'iCuracao-Light';
+                color: #818080;
+                font-size: 12px;
+              }
+            }
+          }
         }
-        @media screen and (max-width: 400px) {
-            width: 100%;
+        //cart product details styling
+        .order-details {
+          .block.ord-det {
+            flex-basis: auto;
+          }
+
+          .block.delivery {
+            flex-basis: 33.3333%;
+
+            .est-date {
+              font-family: 'iCuracao-Light';
+              font-size: 14px;
+
+              .date {
+                font-family: 'iCuracao-Regular';
+                color: black;
+                margin-top: 10px;
+                line-height: 10px;
+              }
+            }
+          }
+
+          .product-details {
+            .each-product {
+              display: flex;
+
+              .product-image {
+                max-width: 100%;
+
+                img {
+                  max-width: 100%;
+                  height: auto;
+                }
+              }
+
+              .product-info {
+                padding-left: 15px;
+
+                .pdt-name {
+                  h3 {
+                    margin: 14px 0 10px;
+                    font-family: 'iCuracao-Regular';
+                    color: #000;
+                    font-size: 14px;
+                  }
+                }
+
+                .pdt-price {
+                  margin-bottom: 5px;
+
+                  span {
+                    font-family: 'iCuracao-Medium';
+                    color: #d7102b;
+                    font-size: 16px;
+                  }
+                }
+
+                .qty {
+                  font-family: 'iCuracao-Regular';
+                  color: #000;
+                  font-size: 14px;
+
+                  span {}
+                }
+              }
+            }
+          }
         }
+      }
     }
-    .left-block {
-        margin-right: 15px;
-        @media screen and (max-width: 400px) {
-            margin-right: 0px;
-            margin-bottom: 15px;
+    //continue shopping button styling
+    .actions-toolbar {
+      text-align: center;
+      margin-bottom: 30px;
+      @media screen and (max-width: 600px) {
+        margin-top: 20px;
+      }
+
+      .primary {
+        float: none;
+
+        a.continue {
+          border: none;
+          border-radius: 0;
+          background-color: #ef4800;
+          color: #fff;
+          font-family: 'iCuracao-Medium';
+          font-size: 15px;
+          text-transform: uppercase;
+          padding: 10px 25px;
+          margin-right: 0;
+          @media screen and (max-width: 600px) {
+            font-size: 13px;
+            padding: 10px 20px;
+          }
         }
+      }
+    }
+  }
+}
+//Price beat and interest beat block styling
+
+.guarantee-block {
+  display: flex;
+  margin-bottom: 30px;
+
+  .left-block,
+  .right-block {
+    width: 50%;
+    display: flex;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
+    padding: 10px;
+    border: 1px solid #d8d8d8;
+
+    .image {
+      width: 45%;
+      text-align: right;
+      margin-right: 15px;
+
+      img {
+        max-width: 100px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        @media screen and (max-width: 768px) {
+          max-width: 80px;
+        }
+        @media screen and (max-width: 480px) {
+          max-width: 100%;
+          height: auto;
+        }
+        @media screen and (max-width: 400px) {
+          height: 100%;
+        }
+      }
+      @media screen and (max-width: 890px) {
+        width: 30%;
+      }
+      @media screen and (max-width: 768px) {
+        text-align: left;
+        margin-right: 5px;
+        width: 100px;
+      }
+    }
+
+    .details {
+      width: 55%;
+      @media screen and (max-width: 890px) {
+        width: 70%;
+      }
+      @media screen and (max-width: 768px) {
+        width: 85%;
+      }
+      @media screen and (max-width: 400px) {
+        padding-top: 5px;
+      }
+
+      h2 {
+        font-family: 'iCuracao-Medium';
+        font-size: 20px;
+        margin-bottom: 2px;
+        margin-top: 3px;
+        @media screen and (max-width: 991px) {
+          font-size: 18px;
+        }
+        @media screen and (max-width: 768px) {
+          font-size: 17px;
+        }
+        @media screen and (max-width: 480px) {
+          font-size: 14px;
+        }
+      }
+
+      h3 {
+        font-family: 'iCuracao-Regular';
+        font-size: 14px;
+        margin-bottom: 7px;
+        margin-top: 0;
+        @media screen and (max-width: 991px) {
+          font-size: 13px;
+        }
+        @media screen and (max-width: 768px) {
+          font-size: 12px;
+          margin-bottom: 4px;
+        }
+        @media screen and (max-width: 480px) {
+          font-size: 10px;
+        }
+      }
+
+      p {
+        font-family: 'iCuracao-Light';
+        font-size: 12px;
+        margin-bottom: 0;
+        margin-top: 0;
+        text-transform: uppercase;
+        @media screen and (max-width: 768px) {
+          font-size: 11px;
+        }
+        @media screen and (max-width: 480px) {
+          font-size: 7px;
+        }
+      }
     }
     @media screen and (max-width: 400px) {
-        display: block;
+      width: 100%;
     }
+  }
+
+  .left-block {
+    margin-right: 15px;
+    @media screen and (max-width: 400px) {
+      margin-right: 0;
+      margin-bottom: 15px;
+    }
+  }
+  @media screen and (max-width: 400px) {
+    display: block;
+  }
 }
