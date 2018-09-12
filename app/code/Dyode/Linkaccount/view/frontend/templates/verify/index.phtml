@@ -26,14 +26,13 @@
         </fieldset>
         <div class="actions-toolbar">
                 <div class="primary">
-                    <button type="submit" class="action submit primary" title="<?php  echo __('Submit') ?>"><span><?php echo __('Submit') ?></span></button>
+                    <button type="submit" class="action submit primary" title="<?php  echo __('Verify account') ?>"><span><?php echo __('Submit') ?></span></button>
                 </div>
             </div>
         </form>
-        <div class="or-spacer">
-         <div class="mask"></div>
-         <span><i>or</i></span>
-        </div>
+    </div>
+    <div class="or-spacer">
+     <span><i>or</i></span>
     </div>
     <div class="personal-infm">
       <form class="pinfm" id="pinfm" method="post" autocomplete="off" action="<?php echo $block->getFormAction(); ?>" data-mage-init='{"validation":{}}'>
@@ -48,27 +47,27 @@
                   </div>
               </div>
               <div class="field required">
-                  <label for="link_email" class="label"><span><?php echo __('DOB') ?></span></label>
+                  <label for="link_email" class="label"><span><?php echo __('Date of Birth') ?></span></label>
                   <div class="control">
-                  <input type="text" class="input-text required-entry" id="calendar_inputField" name="calendar_inputField" aria-required="true" placeholder="DOB" />
+                  <input type="text" class="input-text required-entry" id="calendar_inputField" name="calendar_inputField" aria-required="true" placeholder="Enter Date of Birth" />
                   </div>
               </div>
               <div class="field required">
                   <label for="link_zipcode" class="label"><span><?php echo __('Zipcode') ?></span></label>
                   <div class="control">
-                      <input id="link_zipcode" type="text" name="link_zipcode" class="input-text" data-validate="{required:true, 'validate-zip-us':true}" placeholder="Zipcode">
+                      <input id="link_zipcode" type="text" name="link_zipcode" class="input-text" data-validate="{required:true, 'validate-zip-us':true}" placeholder="Enter Zipcode">
                   </div>
               </div>
               <div class="field required">
                   <label for="link_maiden" class="label"><span><?php echo __("Mother's Maiden Name") ?></span></label>
                   <div class="control">
-                      <input id="link_maiden" type="text" name="link_maiden" class="input-text" data-validate="{required:true,'letters-only':true}" placeholder="Mother's Maiden name">
+                      <input id="link_maiden" type="text" name="link_maiden" class="input-text" data-validate="{required:true,'letters-only':true}" placeholder="Enter Mother's Maiden name">
                   </div>
               </div>
       </fieldset>
       <div class="actions-toolbar">
               <div class="primary">
-                  <button type="submit" class="action submit primary" title="<?php  echo __('Submit') ?>"><span><?php echo __('Submit') ?></span></button>
+                  <button type="submit" class="action submit primary" title="<?php  echo __('Submit') ?>"><span><?php echo __('Verify account') ?></span></button>
             </div>
          </div>
        </form>
