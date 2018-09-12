@@ -91,6 +91,7 @@
         border-radius: 4px;
         width: 350px;
         min-height: 45px;
+        padding: 0 15px;
       }
       button{
         width: 350px;
@@ -100,20 +101,29 @@
         border:none;
         margin: 0 auto;
       }
+      fieldset{
+         legend{
+            span{
+            font-size: 28px;
+          }
+          p{
+            font-size: 16px;
+          }
+          .confirm-acct{
+            font-size: 14px;
+            margin-bottom: 0;
+          }
+        }
+      }
     }
      .verify-phone{
-          // text-align: center;
+          text-align: center;
           padding: 150px 0;
           border-right: 1px solid #e5e5e5;
           flex: 5;
           padding: 0 20px;
-          fieldset{
-            legend{
-              span{
-                font-size: 28px;
-              }
-            }
-
+          .verify-wrapper{
+            padding-top: 40px;
           }
           .actions-toolbar{
             .primary{
@@ -123,7 +133,7 @@
          }
       }
       .personal-infm{
-        // text-align: center;
+        text-align: center;
         flex: 5;
         padding: 0 20px;
         .actions-toolbar{
@@ -133,14 +143,25 @@
           }
         }
         .field{
-          span{
-            text-align: left !important;
-            padding-left: 15px;
+          label{
+            width: 100%;
+            text-align: left;
+            padding-left: 106px;
           }
           .control{
             .ssn-field{
               width: 120px;
             }
+          }
+        }
+        .ssn-field{
+          text-align: left;
+          padding-left: 106px;
+          label{
+            padding-left: 0;
+          }
+          input{
+            padding: 0 15px;
           }
         }
       }

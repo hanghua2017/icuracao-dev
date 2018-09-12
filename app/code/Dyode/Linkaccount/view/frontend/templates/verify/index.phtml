@@ -4,8 +4,10 @@
    <div class="wrapper clearfix">
     <div class="verify-phone">
         <form class="verifyform" id="verifyform" method="post" autocomplete="off" action="<?php echo $block->getCodeFormAction(); ?>" data-mage-init='{"validation":{}}'>
-        <fieldset class="fieldset">
+        <fieldset class="fieldset verify-wrapper">
             <legend class="legend"><span><?php echo __('Verify Account by Phone:') ?></span></legend><br/>
+            <p class="confirm-acct">To confirm your account, we will send you a security code.</p>
+            <p>Please select one of the following options.</p>
             <div class="field required">
                     <div class="control">
                         <input id="verification_code" type="text" name="verification_code" value="" placeholder="Enter Verification Code" class="input-text" data-validate="{required:true}" />
@@ -24,7 +26,8 @@
       <form class="pinfm" id="pinfm" method="post" autocomplete="off" action="<?php echo $block->getFormAction(); ?>" data-mage-init='{"validation":{}}'>
       <fieldset class="fieldset">
           <legend class="legend"><span><?php echo __('Verify Personal Information:') ?></span></legend><br/>
-          <div class="field required">
+          <p>To confirm your account, please complete<br />the following information. </p>
+          <div class="field required ssn-field">
                   <label for="ssn-verify" class="label"><span><?php echo __('Last 4 Digits of your Social Security Number ') ?></span></label>
                   <div class="control">
                       <span><?php echo __('XXX - XX -') ?></span>
