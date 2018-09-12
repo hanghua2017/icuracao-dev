@@ -1,7 +1,7 @@
 @curacao-green:#81b800;
 @white:#fff;
 @text-grey:#6b6b6b;
-.linkaccount-verify-success{
+.linkaccount-verify-success,.linkaccount-verify-index{
   .sections{
   margin-bottom:0;
   }
@@ -16,6 +16,9 @@
     background-size: cover;
     background-repeat: no-repeat;
     padding: 50px 0;
+    @media all and(max-width: 768px){
+      padding: 0;
+    }
   .success-inner-container{
     width: 1150px;
     margin:  0 auto;
@@ -52,6 +55,9 @@
          p{
            font-size: 16px;
            color: @text-grey;
+           @media all and(max-width: 375px){
+            font-size: 15px;
+           }
          }
        }
        .button{
@@ -67,6 +73,80 @@
            text-transform: capitalize;
          }
        }
+    }
+
+//Styling for Success page ends here
+
+//Styling for LINK ACCOUNT Verify Account Page
+
+  .wrapper{
+    padding: 50px 0;
+    display: flex;
+    form{
+      legend{
+        border-bottom: 0 !important;
+      }
+      input{
+        border: 1px solid #929292;
+        border-radius: 4px;
+        width: 350px;
+        min-height: 45px;
+      }
+      button{
+        width: 350px;
+        min-height: 45px;
+        background-color: @curacao-green;
+        outline: none;
+        border:none;
+        margin: 0 auto;
+      }
+    }
+     .verify-phone{
+          // text-align: center;
+          padding: 150px 0;
+          border-right: 1px solid #e5e5e5;
+          flex: 5;
+          padding: 0 20px;
+          fieldset{
+            legend{
+              span{
+                font-size: 28px;
+              }
+            }
+
+          }
+          .actions-toolbar{
+            .primary{
+              float: none !important;
+              display: block!important;
+            }
+         }
+      }
+      .personal-infm{
+        // text-align: center;
+        flex: 5;
+        padding: 0 20px;
+        .actions-toolbar{
+          .primary{
+            float: none !important;
+            display: block !important;
+          }
+        }
+        .field{
+          span{
+            text-align: left !important;
+            padding-left: 15px;
+          }
+          .control{
+            .ssn-field{
+              width: 120px;
+            }
+          }
+        }
+      }
+      .clear{
+        clear: both;
+      }
     }
   }
 }
