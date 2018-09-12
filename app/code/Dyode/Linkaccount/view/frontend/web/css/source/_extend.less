@@ -1,6 +1,7 @@
 @curacao-green:#81b800;
 @white:#fff;
 @text-grey:#6b6b6b;
+@input-color:#8a8888;
 .linkaccount-verify-success,.linkaccount-verify-index{
   .sections{
   margin-bottom:0;
@@ -92,6 +93,9 @@
         width: 350px;
         min-height: 45px;
         padding: 0 15px;
+        &::placeholder{
+          color:@input-color;
+        }
       }
       button{
         width: 350px;
@@ -106,13 +110,13 @@
             span{
             font-size: 28px;
           }
-          p{
-            font-size: 16px;
-          }
-          .confirm-acct{
-            font-size: 14px;
-            margin-bottom: 0;
-          }
+        }
+        p{
+          font-size: 16px;
+        }
+        .confirm-acct{
+          font-size: 14px;
+          margin-bottom: 0;
         }
       }
     }
@@ -122,8 +126,34 @@
           border-right: 1px solid #e5e5e5;
           flex: 5;
           padding: 0 20px;
+          position: relative;
           .verify-wrapper{
             padding-top: 40px;
+          }
+          .contact-wrapper{
+            display: flex;
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px 0px 40px 0;
+            position: relative;
+            button{
+              width: 105px;
+              min-height:40px;
+              color: @white;
+              padding-left: 30px;
+            }
+            .contact-icon1{
+              position: absolute;
+              width: 20px;
+              left: 44px;
+              top: 32px;
+            }
+            .contact-icon2{
+              position: absolute;
+              width: 20px;
+              right: 82px;
+              top: 29px;
+            }
           }
           .actions-toolbar{
             .primary{
@@ -131,6 +161,48 @@
               display: block!important;
             }
          }
+      }
+      .or-spacer {
+        position: absolute;
+        .mask {
+          overflow:hidden;
+          height:20px;
+          &:after {
+            content:'';
+            display:block;
+            margin:-25px auto 0;
+            width:100%;
+            height:25px;
+            box-shadow:0 0 1px black;
+          }
+        }
+        span {
+          width:30px;
+          height:30px;
+          position:absolute;
+          bottom:100%;
+          left:50%;
+          margin-bottom:-15px;
+          margin-left:-15px;
+          border-radius:100%;
+          background:white;
+        }
+        span i {
+          position:absolute;
+          top:0px;
+          bottom:0px;
+          left:0px;
+          right:0px;
+          border-radius:100%;
+          border:1px solid #aaa;
+          text-align:center;
+          line-height:30px;
+          font-style:normal;
+          font-weight:600;
+          color:#999;
+          text-transform:uppercase;
+          font-size:12px;
+        }
       }
       .personal-infm{
         text-align: center;
@@ -147,6 +219,10 @@
             width: 100%;
             text-align: left;
             padding-left: 106px;
+            span{
+              color:@input-color;
+              font-weight: normal !important;
+            }
           }
           .control{
             .ssn-field{
@@ -154,9 +230,13 @@
             }
           }
         }
+        .ssn-number{
+          color: @input-color;
+        }
         .ssn-field{
           text-align: left;
           padding-left: 106px;
+          padding-top: 30px;
           label{
             padding-left: 0;
           }
