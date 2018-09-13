@@ -11,7 +11,6 @@
         <?= $block->getBlockHtml('formkey') ?>
         <legend class="legend"><span><?= /* @escapeNotVerified */ __('Account Information') ?></span></legend><br>
         <?= $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')->setObject($block->getCustomer())->toHtml() ?>
-        <?= $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Telephone')->setObject($block->getCustomer())->toHtml() ?>
 
         <?php $_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
         <?php $_taxvat = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Taxvat') ?>
