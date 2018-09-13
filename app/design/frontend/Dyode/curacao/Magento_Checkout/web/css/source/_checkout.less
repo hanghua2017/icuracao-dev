@@ -7,6 +7,7 @@
 @button-orange:#ef4800;
 @button-dark:#333;
 @off-white:#f4f4f4;
+@light-gray-text:#8f8f8f;
 //Checkout page 1 with form
 .checkout-index-index{
   .sections{
@@ -53,6 +54,7 @@
           width:30%;
         }
       }
+      /*styling for the Checkout progress bar starts here*/
       .opc-progress-bar{
         margin:0;
         height:100px;
@@ -185,6 +187,8 @@
         }
       }
     }
+    /*styling for the Checkout progress bar ends here*/
+    /*styling for the Checkout order summary section starts here*/
       .opc-sidebar{
         padding:15px;
         @media only screen and (min-width: 768px){
@@ -272,6 +276,7 @@
           }
         }
       }
+      /*styling for the Checkout order summary section ends here*/
       .opc-block-shipping-information{
         padding: 0;
         .ship-to, .ship-via{
@@ -343,6 +348,7 @@
           padding-right:30px;
           width:70%;
         }
+        /*styling for the Checkout forms section starts here*/
         .form-login{
           padding-bottom: 0;
           border-bottom: none;
@@ -354,26 +360,30 @@
           margin-bottom: 20px;
         }
         #checkout-step-shipping_method{
-      margin-bottom:0;
+          margin-bottom:0;
          .methods-shipping{
            position: relative;
            padding-bottom: 60px;
-       @media all and (max-width:639px){
-          padding-top:0;
-       }
- .actions-toolbar{
-   .primary{
-      @media all and (min-width:640px){
-             margin-top:30px;
-               }
+           @media all and (max-width:767px){
+             padding-bottom: 30px;
+           }
+           @media all and (max-width:639px){
+              padding-top:0;
+              margin:0;
+           }
+           .actions-toolbar{
+             .primary{
+               @media all and (min-width:640px){
+                 margin-top:30px;
+                }
                button{
-             margin-top:0;
-                  @media all and (max-width:639px){
-                    width:100%;
-                  }
+                 margin-top:0;
+                @media all and (max-width:639px){
+                  width:100%;
+                }
                }
-             }
-	            }
+              }
+	           }
           }
         }
         #checkout-payment-method-load{
@@ -434,6 +444,7 @@
           }
         }
       }
+      /*styling for the Checkout forms section ends here*/
       }
       .checkout-shipping-method, .step-content{
         @media only screen and (min-width: 768px){
@@ -462,6 +473,7 @@
             font-size:18px;
           }
         }
+        /*styling for the Checkout Delivery Method Tab starts here*/
         .delivery-method-product-listing{
           .delivery-method-product-item-container{
             border-bottom:1px solid #d1d1d1;
@@ -593,6 +605,8 @@
             }
           }
         }
+        /*styling for the Checkout Delivery Method Tab ends here*/
+        /*styling for the edit address section starts here*/
         .step-content{
           @media only screen and (max-width: 767px){
             margin: 0;
@@ -609,28 +623,55 @@
             color: @black;
          }
 	          }
+            .action-select-shipping-item{
+              float:none;
+            }
         .shipping-address-item{
-	            font-size: 1.6 rem !important;
+	            font-size: 14px !important;
+              color:@light-gray-text;
 	            text-transform: capitalize;
 	            border-color: transparent;
+              width:80%;
+              padding: 20px;
+              padding-bottom: 80px;
 	            webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
               -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
               box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
               @media only screen and (min-width: 991px){
+                min-height: 310px;
 	              margin-right: 30px;
-                width: 28.333333%;
+                width: 40%;
 	            }
               &:before{
                 background: @white;
               }
               &:after {
-	              background: @light-green-color;
+	              content:'';
+                background:transparent;
 	            }
 	            a,a:visited, .alink:visited{
-              color: @black;
-              text-decoration: underline;
-	              font-size: 15px;
-	              font-weight: 600;
+              color: @light-gray-text;
+              text-decoration: none;
+              font-size: 14px;
+            }
+            .action{
+              position: absolute;
+              bottom: 20px;
+              left: 20px;
+              width: ~"calc(100% - 40px)";
+              background: @button-orange;
+              box-shadow: none;
+              color: @white;
+              border: 1px solid @button-orange;
+              visibility: visible !important;
+              display: block !important;
+            }
+            &.selected-item{
+              border:1px solid @button-orange;
+              .action{
+                background:@button-dark;
+                border: 1px solid @button-dark;
+              }
             }
           }
         .edit-address-link  {
@@ -672,7 +713,9 @@
             }
           }
         }
+        /*styling for the edit address section ends here*/
       }
+      /*common styling for buttons on Checkout page starts here*/
       .actions-toolbar{
       .primary{
         .continue,button{
@@ -694,6 +737,7 @@
        }
       }
     }
+    /*common styling for buttons on Checkout page ends here*/
     .authentication-wrapper{
       display: none;
     }
