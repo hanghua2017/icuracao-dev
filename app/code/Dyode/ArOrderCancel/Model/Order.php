@@ -48,8 +48,6 @@ class Order implements OrderInterface
      */
     public function cancelOrder($orderId, $sku, $quantity, $refundShipping = false, $comment, $wholeOrder ) {
 
-        var_dump($comment);exit;
-
      $order = $this->order->loadByIncrementId($orderId);  
      
      try {
