@@ -23,8 +23,8 @@ interface OrderInterface
      * @param string $orderId 
      * @param string $sku 
      * @param int $quantity 
-     * @param string $comment
-     * @param bool $refundShipping     
+     * @param bool $refundShipping       
+     * @param string $comment   
      * @param bool $wholeOrder 
      * @return bool
      */

@@ -10,7 +10,7 @@ namespace Dyode\ArOrderCancel\Model;
 use Dyode\ArOrderCancel\Api\OrderInterface;
 
 /**
- * Defines the implementaiton class of the calculator service contract.
+ * Defines the implementaiton class of the order cancellation.
  */
 class Order implements OrderInterface
 {
@@ -41,12 +41,14 @@ class Order implements OrderInterface
      * @param string $orderId 
      * @param string $sku 
      * @param int $quantity 
-     * @param string $comment
      * @param bool $refundShipping
+     * @param string $comment
      * @param bool $wholeOrder 
      * @return bool
      */
     public function cancelOrder($orderId, $sku, $quantity, $refundShipping = false, $comment, $wholeOrder ) {
+
+        var_dump($comment);exit;
 
      $order = $this->order->loadByIncrementId($orderId);  
      
