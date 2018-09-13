@@ -20,7 +20,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     padding: 50px 0;
-    @media all and(max-width: 768px){
+    @media all and(max-width: 767px){
       padding: 0;
     }
   .success-inner-container{
@@ -34,8 +34,8 @@
     @media all and (max-width: 991px){
       max-width: 700px;
     }
-    @media all and(max-width: 768px) {
-      max-width: 768px;
+    @media all and(max-width: 767px) {
+      max-width: 767px;
       box-shadow: none;
       width: 100%;
     }
@@ -86,7 +86,7 @@
   .wrapper{
     padding: 50px 0;
     display: flex;
-    @media all and(max-width: 768px){
+    @media all and(max-width: 767px){
       display: block;
       padding: 15px 0;
     }
@@ -107,7 +107,7 @@
           width: 200px;
           width: 100%;
         }
-        @media all and(max-width: 768px){
+        @media all and(max-width: 767px){
           padding: 0 15px;
         }
       }
@@ -121,12 +121,12 @@
         @media all and(max-width: 991px){
           width: 200px;
         }
-        @media all and(max-width: 768px){
+        @media all and(max-width: 767px){
            width: 100%;
         }
       }
       fieldset{
-        @media all and(max-width: 768px){
+        @media all and(max-width: 767px){
            margin: 0 0 30px;
         }
          legend{
@@ -159,7 +159,7 @@
           flex: 5;
           padding: 0 20px;
           position: relative;
-          @media all and(max-width: 768px){
+          @media all and(max-width: 767px){
             border-right: 0;
             border-bottom:1px solid #e5e5e5;
             padding-bottom:50px;
@@ -169,7 +169,7 @@
             @media all and(max-width: 991px){
               padding-top: 65px;
             }
-            @media all and(max-width: 768px){
+            @media all and(max-width: 767px){
               padding-top: 0;
             }
           }
@@ -229,7 +229,7 @@
           margin-left:-15px;
           border-radius:100%;
           background:white;
-          @media all and(max-width: 768px){
+          @media all and(max-width: 767px){
             left:50%;
           }
         }
@@ -248,7 +248,7 @@
           color:#999;
           text-transform:uppercase;
           font-size:12px;
-          @media all and(max-width: 768px){
+          @media all and(max-width: 767px){
             top: -15px;
             bottom: 15px;
             background: @white;
@@ -259,7 +259,7 @@
         text-align: center;
         flex: 5;
         padding: 0 20px;
-        @media all and(max-width:768px){
+        @media all and(max-width:767px){
           padding: 75px 45px 0 45px;
         }
         @media all and(max-width: 425px){
@@ -326,33 +326,102 @@
     background-size: cover;
     background-repeat: no-repeat;
     padding: 50px 0;
-    @media all and(max-width: 768px){
+    @media all and(max-width: 767px){
       padding: 0;
     }
   .account-inner-container{
-    width: 910px;
+    width: 700px;
     margin:  0 auto;
     background-color: @white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
-    @media all and(max-width: 1250px){
-      max-width: 830px;
-    }
-    @media all and (max-width: 991px){
-      max-width: 700px;
-    }
-    @media all and(max-width: 768px) {
-      max-width: 768px;
+    @media all and(max-width: 767px) {
+      max-width: 767px;
       box-shadow: none;
       width: 100%;
     }
     .account-content{
-          padding: 20px 70px;
-          form{
-            border: 1px solid black;
-            fieldset{
-              padding: 30px;
+          padding: 60px 80px;
+          @media all and(max-width: 767px){
+            padding: 30px 60px;
+          }
+          @media all and(max-width: 600px){
+            padding: 30px 15px;
+          }
+          h1{
+            text-transform: capitalize;
+            font-size: 28px;
+            text-align: center;
+            margin: 0;
+            padding-bottom: 30px;
+            @media all and(max-width: 767px){
+              font-size: 25px;
+             }
+            }
+            .account-form{
+              border: 1px solid #878787;
+              border-radius: 4px;
+              text-align: center;
+              form{
+                padding-bottom: 30px;
+                fieldset{
+                  padding: 30px 0 25px 0;
+                  margin: 0;
+                    .field{
+                      label{
+                        padding-bottom: 10px;
+                        @media all and(max-width: 425px){
+                          padding: 0 15px 15px;
+                        }
+                        span{
+                          font-weight: normal !important;
+                          font-size: 16px;
+                          @media all and(max-width: 767px){
+                            font-size: 14px;
+                           }
+                        }
+                      }
+                      .control{
+                        input{
+                          border: 1px solid #929292;
+                          border-radius: 4px;
+                          padding: 0 15px;
+                          width: 360px;
+                          min-height: 45px;
+                          &::placeholder{
+                            color: #888888;
+                            font-size: 14px;
+                         }
+                      @media all and(max-width: 425px){
+                        width: 225px;
+                      }
+                    }
+                  }
+               }
+            }
+            .actions-toolbar{
+              text-align: center !important;
+              .primary{
+                float: none !important;
+                display: unset !important;
+                button{
+                  width: 360px;
+                  min-height: 45px;
+                  background-color: @curacao-green;
+                  border: none;
+                  outline: none;
+                  margin-right: 0;
+                  @media all and(max-width: 425px){
+                    width: 225px;
+                  }
+                }
+                span{
+                  color: @white;
+                  text-transform: capitalize;
+                }
+              }
             }
           }
+       }
     }
   }
 }
