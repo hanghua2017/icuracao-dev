@@ -10,8 +10,8 @@
         <!-- Product listing along with delivery methods -->
         <div class="delivery-method-product-listing" data-bind="foreach: getProductItems()">
           <div class="delivery-method-product-item-container">
+            <h2><span data-bind="i18n: 'Order Details '"></span>(<span data-bind="text: $index() + 1"></span>)</h2>
             <div class="delivery-method-product-item">
-              <h2><span data-bind="i18n: 'Order Details '"></span>(<span data-bind="text: $index() + 1"></span>)</h2>
               <div class="delivery-method-product-image">
                 <img data-bind="attr: {'src': product_image_url}, src: product_image_url" />
               </div>
