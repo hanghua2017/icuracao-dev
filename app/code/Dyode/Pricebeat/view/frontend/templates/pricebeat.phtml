@@ -2,10 +2,51 @@
     <fieldset class="fieldset">
         <legend class="legend"><span><?php /* @escapeNotVerified */ echo __('Test Form') ?></span></legend><br>
         <div class="field required">
-            <label for="number" class="label"><span><?php /* @escapeNotVerified */ echo __('Input') ?></span></label>
+            <label for="number" class="label"><span><?php /* @escapeNotVerified */ echo __('First name') ?></span></label>
             <div class="control">
-                <input type="text" id="number" name="number" class="input-text"/>
+                <input type="text" id="first-name" name="first-name" class="input-text" required="true"/>
             </div>
+        </div>
+        <div class="field required">
+            <label for="number" class="label"><span><?php /* @escapeNotVerified */ echo __('Last-Name') ?></span></label>
+            <div class="control">
+                <input type="text" id="last-name" name="last-name" class="input-text"/>
+            </div>
+        </div>
+        <div class="field required">
+            <label for="email" class="label"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></label>
+            <div class="control">
+                <input type="email" id="email" name="email" class="input-text"/>
+            </div>
+        </div>
+        <div class="field required">
+            <label for="phonenumber" class="label"><span><?php /* @escapeNotVerified */ echo __('Phone Number') ?></span></label>
+            <div class="control">
+                <input type="number" id="phonenumber" name="phonenumber" class="input-text"/>
+            </div>
+        </div>
+        <div class="field required">
+            <label for="accountnumber" class="label"><span><?php /* @escapeNotVerified */ echo __('Account Number') ?></span></label>
+            <div class="control">
+                <input type="number" id="accountnumber" name="accountnumber" class="input-text"/>
+            </div>
+        </div>
+        <div class="field required">
+            <label for="invoicenumber" class="label"><span><?php /* @escapeNotVerified */ echo __('Invoice Number') ?></span></label>
+            <div class="control">
+                <input type="number" id="invoicenumber" name="invoicenumber" class="input-text"/>
+            </div>
+        </div>
+        <div class="field required">
+            <label for="producklink" class="label"><span><?php /* @escapeNotVerified */ echo __('Product Link') ?></span></label>
+            <div class="control">
+                <input type="url" id="productlink" name="productlink" class="input-text"/>
+            </div>
+        </div>
+        <div class="field required">
+          <label for="productimage" class="label"><span><?php /* @escapeNotVerified */ echo __('Product image') ?></span></label>
+          <div class="control">
+          <input type="file" name="pic" accept="image/*">
         </div>
     </fieldset>
     <div class="actions-toolbar">
