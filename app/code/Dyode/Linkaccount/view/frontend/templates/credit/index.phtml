@@ -1,36 +1,48 @@
-<div class="account-container">
-  <div class="account-inner-container">
-    <div class="account-content">
-      <h1>curacao account</h1>
-      <div class="account-form">
-        <form class="linkform" id="linkform" method="post" autocomplete="off" action="<?php echo $block->getFormAction(); ?>" data-mage-init='{"validation":{}}'>
-           <fieldset class="fieldset">
-               <div class="field required">
-                    <label for="curacao_account" class="label"><span><?php echo __('Please enter your Curacao Account, to use your credit line.') ?></span></label>
-                    <div class="control">
-                        <input id="curacao_account" type="text" name="curacao_account" class="input-text" data-validate="{required:true}" placeholder="Enter account number">
+<!--Account Number Entry Page-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="account-container">
+      <div class="account-inner-container">
+        <div class="account-content">
+          <h1>curacao account</h1>
+          <div class="account-form">
+    <!--form for number entry-->
+            <form class="linkform" id="linkform" method="post" autocomplete="off" action="<?php echo $block->getFormAction(); ?>" data-mage-init='{"validation":{}}'>
+               <fieldset class="fieldset">
+                   <div class="field required">
+                        <label for="curacao_account" class="label"><span><?php echo __('Please enter your Curacao Account, to use your credit line.') ?></span></label>
+                        <div class="control">
+                            <input id="curacao_account" type="text" name="curacao_account" class="input-text" data-validate="{required:true}" placeholder="Enter account number">
+                        </div>
+                    </div>
+               </fieldset>
+               <div class="actions-toolbar">
+                    <div class="primary">
+                        <button type="submit" class="action submit primary" title="<?php  echo __('Submit') ?>"><span><?php echo __('Link Account') ?></span></button>
                     </div>
                 </div>
-           </fieldset>
-           <div class="actions-toolbar">
-                <div class="primary">
-                    <button type="submit" class="action submit primary" title="<?php  echo __('Submit') ?>"><span><?php echo __('Link Account') ?></span></button>
-                </div>
-            </div>
-        </form>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<script>
-     require([
-          "jquery"
-     ], function($){
-          $("#curacao_account").keypress(function(e){
-             var keyCode = e.which;
-             if ( (keyCode != 8 || keyCode ==32 ) && (keyCode < 48 || keyCode > 57)) {
-               return false;
-             }
-          });
-    });
-</script>
+  </body>
+  <!--Functionality for allowing only numbers to be entered in the input field-->
+  <script>
+       require([
+            "jquery"
+       ], function($){
+            $("#curacao_account").keypress(function(e){
+               var keyCode = e.which;
+               if ( (keyCode != 8 || keyCode ==32 ) && (keyCode < 48 || keyCode > 57)) {
+                 return false;
+               }
+            });
+      });
+  </script>
+</html>
