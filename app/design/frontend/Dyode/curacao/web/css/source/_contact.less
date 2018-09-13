@@ -1,5 +1,5 @@
 @import "_var";
-//Styling for Contact PAge
+//Styling for Contact Page
 .clear-fix {
     overflow: hidden;
 }
@@ -28,6 +28,7 @@
             @media all and (max-width: 900px) {
                 padding: 15px;
             }
+//  common heading style
             .cms-heading {
                 margin: 50px;
                 height: 40px;
@@ -37,6 +38,7 @@
                 }
             }
         }
+//common block title style
         .block-title {
             color: black;
             h2 {
@@ -49,6 +51,7 @@
                     font-size: 20px;
                 }
             }
+//styling for titles for the top block
             &.top {
                 h2 {
                     margin-bottom: 30px;
@@ -58,6 +61,7 @@
                 }
             }
         }
+    //contact form styling
         .left-block {
             float: left;
             width: 50%;
@@ -130,6 +134,7 @@
                 }
             }
         }
+  //Address block styling
         .right-block {
             float: right;
             width: 50%;
@@ -192,6 +197,7 @@
                 }
             }
         }
+//common styling for 2 bottom block
         .bottom-block {
             clear: both;
             float: left;
@@ -226,6 +232,7 @@
                     text-align: center;
                     &.full-width {
                         @media all and (max-width: 900px) {
+                          //  for call us block - last item - to centralise
                             flex-basis: 100%;
                         }
                     }
@@ -264,13 +271,15 @@
                         }
                     }
                     &.left-align {
+                       //styling for the items
                         text-align: left;
                         @media all and (max-width: 900px) {
                             flex-basis: 50%;
                         }
                     }
                     &.last-left {
-                        margin-top: 25px;
+                      //stying for the items in the last bottom block
+                        margin-top: 50px;
                         margin-bottom: 10px;
                         font-family: 'iCuracao-Medium';
                         @media all and (max-width: 900px) {
