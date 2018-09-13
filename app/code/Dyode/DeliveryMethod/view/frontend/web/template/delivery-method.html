@@ -9,36 +9,36 @@
 
         <!-- Product listing along with delivery methods -->
         <div class="delivery-method-product-listing" data-bind="foreach: getProductItems()">
-          <div class="delivery-method-product-item">
+          <div class="delivery-method-product-item-container">
             <h2>Order Details (<span data-bind="text: $index() + 1"></span>)</h2>
-            <div>
+            <div class="delivery-method-product-item">
               <div class="delivery-method-product-image">
                 <img data-bind="attr: {'src': product_image_url}, src: product_image_url" />
               </div>
               <div class="delivery-method-product-details">
-                <h4 data-bind="text: product_name"></h4>
-                <h5 data-bind="text:product_price"></h5>
-                <h6 data-bind="text: product_qty"></h6>
+                <h4 class="product-name" data-bind="text: product_name"></h4>
+                <h5 class="product-price">&#36;<span data-bind="text:product_price"></span></h5>
+                <h6 class="product-qty">Quantity: <span data-bind="text: product_qty"></span></h6>
               </div>
             </div>
             <div class="delivery-methods-options">
-              <h4>Delivery Method</h4>
-              <label>
-                    <input  type="radio" data-bind="attr: { name: 'delivery-product-' + $data.item_id() ,id: 'shipping-'+$data.item_id()},checked:'shipping',value:'shipping',event:{change:setStorepickup.bind(this)}" />
-                   <span data-bind="i18n: 'Ship to home'"></span>
-              </label>
+              <h4>Select delivery option</h4>
+              <div class="radio-button">
+                  <input type="radio" data-bind="attr: { name: 'delivery-product-' + $data.item_id() ,id: 'shipping-'+$data.item_id()},checked:'shipping',value:'shipping',event:{change:setStorepickup.bind(this)}" />
+                  <label data-bind="i18n: 'Ship to home',attr:{for: 'shipping-'+$data.item_id()}"></label>
+              </div>
 
-              <label>
-                 <input  type="radio" data-bind="attr: { name: 'delivery-product-' + $data.item_id(),id: 'storepickup-'+$data.item_id()},checked:$data.item_id(),value:'storepickup',event:{change:setStorepickup.bind(this)}" />
-                 <span data-bind="i18n: 'Store Pickup'"></span>
-              </label>
+              <div class="radio-button">
+                 <input type="radio" data-bind="attr: { name: 'delivery-product-' + $data.item_id(),id: 'storepickup-'+$data.item_id()},checked:$data.item_id(),value:'storepickup',event:{change:setStorepickup.bind(this)}" />
+                 <label data-bind="i18n: 'Store Pickup',attr:{for: 'storepickup-'+$data.item_id()}"></label>
+              </div>
 
               <form class="form" data-bind="attr: {'data-hasrequired': $t('* Required Fields'),id:'deliveryform'+$data.item_id()}">
                 <div class="store-pickup-pincode" data-bind="visible: state">
                   <input type="hidden" name="type" value="1" />
-                  <input type="number" placeholder="Zipcode" name="pickup-zipcode" value="" />
+                  <input type="number" placeholder="Enter Zipcode" name="pickup-zipcode" value="" />
                   <button type="button" class="action" data-bind="event:{click:selectLocation.bind(this)}" >
-                     <span data-bind="i18n: 'Submit'"></span>
+                     <span data-bind="i18n: 'Search'"></span>
                   </button>
 
                 </div>
