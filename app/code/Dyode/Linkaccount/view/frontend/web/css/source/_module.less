@@ -2,6 +2,8 @@
 @white:#fff;
 @text-grey:#6b6b6b;
 @input-color:#8a8888;
+
+//Common styles for all 3 linkaccount pages
 .linkaccount-verify-success,.linkaccount-verify-index,.linkaccount-credit-index{
   .sections{
   margin-bottom:0;
@@ -14,7 +16,7 @@
     }
   }
 }
-//Style for LINK-ACCOUNT-Success Page
+//Style for LINK ACCOUNT-Success Page
 .success-container{
     background: url("../images/BG.png");
     background-size: cover;
@@ -39,6 +41,7 @@
       box-shadow: none;
       width: 100%;
     }
+//style for contents in success page
     .success-content{
       text-align: center;
       padding: 50px 0;
@@ -81,7 +84,7 @@
 
 //Styling for Success page ends here
 
-//Styling for LINK ACCOUNT Verify Account Page
+//Styling for LINK ACCOUNT-Verify Account Page containing 2 forms
 
   .wrapper{
     padding: 50px 0;
@@ -90,6 +93,7 @@
       display: block;
       padding: 15px 0;
     }
+//COMMON STYLES for both the forms
     form{
       legend{
         border-bottom: 0 !important;
@@ -152,6 +156,7 @@
         }
       }
     }
+//Styling for 1st form, to enter the verification code
      .verify-phone{
           text-align: center;
           padding: 150px 0;
@@ -218,6 +223,7 @@
             }
          }
       }
+//Styling for the divider between two forms
       .or-spacer {
         position: relative;
         span {
@@ -255,6 +261,7 @@
           }
         }
       }
+//Styling for 2nd form, to enter the personal details
       .personal-infm{
         text-align: center;
         flex: 5;
@@ -320,7 +327,7 @@
 }
 //Styling for Verification page ends here
 
-//Styling for LINK ACCOUNT Account number enter Page
+//Styling for LINK ACCOUNT-Account number enter Page
 .account-container{
     background: url("../images/BG.png");
     background-size: cover;
@@ -339,6 +346,7 @@
       box-shadow: none;
       width: 100%;
     }
+//styling for account number entry contents
     .account-content{
           padding: 60px 80px;
           @media all and(max-width: 767px){
@@ -425,3 +433,4 @@
     }
   }
 }
+//Styling for Account number entry page ends here
