@@ -24,6 +24,9 @@
 .page-wrapper {
 	.page-header {
 		background-color: @green-color;
+		@media all and (max-width:767px){
+			margin-bottom:0;
+		}
 		.panel.wrapper {
 			@media all and (min-width: 768px){
 				display: none;
@@ -212,6 +215,11 @@
 									-moz-osx-font-smoothing: grayscale;
 									vertical-align: top;
 									text-align: center;
+								}
+								span{
+									@media all and (max-width:767px){
+										display:none;
+									}
 								}
 							}
 						}
