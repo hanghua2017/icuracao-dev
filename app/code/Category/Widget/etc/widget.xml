@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
-<widget class="Category\Widget\Block\Widget\Samplewidget" id="Category_Widget_samplewidget">
+<widget class="Category\Widget\Block\Widget\categorywidget" id="Category_Widget_categorywidget">
 <label>CategoryWidget</label>
 <description>widgettitle</description>
 <parameters>

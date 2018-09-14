@@ -4,8 +4,8 @@ namespace Category\Widget\Block\Widget;
 use Magento\Framework\View\Element\Template;
 use Magento\Widget\Block\BlockInterface;
 
-class Samplewidget extends Template implements BlockInterface
+class categorywidget extends Template implements BlockInterface
 {
-    protected $_template = "widget/samplewidget.phtml";
+    protected $_template = "widget/categorywidget.phtml";
 
   }
