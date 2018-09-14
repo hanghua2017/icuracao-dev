@@ -20,6 +20,7 @@
                     <argument name="css_class" xsi:type="string">header links</argument>
                 </arguments>
             </block>
+            <block class="Magento\Framework\View\Element\Template" name="header.message" template="Magento_Theme::header-message.phtml" after="top.line"/>
       </referenceContainer>
       <!-- Move top All Header Links next to minicart -->
       <!-- <move element="minicart" destination="header-wrapper" after="header.links"/> -->

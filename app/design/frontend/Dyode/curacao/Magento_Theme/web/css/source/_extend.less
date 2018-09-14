@@ -6,6 +6,7 @@
 @green-color:#97d700;
 @dark-green-color:#84b90a;
 @white: #ffffff;
+@black:#000;
 .navigation,
 .breadcrumbs,
 .page-header .header.panel,
@@ -21,6 +22,28 @@
 		max-width: 1500px;
 	}
 }
+.header-message{
+	display: none;
+	position: absolute;
+	width: 100%;
+	left: 0;
+	text-align: center;
+	bottom: 0;
+	padding: 7px 0;
+	background: @dark-green-color;
+	@media all and (max-width:767px){
+		display: block;
+	}
+	h3{
+		font-family: 'iCuracao-Regular';
+		font-size:16px;
+		color:@white;
+		letter-spacing: 1px;
+		@media all and (max-width:479px){
+			font-size:14px;
+		}
+	}
+}
 .page-wrapper {
 	.page-header {
 		background-color: @green-color;
@@ -33,12 +56,15 @@
 			}
 		}
 		.header.content {
-			padding: 15px !important;
+			padding: 10px 15px !important;
+			@media all and (min-width: 768px){
+				padding:15px !important;
+			}
 			@media (min-width: 1025px) {
 				padding: 25px !important;
 			}
 			@media all and (max-width:767px){
-				padding-bottom: 65px !important;
+				padding-bottom: 100px !important;
 				margin-top:0 !important;
 			}
 			text-align: right;
@@ -467,6 +493,7 @@
             margin-bottom: 20px;
             @media screen and (max-width: 768px) {
                 flex-direction: column;
+								margin-bottom: 10px;
             }
             .magestore-bannerslider{
               width: 78%;
@@ -474,6 +501,7 @@
               .magestore-bannerslider-standard{
                 position: relative;
                 width:100%;
+								height:100%;
                 background-color: white;
                 box-shadow: 0 0px 10px 0px @box-shadow-color;
                 .magestore-bannerslider-title{
@@ -481,6 +509,7 @@
                 }
                 .magestore-bannerslide-flex-slider{
                   margin-bottom: 0 !important;
+									height:100%;
                   .flex-control-nav{
                     display: none;
                   }
@@ -495,11 +524,30 @@
                       right:10px !important;
                     }
                   }
+									.flexslider{
+										height:100%;
+										.flex-viewport{
+											height:100%;
+											.slides{
+												height:100%;
+												li{
+													height:100%;
+													a{
+														height:100%;
+														img{
+															height: 100%;
+														}
+													}
+												}
+											}
+										}
+									}
                 }
               }
               @media screen and (max-width: 768px) {
                   width: 100%;
                   order: 2;
+									margin-right: 0;
               }
             }
             .side-banner {
@@ -529,7 +577,7 @@
                 @media screen and (max-width: 768px) {
                     order: 1;
                     width: 100%;
-                    margin-bottom: 15px;
+                    margin-bottom: 10px;
                 }
             }
           }
@@ -537,6 +585,9 @@
             .guarantee-block {
                 display: flex;
                 margin-bottom: 30px;
+								@media all and (max-width:768px){
+									margin-bottom: 15px;
+								}
                 .left-block,
                 .right-block {
                     width: 50%;
@@ -592,10 +643,12 @@
                             padding-top: 5px;
                         }
                         h2 {
+														font-family: 'iCuracao-Regular';
                             font-size: 20px;
                             font-weight: normal;
                             margin-bottom: 2px;
                             margin-top: 3px;
+														color:@black;
                             @media screen and (max-width: 991px) {
                                 font-size: 18px;
                             }
@@ -607,10 +660,12 @@
                             }
                         }
                         h3 {
+														font-family: 'iCuracao-Regular';
                             font-size: 14px;
                             font-weight: normal;
                             margin-bottom: 7px;
                             margin-top: 0;
+														color:@black;
                             @media screen and (max-width: 991px) {
                                 font-size: 13px;
                             }
@@ -623,10 +678,12 @@
                             }
                         }
                         p {
+														font-family: 'iCuracao-Light';
                             font-size: 12px;
                             margin-bottom: 0;
                             margin-top: 0;
                             text-transform: uppercase;
+														color:#333;
                             @media screen and (max-width: 991px) {
                                 //
                             }
@@ -646,7 +703,7 @@
                     margin-right: 15px;
                     @media screen and (max-width: 400px) {
                         margin-right: 0px;
-                        margin-bottom: 15px;
+                        margin-bottom: 10px;
                     }
                 }
                 @media screen and (max-width: 400px) {
@@ -656,12 +713,17 @@
           }
           .todays-deals-container,.block-viewed-products-grid,.block-products-list,.category-slider-container{
             margin-bottom: 30px;
+						@media all and (max-width:768px){
+							margin-bottom: 15px;
+						}
             .slider-title{
               text-align: center;
               .widget-title {
+									font-family: 'iCuracao-Regular';
                   font-size: 18px;
                   font-weight: normal;
                   display: inline-block;
+									color:@black;
                   width: auto;
                   margin: 0;
                   padding-bottom: 10px;
@@ -728,7 +790,8 @@
                 width: 100%;
                 box-sizing: border-box;
                 a {
-                    color: @textColor;
+										font-family: 'iCuracao-Medium';
+                    color: @black;
                     text-decoration: none;
                     overflow: hidden;
                     span.discount-flag {
@@ -764,6 +827,7 @@
                         // }
                     }
                     h3 {
+												font-family: 'iCuracao-Medium';
                         font-size: 16px;
                         font-weight: normal;
                         text-align: center;
@@ -774,6 +838,7 @@
                         text-overflow: ellipsis;
                         @media screen and (max-width: 768px) {
                             font-size: 14px;
+														margin:10px auto;
                         }
                         @media screen and (max-width: 480px) {
                             width: 125px;
@@ -783,12 +848,14 @@
                         }
                     }
                     p.price {
+												font-family: 'iCuracao-Regular';
                         text-align: center;
                         margin-bottom: 15px;
-												color: black;
+												color: @black;
 												font-size: 18px;
 												@media screen and (max-width: 768px) {
 														font-size: 15px;
+														margin-bottom: 10px;
 												}
                         .original-price {
 													&.has-special-price{
@@ -803,9 +870,9 @@
                         }
                     }
                     p.subtext {
+												font-family: 'iCuracao-Medium';
                         font-size: 16px;
                         text-align: center;
-                        font-weight: 600;
                         span.amount {
                             color: #81b800;
                         }
@@ -835,6 +902,7 @@
 							margin-left:0;
               .product-item{
                 width:100% !important;
+								padding-left: 0;
                 .product-image-container{
                   width:100% !important;
                   .product-image-photo {
@@ -901,6 +969,7 @@
                       text-overflow: ellipsis;
                       @media screen and (max-width: 768px) {
                           font-size: 14px;
+													margin:10px auto;
                       }
                       @media screen and (max-width: 480px) {
                           width: 125px;
@@ -923,6 +992,9 @@
                     .price-box{
                       text-align: center;
                       margin-bottom: 15px;
+											@media screen and (max-width: 768px) {
+													margin-bottom: 10px;
+											}
                       .price{
                         color: black;
                         font-size: 18px;
@@ -958,11 +1030,17 @@
           .banner-block-container{
             .banner-block {
                 margin-bottom: 30px;
+								@media screen and (max-width: 768px) {
+										margin-bottom: 15px;
+								}
                 .block {
                     overflow: hidden;
                     margin-bottom: 15px;
                     display: flex;
                     justify-content: space-between;
+										@media screen and (max-width: 768px) {
+												margin-bottom: 10px;
+										}
                     &.full {
                         a {
                             width: 100%;

@@ -43,6 +43,7 @@ footer {
           }
           h3{
             font-family: 'iCuracao-Medium';
+            font-weight:300;
             font-size: 16px;
             color: #333333;
             margin-bottom: 35px;
@@ -54,7 +55,6 @@ footer {
             }
           }
           .footer-block-links {
-
             ul {
               list-style: none;
               padding: 0px;
@@ -249,8 +249,10 @@ footer {
                 padding-left: 20px;
                 padding-right: 20px;
               }
+              @media all and (max-width:479px){
+                text-align: center;
+              }
               img {
-
                 @media all and (max-width: 767px) {
                     width: 30px;
                 }
@@ -262,6 +264,10 @@ footer {
                   padding: 0px;
                   @media all and (max-width: 1160px) {
                     margin-left: 5px;
+                  }
+                  @media all and (max-width:479px){
+                    text-align: center;
+                    margin-left: 0;
                   }
                   p {
                     margin: 0;
@@ -364,12 +370,18 @@ footer {
                      width: 10%;
                    }
                  }
+                 @media all and (max-width:479px){
+                   text-align: center;
+                 }
                }
                .curacao-icons {
                  float: right;
                  @media all and (max-width: 499px) {
                    width: 100%;
                    float: left;
+                 }
+                 @media all and (max-width:479px){
+                   text-align: center;
                  }
                  img {
                    margin-right: 15px;
@@ -381,11 +393,6 @@ footer {
                    }
                  }
                }
-             }
-             .curacao-icons{
-               float: right;
-
-
              }
              .payment-icons{
                float: right;
@@ -426,6 +433,10 @@ footer {
           .policy-links{
             display: inline-block;
             float: left;
+            @media all and (max-width:767px){
+              float: left;
+              width:100%;
+            }
             p{
               margin-top: 1rem;
               font-family: 'iCuracao-Light';
@@ -440,6 +451,10 @@ footer {
           .copy-right-dev{
             display: inline-block;
             float: right;
+            @media all and (max-width:767px){
+              float: left;
+              width:100%;
+            }
             p{
               margin-top: 1rem;
               font-family: 'iCuracao-Light';
