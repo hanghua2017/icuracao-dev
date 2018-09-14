@@ -47,14 +47,14 @@
                 //product in sales
                 $_savePercent = 100-round(($_finalPrice / $_price) * 100);
                 ?>
-                  <span class="discount-flag"><?php echo $_savePercent . "%";?></span>
+                  <span class="discount-flag"><?php echo $_savePercent . "% Off";?></span>
                   <?php
                 endif;
                 endif;
 
           ?>
 
-          <?php $image_url = $imageHelper->init($product, 'product_page_image_small')->setImageFile($product->getFile())->getUrl();?>
+          <?php $image_url = $imageHelper->init($product, 'product_page_image_large')->setImageFile($product->getFile())->getUrl();?>
           <img src="<?php echo $image_url;?>" alt="product"/>
           <h3><?php echo $product->getName();?></h3>
           <p class="price"><span class="original-price <?php echo $product->getSpecialPrice() ? 'has-special-price' : '' ?>"><?php echo $product->getPrice();?></span><span class="discount-price"><?php echo $product->getSpecialPrice();?></span></p>

@@ -495,7 +495,7 @@
               }
             }
             .side-banner {
-                width: 25%;
+                width: 22%;
                 box-shadow: 0 0px 10px @box-shadow-color;
                 background-color: white;
                 img {
@@ -777,21 +777,21 @@
                     p.price {
                         text-align: center;
                         margin-bottom: 15px;
+												color: black;
+												font-size: 18px;
+												@media screen and (max-width: 768px) {
+														font-size: 14px;
+												}
                         .original-price {
-                            color: #888888;
-                            text-decoration: line-through;
-                            margin-right: 15px;
-                            font-size: 16px;
-                            @media screen and (max-width: 768px) {
-                                font-size: 12px;
-                            }
-                        }
-                        .discount-price {
-                            color: black;
-                            font-size: 18px;
-                            @media screen and (max-width: 768px) {
-                                font-size: 14px;
-                            }
+													&.has-special-price{
+														color: #888888;
+														text-decoration: line-through;
+														margin-right: 15px;
+														font-size: 16px;
+														@media screen and (max-width: 768px) {
+																font-size: 12px;
+														}
+													}
                         }
                     }
                     p.subtext {
@@ -824,6 +824,7 @@
           }
           .block-viewed-products-grid,.block-products-list{
             .product-items{
+							margin-left:0;
               .product-item{
                 width:100% !important;
                 .product-image-container{
