@@ -1,6 +1,6 @@
 {
-    "name": "Dyode/Pricebeat",
-    "description": "Dyode Pricebeat",
+    "name": "Dyode/PriceBeat",
+    "description": "Dyode PriceBeat",
     "require": {
         "php": "~5.5.0|~5.6.0|~7.0.0"
     },
@@ -12,7 +12,7 @@
     "autoload": {
         "files": [ "registration.php" ],
         "psr-4": {
-            "Dyode\\Pricebeat\\": ""
+            "Dyode\\PriceBeat\\": ""
         }
     }
 }
