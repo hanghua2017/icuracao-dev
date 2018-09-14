@@ -1,5 +1,12 @@
 <?php
 namespace Dyode\CategoryImageWidget\Block\Adminhtml;
+/**
+ * Class  <Chooser>
+ * @category Dyode
+ * @package  Dyode_CategoryImageWidget
+ * @module   CategoryImageWidget
+ * @author  Nismath V I
+ */
 //category chooser
 class Chooser extends \Magento\Backend\Block\Template {
 

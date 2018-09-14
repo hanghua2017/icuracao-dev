@@ -1,6 +1,7 @@
 <?php
 namespace Dyode\CategoryImageWidget\Model\Config\Source;
 /**
+ * Class <Categorylist>
  * @category Dyode
  * @package  Dyode_CategoryImageWidget
  * @module   CategoryImageWidget
@@ -11,20 +12,18 @@ use Magento\Catalog\Helper\Category;
 
 class Categorylist implements ArrayInterface
 {
-  protected $_categoryHelper;
-  public function __construct(\Magento\Catalog\Helper\Category $catalogCategory)
-  {
-    $this->_categoryHelper = $catalogCategory;
-  }
-    /*
-     * Return categories helper
-     */
-
+     protected $_categoryHelper;
+     public function __construct(\Magento\Catalog\Helper\Category $catalogCategory)
+     {
+        $this->_categoryHelper = $catalogCategory;
+     }
+     /*
+      * Return categories helper
+    */
     public function getStoreCategories($sorted = false, $asCollection = false, $toLoad = true)
     {
         return $this->_categoryHelper->getStoreCategories($sorted , $asCollection, $toLoad);
     }
-
     /*
     * function name : toOptionArray
      * Option getter
@@ -32,39 +31,29 @@ class Categorylist implements ArrayInterface
      */
     public function toOptionArray()
     {
-
-
         $arr = $this->toArray();
         $ret = [];
-
-        foreach ($arr as $key => $value)
-        {
-
+         foreach ($arr as $key => $value)
+           {
             $ret[] = [
                 'value' => $key,
                 'label' => $value
             ];
-        }
-
-        return $ret;
+           }
+      return $ret;
     }
-
     /*
-    * function name : toArray
+     * function name : toArray
      * Get options in "key-value" format
      * @return array
      */
     public function toArray()
     {
-
-        $categories = $this->getStoreCategories(true,false,true);
-
-        $catagoryList = array();
-        foreach ($categories as $category){
-
+      $categories = $this->getStoreCategories(true,false,true);
+      $catagoryList = array();
+      foreach ($categories as $category){
             $catagoryList[$category->getEntityId()] = __($category->getName());
-        }
-
+      }
         return $catagoryList;
     }
 
