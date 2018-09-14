@@ -388,6 +388,7 @@
         }
         #checkout-payment-method-load{
           .payment-methods{
+            margin:0;
             .payment-method{
 	              .payment-method-title{
                 font-weight:700;
@@ -681,13 +682,12 @@
           color: @button-dark;
           cursor: pointer;
           display: inline-block;
-          font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
           font-weight: 600;
           margin: 0;
-	          padding: 7px 15px;
-	          font-size: 1.4rem;
-	          line-height: 1.6rem;
-	          box-sizing: border-box;
+          padding: 7px 15px;
+          font-size: 1.4rem;
+          line-height: 1.6rem;
+          box-sizing: border-box;
           vertical-align: middle;
           text-decoration: none;
           @media only screen and (min-width: 768px){
@@ -709,11 +709,174 @@
             tbody{
               tr{
                 padding-left: 15px;
+                td{
+                  /*styling for the custom radio button on shipping method section starts here*/
+                  &.col-method{
+                    input[type="radio"] {
+                      position: absolute;
+                      opacity: 0;
+                      + .label {
+                        color:@black;
+                        font-size:14px;
+                        &:before {
+                          content: '';
+                          background: @off-white;
+                          border-radius: 100%;
+                          border: 1px solid darken(@off-white, 25%);
+                          display: inline-block;
+                          width: 15px;
+                          height: 15px;
+                          position: relative;
+                          top: 1px;
+                          margin-right: 10px;
+                          vertical-align: top;
+                          cursor: pointer;
+                          text-align: center;
+                          transition: all 250ms ease;
+                        }
+                      }
+                      &:checked {
+                        + .label {
+                          &:before {
+                            border-color: @theme-color;
+                            background-color: @theme-color;
+                            box-shadow: inset 0 0 0 4px @off-white;
+                          }
+                        }
+                      }
+                      &:disabled {
+                        + .label {
+                          &:before {
+                            box-shadow: inset 0 0 0 4px @off-white;
+                            border-color: darken(@off-white, 25%);
+                            background: darken(@off-white, 25%);
+                          }
+                        }
+                      }
+                      + .label {
+                        &:empty {
+                          &:before {
+                            margin-right: 0;
+                          }
+                        }
+                      }
+                    }
+                  }
+                  /*styling for the custom radio button on shipping method section ends here*/
+                }
               }
             }
           }
         }
         /*styling for the edit address section ends here*/
+        /*styling for the Curacao credit payment section starts here*/
+        #checkout-step-payment{
+          #co-payment-form{
+            .fieldset{
+              .curacao-outer{
+                margin-top:-20px;
+                padding-bottom: 30px;
+                margin-bottom: 30px;
+                border-bottom:1px solid @light-gray-text;
+                @media all and (max-width:767px){
+                  padding-bottom: 20px;
+                  margin-bottom: 20px;
+                }
+                .linkaccount{
+                  h2{
+                    font-size:18px;
+                    color:@black;
+                    font-weight:700;
+                    margin-bottom: 15px;
+                  }
+                  .curacao-credit-fieldset{
+                    border: 1px solid @light-gray-text;
+                    border-radius: 8px;
+                    margin: 0 10px;
+                    width: 85%;
+                    padding: 20px 15px;
+                    position: relative;
+                    @media all and (max-width:991px){
+                      width:95%;
+                    }
+                    @media all and (max-width:767px){
+                      width:100%;
+                      margin:0;
+                      padding-right:35px;
+                    }
+                    @media all and (max-width:479px){
+                      padding-right:25px;
+                    }
+                    #custom-checkout-form{
+                      .field{
+                        margin-bottom: 10px;
+                        label{
+                          font-size:14px;
+                          font-weight:700;
+                          color:@black;
+                        }
+                        .control{
+                          margin-top:10px;
+                          width: 40%;
+                          @media all and (max-width:991px){
+                            width:50%;
+                          }
+                          @media all and (max-width:767px){
+                            width:100%;
+                          }
+                          input[type="text"]{
+                            &::placeholder{
+                              font-style: italic;
+                            }
+                          }
+                        }
+                      }
+                      input[type="submit"]{
+                        position: absolute;
+                        left: 45%;
+                        top: 49px;
+                        height: 32px;
+                        background: @theme-color;
+                        box-shadow: none;
+                        padding: 7px 40px;
+                        border: 1px solid @theme-color;
+                        color: @white;
+                        font-weight: 600;
+                        text-align: center;
+                        border-radius: 2px;
+                        @media all and (max-width:991px){
+                          left:55%;
+                        }
+                        @media all and (max-width:767px){
+                          position:static;
+                          width:100%;
+                          margin-bottom: 10px;
+                        }
+                      }
+                    }
+                    p{
+                      color:@light-gray-text;
+                      font-size: 11px;
+                      font-style: italic;
+                      margin-bottom: 15px;
+                    }
+                    h3{
+                      color:@black;
+                      font-size:14px;
+                      @media all and (max-width:479px){
+                        font-size:13px;
+                      }
+                      a{
+                        color:@theme-color;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        /*styling for the Curacao credit payment section ends here*/
       }
       /*common styling for buttons on Checkout page starts here*/
       .actions-toolbar{

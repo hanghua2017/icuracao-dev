@@ -7,10 +7,10 @@
           <!-- ko template: getTemplate() --><!-- /ko -->
           <!--/ko-->
           <input type="hidden" data-bind="value: getGuestEmail()" name="customer_email" placeholder="Enter account number or code"/>
-          <input type="submit" name="submit" data-bind="i18n: 'Submit'" />
+          <input type="submit" name="submit" data-bind="i18n: 'Link account'" />
       </form>
       <p data-bind="i18n: 'If you have received our pre-approved offer, enter your activation code to set up your account'"></p>
-      <h3><span data-bind="i18n: 'Don’t have a Curacao account?'"></span><a href="#" data-bind="i18n: 'Apply Now'"></a></h3>
+      <h3><span data-bind="i18n: 'Don’t have a Curacao account?'"></span>&nbsp;<a href="#" data-bind="i18n: 'Apply Now'"></a></h3>
     </div>
   </div>
   <div data-bind="if: (isLogedIn && getCuracaoId()!= null)" class="creditlimit">
