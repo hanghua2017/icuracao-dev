@@ -1,0 +1,66 @@
+<?php
+/**
+ * Dyode_curacao theme.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package Dyode
+ * @module  Dyode_curacao
+ * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+?>
+<?php
+$required = '';
+if ($block->hasRequiredOptions()) {
+    $required = ' data-hasrequired="' . __('* Required Fields') . '"';
+}
+?>
+<div class="product-options-wrapper" id="warranty-options-wrapper"<?= /* @escapeNotVerified */ $required ?>>
+    <div class="fieldset" tabindex="0">
+        <?= $block->getChildHtml('', true) ?>
+    </div>
+</div>
+<script type="text/javascript">
+    require(['jquery'], function ($) {
+        'use strict';
+
+        $(function () {
+
+            /**
+             * Trigger product option input click as per the given element reference.
+             * It will remove 'warranty-' prefix from the given reference and then trigger click.
+             */
+            function triggerClickOnCustomOptionInput(elemRef) {
+                if (!elemRef) {
+                    return;
+                }
+                const warrantyPrefix = 'warranty-',
+                    origInpId = elemRef.substring(warrantyPrefix.length);
+
+                $('#'+origInpId).trigger('click');
+            }
+
+            /**
+             * Deals with warranty popup input button click
+             * This will trigger click on corresponding product option input, so that the option will be selected.
+             */
+            const warrantyInputs = $('#warranty-options-wrapper input[type=radio]');
+            warrantyInputs.click(function (e) {
+                const targetId = e.target.getAttribute('id');
+                triggerClickOnCustomOptionInput(targetId);
+            });
+
+            /**
+             * Deals with warranty popup input label click
+             * This will trigger click on corresponding product option input, so that the option will be selected.
+             */
+            const warrantyLabel = $('#warranty-options-wrapper label');
+            warrantyLabel.click(function (e) {
+                const targetId = e.target.getAttribute('for');
+                triggerClickOnCustomOptionInput(targetId);
+
+            });
+        });
+    });
+</script>

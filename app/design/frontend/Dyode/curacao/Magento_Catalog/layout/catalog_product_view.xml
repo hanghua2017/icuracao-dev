@@ -34,16 +34,18 @@
                     </referenceContainer>
                 </referenceContainer>
 
-                <referenceBlock name="product.info.addtocart">
-                    <arguments>
-                        <argument name="view_model" xsi:type="object">Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\Addtocart</argument>
-                    </arguments>
-                </referenceBlock>
-
                 <referenceBlock name="product.info.addtocart.additional">
                     <arguments>
                         <argument name="view_model" xsi:type="object">Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\Addtocart</argument>
                     </arguments>
+                    <block class="Magento\Catalog\Block\Product\View" name="warranty.modal" template="Magento_Catalog::product/view/modal/warranty.phtml">
+                        <block class="Magento\Catalog\Block\Product\View" name="warranty.modal.review" template="Magento_Catalog::product/view/review.phtml" />
+                        <block class="Magento\Catalog\Block\Product\View" name="product.info.addtocart.options.wrapper" as="product_options_wrapper" template="Magento_Catalog::product/view/modal/warranty/options/wrapper.phtml">
+                            <block class="Magento\Catalog\Block\Product\View\Options" name="product.info.addtocart.options" as="product_options" template="Magento_Catalog::product/view/modal/warranty/options.phtml">
+                                <block class="Dyode\Catalog\Block\Product\View\Options\Type\Select" name="product.info.options.addtocart.select" as="select" template="Magento_Catalog::product/view/options/type/select.phtml"/>
+                            </block>
+                        </block>
+                    </block>
                 </referenceBlock>
 
                 <block class="Magento\Framework\View\Element\Template" name="freq-bought" template="Magento_Catalog::product/view/frequently-bought.phtml" after="product.info.media"/>

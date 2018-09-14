@@ -1,0 +1,103 @@
+<?php
+/**
+ * Dyode_curacao theme.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package Dyode
+ * @module  Dyode_curacao
+ * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+
+/**
+ * @var $block \Magento\Catalog\Block\Product\View
+ */
+?>
+
+<?php if ($block->hasOptions()):?>
+<div id="warrantyModal">
+    <div class="product-details">
+        <h4><?= $block->getProduct()->getName() ?></h4>
+        <p><?= __('Model') ?> #<?= $block->getProduct()->getSku() ?></p>
+        <?= $block->getChildHtml('warranty.modal.review'); ?>
+    </div>
+    <div class="warranty-options">
+        <?= $block->getChildHtml('product_options_wrapper') ?>
+    </div>
+    <div class="bottom">
+        <a
+                href="<?= $block->getUrl('checkout/cart'); ?>"
+                style="display:none"
+                id="warranty-go-to-cart-link">
+            <?=  __('Go to Cart'); ?>
+        </a>
+    </div>
+
+</div>
+<?php endif ?>
+
+<script type="text/javascript">
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/modal'
+    ], function($, modal) {
+        'use strict';
+
+        $(function () {
+
+            /**
+             * Warranty modal Add, Skip button action.
+             * Both buttons will perform addtocart action and then redirect to the cart page.
+             */
+            const buttonClick = function (event) {
+                $('#product-addtocart-button').trigger('submit');
+                $('#warranty-go-to-cart-link')[0].click();
+                this.closeModal(event);
+                return false;
+            };
+
+            /**
+             * Warranty modal initialization
+             */
+            $('#warrantyModal').modal({
+                title: "<?= __('Add to your order') ?>",
+                modalClass: 'warranty-addtocart-popup',
+                buttons: [
+                    {
+                        text: 'Add',
+                        class: 'add-warranty-btn',
+                        attr: {},
+                        click: buttonClick,
+                    },
+                    {
+                        text: 'Skip',
+                        class: 'skip-warranty-btn',
+                        attr: {},
+                        click: buttonClick,
+                    },
+                ],
+            });
+
+            /**
+             * Add to cart button click customization
+             *
+             * Show warranty popups if warranty does exist;
+             */
+            $('#product-addtocart-button').click(function(e) {
+                e.preventDefault();
+
+                //skip warranty popup if any of the custom radio options selected.
+                if ($("#product-options-wrapper input[type=radio]").length === 0
+                    || $("#product-options-wrapper input[type=radio]").is(':checked')
+                ) {
+                    $('#product-addtocart-button').trigger('submit');
+                    return false;
+                }
+
+                $('#warrantyModal').modal('openModal');
+                return false;
+            });
+        });
+    });
+</script>
