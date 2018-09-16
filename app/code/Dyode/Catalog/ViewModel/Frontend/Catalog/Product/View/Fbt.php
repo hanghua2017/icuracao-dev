@@ -19,6 +19,7 @@ use Magento\Catalog\Model\Product;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\Filter;
+use Magento\Framework\DataObject;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Framework\Pricing\Helper\Data as PriceHelper;
 use Magento\Review\Model\Review;
@@ -203,14 +204,19 @@ class Fbt implements  ArgumentInterface
      * Provide associated FBT products final price total.
      *
      * @param \Magento\Catalog\Model\Product $product
-     * @return int
+     * @param bool                           $format
+     * @return float|int|string
      */
-    public function getAddonPriceTotal(Product $product)
+    public function getAddonPriceTotal(Product $product, $format = false)
     {
         $total = 0;
 
         foreach ($this->fbtProducts($product) as $fbtProduct) {
             $total+= $fbtProduct->getFinalPrice();
+        }
+
+        if ($format) {
+            return $this->priceHelper->currency($total, true, false);
         }
 
         return $total;
@@ -220,11 +226,49 @@ class Fbt implements  ArgumentInterface
      * Provide total of FBT section, including the current product.
      *
      * @param \Magento\Catalog\Model\Product $product
-     * @return float|int
+     * @param bool                           $format
+     * @return float|int|string
      */
-    public function getFbtProductsTotal(Product $product)
+    public function getFbtProductsTotal(Product $product, $format = false)
     {
-        return $product->getFinalPrice() + $this->getAddonPriceTotal($product);
+        $total = $product->getFinalPrice() + $this->getAddonPriceTotal($product);
+
+        if ($format) {
+            return $this->priceHelper->currency($total, true, false);
+        }
+
+        return $total;
+    }
+
+    /**
+     * Provide total details as js data.
+     *
+     * @param \Magento\Catalog\Model\Product $product
+     * @return bool|string
+     */
+    public function getJsData(Product $product)
+    {
+        $productData = [
+            'product' => [
+                'id'    => (int)$product->getId(),
+                'price' => (float)$product->getFinalPrice(),
+            ],
+        ];
+
+        $fbtData = [];
+        foreach ($this->fbtProducts($product) as $fbtProduct) {
+            $fbtData[(string)$fbtProduct->getId()] = [
+                'id'    => (int)$fbtProduct->getId(),
+                "price" => (float)$fbtProduct->getFinalPrice(),
+            ];
+        }
+        $fbtProductsData = [
+            'fbtProducts' => $fbtData,
+        ];
+
+        $jsObject = new DataObject(array_merge($productData, $fbtProductsData));
+
+        return $jsObject->toJson();
     }
 
     /**
@@ -236,9 +280,7 @@ class Fbt implements  ArgumentInterface
     {
        $this->reviewModel->getEntitySummary($product, $product->getStoreId());
     }
-
-
-
+    
     /**
      * Provides product Collection instance.
      *

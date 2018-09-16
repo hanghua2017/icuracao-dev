@@ -28,7 +28,7 @@ $product = $block->getProduct();
     ?>
 
 
-    <div class="frequently-bought-items">
+    <div class="frequently-bought-items" id="fbt-section">
         <h3><?= __("Frequently bought together") ?></h3>
         <div class="frequently-product-block" id="frequent-items">
             <ul class="frequent-item-list">
@@ -68,8 +68,13 @@ $product = $block->getProduct();
                     </li>
 
                     <li>
-                        <input class="frequent-checkbox" id="frequent-checkbox-1" type="checkbox" value="value1" />
-                        <label for="frequent-checkbox-1">
+                        <input class="frequent-checkbox"
+                               id="frequent-checkbox-<?= $fbtProduct->getId(); ?>"
+                               type="checkbox"
+                               value="<?= $fbtProduct->getId(); ?>"
+                               checked
+                        />
+                        <label for="frequent-checkbox-<?= $fbtProduct->getId(); ?>">
                             <div class="product frequent-item">
                                 <div class="prod-details">
                                     <img class="prod-img"
@@ -111,24 +116,46 @@ $product = $block->getProduct();
                     </div>
                     <label class="symbol">+</label>
                     <div class="price-block unselected">
-                        <label><span>2</span><?= __("Add=ons") ?></label>
-                        <p class="price"><?= $viewModel->getAddonPriceTotal($product) ?></p>
+                        <label>
+                            <span class="addon-count"><?= count($fbtProducts) ?></span> <?= __("Add=ons") ?>
+                        </label>
+                        <p class="price add-on-total"><?= $viewModel->getAddonPriceTotal($product, true) ?></p>
                     </div>
                     <label class="symbol">=</label>
                     <div class="price-block total">
                         <label><?= __("Total") ?></label>
-                        <p class="price"><?= $viewModel->getFbtProductsTotal($product) ?></p>
+                        <p class="price fbt-total"><?= $viewModel->getFbtProductsTotal($product, true) ?></p>
                     </div>
                 </div>
-                <div class="action add-bundle-btn">
-                    <button class="">
-                          <span>
-                                <img src="<?php echo $this->getViewFileUrl('images/cart-button.png'); ?>" />
-                                <?= __("Add Bundle to Cart") ?>
-                          </span>
-                    </button>
-                </div>
+
+                <form action="<?= $block->getUrl('dyode_catalog/cart/add') ?>" method="post" id="fbt-form">
+                    <?php echo $this->getBlockHtml('formkey')?>
+                    <input type="hidden" name="fbt_products" id="fbt-products-inp" value="[]" />
+                    <input type="hidden" name="store_id" value="<?= $product->getStoreId() ?>" />
+                    <div class="action add-bundle-btn">
+                        <button class="add-bundle-btn action tocart" title="<?= __("Add Bundle to Cart") ?>">
+                            <img src="<?php echo $this->getViewFileUrl('images/cart-button.png'); ?>" />
+                          <span><?= __("Add Bundle to Cart") ?></span>
+                        </button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
 <?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>
+<script type="text/x-magento-init">
+    {
+        "#fbt-section": {
+            "Dyode_Catalog/js/product/view/fbt": <?= $viewModel->getJsData($product) ?>
+         }
+    }
+
+</script>
