@@ -35,8 +35,8 @@ use Magento\Catalog\Model\Product\Attribute\Source\Status;
 class FbtProduct extends AbstractModifier
 {
     const DATA_SCOPE = '';
-    const DATA_SCOPE_FBT = 'fbt_products_data';
-    const FBT = 'fbt_products';
+    const DATA_SCOPE_FBT = 'fbt';
+    const FBT = 'fbt';
 
     /**
      * @var string
@@ -136,21 +136,25 @@ class FbtProduct extends AbstractModifier
      */
     public function modifyMeta(array $meta)
     {
+        if ($this->locator->getProduct()->getTypeId() !== 'simple'){
+            return $meta;
+        }
+
         $meta = array_replace_recursive(
             $meta,
             [
                 static::FBT => [
-                    'children' => [
+                    'children'  => [
                         static::FBT => $this->getFbtFieldset(),
                     ],
                     'arguments' => [
                         'data' => [
                             'config' => [
-                                'label' => __('Frequently Brought Together Products'),
-                                'collapsible' => true,
+                                'label'         => __('Frequently Brought Together Products'),
+                                'collapsible'   => true,
                                 'componentType' => Fieldset::NAME,
-                                'dataScope' => static::DATA_SCOPE,
-                                'sortOrder' =>
+                                'dataScope'     => static::DATA_SCOPE,
+                                'sortOrder'     =>
                                     $this->getNextGroupSortOrder(
                                         $meta,
                                         self::$previousGroup,
@@ -172,6 +176,10 @@ class FbtProduct extends AbstractModifier
      */
     public function modifyData(array $data)
     {
+        if ($this->locator->getProduct()->getTypeId() !== 'simple'){
+            return $data;
+        }
+
         /** @var \Magento\Catalog\Model\Product $product */
         $product = $this->locator->getProduct();
         $productId = $product->getId();
@@ -204,8 +212,8 @@ class FbtProduct extends AbstractModifier
             if (!empty($data[$productId]['links'][$dataScope])) {
                 $dataMap = $priceModifier->prepareDataSource([
                     'data' => [
-                        'items' => $data[$productId]['links'][$dataScope]
-                    ]
+                        'items' => $data[$productId]['links'][$dataScope],
+                    ],
                 ]);
                 $data[$productId]['links'][$dataScope] = $dataMap['data']['items'];
             }
@@ -243,16 +251,16 @@ class FbtProduct extends AbstractModifier
     protected function fillData(ProductInterface $linkedProduct, ProductLinkInterface $linkItem)
     {
         return [
-            'id' => $linkedProduct->getId(),
-            'thumbnail' => $this->imageHelper->init($linkedProduct, 'product_listing_thumbnail')->getUrl(),
-            'name' => $linkedProduct->getName(),
-            'status' => $this->status->getOptionText($linkedProduct->getStatus()),
+            'id'            => $linkedProduct->getId(),
+            'thumbnail'     => $this->imageHelper->init($linkedProduct, 'product_listing_thumbnail')->getUrl(),
+            'name'          => $linkedProduct->getName(),
+            'status'        => $this->status->getOptionText($linkedProduct->getStatus()),
             'attribute_set' => $this->attributeSetRepository
                 ->get($linkedProduct->getAttributeSetId())
                 ->getAttributeSetName(),
-            'sku' => $linkItem->getLinkedProductSku(),
-            'price' => $linkedProduct->getPrice(),
-            'position' => $linkItem->getPosition(),
+            'sku'           => $linkItem->getLinkedProductSku(),
+            'price'         => $linkedProduct->getPrice(),
+            'position'      => $linkItem->getPosition(),
         ];
     }
 
@@ -280,30 +288,30 @@ class FbtProduct extends AbstractModifier
         $content = __($content);
 
         return [
-            'children' => [
+            'children'  => [
                 'button_set' => $this->getButtonSet(
                     $content,
                     __('Add Frequently Brought Together Products'),
                     static::FBT
                 ),
-                'modal' => $this->getGenericModal(
+                'modal'      => $this->getGenericModal(
                     __('Add Frequently Brought Together Products'),
                     static::FBT
                 ),
-                static::FBT => $this->getGrid(static::FBT),
+                static::FBT  => $this->getGrid(static::FBT),
             ],
             'arguments' => [
                 'data' => [
                     'config' => [
                         'additionalClasses' => 'admin__fieldset-section',
-                        'label' => __('Frequently Brought Together Products'),
-                        'collapsible' => false,
-                        'componentType' => Fieldset::NAME,
-                        'dataScope' => '',
-                        'sortOrder' => 10,
+                        'label'             => __('Frequently Brought Together Products'),
+                        'collapsible'       => false,
+                        'componentType'     => Fieldset::NAME,
+                        'dataScope'         => '',
+                        'sortOrder'         => 10,
                     ],
                 ],
-            ]
+            ],
         ];
     }
 
@@ -317,40 +325,40 @@ class FbtProduct extends AbstractModifier
      */
     protected function getButtonSet(Phrase $content, Phrase $buttonTitle, $scope)
     {
-        $modalTarget = 'product_form.' . static::FBT . '.modal';
+        $modalTarget = 'product_form.product_form.' . static::FBT . '.' . static::FBT . '.modal';
 
         return [
             'arguments' => [
                 'data' => [
                     'config' => [
-                        'formElement' => 'container',
+                        'formElement'   => 'container',
                         'componentType' => 'container',
-                        'label' => false,
-                        'content' => $content,
-                        'template' => 'ui/form/components/complex',
+                        'label'         => false,
+                        'content'       => $content,
+                        'template'      => 'ui/form/components/complex',
                     ],
                 ],
             ],
-            'children' => [
+            'children'  => [
                 'button_' . $scope => [
                     'arguments' => [
                         'data' => [
                             'config' => [
-                                'formElement' => 'container',
+                                'formElement'   => 'container',
                                 'componentType' => 'container',
-                                'component' => 'Magento_Ui/js/form/components/button',
-                                'actions' => [
+                                'component'     => 'Magento_Ui/js/form/components/button',
+                                'actions'       => [
                                     [
                                         'targetName' => $modalTarget,
                                         'actionName' => 'toggleModal',
                                     ],
                                     [
-                                        'targetName' => $modalTarget . '.' . '_product_listing',
+                                        'targetName' => $modalTarget . '.' . static::FBT . '_product_listing',
                                         'actionName' => 'render',
-                                    ]
+                                    ],
                                 ],
-                                'title' => $buttonTitle,
-                                'provider' => null,
+                                'title'         => $buttonTitle,
+                                'provider'      => null,
                             ],
                         ],
                     ],
@@ -376,59 +384,59 @@ class FbtProduct extends AbstractModifier
                 'data' => [
                     'config' => [
                         'componentType' => Modal::NAME,
-                        'dataScope' => '',
-                        'options' => [
-                            'title' => $title,
+                        'dataScope'     => '',
+                        'options'       => [
+                            'title'   => $title,
                             'buttons' => [
                                 [
-                                    'text' => __('Cancel'),
+                                    'text'    => __('Cancel'),
                                     'actions' => [
-                                        'closeModal'
-                                    ]
+                                        'closeModal',
+                                    ],
                                 ],
                                 [
-                                    'text' => __('Add Selected Products'),
-                                    'class' => 'action-primary',
+                                    'text'    => __('Add Selected Products'),
+                                    'class'   => 'action-primary',
                                     'actions' => [
                                         [
                                             'targetName' => 'index = ' . $listingTarget,
-                                            'actionName' => 'save'
+                                            'actionName' => 'save',
                                         ],
-                                        'closeModal'
-                                    ]
+                                        'closeModal',
+                                    ],
                                 ],
                             ],
                         ],
                     ],
                 ],
             ],
-            'children' => [
+            'children'  => [
                 $listingTarget => [
                     'arguments' => [
                         'data' => [
                             'config' => [
-                                'autoRender' => false,
-                                'componentType' => 'insertListing',
-                                'dataScope' => $listingTarget,
-                                'externalProvider' => $listingTarget . '.' . $listingTarget . '_data_source',
+                                'autoRender'         => false,
+                                'componentType'      => 'insertListing',
+                                'dataScope'          => $listingTarget,
+                                'externalProvider'   => $listingTarget . '.' . $listingTarget . '_data_source',
                                 'selectionsProvider' => $listingTarget . '.' . $listingTarget . '.product_columns.ids',
-                                'ns' => $listingTarget,
-                                'render_url' => $this->urlBuilder->getUrl('mui/index/render'),
-                                'realTimeLink' => true,
-                                'dataLinks' => [
+                                'ns'                 => $listingTarget,
+                                'render_url'         => $this->urlBuilder->getUrl('mui/index/render'),
+                                'realTimeLink'       => true,
+                                'dataLinks'          => [
                                     'imports' => false,
-                                    'exports' => true
+                                    'exports' => true,
                                 ],
-                                'behaviourType' => 'simple',
+                                'behaviourType'      => 'simple',
                                 'externalFilterMode' => true,
-                                'imports' => [
+                                'imports'            => [
                                     'productId' => '${ $.provider }:data.product.current_product_id',
-                                    'storeId' => '${ $.provider }:data.product.current_store_id',
+                                    'storeId'   => '${ $.provider }:data.product.current_store_id',
                                 ],
-                                'exports' => [
+                                'exports'            => [
                                     'productId' => '${ $.externalProvider }:params.current_product_id',
-                                    'storeId' => '${ $.externalProvider }:params.current_store_id',
-                                ]
+                                    'storeId'   => '${ $.externalProvider }:params.current_store_id',
+                                ],
                             ],
                         ],
                     ],
@@ -455,49 +463,49 @@ class FbtProduct extends AbstractModifier
             'arguments' => [
                 'data' => [
                     'config' => [
-                        'additionalClasses' => 'admin__field-wide',
-                        'componentType' => DynamicRows::NAME,
-                        'label' => null,
-                        'columnsHeader' => false,
+                        'additionalClasses'        => 'admin__field-wide',
+                        'componentType'            => DynamicRows::NAME,
+                        'label'                    => null,
+                        'columnsHeader'            => false,
                         'columnsHeaderAfterRender' => true,
-                        'renderDefaultRecord' => false,
-                        'template' => 'ui/dynamic-rows/templates/grid',
-                        'component' => 'Magento_Ui/js/dynamic-rows/dynamic-rows-grid',
-                        'addButton' => false,
-                        'recordTemplate' => 'record',
-                        'dataScope' => 'data.links',
-                        'deleteButtonLabel' => __('Remove'),
-                        'dataProvider' => $dataProvider,
-                        'map' => [
-                            'id' => 'entity_id',
-                            'name' => 'name',
-                            'status' => 'status_text',
+                        'renderDefaultRecord'      => false,
+                        'template'                 => 'ui/dynamic-rows/templates/grid',
+                        'component'                => 'Magento_Ui/js/dynamic-rows/dynamic-rows-grid',
+                        'addButton'                => false,
+                        'recordTemplate'           => 'record',
+                        'dataScope'                => 'data.links',
+                        'deleteButtonLabel'        => __('Remove'),
+                        'dataProvider'             => $dataProvider,
+                        'map'                      => [
+                            'id'            => 'entity_id',
+                            'name'          => 'name',
+                            'status'        => 'status_text',
                             'attribute_set' => 'attribute_set_text',
-                            'sku' => 'sku',
-                            'price' => 'price',
-                            'thumbnail' => 'thumbnail_src',
+                            'sku'           => 'sku',
+                            'price'         => 'price',
+                            'thumbnail'     => 'thumbnail_src',
                         ],
-                        'links' => [
-                            'insertData' => '${ $.provider }:${ $.dataProvider }'
+                        'links'                    => [
+                            'insertData' => '${ $.provider }:${ $.dataProvider }',
                         ],
-                        'sortOrder' => 2,
+                        'sortOrder'                => 2,
                     ],
                 ],
             ],
-            'children' => [
+            'children'  => [
                 'record' => [
                     'arguments' => [
                         'data' => [
                             'config' => [
                                 'componentType' => 'container',
-                                'isTemplate' => true,
+                                'isTemplate'    => true,
                                 'is_collection' => true,
-                                'component' => 'Magento_Ui/js/dynamic-rows/record',
-                                'dataScope' => '',
+                                'component'     => 'Magento_Ui/js/dynamic-rows/record',
+                                'dataScope'     => '',
                             ],
                         ],
                     ],
-                    'children' => $this->fillMeta(),
+                    'children'  => $this->fillMeta(),
                 ],
             ],
         ];
@@ -512,52 +520,52 @@ class FbtProduct extends AbstractModifier
     protected function fillMeta()
     {
         return [
-            'id' => $this->getTextColumn('id', false, __('ID'), 0),
-            'thumbnail' => [
+            'id'            => $this->getTextColumn('id', false, __('ID'), 0),
+            'thumbnail'     => [
                 'arguments' => [
                     'data' => [
                         'config' => [
                             'componentType' => Field::NAME,
-                            'formElement' => Input::NAME,
-                            'elementTmpl' => 'ui/dynamic-rows/cells/thumbnail',
-                            'dataType' => Text::NAME,
-                            'dataScope' => 'thumbnail',
-                            'fit' => true,
-                            'label' => __('Thumbnail'),
-                            'sortOrder' => 10,
+                            'formElement'   => Input::NAME,
+                            'elementTmpl'   => 'ui/dynamic-rows/cells/thumbnail',
+                            'dataType'      => Text::NAME,
+                            'dataScope'     => 'thumbnail',
+                            'fit'           => true,
+                            'label'         => __('Thumbnail'),
+                            'sortOrder'     => 10,
                         ],
                     ],
                 ],
             ],
-            'name' => $this->getTextColumn('name', false, __('Name'), 20),
-            'status' => $this->getTextColumn('status', true, __('Status'), 30),
+            'name'          => $this->getTextColumn('name', false, __('Name'), 20),
+            'status'        => $this->getTextColumn('status', true, __('Status'), 30),
             'attribute_set' => $this->getTextColumn('attribute_set', false, __('Attribute Set'), 40),
-            'sku' => $this->getTextColumn('sku', true, __('SKU'), 50),
-            'price' => $this->getTextColumn('price', true, __('Price'), 60),
-            'actionDelete' => [
+            'sku'           => $this->getTextColumn('sku', true, __('SKU'), 50),
+            'price'         => $this->getTextColumn('price', true, __('Price'), 60),
+            'actionDelete'  => [
                 'arguments' => [
                     'data' => [
                         'config' => [
                             'additionalClasses' => 'data-grid-actions-cell',
-                            'componentType' => 'actionDelete',
-                            'dataType' => Text::NAME,
-                            'label' => __('Actions'),
-                            'sortOrder' => 70,
-                            'fit' => true,
+                            'componentType'     => 'actionDelete',
+                            'dataType'          => Text::NAME,
+                            'label'             => __('Actions'),
+                            'sortOrder'         => 70,
+                            'fit'               => true,
                         ],
                     ],
                 ],
             ],
-            'position' => [
+            'position'      => [
                 'arguments' => [
                     'data' => [
                         'config' => [
-                            'dataType' => Number::NAME,
-                            'formElement' => Input::NAME,
+                            'dataType'      => Number::NAME,
+                            'formElement'   => Input::NAME,
                             'componentType' => Field::NAME,
-                            'dataScope' => 'position',
-                            'sortOrder' => 80,
-                            'visible' => false,
+                            'dataScope'     => 'position',
+                            'sortOrder'     => 80,
+                            'visible'       => false,
                         ],
                     ],
                 ],
@@ -582,14 +590,14 @@ class FbtProduct extends AbstractModifier
                 'data' => [
                     'config' => [
                         'componentType' => Field::NAME,
-                        'formElement' => Input::NAME,
-                        'elementTmpl' => 'ui/dynamic-rows/cells/text',
-                        'component' => 'Magento_Ui/js/form/element/text',
-                        'dataType' => Text::NAME,
-                        'dataScope' => $dataScope,
-                        'fit' => $fit,
-                        'label' => $label,
-                        'sortOrder' => $sortOrder,
+                        'formElement'   => Input::NAME,
+                        'elementTmpl'   => 'ui/dynamic-rows/cells/text',
+                        'component'     => 'Magento_Ui/js/form/element/text',
+                        'dataType'      => Text::NAME,
+                        'dataScope'     => $dataScope,
+                        'fit'           => $fit,
+                        'label'         => $label,
+                        'sortOrder'     => $sortOrder,
                     ],
                 ],
             ],

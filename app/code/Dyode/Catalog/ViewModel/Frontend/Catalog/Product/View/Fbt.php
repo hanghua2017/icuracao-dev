@@ -4,9 +4,9 @@
  *
  * Extending Magento_Catalog
  *
- * @package Dyode
- * @module  Dyode_Catalog
- * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @package   Dyode
+ * @module    Dyode_Catalog
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
  * @copyright Copyright © Dyode
  */
 
@@ -14,11 +14,12 @@
 namespace Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View;
 
 
+use Dyode\Catalog\Model\Product\Link;
+use Magento\Catalog\Api\ProductLinkRepositoryInterface;
+use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Helper\Product as ProductHelper;
 use Magento\Catalog\Model\Product;
-use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
-use Magento\Framework\Api\Filter;
 use Magento\Framework\DataObject;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Framework\Pricing\Helper\Data as PriceHelper;
@@ -27,13 +28,18 @@ use Magento\Review\Model\Review;
 /**
  * Frequently Brought Together View Model Class
  */
-class Fbt implements  ArgumentInterface
+class Fbt implements ArgumentInterface
 {
 
     /**
      * @var \Magento\Catalog\Api\ProductRepositoryInterface
      */
     protected $productRepository;
+
+    /**
+     * @var \Magento\Catalog\Api\ProductLinkRepositoryInterface
+     */
+    protected $productLinkRepository;
 
     /**
      * @var \Magento\Framework\Api\SearchCriteriaBuilder
@@ -58,14 +64,16 @@ class Fbt implements  ArgumentInterface
     /**
      * Fbt constructor.
      *
-     * @param \Magento\Catalog\Api\ProductRepositoryInterface $productRepository
-     * @param \Magento\Framework\Api\SearchCriteriaBuilder    $searchCriteriaBuilder
-     * @param \Magento\Review\Model\Review                    $review
-     * @param \Magento\Catalog\Helper\Product                 $catalogHelper
-     * @param \Magento\Framework\Pricing\Helper\Data          $priceHelper
+     * @param \Magento\Catalog\Api\ProductRepositoryInterface     $productRepository
+     * @param \Magento\Catalog\Api\ProductLinkRepositoryInterface $productLinkRepository
+     * @param \Magento\Framework\Api\SearchCriteriaBuilder        $searchCriteriaBuilder
+     * @param \Magento\Review\Model\Review                        $review
+     * @param \Magento\Catalog\Helper\Product                     $catalogHelper
+     * @param \Magento\Framework\Pricing\Helper\Data              $priceHelper
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
+        ProductLinkRepositoryInterface $productLinkRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         Review $review,
         ProductHelper $catalogHelper,
@@ -73,6 +81,7 @@ class Fbt implements  ArgumentInterface
 
     ) {
         $this->productRepository = $productRepository;
+        $this->productLinkRepository = $productLinkRepository;
         $this->criteriaBuilder = $searchCriteriaBuilder;
         $this->reviewModel = $review;
         $this->catalogHelper = $catalogHelper;
@@ -86,6 +95,7 @@ class Fbt implements  ArgumentInterface
      *
      * @param \Magento\Catalog\Model\Product $product
      * @return bool
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function canShowFbt(Product $product)
     {
@@ -113,21 +123,25 @@ class Fbt implements  ArgumentInterface
     }
 
     /**
-     * Collect FBT products of current product
-     *
-     * @todo Right now, it provides dummy data. This needs to be modified after backend is developed.
      * @param \Magento\Catalog\Model\Product $product
-     * @return \Magento\Catalog\Api\Data\ProductInterface[]
+     * @return array
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function fbtProducts(Product $product)
     {
-        $searchCriteria = $this->criteriaBuilder->addFilters([new Filter([
-            Filter::KEY_FIELD => 'entity_id',
-            Filter::KEY_CONDITION_TYPE => 'in',
-            Filter::KEY_VALUE => [1, 9]
-        ])])->create();
-        return $this->productRepository->getList($searchCriteria)->getItems();
+        $fbtProductSkus = [];
+        foreach ($this->productLinkRepository->getList($product) as $linkItem) {
+            if ($linkItem->getLinkType() === Link::LINK_CODE) {
+                $fbtProductSkus[] = $linkItem->getLinkedProductSku();
+            }
+        }
 
+        $fbtProducts = [];
+        foreach ($fbtProductSkus as $sku) {
+            $fbtProducts[] = $this->productRepository->get($sku);
+        }
+
+        return $fbtProducts;
     }
 
     /**
@@ -138,7 +152,7 @@ class Fbt implements  ArgumentInterface
      */
     public function getProductImageUrl(Product $product)
     {
-       return $this->catalogHelper->getSmallImageUrl($product);
+        return $this->catalogHelper->getSmallImageUrl($product);
     }
 
     /**
@@ -150,13 +164,13 @@ class Fbt implements  ArgumentInterface
     public function productDiscount(Product $product)
     {
         $regularPrice = $product->getPrice();
-        $finalPrice =$product->getFinalPrice();
+        $finalPrice = $product->getFinalPrice();
 
-        if (!$regularPrice || !$finalPrice || $regularPrice == $finalPrice ) {
+        if (!$regularPrice || !$finalPrice || $regularPrice == $finalPrice) {
             return false;
         }
 
-        return round((($regularPrice - $finalPrice)*100)/$regularPrice);
+        return round((($regularPrice - $finalPrice) * 100) / $regularPrice);
     }
 
     /**
@@ -183,7 +197,7 @@ class Fbt implements  ArgumentInterface
         }
 
         $rating = $product->getRatingSummary()->getRatingSummary();
-        return number_format(($rating/100)*5, 1);
+        return number_format(($rating / 100) * 5, 1);
     }
 
     /**
@@ -206,13 +220,14 @@ class Fbt implements  ArgumentInterface
      * @param \Magento\Catalog\Model\Product $product
      * @param bool                           $format
      * @return float|int|string
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getAddonPriceTotal(Product $product, $format = false)
     {
         $total = 0;
 
         foreach ($this->fbtProducts($product) as $fbtProduct) {
-            $total+= $fbtProduct->getFinalPrice();
+            $total += $fbtProduct->getFinalPrice();
         }
 
         if ($format) {
@@ -228,6 +243,7 @@ class Fbt implements  ArgumentInterface
      * @param \Magento\Catalog\Model\Product $product
      * @param bool                           $format
      * @return float|int|string
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getFbtProductsTotal(Product $product, $format = false)
     {
@@ -241,10 +257,11 @@ class Fbt implements  ArgumentInterface
     }
 
     /**
-     * Provide total details as js data.
+     * Prepare fbt details as json in order to use in jquery widget.
      *
      * @param \Magento\Catalog\Model\Product $product
      * @return bool|string
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getJsData(Product $product)
     {
@@ -278,9 +295,9 @@ class Fbt implements  ArgumentInterface
      */
     protected function _attachReviewToProduct(Product $product)
     {
-       $this->reviewModel->getEntitySummary($product, $product->getStoreId());
+        $this->reviewModel->getEntitySummary($product, $product->getStoreId());
     }
-    
+
     /**
      * Provides product Collection instance.
      *
