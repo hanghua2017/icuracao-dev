@@ -101,7 +101,7 @@ class Price extends AbstractFilter
      */
     public function apply(\Magento\Framework\App\RequestInterface $request)
     {
-        if (!$this->_moduleHelper->isEnabled()) {
+        if ($this->_moduleHelper->isEnabled()) {
             return parent::apply($request);
         }
         /**
@@ -142,7 +142,7 @@ class Price extends AbstractFilter
      */
     protected function _renderRangeLabel($fromPrice, $toPrice)
     {
-        if (!$this->_moduleHelper->isEnabled()) {
+        if ($this->_moduleHelper->isEnabled()) {
             return parent::_renderRangeLabel($fromPrice, $toPrice);
         }
         $formattedFromPrice = $this->priceCurrency->format($fromPrice);
@@ -199,7 +199,7 @@ class Price extends AbstractFilter
      */
     protected function _getItemsData()
     {
-        if (!$this->_moduleHelper->isEnabled()) {
+        if ($this->_moduleHelper->isEnabled()) {
             return parent::_getItemsData();
         }
 

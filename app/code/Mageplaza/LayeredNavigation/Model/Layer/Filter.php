@@ -86,9 +86,9 @@ class Filter
     public function getFilterType($filter, $compareType = null)
     {
         $type = LayerHelper::FILTER_TYPE_LIST;
-        if ($filter->getRequestVar() == 'price') {
-            $type = LayerHelper::FILTER_TYPE_SLIDER;
-        }
+        // if ($filter->getRequestVar() == 'price') {
+        //     $type = LayerHelper::FILTER_TYPE_SLIDER;
+        // }
 
         return $compareType ? ($type == $compareType) : $type;
     }
