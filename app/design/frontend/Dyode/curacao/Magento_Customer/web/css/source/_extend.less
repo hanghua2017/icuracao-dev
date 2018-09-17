@@ -1,4 +1,4 @@
-
+@import '_typography.less';
 //ICuracao-Account common defualt style removal
 html, body, div, span, h1, h2, h3, h4, h5, h6, p, strong, ol, ul, li, form, label, footer, header, nav, section{
   	padding: 0;
@@ -7,6 +7,12 @@ html, body, div, span, h1, h2, h3, h4, h5, h6, p, strong, ol, ul, li, form, labe
 }
 ol, ul {
     list-style: none;
+}
+input, select {
+  font-family: 'iCuracao-Regular';
+  &:focus, &:active {
+    box-shadow: none !important;
+  }
 }
 body{
 	// font-family: 'iCuracao-Regular';
@@ -40,6 +46,12 @@ body{
         margin-bottom: 15px;
       }
   }
+  .columns {
+    @media all and (min-width: 769px) {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
   .column{
     .main {
       margin-bottom: 0px;
@@ -51,9 +63,15 @@ body{
       padding-right: 0;
 			@media only screen and (min-width: 768px){
 				max-width:1500px;
+        padding-left: 15px;
+        padding-right: 15px;
 			}
+
 			//ICuracao-Account sidebar navigation tab styles
       .sidebar-main{
+        @media all and (max-width: 1024px) and (min-width:769px) {
+          width: 25.3%;
+        }
 				.block-collapsible-nav{
 					border: none;
           @media only screen and (min-width: 768px){
@@ -66,11 +84,22 @@ body{
 						border: 15px solid @white;
             margin-bottom: 15px;
 					}
+          .block-collapsible-nav-title {
+            @media all and (max-width: 768px) {
+              padding-left: 15px;
+              padding-right: 15px;
+            }
+            @media all and (max-width: 478px) {
+              padding-left: 10px;
+              padding-right: 10px;
+            }
+          }
 					.content{
 						background:@white;
 						color: @item-color;
-            @media only screen and (max-width: 767px){
+            @media only screen and (max-width: 768px){
               border-bottom:none;
+              padding-top: 20px;
             }
 						.items{
 							.item{
@@ -79,23 +108,39 @@ body{
 								&:last-child {
 									border: none;
 								}
-								&.current a, &.current > strong{
+                &.current > a {
+                    padding-left: 0;
+                }
+                a, strong {
+                  font-family: 'iCuracao-Regular';
+                  font-size: 16px;
+                  font-weight: 600;
+                  padding: 12px 18px 12px 15px;
+                  @media all and (max-width: 991px) {
+                    padding: 12px 10px 12px 5px;
+                  }
+                  @media only screen and (max-width: 767px){
+                    font-size: 14px;
+                    padding-left: 15px;
+                  }
+                }
+								&.current a, &.current > strong, a > strong {
 										border: none;
 										color: @active-blue-color !important;
-										font-size: 14px;
-										font-weight: 600;
-										padding: 12px 18px 12px 15px;
+                    border-left:6px solid @hover-green-color;
                     @media only screen and (max-width: 767px){
                       border-left:4px solid @hover-green-color;
                     }
 								}
 								a{
-									color: @head-color;
-									padding: 12px 18px 12px 15px;
+                  // font-family: 'iCuracao-Regular';
+                  // font-size: 16px;
+									// color: @head-color;
+									// padding: 12px 18px 12px 15px;
 									border-color: transparent !important;
-									@media only screen and (min-width: 768px){
-										font-size: 14px;
-									}
+									// @media only screen and (max-width: 768px){
+									// 	font-size: 14px;
+									// }
 									&:hover {
 										color: @hover-green-color;
 										background-color:@background-white;
@@ -109,6 +154,7 @@ body{
       .abs-toggling-title-mobile,
       .block-wishlist-management .wishlist-select .wishlist-name,
       .block-collapsible-nav .title {
+        font-family: 'iCuracao-Regular';
         @media only screen and (max-width: 767px){
           border-top: none;
           border-bottom: none;
@@ -126,19 +172,21 @@ body{
       .abs-visually-hidden-desktop, .modes-label,
       .block-search .label,
       .block-collapsible-nav .title {
-        @media only screen and (min-width: 768px){
         clip: unset;
         overflow: unset;
         width: inherit;
         padding: 15px 18px 5px 17px;
         position: unset;
         height: unset;
-      }
+        @media all and (max-width: 991px) {
+          padding: 15px 5px 5px 5px;
+        }
       }
       .block-collapsible-nav {
         background-color: @white;
         strong{
           color:  @head-color !important;
+          font-size: 16px;
           @media only screen and (max-width: 767px){
            font-size: 22px;
          }
@@ -147,6 +195,12 @@ body{
           @media only screen and (max-width: 767px){
            padding-top: 5px;
          }
+        }
+      }
+      /*Content info section styling*/
+      .column.main {
+        @media all and (max-width: 1024px) and (min-width:769px) {
+          width: 74.3%;
         }
       }
     .column.main .block:not(.widget) .block-title > .action {
@@ -174,7 +228,7 @@ body{
 						font-size: 12px;
 						font-weight:600;
 						@media only screen and (min-width: 768px){
-							font-size: 14px;
+							font-size: 13px;
 						}
 					}
 					strong{
@@ -194,12 +248,12 @@ body{
 					.page-title-wrapper{
 						border-bottom: 1px solid @border-color;
 						padding: 13px 10px;
-						@media only screen and (min-width: 768px){
+						@media only screen and (min-width: 769px){
 							padding: 30px 20px;
 
 						}
-            @media only screen and (max-width: 767px){
-              border-left: 4px solid #97d700;
+            @media only screen and (max-width: 768px){
+              border-left: 6px solid #97d700;
             }
 						.page-title{
 							color:@head-color;
@@ -220,21 +274,32 @@ body{
           .block-addresses-default,
           .block-addresses-list,
           .block-dashboard-orders{
-						padding: 10px;
-						@media only screen and (min-width: 768px){
-							padding: 15px 20px;
+						padding: 15px 20px;
+            font-family: 'iCuracao-Regular' !important;
+						@media only screen and (max-width: 768px){
+							padding: 15px;
 						}
+            @media only screen and (max-width: 478px) {
+              padding: 10px;
+            }
 					}
 					.dashboard_msg{
+            h3, p {
+              font-size: 16px !important;
+              @media only screen and (max-width: 768px){
+                font-size: 14px !important;
+              }
+            }
 	          h3{
-              color: @head-color !important;
-              font-size: 1.8rem;
+              color: @head-color;
 	            padding-bottom: 5px;
-	            @media only screen and (min-width: 768px){
+	            @media only screen and (min-width: 769px){
 	              padding-bottom: 10px;
-                font-size: 18px !important;
 	            }
 	          }
+            p {
+              color: @item-color;
+            }
 	        }
 					.block-content{
 						padding: 10px 0;
@@ -248,7 +313,7 @@ body{
 						padding:10px 0;
 						border-bottom: 1px solid @border-color;
 						strong{
-							font-size: 20px !important;
+							font-size: 16px !important;
 						}
             a{
               span{
@@ -277,6 +342,11 @@ body{
 									}
 								}
 							}
+              .box-actions {
+                a {
+                  font-weight: 600;
+                }
+              }
 						}
 					}
 					.block-dashboard-info{
@@ -293,7 +363,11 @@ body{
                 margin-bottom: 20px;
               }
 						.order{
-						@media only screen and (min-width: 640px){
+              font-size: 16px;
+              @media all and (max-width: 768px) {
+                font-size: 14px;
+              }
+						  @media only screen and (min-width: 640px){
 								border:none;
 							}
 
