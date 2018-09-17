@@ -48,7 +48,11 @@
                     </block>
                 </referenceBlock>
 
-                <block class="Magento\Framework\View\Element\Template" name="freq-bought" template="Magento_Catalog::product/view/frequently-bought.phtml" after="product.info.media"/>
+                <block class="Magento\Catalog\Block\Product\View" name="freq-bought" template="Magento_Catalog::product/view/frequently-bought.phtml" after="product.info.media">
+                    <arguments>
+                        <argument name="view_model" xsi:type="object">Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\Fbt</argument>
+                    </arguments>
+                </block>
             </container>
             <container name="product.info.details.before" htmlTag="div" htmlClass="product-info-details-before" before="product.info.details" />
             <container name="product.info.details.after" htmlTag="div" htmlClass="banner-block" after="product.info.details">

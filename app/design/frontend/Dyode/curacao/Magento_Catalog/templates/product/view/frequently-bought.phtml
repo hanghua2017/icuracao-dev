@@ -1,98 +1,161 @@
-<div class="frequently-bought-items">
-  <h3>Frequently bought together</h3>
-  <div class="frequently-product-block" id="frequent-items">
-    <ul class="frequent-item-list">
-      <li>
-        <div class="product slected-item">
-          <div class="prod-details">
-            <img class="prod-img" src="<?php echo $this->getViewFileUrl('images/iphone.png'); ?>" />
-            <div class="price-details">
-              <label class="name">iPhone 8</label>
-              <p class="price">
-                <label>$799.99</label>
-                <label class="off-price">30% Off</label>
-              </p>
+<?php
+/**
+ * Dyode_curacao theme.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package   Dyode
+ * @module    Dyode_curacao
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+?>
+<?php
+/**
+ * @var $block     \Magento\Catalog\Block\Product\View
+ * @var $viewModel \Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\Fbt
+ * @var $fbtProduct \Magento\Catalog\Model\Product
+ */
+$viewModel = $block->getViewModel();
+$product = $block->getProduct();
+?>
+
+<?php if ($viewModel->canShowFbt($product)): ?>
+
+    <?php
+    $fbtProducts = $viewModel->fbtProducts($product);
+    $discount = $viewModel->productDiscount($product);
+    ?>
+
+
+    <div class="frequently-bought-items" id="fbt-section">
+        <h3><?= __("Frequently bought together") ?></h3>
+        <div class="frequently-product-block" id="frequent-items">
+            <ul class="frequent-item-list">
+                <li>
+                    <div class="product slected-item">
+                        <div class="prod-details">
+                            <img class="prod-img" src="<?= $viewModel->getProductImageUrl($product) ?>"/>
+                            <div class="price-details">
+                                <label class="name"><?= $block->escapeHtml($product->getName()) ?></label>
+
+                                <?php if ($viewModel->productHasRating($product)): ?>
+                                    <?php $rating = $viewModel->productRatingSummary($product) ?>
+                                    <div class="product-reviews-summary short">
+                                        <div class="rating-summary">
+                                            <div class="rating"><?= $block->escapeHtml($rating) ?>*</div>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+
+                                <p class="price">
+                                    <label><?= $viewModel->formattedPrice($product) ?></label>
+                                    <?php if ($discount): ?>
+                                        <label class="off-price"><?= $discount ?>% <?= __("Off") ?></label>
+                                    <?php endif; ?>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <?php foreach($fbtProducts as $fbtProduct): ?>
+                    <?php $discount = $viewModel->productDiscount($fbtProduct) ?>
+                    <li class="plus-item">
+                        <label class="include-item">
+                            <img class="prod-add" src="<?php echo $this->getViewFileUrl('images/add.png'); ?>"/>
+                        </label>
+                    </li>
+
+                    <li>
+                        <input class="frequent-checkbox"
+                               id="frequent-checkbox-<?= $fbtProduct->getId(); ?>"
+                               type="checkbox"
+                               value="<?= $fbtProduct->getId(); ?>"
+                               checked
+                        />
+                        <label for="frequent-checkbox-<?= $fbtProduct->getId(); ?>">
+                            <div class="product frequent-item">
+                                <div class="prod-details">
+                                    <img class="prod-img"
+                                         src="<?= $viewModel->getProductImageUrl($fbtProduct) ?>" />
+                                    <div class="price-details">
+                                        <label class="name"><?= $block->escapeHtml($fbtProduct->getName()) ?></label>
+
+                                        <?php if ($viewModel->productHasRating($fbtProduct)): ?>
+                                            <?php $rating = $viewModel->productRatingSummary($fbtProduct) ?>
+                                            <div class="product-reviews-summary short">
+                                                <div class="rating-summary">
+                                                    <div class="rating"><?= $block->escapeHtml($rating) ?>*</div>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <p class="price">
+                                            <label><?= $viewModel->formattedPrice($fbtProduct) ?></label>
+                                            <?php if ($discount): ?>
+                                                <label class="off-price"><?= $discount ?>% <?= __("Off") ?></label>
+                                            <?php endif; ?>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </li>
+                <?php endforeach; ?>
+
+            </ul>
+        </div>
+
+        <div class="frequently-bought-adon-sum">
+            <div class="price-adons">
+                <div class="price-sum">
+                    <div class="price-block selected">
+                        <label><span><?= __("1 item") ?></span></label>
+                        <p class="price"><?= $viewModel->formattedPrice($product) ?></p>
+                    </div>
+                    <label class="symbol">+</label>
+                    <div class="price-block unselected">
+                        <label>
+                            <span class="addon-count"><?= count($fbtProducts) ?></span> <?= __("Add=ons") ?>
+                        </label>
+                        <p class="price add-on-total"><?= $viewModel->getAddonPriceTotal($product, true) ?></p>
+                    </div>
+                    <label class="symbol">=</label>
+                    <div class="price-block total">
+                        <label><?= __("Total") ?></label>
+                        <p class="price fbt-total"><?= $viewModel->getFbtProductsTotal($product, true) ?></p>
+                    </div>
+                </div>
+
+                <form action="<?= $block->getUrl('dyode_catalog/cart/add') ?>" method="post" id="fbt-form">
+                    <?php echo $this->getBlockHtml('formkey')?>
+                    <input type="hidden" name="fbt_products" id="fbt-products-inp" value="[]" />
+                    <input type="hidden" name="store_id" value="<?= $product->getStoreId() ?>" />
+                    <div class="action add-bundle-btn">
+                        <button class="add-bundle-btn action tocart" title="<?= __("Add Bundle to Cart") ?>">
+                            <img src="<?php echo $this->getViewFileUrl('images/cart-button.png'); ?>" />
+                          <span><?= __("Add Bundle to Cart") ?></span>
+                        </button>
+                    </div>
+                </form>
+
             </div>
-          </div>
         </div>
-      </li>
-
-      <li class="plus-item">
-        <label class="include-item"><img class="prod-add" src="<?php echo $this->getViewFileUrl('images/add.png'); ?>" /></label>
-      </li>
-
-      <li>
-        <input class="frequent-checkbox" id="frequent-checkbox-1" type="checkbox" value="value1">
-        <label for="frequent-checkbox-1">
-          <div class="product frequent-item">
-
-
-            <div class="prod-details">
-              <img class="prod-img" src="<?php echo $this->getViewFileUrl('images/Tempered-Glass.png'); ?>" />
-              <div class="price-details">
-                <label class="name">Amzer Tempered glass</label>
-                <p class="price">
-                  <label>$101.99</label>
-                  <label class="off-price">30% Off</label>
-                </p>
-              </div>
-            </div>
-          </div>
-        </label>
-      </li>
-
-      <li class="plus-item">
-        <label class="include-item"><img class="prod-add" src="<?php echo $this->getViewFileUrl('images/add.png'); ?>" /></label>
-      </li>
-
-      <li>
-        <input class="frequent-checkbox" id="frequent-checkbox-2" type="checkbox" value="value2">
-        <label for="frequent-checkbox-2">
-          <div class="product frequent-item">
-
-            <div class="prod-details">
-              <img class="prod-img" src="<?php echo $this->getViewFileUrl('images/airpods.png'); ?>" />
-              <div class="price-details">
-                <label class="name">Apple Air pods</label>
-                <p class="price">
-                  <label>$100.99</label>
-                  <label class="off-price">30% Off</label>
-                </p>
-              </div>
-            </div>
-          </div>
-        </label>
-      </li>
-    </ul>
-  </div>
-
-  <div class="frequently-bought-adon-sum">
-    <div class="price-adons">
-      <div class="price-sum">
-        <div class="price-block selected">
-          <label><span>1 item</span></label>
-          <p class="price">$799.99</p>
-        </div>
-        <label class="symbol">+</label>
-        <div class="price-block unselected">
-          <label><span>2</span>Add=ons</label>
-          <p class="price">$201</p>
-        </div>
-        <label class="symbol">=</label>
-        <div class="price-block total">
-          <label>Total</label>
-          <p class="price">$1000</p>
-        </div>
-      </div>
-      <div class="action add-bundle-btn">
-        <button class="">
-          <span>
-            <img src="<?php echo $this->getViewFileUrl('images/cart-button.png'); ?>" />
-            Add Bundle to Cart
-          </span>
-        </button>
-      </div>
     </div>
-  </div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>
+<script type="text/x-magento-init">
+    {
+        "#fbt-section": {
+            "Dyode_Catalog/js/product/view/fbt": <?= $viewModel->getJsData($product) ?>
+         }
+    }
 
-</div>
+</script>
