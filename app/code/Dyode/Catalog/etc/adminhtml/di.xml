@@ -19,6 +19,10 @@
                     <item name="class" xsi:type="string">Dyode\Catalog\Ui\DataProvider\Product\Form\Modifier\FbtProduct</item>
                     <item name="sortOrder" xsi:type="number">145</item>
                 </item>
+                <item name="custom-options-additions" xsi:type="array">
+                    <item name="class" xsi:type="string">Dyode\Catalog\Ui\DataProvider\Product\Form\Modifier\CustomOptions</item>
+                    <item name="sortOrder" xsi:type="number">150</item>
+                </item>
             </argument>
         </arguments>
     </virtualType>
