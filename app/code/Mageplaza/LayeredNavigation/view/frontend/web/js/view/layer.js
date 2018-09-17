@@ -176,7 +176,10 @@ define([
                         swatchOptions.each(function (option) {
                             var elOption = $(this);
                             if ($.inArray(elOption.attr('option-id'), attValues) !== -1) {
+                                var optionId = elOption.attr('option-id');
+                                var swatchCheckbox = el.find('.swatch-checkbox-'+optionId);
                                 elOption.addClass('selected');
+                                swatchCheckbox.prop('checked', true);
                             }
                         });
                     }
@@ -185,11 +188,16 @@ define([
         },
 
         selectSwatchOption: function (el) {
+
             var childEl = el.find('.swatch-option');
+            var optionId = childEl.attr('option-id');
+            var swatchCheckbox = el.find('.swatch-checkbox-'+optionId); 
             if (childEl.hasClass('selected')) {
                 childEl.removeClass('selected');
+                swatchCheckbox.removeProp('checked');
             } else {
                 childEl.addClass('selected');
+                swatchCheckbox.prop('checked', true); ;
             }
         },
 
