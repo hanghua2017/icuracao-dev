@@ -46,8 +46,16 @@
 
           </div>
         </div>
-<div data-bind="text: ko.toJSON($root)"></div>
 
+
+<div data-bind="text: ko.toJSON($root)">
+</div>
+<style>
+ #dialog-message
+ {
+   display: none;
+ }
+</style>
             <div id="dialog-message">
                 <div class="modal-top-strip">Showing free in store pickup for the Zip code
                 </div>
@@ -57,11 +65,12 @@
                     </label>
                       <button>Change</button>
                   </div>
-                  <h4>Available Stores<span class="store-count"> (4)</span></h4>
+                  <h4>Available Stores<span class="store-count">(4)</span></h4>
                   <div class="avail-store-outer">
                     <div class="avail-store-item">
                       <div class="avail-store-image">
-                        <img src="../images/south-gate-store.png"/>
+                        <img src="http://mikemoir.com/mikemoir/wp-content/uploads/2015/06/MedRes_Product-presentation-2.jpg"/>
+
                         <p class="store-distance">2mi</p>
                       </div>
                       <div class="avail-store-details">
