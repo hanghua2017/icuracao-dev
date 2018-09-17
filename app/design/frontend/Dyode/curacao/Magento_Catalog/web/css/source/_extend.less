@@ -1,4 +1,5 @@
 @import "_typography.less";
+@import "_fullbanner.less";
 @theme-color: #82b800;
 @white: #fff;
 @black:000;
@@ -172,8 +173,6 @@ input, select {
               border-left: none;
               padding-top: 0;
             }
-
-
             //Product name
             .page-title-wrapper {
               @media all and (max-width: 901px) {
@@ -253,26 +252,25 @@ input, select {
 
               .price-box.price-final_price {
                 width: 100%;
-                display: block;
-                padding: 0;
+                display: inline-block;
                 .prod-price, .credit-card-desc {
                   clear: both;
                   width: 100%;
                   float: left;
                 }
-
+                .price-container > span {
+                    display: inline-block;
+                    margin: 0 10px 0 0px;
+                }
                 //Styling for product price section
-                .prod-price {
                   span {
-                    float: left;
-
                     //Styling for orginal price (cut price if any special offer price added)
                     &.old-price {
                       @media all and (max-width: 901px) {
                         padding-left: 20px;
                       }
-                      @media all and (max-width: 467px) {
-                        padding-left: 10px;
+                      @media all and (max-width: 767px) {
+                        padding-left: 0;
                       }
                       .price-container {
                           .price-label {
@@ -428,8 +426,6 @@ input, select {
                       font-family: 'iCuracao-Medium';
                     }
                   }
-                }
-
               }
               .credit-card-emi {
 
@@ -1695,7 +1691,7 @@ input, select {
   clear: both;
   @media all and (max-width: 990px) {
     padding-top: 10px;
-    padding-left: 20px;
+    padding-left: 10px;
   }
   p.credit-desc {
     line-height: 20px;
