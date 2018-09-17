@@ -9,7 +9,13 @@
     <li class="hamburger-link-border"><a href="#">Sale</a></li>
     <li class="hamburger-heading"><a href="#">Help & Settings</a></li>
     <li><a href="#">Your Account</a></li>
-    <li class="hamburger-heading"><a href="#">Espanol</a></li>
+    <!-- Store Switcher Start -->
+    <?php if ($block->getStoreCode() == 'default') : ?>
+      <li class="hamburger-heading"><a href="esp">Espanol</a></li>
+    <?php else: ?>
+      <li class="hamburger-heading"><a href="#">English</a></li>
+    <?php endif; ?>
+    <!-- Store Switcher End -->
     <li><a href="#">Customer Service</a></li>
   </ul>
 </nav>
