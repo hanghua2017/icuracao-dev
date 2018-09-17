@@ -35,8 +35,7 @@
 
               <form class="form" data-bind="attr: {'data-hasrequired': $t('* Required Fields'),id:'deliveryform'+$data.item_id()}">
                 <div class="store-pickup-pincode" data-bind="visible: state">
-                  <input type="hidden" name="type" value="1" />
-                  <input type="number" placeholder="Zipcode" name="pickup-zipcode" value="" />
+                    <input type="number" placeholder="Zipcode" name="pickup-zipcode" value="" />
                   <button type="button" class="action" data-bind="event:{click:selectLocation.bind(this)}" >
                      <span data-bind="i18n: 'Submit'"></span>
                   </button>
@@ -64,7 +63,7 @@
                   <div class="store-zipcode-outer">
                     <label>90280
                     </label>
-                    <button class="change">Change</button>
+                      <button>Change</button>
                   </div>
                   <h4>Available Stores<span class="store-count">(4)</span></h4>
                   <div class="avail-store-outer">
@@ -80,7 +79,13 @@
                           <li>8618 Garfield Ave</li>
                           <li>South Gate, CA 90280</li>
                           <li>(562) 927-3027</li>
-                          <button>Select</button>
+                          <form class="form" data-bind="attr: {id:'storeselection'}">
+                              <input type="hidden" data-bind="attr: {id:'location_id',name:'location_id'},value:'2'"/>
+                              <input type="hidden" data-bind="attr: {id:'item_id',name:'item_id'},value:'56'"/>
+                              <button type="button" class="action" data-bind="event:{click:updateLocation.bind(this,event)}" >
+                                 <span data-bind="i18n: 'Change'"></span>
+                              </button>
+                          </form>
                         </ul>
                       </div>
                     </div>

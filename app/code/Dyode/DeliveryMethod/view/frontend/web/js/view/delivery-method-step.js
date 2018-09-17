@@ -28,6 +28,7 @@ define(
         * delivery-method - is the name of the component's .html template
         */
         var imageData = window.checkoutConfig.imageData;
+        var myObservableArray;
 
         return Component.extend({
             defaults: {
@@ -43,7 +44,8 @@ define(
             stepTitle: 'Delivery Method',
             getItems: ko.observableArray(quote.getItems()),
             getTotals: quote.getTotals(),
-            storeList:ko.observable(true),
+            //storeList:ko.observable(true),
+            myObservableArray : ko.observableArray(),
           //  state: ko.observable(false),
 
             /**
@@ -81,18 +83,31 @@ define(
                       if(radioValue == 'shipping'){
                          storeElement.state(false);
                       } else{
-                        storeElement.state(true);
+                         storeElement.state(true);
                       }
                       // console.log("inside test",this,$(e.target));
                     },
-                    selectLocation:function(formelement) {
+            		    assignLocation:function(){
+                			 // var stores = [];
+                			 // storesList.forEach(function(stores) {
+                				// var store = {
+                				// 	location_id: stores.location_id
+                				// }
+                	  		// 	stores.push(store);
+                			 // });
+                       console.log("assignLocation");
+                       myObservableArray.push(1);
+            		    },
+		               selectLocation:function(formelement) {
                       console.log("here");
                       var pid = formelement.pid;
                       var serviceUrl,storeParams;
+			                var storeArr = ko.observableArray();
                       console.log(pid);
                       var zipcode = jQuery("#deliveryform"+pid+" input[name=pickup-zipcode]").val();
                       if(zipcode){
-                         jQuery.ajax({
+			                  fullScreenLoader.startLoader();
+                        jQuery.ajax({
                             url: '/storeloc/storelocator/index',
                             type: 'POST',
                             dataType: 'json',
@@ -101,18 +116,17 @@ define(
                                 pid: pid,
                             },
                             success: function(response) {
-                                console.log(response);
+				                        fullScreenLoader.stopLoader();
                                 var storeResponse = jQuery.map(response, function(value, index) {
                                     return [value];
                                 });
-                                // console.log(array);
-                                // var x=[];
-                                // jQuery.each(response, function(i,n) {
-                                //     x.push(n);
-                                // });
                                 console.log(storeResponse);
 
-                                jQuery("#dialog-message" ).dialog({
+				//assignLocation(storeResponse);
+
+                            //    this.myObservableArray.push(storeResponse);
+				//storeArr.push(x);
+                                jQuery("#dialog-message").dialog({
                                   modal: true,
                                   buttons: {
                                     Ok: function() {
@@ -123,7 +137,10 @@ define(
                             },
                             error: function (xhr, status, errorThrown) {
                                 console.log('Error happens. Try again.');
-                            }
+                            },
+                            complete: function(){
+				fullScreenLoader.stopLoader();
+			    }
                         });
                       }
 
@@ -134,24 +151,33 @@ define(
                 });
                 return productItems.length !== 0 ? productItems: null;
             },
-            assignStores:function(storesList){
+            updateLocation:function(locElement,e){
+                var location_id = jQuery(locElement.target).closest('.form').find("input#location_id").val();
+                var item_id = jQuery(locElement.target).closest('.form').find("input#item_id").val();
+                console.log(location_id+item_id);
+                fullScreenLoader.startLoader();
+                jQuery.ajax({
+                    url: '/storeloc/deliverylocation/index',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        location_id: location_id,
+                        item_id: item_id,
+                    },
+                    success: function(response) {
+                        fullScreenLoader.stopLoader();
+                        console.log(response);
 
-            },
-            storeLocation: function(formelement,id) {
-              console.log(id);
-               // this.source.trigger('deliveryform'+id+'.data.validate');
-               // var formData = this.source.get('deliveryform'+id);
-               // // do something with form data
-               // console.dir(formData);
-              // jQuery("#dialog-message" ).dialog({
-              //   modal: true,
-              //   buttons: {
-              //     Ok: function() {
-              //       jQuery( this ).dialog( "close" );
-              //     }
-              //   }
-              // });
-            },
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        console.log('Error happens. Try again.');
+                    },
+                    complete: function(){
+                        fullScreenLoader.stopLoader();
+                    }
+                });
+           },
+
             /**
             *
             * @returns {*}
@@ -162,19 +188,8 @@ define(
                      deliveryMethod: ko.observable(true),
 
               });
+		         
 
-              /*     this.deliveryMethod.subscribe(function (newValue) {
-                   if(newValue === "StorePickup"){
-                        console.log('checked'+newValue);
-                        this.state = true;
-                        console.log("If:"+(this.state? "Yes":"No"));
-                   } else {
-                       this.state = false;
-                       console.log("Else:"+(this.state? "Yes":"No"));
-                   }
-                   console.log("inside"+this.state);
-                 },this);
-                 console.log("otside"+this.state);*/
                 // register your step
                 stepNavigator.registerStep(
                     this.stepCode,
@@ -197,19 +212,7 @@ define(
 
                 return this;
             },
-            onSubmit: function() {
-                // trigger form validation
-                this.source.set('params.invalid', false);
-                this.source.trigger('customCheckoutForm.data.validate');
 
-                // verify that form data is valid
-                if (!this.source.get('params.invalid')) {
-                    // data is retrieved from data provider by value of the customScope property
-                    var formData = this.source.get('customCheckoutForm');
-                    // do something with form data
-                    console.dir(formData);
-                }
-            },
             /**
             * The navigate() method is responsible for navigation between checkout step
             * during checkout. You can add custom logic, for example some conditions

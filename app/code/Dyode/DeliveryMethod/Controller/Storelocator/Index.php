@@ -71,21 +71,27 @@ class Index extends Action {
        $lat1 = $value['lat'];
        $lng1 = $value['lng'];
     }
-
     $storelocTable = $resource->getTableName('aw_storelocator_location');
     //Select Data from table
     $sql = "Select location_id,title,city,street,country_id,zip,latitude,longitude,phone FROM " . $storelocTable;
     $result = $connection->fetchAll($sql);
-    foreach($result as $key=>$value){
-        $distance = $this->_distHelper->getDistance( $lat1,$lng1,$value['latitude'],$value['longitude']);
-        $value['distance'] = $distance;
-        $storeList[] = $value;
+
+    if(isset($lat1) && isset($lng1)){
+      foreach($result as $key=>$value){
+          $distance = $this->_distHelper->getDistance( $lat1,$lng1,$value['latitude'],$value['longitude']);
+          $value['distance'] = $distance;
+          $storeList[] = $value;
+      }
+      //Sorting with the distance
+      ksort($storeList);
+
+    } else{
+      foreach($result as $key=>$value){
+          $storeList[] = $value;
+      }
     }
-
-    //Sorting with the distance
-    ksort($storeList);
-
     return $storeList;
+
   }
 
   public function selectStore(){

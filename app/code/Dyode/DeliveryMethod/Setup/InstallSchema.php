@@ -5,7 +5,7 @@
  * Date       03/09/2018
  */
 
-namespace Dyode\Delivery\Setup;
+namespace Dyode\DeliveryMethod\Setup;
 
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
@@ -29,15 +29,18 @@ public function install (SchemaSetupInterface $setup, ModuleContextInterface $co
         'delivery_type' => [
             'type' => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
             'nullable' => true,
-            'default' => '1',
+            'default' => '0',
+            'comment'=>'type of delivery'
         ],
         'pickup_location_address' => [
             'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             'nullable' => true,
+            'comment'=>'address of delivery'
         ],
         'pickup_location' => [
             'type' => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
             'nullable' => true,
+            'comment'=>'location id'
          ],
     ];
 
