@@ -34,11 +34,12 @@ class ApprovedFraudOrders
 
     public function execute() {
         $this->logger->info('Cron Works');
-        // $collection = $this->_orderCollectionFactory->create()->addAttributeToSelect('*');
-        // $collection->addFieldToFilter('status', 'approved_fraud');
-        // foreach ($collection as $salesOrder) {
-        //     $this->orderCollection->createInvoice($salesOrder->getId());
-        // }
+        $collection = $this->_orderCollectionFactory->create()->addAttributeToSelect('*');
+        $collection->addFieldToFilter('status', 'approved_fraud');
+        foreach ($collection as $salesOrder) {
+            $this->orderCollection->createInvoice($salesOrder->getId());
+            # Link AppleCareSetWarranty
+        }
     }
 
 }
