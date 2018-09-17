@@ -51,7 +51,7 @@
                 <block class="Magento\Framework\View\Element\Template" name="freq-bought" template="Magento_Catalog::product/view/frequently-bought.phtml" after="product.info.media"/>
             </container>
             <container name="product.info.details.before" htmlTag="div" htmlClass="product-info-details-before" before="product.info.details" />
-            <container name="product.info.details.after" htmlTag="div" htmlClass="product-info-details-after" after="product.info.details">
+            <container name="product.info.details.after" htmlTag="div" htmlClass="banner-block" after="product.info.details">
                 <block class="Magento\Cms\Block\Block" name="offers.of.this.week.1">
                     <arguments>
                         <argument name="block_id" xsi:type="string">offers_of_the_week_1</argument>
