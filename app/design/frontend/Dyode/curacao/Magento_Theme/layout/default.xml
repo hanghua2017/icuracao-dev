@@ -15,7 +15,7 @@
       <!-- <move element="header.links" destination="header-wrapper" after="top.search"/> -->
       <referenceContainer name="header-wrapper">
             <block class="Magento\Customer\Block\Account\Customer" name="top.line"  after="top.search" template="Magento_Customer::account/customer-menu.phtml"/>
-            <block class="Magento\Customer\Block\Account\Navigation" name="top.links"> 
+            <block class="Magento\Customer\Block\Account\Navigation" name="top.links">
                 <arguments>
                     <argument name="css_class" xsi:type="string">header links</argument>
                 </arguments>
@@ -33,14 +33,13 @@
             <argument name="logo_img_height" xsi:type="number">150</argument>
         </arguments>
       </referenceBlock>
-        <referenceContainer name="footer-container">
+        <!-- <referenceContainer name="footer-container">
             <container name="footer" as="footer" label="Page Footer" htmlTag="div" htmlClass="footer content">
                 <block class="Magento\Framework\View\Element\Template" name="custom-footer-link" as="custom-link" before="store_switcher" template="Magento_Theme::footer-custom-links.phtml"/>
-                <!-- <block class="Magento\Framework\View\Element\Html\Links" name="footer_links" remove="true"/> -->
                 <block class="Magento\Framework\View\Element\Template" name="trust_factors" as="trust" after="subscribe" template="Magento_Theme::trust-factor.phtml"/>
                 <block class="Magento\Framework\View\Element\Template" name="footer-bottom" after="trust" template="Magento_Theme::footer-bottom.phtml"/>
                 <block class="Magento\Framework\View\Element\Template" name="copy-right" after="footer-bottom" template="Magento_Theme::copy-right.phtml"/>
             </container>
-        </referenceContainer>
+        </referenceContainer> -->
     </body>
 </page>

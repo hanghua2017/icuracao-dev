@@ -61,12 +61,10 @@
                         <argument name="block_id" xsi:type="string">offers_of_the_week_1</argument>
                     </arguments>
                 </block>
-                <block class="Magento\Catalog\Block\Widget\RecentlyViewed" name="recently_viewed" template="Magento_Catalog::product/widget/viewed/grid.phtml">
-                    <arguments>
-                        <argument name="uiComponent" xsi:type="string">widget_recently_viewed</argument>
-                        <argument name="page_size" xsi:type="number">5</argument>
-                        <argument name="show_attributes" xsi:type="string">name,image,price,learn_more</argument>
-                    </arguments>
+                <block class="Magento\Reports\Block\Product\Widget\Viewed" after="todays.deals" name="recently_viewed" cacheable="false" template="Magento_Reports::widget/viewed/content/viewed_grid.phtml">
+                  <action method="setPageSize">
+                     <argument name="page_size" xsi:type="number">10</argument>
+                  </action>
                 </block>
                 <block class="Magento\Cms\Block\Block" name="offers.of.this.week.2">
                     <arguments>
