@@ -134,6 +134,11 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
             $this->_signifydModel->processSignifyd($order->getIncrementId());
         }
         # code... incomplete ... Prepare Order Items
+        $itemsStoreLocation = $this->prepareOrderItems($orderId);
+        foreach ($itemsStoreLocation as $itemId => $storeId) {
+            # code...
+            # Set Store Id to Order Item
+        }
 
         $createdDate = date('Y-m-d\Th:i:s', strtotime($order->getData("created_at")));
         $createdTime = date('h:i A', strtotime($order->getData("created_at")));
