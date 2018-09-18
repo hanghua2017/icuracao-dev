@@ -1,10 +1,5 @@
 /*!
- * GRT Youtube Popup - jQuery Plugin
- * Version: 1.0
- * Author: GRT107
- *
- * Copyright (c) 2017 GRT107
- * Released under the MIT license
+ * Hamburger Menu For Desktop
 */
 require([
 			'jquery',
@@ -30,14 +25,5 @@ require([
       sidebarOverlay.addEventListener('click', closeSidebar);
       sidebarBtnClose.addEventListener('click', closeSidebar);
       sidebarBtnOpen.addEventListener('click', openSidebar);
-      // sidebarOverlay.click(function() {
-      //   closeSidebar();
-      // });
-      // sidebarBtnClose.click(function() {
-      //   closeSidebar();
-      // });
-      // sidebarBtnOpen.click(function() {
-      //   openSidebar();
-      // });
     })()
 });

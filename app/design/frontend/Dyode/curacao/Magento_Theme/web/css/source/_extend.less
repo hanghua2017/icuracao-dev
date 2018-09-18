@@ -47,6 +47,12 @@
 .page-wrapper {
 	.page-header {
 		background-color: @green-color;
+		@media all and (max-width:1024px){
+			position: fixed;
+			width:100%;
+			z-index:99999;
+			top:0;
+		}
 		@media all and (max-width:767px){
 			margin-bottom:0;
 		}
@@ -391,6 +397,20 @@
 				}
 			}
 		}
+		/*styling for fixed header starts here*/
+		&.nav-scrolled{
+			position: fixed;
+			width: 100%;
+			top:0;
+			z-index:99999;
+			.header{
+				&.content{
+					padding:15px !important;
+
+				}
+			}
+		}
+		/*styling for fixed header starts here*/
 	}
 	.nav-sections {
 		background: #fff;
@@ -478,6 +498,20 @@
 	}
 }
 
+/*styling on page main since the header is fixed*/
+.page-main{
+	&.main-scrolled{
+		margin-top: 186px !important;
+	}
+	@media all and (max-width:1024px){
+		margin-top:88px !important;
+	}
+	@media all and (max-width:767px){
+		margin-top:156px !important;
+	}
+}
+/*styling ends here*/
+/*styling for home page starts here*/
 .cms-index-index{
   .page-wrapper{
     .page-main{
