@@ -1,0 +1,38 @@
+<?php
+/**
+ * Dyode_curacao theme.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package Dyode
+ * @module  Dyode_curacao
+ * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/* @var $block \Magento\Catalog\Block\Product\View\Options\Type\Select */
+$option = $block->getOption();
+$isWallMountOption = (bool)($option->getIsWallMount() == 1);
+$isWarrantyOption = (bool)($option->getIsWarranty() == 1);
+$class = ($option->getIsRequire()) ? ' required' : '';
+$class .= $isWallMountOption ? ' mount-option' : '';
+$class .= $isWarrantyOption ? ' warranty-option': '';
+?>
+<div class="field<?= /* @escapeNotVerified */ $class ?>">
+    <label class="label" for="select_<?= /* @escapeNotVerified */ $option->getId() ?>">
+        <span><?= $block->escapeHtml($option->getTitle()) ?></span>
+    </label>
+    <div class="control">
+        <?= $block->getValuesHtml() ?>
+        <?php if ($option->getIsRequire()): ?>
+            <?php if ($option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_RADIO || $option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_CHECKBOX): ?>
+                <span id="options-<?= /* @escapeNotVerified */ $option->getId() ?>-container"></span>
+            <?php endif; ?>
+        <?php endif;?>
+    </div>
+</div>
+
