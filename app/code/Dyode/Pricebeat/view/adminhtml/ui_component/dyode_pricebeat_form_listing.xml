@@ -22,14 +22,14 @@
             <item name="deps" xsi:type="string">dyode_pricebeat_form_listing.dyode_pricebeat_form_listing_data_source</item>
         </item>
         <item name="spinner" xsi:type="string">dyode_pricebeat_form_columns</item>
-        <item  name="buttons" xsi:type="array">
+        <!-- <item  name="buttons" xsi:type="array">
             <item name="add" xsi:type="array">
                 <item name="name" xsi:type="string">add</item>
                 <item name="label" xsi:type="string" translate="true">Add New</item>
                 <item name="class" xsi:type="string">primary</item>
                 <item name="url" xsi:type="string">*/*/new</item>
             </item>
-        </item>
+        </item> -->
     </argument>
     <dataSource name="dyode_pricebeat_form_listing_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
@@ -219,7 +219,7 @@
                 </item>
             </argument>
         </column>
-        <column name="title">
+        <column name="first_name">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
@@ -229,7 +229,21 @@
                             <item name="required-entry" xsi:type="boolean">true</item>
                         </item>
                     </item>
-                    <item name="label" xsi:type="string" translate="true">Title</item>
+                    <item name="label" xsi:type="string" translate="true">First Name</item>
+                </item>
+            </argument>
+        </column>
+        <column name="last_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">Last Name</item>
                 </item>
             </argument>
         </column>
