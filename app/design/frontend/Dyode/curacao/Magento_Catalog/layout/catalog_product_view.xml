@@ -11,56 +11,23 @@
  * @copyright Copyright © Dyode
  */
 -->
-<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 
     <body>
 
         <referenceContainer name="content">
-            <container name="product.info-block" htmlTag="div" htmlClass="product-info-block" before="-">
-                <referenceContainer name="product.info.main">
-                    <block template="Magento_Catalog::product/view/price-beat.phtml" before="product.info.price">
-                        <arguments>
-                            <argument name="view_model" xsi:type="object">Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\PriceBeat</argument>
-                        </arguments>
-                    </block>
+            <container name="product.info-block" htmlTag="div" htmlClass="product-info-block" before="-" />
 
-                    <referenceContainer name="product.info.price">
-                        <block class="Magento\Catalog\Block\Product\View" name="product.info.emi" after="product.price.final" template="Magento_Catalog::product/view/info/emi.phtml">
-                            <arguments>
-                                <argument name="view_model" xsi:type="object">Dyode\Core\ViewModel\Emi</argument>
-                            </arguments>
-                        </block>
-                    </referenceContainer>
-                </referenceContainer>
-
-                <referenceBlock name="product.info.addtocart.additional">
-                    <arguments>
-                        <argument name="view_model" xsi:type="object">Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\Addtocart</argument>
-                    </arguments>
-                    <block class="Magento\Catalog\Block\Product\View" name="warranty.modal" template="Magento_Catalog::product/view/modal/warranty.phtml">
-                        <block class="Magento\Catalog\Block\Product\View" name="warranty.modal.review" template="Magento_Catalog::product/view/review.phtml" />
-                        <block class="Magento\Catalog\Block\Product\View" name="product.info.addtocart.options.wrapper" as="product_options_wrapper" template="Magento_Catalog::product/view/modal/warranty/options/wrapper.phtml">
-                            <block class="Magento\Catalog\Block\Product\View\Options" name="product.info.addtocart.options" as="product_options" template="Magento_Catalog::product/view/modal/warranty/options.phtml">
-                                <block class="Dyode\Catalog\Block\Product\View\Options\Type\Select" name="product.info.options.addtocart.select" as="select" template="Magento_Catalog::product/view/options/type/select.phtml"/>
-                            </block>
-                        </block>
-                    </block>
-                </referenceBlock>
-
-                <block class="Magento\Catalog\Block\Product\View" name="freq-bought" template="Magento_Catalog::product/view/frequently-bought.phtml" after="product.info.media">
-                    <arguments>
-                        <argument name="view_model" xsi:type="object">Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\Fbt</argument>
-                    </arguments>
-                </block>
-            </container>
             <container name="product.info.details.before" htmlTag="div" htmlClass="product-info-details-before" before="product.info.details" />
+
             <container name="product.info.details.after" htmlTag="div" htmlClass="banner-block" after="product.info.details">
                 <block class="Magento\Cms\Block\Block" name="offers.of.this.week.1">
                     <arguments>
                         <argument name="block_id" xsi:type="string">offers_of_the_week_1</argument>
                     </arguments>
                 </block>
+
                 <block class="Magento\Catalog\Block\Widget\RecentlyViewed" name="recently_viewed" template="Magento_Catalog::product/widget/viewed/grid.phtml">
                     <arguments>
                         <argument name="uiComponent" xsi:type="string">widget_recently_viewed</argument>
@@ -68,6 +35,7 @@
                         <argument name="show_attributes" xsi:type="string">name,image,price,learn_more</argument>
                     </arguments>
                 </block>
+
                 <block class="Magento\Cms\Block\Block" name="offers.of.this.week.2">
                     <arguments>
                         <argument name="block_id" xsi:type="string">offers_of_the_week_2</argument>
