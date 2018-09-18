@@ -10,5 +10,7 @@
               <argument name="view_model" xsi:type="object">Dyode\Core\ViewModel\Emi</argument>
             </arguments>
 	    </referenceBlock>
+      <referenceBlock name="catalog.compare.sidebar" remove="true" />
+      <referenceBlock name="sidebar.additional" remove="true" />
     </body>
 </page>
