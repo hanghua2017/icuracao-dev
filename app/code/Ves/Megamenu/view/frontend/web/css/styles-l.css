@@ -3323,7 +3323,15 @@ print {
     display: block !important;
   }
   .nav-sections-item-content > .hamburger-desktop{
-    display:none !important;
+    display:block !important;
+  }
+  .nav-sections-item-content > .ves-megamenu{
+    margin-bottom: 0;
+  }
+  .nav-sections-item-content > .ves-megamenu::after{
+    clear:both;
+    display: table;
+    content:'';
   }
 }
 
