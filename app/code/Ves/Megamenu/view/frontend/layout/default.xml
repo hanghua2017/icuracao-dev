@@ -46,7 +46,7 @@
 		<referenceBlock name="store.menu">
 			<container name="hamburger.desktop" htmlClass="hamburger-desktop" htmlTag="div">
 				<block class="Ves\Megamenu\Block\Menu" name="hamburger.icon" template="Ves_Megamenu::desktop-hamburger-icon.phtml"/>
-				<block class="Ves\Megamenu\Block\Menu" name="hamburger.sidebar" after="hamburger.icon" template="Ves_Megamenu::desktop-hamburger-sidebar.phtml"/>
+				<block class="Ves\Megamenu\Block\StoreManager" name="hamburger.sidebar" after="hamburger.icon" template="Ves_Megamenu::desktop-hamburger-sidebar.phtml"/>
 			</container>
 			<block class="Ves\Megamenu\Block\Menu" name="catalog.topnav" after="hamburger.sidebar" template="Ves_Megamenu::topmenu.phtml">
 				<arguments>
