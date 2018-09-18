@@ -85,12 +85,16 @@ input, select {
               border: none;
               margin-top: 49px;
               border-top: 1px solid @desc-border;
-              padding: 15px 0;
+              padding: 15px;
               font-family: 'iCuracao-Regular';
               @media all and (max-width: 767px) {
                 margin-top: 0;
-                padding: 0;
                 border-bottom: 1px solid @desc-border;
+              }
+              .table-wrapper{
+                &:last-child{
+                  border-bottom: none !important;
+                }
               }
               .product.description {
                 .value {
@@ -227,6 +231,13 @@ input, select {
               float: right;
               margin-top: -5px;
               margin-bottom: 10px;
+              @media all and (max-width:901px){
+                padding-right:20px;
+                margin-bottom: 0;
+              }
+              @media all and (max-width:478px){
+                padding-right:10px;
+              }
             }
 
             //Product price block
@@ -236,7 +247,7 @@ input, select {
               border-top: 1px solid @content-light-grey;
               border-bottom: 1px solid @content-light-grey;
               float: left;
-              padding: 30px 0;
+              padding: 15px 0;
               margin: 0;
               @media all and (max-width: 990px) {
                 padding: 10px 0;
@@ -254,6 +265,13 @@ input, select {
               .price-box.price-final_price {
                 width: 100%;
                 display: inline-block;
+                padding:0;
+                @media all and (max-width:901px){
+                  padding-left: 20px;
+                }
+                @media all and (max-width:478px){
+                  padding-left: 10px;
+                }
                 .prod-price, .credit-card-desc {
                   clear: both;
                   width: 100%;
@@ -265,19 +283,12 @@ input, select {
                 }
                 //Styling for product price section
                   span {
-                    //Styling for orginal price (cut price if any special offer price added)
+                    //Styling for original price (cut price if any special offer price added)
                     &.old-price {
-                      @media all and (max-width: 901px) {
-                        padding-left: 20px;
-                      }
-                      @media all and (max-width: 767px) {
-                        padding-left: 0;
-                      }
                       .price-container {
                           .price-label {
                             font-size: @org-price;
                             font-family: 'iCuracao-Light';
-
                             @media all and (min-width: 768px) {
                               line-height: 36px;
                             }
@@ -285,7 +296,7 @@ input, select {
                               font-size: 14px;
                             }
                           }
-                          .product-wrapper {
+                          .price-wrapper  {
                             margin-right: 25px;
                             margin-left: 5px;
                             font-family: 'iCuracao-Regular';
@@ -468,6 +479,27 @@ input, select {
                 padding-top: 0;
               }
               #product_addtocart_form {
+                .swatch-opt{
+                  margin:0 0 20px 0 !important;
+                  .swatch-attribute{
+                    &.size{
+                      .swatch-attribute-options{
+                        .swatch-option{
+                          &.text{
+                            box-sizing: content-box;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                .field{
+                  .label{
+                    span{
+
+                    }
+                  }
+                }
                 .box-tocart {
 
                   //product spec above the add to cart buttons
@@ -1688,12 +1720,14 @@ input, select {
 }
 //styling for credit card button section
 .credit-card-desc {
-  padding-top: 25px;
+  padding-top:15px;
   display: inline-block;
   clear: both;
-  @media all and (max-width: 990px) {
-    padding-top: 10px;
-    padding-left: 10px;
+  @media all and (max-width: 901px) {
+    padding: 10px 0 0 20px;
+  }
+  @media all and (max-width: 478px){
+    padding:10px 0 0 10px;
   }
   p.credit-desc {
     line-height: 20px;
@@ -1739,4 +1773,8 @@ input, select {
       font-size: 13px;
     }
   }
+}
+//styling the swatch tooltip
+.swatch-option-tooltip{
+  display:none !important;
 }
