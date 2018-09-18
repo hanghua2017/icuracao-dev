@@ -1,6 +1,6 @@
 <?php
 /**
- * Quinoid_HomepageBanner extension
+ * Dyode_Pricebeat extension
  *                     NOTICE OF LICENSE
  *
  *                     This source file is subject to the MIT License
@@ -8,25 +8,25 @@
  *                     It is also available through the world-wide-web at this URL:
  *                     http://opensource.org/licenses/mit-license.php
  *
- *                     @category  Quinoid
- *                     @package   Quinoid_HomepageBanner
+ *                     @category  Dyode
+ *                     @package   Dyode_Pricebeat
  *                     @copyright Copyright (c) 2017
  *                     @license   http://opensource.org/licenses/mit-license.php MIT License
  */
 namespace Dyode\Pricebeat\Model;
 
 /**
- * @method Video setTitle($title)
- * @method Video setVideofile($videofile)
- * @method Video setVideothumbnail($videothumbnail)
- * @method Video setStatus($status)
+ * @method Form setTitle($title)
+ * @method Form setFormfile($formfile)
+ * @method Form setFormthumbnail($formthumbnail)
+ * @method Form setStatus($status)
  * @method mixed getTitle()
- * @method mixed getVideofile()
- * @method mixed getVideothumbnail()
+ * @method mixed getFormfile()
+ * @method mixed getFormthumbnail()
  * @method mixed getStatus()
- * @method Video setCreatedAt(\string $createdAt)
+ * @method Form setCreatedAt(\string $createdAt)
  * @method string getCreatedAt()
- * @method Video setUpdatedAt(\string $updatedAt)
+ * @method Form setUpdatedAt(\string $updatedAt)
  * @method string getUpdatedAt()
  */
 class Form extends \Magento\Framework\Model\AbstractModel

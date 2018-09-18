@@ -102,20 +102,20 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                 'Product Image Url'
             )
 
-            ->addColumn(
-                'imagethumbnail',
-                \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-                255,
-                [],
-                'Image Thumbnail'
-            )
-            ->addColumn(
-                'show_in_frontend',
-                \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-                1,
-                ['nullable => false'],
-                'form Show in Frontend'
-            )
+            // ->addColumn(
+            //     'imagethumbnail',
+            //     \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            //     255,
+            //     [],
+            //     'Image Thumbnail'
+            // )
+            // ->addColumn(
+            //     'show_in_frontend',
+            //     \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+            //     1,
+            //     ['nullable => false'],
+            //     'form Show in Frontend'
+            // )
             ->addColumn(
                 'status',
                 \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
@@ -137,17 +137,17 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                 [],
                 ' Updated At'
             )
-            ->setComment('Video Table');
+            ->setComment('Form Table');
             $installer->getConnection()->createTable($table);
 
             $installer->getConnection()->addIndex(
                 $installer->getTable('dyode_pricebeat_form'),
                 $setup->getIdxName(
                     $installer->getTable('dyode_pricebeat_form'),
-                    ['firstname','lastname','email','phonenumber','account_number','product_url','imagethumbnail'],
+                    ['first_name','last_name','email','phonenumber','account_number','product_url','product_image_url'],
                     \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
                 ),
-                ['firstname','lastname','email','phonenumber','account_number','product_url','imagethumbnail'],
+                ['first_name','last_name','email','phonenumber','account_number','product_url','product_image_url'],
                 \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
             );
         }

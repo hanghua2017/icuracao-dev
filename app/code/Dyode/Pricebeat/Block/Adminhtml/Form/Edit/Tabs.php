@@ -13,7 +13,7 @@
  *                     @copyright Copyright (c) 2017
  *                     @license   http://opensource.org/licenses/mit-license.php MIT License
  */
-namespace Dyode\Pricebeat\Block\Adminhtml\Video\Edit;
+namespace Dyode\Pricebeat\Block\Adminhtml\Form\Edit;
 
 /**
  * @method Tabs setTitle(\string $title)

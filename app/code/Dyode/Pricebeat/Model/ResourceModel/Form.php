@@ -51,28 +51,28 @@ class Form extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     }
 
     /**
-     * Retrieves Video Title from DB by passed id.
+     * Retrieves Form Title from DB by passed id.
      *
      * @param string $id
      * @return string|bool
      */
-    public function getVideoTitleById($id)
+    public function getFormTitleById($id)
     {
         $adapter = $this->getConnection();
         $select = $adapter->select()
-            ->from($this->getMainTable(), 'title')
+            ->from($this->getMainTable(), 'first_name')
             ->where('form_id = :form_id');
         $binds = ['form_id' => (int)$id];
         return $adapter->fetchOne($select, $binds);
     }
 
     /**
-     * Retrieves Video thumbnail path and file path from DB by passed id whose status is enabled.
+     * Retrieves Form thumbnail path and file path from DB by passed id whose status is enabled.
      *
      * @param string $id
      * @return string|bool
      */
-    public function getVideoDataById($id)
+    public function getFormDataById($id)
     {
         $adapter = $this->getConnection();
         $fields = array('first_name','last_name','email','phonenumber','account_number','invoice_number','product_url',  'product_image_url','imagethumbnail','redirect_url');
@@ -84,11 +84,11 @@ class Form extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     }
 
     /**
-     * Retrieves Video Options i.e. video_id & title from DB by passed id whose status is enabled.
+     * Retrieves Form Options i.e. form_id & title from DB by passed id whose status is enabled.
      *
      * @return string|bool
      */
-    public function getVideoOptions()
+    public function getFormOptions()
     {
         $adapter = $this->getConnection();
         $fields = array('form_id', 'title');
@@ -99,11 +99,11 @@ class Form extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     }
 
     /**
-     * Retrieves Video Options i.e. video_id & title from DB by passed id whose status is enabled.
+     * Retrieves Form Options i.e. form_id & title from DB by passed id whose status is enabled.
      *
      * @return string|bool
      */
-    public function getAllVideos()
+    public function getAllForms()
     {
         $adapter = $this->getConnection();
         $fields = array('form_id','first_name','last_name','email','phonenumber','account_number','invoice_number','product_url', 'redirect_url','show_in_frontend','imagethumbnail','product_image_url');
@@ -116,7 +116,7 @@ class Form extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     /**
      * before save callback
      *
-     * @param \Magento\Framework\Model\AbstractModel|\Dyode\Pricebeat\Model\Video $object
+     * @param \Magento\Framework\Model\AbstractModel|\Dyode\Pricebeat\Model\Form $object
      * @return $this
      */
     protected function _beforeSave(\Magento\Framework\Model\AbstractModel $object)

@@ -52,8 +52,8 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
      */
     protected function _prepareForm()
     {
-        /** @var \Dyode\Pricebeat\Model\Form $video */
-        $video = $this->_coreRegistry->registry('dyode_pricebeat_form');
+        /** @var \Dyode\Pricebeat\Model\Form $form */
+        $form = $this->_coreRegistry->registry('dyode_pricebeat_form');
         $form = $this->_formFactory->create();
         $form->setHtmlIdPrefix('form_');
         $form->setFieldNameSuffix('form');
@@ -67,11 +67,11 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
         );
         $fieldset->addType('image', 'Dyode\Pricebeat\Block\Adminhtml\Form\Helper\Image');
         $fieldset->addType('file', 'Dyode\Pricebeat\Block\Adminhtml\Form\Helper\File');
-        if ($video->getId()) {
+        if ($form->getId()) {
             $fieldset->addField(
                 'form_id',
                 'hidden',
-                ['name' => 'video_id']
+                ['name' => 'form_id']
             );
         }
         $fieldset->addField(
@@ -204,15 +204,15 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
             )
 
         );
-        $videoData = $this->_session->getData('Dyode_homepagebanner_video_data', true);
-        if ($videoData) {
-            $video->addData($videoData);
+        $formData = $this->_session->getData('Dyode_pricebeat_form_data', true);
+        if ($formData) {
+            $form->addData($formData);
         } else {
-            if (!$video->getId()) {
-                $video->addData($video->getDefaultValues());
+            if (!$form->getId()) {
+                $form->addData($form->getDefaultValues());
             }
         }
-        $form->addValues($video->getData());
+        $form->addValues($form->getData());
         $this->setForm($form);
         return parent::_prepareForm();
     }

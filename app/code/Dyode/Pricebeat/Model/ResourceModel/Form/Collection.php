@@ -66,7 +66,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
      * @param array $additional
      * @return array
      */
-    protected function _toOptionArray($valueField = 'form_id', $labelField = 'title', $additional = [])
+    protected function _toOptionArray($valueField = 'form_id', $labelField = 'Form ID', $additional = [])
     {
         return parent::_toOptionArray($valueField, $labelField, $additional);
     }
