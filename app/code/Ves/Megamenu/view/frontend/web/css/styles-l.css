@@ -1,3 +1,6 @@
+body{
+  font-family: "iCuracao-Regular";
+}
 .no-background .navigation {
   background: none !important;
 }
@@ -3333,10 +3336,44 @@ print {
     display: table;
     content:'';
   }
+  .nav-sections-item-content > .store-view-container{
+    display:none !important;
+  }
 }
 
 @media all and (min-width:1025px){
-  .nav-sections-item-content > .hamburger-desktop{
+  .nav-sections-item-content > .hamburger-desktop,.nav-sections-item-content > .store-view-container{
     display:block !important;
+  }
+  .nav-sections-item-content > .store-view-container{
+    position: absolute;
+    top:108px;
+    right:20px;
+  }
+  .nav-sections-item-content > .store-view-container ul{
+    margin:0;
+    padding:0 0 0 20px;
+  }
+  .nav-sections-item-content > .store-view-container ul li{
+    display: inline-block;
+    padding:14px 10px;
+    margin-bottom: 0;
+  }
+  .nav-sections-item-content > .store-view-container ul li.language-switcher{
+      border-right: 1px solid rgba(255,255,255,0.5);
+  }
+  .nav-sections-item-content > .store-view-container ul li a{
+    font-family: "iCuracao-Regular";
+    font-size:15px;
+    color:#fff;
+    text-decoration: none;
+  }
+  .nav-sections-item-content > .store-view-container ul li a:hover{
+    text-decoration: none;
+  }
+  .nav-sections-item-content > .store-view-container ul li a img{
+    width:15px;
+    height:15px;
+    margin-right: 5px;
   }
 }

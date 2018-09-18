@@ -53,6 +53,7 @@
 					<argument name="alias" xsi:type="string">top-menu</argument>
 				</arguments>
 			</block>
+			<block class="Ves\Megamenu\Block\Menu" name="store.view.container" template="Ves_Megamenu::store-view.phtml"/>
 		</referenceBlock>
 		<referenceContainer name="before.body.end">
 			<block class="Magento\Framework\View\Element\Template" name="magemenu.js" before="-" template="Ves_Megamenu::js.phtml" />
