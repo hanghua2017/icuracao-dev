@@ -1,8 +1,9 @@
 var config = {
-    "map": {
-        "*": {
-             dyodesearch : "Dyode_CatalogSearch/js/search",
+    "config": {
+        "mixins": {
+            "Magento_Search/form-mini": {
+                'Dyode_CategorySearch/js/search':true
+            }
         }
-    },
-    deps:["jquery"]       
+    }
 };
