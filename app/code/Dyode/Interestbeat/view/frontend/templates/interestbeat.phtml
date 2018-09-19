@@ -1,0 +1,86 @@
+<div class="wk-mp-design">
+	<fieldset class="fieldset info wk-mp-fieldset">
+		<legend class="legend">
+			<span>
+				<?php echo __('Interestbeat') ?>
+			</span>
+		</legend>
+		<form action="
+			<?php echo $block->getUrl('interestbeat/user/post', ['_secure' => $this->getRequest()->isSecure()]) ?>" enctype="multipart/form-data" method="post" id="quote-request" data-form="quote-request" data-mage-init='{"validation":{}}' data-hasrequired="
+			<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>">
+			<div class="field required">
+				<label class="label">
+					<?php echo __('First Name') ?>:
+				</label>
+				<div class="control">
+					<input type="text" id="first_name" name="first_name" title="First Name" class="input-text" class="input-text" data-validate="{required:true}"/>
+				</div>
+			</div>
+			<div class="field required">
+				<label class="label">
+					<?php echo __('Last Name') ?>:
+				</label>
+				<div class="control">
+					<input type="text" id="last_name" name="last_name" title="Last Name" class="input-text" class="input-text" data-validate="{required:true}"/>
+				</div>
+			</div>
+			<div class="field required">
+				<label class="label">
+					<?php echo __('Email Address') ?>:
+				</label>
+				<div class="control">
+					<input type="email" id="email" name="email" title="Email Address" class="input-text" class="input-text" class="input-text" class="input-text" class="input-text" data-validate="{required:true, 'validate-email':true}"/>
+				</div>
+			</div>
+			<div class="field required">
+				<label class="label">
+					<?php echo __('Phone Number') ?>:
+				</label>
+				<div class="control">
+					<input type="text" id="phonenumber" name="phonenumber" title="Phone Number" class="input-text" class="input-text" class="input-text" class="input-text" data-validate="{required:true, 'validate-number':true}"/>
+				</div>
+			</div>
+			<div class="field required">
+				<label class="label">
+					<?php echo __('Account Number') ?>:
+				</label>
+				<div class="control">
+					<input type="text" id="account_number" name="account_number" title="Account Number" class="input-text" class="input-text" class="input-text" class="input-text" data-validate="{required:true, 'validate-number':true}"/>
+				</div>
+			</div>
+			<div class="field required">
+				<label class="label">
+					<?php echo __('Invoice/Order Number') ?>:
+				</label>
+				<div class="control">
+					<input type="text" id="invoice_number" name="invoice_number" title="Invoice Number" class="input-text" class="input-text" class="input-text" class="input-text" data-validate="{required:true, 'validate-number':true}"/>
+				</div>
+			</div>
+			<label class="label">
+				<?php echo __('Product Url') ?>:
+			</label>
+			<div class="control">
+				<input type="text" id="product_url" name="product_url" title="Product Url" class="input-text" class="input-text" data-validate="{required:true}"/>
+			</div>
+			<?php echo __("Product image") ?>
+			<div class="control">
+				<input type="file" name="upload_file" class="input-text" class="input-text" data-validate="{required:true}"/>
+			</div>
+			<button class="button wk-mp-btn" title="
+				<?php echo __('Submit') ?>" type="submit" id="submit-btn">
+				<span>
+					<span>
+						<?php echo __('Submit') ?>
+					</span>
+				</span>
+			</button>
+		</form>
+	</fieldset>
+</div>
+<script type="text/x-magento-init">
+    {
+        "#quote-request": {
+            "validation": {}
+        }
+    }
+</script>
