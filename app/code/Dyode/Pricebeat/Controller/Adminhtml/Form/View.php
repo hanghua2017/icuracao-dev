@@ -73,26 +73,6 @@ class View extends \Dyode\Pricebeat\Controller\Adminhtml\Form
 *
 * @var \Magento\Framework\Registry
 */
-// protected $_coreRegistry = null;
-
-// public function __construct(
-// \Magento\Backend\Model\Session $backendSession,
-// \Magento\Framework\View\Result\PageFactory $resultPageFactory,
-// \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
-// \Dyode\Pricebeat\Model\FormFactory $formFactory,
-// \Magento\Framework\Registry $registry,
-// \Magento\Backend\Model\View\Result\RedirectFactory $resultRedirectFactory,
-// \Magento\Backend\App\Action\Context $context
-//
-// )
-// {
-// $this->backendSession = $backendSession;
-// $this->resultPageFactory = $resultPageFactory;
-// $this->resultJsonFactory = $resultJsonFactory;
-// $this->_coreRegistry = $registry;
-// parent::__construct($formFactory, $registry, $resultRedirectFactory, $context);
-// }
-
     /**
      * is action allowed
      *
@@ -102,15 +82,10 @@ class View extends \Dyode\Pricebeat\Controller\Adminhtml\Form
     {
         return $this->_authorization->isAllowed('Dyode_Pricebeat::form');
     }
-
-
-
-
-
     public function execute() {
         $id = $this->getRequest()->getParam('form_id');
         $model = $this->_objectManager->create('Dyode\Pricebeat\Model\Form');
-        
+
         if($id){
         $model->load($id);
         if(!$model->getId()){
@@ -119,7 +94,6 @@ class View extends \Dyode\Pricebeat\Controller\Adminhtml\Form
         return $resultRedirect->setPath('dyode_pricebeat*/*/view');
         }
         }
-
         $data = $this->_objectManager->get('Magento\Backend\Model\Session')->getFormData(true);
         if (!empty($data)) {
         $model->setData($data);

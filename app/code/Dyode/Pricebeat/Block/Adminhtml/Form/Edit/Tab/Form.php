@@ -41,7 +41,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
     {
         /** @var \Quinoid\HomepageBanner\Model\Video $video */
         $model = $this->_coreRegistry->registry('dyode_dyode_form_data');
-        
+
         $form = $this->_formFactory->create();
         $form->setHtmlIdPrefix('form_');
         $form->setFieldNameSuffix('form');
@@ -113,14 +113,14 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
           'label' => 'Url',
           ]
           );
-          $fieldset->addField(
-          'product_image_url',
-          'label', [
-          'name' => 'product_image_url',
-          'label' => 'image',
-          ]
-          );
-        
+          // $fieldset->addField(
+          // 'product_image_url',
+          // 'label', [
+          // 'name' => 'product_image_url',
+          // 'label' => 'Image',
+          // ]
+          // );
+
         $form->setValues($model->getData());
         $this->setForm($form);
 

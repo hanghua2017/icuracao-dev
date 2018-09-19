@@ -12,22 +12,18 @@ use Magento\Framework\App\Request\Http;
 use \Dyode\Pricebeat\Model\Upload;
 use \Magento\Framework\Filesystem;
 use \Magento\MediaStorage\Model\File\UploaderFactory;
-
 use \Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use \Magento\Customer\Model\Session;
 
 class Post extends Action
-{
+  {
     protected $_modelFormFactory;
     protected $resultPageFactory;
     protected $_sessionManager;
     protected  $fileUploaderFactory;
     protected  $filesystem;
-
     protected $customerSession;
-
-
     public function __construct(
       Context $context,
       FormFactory $modelFormFactory,
@@ -35,8 +31,6 @@ class Post extends Action
       SessionManagerInterface $sessionManager,
       Filesystem $fileSystem,
       Session $customerSession
-
-
       )
     {
         $this->resultPageFactory = $pageFactory;
@@ -46,16 +40,13 @@ class Post extends Action
         $this->customerSession = $customerSession;
         parent::__construct($context);
     }
-
     public function execute()
     {
         $this->validatedParams();
         $this->getFormData();
         //page redirecting
         $this->_redirect('pricebeat');
-        
     }
-
     private function validatedParams()
     {
         $request = $this->getRequest();

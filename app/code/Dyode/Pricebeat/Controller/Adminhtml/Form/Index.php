@@ -65,13 +65,5 @@ class Index extends \Magento\Backend\App\Action
         return $this;
     }
 
-    // /**
-    //  * Check Permission.
-    //  *
-    //  * @return bool
-    //  */
-    // protected function _isAllowed()
-    // {
-    //     return $this->_authorization->isAllowed('dyode_pricebeat::form');
-    // }
+  
 }

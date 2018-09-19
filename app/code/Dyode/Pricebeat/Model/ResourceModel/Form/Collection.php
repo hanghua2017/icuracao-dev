@@ -10,6 +10,7 @@
  *
  *                     @category  Pricebeat
  *                     @package   Dyode_Pricebeat
+ *                     @author    Nismath V I
  *                     @copyright Copyright (c) 2017
  *                     @license   http://opensource.org/licenses/mit-license.php MIT License
  */
