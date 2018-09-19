@@ -143,14 +143,14 @@
                     </item>
                 </argument>
             </action>
-            <action name="edit">
+            <action name="view">
                 <argument name="data" xsi:type="array">
                     <item name="config" xsi:type="array">
-                        <item name="type" xsi:type="string">edit</item>
-                        <item name="label" xsi:type="string" translate="true">Edit</item>
+                        <item name="type" xsi:type="string">view</item>
+                        <item name="label" xsi:type="string" translate="true">View</item>
                         <item name="callback" xsi:type="array">
                             <item name="provider" xsi:type="string">dyode_pricebeat_form_listing.dyode_pricebeat_form_listing.dyode_pricebeat_form_columns_editor</item>
-                            <item name="target" xsi:type="string">editSelected</item>
+                            <item name="target" xsi:type="string">viewSelected</item>
                         </item>
                     </item>
                 </argument>
@@ -187,7 +187,7 @@
                 <item name="childDefaults" xsi:type="array">
                     <item name="fieldAction" xsi:type="array">
                         <item name="provider" xsi:type="string">dyode_pricebeat_form_listing.dyode_pricebeat_form_listing.dyode_pricebeat_form_columns_editor</item>
-                        <item name="target" xsi:type="string">startEdit</item>
+                        <item name="target" xsi:type="string">startView</item>
                         <item name="params" xsi:type="array">
                             <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
                             <item name="1" xsi:type="boolean">true</item>
@@ -247,7 +247,22 @@
                 </item>
             </argument>
         </column>
-        <column name="status">
+
+        <!-- image -->
+        <!-- <column name="image" class="Dyode\Pricebeat\Ui\Component\Listing\Column\Image">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/thumbnail</item>
+                    <item name="add_field" xsi:type="boolean">true</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                    <item name="altField" xsi:type="string">name</item>
+                    <item name="has_preview" xsi:type="string">1</item>
+                    <item name="label" xsi:type="string" translate="true">Image</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+            </argument>
+        </column> -->
+        <!-- <column name="status">
             <argument name="data" xsi:type="array">
                 <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
                 <item name="config" xsi:type="array">
@@ -263,7 +278,7 @@
                     <item name="dataType" xsi:type="string">select</item>
                 </item>
             </argument>
-        </column>
+        </column> -->
         <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">

@@ -22,7 +22,7 @@ class formActions extends \Magento\Ui\Component\Listing\Columns\Column
      *
      * @var string
      */
-    const URL_PATH_EDIT = 'dyode_pricebeat/form/edit';
+    const URL_PATH_EDIT = 'dyode_pricebeat/form/view';
 
     /**
      * Url path  to delete
@@ -72,14 +72,14 @@ class formActions extends \Magento\Ui\Component\Listing\Columns\Column
             foreach ($dataSource['data']['items'] as & $item) {
                 if (isset($item['form_id'])) {
                     $item[$this->getData('name')] = [
-                        'edit' => [
+                        'view' => [
                             'href' => $this->urlBuilder->getUrl(
                                 static::URL_PATH_EDIT,
                                 [
                                     'form_id' => $item['form_id']
                                 ]
                             ),
-                            'label' => __('Edit')
+                            'label' => __('View')
                         ],
                         'delete' => [
                             'href' => $this->urlBuilder->getUrl(

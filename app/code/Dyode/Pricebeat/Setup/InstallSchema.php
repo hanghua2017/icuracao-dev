@@ -89,34 +89,18 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
             )
             ->addColumn(
                 'product_url',
-                \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-                1,
+                \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                255,
                 ['nullable => false'],
                 'Product Url'
             )
             ->addColumn(
                 'product_image_url',
-                \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-                1,
-                ['nullable => false'],
+                \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                255,
+                [],
                 'Product Image Url'
-            )
-
-            // ->addColumn(
-            //     'imagethumbnail',
-            //     \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-            //     255,
-            //     [],
-            //     'Image Thumbnail'
-            // )
-            // ->addColumn(
-            //     'show_in_frontend',
-            //     \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-            //     1,
-            //     ['nullable => false'],
-            //     'form Show in Frontend'
-            // )
-            ->addColumn(
+            )->addColumn(
                 'status',
                 \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
                 1,
@@ -144,10 +128,10 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                 $installer->getTable('dyode_pricebeat_form'),
                 $setup->getIdxName(
                     $installer->getTable('dyode_pricebeat_form'),
-                    ['first_name','last_name','email','phonenumber','account_number','product_url','product_image_url'],
+                    ['first_name','last_name','email','account_number','product_url','product_image_url'],
                     \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
                 ),
-                ['first_name','last_name','email','phonenumber','account_number','product_url','product_image_url'],
+                ['first_name','last_name','email','account_number','product_url','product_image_url'],
                 \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
             );
         }

@@ -51,9 +51,9 @@ class Post extends Action
     {
         $this->validatedParams();
         $this->getFormData();
-
-        echo "hello from the controller";
-        exit();
+        $this->_redirect('pricebeat');
+        // echo "hello from the controller";
+        // exit();
     }
 
     private function validatedParams()
