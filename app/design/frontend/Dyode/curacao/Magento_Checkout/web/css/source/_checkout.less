@@ -8,6 +8,11 @@
 @button-dark:#333;
 @off-white:#f4f4f4;
 @light-gray-text:#8f8f8f;
+@light-gray-border:#9f9f9f;
+@curacao-gray-text:#b6b6b6;
+@curacao-red-text:#d7102b;
+@emi-alert-background:#fbf5d7;
+@emi-border-color:#f16721;
 //Checkout page 1 with form
 .checkout-index-index{
   .sections{
@@ -508,7 +513,7 @@
                 }
                 .product-price{
                   font-size:16px;
-                  color:#d7102b;
+                  color:@curacao-red-text;
                   margin-bottom:10px;
                 }
               }
@@ -790,7 +795,7 @@
                     margin-bottom: 15px;
                   }
                   .curacao-credit-fieldset{
-                    border: 1px solid @light-gray-text;
+                    border: 1px solid @light-gray-border;
                     border-radius: 8px;
                     margin: 0 10px;
                     width: 85%;
@@ -868,6 +873,160 @@
                       }
                       a{
                         color:@theme-color;
+                      }
+                    }
+                  }
+                }
+                .creditlimit{
+                  h2{
+                    font-size:18px;
+                    color:@black;
+                    font-weight:700;
+                    margin-bottom: 15px;
+                  }
+                  .curacao-account-info{
+                    .curacao-details{
+                      border: 1px solid @light-gray-border;
+                      padding: 20px 15px;
+                      border-radius: 5px;
+                      margin: 0 10px 20px 10px;
+                      @media all and (max-width:991px){
+                        margin:0 0 20px 0;
+                      }
+                      &:after{
+                        display: table;
+                        content:'';
+                        clear: both;
+                      }
+                      .curacao-checkbox{
+                        float: left;
+                        margin-right: 15px;
+                        @media all and (max-width:991px){
+                          margin-right:10px;
+                        }
+                        input[type="checkbox"]{
+                          display: none;
+                          + .checkbox-label{
+                            &:before{
+                              content: '';
+                              display: inline-block;
+                              position: relative;
+                              top: 1px;
+                              margin-right: 10px;
+                              vertical-align: top;
+                              cursor: pointer;
+                              text-align: center;
+                              width:15px;
+                              height: 15px;
+                              border:1px solid @theme-color;
+                              transition: all 0.2s;
+                            }
+                          }
+                          &:checked{
+                            + .checkbox-label{
+                              &:before{
+                                width:20px;
+                                height: 20px;
+                                border:none;
+                                background-image:url("../images/custom-checkbox-image.png");
+                                background-repeat: no-repeat;
+                                transition: all 0.2s;
+                              }
+                            }
+                          }
+                        }
+                      }
+                      .curacao-id,.curacao-limit{
+                        float: left;
+                        .label{
+                          float: left;
+                        }
+                        .seller_content{
+                          float: left;
+                          margin-left:5px;
+                        }
+                      }
+                      .curacao-id{
+                        font-family: "iCuracao-Medium";
+                        font-size: 14px;
+                        color:@black;
+                        padding-right:50px;
+                        @media all and (max-width:991px){
+                          width:70%;
+                          padding-right: 0;
+                          margin-bottom: 5px;
+                        }
+                        @media all and (max-width: 479px){
+                          font-size:12px;
+                          margin-top:3px;
+                        }
+                      }
+                      .curacao-limit{
+                        @media all and (max-width: 991px){
+                          padding-left:30px;
+                        }
+                        @media all and (max-width:340px){
+                          padding-left: 0;
+                        }
+                        .label{
+                          font-family: "iCuracao-Regular";
+                          font-size:14px;
+                          color:@curacao-gray-text;
+                          @media all and (max-width: 479px){
+                            font-size:12px;
+                          }
+                        }
+                        .seller_content{
+                          font-family: "iCuracao-Medium";
+                          font-size:14px;
+                          color:@curacao-red-text;
+                          @media all and (max-width: 479px){
+                            font-size:12px;
+                          }
+                        }
+                      }
+                    }
+                  }
+                  .downpayment{
+                    background:@emi-alert-background;
+                    border:1px solid @emi-border-color;
+                    padding: 20px 15px;
+                    margin: 0 10px;
+                    @media all and (max-width:991px){
+                      margin:0;
+                    }
+                    &:after{
+                      display: table;
+                      content: '';
+                      clear: both;
+                    }
+                    .initial-payment{
+                      display: flex;
+                      margin-bottom: 3px;
+                      .label{
+                        font-family: "iCuracao-Medium";
+                        font-size:12px;
+                        color:@black;
+                        @media all and (max-width: 479px){
+                          font-size:11px;
+                        }
+                      }
+                      .seller_content{
+                        font-family: "iCuracao-Medium";
+                        font-size:12px;
+                        margin-left: 3px;
+                        color:@curacao-red-text;
+                        @media all and (max-width: 479px){
+                          font-size:11px;
+                        }
+                      }
+                    }
+                    .label-alert{
+                      font-family: "iCuracao-Regular";
+                      font-size:12px;
+                      color:@black;
+                      @media all and (max-width: 479px){
+                        font-size:11px;
                       }
                     }
                   }
