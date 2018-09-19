@@ -13,10 +13,12 @@
 
     .items {
       .item {
+        font-family: 'iCuracao-Light';
         font-size: 14px;
         color: #000;
 
         a {
+          font-family: 'iCuracao-Light';
           font-size: 14px;
           color: #000;
 
@@ -24,7 +26,12 @@
           &:hover,
           &:visited {
             color: #000;
+            text-decoration: none;
           }
+        }
+
+        strong {
+          font-family: 'iCuracao-Regular';
         }
 
         &:after {
@@ -153,6 +160,9 @@
 
         .filter-options-item {
           border-bottom: 1px solid rgba(197, 197, 197, 0.1);
+          // more than six items , scroll will appear
+          max-height: 270px;
+          overflow-y: auto;
         }
 
         .block-title {
@@ -195,10 +205,11 @@
           }
 
           .block-subtitle {
+            font-family: 'iCuracao-Medium';
+            font-weight: normal;
             font-size: 20px;
             color: #333333;
             margin-bottom: 0;
-            font-weight: 600;
             border: 1px solid rgba(197, 197, 197, 0.21);
             border-top: none;
             border-left: none;
@@ -220,6 +231,8 @@
             .filter-options-title {
               font-size: 15px;
               color: #333333;
+              font-family: 'iCuracao-Medium';
+              font-weight: normal;
 
               &:after {
                 @media all and (min-width:768px) {
@@ -231,6 +244,12 @@
             .filter-options-content {
               @media all and (min-width: 768px) {
                 display: block !important;
+              }
+
+              ol {
+                list-style: none;
+                padding-left: 0;
+                margin-bottom: 10px;
               }
             }
 
@@ -245,6 +264,9 @@
                   margin-right: 0;
                   padding-left: 0;
                   padding-right: 0;
+                  @media all and (max-width: 990px) {
+                    font-size: 12px;
+                  }
                 }
 
                 .input-container {
@@ -264,6 +286,8 @@
                   position: relative;
                   cursor: pointer;
                   transition: all 0.2s;
+                  font-family: 'iCuracao-Light';
+                  font-size: 14px;
 
                   span {
                     color: #666666;
@@ -306,7 +330,7 @@
                       content: '';
                       display: block;
                       position: absolute;
-                      top: 3px;
+                      top: 1px;
                       left: 5px;
                       width: 3px;
                       height: 9px;
@@ -333,10 +357,45 @@
                     min-width: 10px;
                     height: 10px;
                     margin: 0 5px 5px 0;
+
+                    &.selected {
+                      outline: 0;
+                    }
                   }
                 }
 
-                label[for="checkbox"] {
+                input[type="checkbox"]:checked {
+                  +label {
+                    color: #ff4200;
+                    transition: all 0.2s;
+
+                    span {
+                      color: #ff4200;
+                      transition: all 0.2s;
+                    }
+
+                    &:before {
+                      border: 1px solid #ff4200;
+                      transition: all 0.2s;
+                    }
+
+                    &:after {
+                      content: '';
+                      display: block;
+                      position: absolute;
+                      top: -7px;
+                      left: 5px;
+                      width: 3px;
+                      height: 9px;
+                      border: 1.5px solid #ff4200;
+                      border-width: 0 1.5px 1.5px 0;
+                      transform: rotate(45deg);
+                      transition: all 0.2s;
+                    }
+                  }
+                }
+
+                label.labelcheckbox {
                   font-size: 0;
                 }
 
@@ -372,7 +431,9 @@
             font-size: 20px;
             color: @gray-text;
             margin-bottom: 0;
-            font-weight: 600;
+            font-family: 'iCuracao-Regular';
+            font-weight: normal;
+            text-transform: capitalize;
             @media all and (max-width: 767px) {
               font-size: 18px;
             }
@@ -464,10 +525,12 @@
               }
 
               .mode-list:before {
+                font-family: 'iCuracao-Medium';
                 content: 'List' !important;
               }
 
               .mode-grid:before {
+                font-family: 'iCuracao-Medium';
                 content: 'Grid' !important;
               }
             }
@@ -488,7 +551,7 @@
               }
 
               label {
-                font-weight: 600;
+                font-family: 'iCuracao-Medium';
                 color: #000;
                 @media all and (max-width:767px) {
                   color: #888888;
@@ -566,6 +629,7 @@
                 background-size: 10px !important;
                 font-size: 14px;
                 color: rgba(158, 155, 155, 255);
+                font-family: 'iCuracao-Light';
                 @media all and (max-width:767px) {
                   display: none;
                 }
@@ -647,13 +711,15 @@
                   top: 10px;
                   border: 1px solid @orange-off;
                   background-color: @orange-off;
-                  z-index: -1;
+                  z-index: 8;
                   color: #fff;
                   padding: 5px;
                   font-size: 14px;
+                  font-family: 'iCuracao-Regular';
                   @media all and (max-width:767px) {
                     left: 20px;
                     top: 20px;
+                    z-index: -1;
                   }
                   @media all and (max-width:479px) {
                     font-size: 12px;
@@ -670,9 +736,9 @@
 
                     a {
                       font-size: 16px;
-                      font-weight: 600;
                       color: @gray-text;
                       margin-bottom: 20px;
+                      font-family: 'iCuracao-Medium';
                       @media all and (max-width:767px) {
                         font-size: 14px;
                       }
@@ -688,8 +754,9 @@
 
                     .price {
                       font-size: 18px;
-                      font-weight: 600;
                       color: @gray-text;
+                      font-family: 'iCuracao-Medium';
+                      font-weight: normal;
                       @media all and (max-width:767px) {
                         font-size: 15px;
                       }
@@ -705,8 +772,8 @@
                       .price {
                         font-size: 14px;
                         text-decoration: line-through;
-                        font-weight: 400;
                         color: #9b9b9b;
+                        font-family: 'iCuracao-Light';
                         @media all and (max-width:767px) {
                           font-size: 12px;
                         }
@@ -734,10 +801,11 @@
                 .items {
                   .item {
                     text-transform: uppercase;
+                    font-family: 'iCuracao-Light';
 
                     a {
                       color: #333;
-
+                        font-family: 'iCuracao-Light';
                       &.link {
                         color: #006bb4;
                         text-decoration: none !important;
@@ -784,7 +852,7 @@
               .product-image-container {
                 .product-image-wrapper {
                   @media all and (max-width:767px) {
-                    z-index: 0;
+                    //  z-index: 0;
                   }
 
                   .product-image-photo {
@@ -828,6 +896,12 @@
                 width: 125px !important;
                 box-sizing: border-box;
               }
+
+              .product-image-wrapper {
+                @media all and (max-width:767px) {
+                  z-index: 0;
+                }
+              }
             }
 
             .product-item-description {
@@ -837,15 +911,17 @@
                 display: none;
               }
 
-              .short-desc {
-                ul {
-                  padding-left: 20px;
+              ul {
+                font-size: 12px;
+                color: #666666;
+                list-style: disc;
+                padding-left: 15px;
 
-                  li {
-                    font-size: 14px;
-                    color: rgba(134, 133, 133, 255);
-                    list-style: disc;
-                  }
+                li {
+                  font-size: 12px;
+                  color: #666666;
+                  list-style: disc;
+                  margin-bottom: 0;
                 }
               }
             }
@@ -947,7 +1023,8 @@
 
         .emi-stat {
           color: #000;
-          font-weight: 600;
+          font-family: 'iCuracao-Medium';
+          font-weight: normal;
           font-size: 15px;
           @media all and (max-width:767px) {
             font-size: 13px;

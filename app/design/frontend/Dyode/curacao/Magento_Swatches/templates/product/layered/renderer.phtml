@@ -15,8 +15,8 @@
     <div class="swatch-attribute-options clearfix">
         <?php foreach ($swatchData['options'] as $option => $label): ?>
       <div class="each-color">
-      <input type="checkbox" class="swatch-option-link-layered swatch-checkbox-<?php echo $option?>" aria-label="<?= /* @escapeNotVerified */ $label['label'] ?>" onclick='window.location.assign("<?php echo $label['link'] ?>")'/>
-      <label for="checkbox">clrname</label>
+      <input type="checkbox" id="<?= /* @escapeNotVerified */ $label['label'] ?>clr" class="swatch-option-link-layered swatch-checkbox-<?php echo $option?>" aria-label="<?= /* @escapeNotVerified */ $label['label'] ?>" onclick='window.location.assign("<?php echo $label['link'] ?>")'/>
+      <label for="<?= /* @escapeNotVerified */ $label['label'] ?>clr" class="labelcheckbox">clrname</label>
             <a href="<?= /* @escapeNotVerified */ $label['link'] ?>"
                aria-label="<?= /* @escapeNotVerified */ $label['label'] ?>"
                class="swatch-option-link-layered">
@@ -74,6 +74,7 @@
                     } ?>
                 <?php } ?>
             </a>
+
             <span class="clr-name"><?= /* @escapeNotVerified */ $label['label'] ?></span>
             </div>
         <?php endforeach; ?>
