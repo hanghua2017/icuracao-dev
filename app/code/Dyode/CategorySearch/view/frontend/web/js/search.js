@@ -1,32 +1,23 @@
-define(['jquery'], function(jQuery){
-    return function(originalWidget){
-        
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ */
+ define([
+    'jquery'
+], function (jQuery) {
+    return function (originalWidget) {
         jQuery.widget(
-            'mage.quickSearch',              //named widget we're redefining            
-
-            //jQuery.mage.dropdownDialog
-            jQuery['mage']['quickSearch'],   //widget definition to use as
-                                                //a "parent" definition -- in 
-                                                //this case the original widget
-                                                //definition, accessed using 
-                                                //bracket syntax instead of 
-                                                //dot syntax        
-
-            {                                   //the new methods
-                _create: function(){                    
-                    //our new code here
-                    console.log("I opened a dropdown!");
-
+            'mage.quickSearch',
+            jQuery['mage']['quickSearch'],
+            {
+                //overeriding core _create function
+                _create: function () {
                     //call parent open for original functionality
-                    this._super();  
-
-                    this.submitBtn.disabled = false;            
-
+                    this._super();
+                    //enable search submit button
+                    this.submitBtn.disabled = false;
                 }
-            });                                
-
-        //return the redefined widget for `data-mage-init`
-        //jQuery.mage.dropdownDialog
-	        return jQuery['mage']['quickSearch'];
-	    };
+            }
+        );
+        return jQuery['mage']['quickSearch'];
+    };
 });

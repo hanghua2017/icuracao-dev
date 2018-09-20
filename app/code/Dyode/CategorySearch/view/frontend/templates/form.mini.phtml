@@ -1,13 +1,10 @@
 <?php
 /**
- * Copyright © Magento, Inc. All rights reserved.
+ * Copyright © Dyode, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-
-// @codingStandardsIgnoreFile
 ?>
 <?php
-/** @var $block \Magento\Framework\View\Element\Template */
 /** @var $helper \Magento\Search\Helper\Data */
 $helper = $this->helper(\Magento\Search\Helper\Data::class);
 ?>
@@ -20,23 +17,20 @@ $helper = $this->helper(\Magento\Search\Helper\Data::class);
                     <span><?= /* @escapeNotVerified */ __('Search') ?></span>
                 </label>
                 <div class="control">
-
-                <label for="category_search_field">Search by Category:</label>
-                <select name="cat" id="category_search_field">
-                    <option value="">-- Any Category --</option>
-                    <?php foreach ($this->getStoreCategories() as $_category): ?>
-
-                    <?php if($_category->hasChildren()): ?>
-                          <!-- <option class="parent-cat" value="<?php echo $_category->getId(); ?>"><?php echo $_category->getName();?></option> -->
-                      <?php if($_category->getIsActive()) : ?>
-                                <option value="<?php echo $_category->getId(); ?>"<?php echo ($this->getRequest()->getQuery('cat') == $_category->getId() ? ' selected="selected"': "") ?>><?php echo $_category->getName(); ?></option>
-                    <?php endif; ?>
-                    <?php elseif($_category->getIsActive()): ?>
-                    <option value="<?php echo $_category->getId(); ?>"><?php echo $_category->getName();?></option>
-                    <?php endif; ?>
-                    <?php endforeach ?>
-
-                </select>
+                    <!-- begin category dropdown -->
+                    <select name="cat" id="category_search_field">
+                        <option value="">-- Any Category --</option>
+                        <?php foreach ($this->getStoreCategories() as $_category): ?>
+                        <?php if($_category->hasChildren()): ?>
+                          <?php if($_category->getIsActive()) : ?>
+                                    <option value="<?php echo __($_category->getId()); ?>"<?php echo ($this->getRequest()->getQuery('cat') == $_category->getId() ? ' selected="selected"': "") ?>><?php echo __($_category->getName()); ?></option>
+                        <?php endif; ?>
+                        <?php elseif($_category->getIsActive()): ?>
+                        <option value="<?php echo __($_category->getId()); ?>"><?php echo __($_category->getName());?></option>
+                        <?php endif; ?>
+                        <?php endforeach ?>
+                    </select>
+                    <!-- end category dropdown -->
                     <input id="search"
                            data-mage-init='{"quickSearch":{
                                 "formSelector":"#search_mini_form",
