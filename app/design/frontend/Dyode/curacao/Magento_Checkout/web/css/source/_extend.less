@@ -1,4 +1,4 @@
-@import "_typography.less";
+// @import "_typography.less";
 @theme-color: #82b800;
 @desc-border: #e8e8e8;
 @content-light-grey: #aeaeae;
@@ -217,8 +217,11 @@ input, select {
                     padding-top: 10px;
                     padding-bottom: 10px;
                     td {
+                      width: 18%;
+                      @media all and (max-width: 1199px) {
+
+                      }
                       @media all and (min-width: 768px) {
-                        width: 15%;
                         padding-left: 0;
                         padding-right: 0;
                       }
@@ -247,7 +250,7 @@ input, select {
                           }
                         }
                       }
-                      @media all and (max-width: 650px) {
+                      @media all and (max-width: 650px) {768px
                         &.price, &.subtotal {
                           width: 25%;
                         }
@@ -325,7 +328,7 @@ input, select {
                         }
                         .product-item-photo {
                           /*To regain the default styling, used max and min width*/
-                          @media all and (max-width: 991px) and (min-width: 768px) {
+                          @media all and (min-width: 768px) {
                             padding-right: 0;
                           }
                           @media all and (max-width: 767px) and (min-width: 480px) {
@@ -348,7 +351,16 @@ input, select {
                         }
                         .product-item-details {
                           padding-top: 15px;
+                          padding-left: 2%;
+                          padding-right: 1%;
+                          @media all and (max-width: 599px) {
+                            padding-top: 20px;
+                          }
                           .product-item-name {
+                            width: 85% !important;
+                            overflow: hidden;
+                            height: 40px;
+                            text-overflow: ellipsis;
                             a {
                               font-family: 'iCuracao-Medium';
                               font-size: 16px;
@@ -372,15 +384,25 @@ input, select {
                         /* Remove action button */
                         .product-name-action {
                           position: absolute;
-                          top: 0;
-                          right: 15px;
+                          top: 25px;
+                          right: 25px;
+                          @media all and (max-width: 991px) {
+                            right: 10px;
+                          }
+                          @media all and (max-width: 768px) {
+                            top: 10px;
+                            right: 30px;
+                          }
+                          @media all and (max-width: 599px) {
+                            right: 20px;
+                          }
                           .action-delete {
                             font-size: 20px;
                             &::before {
                               content: 'x';
                               color: @del-item;
                               font-family: 'iCuracao-Light';
-                              font-size: 20px;
+                              font-size: 22px;
                               padding: 0 5px;
                             }
                           }
@@ -392,7 +414,7 @@ input, select {
                       /* quantity box in table */
                       &.qty {
                         .field.qty {
-                          padding-top: 15px;
+                          padding-top: 30px;
                           padding-bottom: 0;
                           @media all and (max-width: 767px) {
                             padding: 22px 15px 0;
@@ -468,7 +490,7 @@ input, select {
                         }
                         .credit-desc {
                           position: relative;
-                          top: -25px;
+                          top: -45px;
                           margin: 0;
                           color: @content-light-grey;
                           font-size: 12px;
@@ -500,7 +522,7 @@ input, select {
                         }
                       }
                       .price-excluding-tax {
-                        padding: 30px 0;
+                        padding: 20px 0 50px;
                         @media all and (max-width: 767px) {
                           padding: 20px 0;
                         }
@@ -561,17 +583,12 @@ input, select {
                     }
                   }
                   .continue {
-                    span {
-                      background-image: url(../images/arrow_BW_left.png);
-                      background-position: left center;
-                      background-position-x: 10px;
-                      padding-left: 40px;
-                    }
                     display: block;
                     float: left;
                     background-color: @theme-color;
                     border-radius: 3px;
                     padding: 8px 20px 8px 5px;
+                    text-align: center;
                     &:hover {
                       text-decoration: none;
                     }
@@ -581,6 +598,12 @@ input, select {
                     }
                     @media all and (max-width: 478px) {
                       padding: 8px 0;
+                    }
+                    span {
+                      background-image: url(../images/arrow_BW_left.png);
+                      background-position: left center;
+                      background-position-x: 10px;
+                      padding-left: 40px;
                     }
                   }
                 }
