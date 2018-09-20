@@ -70,12 +70,13 @@ class Post extends Action
         if (trim($request->getParam('invoice_number')) === '') {
             throw new LocalizedException(__('Invoice Number is missing'));
         }
-        if (trim($request->getParam('product_url')) === '') {
-            throw new LocalizedException(__('product url Number is missing'));
+        // if (trim($request->getParam('product_url')) === '' && $_FILES['upload_file'] === ' ') {
+        //     throw new LocalizedException(__('Product url or image are missing'));
+        // }
+        if (trim($request->getParam('product_url')) === '' && trim($request->getParam('upload_file')) === ' ') {
+            throw new LocalizedException(__('Product url or image are missing'));
         }
-        if (trim($request->getParam('product_image_url')) !== '') {
-            throw new LocalizedException(__('image is missing'));
-        }
+
 
         //Add your more validations here
         return $request->getParams();
@@ -119,7 +120,7 @@ class Post extends Action
        $FormModel->setData('account_number', $data['account_number']);
        $FormModel->setData('invoice_number', $data['invoice_number']);
        $FormModel->setData('product_url', $data['product_url']);
-       $FormModel->setData('product_image_url', $data['product_image_url']);
+       // $FormModel->setData('product_image_url', $data['product_image_url']);
        $FormModel->setData('product_image_url', $data['upload_file']);
        $FormModel->setData('created_date', $date);
        $FormModel->setData('status', $data['status']);
@@ -127,7 +128,7 @@ class Post extends Action
        $FormModel->save();
 
        $this->_redirect('blog/index');
-       $this->messageManager->addSuccess(__('The Request been send.'));
+       // $this->messageManager->addSuccess(__('The Request been send.'));
     }
 
 

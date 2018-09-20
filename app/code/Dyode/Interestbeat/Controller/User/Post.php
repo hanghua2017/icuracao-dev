@@ -42,6 +42,8 @@ class Post extends Action
     }
     public function execute()
     {
+      // echo "hello from controller";
+      // exit();
         $this->validatedParams();
         $this->getFormData();
         //page redirecting
@@ -71,15 +73,10 @@ class Post extends Action
             throw new LocalizedException(__('Invoice Number is missing'));
         }
 
-
-        if (trim($request->getParam('product_url')) === ''&&trim($request->getParam('upload_file')) !== '') {
-            throw new LocalizedException(__('product url is missing'));
+        if (trim($request->getParam('product_url')) === '' && trim($request->getParam('upload_file')) === ' ') {
+            throw new LocalizedException(__('Product url or image are missing'));
         }
 
-      //   if (trim($request->getParam('upload_file')) !== '') {
-      //       throw new LocalizedException(__('image is missing'));
-      //
-      // }
         //Add your more validations here
         return $request->getParams();
     }
@@ -91,6 +88,8 @@ class Post extends Action
        $data               = $this->getRequest()->getPost();
        $filedata           = $this->getRequest()->getFiles('upload_file');
        $date               = date('Y-m-d h:i:sa');
+       // var_dump($data);
+       // exit();
            if ($_FILES['upload_file']['name']) {
                try {
                    $uploader = $this->_objectManager->create(
@@ -122,15 +121,15 @@ class Post extends Action
        $FormModel->setData('account_number', $data['account_number']);
        $FormModel->setData('invoice_number', $data['invoice_number']);
        $FormModel->setData('product_url', $data['product_url']);
-       $FormModel->setData('product_image_url', $data['product_image_url']);
+       // $FormModel->setData('product_image_url', $data['product_image_url']);
        $FormModel->setData('product_image_url', $data['upload_file']);
        $FormModel->setData('created_date', $date);
-       $FormModel->setData('status', $data['status']);
+
 
        $FormModel->save();
 
        // $this->_redirect('blog/index');
-       $this->messageManager->addSuccess(__('The Request has been send.'));
+       // $this->messageManager->addSuccess(__('The Request has been send.'));
     }
 
 
