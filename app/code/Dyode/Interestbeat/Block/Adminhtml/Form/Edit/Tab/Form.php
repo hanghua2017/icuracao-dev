@@ -113,13 +113,13 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
           'label' => 'Url',
           ]
           );
-          // $fieldset->addField(
-          // 'product_image_url',
-          // 'label', [
-          // 'name' => 'product_image_url',
-          // 'label' => 'Image',
-          // ]
-          // );
+          $fieldset->addField(
+          'product_image_url',
+          'label', [
+          'name' => 'product_image_url',
+          'label' => 'Image',
+          ]
+          );
 
         $form->setValues($model->getData());
         $this->setForm($form);

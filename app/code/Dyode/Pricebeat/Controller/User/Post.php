@@ -127,7 +127,7 @@ class Post extends Action
        $FormModel->save();
 
        $this->_redirect('blog/index');
-       $this->messageManager->addSuccess(__('The data has been saved.'));
+       $this->messageManager->addSuccess(__('The Request been send.'));
     }
 
 

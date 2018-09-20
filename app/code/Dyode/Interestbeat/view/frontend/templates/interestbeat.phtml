@@ -1,86 +1,60 @@
-<div class="wk-mp-design">
-	<fieldset class="fieldset info wk-mp-fieldset">
-		<legend class="legend">
-			<span>
-				<?php echo __('Interestbeat') ?>
-			</span>
-		</legend>
-		<form action="
-			<?php echo $block->getUrl('interestbeat/user/post', ['_secure' => $this->getRequest()->isSecure()]) ?>" enctype="multipart/form-data" method="post" id="quote-request" data-form="quote-request" data-mage-init='{"validation":{}}' data-hasrequired="
-			<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>">
-			<div class="field required">
-				<label class="label">
-					<?php echo __('First Name') ?>:
-				</label>
-				<div class="control">
-					<input type="text" id="first_name" name="first_name" title="First Name" class="input-text" class="input-text" data-validate="{required:true}"/>
-				</div>
-			</div>
-			<div class="field required">
-				<label class="label">
-					<?php echo __('Last Name') ?>:
-				</label>
-				<div class="control">
-					<input type="text" id="last_name" name="last_name" title="Last Name" class="input-text" class="input-text" data-validate="{required:true}"/>
-				</div>
-			</div>
-			<div class="field required">
-				<label class="label">
-					<?php echo __('Email Address') ?>:
-				</label>
-				<div class="control">
-					<input type="email" id="email" name="email" title="Email Address" class="input-text" class="input-text" class="input-text" class="input-text" class="input-text" data-validate="{required:true, 'validate-email':true}"/>
-				</div>
-			</div>
-			<div class="field required">
-				<label class="label">
-					<?php echo __('Phone Number') ?>:
-				</label>
-				<div class="control">
-					<input type="text" id="phonenumber" name="phonenumber" title="Phone Number" class="input-text" class="input-text" class="input-text" class="input-text" data-validate="{required:true, 'validate-number':true}"/>
-				</div>
-			</div>
-			<div class="field required">
-				<label class="label">
-					<?php echo __('Account Number') ?>:
-				</label>
-				<div class="control">
-					<input type="text" id="account_number" name="account_number" title="Account Number" class="input-text" class="input-text" class="input-text" class="input-text" data-validate="{required:true, 'validate-number':true}"/>
-				</div>
-			</div>
-			<div class="field required">
-				<label class="label">
-					<?php echo __('Invoice/Order Number') ?>:
-				</label>
-				<div class="control">
-					<input type="text" id="invoice_number" name="invoice_number" title="Invoice Number" class="input-text" class="input-text" class="input-text" class="input-text" data-validate="{required:true, 'validate-number':true}"/>
-				</div>
-			</div>
-			<label class="label">
-				<?php echo __('Product Url') ?>:
-			</label>
-			<div class="control">
-				<input type="text" id="product_url" name="product_url" title="Product Url" class="input-text" class="input-text" data-validate="{required:true}"/>
-			</div>
-			<?php echo __("Product image") ?>
-			<div class="control">
-				<input type="file" name="upload_file" class="input-text" class="input-text" data-validate="{required:true}"/>
-			</div>
-			<button class="button wk-mp-btn" title="
-				<?php echo __('Submit') ?>" type="submit" id="submit-btn">
-				<span>
-					<span>
-						<?php echo __('Submit') ?>
-					</span>
-				</span>
-			</button>
-		</form>
-	</fieldset>
-</div>
-<script type="text/x-magento-init">
-    {
-        "#quote-request": {
-            "validation": {}
-        }
-    }
-</script>
+<form class="form" action="<?= $block->getUrl('interestbeat/user/post',['_secure' => $this->getRequest()->isSecure()]) ?>);" method="post" enctype="multipart/form-data">
+    <fieldset class="fieldset">
+        <legend class="legend"><span><?php /* @escapeNotVerified */ echo __('Test Form') ?></span></legend><br>
+        <div class="field required">
+            <label for="number" class="label"><span><?php /* @escapeNotVerified */ echo __('First name') ?></span></label>
+            <div class="control">
+                <input type="text" id="first_name" name="first_name" class="input-text" required="true"/>
+            </div>
+        </div>
+        <div class="field required">
+            <label for="number" class="label"><span><?php /* @escapeNotVerified */ echo __('Last-Name') ?></span></label>
+            <div class="control">
+                <input type="text" id="last_name" name="last_name" class="input-text"/>
+            </div>
+        </div>
+        <div class="field required">
+            <label for="email" class="label"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></label>
+            <div class="control">
+                <input type="email" id="email" name="email" class="input-text"/>
+            </div>
+        </div>
+        <div class="field required">
+            <label for="phonenumber" class="label"><span><?php /* @escapeNotVerified */ echo __('Phone Number') ?></span></label>
+            <div class="control">
+                <input type="number" id="phonenumber" name="phonenumber" class="input-text"/>
+            </div>
+        </div>
+        <div class="field required">
+            <label for="accountnumber" class="label"><span><?php /* @escapeNotVerified */ echo __('Account Number') ?></span></label>
+            <div class="control">
+                <input type="number" id="account_number" name="account_number" class="input-text"/>
+            </div>
+        </div>
+        <div class="field required">
+            <label for="invoicenumber" class="label"><span><?php /* @escapeNotVerified */ echo __('Invoice Number') ?></span></label>
+            <div class="control">
+                <input type="number" id="invoice_number" name="invoice_number" class="input-text"/>
+            </div>
+        </div>
+
+
+            <label for="producklink" class="label"><span><?php /* @escapeNotVerified */ echo __('Product Link') ?></span></label>
+            <div class="control">
+                <input type="url" id="product_url" name="product_url" class="input-text"/>
+            </div>
+
+
+          <label for="productimage" class="label"><span><?php /* @escapeNotVerified */ echo __('Product image') ?></span></label>
+          <div class="control">
+            <input type="file" name="upload_file" class="input-text"/>
+          </div>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action submit primary" title="<?php /* @escapeNotVerified */ echo __('Submit') ?>">
+                <span><?php /* @escapeNotVerified */ echo __('Submit') ?></span>
+            </button>
+        </div>
+    </div>
+</form>
