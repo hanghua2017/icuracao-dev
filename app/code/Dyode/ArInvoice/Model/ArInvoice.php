@@ -8,7 +8,7 @@ namespace Dyode\ArInvoice\Model;
 use Dyode\ArInvoice\Helper\Data;
 use Magento\Sales\Model\Order;
 
-class OrderCollection extends \Magento\Framework\Model\AbstractModel// implements \Magento\Framework\DataObject\IdentityInterface
+class ArInvoice extends \Magento\Framework\Model\AbstractModel
 {
     /**
      * @var \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory
@@ -94,7 +94,7 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
             echo 'Authorize.net';
             // Signify_Required
             $signifyRequired = True;    # Setting Signify Required = True
-            
+
             # Loading Transactional Details
             $amountPaid = $order->getPayment()->getAmountPaid();
             $orderTotal = $order->getGrandTotal();
@@ -128,7 +128,7 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
         else {
             $accountNumber;    // Formatted Account Number
         }
-        
+
         if ($signifyRequired == True) {
             # code... Signify Score
             $this->_signifydModel->processSignifyd($order->getIncrementId());
@@ -347,14 +347,14 @@ class OrderCollection extends \Magento\Framework\Model\AbstractModel// implement
      * @return array
      */
     public function getStatusOptions()
-    {       
+    {
         $options = $this->_statusCollectionFactory->create()->toOptionArray();        
         return $options;
     }
 
     /**
      * Prepare Order Items for AR Invoice
-     * 
+     *
      * @return array
      */
     public function prepareOrderItems($orderId)

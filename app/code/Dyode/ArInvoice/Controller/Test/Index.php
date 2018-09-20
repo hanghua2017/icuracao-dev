@@ -10,9 +10,9 @@ use Dyode\ShippingOrder\Helper\Data;
 class Index extends \Magento\Framework\App\Action\Action
 {
     /**
-     * @var \Dyode\ArInvoice\Model\OrderCollection $orderCollection
+     * @var \Dyode\ArInvoice\Model\ArInvoice $arInvoice
      **/
-    protected $orderCollection;
+    protected $arInvoice;
 
     /**
      * @var \Dyode\ArInvoice\Helper\Data $_arInvoiceHelper 
@@ -26,12 +26,11 @@ class Index extends \Magento\Framework\App\Action\Action
 
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
-        \Dyode\ArInvoice\Model\OrderCollection $orderCollection,
-        \Magento\Sales\Model\ResourceModel\Order\Collection $orderCollectionModel,
+        \Dyode\ArInvoice\Model\ArInvoice $arInvoice,
         \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
         \Dyode\ArInvoice\Helper\Data $arInvoiceHelper
     ) {
-        $this->orderCollection = $orderCollection;
+        $this->arInvoice = $arInvoice;
         $this->_orderCollectionFactory = $orderCollectionFactory;
         $this->_arInvoiceHelper = $arInvoiceHelper;
         parent::__construct($context);
@@ -39,26 +38,57 @@ class Index extends \Magento\Framework\App\Action\Action
 
     public function execute()
     {
-        $collection = $this->_orderCollectionFactory->create()->addAttributeToSelect('*');
-        $collection->addFieldToFilter('status', 'approved_fraud');
-        $collection->addFieldToFilter('status', 'credit_review');
+        $invoiceNo = "ZEP5903";
+        $customerId = "53208833";
+        $firstName = "TED";
+        $lastName = "JOHN";
+        $email = "someone@somesite.tld";
+        $phone = "(999)999-9999";
+        $inputArray = array(
+            "invoice" => $invoiceNo,
+            "cust_id" => $customerId,
+            "f_name" => $firstName,
+            "l_name" => $lastName,
+            "email" => $email,
+            "cell_no" => $phone,
+            "items" => array(
+                array(
+                    "23H-N05-MC544LL/A",
+                    "23Y-417-S5094LL/A"
+                )
+            )
+        );
+        echo "<pre>";
+        print_r($inputArray);
+        // die();
+        echo "<br>";
+        $result = $this->_arInvoiceHelper->appleCareSetWarranty($inputArray);
+        print_r($result);
+
+        $warrantyList = $this->_arInvoiceHelper->appleCareListWarranties();
+        print_r($warrantyList);
+        echo "</pre>";
+        die();
+        // $collection = $this->_orderCollectionFactory->create()->addAttributeToSelect('*');
+        // $collection->addFieldToFilter('status', 'approved_fraud');
+        // $collection->addFieldToFilter('status', 'credit_review');
         
-        // print_r($orderCollection);
-        // die();
-        echo "Hello";
-        // die();
-        foreach ($collection as $salesOrder) {
-            # code...
-            // print_r($salesOrder);
-            echo $salesOrder->getId();
+        // // print_r($orderCollection);
+        // // die();
+        // echo "Hello";
+        // // die();
+        // foreach ($collection as $salesOrder) {
+        //     # code...
+        //     // print_r($salesOrder);
+        //     echo $salesOrder->getId();
             
-            print_r($salesOrder->getData());
-            echo "<br>";
-            // die();
-        }
+        //     print_r($salesOrder->getData());
+        //     echo "<br>";
+        //     // die();
+        // }
         
-        // $orders = $this->orderCollection->getSalesOrderCollection();
-        // $this->orderCollection->createInvoice(3);
+        // $orders = $this->arInvoice->getSalesOrderCollection();
+        // $this->arInvoice->createInvoice(3);
         // die();
         // $itemId = '32A-061-101946';
         // $_allLocationsZipcodes = array('01' => 90015, '09' => 91402, '16' => 90280, '22' => 90255, '29' => 92408, '33' => 90280, '35' => 92708, '38' => 91710, '51' => 92801, '40' => 85033, '57' => 85713, '64' => 89107);
@@ -80,7 +110,7 @@ class Index extends \Magento\Framework\App\Action\Action
 
         // echo $inventoryLevel = $this->_arInvoiceHelper->getDomesticInventoryLocation($itemId, 41, 35801, 40);
         // die();
-        // $this->orderCollection->prepareOrderItems(95);
+        // $this->arInvoice->prepareOrderItems(95);
         // var_dump($orders);
         // die();
     }

@@ -190,30 +190,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Validate shipping address with default customer address from AR
-     */
-    public function validateAddress($customerId, $shippingStreet, $shippingZip)
-    {
-        //Get Customer Address from AR
-        $addressMismatch = null;
-        $defaultCustomerAddress = $this->getCustomerContact($customerId);
-        if (!empty($defaultCustomerAddress)) {
-            $defaultZip = substr($defaultCustomerAddress->ZIP, 0, 5);
-            $defaultStreet = $defaultCustomerAddress->STREET;
-            if ($shippingStreet == $defaultStreet && $shippingZip == $defaultZip){
-                //Set Address Mismatch flag
-                return $addressMismatch = False;
-            } else {
-                //Set Address Mismatch flag
-                return $addressMismatch = True;
-            }
-        }
-        else {
-            return $addressMismatch = True;   
-        }
-    }
-
-    /**
      * Inventory Level using API -> InventoryLevel
      * 
      * @return Array
@@ -253,6 +229,57 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Apple Care List Warranties
+     * 
+     * @return Array
+     */
+    public function appleCareListWarranties()
+    {
+        /**
+         * Initialize Rest Api Connection
+         */
+        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/AppleCareListWarranties";
+        $ch = $this->initRestApiConnect($url);
+        /**
+         * Set Post Data
+         */
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+        /**
+         * Get Response Data
+         */
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return json_decode($response);
+        // return $response;
+    }
+
+    /**
+     * Apple Care Set Warranty
+     * 
+     * @return Array
+     */
+    public function appleCareSetWarranty($inputArray)
+    {
+        /**
+         * Initialize Rest Api Connection
+         */
+        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/AppleCareSetWarranty";
+        $ch = $this->initRestApiConnect($url);
+        /**
+         * Set Post Data
+         */
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($inputArray));
+        /**
+         * Get Response Data
+         */
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return json_decode($response);
+        // return $response;
+    }
+
+    /**
      * Load product by Product Id
      */
     private function getProductById($id)
@@ -266,91 +293,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     private function getProductBySku($sku)
     {
         return $this->_productRepository->get($sku);
-    }
-
-    /**
-     * getSkuInventory() function will check the inventory if a sku non-domestic non-set
-     * and return an array of location and quantites
-     */
-    public function getSkuInventory($itemSku,$qtyOrdered)
-    {
-        //Quantity of given item in Inventory
-        $skuInventoryFromAR = 0;
-        //Final Locations with inventory of given item
-        $finalLocations = array();
-        // Get Encoded json of location and quantity
-        $locations = implode(array_keys($this->_allLocationsZipcodes),',');
-        $responseString = $this->inventoryLevel($itemSku, $locations);
-        $responseInv = json_decode($responseString);
-        // Assoc Array of location id => qty of given item 
-        $locationsInv = $responseInv->{'LIST'};
-        // var_dump($locationsInv);
-
-        //Find pending items number
-        $pending = $this->getPendingEstimate("Sample Product");
-
-        if ($pending != 0) {
-            foreach ($pending as $valueRunningEstimates) {
-                $itemPendingSku = (string)$valueRunningEstimates['sku'];
-                $pendingEstimate = intval($valueRunningEstimates['pending']);
-                $skuPending = array();
-                if(array_key_exists($itemPendingSku, $skuPending)) {
-                    $skuPending[$itemPendingSku] += $pendingEstimate;
-                }
-                else {
-                    $skuPending[$itemPendingSku] = $pendingEstimate;
-                }
-            }
-        }
-        else {
-            $skuPending = null;
-        }
-
-        //Iterate through the list of locations
-
-        foreach($locationsInv as $locationInv) {
-            if($locationInv->location!=="TOTAL") {
-                $skuInventoryFromAr = $locationInv->quantity;
-
-
-                $inventory = (int)$skuInventoryFromAr - (1+$qtyOrdered) ; //Replace 1 with $skuPending[$itemPendingSku];
-
-                if ($inventory >= $qtyOrdered) { 
-                    array_push($finalLocations,$locationInv->location);
-                }
-
-            }
-            $inventory = 0;
-        }
-
-        //If no stock send Update to main HQ
-        if(count($finalLocations)>0) 
-        {
-        //$this->outOfStockNoticfication()
-        return '01';
-        }
-        //Select a random location from final locations
-        $finalLocation = array_rand($finalLocations);
-
-        return $finalLocation;
-    }
-
-    /**
-     * getSetInventory() 
-     */
-    public function getSetInventory($itemId, $qty_ordered)
-    {
-        $returnString = $this->GetSetItems($itemId);
-        $returnSetItems = json_decode($returnString);
-        // return $returnSetItems;
-        //Check if correct response is returned
-        if($returnSetItems->OK) {
-            // iterate through subitems of bundle or grouped product
-            foreach($returnSetItems->LIST as $subItem) {
-                // print_r($subItem);
-                $subItemId = $subItem->ITEM_ID;
-            }
-        }
     }
 
     /**
