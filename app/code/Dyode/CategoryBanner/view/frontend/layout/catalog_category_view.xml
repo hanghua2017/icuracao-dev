@@ -12,5 +12,7 @@
 	    </referenceBlock>
       <referenceBlock name="catalog.compare.sidebar" remove="true" />
       <referenceBlock name="sidebar.additional" remove="true" />
+      <referenceBlock name="category.image" remove="true"/>
+      <referenceBlock name="category.description" remove="true"/>
     </body>
 </page>
