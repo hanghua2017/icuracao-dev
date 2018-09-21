@@ -731,7 +731,10 @@
 
 		.store-view-container {
 			top: 110px;
-			right: ~"calc((100% - 1500px)/2 + 20px)";
+			right: 20px;
+			@media all and (min-width:1500px) {
+				right: ~"calc((100% - 1500px)/2 + 20px)";
+			}
 		}
 	}
 }
@@ -1646,7 +1649,10 @@ html.nav-before-open {
 .hamburger-desktop {
 	button.btn-menu {
 		top: 117px;
-		left: ~"calc((100% - 1500px)/2 + 20px)";
+		left: 20px;
+		@media all and (min-width:1500px) {
+			left: ~"calc((100% - 1500px)/2 + 20px)";
+		}
 	}
 }
 
