@@ -1,10 +1,11 @@
 @import "_typography.less";
 @import "_fullbanner.less";
+@import "_recently-viewed";
 @theme-color: #82b800;
 @white: #fff;
 @black:000;
 @desc-border: #e8e8e8;
-@content-light-grey: #aeaeae;
+@content-light-grey: #838282;
 @content-dark-grey: #5c5c5c;
 @content-label-grey: #838282;
 @box-orange: #f05c23;
@@ -18,6 +19,7 @@
 @popup-header:#d9d8d8;
 @button-greybg:#787878;
 @red-color:#c50606;
+@field-heading-color:#f88203;
 
 input, select {
   &:focus {
@@ -84,12 +86,16 @@ input, select {
               border: none;
               margin-top: 49px;
               border-top: 1px solid @desc-border;
-              padding: 15px 0;
+              padding: 15px;
               font-family: 'iCuracao-Regular';
               @media all and (max-width: 767px) {
                 margin-top: 0;
-                padding: 0;
                 border-bottom: 1px solid @desc-border;
+              }
+              .table-wrapper{
+                &:last-child{
+                  border-bottom: none !important;
+                }
               }
               .product.description {
                 .value {
@@ -226,6 +232,13 @@ input, select {
               float: right;
               margin-top: -5px;
               margin-bottom: 10px;
+              @media all and (max-width:901px){
+                padding-right:20px;
+                margin-bottom: 0;
+              }
+              @media all and (max-width:478px){
+                padding-right:10px;
+              }
             }
 
             //Product price block
@@ -235,7 +248,7 @@ input, select {
               border-top: 1px solid @content-light-grey;
               border-bottom: 1px solid @content-light-grey;
               float: left;
-              padding: 30px 0;
+              padding: 15px 0;
               margin: 0;
               @media all and (max-width: 990px) {
                 padding: 10px 0;
@@ -253,6 +266,13 @@ input, select {
               .price-box.price-final_price {
                 width: 100%;
                 display: inline-block;
+                padding:0;
+                @media all and (max-width:901px){
+                  padding-left: 20px;
+                }
+                @media all and (max-width:478px){
+                  padding-left: 10px;
+                }
                 .prod-price, .credit-card-desc {
                   clear: both;
                   width: 100%;
@@ -264,19 +284,12 @@ input, select {
                 }
                 //Styling for product price section
                   span {
-                    //Styling for orginal price (cut price if any special offer price added)
+                    //Styling for original price (cut price if any special offer price added)
                     &.old-price {
-                      @media all and (max-width: 901px) {
-                        padding-left: 20px;
-                      }
-                      @media all and (max-width: 767px) {
-                        padding-left: 0;
-                      }
                       .price-container {
                           .price-label {
                             font-size: @org-price;
                             font-family: 'iCuracao-Light';
-
                             @media all and (min-width: 768px) {
                               line-height: 36px;
                             }
@@ -284,7 +297,7 @@ input, select {
                               font-size: 14px;
                             }
                           }
-                          .product-wrapper {
+                          .price-wrapper  {
                             margin-right: 25px;
                             margin-left: 5px;
                             font-family: 'iCuracao-Regular';
@@ -310,7 +323,6 @@ input, select {
                           }
                       }
                     }
-
                     //Styling for special price
                     &.special-price {
                       margin-right: 30px;
@@ -428,7 +440,6 @@ input, select {
                   }
               }
               .credit-card-emi {
-
                 .emi-amount {
                   .price{
                     color: @green-color;
@@ -467,139 +478,21 @@ input, select {
                 padding-top: 0;
               }
               #product_addtocart_form {
-                .box-tocart {
-
-                  //product spec above the add to cart buttons
-                  .product-spec-details {
-                    .spec {
-                       margin-bottom: 20px;
-                       @media all and (max-width: 991px) {
-                         margin-bottom: 15px;
-                       }
-                      .label {
-                        font-size: 16px;
-                        color: @content-light-grey;
-                        margin-right: 20px;
-                        font-weight: 500;
-                        font-family: 'iCuracao-Light';
-                        @media all and (max-width: 991px) {
-                          font-size: 14px;
-                        }
-                        @media all and (max-width: 476px) {
-                          font-size: 13px;
-                        }
-                      }
-                      .control {
-                        display: inline-block;
-                        label {
-                          font-size: 16px;
-                          font-family: 'iCuracao-Regular';
-                          @media all and (max-width: 467px) {
-                            font-size: 15px;
-                          }
-                        }
-                        select {
-                          option {
-                            font-family: 'iCuracao-Medium';
-                          }
-                        }
-                        ul {
-                          padding-left: 0;
-                          margin-bottom: 0;
-                          li {
-                            display: inline-block;
-                            margin-bottom: 0;
+                .swatch-opt{
+                  margin:0 0 20px 0 !important;
+                  .swatch-attribute{
+                    &.size{
+                      .swatch-attribute-options{
+                        .swatch-option{
+                          &.text{
+                            box-sizing: content-box;
                           }
                         }
                       }
-                      &.color {
-                        .label {
-                          position: relative;
-                          top: -20px;
-                        }
-                        .control {
-                          ul {
-                            li {
-                              img {
-
-
-                              }
-                            }
-                          }
-                        }
-                      }
-                      &.wall-mount {
-                        display: block;
-                        margin-top: 0;
-                        label {
-                          clear: both;
-                          float: left;
-                          width: 100%;
-                          font-family: 'iCuracao-Regular';
-                        }
-                        .control {
-                          clear: both;
-                          float: left;
-                          width: 100%;
-                          margin: 20px 0;
-                          @media all and (max-width: 467px) {
-                            text-align: center;
-                          }
-                          .input-radio {
-                            display: inline-block;
-                            margin-right: 10px;
-                            margin-top: 0;
-                            display: inline-flex;
-                            //Media query for align the  mount option with same width
-                            @media all and (max-width: 1001px) and (min-width: 902px) {
-                              min-width: 240px;
-                              &:nth-child(1) {
-                                margin-bottom: 10px;
-                              }
-                              input[type=radio] + label {
-                                padding: 15px;
-                              }
-                            }
-                            @media all and (max-width: 467px) {
-                              min-width: 240px;
-                              &:nth-child(1) {
-                                margin-bottom: 10px;
-                              }
-                            }
-                          }
-                          input[type=radio] {
-                            display: none;
-                          }
-                          input[type=radio] + label {
-                            padding: 20px;
-                            border: 1px solid #ddd;
-                            @media all and (max-width: 767px) {
-                              padding: 15px;
-                              font-size: 14px;
-                            }
-                            @media all and (max-width: 599px) {
-                              padding: 13px 7px;
-                            }
-                            @media all and (max-width: 467px) {
-                              font-size: 13px;
-                            }
-
-                          }
-                         input[type=radio] + label:hover {
-                            border: 1px solid @link-blue;
-                          }
-                          input[type=radio]:checked + label {
-                            border: 1px solid @link-blue;
-                          }
-                        }
-                      }
-                    }
-                    &.tv-wallmount {
-                      margin-bottom: 30px;
                     }
                   }
-                  //End Product spec above the add to cart buttons
-
+                }
+                .box-tocart {
                   .fieldset {
                     .field.qty {
                       label {
@@ -634,6 +527,7 @@ input, select {
                         display: inline-block;
                         float: left;
                         margin-right: 20px;
+                        min-width:200px;
                         #product-addtocart-button {
                           background-color: @btn-orange;
                           border-color: @btn-orange;
@@ -1474,9 +1368,6 @@ input, select {
                   height: 17px;
                 }
             }
-            // .frequent-checkbox:hover + label:before {
-            //     background-image: url(../images/frequent-select.png);
-            // }
             .frequent-checkbox:checked + label:before {
                 background-color: #3857f3;
                 background-image: url(../images/frequent-select.png);
@@ -1486,15 +1377,6 @@ input, select {
                   background-size: contain;
                 }
             }
-            // .frequent-checkbox:focus + label:before {
-            //     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
-            // }
-            // .frequent-checkbox:hover + label:before {
-            //     background-image: url(../images/frequent-select.png);
-            // }
-            //End Frequently items select checkbox
-
-
           }
         }
 
@@ -1686,12 +1568,14 @@ input, select {
 }
 //styling for credit card button section
 .credit-card-desc {
-  padding-top: 25px;
+  padding-top:15px;
   display: inline-block;
   clear: both;
-  @media all and (max-width: 990px) {
-    padding-top: 10px;
-    padding-left: 10px;
+  @media all and (max-width: 901px) {
+    padding: 10px 0 0 20px;
+  }
+  @media all and (max-width: 478px){
+    padding:10px 0 0 10px;
   }
   p.credit-desc {
     line-height: 20px;
@@ -1738,3 +1622,228 @@ input, select {
     }
   }
 }
+//styling the swatch tooltip
+.swatch-option-tooltip{
+  display:none !important;
+}
+
+
+/**
+ * @author  Sangeetha D <sangeetha.d@dyode.com>
+**/
+
+//product spec MOUNTING OPTIONS above the add to cart buttons
+.mount-option {
+.spec {
+  margin-bottom: 20px;
+  @media all and (max-width: 991px) {
+    margin-bottom: 15px;
+  }
+  .control {
+    display: inline-block;
+    label {
+      font-size: 16px;
+      clear: both;
+      width: 100%;
+      color: #333;
+      font-family: 'iCuracao-Regular';
+      @media all and (max-width: 467px) {
+        font-size: 15px;
+      }
+    }
+  }
+  &.color {
+    .label {
+      position: relative;
+      top: -20px;
+    }
+  }
+  .label {
+    font-size: 16px;
+    color: @content-light-grey;
+    margin-right: 20px;
+    font-weight: 500;
+    font-family: 'iCuracao-Regular';
+    @media all and (max-width: 991px) {
+      font-size: 14px;
+    }
+    @media all and (max-width: 476px) {
+      font-size: 13px;
+    }
+  }
+  .control {
+    margin-top: 20px;
+    @media all and (max-width: 467px) {
+      text-align: center;
+    }
+    .choice {
+      display: inline-block;
+      margin-right: 10px;
+      margin-top: 0;
+      display: inline-flex;
+      //Media query for align the  mount option with same width
+      @media all and (max-width: 1001px) and (min-width: 902px) {
+        min-width: 240px;
+        &:nth-child(1) {
+          margin-bottom: 10px;
+        }
+        input[type=radio]+label {
+          padding: 15px;
+        }
+      }
+      @media all and (max-width: 467px) {
+        min-width: 240px;
+        &:nth-child(1) {
+          margin-bottom: 10px;
+        }
+      }
+    }
+    input[type=radio] {
+      display: none;
+    }
+    input[type=radio]+label {
+      padding: 15px;
+      border: 1px solid #ddd;
+      @media all and (max-width: 767px) {
+        font-size: 14px;
+      }
+      @media all and (max-width: 599px) {
+        padding: 13px 7px;
+      }
+      @media all and (max-width: 467px) {
+        font-size: 13px;
+      }
+    }
+    input[type=radio]+label:hover {
+      border: 1px solid @link-blue;
+    }
+    input[type=radio]:checked+label {
+      border: 1px solid @link-blue;
+    }
+  }
+  &.options-list {
+    margin-bottom: 30px;
+  }
+}
+}
+//End Product spec above the add to cart buttons
+
+//product spec WARRANTY PLAN above the add to cart buttons
+.warranty-option{
+  .head-label {
+    font-size: 16px;
+    color: @btn-orange;
+    font-family: 'iCuracao-Regular';
+    @media all and (max-width: 467px) {
+      font-size: 15px;
+    }
+  }
+  .control{
+    margin: 20px 0;
+    .options-list{
+      .choice{
+        .label{
+          vertical-align: unset !important;
+          .detail{
+            color: @link-blue;
+          }
+          .price-notice{
+            color: #333 !important;
+          }
+        }
+      }
+    }
+    .checking-box {
+      position: relative;
+      margin: 20px auto;
+      label{
+        display: inline;
+      }
+      .checking-box-label {
+        display: block;
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        line-height: 16px;
+        color: rgb(102,102,102);
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        /* Hide the browser's default checkbox */
+        input {
+          position: absolute;
+          opacity: 0;
+          cursor: pointer;
+          height: auto;
+        }
+      }
+      /* On mouse-over, add a grey background color */
+      .checking-box-label:hover input ~ .checkmark {
+        background-color: #fff;
+      }
+      /* Create a custom checkbox */
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 15px;
+        width: 15px;
+        background-color: white;
+        border: 1px solid #333;
+        border-radius: 1px;
+        margin-right: 0.5em;
+        /* Create the checkmark/indicator (hidden when not checked) */
+        &:after {
+          content: "";
+          position: absolute;
+          display: none;
+        }
+        @media all and (max-width: 467px) {
+          height: 16px;
+          width: 16px;
+          top: 1px;
+        }
+      }
+      /* When the checkbox is checked, add a blue background */
+      .checking-box-label input:checked ~ .checkmark {
+        background-color: #fff;
+      }
+      /* Show the checkmark when checked */
+      .checking-box-label input:checked ~ .checkmark:after {
+        display: block;
+      }
+      /* Style the checkmark/indicator */
+      .checking-box-label {
+        .checkmark {
+          &:after {
+            left: 3px;
+            top: 0px;
+            width: 4px;
+            height: 7px;
+            border: solid @theme-color;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(40deg);
+            -ms-transform: rotate(40deg);
+            transform: rotate(40deg);
+            @media all and (max-width: 467px) {
+              left: 3px;
+              top: 1px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+//End product spec WARRANTY PLAN above the add to cart buttons
+
+//More information accordion portion
+.product.data.items > .item.title > .switch {
+  @media (min-width: 768px){
+    background: transparent;
+    height: 47px;
+  }
+}
+//End of More information accordion portion
