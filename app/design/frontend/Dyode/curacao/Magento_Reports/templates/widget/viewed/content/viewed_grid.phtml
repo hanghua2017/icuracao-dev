@@ -27,6 +27,9 @@ if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedPr
     $showCompare = true;
     $showCart = false;
     $rating = 'short';
+    //  view model
+    $emiBlock = $block->getLayout()->getBlock('emi_block');
+    $emiViewModel = $emiBlock->getViewModel();
     //$description = ($mode == 'list') ? true: false;
 }
 ?>
@@ -65,7 +68,13 @@ if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedPr
                                     ]
                                 )
                                 ?>
-                                  <p class="subtext"><?php echo "or as low as";?><span class="amount"><?php echo" $10/month";?></span></p>
+                                <?php if($emiViewModel != NULL) {?>
+                                   <?php $emi = $emiViewModel->monthlyEmi($_item->getFinalPrice());?>
+                                <?php }?>
+
+                                <?php if($emi!=0):?>
+                  <p class="subtext"><?php echo "or as low as ";?><span class="amount"><?php echo"$". "".$emi." "."/month";?></span></p>
+                  <?php endif?>
 
                                 <?php if ($rating): ?>
                                     <?= $block->getReviewsSummaryHtml($_item, $rating) ?>
