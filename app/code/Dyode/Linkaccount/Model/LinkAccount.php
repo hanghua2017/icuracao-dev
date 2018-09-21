@@ -4,6 +4,7 @@
  * @author    kavitha@dyode.com
  * Date       17/09/2018
  */
+ 
 namespace Dyode\Linkaccount\Model;
 
 use \Dyode\Linkaccount\Api\LinkAccountInterface;
@@ -39,7 +40,7 @@ class LinkAccount extends \Magento\Framework\Model\AbstractModel implements Link
           \Magento\Customer\Model\ResourceModel\CustomerFactory $customerResourceFactory,
           AccountManagementInterface $accountManagmentInterface,
           \Magento\Framework\Registry $registry
- 
+
       ) {
           parent::__construct($context, $registry);
           $this->_storeManager = $storeManager;
