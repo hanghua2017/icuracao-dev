@@ -23,7 +23,8 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
 	$title = $block->getConfigValue('heading');
 	$items = $block->getProductCollection();
 	$info  = $block->getConfigValue('description');
-
+	$emiBlock = $block->getLayout()->getBlock('emi_block');
+	$emiViewModel = $emiBlock->getViewModel();
 	$showWishlist = true;
 	$showCompare = true;
 	$showCart = true;
@@ -68,7 +69,14 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
 										'price_id_suffix' => '-' . $type
 									]
 								) ?>
-								<p class="subtext"><?php echo "or as low as";?><span class="amount"><?php echo" $10/month";?></span></p>
+
+								<!-- emi function -->
+								<?php if($emiViewModel != NULL) {?>
+                   <?php $emi = $emiViewModel->monthlyEmi($_item->getFinalPrice());?>
+                <?php  }?>
+								<?php if($emi!=0):?>
+	                <p class="subtext"><?php echo "or as low as";?><span class="amount"><?php echo"$". " ".$emi." "."/month";?></span></p>
+               	<?php endif?>
 								<?php if ($rating): ?>
 									<?php echo $block->getReviewsSummaryHtml($_item, $rating) ?>
 								<?php endif; ?>
