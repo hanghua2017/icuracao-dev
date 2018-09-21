@@ -51,9 +51,13 @@
            <img src="<?php echo $image_url;?>" alt="product"/>
             <h3><?php echo $product->getName();?></h3>
               <p class="price"><span class="original-price <?php echo $product->getSpecialPrice() ? 'has-special-price' : '' ?>"><?php echo "$".$product->getPrice();?></span><span class="discount-price"><?php if($_finalPrice!=NULL){echo "$";}echo $product->getSpecialPrice();?></span></p>
-                <?php if($emiViewModel) {?>
-                   <p class="subtext"><?php echo "or as low as";?><span class="amount"><?php echo "$";echo $emiViewModel->monthlyEmi($product->getFinalPrice());echo"/month";?></span></p>
-                <?php   }?>
+              <?php if($emiViewModel != NULL) {?>
+                 <?php $emi = $emiViewModel->monthlyEmi($product->getFinalPrice());?>
+              <?php }?>
+
+              <?php if($emi!=0):?>
+<p class="subtext"><?php echo "or as low as ";?><span class="amount"><?php echo"$". "".$emi." "."/month";?></span></p>
+<?php endif?>
           </a>
       </div>
   <?php
