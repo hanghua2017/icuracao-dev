@@ -15,13 +15,17 @@
     <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
         <arguments>
             <argument name="modifiers" xsi:type="array">
+                <item name="warranty_relation" xsi:type="array">
+                    <item name="class" xsi:type="string">Dyode\Catalog\Ui\DataProvider\Product\Form\Modifier\WarrantyProduct</item>
+                    <item name="sortOrder" xsi:type="number">145</item>
+                </item>
                 <item name="freq_brought_together_pdts" xsi:type="array">
                     <item name="class" xsi:type="string">Dyode\Catalog\Ui\DataProvider\Product\Form\Modifier\FbtProduct</item>
-                    <item name="sortOrder" xsi:type="number">145</item>
+                    <item name="sortOrder" xsi:type="number">150</item>
                 </item>
                 <item name="custom-options-additions" xsi:type="array">
                     <item name="class" xsi:type="string">Dyode\Catalog\Ui\DataProvider\Product\Form\Modifier\CustomOptions</item>
-                    <item name="sortOrder" xsi:type="number">150</item>
+                    <item name="sortOrder" xsi:type="number">155</item>
                 </item>
             </argument>
         </arguments>

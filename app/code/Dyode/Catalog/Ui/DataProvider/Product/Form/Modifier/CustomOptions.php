@@ -26,7 +26,6 @@ use Magento\Ui\DataProvider\Modifier\ModifierInterface;
  */
 class CustomOptions implements ModifierInterface
 {
-    const WARRANTY_FIELD = 'is_warranty';
     const MOUNT_FIELD = 'is_wall_mount';
 
     protected $meta;
@@ -53,10 +52,6 @@ class CustomOptions implements ModifierInterface
      */
     public function addAdditionalModifications()
     {
-        $this->meta["custom_options"]["children"]["options"]["children"]["record"]["children"]["container_option"]
-        ["children"]["container_common"]["children"][static::WARRANTY_FIELD] = $this->getYesNoFieldConfig(
-            'Warranty', static::WARRANTY_FIELD, 50
-        );
         $this->meta["custom_options"]["children"]["options"]["children"]["record"]["children"]["container_option"]
         ["children"]["container_common"]["children"][static::MOUNT_FIELD] = $this->getYesNoFieldConfig(
             'Wall Mount', static::MOUNT_FIELD, 60

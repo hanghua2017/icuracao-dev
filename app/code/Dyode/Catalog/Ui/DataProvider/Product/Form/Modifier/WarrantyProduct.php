@@ -1,10 +1,18 @@
 <?php
+/**
+ * Dyode_Catalog Magento2 Module.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package   Dyode
+ * @module    Dyode_Catalog
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
 
 namespace Dyode\Catalog\Ui\DataProvider\Product\Form\Modifier;
 
-
 use Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\AbstractModifier;
-
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Api\Data\ProductLinkInterface;
 use Magento\Catalog\Api\ProductLinkRepositoryInterface;
@@ -24,29 +32,22 @@ use Magento\Ui\Component\Modal;
 use Magento\Catalog\Helper\Image as ImageHelper;
 use Magento\Catalog\Model\Product\Attribute\Source\Status;
 
-/**
- * Class Frequently Brought Together
- *
- * @api
- *
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- * @since 101.0.0
- */
-class FbtProduct extends AbstractModifier
+class WarrantyProduct extends AbstractModifier
 {
     const DATA_SCOPE = '';
-    const DATA_SCOPE_FBT = 'fbt';
-    const FBT = 'fbt';
+    const DATA_SCOPE_WARRANTY = 'warranty';
+    const WARRANTY = 'warranty';
+
 
     /**
      * @var string
      */
-    private static $previousGroup = 'warranty';
+    private static $previousGroup = 'related';
 
     /**
      * @var int
      */
-    private static $sortOrder = 105;
+    private static $sortOrder = 95;
 
     /**
      * @var LocatorInterface
@@ -131,26 +132,23 @@ class FbtProduct extends AbstractModifier
         $this->scopePrefix = $scopePrefix;
     }
 
+
     /**
      * {@inheritdoc}
      */
     public function modifyMeta(array $meta)
     {
-        if ($this->locator->getProduct()->getTypeId() !== 'simple'){
-            return $meta;
-        }
-
         $meta = array_replace_recursive(
             $meta,
             [
-                static::FBT => [
+                static::WARRANTY => [
                     'children'  => [
-                        static::FBT => $this->getFbtFieldset(),
+                        static::WARRANTY => $this->getWarrantyFieldSet(),
                     ],
                     'arguments' => [
                         'data' => [
                             'config' => [
-                                'label'         => __('Frequently Brought Together Products'),
+                                'label'         => __('Warranty Relations'),
                                 'collapsible'   => true,
                                 'componentType' => Fieldset::NAME,
                                 'dataScope'     => static::DATA_SCOPE,
@@ -176,9 +174,6 @@ class FbtProduct extends AbstractModifier
      */
     public function modifyData(array $data)
     {
-        if ($this->locator->getProduct()->getTypeId() !== 'simple'){
-            return $data;
-        }
 
         /** @var \Magento\Catalog\Model\Product $product */
         $product = $this->locator->getProduct();
@@ -272,39 +267,38 @@ class FbtProduct extends AbstractModifier
     protected function getDataScopes()
     {
         return [
-            static::DATA_SCOPE_FBT,
+            static::DATA_SCOPE_WARRANTY,
         ];
     }
 
     /**
-     * Prepares config for the FBT products fieldset
+     * Prepares config for the Warranty products fieldset
      *
      * @return array
      */
-    protected function getFbtFieldset()
+    protected function getWarrantyFieldSet()
     {
-        $content = 'Frequently brought together products are shown to customers in order to prompt the customers'
-            . 'to buy them together';
+        $content = 'Warranties used to provide an add-on feature to the product as a electable option on frontend';
         $content = __($content);
 
         return [
             'children'  => [
                 'button_set' => $this->getButtonSet(
                     $content,
-                    __('Add Frequently Brought Together Products'),
-                    static::FBT
+                    __('Add Warranty Products'),
+                    static::WARRANTY
                 ),
                 'modal'      => $this->getGenericModal(
-                    __('Add Frequently Brought Together Products'),
-                    static::FBT
+                    __('Add Warranty Products'),
+                    static::WARRANTY
                 ),
-                static::FBT  => $this->getGrid(static::FBT),
+                static::WARRANTY  => $this->getGrid(static::WARRANTY),
             ],
             'arguments' => [
                 'data' => [
                     'config' => [
                         'additionalClasses' => 'admin__fieldset-section',
-                        'label'             => __('Frequently Brought Together Products'),
+                        'label'             => __('Warranty Products'),
                         'collapsible'       => false,
                         'componentType'     => Fieldset::NAME,
                         'dataScope'         => '',
@@ -325,7 +319,7 @@ class FbtProduct extends AbstractModifier
      */
     protected function getButtonSet(Phrase $content, Phrase $buttonTitle, $scope)
     {
-        $modalTarget = 'product_form.product_form.' . static::FBT . '.' . static::FBT . '.modal';
+        $modalTarget = 'product_form.product_form.' . static::WARRANTY . '.' . static::WARRANTY . '.modal';
 
         return [
             'arguments' => [
@@ -353,7 +347,7 @@ class FbtProduct extends AbstractModifier
                                         'actionName' => 'toggleModal',
                                     ],
                                     [
-                                        'targetName' => $modalTarget . '.' . static::FBT . '_product_listing',
+                                        'targetName' => $modalTarget . '.' . static::WARRANTY . '_product_listing',
                                         'actionName' => 'render',
                                     ],
                                 ],
