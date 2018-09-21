@@ -1,6 +1,6 @@
-<form class="form" action="<?= $block->getUrl('interestbeat/user/post',['_secure' => $this->getRequest()->isSecure()]) ?>);" method="post" enctype="multipart/form-data">
+<form id="interestbeat" class="form" action="<?= $block->getUrl('interestbeat/user/post',['_secure' => $this->getRequest()->isSecure()]) ?>);" method="post" enctype="multipart/form-data">
     <fieldset class="fieldset">
-        <legend class="legend"><span><?php /* @escapeNotVerified */ echo __('Test Form') ?></span></legend><br>
+        <legend class="legend"><span><?php /* @escapeNotVerified */ echo __('Interestbeat Form') ?></span></legend><br>
         <div class="field required">
             <label for="number" class="label"><span><?php /* @escapeNotVerified */ echo __('First name') ?></span></label>
             <div class="control">
@@ -39,7 +39,7 @@
         </div>
 
 
-            <label for="producklink" class="label"><span><?php /* @escapeNotVerified */ echo __('Product Link') ?></span></label>
+            <label for="productlink" class="label"><span><?php /* @escapeNotVerified */ echo __('Product Link') ?></span></label>
             <div class="control">
                 <input type="url" id="product_url" name="product_url" class="input-text"/>
             </div>
@@ -52,9 +52,33 @@
 
     <div class="actions-toolbar">
         <div class="primary">
-            <button type="submit" class="action submit primary" title="<?php /* @escapeNotVerified */ echo __('Submit') ?>">
+            <button  id="interestbeat-btn" class="action submit primary" title="<?php /* @escapeNotVerified */ echo __('Submit') ?>">
                 <span><?php /* @escapeNotVerified */ echo __('Submit') ?></span>
             </button>
         </div>
     </div>
 </form>
+
+<script type="text/javascript">
+require([
+  'jquery'
+], function($) {$(function() {
+  console.log('Interestbeat js is called');
+  $('#interestbeat-btn').on('click', function(e) {
+    e.preventDefault();
+    var productlink = $('#product_url').val();
+    var product_image = $('input[name=upload_file]').val();
+    console.log(productlink+" "+product_image);
+    if (productlink == "" && product_image == "") {
+        $('#product_url').after('<span class="error">This field is required</span>');
+    } else {
+      console.log('hello from else');
+      $('#interestbeat').submit();
+
+    }
+
+  });
+});
+});
+
+</script>
