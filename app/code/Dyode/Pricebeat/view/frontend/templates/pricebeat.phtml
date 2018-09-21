@@ -68,6 +68,36 @@ require([
     e.preventDefault();
     var productlink = $('#product_url').val();
     var product_image = $('input[name=upload_file]').val();
+    var first_name = $('#first_name').val();
+    var last_name = $('#first_name').val();
+    var email = $('#email').val();
+    var phonenumber = $('#phonenumber').val();
+    var account_number = $('#account_number').val();
+    var invoice_number = $('#invoice_number').val();
+    if(first_name=="")
+    {
+        $('#first_name').after('<span class="error">This field is required</span>');
+    }
+    if(last_name=="")
+    {
+        $('#last_name').after('<span class="error">This field is required</span>');
+    }
+    if(email=="")
+    {
+        $('#email').after('<span class="error">This field is required</span>');
+    }
+    if(phonenumber=="")
+    {
+        $('#phonenumber').after('<span class="error">This field is required</span>');
+    }
+    if(account_number=="")
+    {
+        $('#account_number').after('<span class="error">This field is required</span>');
+    }
+    if(invoice_number=="")
+    {
+        $('#invoice_number').after('<span class="error">This field is required</span>');
+    }
     console.log(productlink+" "+product_image);
     if (productlink == "" && product_image == "") {
         $('#product_url').after('<span class="error">This field is required</span>');
