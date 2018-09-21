@@ -7,6 +7,11 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
+      <block name="emi_block">
+        <arguments>
+           <argument name="view_model" xsi:type="object">Dyode\Core\ViewModel\Emi</argument>
+        </arguments>
+      </block>
       <referenceContainer name="main">
         <container name="content">
           <container name='home.banner.container' htmlTag="div" htmlClass="banner-container" before="-">
