@@ -28,6 +28,9 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
     $showCart = true;
     $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::DEFAULT_VIEW;
     $description = true;
+    // emi function
+    $emiBlock = $block->getLayout()->getBlock('emi_block');
+    $emiViewModel = $emiBlock->getViewModel();
 }
 ?>
 
@@ -56,6 +59,13 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
                                     </a>
                                 </strong>
                                 <?= $block->getProductPriceHtml($_item, $type) ?>
+                                <?php if($emiViewModel != NULL) {?>
+                                                 <?php $emi = $emiViewModel->monthlyEmi($_item->getFinalPrice());?>
+                                              <?php }?>
+
+                                              <?php if($emi!=0):?>
+                                <p class="subtext"><?php echo "or as low as ";?><span class="amount"><?php echo"$". "".$emi." "."/month";?></span></p>
+                              <?php endif?>
 
                                 <?php if ($templateType): ?>
                                     <?= $block->getReviewsSummaryHtml($_item, $templateType) ?>
