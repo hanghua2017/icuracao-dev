@@ -634,7 +634,8 @@
 	.nav-sections {
 		background: #fff;
 		@media all and (min-width:1025px) {
-			background: #97d700;
+			//	background: #97d700;
+			background: #84b90a;
 		}
 
 		.header-links {
@@ -730,6 +731,7 @@
 
 		.store-view-container {
 			top: 110px;
+			right: ~"calc((100% - 1500px)/2 + 20px)";
 		}
 	}
 }
@@ -1636,9 +1638,15 @@ html.nav-before-open {
 	}
 }
 
+.section-item-content {
+	max-width: 1500px;
+	margin: 0 auto;
+}
+
 .hamburger-desktop {
 	button.btn-menu {
 		top: 117px;
+		left: ~"calc((100% - 1500px)/2 + 20px)";
 	}
 }
 
