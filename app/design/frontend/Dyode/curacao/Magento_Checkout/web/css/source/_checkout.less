@@ -13,6 +13,57 @@
 @curacao-red-text:#d7102b;
 @emi-alert-background:#fbf5d7;
 @emi-border-color:#f16721;
+/*styling for the custom radio button on shipping method section starts here*/
+input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  + .label {
+    color:@black;
+    font-size:14px;
+    &:before {
+      content: '';
+      background: @off-white;
+      border-radius: 100%;
+      border: 1px solid darken(@off-white, 25%);
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      position: relative;
+      top: 2px;
+      margin-right: 10px;
+      vertical-align: top;
+      cursor: pointer;
+      text-align: center;
+      transition: all 250ms ease;
+    }
+  }
+  &:checked {
+    + .label {
+      &:before {
+        border-color: @theme-color;
+        background-color: @theme-color;
+        box-shadow: inset 0 0 0 4px @off-white;
+      }
+    }
+  }
+  &:disabled {
+    + .label {
+      &:before {
+        box-shadow: inset 0 0 0 4px @off-white;
+        border-color: darken(@off-white, 25%);
+        background: darken(@off-white, 25%);
+      }
+    }
+  }
+  + .label {
+    &:empty {
+      &:before {
+        margin-right: 0;
+      }
+    }
+  }
+}
+/*styling for the custom radio button on shipping method section ends here*/
 //Checkout page 1 with form
 .checkout-index-index{
   .sections{
@@ -304,34 +355,134 @@
           }
         }
       }
-      .payment-group{
-        .billing-address-details{
-          a{
-            color: @black !important;
-            font-size: 14px;
-            text-decoration: underline;
+      /*styling for the new credit card starts here*/
+      #checkout-payment-method-load{
+        .payment-methods{
+          @media all and (max-width:767px){
+            margin:0;
           }
-          .action-edit-address{
-            color: #006bb4 !important;
-            background: @white !important;
-            border: none;
-            font-size: 14px !important;
-            padding: 0 !important;
+          .payment-group{
+            .step-title{
+              font-family: "iCuracao-Medium" !important;
+              font-size:18px !important;
+              color:@black;
+              margin-bottom: 15px !important;
+            }
+            .payment-method{
+              position: relative;
+              margin:0 20px;
+              @media all and (max-width: 991px){
+                margin:0 10px;
+              }
+              @media all and (max-width: 479px){
+                margin:0px;
+              }
+              .actions-toolbar{
+                margin-top:15px;
+                @media all and (max-width:767px){
+                  margin-top:25px;
+                }
+                .primary{
+                  button{
+                    width:100%;
+                  }
+                }
+              }
+              input[type="radio"]{
+                + .label{
+                  &:before{
+                    margin-right:5px;
+                  }
+                }
+              }
+              .payment-method-title{
+                font-family: "iCuracao-Regular";
+                font-size:14px;
+                color:@black;
+                padding:0;
+              }
+              .payment-method-content{
+                padding: 0 0 20px 25px;
+                @media all and (max-width:767px){
+                  padding: 0 25px;
+                }
+                .payment-method-billing-address{
+                  display: none;
+                }
+                .fieldset{
+                  &.payment{
+                    .field{
+                      &.type{
+                        position: absolute;
+                        top:0;
+                        right:0;
+                        @media all and (max-width:767px){
+                          position: static;
+                        }
+                        .credit-card-types{
+                          li{
+                            width:32px;
+                            @media all and (max-width:991px){
+                              width:25px;
+                            }
+                            @media all and (max-width:767px){
+                              width:32px;
+                            }
+                            @media all and (max-width:479px){
+                              width:25px;
+                            }
+                          }
+                        }
+                      }
+                      &.number,&.date{
+                        float: left;
+                        @media all and (max-width: 991px){
+                          float: none;
+                        }
+                        .label{
+                          font-family: "iCuracao-Regular";
+                          font-size: 13px;
+                          color: #000;
+                          font-weight: bold;
+                        }
+                      }
+                      &.number{
+                        margin-right:20px;
+                        @media all and (max-width:991px){
+                          margin-right:0;
+                        }
+                        .input-text{
+                          width:198px;
+                        }
+                      }
+                      &.date{
+                        .month{
+                          .select{
+                            width: 120px;
+                          }
+                        }
+                        .year{
+                          .select{
+                            width:73px;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
       .checkout-payment-method .payment-method + .payment-method .payment-method-title {
         border-top: 1px solid transparent;
       }
-      .checkout-payment-method {
-        .payment-method-title {
-          padding-top: 5px;
-        }
-        }
       .items-in-cart > .title strong {
         font-size: 1.6rem;
         font-weight: 400;
       }
+      /*styling fot the new credit card ends here*/
       .opc-block-summary{
         .items-in-cart > .title {
         border-bottom: 1px solid #cccccc3a;
@@ -357,12 +508,10 @@
         .form-login{
           padding-bottom: 0;
           border-bottom: none;
-          margin-top:0px;
-          margin-bottom: 0;
+          margin:0;
         }
         .form-shipping-address{
-          margin-top:0;
-          margin-bottom: 20px;
+          margin:0 0 20px;
         }
         #checkout-step-shipping_method{
           margin-bottom:0;
@@ -391,20 +540,10 @@
 	           }
           }
         }
-        #checkout-payment-method-load{
-          .payment-methods{
-            margin:0;
-            .payment-method{
-	              .payment-method-title{
-                font-weight:700;
-               color:#353535;
-             }
-            }
-         }
-        }
         .form-shipping-address, .form-login{
           .label{
               font-weight: 600;
+              color:#000;
           }
           @media only screen and (min-width: 768px){
             max-width: 100%;
@@ -457,6 +596,68 @@
           clear: both;
         }
       }
+      /*styling for the accordion starts here*/
+      .checkout-shipping-method{
+        .ui-accordion{
+          .ui-accordion-header{
+            position: relative;
+            border-top:1px solid @light-gray-border;
+            margin:0 0 20px;
+            padding:40px 40px 20px 0;
+            font-size: 18px;
+            color: black;
+            font-family: "iCuracao-Medium";
+            font-weight: normal;
+            .alert-message{
+              font-size: 14px;
+              color: @black;
+              font-family: "iCuracao-Regular";
+            }
+            &.ui-state-default{
+              &:after{
+                content: '\002B';
+                color:@black;
+                font-family: 'iCuracao-Regular';
+                font-size: 18px;
+                line-height: 14px;
+                position: absolute;
+                top: 43px !important;
+                right: 0px;
+              }
+            }
+            &.ui-state-active{
+              &:after{
+                content: '\2212' !important;
+              }
+            }
+          }
+          .ui-accordion-content{
+            display: block !important;
+            height:auto !important;
+            max-height: 0px;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            .form-shipping-address{
+              .field{
+                .control{
+                  .field-tooltip{
+                    display: none;
+                  }
+                }
+              }
+            }
+            &.ui-accordion-content-active{
+              display: block !important;
+              height:auto !important;
+              max-height: 1500px;
+              overflow: inherit;
+              transition: all 0.5s ease;
+              margin:0 0 40px;
+            }
+          }
+        }
+      }
+      /*styling for the accordion ends here*/
       .opc{
         padding:15px;
         @media only screen and (min-width: 768px){
@@ -471,6 +672,7 @@
         }
         .step-title{
           border: none;
+          font-family: "iCuracao-Regular";
           font-size: 20px;
           color: @black;
           padding-bottom: 0;
@@ -529,55 +731,6 @@
               }
               .radio-button{
                 margin: 10px 0;
-                input[type="radio"] {
-                  position: absolute;
-                  opacity: 0;
-                  + label {
-                    color:@black;
-                    font-size:14px;
-                    &:before {
-                      content: '';
-                      background: @off-white;
-                      border-radius: 100%;
-                      border: 1px solid darken(@off-white, 25%);
-                      display: inline-block;
-                      width: 15px;
-                      height: 15px;
-                      position: relative;
-                      top: 1px;
-                      margin-right: 10px;
-                      vertical-align: top;
-                      cursor: pointer;
-                      text-align: center;
-                      transition: all 250ms ease;
-                    }
-                  }
-                  &:checked {
-                    + label {
-                      &:before {
-                        border-color: @theme-color;
-                        background-color: @theme-color;
-                        box-shadow: inset 0 0 0 4px @off-white;
-                      }
-                    }
-                  }
-                  &:disabled {
-                    + label {
-                      &:before {
-                        box-shadow: inset 0 0 0 4px @off-white;
-                        border-color: darken(@off-white, 25%);
-                        background: darken(@off-white, 25%);
-                      }
-                    }
-                  }
-                  + label {
-                    &:empty {
-                      &:before {
-                        margin-right: 0;
-                      }
-                    }
-                  }
-                }
               }
               .form{
                 .store-pickup-pincode{
@@ -714,61 +867,6 @@
             tbody{
               tr{
                 padding-left: 15px;
-                td{
-                  /*styling for the custom radio button on shipping method section starts here*/
-                  &.col-method{
-                    input[type="radio"] {
-                      position: absolute;
-                      opacity: 0;
-                      + .label {
-                        color:@black;
-                        font-size:14px;
-                        &:before {
-                          content: '';
-                          background: @off-white;
-                          border-radius: 100%;
-                          border: 1px solid darken(@off-white, 25%);
-                          display: inline-block;
-                          width: 15px;
-                          height: 15px;
-                          position: relative;
-                          top: 1px;
-                          margin-right: 10px;
-                          vertical-align: top;
-                          cursor: pointer;
-                          text-align: center;
-                          transition: all 250ms ease;
-                        }
-                      }
-                      &:checked {
-                        + .label {
-                          &:before {
-                            border-color: @theme-color;
-                            background-color: @theme-color;
-                            box-shadow: inset 0 0 0 4px @off-white;
-                          }
-                        }
-                      }
-                      &:disabled {
-                        + .label {
-                          &:before {
-                            box-shadow: inset 0 0 0 4px @off-white;
-                            border-color: darken(@off-white, 25%);
-                            background: darken(@off-white, 25%);
-                          }
-                        }
-                      }
-                      + .label {
-                        &:empty {
-                          &:before {
-                            margin-right: 0;
-                          }
-                        }
-                      }
-                    }
-                  }
-                  /*styling for the custom radio button on shipping method section ends here*/
-                }
               }
             }
           }
@@ -789,9 +887,9 @@
                 }
                 .linkaccount{
                   h2{
+                    font-family: "iCuracao-Medium";
                     font-size:18px;
                     color:@black;
-                    font-weight:700;
                     margin-bottom: 15px;
                   }
                   .curacao-credit-fieldset{
@@ -816,15 +914,15 @@
                       .field{
                         margin-bottom: 10px;
                         label{
+                          font-family: "iCuracao-Medium";
                           font-size:14px;
-                          font-weight:700;
                           color:@black;
                         }
                         .control{
                           margin-top:10px;
-                          width: 40%;
+                          width: 43%;
                           @media all and (max-width:991px){
-                            width:50%;
+                            width:53%;
                           }
                           @media all and (max-width:767px){
                             width:100%;
@@ -860,18 +958,22 @@
                       }
                     }
                     p{
+                      font-family: "iCuracao-Regular";
                       color:@light-gray-text;
                       font-size: 11px;
                       font-style: italic;
                       margin-bottom: 15px;
                     }
                     h3{
+                      font-family: "iCuracao-Medium";
                       color:@black;
                       font-size:14px;
+                      font-weight: normal;
                       @media all and (max-width:479px){
                         font-size:13px;
                       }
                       a{
+                        font-family: "iCuracao-Medium";
                         color:@theme-color;
                       }
                     }
@@ -879,9 +981,9 @@
                 }
                 .creditlimit{
                   h2{
+                    font-family: "iCuracao-Medium";
                     font-size:18px;
                     color:@black;
-                    font-weight:700;
                     margin-bottom: 15px;
                   }
                   .curacao-account-info{
@@ -1005,28 +1107,28 @@
                       margin-bottom: 3px;
                       .label{
                         font-family: "iCuracao-Medium";
-                        font-size:12px;
+                        font-size:13px;
                         color:@black;
                         @media all and (max-width: 479px){
-                          font-size:11px;
+                          font-size:12px;
                         }
                       }
                       .seller_content{
                         font-family: "iCuracao-Medium";
-                        font-size:12px;
+                        font-size:13px;
                         margin-left: 3px;
                         color:@curacao-red-text;
                         @media all and (max-width: 479px){
-                          font-size:11px;
+                          font-size:12px;
                         }
                       }
                     }
                     .label-alert{
                       font-family: "iCuracao-Regular";
-                      font-size:12px;
+                      font-size:13px;
                       color:@black;
                       @media all and (max-width: 479px){
-                        font-size:11px;
+                        font-size:12px;
                       }
                     }
                   }

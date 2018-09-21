@@ -25,12 +25,12 @@
               <h4><span data-bind="i18n: 'Select delivery option'"></span></h4>
               <div class="radio-button">
                   <input type="radio" data-bind="attr: { name: 'delivery-product-' + $data.item_id() ,id: 'shipping-'+$data.item_id()},checked:'shipping',value:'shipping',event:{change:setStorepickup.bind(this)}" />
-                  <label data-bind="i18n: 'Ship to home',attr:{for: 'shipping-'+$data.item_id()}"></label>
+                  <label class="label" data-bind="i18n: 'Ship to home',attr:{for: 'shipping-'+$data.item_id()}"></label>
               </div>
 
               <div class="radio-button">
                  <input type="radio" data-bind="attr: { name: 'delivery-product-' + $data.item_id(),id: 'storepickup-'+$data.item_id()},checked:$data.item_id(),value:'storepickup',event:{change:setStorepickup.bind(this)}" />
-                 <label data-bind="i18n: 'Store Pickup',attr:{for: 'storepickup-'+$data.item_id()}"></label>
+                 <label class="label" data-bind="i18n: 'Store Pickup',attr:{for: 'storepickup-'+$data.item_id()}"></label>
               </div>
 
               <form class="form" data-bind="attr: {'data-hasrequired': $t('* Required Fields'),id:'deliveryform'+$data.item_id()}">
@@ -63,7 +63,7 @@
                   <div class="store-zipcode-outer">
                     <label>90280
                     </label>
-                      <button>Change</button>
+                      <button class="change">Change</button>
                   </div>
                   <h4>Available Stores<span class="store-count">(4)</span></h4>
                   <div class="avail-store-outer">
