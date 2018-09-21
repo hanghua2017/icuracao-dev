@@ -19,6 +19,26 @@
                                                     <!--add here child component declaration for your step-->
                                                 </item>
                                             </item>
+                                            <!-- Shipping page layout page -->
+                                            <item name="shipping-step" xsi:type="array">
+                                                <item name="children" xsi:type="array">
+                                                    <item name="shippingAddress" xsi:type="array">
+                                                        <item name="children" xsi:type="array">
+                                                            <item name="shippingAdditional" xsi:type="array">
+                                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                                <item name="displayArea" xsi:type="string">shippingAdditional</item>
+                                                                <item name="children" xsi:type="array">
+                                                                    <item name="additional_block" xsi:type="array">
+                                                                        <item name="component" xsi:type="string">Dyode_DeliveryMethod/js/view/shipping-method</item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                        
+                                                    </item>
+                                                </item>
+                                            </item>
+                                            
                                         </item>
                                     </item>
                                 </item>
