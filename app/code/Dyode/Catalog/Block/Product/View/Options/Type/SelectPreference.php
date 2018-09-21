@@ -80,47 +80,90 @@ class SelectPreference extends \Magento\Catalog\Block\Product\View\Options\Type\
             if ($arraySign) {
                 $dataSelector .= '[' . $htmlValue . ']';
             }
+          if ($type == 'radio') {
 
-            $selectHtml .= '<div class="field choice admin__field admin__field-option' .
-                $require .
-                '">' .
-                '<input type="' .
-                $type .
-                '" class="' .
-                $class .
-                ' ' .
-                $require .
-                ' product-custom-option"' .
-                ($this->getSkipJsReloadPrice() ? '' : ' onclick="opConfig.reloadPrice()"') .
-                ' name="options[' .
-                $_option->getId() .
-                ']' .
-                $arraySign .
-                '" id="options_' .
-                $_option->getId() .
-                '_' .
-                $count .
-                '" value="' .
-                $htmlValue .
-                '" ' .
-                $checked .
-                ' data-selector="' . $dataSelector . '"' .
-                ' price="' .
-                $this->pricingHelper->currencyByStore($_value->getPrice(true), $store, false) .
-                '" />' .
-                '<label class="label admin__field-label" for="options_' .
-                $_option->getId() .
-                '_' .
-                $count .
-                '"><span>' .
-                $_value->getTitle() .
-                '</span> ' .
-                $priceStr .
-                '</label>';
-            $selectHtml .= '</div>';
+              $selectHtml .= '<div class="field choice admin__field admin__field-option' .
+                  $require .
+                  '">' .
+                  '<input type="' .
+                  $type .
+                  '" class="' .
+                  $class .
+                  ' ' .
+                  $require .
+                  ' product-custom-option"' .
+                  ($this->getSkipJsReloadPrice() ? '' : ' onclick="opConfig.reloadPrice()"') .
+                  ' name="options[' .
+                  $_option->getId() .
+                  ']' .
+                  $arraySign .
+                  '" id="options_' .
+                  $_option->getId() .
+                  '_' .
+                  $count .
+                  '" value="' .
+                  $htmlValue .
+                  '" ' .
+                  $checked .
+                  ' data-selector="' . $dataSelector . '"' .
+                  ' price="' .
+                  $this->pricingHelper->currencyByStore($_value->getPrice(true), $store, false) .
+                  '" />' .
+                  '<label class="label admin__field-label" for="options_' .
+                  $_option->getId() .
+                  '_' .
+                  $count .
+                  '"><span class="detail">' .
+                  $_value->getTitle() .
+                  '</span> ' .
+                  $priceStr .
+                  '</label>';
+              $selectHtml .= '</div>';
+          } else {
+            $selectHtml .= '<div class="field choice admin__field admin__field-option checking-box' .
+                           $require .
+                           '">' .
+                           '<label class="checking-box-label">' .
+                           '<input type="' .
+                           $type .
+                           '" class="' .
+                           $class .
+                           ' ' .
+                           $require .
+                           ' product-custom-option"' .
+                           ($this->getSkipJsReloadPrice() ? '' : ' onclick="opConfig.reloadPrice()"') .
+                           ' name="options[' .
+                           $_option->getId() .
+                           ']' .
+                           $arraySign .
+                           '" id="options_' .
+                           $_option->getId() .
+                           '_' .
+                           $count .
+                           '" value="' .
+                           $htmlValue .
+                           '" ' .
+                           $checked .
+                           ' data-selector="' . $dataSelector . '"' .
+                           ' price="' .
+                           $this->pricingHelper->currencyByStore($_value->getPrice(true), $store, false) .
+                           '" />' .
+                           '<span class="checkmark"></span>'.
+                           '<label class="label admin__field-label" for="options_' .
+                           $_option->getId() .
+                           '_' .
+                           $count .
+                           '"><span class="detail">' .
+                           $_value->getTitle() .
+                           '</span> ' .
+                           $priceStr .
+                           '</label>';
+
+                           '</label>'.
+                       $selectHtml .= '</div>';
+          }
         }
         $selectHtml .= '</div>';
-
         return $selectHtml;
 
     }
