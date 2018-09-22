@@ -35,6 +35,30 @@ class Location extends AbstractExtensibleModel implements LocationInterface
     /**
      * {@inheritdoc}
      */
+    public function getStoreLocationCode()
+    {
+        return $this->getData(self::STORE_LOCATION_CODE);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getStoreManager()
+    {
+        return $this->getData(self::STORE_MANAGER);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getStoreEmail()
+    {
+        return $this->getData(self::STORE_EMAIL);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getDescription()
     {
         return $this->getData(self::DESCRIPTION);
@@ -102,6 +126,14 @@ class Location extends AbstractExtensibleModel implements LocationInterface
     public function getPhone()
     {
         return $this->getData(self::PHONE);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFax()
+    {
+        return $this->getData(self::FAX);
     }
 
     /**
@@ -195,6 +227,30 @@ class Location extends AbstractExtensibleModel implements LocationInterface
     /**
      * {@inheritdoc}
      */
+    public function setStoreLocationCode($storeLocationCode)
+    {
+        return $this->setData(self::STORE_LOCATION_CODE, $storeLocationCode);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setStoreManager($storeManager)
+    {
+        return $this->setData(self::STORE_MANAGER, $storeManager);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setStoreEmail($storeEmail)
+    {
+        return $this->setData(self::STORE_EMAIL, $storeEmail);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function setDescription($description)
     {
         return $this->setData(self::DESCRIPTION, $description);
@@ -262,6 +318,14 @@ class Location extends AbstractExtensibleModel implements LocationInterface
     public function setPhone($phone)
     {
         return $this->setData(self::PHONE, $phone);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setFax($fax)
+    {
+        return $this->setData(self::FAX, $fax);
     }
 
     /**
