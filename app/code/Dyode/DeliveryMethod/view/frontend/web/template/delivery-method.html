@@ -18,7 +18,7 @@
               <div class="delivery-method-product-details">
                 <h4 class="product-name" data-bind="text: product_name"></h4>
                 <h5 class="product-price">&#36;<span data-bind="text:product_price"></span></h5>
-                <h6 class="product-qty">Quantity: <span data-bind="text: product_qty"></span></h6>
+                <h6 class="product-qty" data-bind="i18n: 'Quantity '">: <span data-bind="text: product_qty"></span></h6>
               </div>
             </div>
             <div class="delivery-methods-options">
@@ -42,6 +42,13 @@
 
                 </div>
               </form>
+              <div id="deliverycontents" style="display:none" data-bind="visible: state">
+                 <div data-bind="attr: {id:'deliverydetails'+$data.item_id()}">
+                </div>
+                <button type="button" class="action" data-bind="event:{click:changeLocation.bind(this)}" >
+                   <span data-bind="i18n: 'Change'"></span>
+                </button>
+              </div>
             </div>
 
           </div>
@@ -49,7 +56,7 @@
 
 <div data-bind="text: ko.toJSON($root)"></div>
 
-            <div id="dialog-message">
+            <div id="dialog-message" style="display:none">
                 <div class="modal-top-strip">Showing free in store pickup for the Zip code
                 </div>
                 <div class="modal-body-content">
