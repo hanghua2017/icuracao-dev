@@ -1,1 +1,296 @@
-@import "_typography.less";//Font styles
+@theme-color: #82b800;
+@field-border: #b4b4b4;
+@content-light-grey: #aeaeae;
+@content-dark-grey: #5c5c5c;
+//Style for price beat form CMS pages
+/*Common styling for */
+input, select {
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+.cms-pricebeat, .cms-interestbeat  {
+  .page-wrapper {
+    /*Hide breadcrumbs*/
+    .breadcrumbs {
+      display: none;
+    }
+    .page-main {
+      background-image: url('../images/price-beat.png');
+      max-width: 100%;
+      background-repeat: repeat;
+      padding: 0;
+      background-position: center;
+      @media all and (max-width: 599px) {
+        background-image: none;
+      }
+      .columns {
+        max-width: 1500px;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin: 0 auto;
+        @media all and (max-width: 768px) {
+          padding: 0;
+        }
+        .column.main {
+          width: 598px;
+          background: #fff;
+          margin: 40px auto;
+          padding-bottom: 0;
+          -webkit-box-shadow: 0px 0px 7px 1px rgba(30,30,30,0.1);
+          -moz-box-shadow: 0px 0px 7px 1px rgba(30,30,30,0.1);
+          box-shadow: 0px 0px 7px 1px rgba(30,30,30,0.1);
+          @media all and (max-width: 767px) {
+            margin: 0 auto;
+            max-width: 100%;
+            box-shadow: none;
+          }
+          //Styling for price beat form
+          #pricebeat, #interestbeat {
+            width: 357px;
+            margin: 0 auto;
+            @media all and (max-width: 420px) {
+              width: 100%;
+            }
+            .fieldset {
+              padding:40px 0;
+              @media all and (max-width: 479px) {
+                padding: 20px 20px 40px;
+              }
+              p {
+                line-height: 24px;
+                color: #000;
+                font-family: "iCuracao-Light";
+                font-weight: 500;
+                text-align: center;
+                &.title {
+                  font-size: 28px;
+                  margin-bottom: 20px;
+                  @media all and (max-width: 768px) {
+                    font-size: 24px;
+                  }
+                  @media all and (max-width: 479px) {
+                    font-size: 22px;
+                  }
+                }
+                &.title-desc, &.prod-info {
+                  font-size: 16px;
+                  margin-bottom: 35px;
+                  @media all and (max-width: 479px) {
+                    margin-bottom: 20px;
+                    font-size: 14px;
+                  }
+                }
+                &.prod-info {
+                  font-family: 'iCuracao-Medium';
+                  padding: 40px 10px 25px;
+                  color: #8a8888;
+                  margin-bottom: 0;
+                  @media all and (max-width: 479px) {
+                    padding: 20px 10px;
+                  }
+                }
+              }
+              .or-block {
+                margin: 35px 0;
+                height: 1px;
+                @media all and (max-width: 479px) {
+                  margin: 30px 0;
+                }
+                .line {
+                  border-bottom: 1px solid #ddd;
+                }
+                .or-text {
+                  position: relative;
+                  top: -21px;
+                  background: white;
+                  width: 24px;
+                  border-radius: 12px;
+                  border: 1px solid #ddd;
+                  height: 24px;
+                  margin: 0 auto;
+                  font-size: 12px;
+                  color: #999;
+                  font-family: "iCuracao-Medium";
+                  text-transform: uppercase;
+                }
+              }
+              .field {
+                margin: 0;
+                padding: 3px 0;
+                border-bottom: 1px solid @field-border;
+                border-left: 1px solid @field-border;
+                border-right: 1px solid @field-border;
+                &.firstName-box {
+                  border-top: 1px solid @field-border;
+                  border-top-left-radius: 5px;
+                  border-top-right-radius: 5px;
+                }
+                &.invoiceNum-box {
+                  border-bottom-left-radius: 5px;
+                  border-bottom-right-radius: 5px;
+                }
+              }
+              .competitor-link, .uploadFile-box {
+                padding: 3px 0;
+                border: 1px solid @field-border;
+                border-radius: 5px;
+              }
+              label[for=productimage] {
+                display: block;
+                font-size: 14px;
+                color: rgb(138,136,136);
+                font-family: "iCuracao-Light";
+                font-weight: 500;
+                margin-bottom: 5px;
+              }
+              .control {
+                input {
+                  font-family: "iCuracao-Regular";
+                  background-color: transparent;
+                  border: 0;
+                  padding: 5px 9px 5px 15px;
+                  font-size: 14px;
+                  color: #000;
+                  @media all and (max-width: 479px) {
+                    padding-left: 10px;
+                  }
+                  &:focus {
+                    outline: none;
+                    box-shadow: none;
+                  }
+                  &::-webkit-input-placeholder { /* Chrome */
+                    color: #8a8888;
+                    font-family: "iCuracao-light";
+                  }
+                  &:-ms-input-placeholder { /* IE 10+ */
+                    color: #8a8888;
+                    font-family: "iCuracao-light";
+                  }
+                  &::-moz-placeholder { /* Firefox 19+ */
+                    color: #8a8888;
+                    opacity: 1;
+                    font-family: "iCuracao-light";
+                  }
+                  &:-moz-placeholder { /* Firefox 4 - 18 */
+                    color: #8a8888;
+                    opacity: 1;
+                    font-family: "iCuracao-light";
+                  }
+                }
+                &.uploadFile-box {
+                  position: relative;
+                  padding: 7px 0;
+                }
+                input[type=file] {
+                  width: 100%;
+                  padding: 0;
+                  color: color: #8a8888;
+                }
+                .upload + label {
+                  position: absolute;
+                  top: 0;
+                  width: 86px;
+                  font-size: 12px;
+                  font-family: 'iCuracao-Regular';
+                  background-color: #888888;
+                  font-weight: 500;
+                  color: white;
+                  padding: 10px 0;
+                  text-transform: capitalize;
+                  text-align: center;
+                  display: inline-block;
+                  border-radius: 5px 0 0 5px;
+                  transition: 150ms;
+                }
+
+                .upload:focus + label,
+                .upload + label:hover {
+                  cursor:pointer;
+                }
+                .upload:focus + label {
+                  outline: 1px dotted #000;
+                  outline: -webkit-focus-ring-color auto 5px;
+                }
+                .error{
+                  color: #ff0000;
+                  font-family: "iCuracao-light";
+                  font-size: 11px;
+                  padding-left: 15px;
+                  @media all and (max-width: 479px) {
+                    padding-left: 10px;
+                  }
+                }
+              }
+              .actions-toolbar {
+                margin-top: 25px;
+                .primary {
+                  width: 100%;
+                  button {
+                    width: 100%;
+                    padding: 12px 15px;
+                    margin-right: 0;
+                    background-color: @theme-color;
+                    border-color: @theme-color;
+                    font-family: 'iCuracao-Regular';
+                  }
+                }
+              }
+            }
+          }
+          //Styling for content at bottom
+          .beat-banner {
+            padding: 50px 20px 30px;
+            text-align: center;
+            @media all and (max-width: 767px) {
+              padding: 50px 15px 20px;
+            }
+            &.price-beat-banner {
+              background: url('../images/price-beat-form-bg.png');
+              background-size: 100% 100%;
+              background-color: #fff;
+            }
+            &.interest-beat-banner {
+              background: url('../images/interest-beat-form-bg.png');
+              background-size: 100% 100%;
+              background-color: #fff;
+            }
+            .beat-logo {
+              text-align: center;
+              img {
+                @media all and (max-width: 767px) {
+                  width: 20%;
+                }
+                @media all and (max-width: 479px) {
+                  width: 30%;
+                }
+              }
+            }
+            .beat-banner-content {
+              h3 {
+                font-size: 20px;
+                font-weight: 700;
+                font-family: 'iCuracao-Regular';
+                color: #fff;
+                margin: 20px 0;
+                @media all and (max-width: 767px) {
+                  font-size: 18px;
+                }
+              }
+              p {
+                font-size: 16px;
+                font-family: 'iCuracao-Regular';
+                color: #fff;
+                margin: 20px 0;
+                @media all and (max-width: 767px) {
+                  font-size: 14px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
