@@ -29,18 +29,18 @@
           <?php
               $_price= $product->getPrice();
               $_finalPrice= $product->getSpecialPrice();
-              $specialPriceFromDate = $product->getSpecialFromDate();
-              $specialPriceToDate = $product->getSpecialToDate();
-              $today =  time();
+              // $specialPriceFromDate = $product->getSpecialFromDate();
+              // $specialPriceToDate = $product->getSpecialToDate();
+              // $today =  time();
                 if ($_finalPrice && ($product->getPrice()>$product->getFinalPrice())):
-                  if($today >= strtotime( $specialPriceFromDate) && $today <= strtotime($specialPriceToDate) ||
-                       $today >= strtotime( $specialPriceFromDate) && is_null($specialPriceToDate)):
+                  // if($today >= strtotime( $specialPriceFromDate) && $today <= strtotime($specialPriceToDate) ||
+                  //      $today >= strtotime( $specialPriceFromDate) && is_null($specialPriceToDate)):
                        //product in sales
                       $_savePercent = 100-round(($_finalPrice / $_price) * 100);
                  ?>
                   <span class="discount-flag"><?php echo $_savePercent . "% Off";?></span>
                   <?php
-                endif;
+                // endif;
               endif;
           ?>
         <?php
