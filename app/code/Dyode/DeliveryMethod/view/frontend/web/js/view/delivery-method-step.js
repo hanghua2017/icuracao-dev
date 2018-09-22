@@ -126,38 +126,38 @@ define(
                       }
 
                     },
-                    updateLocation:function(locElement,e){
-                        var location_id = jQuery(locElement.target).closest('.form').find("input#location_id").val();
-                        var item_id = jQuery(locElement.target).closest('.form').find("input#item_id").val();
-                        console.log(location_id+item_id);
-                        fullScreenLoader.startLoader();
-                        jQuery.ajax({
-                            url: '/storeloc/deliverylocation/index',
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                location_id: location_id,
-                                item_id: item_id,
-                            },
-                            success: function(response) {
-                                fullScreenLoader.stopLoader();
-                                console.log(response);
-
-                            },
-                            error: function (xhr, status, errorThrown) {
-                                console.log('Error happens. Try again.');
-                            },
-                            complete: function(){
-                                fullScreenLoader.stopLoader();
-                            }
-                        });
-                   },
 
                 }
                   productItems.push(productItem);
                 });
                 return productItems.length !== 0 ? productItems: null;
             },
+            updateLocation:function(locElement,e){
+                var location_id = jQuery(locElement.target).closest('.form').find("input#location_id").val();
+                var item_id = jQuery(locElement.target).closest('.form').find("input#item_id").val();
+                console.log(location_id+item_id);
+                fullScreenLoader.startLoader();
+                jQuery.ajax({
+                    url: '/storeloc/deliverylocation/index',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        location_id: location_id,
+                        item_id: item_id,
+                    },
+                    success: function(response) {
+                        fullScreenLoader.stopLoader();
+                        console.log(response);
+
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        console.log('Error happens. Try again.');
+                    },
+                    complete: function(){
+                        fullScreenLoader.stopLoader();
+                    }
+                });
+           },
 
             /**
             *
