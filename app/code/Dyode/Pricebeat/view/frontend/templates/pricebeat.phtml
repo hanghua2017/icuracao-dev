@@ -46,7 +46,8 @@
 
         <label for="productimage" class="label"><span><?php /* @escapeNotVerified */ echo __("Competitor's product image or screenshot") ?></span></label>
         <div class="control uploadFile-box">
-          <input type="file" name="upload_file" class="input-text"/>
+          <input type="file" name="upload_file" class="input-text upload"/>
+          <label for="file">Choose file</label>
         </div>
 
         <div class="actions-toolbar">
@@ -61,9 +62,23 @@
 
 </form>
 
-<div class="price-beat-details">
-  <img src="<?php echo $this->getViewFileUrl('images/price-beat-detail.png'); ?>" />
-</div>
+<div class="beat-banner price-beat-banner">
+   <div class="beat-logo">
+     <img src="<?php echo $this->getViewFileUrl('images/pricebeat_logo.png'); ?>" alt="Price Beat Logo">
+   </div>
+   <div class="beat-banner-content">
+     <h3>Pay lowest price everytime you shop!</h3>
+     <p>Never worry again about getting the best deal. Curacao’s PRICE
+        BEAT GUARANTEE ensures that you are always going to get the best
+        deal on any item soldin our store or online, even after you’ve
+        already made your purchase.</p>
+      <p>Curacao strives to ensure that we have competitive pricing
+        on all items every day, But on occassion a competitor may
+        offer the same item for less. with Curacao’s PRICE BEAT GURANTEE,
+        We will not only match the competitors price, but we will BEAT it!
+        This is our Promise.</p>
+   </div>
+ </div>
 
 
 
@@ -92,7 +107,9 @@ require([
         $('#last_name').after('<span class="error">This field is required</span>');
       }
       if(email=="")
-      {
+      {<div class="price-beat-details">
+  <img src="<?php echo $this->getViewFileUrl('images/price-beat-detail.png'); ?>" />
+</div>
         $('#email').after('<span class="error">This field is required</span>');
       }
       if(phonenumber=="")

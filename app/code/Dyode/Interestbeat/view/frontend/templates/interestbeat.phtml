@@ -1,63 +1,84 @@
 <form id="interestbeat" class="form" action="<?= $block->getUrl('interestbeat/user/post',['_secure' => $this->getRequest()->isSecure()]) ?>);" method="post" enctype="multipart/form-data">
     <fieldset class="fieldset">
-        <legend class="legend"><span><?php /* @escapeNotVerified */ echo __('Interestbeat Form') ?></span></legend><br>
-        <div class="field required">
-            <label for="number" class="label"><span><?php /* @escapeNotVerified */ echo __('First name') ?></span></label>
-            <div class="control">
-                <input type="text" id="first_name" name="first_name" class="input-text" required="true"/>
-            </div>
-        </div>
-        <div class="field required">
-            <label for="number" class="label"><span><?php /* @escapeNotVerified */ echo __('Last-Name') ?></span></label>
-            <div class="control">
-                <input type="text" id="last_name" name="last_name" class="input-text"/>
-            </div>
-        </div>
-        <div class="field required">
-            <label for="email" class="label"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></label>
-            <div class="control">
-                <input type="email" id="email" name="email" class="input-text"/>
-            </div>
-        </div>
-        <div class="field required">
-            <label for="phonenumber" class="label"><span><?php /* @escapeNotVerified */ echo __('Phone Number') ?></span></label>
-            <div class="control">
-                <input type="number" id="phonenumber" name="phonenumber" class="input-text"/>
-            </div>
-        </div>
-        <div class="field required">
-            <label for="accountnumber" class="label"><span><?php /* @escapeNotVerified */ echo __('Account Number') ?></span></label>
-            <div class="control">
-                <input type="number" id="account_number" name="account_number" class="input-text"/>
-            </div>
-        </div>
-        <div class="field required">
-            <label for="invoicenumber" class="label"><span><?php /* @escapeNotVerified */ echo __('Invoice Number') ?></span></label>
-            <div class="control">
-                <input type="number" id="invoice_number" name="invoice_number" class="input-text"/>
-            </div>
-        </div>
+      <p class="title"><span><?php /* @escapeNotVerified */ echo __('Interest Beat') ?></span></p>
+      <p class="title-desc"><span><?php /* @escapeNotVerified */ echo __("We'll Beat any Competitor's Prices") ?></span></p>
 
-
-            <label for="productlink" class="label"><span><?php /* @escapeNotVerified */ echo __('Product Link') ?></span></label>
-            <div class="control">
-                <input type="url" id="product_url" name="product_url" class="input-text"/>
-            </div>
-
-
-          <label for="productimage" class="label"><span><?php /* @escapeNotVerified */ echo __('Product image') ?></span></label>
+      <div class="field required firstName-box">
           <div class="control">
-            <input type="file" name="upload_file" class="input-text"/>
+              <input type="text" id="first_name" name="first_name"  placeholder="First Name" class="input-text" required="true"/>
           </div>
+      </div>
+      <div class="field required lastName-box">
+          <div class="control">
+              <input type="text" id="last_name" name="last_name" placeholder="Last Name" class="input-text"/>
+          </div>
+      </div>
+      <div class="field required email-box">
+          <div class="control">
+              <input type="email" id="email" name="email" placeholder="Email" class="input-text"/>
+          </div>
+      </div>
+      <div class="field required phoneNum-box">
+          <div class="control">
+              <input type="number" id="phonenumber" name="phonenumber" placeholder="Phone Number" class="input-text"/>
+          </div>
+      </div>
+      <div class="field required accNum-box">
+          <div class="control">
+              <input type="number" id="account_number" name="account_number" placeholder="Account Number" class="input-text"/>
+          </div>
+      </div>
+      <div class="field required invoiceNum-box">
+          <div class="control">
+              <input type="number" id="invoice_number" name="invoice_number" placeholder="Invoice/Order Number" class="input-text"/>
+          </div>
+      </div>
 
-    <div class="actions-toolbar">
-        <div class="primary">
-            <button  id="interestbeat-btn" class="action submit primary" title="<?php /* @escapeNotVerified */ echo __('Submit') ?>">
-                <span><?php /* @escapeNotVerified */ echo __('Submit') ?></span>
-            </button>
-        </div>
-    </div>
+      <p class="prod-info"><span><?php /* @escapeNotVerified */ echo __('Please provide us with the product information with one of the following options') ?></span></p>
+
+
+      <div class="control competitor-link">
+          <input type="url" id="product_url" name="product_url" placeholder="Competitor's product link" class="input-text"/>
+      </div>
+
+      <div class="or-block">
+        <p class="line"></p>
+        <p class="or-text">OR</p>
+      </div>
+
+
+      <label for="productimage" class="label"><span><?php /* @escapeNotVerified */ echo __("Competitor's product image or screenshot") ?></span></label>
+      <div class="control uploadFile-box">
+        <input type="file" name="upload_file" class="input-text upload"/>
+        <label for="file">Choose file</label>
+      </div>
+
+      <div class="actions-toolbar">
+          <div class="primary">
+              <button  id="interestbeat-btn" class="action submit primary" title="<?php /* @escapeNotVerified */ echo __('Submit') ?>">
+                  <span><?php /* @escapeNotVerified */ echo __('Submit') ?></span>
+              </button>
+          </div>
+      </div>
+    </fieldset>
 </form>
+
+<div class="beat-banner interest-beat-banner">
+   <div class="beat-logo">
+     <img src="<?php echo $this->getViewFileUrl('images/interestbeat_logo.png'); ?>" alt="Price Beat Logo">
+   </div>
+   <div class="beat-banner-content">
+     <h3>We will beat any competitors <br> INTEREST RATE</h3>
+     <p>Curacao is so confident in our landing practices and the interest
+       rate that we offer, We have introduced our INTEREST BEAT GUARANTEE.
+       This ensures that our cunsomers can enhoy better interest rates than
+       you are able to get with any other retailer’s store credit card.</p>
+      <p>Curacao continually reviews its lending rates and tries to ensure
+        that our customers pay competitive rate on their outstanding debt.
+        With Curacao’s INTEREST BEAT GUARANTEE, We will not only match
+        the competitor’s interest rate, but we will BEAT it! That is our promise.</p>
+   </div>
+ </div>
 
 <script type="text/javascript">
 require([
