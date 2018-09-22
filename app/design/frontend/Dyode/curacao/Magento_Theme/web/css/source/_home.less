@@ -30,7 +30,7 @@
 	width: 100%;
 	left: 0;
 	text-align: center;
-	bottom: 18px;
+	bottom: 17px;
 	padding: 7px 0;
 	background: @dark-green-color;
 	@media all and (max-width:767px) {
@@ -1017,6 +1017,15 @@
 						}
 					}
 
+					.mp-product-slider-block {
+						.block-content {
+							margin-bottom: 30px;
+							@media all and (max-width:768px) {
+								margin-bottom: 15px;
+							}
+						}
+					}
+
 					.block-products-list,
 					.block-viewed-products-grid,
 					.category-slider-container,
@@ -1377,6 +1386,59 @@
 					}
 
 					.banner-block-container {
+						margin-bottom: 15px;
+
+						.block-products-list {
+							margin-bottom: 0;
+						}
+
+						.banner-block {
+							margin-bottom: 15px;
+						}
+
+						.banner-row.double {
+							.banner-item {
+								flex-basis: 50%;
+
+								&:first-child {
+									padding-right: 7.5px;
+								}
+
+								&:last-child {
+									padding-left: 7.5px;
+								}
+							}
+						}
+
+						.onethird-subsidiaries {
+							overflow: hidden;
+							margin-bottom: 15px;
+							display: flex;
+							justify-content: space-between;
+							justify-content: space-around;
+							padding-top: 30px;
+							@media screen and (max-width: 768px) {
+								margin-bottom: 10px;
+							}
+
+							img {
+								width: auto;
+								height: 100%;
+								max-width: 100%;
+							}
+							@media screen and (max-width: 768px) {
+								display: none;
+							}
+						}
+
+						&.threeequalbanner{
+							@media screen and (max-width: 768px) {
+								display: none;
+							}
+						}
+					}
+
+					.banner-block-container000000 {
 						.banner-block {
 							margin-bottom: 30px;
 							@media screen and (max-width: 768px) {
