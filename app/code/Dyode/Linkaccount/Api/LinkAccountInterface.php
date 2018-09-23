@@ -22,7 +22,7 @@ interface LinkAccountInterface
      * @param string $fname
      * @param string $lname
      * @param string $pass
-     * @return bool
+     * @return object
      */
     public function create($curacaoid,$email,$fname,$lname,$pass);
 
