@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* Copyright 2018 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="formkey"/>
+    <head>
+        <css src="Aheadworks_StoreLocator::css/store-locator-menu.css"/>
+    </head>
+    <body>
+        <referenceContainer name="page.main.actions">
+            <block class="Aheadworks\StoreLocator\Block\Adminhtml\Page\Menu" name="aheadworks_store_locator_menu" />
+        </referenceContainer>
+        <referenceContainer name="content">
+            <uiComponent name="location_listing"/>
+        </referenceContainer>
+    </body>
+</page>

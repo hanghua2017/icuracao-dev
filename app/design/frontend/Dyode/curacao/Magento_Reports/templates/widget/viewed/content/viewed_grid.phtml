@@ -1,0 +1,174 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * @var $block \Magento\Reports\Block\Product\Viewed
+ */
+?>
+<?php
+if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedProducts()->getSize())) {
+    $type = 'widget-viewed';
+    $mode = 'grid';
+
+    $type = $type . '-' . $mode;
+
+    $image = 'recently_viewed_products_grid_content_widget';
+    $title = __('Recently Viewed');
+    $items = $block->getRecentlyViewedProducts();
+
+    $showWishlist = true;
+    $showCompare = true;
+    $showCart = false;
+    $rating = 'short';
+    //  view model
+    $emiBlock = $block->getLayout()->getBlock('emi_block');
+    $emiViewModel = $emiBlock->getViewModel();
+    //$description = ($mode == 'list') ? true: false;
+}
+?>
+<?php if ($exist):?>
+    <div class="block widget block-viewed-products-<?= /* @escapeNotVerified */ $mode ?>">
+        <div class="slider-title">
+            <strong class='widget-title' role="heading" aria-level="2"><?= /* @escapeNotVerified */ $title ?></strong>
+        </div>
+        <div class="block-content">
+            <?= /* @escapeNotVerified */ '<!-- ' . $image . '-->' ?>
+            <div class="products-<?= /* @escapeNotVerified */ $mode ?> <?= /* @escapeNotVerified */ $mode ?>">
+                <ol class="product-items <?= /* @escapeNotVerified */ $type ?>">
+                    <?php $iterator = 1; ?>
+                    <div class="owl-carousel product-slider-home" id="recentlyviewed">
+                    <?php foreach ($items as $_item): ?>
+                      <div class="item">
+                        <?= /* @escapeNotVerified */ ($iterator++ == 1) ? '<li class="product-item">' : '</li><li class="product-item">' ?>
+                        <div class="product-item-info">
+                            <a href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>" class="product-item-photo">
+                                <?= $block->getImage($_item, $image)->toHtml() ?>
+                            </a>
+                            <div class="product-item-details">
+                                <strong class="product-item-name">
+
+                                    <a title="<?= $block->escapeHtml($_item->getName()) ?>"
+                                       href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>" class="product-item-link">
+                                        <?= $block->escapeHtml($_item->getName()) ?>
+                                    </a>
+                                </strong>
+                                <?php /* @escapeNotVerified */ echo $block->getProductPriceHtml(
+                                    $_item,
+                                    \Magento\Catalog\Pricing\Price\FinalPrice::PRICE_CODE,
+                                    \Magento\Framework\Pricing\Render::ZONE_ITEM_LIST,
+                                    [
+                                        'price_id_suffix' => '-' . $type
+                                    ]
+                                )
+                                ?>
+                                <?php if($emiViewModel != NULL) {?>
+                                   <?php $emi = $emiViewModel->monthlyEmi($_item->getFinalPrice());?>
+                                <?php }?>
+
+                                <?php if($emi!=0):?>
+                  <p class="subtext"><?php echo "or as low as ";?><span class="amount"><?php echo"$". "".$emi." "."/month";?></span></p>
+                  <?php endif?>
+
+                                <?php if ($rating): ?>
+                                    <?= $block->getReviewsSummaryHtml($_item, $rating) ?>
+                                <?php endif; ?>
+                                <?php if ($showWishlist || $showCompare || $showCart): ?>
+                                    <div class="product-item-actions">
+                                        <?php if ($showCart): ?>
+                                            <div class="actions-primary">
+                                                <?php if ($_item->isSaleable()): ?>
+                                                    <?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
+                                                        <button class="action tocart primary"
+                                                                data-mage-init='{"redirectUrl": {"url": "<?= /* @escapeNotVerified */ $block->getAddToCartUrl($_item) ?>"}}'
+                                                                type="button" title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>">
+                                                            <span><?= /* @escapeNotVerified */ __('Add to Cart') ?></span>
+                                                        </button>
+                                                    <?php else: ?>
+                                                        <?php
+                                                            $postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
+                                                            $postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
+                                                        ?>
+                                                        <button class="action tocart primary"
+                                                                data-post='<?= /* @escapeNotVerified */ $postData ?>'
+                                                                type="button" title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>">
+                                                            <span><?= /* @escapeNotVerified */ __('Add to Cart') ?></span>
+                                                        </button>
+                                                    <?php endif; ?>
+                                                <?php else: ?>
+                                                    <?php if ($_item->getIsSalable()): ?>
+                                                        <div class="stock available"><span><?= /* @escapeNotVerified */ __('In stock') ?></span></div>
+                                                    <?php else: ?>
+                                                        <div class="stock unavailable"><span><?= /* @escapeNotVerified */ __('Out of stock') ?></span></div>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if ($showWishlist || $showCompare): ?>
+                                            <div class="actions-secondary" data-role="add-to-links">
+                                                <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow() && $showWishlist): ?>
+                                                    <a href="#"
+                                                       class="action towishlist" data-action="add-to-wishlist"
+                                                       data-post='<?= /* @escapeNotVerified */ $block->getAddToWishlistParams($_item) ?>'
+                                                       title="<?= /* @escapeNotVerified */ __('Add to Wish List') ?>">
+                                                        <span><?= /* @escapeNotVerified */ __('Add to Wish List') ?></span>
+                                                    </a>
+                                                <?php endif; ?>
+                                                <?php if ($block->getAddToCompareUrl() && $showCompare): ?>
+                                                    <?php $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');?>
+                                                    <a href="#" class="action tocompare"
+                                                       data-post='<?= /* @escapeNotVerified */ $compareHelper->getPostDataParams($_item) ?>'
+                                                       title="<?= /* @escapeNotVerified */ __('Add to Compare') ?>">
+                                                        <span><?= /* @escapeNotVerified */ __('Add to Compare') ?></span>
+                                                    </a>
+                                                <?php endif; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <?= ($iterator == count($items)+1) ? '</li>' : '' ?>
+                    </div>
+                    <?php endforeach ?>
+                  </div>
+                </ol>
+            </div>
+            <?= $block->getPagerHtml() ?>
+        </div>
+    </div>
+<?php endif;?>
+<script type="text/x-magento-init">
+    {
+    ".product-slider-home": {
+        "OwlCarousel": {
+          "items": 5,
+          "dots":false,
+          "loop": true,
+          "nav":true,
+          "margin": 0,
+          "navText": ["<div class='custom-prev'><div class='left'></div></div>", "<div class='custom-next'><div class='right'></div></div>"],
+          "responsive": {
+            "0": {
+              "items": 1
+            },
+            "400": {
+              "items": 2
+            },
+            "768": {
+              "items": 3
+            },
+            "1045": {
+              "items": 5
+            }
+          }
+        }
+      }
+    }
+</script>

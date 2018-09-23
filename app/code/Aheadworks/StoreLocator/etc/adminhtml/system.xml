@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2018 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="aheadworks" translate="label" sortOrder="250">
+            <label>Aheadworks Extensions</label>
+        </tab>
+        <section id="aw_store_locator" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Store Locator</label>
+            <tab>aheadworks</tab>
+            <resource>Aheadworks_StoreLocator::config_store_locator</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enable_store_locator" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Store Locator Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Title</label>
+                </field>
+                <field id="url_key" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>URL Key</label>
+                </field>
+                <field id="google_maps_api_key" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Google Maps API Key</label>
+                    <comment><![CDATA[For 25K+ map loads per day API key is required. <br /><a href="https://developers.google.com/maps/documentation/javascript/tutorial#api_key" target="_blank">Get Google Maps API Key</a>]]></comment>
+                </field>
+                <field id="url_to_top_menu" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Extension's URL to Top Menu</label>
+                    <source_model>Aheadworks\StoreLocator\Model\Config\Source\TopMenu</source_model>
+                </field>
+                <field id="header_block" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Header CMS Block</label>
+                    <source_model>Aheadworks\StoreLocator\Model\Config\Source\HeaderBlock</source_model>
+                </field>
+                <field id="enable_find_my_location_button" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display 'Find My Location' Button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[To use this feature, you should consider switching your website to a secure origin, such as HTTPS. See <a href="https://goo.gl/rStTGz" target="_blank">https://goo.gl/rStTGz</a> for more details.]]></comment>
+                </field>
+            </group>
+            <group id="search" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Search</label>
+                <field id="search_radius_values" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Search Radius</label>
+                    <comment>Comma-separated.</comment>
+                </field>
+                <field id="default_search_radius" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Default Search Radius</label>
+                </field>
+                <field id="default_search_measurement" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Search Measurement</label>
+                    <source_model>Aheadworks\StoreLocator\Model\Config\Source\Measurement</source_model>
+                </field>
+            </group>
+            <group id="seo" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>SEO</label>
+                <field id="meta_keywords" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Meta Keywords</label>
+                </field>
+                <field id="meta_description" translate="label" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Meta Description</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

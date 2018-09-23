@@ -1,0 +1,124 @@
+@green-color: #97d700;
+@dark-green-color: #84b90a;
+@gray-text: rgba(51,51,51,255);
+/*Remove the default focus styling of select and input box*/
+input,
+select {
+  &:focus {
+    box-shadow: none;
+  }
+}
+/*Search block*/
+.block-search {
+  width: 70%;
+  float: left;
+  padding-left: 30px;
+
+  .minisearch {
+    .field.search {
+      .control {
+        input#search,
+        select#category_search_field {
+          font-family: 'iCuracao-Light';
+          font-size: 14px;
+          height: 35px;
+          border: none;
+        }
+
+        select#category_search_field {
+          width: 30%;
+          float: left;
+          color: white;
+          background-color: @dark-green-color;
+          background-image: url("../images/list-dwn-arrow.png");
+          background-repeat: no-repeat;
+          background-position: 97% center;
+          background-size: 9px;
+          @media screen and (max-width: 767px) {
+            display: none;
+          }
+
+          option {
+            text-transform: capitalize;
+          }
+        }
+
+        input#search {
+          width: 70%;
+          float: right;
+          color: black;
+          @media screen and (max-width: 767px) {
+            width: 100%;
+            left: 0;
+          }
+        }
+
+        input::-webkit-input-placeholder {
+          /* Chrome/Opera/Safari */
+          color: #929292;
+        }
+
+        input::-moz-placeholder {
+          /* Firefox 19+ */
+          color: #929292;
+        }
+
+        input:-ms-input-placeholder {
+          /* IE 10+ */
+          color: #929292;
+        }
+
+        input:-moz-placeholder {
+          /* Firefox 18- */
+          color: #929292;
+        }
+      }
+
+      label[for="search"] {
+        position: absolute;
+        z-index: 99;
+        right: 0;
+        top: 79px;
+        height: 35px;
+        width: 50px;
+        background: #f0efef;
+        text-align: center;
+        @media screen and (max-width: 640px) {
+          top: 96px;
+        }
+
+        &:before {
+          font-size: 22px;
+          line-height: 35px;
+          color: @green-color;
+          margin: 0;
+        }
+      }
+    }
+
+    .actions {
+      button {
+        background: #f0efef;
+        border: none;
+        border-radius: 0;
+        height: 35px;
+        right: 0;
+        width: 50px;
+
+        &:before {
+          font-size: 22px;
+          line-height: 35px;
+          color: @green-color;
+        }
+
+        &:hover {
+          background: #f0efef;
+
+          &:before {
+            color: @green-color;
+          }
+        }
+      }
+    }
+  }
+}
