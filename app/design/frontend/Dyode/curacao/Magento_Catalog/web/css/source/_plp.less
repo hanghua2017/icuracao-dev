@@ -1,22 +1,30 @@
-//Product Listing Page Styling
+/*
+*
+*Product Listing Page Styling
+*
+*/
 @gray-text: rgba(51,51,51,255);
 @orange-off: #ff4200;
 
-.logo {
-  @media screen and (max-width: 767px) {
-    z-index: 1;
-  }
-}
-//Styling for breadcrumbs
-
-input,
-select {
-  &:focus {
-    box-shadow: none;
-  }
-}
+//main class for PLP specific styling
 
 .catalog-category-view {
+  .page-wrapper header.page-header{
+        z-index: 1;//header z-index reduced for the overlay
+  }
+  .logo {
+    @media screen and (max-width: 767px) {
+      z-index: 1; //logo z-index reduced for the overlay
+    }
+  }
+
+  input,
+  select {
+    &:focus {
+      box-shadow: none;
+    }
+  }
+  //breadcrumbs styling
   .breadcrumbs {
     max-width: 1500px !important;
 
@@ -61,7 +69,7 @@ select {
 
   .page-main {
     max-width: 1500px !important;
-
+    //PLP banner styling for sektop and mobile version
     .categorybanner-container {
       .catgeorybanner-desktop {
         display: block;
@@ -112,7 +120,7 @@ select {
       @media all and (max-width:767px) {
         padding-top: 0;
       }
-
+      //Filter options styling
       .sidebar-main {
         .filter {
           .block-title {
@@ -170,7 +178,6 @@ select {
         }
 
         .filter-options-item {
-          //border-bottom: 1px solid rgba(197, 197, 197, 0.1);
           border-bottom: none;
           // more than six items , scroll will appear
           max-height: 270px;
@@ -211,11 +218,51 @@ select {
         }
 
         .block-content {
-          .filter-actions,
+          //filter content styling - selected filter section - Now shoppping by
           .filter-current {
-            display: none;
+            ol.items {
+              padding: 10px 10px 10px 25px;
+
+              li.item {
+                font-size: 14px;
+                color: #666666;
+                font-family: 'iCuracao-Light';
+
+                span.filter-label {
+                  text-transform: capitalize;
+                }
+
+                span.filter-value {}
+
+                a.action.remove {
+                  color: #666666;
+
+                  &:hover {
+                    color: #303030;
+                    text-decoration: underline;
+                  }
+                }
+              }
+            }
           }
 
+          .filter-actions {
+            padding-left: 25px;
+            padding-bottom: 10px;
+            margin: 0;
+            border-bottom: 1px solid rgba(197, 197, 197, 0.21);
+            //clear all link
+            a.filter-clear {
+              color: #666666;
+              font-family: 'iCuracao-Light';
+
+              &:hover {
+                color: #303030;
+                text-decoration: underline;
+              }
+            }
+          }
+          //shop by and now shoppping by title styling
           .block-subtitle {
             font-family: 'iCuracao-Medium';
             font-weight: normal;
@@ -827,7 +874,8 @@ select {
               margin: 0;
 
               .pages {
-                float: none;
+                float: right;
+                width: 90%;
                 padding: 0 10px;
                 margin: 20px 0;
 
@@ -861,6 +909,7 @@ select {
                   strong.page {
                     border-radius: 100%;
                     width: 20px;
+                    line-height: 20px;
                     color: white;
                     background: #81b800;
                   }
@@ -874,8 +923,10 @@ select {
 
               .limiter {
                 float: left;
-                margin-top: -44px;
+                width: 10%;
+                //  margin-top: -44px;
                 padding-left: 10px;
+                margin: 20px 0;
                 display: block !important;
 
                 .control,
@@ -926,7 +977,7 @@ select {
               .product-image-container {
                 .product-image-wrapper {
                   @media all and (max-width:767px) {
-                    //  z-index: 0;
+                      z-index: 0;
                   }
 
                   .product-image-photo {
@@ -1128,6 +1179,7 @@ select {
 
     .sidebar-main {
       padding-right: 0 !important;
+      //  border-right: 1px solid rgba(197, 197, 197, 0.21);
     }
   }
 }
