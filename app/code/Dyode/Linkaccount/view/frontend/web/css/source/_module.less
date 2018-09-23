@@ -15,17 +15,19 @@
       padding-bottom: 0 !important;
     }
   }
-  button{
-    font-family: 'iCuracao-Medium';
-    font-size: 14px;
-    background-color: @curacao-green;
-    color: @white;
-    width: 252px;
-    min-height: 45px;
-    border: none;
-    outline: none;
-    text-transform: capitalize;
-    font-weight: normal !important;
+  .button,.primary{
+    button{
+      font-family: 'iCuracao-Medium';
+      font-size: 14px;
+      background-color: @curacao-green !important;
+      color: @white;
+      width: 252px;
+      min-height: 45px;
+      border: none !important;
+      outline: none !important;
+      text-transform: capitalize;
+      font-weight: normal !important;
+    }
   }
 }
 //Style for LINK ACCOUNT-Success Page
@@ -86,18 +88,6 @@
        }
        .button{
          padding-top: 35px;
-         // button{
-         //   font-family: 'iCuracao-Medium';
-         //   font-size: 14px;
-         //   background-color: @curacao-green;
-         //   color: @white;
-         //   width: 252px;
-         //   min-height: 45px;
-         //   border: none;
-         //   outline: none;
-         //   text-transform: capitalize;
-         //   font-weight: normal !important;
-         // }
        }
     }
 
@@ -218,6 +208,11 @@
               width: 105px;
               min-height:40px;
               padding-left: 30px;
+              background-color: @curacao-green !important;
+              border: none !important;
+              outline: none !important;
+              text-transform: capitalize;
+              color: @white !important;
               @media all and(max-width: 375px){
                 width: 94px;
               }
