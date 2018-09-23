@@ -4,14 +4,13 @@
 *
 */
 @gray-text: rgba(51,51,51,255);
-@orange-off: #ff4200;
-
-//main class for PLP specific styling
+@orange-off: #ff4200; //main class for PLP specific styling
 
 .catalog-category-view {
-  .page-wrapper header.page-header{
-        z-index: 1;//header z-index reduced for the overlay
+  .page-wrapper header.page-header {
+    z-index: 1; //header z-index reduced for the overlay
   }
+
   .logo {
     @media screen and (max-width: 767px) {
       z-index: 1; //logo z-index reduced for the overlay
@@ -180,8 +179,8 @@
         .filter-options-item {
           border-bottom: none;
           // more than six items , scroll will appear
-          max-height: 270px;
-          overflow-y: auto;
+          //  max-height: 270px;
+          //  overflow-y: auto;
         }
 
         .block-title {
@@ -309,7 +308,9 @@
               ol {
                 list-style: none;
                 padding-left: 0;
-                margin-bottom: 10px;
+                margin: 10px 0;
+                max-height: 200px;
+                overflow-y: auto;
               }
             }
 
@@ -977,7 +978,7 @@
               .product-image-container {
                 .product-image-wrapper {
                   @media all and (max-width:767px) {
-                      z-index: 0;
+                    z-index: 0;
                   }
 
                   .product-image-photo {
