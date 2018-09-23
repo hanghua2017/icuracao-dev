@@ -109,13 +109,12 @@ class Index extends Action {
                   <li>'.$value['city'].'</li>
                   <li>'.$value['street'].','.$value['country_id'].','.$value['zip'].'</li>
                   <li>'.$value['phone'].'</li>';
-          $locAttr = "attr: {id:'location_id_".$value['location_id']."',name:'location_id_".$value['location_id']."'},value:'".$value['location_id']."'";
+          $locAttr = "attr: {id:'location_id_".$value['location_id']."',name:'location_id_".$value['location_id']."'},value:'".$value['location_id']."-".$itemId."'";
           $itemAttr = "attr: {id:'item_id_".$value['location_id']."',name:'item_id".$value['location_id']."'},value:'".$itemId."'";
-          $lang = "i18n: 'Change'";
+          $lang = "i18n: 'Select'";
           $result .='<form class="form" id="storeselection'.$value['location_id'].'">
                       <input type="hidden" data-bind="'.$locAttr.'"/>
-                      <input type="hidden" data-bind="'.$itemAttr.'"/>
-                      <button type="button" class="action" data-bind="event:{click:updateLocation(this,event)}" >
+                      <button type="button" class="action" data-bind="event:{click:updateLocation.bind(this,event)}" >
                          <span data-bind="'.$lang.'"></span>
                       </button>
                   </form>';
@@ -128,17 +127,7 @@ class Index extends Action {
       return "<p>Please enter valid zipcode</p>";
     }
 
-
-
-
   }
 
-  public function getMediaUrl(){
-           $media_dir = $this->_objectManager->get('Magento\Store\Model\StoreManagerInterface')
-               ->getStore()
-               ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
-
-           return $media_dir;
-  }
 }
 ?>
