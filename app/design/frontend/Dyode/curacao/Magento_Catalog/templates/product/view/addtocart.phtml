@@ -49,6 +49,8 @@ if ($viewModel) {
         </div>
         <?php endif; ?>
 
+        <?= $block->getChildHtml('warranty_options') ?>
+
         <div class="add-to-cart-block">
           <div class="actions">
             <button type="button"
@@ -58,7 +60,6 @@ if ($viewModel) {
                 <img src="<?php echo $this->getViewFileUrl('images/cart-button.png'); ?>" />
                 <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
             </button>
-            <?=  $block->getChildHtml('', true) ?>
         </div>
 
         <!-- Static block for pick up product  -->
@@ -107,7 +108,7 @@ if ($viewModel) {
             /**
              * Warranty modal initialization
              */
-            $('#warrantyModal').modal({
+            $('#addtoCartModal').modal({
                 title: "<?= __('Add to your order') ?>",
                 modalClass: 'warranty-addtocart-popup',
                 buttons: [

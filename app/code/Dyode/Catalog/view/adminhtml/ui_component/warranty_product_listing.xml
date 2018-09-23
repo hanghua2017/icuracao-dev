@@ -32,7 +32,7 @@
             <updateUrl path="mui/index/render"/>
         </settings>
         <aclResource>Magento_Catalog::products</aclResource>
-        <dataProvider class="Dyode\Catalog\Ui\DataProvider\Product\Related\WarrantyDataProvider"
+            <dataProvider class="Dyode\Catalog\Ui\DataProvider\Product\Related\WarrantyDataProvider"
                       name="warranty_product_listing_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>
