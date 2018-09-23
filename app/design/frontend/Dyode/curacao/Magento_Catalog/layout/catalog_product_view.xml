@@ -97,7 +97,7 @@
                 <block class="Magento\Cms\Block\Block" name="offers.of.this.week.2">
                     <arguments>
                         <argument name="block_id" xsi:type="string">offers_of_the_week_2</argument>
-                    </arguments>product.info
+                    </arguments>
                 </block>
             </container>
         </referenceContainer>
