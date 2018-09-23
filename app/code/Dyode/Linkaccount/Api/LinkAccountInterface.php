@@ -25,5 +25,4 @@ interface LinkAccountInterface
      * @return object
      */
     public function create($curacaoid,$email,$fname,$lname,$pass);
-
 }

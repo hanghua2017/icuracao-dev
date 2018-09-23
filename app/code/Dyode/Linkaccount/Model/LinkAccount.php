@@ -47,11 +47,9 @@ class LinkAccount extends \Magento\Framework\Model\AbstractModel
 		try {
 			// Get Website ID
 			$websiteId  = $this->storeManager->getWebsite()->getWebsiteId();
-
 			// Instantiate object (this is the most important part)
 			$customer = $this->customerFactory->create();
 			$customer->setWebsiteId($websiteId);
-
 			// Preparing data for new customer
 			$customer->setEmail($email);
 			$customer->setFirstname($fName);
