@@ -370,27 +370,45 @@ input[type="radio"] {
               border-top:none;
             }
             .table{
-                tbody{
-                  tr{
-                    th,td{
-                      border-top:none;
-                      padding: 0 0 10px;
-                      font-weight: normal;
-                      color: #000;
-                      font-size: 14px;
-                  }
-                  td{
-                    &.amount{
-                      text-align:right;
-                    }
-                  }
+              tr{
+                &.grand{
+                  display:none;
+                }
+              }
+            }
+            &:last-child{
+              .table{
+                tr{
                   &.grand{
-                    th,td{
-                      strong{
-                        font-weight:normal;
-                        color:@curacao-red-text;
-                        font-size:18px;
-                      }
+                    display:table-row;
+                  }
+                }
+              }
+            }
+          }
+          .table{
+            border-top: none;
+            padding-top: 0;
+              tbody{
+                tr{
+                  th,td{
+                    border-top:none;
+                    padding: 0 0 10px;
+                    font-weight: normal;
+                    color: #000;
+                    font-size: 14px;
+                }
+                td{
+                  &.amount{
+                    text-align:right;
+                  }
+                }
+                &.grand{
+                  th,td{
+                    strong{
+                      font-weight:normal;
+                      color:@curacao-red-text;
+                      font-size:18px;
                     }
                   }
                 }
@@ -523,7 +541,7 @@ input[type="radio"] {
               .payment-method-content{
                 padding: 0 0 20px 25px;
                 @media all and (max-width:767px){
-                  padding: 0 25px;
+                  padding: 0 25px 20px;
                 }
                 .payment-method-billing-address{
                   display: none;
@@ -553,7 +571,7 @@ input[type="radio"] {
                           }
                         }
                       }
-                      &.number,&.date{
+                      &.number,&.date,&.cvv{
                         float: left;
                         @media all and (max-width: 991px){
                           float: none;
@@ -563,6 +581,7 @@ input[type="radio"] {
                           font-size: 13px;
                           color: #000;
                           font-weight: bold;
+                          line-height: 1.5;
                         }
                       }
                       &.number{
@@ -575,6 +594,10 @@ input[type="radio"] {
                         }
                       }
                       &.date{
+                        margin-right:20px;
+                        @media all and (max-width:991px){
+                          margin-right:0;
+                        }
                         .month{
                           .select{
                             width: 120px;
@@ -584,6 +607,12 @@ input[type="radio"] {
                           .select{
                             width:73px;
                           }
+                        }
+                      }
+                      &.cvv{
+                        .input-text{
+                          width:55px;
+                          padding:5px 5px 4px;
                         }
                       }
                     }
@@ -884,6 +913,37 @@ input[type="radio"] {
                   }
                 }
               }
+              #deliverycontents{
+               > div{
+                  display: flex;
+                  padding-left: 30px;
+                  .left{
+                    width:100px;
+                    img{
+                      width:100%;
+                    }
+                  }
+                  .right{
+                    padding:0 0 0 15px;
+                    width: ~"calc(100% - 115px)";
+                    div{
+                      margin: 0 0 5px;
+                      color: @dark-gray-text;
+                      &.title{
+                        font-weight:700;
+                        color:@black;
+                      }
+                    }
+                  }
+                }
+                button{
+                  background: @theme-color;
+                  border:1px solid @theme-color;
+                  box-shadow: none;
+                  color:@white;
+                  margin-left: 115px;
+                }
+              }
             }
           }
         }
@@ -1010,10 +1070,22 @@ input[type="radio"] {
                 }
                 .linkaccount{
                   h2{
+                    position: relative;
                     font-family: "iCuracao-Medium";
                     font-size:18px;
                     color:@black;
                     margin-bottom: 15px;
+                  }
+                  .curacao-credit-logo{
+                    background-image: url("../../images/curacaoCreditLogo.png");
+                    background-repeat: no-repeat;
+                    margin-left: 10px;
+                    position: absolute;
+                    top: 0;
+                    left: 173px;
+                    width: 60px;
+                    height: 25px;
+                    background-size: 60px;
                   }
                   .curacao-credit-fieldset{
                     border: 1px solid @dark-gray-border;
@@ -1022,6 +1094,7 @@ input[type="radio"] {
                     width: 85%;
                     padding: 20px 15px;
                     position: relative;
+                    box-sizing: border-box;
                     @media all and (max-width:991px){
                       width:95%;
                     }
@@ -1125,13 +1198,14 @@ input[type="radio"] {
                       }
                       .curacao-checkbox{
                         float: left;
-                        margin-right: 15px;
+                        margin-right: 40px;
                         @media all and (max-width:991px){
-                          margin-right:10px;
+                          margin-right:35px;
                         }
                         input[type="checkbox"]{
                           display: none;
                           + .checkbox-label{
+                            position: relative;
                             &:before{
                               content: '';
                               display: inline-block;
@@ -1145,6 +1219,15 @@ input[type="radio"] {
                               height: 15px;
                               border:1px solid @theme-color;
                               transition: all 0.2s;
+                            }
+                            .credit-card-logo{
+                              position: absolute;
+                              top: 0px;
+                              left: 30px;
+                              background-image: url("../../images/curacao-creditcard-logo.png");
+                              background-repeat: no-repeat;
+                              width: 35px;
+                              height: 20px;
                             }
                           }
                           &:checked{
