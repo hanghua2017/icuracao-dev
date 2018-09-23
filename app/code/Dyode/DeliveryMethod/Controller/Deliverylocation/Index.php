@@ -42,7 +42,7 @@ class Index extends Action {
   public function execute()
   {
       // print_r($this->_checkoutSession->getQuote());
-      // echo $this->_checkoutSession->getQuote()->getId();
+
       if ($this->getRequest()->getPost('location_id')):
           $locationId = $this->getRequest()->getPost('location_id');
           $itemId = $this->getRequest()->getPost('item_id');
@@ -53,22 +53,33 @@ class Index extends Action {
           $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
           $connection = $resource->getConnection();
           $tableName = $resource->getTableName('locations');
+          $selectedStore = '';
 
           $storelocTable = $resource->getTableName('aw_storelocator_location');
           //Select Data from table
-          $sql = "Select title,city,street,country_id,zip,phone FROM " . $storelocTable." WHERE location_id=".$locationId;
+          $sql = "Select image,title,city,street,country_id,zip,phone FROM " . $storelocTable." WHERE location_id=".$locationId;
           $result = $connection->fetchAll($sql);
+          $storeManager = $objectManager->get('Magento\Store\Model\StoreManagerInterface');
+          $media_url = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
 
-          $data['delivery_type'] = 1;
-          $data['pickup_location_address'] = $result;
-          $data['pickup_location'] = $locationId;
+          $address ='';
+          foreach($result as $key=>$value){
+             $imageUrl = 'aheadworks/store_locator/'.$value['image'];
+             $address .= $value['city'].", ".$value['street'].", ".$value['zip'];
+             $selectedStore .= '<div class="left"><img src="'.$media_url.$imageUrl.'"></div>';
+             $selectedStore .= '<div class="right"><div class="title">'.$value['title'].'</div>';
+             $selectedStore .= '<div class="address">'.$value['city'].','.$value['street'].'</div>';
+             $selectedStore .= '<div class="pincode">'.$value['zip'].'</div></div>';
+          }
 
           $quoteTable = $resource->getTableName('quote_item');
 
-          $sql = "UPDATE ". $quoteTable." SET `delivery_type` = '1', `pickup_location` = ".$locationId .", pickup_location_address = ". $result. " WHERE `item_id` =".$itemId;
+          $sql = "UPDATE ". $quoteTable." SET `delivery_type` = '1', `pickup_location` = '".$locationId ."', pickup_location_address = '". $address. "' WHERE `item_id` =".$itemId;
           $result = $connection->query($sql);
-
-          echo json_encode($result . $this->_checkoutSession->getQuote()->getId());
+          if($result)
+            echo json_encode($selectedStore);
+          else
+            echo 0;
 
         //  echo json_encode($result);
       endif;
