@@ -49,7 +49,7 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
 			<div class="products-<?php /* @escapeNotVerified */ echo $mode; ?> <?php /* @escapeNotVerified */ echo $mode; ?>">
                 <ol class="product-items <?php /* @escapeNotVerified */ echo $type; ?>">
                     <?php $iterator = 1; ?>
-										<div class="owl-carousel product-slider-home" id="mageplaza-product-slider-<?php echo $productsliderId; ?>">
+										<div class="owl-carousel product-slider-carousel" id="mageplaza-product-slider-<?php echo $productsliderId; ?>">
 					<?php foreach ($items as $_item): ?>
 						<div class="item">
 						<?php /* @escapeNotVerified */ echo($iterator++ == 1) ? '<li class="product-item product-slider"">' : '</li><li class="product-item product-slider"">' ?>
