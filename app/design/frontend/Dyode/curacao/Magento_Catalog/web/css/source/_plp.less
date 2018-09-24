@@ -4,8 +4,8 @@
 *
 */
 @gray-text: rgba(51,51,51,255);
-@orange-off: #ff4200;
-//main class for PLP specific styling ans search result specific styling
+@orange-off: #ff4200; //main class for PLP specific styling ans search result specific styling
+
 .catalog-category-view,
 .catalogsearch-result-index {
   .page-wrapper header.page-header {
@@ -1191,10 +1191,22 @@
     .sidebar-main {
       padding-right: 0 !important;
       //  border-right: 1px solid rgba(197, 197, 197, 0.21);
-      #layered-filter-block{
+      #layered-filter-block {
         margin-bottom: 0;
       }
     }
+  }
+}
+
+.catalogsearch-result-index {
+  ul.search__result-tabs {
+    border-bottom: none;
+  }
+  h1.page-title{
+        font-family: 'iCuracao-Medium';
+        font-weight: normal;
+        font-size: 24px;
+        margin: 20px 0;
   }
 }
 // .sorter-action:before {
