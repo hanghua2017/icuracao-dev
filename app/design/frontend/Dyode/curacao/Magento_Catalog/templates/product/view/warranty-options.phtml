@@ -21,9 +21,10 @@
 $viewModel = $block->getViewModel();
 $productViewBlock = $block->getParentBlock();
 $warranties = $viewModel->setProduct($productViewBlock->getProduct())->warrantyProducts();
+$isModal = (bool)$block->getData('is_modal');
 ?>
 <?php if(count($warranties) > 0): ?>
-<div class="warranty-plan" id="warranty_options">
+<div class="warranty-plan" id="warranty_options<?= $isModal ? '_modal': '' ?>">
     <h3 class="warranty-title"><?= __("Add a warranty plan") ?></h3>
     <div class="warranty-select">
         <div id="warranty-check" class="js-warranty-select">
@@ -34,15 +35,14 @@ $warranties = $viewModel->setProduct($productViewBlock->getProduct())->warrantyP
                     <?= __("Include ") ?>
                     <a href="#"
                        class="warranty-link"
-                       id="warranty-link<?= $warranty->getId() ?>"
-                       data-cms-block-id="21"
+                       id="warranty-link<?= $isModal ? '-modal': '' ?>-<?= $warranty->getId() ?>"
                        data-warranty-id="<?= $warranty->getId() ?>"
                     >
                         <?= $warranty->getName() ?>
                     </a> <?= __("for ") ?><?= $viewModel->formattedPrice($warranty) ?>
                     <input type="checkbox"
                            name="warranty[<?= $warranty->getId() ?>]"
-                           id="warranty-option-<?= $warranty->getId() ?>"
+                           id="warranty-option<?= $isModal ? '-modal': '' ?>-<?= $warranty->getId() ?>"
                     />
                     <span class="checkmark"></span>
                 </label>
@@ -51,21 +51,11 @@ $warranties = $viewModel->setProduct($productViewBlock->getProduct())->warrantyP
 
     </div>
 </div>
-<div id="warrantyModal" class="modal">
-    <div class="modal-content">
-        <input type="hidden" name="warranty" value="" />
-        <div class="product-details">
-            <div class="top-section"></div>
 
-            <div class="waranty-details">
-                <p class="price"><?= __("Price") ?>: <span class="warranty-price"></span></p>
-                <div class="warranty-description"></div>
-                <a href="#" class="learn-more-link">Learn More</a>
-            </div>
-        </div>
-    </div>
-</div>
+<?= $block->getChildHtml(''); ?>
+
 <?php endif; ?>
+
 <script type="text/x-magento-init">
     {
         "#warranty_options": {
