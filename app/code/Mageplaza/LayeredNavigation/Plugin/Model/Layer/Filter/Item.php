@@ -110,7 +110,7 @@ class Item
      */
     public function aroundGetRemoveUrl(\Magento\Catalog\Model\Layer\Filter\Item $item, $proceed)
     {
-        if (!$this->_moduleHelper->isEnabled()) {
+        if ($this->_moduleHelper->isEnabled()) {
             return $proceed();
         }
 
