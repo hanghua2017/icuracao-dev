@@ -1,3 +1,6 @@
+body{
+  font-family:"iCuacao-Regular";
+}
 .no-background .navigation {
     background: none !important
 }
@@ -540,7 +543,21 @@
     display: block !important;
   }
   .nav-sections-item-content > .hamburger-desktop{
+    display:block !important;
+  }
+  .nav-sections-item-content > .store-view-container{
     display:none !important;
+  }
+  .nav-sections-item-content > .ves-megamenu{
+    margin-bottom: 0;
+  }
+  .nav-sections-item-content > .ves-megamenu::after{
+    clear:both;
+    display: table;
+    content:'';
+  }
+  .navigation li.level0:last-child{
+    border-bottom:none !important;
   }
 }
 @media all and (max-width:599px){

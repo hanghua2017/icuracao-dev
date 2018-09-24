@@ -6,6 +6,12 @@
       <link src="Magento_Customer::view/authentication-popup.js"/> -->
     </head>
     <body>
+      <!-- view model for Emi function -->
+      <block name="emi_block">
+        <arguments>
+           <argument name="view_model" xsi:type="object">Dyode\Core\ViewModel\Emi</argument>
+        </arguments>
+      </block>
       <!-- Top panel wrapper with sign in and create an account if want to remove -->
       <!-- <referenceBlock name="header.panel.wrapper" remove="true" /> -->
       <referenceBlock name="header" remove="true" />
@@ -20,6 +26,7 @@
                     <argument name="css_class" xsi:type="string">header links</argument>
                 </arguments>
             </block>
+            <block class="Magento\Framework\View\Element\Template" name="header.message" template="Magento_Theme::header-message.phtml" after="top.line"/>
       </referenceContainer>
       <!-- Move top All Header Links next to minicart -->
       <!-- <move element="minicart" destination="header-wrapper" after="header.links"/> -->
