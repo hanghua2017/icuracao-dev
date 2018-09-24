@@ -1,0 +1,23 @@
+<?php
+/**
+ * Copyright 2018 aheadWorks. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+<div class="aw-storelocator-navigation" id="aw-storelocator-navigation" data-bind="scope:'locationList'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "locationList": {
+                    "component": "Aheadworks_StoreLocator/js/view/location-list",
+                    "locationItems": <?= /* @noEscape */ $this->getLocationDataJson(); ?>
+                }
+            }
+        }
+    }
+}
+</script>

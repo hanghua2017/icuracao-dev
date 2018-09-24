@@ -1,0 +1,34 @@
+<?php
+/**
+ * Copyright 2018 aheadWorks. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+<div id="google-map-message" style="display: none;">
+    <label for="name" generated="true" class="mage-error" id="name-error"></label>
+</div>
+
+<div id="google-maps-content" class="google-maps-content" style="width:100%; height:400px;">
+</div>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places<?= $block->escapeHtml($apiKey); ?>">
+</script>
+
+<script type="text/x-magento-init">
+{
+    "#google-maps-content": {
+        "Aheadworks_StoreLocator/js/google-maps": {
+            "zoom": <?= $block->escapeHtml($zoom); ?>,
+            "latitude": <?= $block->escapeHtml($latitude); ?>,
+            "longitude": <?= $block->escapeHtml($longitude); ?>,
+            "message": {
+                "defineAddress": "<?= $block->escapeHtml(
+                    __('Please define city and street address fields to find a store on the map.')
+                ); ?>",
+                "noResults": "<?= $block->escapeHtml(__('No stores found. Please try another search.')); ?>"
+            }
+        }
+    }
+}
+</script>

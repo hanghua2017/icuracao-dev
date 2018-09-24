@@ -4,5 +4,11 @@ var config = {
             'checkbox': 'curacao/js/onclick'
         }
     },
-    'deps': ["jquery"]
+    'deps': ["jquery"],
+    "paths": {
+      "customjs":'js/custom.js'
+    },
+    "shim":{
+        "customjs": ["jquery"]
+     }
 };
