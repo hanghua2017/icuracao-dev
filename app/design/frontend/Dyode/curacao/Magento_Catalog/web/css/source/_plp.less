@@ -5,10 +5,9 @@
 */
 @gray-text: rgba(51,51,51,255);
 @orange-off: #ff4200;
-
 //main class for PLP specific styling ans search result specific styling
-
-.catalog-category-view,.catalogsearch-result-index {
+.catalog-category-view,
+.catalogsearch-result-index {
   .page-wrapper header.page-header {
     //  z-index: 1; //header z-index reduced for the overlay
   }
@@ -72,6 +71,11 @@
     max-width: 1500px !important;
     //PLP banner styling for sektop and mobile version
     .categorybanner-container {
+      margin-bottom: 25px;
+      @media screen and (max-width: 767px) {
+        margin-bottom: 15px;
+      }
+
       .catgeorybanner-desktop {
         display: block;
         @media screen and (max-width: 767px) {
@@ -110,7 +114,7 @@
     }
 
     .columns {
-      margin: 25px 0 30px;
+      margin: 0 0 30px;
       @media screen and (max-width: 990px) {
         //  padding-top:0;
         margin: 15px 0;
@@ -476,6 +480,7 @@
       }
 
       .column {
+        padding-bottom: 0;
         @media all and (min-width:768px) {
           border-left: 1px solid rgba(197, 197, 197, 0.21);
         }
@@ -875,6 +880,9 @@
             ~ .toolbar {
               width: 100%;
               margin: 0;
+              @media all and (min-width:768px) {
+                border-bottom: 1px solid rgba(197,197,197,.21);
+              }
 
               .pages {
                 float: right;
@@ -1183,6 +1191,9 @@
     .sidebar-main {
       padding-right: 0 !important;
       //  border-right: 1px solid rgba(197, 197, 197, 0.21);
+      #layered-filter-block{
+        margin-bottom: 0;
+      }
     }
   }
 }
