@@ -10,7 +10,7 @@
         <!-- Downloadable product link -->
         <referenceBlock name="customer-account-navigation-downloadable-products-link" remove="true"/>
 
-        
+
         <!-- Order by SKU -->
         <referenceBlock name="customer-account-navigation-checkout-sku-link" remove="true"/>
 
@@ -31,6 +31,8 @@
 
         <!-- Invitations -->
         <referenceBlock name="customer-account-navigation-magento-invitation-link-container" remove="true"/>
+
+         <move element="page.main.title" destination="content" before="-"/>
 
         <referenceContainer name="sidebar.main">
             <block class="Magento\Framework\View\Element\Template" name="customer_account_navigation_block" template="Magento_Theme::html/collapsible.phtml" before="-">
