@@ -15,6 +15,7 @@
    $category = $categoryFactory->create()->load($categoryId);
    $categoryProducts = $category->getProductCollection()
                                  ->addAttributeToSelect('*')->setPageSize(5);
+   if($categoryProducts):                              
    if($block->getData('widgettitle')): ?>
    <div class="slider-title">
      <h2 class='widget-title'><?php echo $block->getData('widgettitle'); ?></h2>
@@ -64,6 +65,7 @@
       }
       ?>
   </div>
+  <?php endif; ?>
   <script type="text/x-magento-init">
       {
       ".product-slider-carousel": {
