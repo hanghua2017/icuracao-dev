@@ -43,6 +43,7 @@ $isModal = (bool)$block->getData('is_modal');
                     <input type="checkbox"
                            name="warranty[<?= $warranty->getId() ?>]"
                            id="warranty-option<?= $isModal ? '-modal': '' ?>-<?= $warranty->getId() ?>"
+                           value="<?= $warranty->getId() ?>"
                     />
                     <span class="checkmark"></span>
                 </label>

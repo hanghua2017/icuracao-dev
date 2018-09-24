@@ -6,6 +6,17 @@
  * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
  * @copyright Copyright © Dyode
  */
+
+/**
+ * This defines a new jquery widget dyode.warranty
+ * It also initialize warranty-details-modal and warranty-addtocart-prompt-modal.
+ *
+ *  Following actions are handled by dyode.warranty widget
+ *
+ *  1. Open warranty-details-modal with warranty details population when warranty option link is clicked.
+ *  2. Shows warranty-prompt-modal with warranty options when add-to-cart button clicked.
+ *  3. Allow only one warranty option get selected at a time.
+ */
 define([
     'jquery',
     'mage/translate'
@@ -187,6 +198,7 @@ define([
             $(this.options.warrantyAddToCartModal)
                 .find(this.options.checkBoxInputs)
                 .click(this.checkboxModalClickHandler.bind(this));
+            $(document).on('ajax:addToCart', this.addToCartSubmitSuccessHandler.bind(this));
         },
 
         /**
