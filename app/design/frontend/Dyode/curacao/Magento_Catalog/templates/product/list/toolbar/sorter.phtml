@@ -65,14 +65,18 @@ require([
        var width = $(window).width();
        if (width <992) {
          $($sortLabel).unbind('click').click(function(e){
+           //open pop up
            $($sortPopup).animate({height: 'toggle'});
            $($overlay).fadeIn( "fast");
            $("body").css({overflow: "hidden"});
+          $(".page-header").css({"z-index": "1"});
          });
         $($overlay).unbind('click').click(function(e){
+          //close pop up 
           $($sortPopup).animate({height: 'toggle'});
           $($overlay).fadeOut( "fast");
          $("body").css({overflow: "visible"});
+         $(".page-header").css({"z-index": "99"});
         });
        }
 

@@ -4,11 +4,13 @@
 *
 */
 @gray-text: rgba(51,51,51,255);
-@orange-off: #ff4200; //main class for PLP specific styling
+@orange-off: #ff4200;
 
-.catalog-category-view {
+//main class for PLP specific styling ans search result specific styling
+
+.catalog-category-view,.catalogsearch-result-index {
   .page-wrapper header.page-header {
-    z-index: 1; //header z-index reduced for the overlay
+    //  z-index: 1; //header z-index reduced for the overlay
   }
 
   .logo {
@@ -290,7 +292,7 @@
             .filter-options-title {
               font-size: 16px;
               color: #333333;
-              font-family: 'iCuracao-Medium';
+              font-family: 'iCuracao-Regular';
               font-weight: normal;
 
               &:after {
@@ -876,7 +878,7 @@
 
               .pages {
                 float: right;
-                width: 90%;
+                width: 85%;
                 padding: 0 10px;
                 margin: 20px 0;
 
@@ -924,7 +926,7 @@
 
               .limiter {
                 float: left;
-                width: 10%;
+                width: 15%;
                 //  margin-top: -44px;
                 padding-left: 10px;
                 margin: 20px 0;
