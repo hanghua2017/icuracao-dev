@@ -1,0 +1,26 @@
+<?php
+/**
+ * Copyright 2018 aheadWorks. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "locationContent": {
+                    "component": "Aheadworks_StoreLocator/js/view/location-content",
+                    "locationMapName": "locationMap",
+                    "locationListName": "locationList"
+                }
+            }
+        }
+    }
+}
+</script>
+
+<div class="aw-storelocator-content-block" id="aw-storelocator-content-block">
+    <?= $block->getChildHtml('aw_store_locator_location'); ?>
+    <?= $block->getChildHtml('aw_store_locator_map'); ?>
+</div>
