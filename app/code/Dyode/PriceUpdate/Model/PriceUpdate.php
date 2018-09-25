@@ -142,8 +142,8 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template {
 				$product->setSpecialToDate($specialtodate); 
 				$product->setMsrp($msrp); 
 				$product->setIqi($iqi);  
-				$product->setRecyclingPrice($recycling_price);  
-				$product->setRecyclingDescription($recycling_description); 
+				$product->setRecyclingprice($recycling_price);  
+				$product->setRecyclingdescription($recycling_description); 
 				$product->setVendorRebate($vendor_rebate); 
 				$product->setCustomerRebate($customer_rebate); 
 				$product->save();
