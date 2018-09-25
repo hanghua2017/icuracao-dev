@@ -34,19 +34,19 @@
     }
     .beat-inner-container{
       .cms-content{
-        .content-heading{
-          h2{
-            border-bottom: 3px solid @curacao-red;
-          }
-        }
         .price-guarantee-container{
+          .content-heading{
+            h2{
+              border-bottom: 3px solid @curacao-red !important;
+            }
+          }
           .price-guarantee-content{
             p{
               @media all and(max-width: 375px){
                 font-size: 14px;
               }
               span{
-                color:@curacao-red;
+                color:@curacao-red !important;
               }
             }
           }
@@ -56,16 +56,16 @@
             .accordion-item{
               .accordion-title{
                 &.active{
-                  color:@curacao-red;
+                  color:@curacao-red !important;
                 }
                 &.active:after {
-                  color:@curacao-red;
+                  color:@curacao-red !important;
                 }
               }
               .accordion-panel{
                 ul{
                   li{
-                      color:@curacao-red;
+                      color:@curacao-red !important;
                   }
                 }
               }
@@ -214,94 +214,6 @@
         .alt-content{
           span{
             color:@curacao-red !important;
-          }
-        }
-      }
-//styles for Price beat and interest beat FAQs accordion
-      .accordion-container{
-        .accordion-content{
-          margin:20px 0;
-          .accordion-item{
-            &:last-child{
-              border-bottom:1px solid @faq-border-color;
-            }
-            .accordion-title {
-              border-top:1px solid @faq-border-color;
-              color:@faq-color;
-              cursor: pointer;
-              padding: 18px;
-              padding-right: 36px;
-              text-align: left;
-              outline: none;
-              font-size: 22px;
-              transition: 0.4s;
-              position: relative;
-              @media all and (max-width: 768px){
-                font-size:18px;
-              }
-              &:after{
-                content: '\002B';
-                color: @faq-color;
-                font-weight:bold;
-                position: absolute;
-                right:18px;
-                top: 50%;
-                transform: translateY(-50%);
-                font-size: 24px;
-                transition:all 0.5s;
-                @media all and (max-width: 768px){
-                  font-size:20px;
-                }
-              }
-              &.active{
-                color:@curacao-green;
-                transition:all 0.5s;
-              }
-              &.active:after {
-                content: "\2212";
-                color:@curacao-green;
-                transition:all 0.5s;
-              }
-            }
-            .accordion-panel {
-              padding: 0 18px;
-              -webkit-transition: max-height 0.5s;
-              -moz-transition: max-height 0.5s;
-              -ms-transition: max-height 0.5s;
-              -o-transition: max-height 0.5s;
-              transition: max-height 0.5s;
-              display: none;
-              img{
-                width:100%;
-              }
-              p{
-                color:@text-gray;
-                font-size: 16px;
-                margin:0;
-                margin-bottom: 15px;
-                @media all and (max-width: 768px){
-                  font-size:14px;
-                }
-              }
-              ul{
-                margin: 0;
-                padding-left:20px;
-                list-style-type: circle;
-                li{
-                  color:@curacao-green;
-                  font-size: 22px;
-                  margin-bottom: 0px;
-                  @media all and (max-width: 768px){
-                    font-size:20px;
-                    width:80%;
-                  }
-                  @media all and (max-width: 479px){
-                    font-size:20px;
-                    width:90%;
-                  }
-                }
-              }
-            }
           }
         }
       }
