@@ -13,13 +13,13 @@ require([
         $(this).addClass("active");
       }
 
-      if ($this.next().hasClass('show')) {
-          $this.next().removeClass('show');
+      if ($this.next().hasClass('show-accordion')) {
+          $this.next().removeClass('show-accordion');
           $this.next().slideUp(350);
       } else {
-          $this.parent().parent().find('.accordion-panel').removeClass('show');
+          $this.parent().parent().find('.accordion-panel').removeClass('show-accordion');
           $this.parent().parent().find('.accordion-panel').slideUp(350);
-          $this.next().toggleClass('show');
+          $this.next().toggleClass('show-accordion');
           $this.next().slideToggle(350);
       }
   });
