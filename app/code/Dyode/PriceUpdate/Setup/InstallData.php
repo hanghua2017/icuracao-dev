@@ -19,6 +19,7 @@ class InstallData implements InstallDataInterface
 	public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
 	{
 		$eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
+		$eavSetup -> removeAttribute(\Magento\Catalog\Model\Product::ENTITY, 'vendor_rebate');
 		$eavSetup->addAttribute(
 			\Magento\Catalog\Model\Product::ENTITY,
 			'vendor_rebate',
@@ -44,6 +45,7 @@ class InstallData implements InstallDataInterface
 				'apply_to' => ''
 			]
 		);
+		$eavSetup -> removeAttribute(\Magento\Catalog\Model\Product::ENTITY, 'customer_rebate');
 		$eavSetup->addAttribute(
 			\Magento\Catalog\Model\Product::ENTITY,
 			'customer_rebate',
