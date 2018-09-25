@@ -24,9 +24,9 @@
                     <?php foreach ($categories as $category):
                          $cat = $this->getCategorymodel($category->getId());
                       ?>
-                       <a href="<?php echo $cat->getUrl(); ?>">
+                       <a href="<?php echo $cat->getUrl(); ?>" class="pn-ProductNav_Link">
                           <!-- displaying category name -->
-                          <?php echo $cat->getName(); ?><br>
+                          <?php echo $cat->getName(); ?></a>
                       <?php endforeach; ?>
                        <span id="pnIndicator" class="pn-ProductNav_Indicator"></span>
                </div>
@@ -54,9 +54,9 @@
             if ($(window).width() > 768) {
 
               //Add your javascript for large screens here
-              $(window).scroll(sticky_relocate);
-
-              sticky_relocate();
+              // $(window).scroll(sticky_relocate);
+              //
+              // sticky_relocate();
 
               function sticky_relocate() {
                 var window_top = $(window).scrollTop();//Get the current vertical position of the scroll bar
