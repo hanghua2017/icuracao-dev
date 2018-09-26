@@ -18,7 +18,7 @@ class Index extends \Magento\Framework\App\Action\Action
 	public function execute()
 	{
 		
-		$this->update->updateInventory();
+		$this->update->setInventoryUpdate();
 		var_dump("success");exit;
 	}
 
