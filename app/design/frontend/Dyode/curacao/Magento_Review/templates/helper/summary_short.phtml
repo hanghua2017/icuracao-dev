@@ -24,7 +24,7 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
             <?php $ratingInFive = number_format(($rating/100)*5, 1); ?>
             <div class="rating-summary">
                 <span class="label"><span><?= $block->escapeHtml(__('Rating')) ?>:</span></span>
-                <div class="rating"><?= $block->escapeHtml($ratingInFive) ?>*</div>
+                <div class="rating"><?= $block->escapeHtml($ratingInFive) ?></div>
             </div>
         <?php endif;?>
         <div class="reviews-actions">
