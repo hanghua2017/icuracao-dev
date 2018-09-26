@@ -514,6 +514,9 @@ body{
     padding: 0 2px
 }
 @media all and (max-width:1024px){
+  .navigation .level0 .submenu a{
+    font-family: "iCuracao-Regular";
+  }
   .navigation .level0 .submenu a:hover, .navigation .level0 .submenu a.ui-state-focus{
     background:#ffffff !important;
     color:#575757 !important;

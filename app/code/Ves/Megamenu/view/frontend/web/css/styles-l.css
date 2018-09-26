@@ -349,7 +349,7 @@ body{
     display: inline-block;
     *display: inline;
     zoom: 1;
-    margin: 0 15px 0 0;
+    margin: 0 20px 0 0;
     position: relative;
   }
   .ves-megamenu .navigation .level0 > a {
@@ -1809,8 +1809,9 @@ body{
 }
 
 .ves-megamenu .dynamic-items {
-    padding: 10px 0 0 0;
+    padding: 10px;
     width:25%;
+    background: #f9f9f9;
 }
 
 .ves-megamenu .level0 ul {
@@ -2292,13 +2293,14 @@ print {
         display: block;
         line-height: inherit;
         padding: 8px 20px;
-        font-family: "iCuracao-Regular";
+        font-family: "iCuracao-Light";
         font-size: 14px;
         color: black;
         font-weight: 300;
     }
     .navigation .level0 .submenu a:hover,
     .navigation .level0 .submenu a.ui-state-focus {
+        font-family: "iCuracao-Regular";
         background: #f9f9f9;
         color: #000;
         text-decoration: none
@@ -2401,13 +2403,13 @@ print {
     }
     .ves-megamenu .navigation>ul {
         padding: 0;
-        padding-left:70px !important;
+        padding-left:50px !important;
     }
     .ves-megamenu .navigation .level0 {
         display: inline-block;
         *display: inline;
         zoom: 1;
-        margin: 0 15px 0 0;
+        margin: 0 20px 0 0;
         position: relative
     }
     .ves-megamenu .navigation .level0 > a {
@@ -2526,7 +2528,7 @@ print {
     }
     .ves-megamenu .navigation .level0 .submenu .submenu-inner .content-wrapper {
         float: left;
-        width: 100%
+        width: 100%;
     }
     .ves-megamenu .navigation .level0 .submenu .submenu-inner .item-header {
         border-bottom: 1px solid #e6e6e6;
@@ -2661,7 +2663,6 @@ print {
         position: static
     }
     .ves-megamenu .navigation .level0 .ves-column1>.item-content1>.mega-col {
-      padding-top: 10px;
         width: 100%
     }
     .ves-megamenu .navigation .level0 .ves-column1>.item-content1>.mega-col>.nav-item {
@@ -2748,7 +2749,7 @@ print {
         z-index: 99;
         border-radius: 0;
         -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15)
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
     }
     .ves-megamenu .navigation .nav-item.subhover>.submenu>.submenu-inner {
         padding: 0
@@ -2798,8 +2799,9 @@ print {
         margin-right: 15px
     }
     .ves-megamenu .navigation .nav-item .dynamic-content {
-        padding-right: 0;
+        padding:10px;
         width:75%;
+        background:#fff;
     }
     .ves-megamenu .navigation .nav-item .dynamic-content>.nav-item {
         display: none
@@ -3267,8 +3269,11 @@ print {
       margin-bottom: 0px !important;
   }
 } */
-.ves-megamenu .navigation .nav-item.dynamic-active > a > span{
-  font-weight: normal !important;
+@media all and (min-width:1025px){
+  .ves-megamenu .navigation .nav-item.dynamic-active > a > span{
+    font-family: "iCuracao-Medium";
+    font-weight: normal !important;
+  }
 }
 .ves-megamenu .navigation .nav-item.dynamic-active > a:after{
   position:absolute;
@@ -3305,6 +3310,9 @@ print {
   text-transform: uppercase;
 }
 @media all and (max-width:1024px){
+  .navigation .level0 .submenu a{
+    font-family: "iCuracao-Regular";
+  }
   .navigation .level0 .submenu a:hover, .navigation .level0 .submenu a.ui-state-focus{
     background:#ffffff !important;
     color:#575757 !important;

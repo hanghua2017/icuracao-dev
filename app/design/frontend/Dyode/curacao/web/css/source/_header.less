@@ -8,6 +8,7 @@
 @white: #ffffff;
 @black: #000;
 @white-shade:#efefef;
+@search-green-color:#99c334;
 
 .header-message {
 	display: none;
@@ -67,7 +68,7 @@
 				padding: 15px !important;
 			}
 			@media (min-width: 1025px) {
-				padding: 15px 25px 10px !important;
+				padding: 15px 15px 10px !important;
 			}
 			@media all and (max-width:767px) {
 				padding-bottom: 70px !important;
@@ -273,9 +274,10 @@
 							}
 
 							&:before {
-								font-size: 22px;
+								font-size: 16px;
 								line-height: 40px;
-								color: @green-color;
+                color: @search-green-color;
+                font-weight: 100;
 								margin: 0;
 							}
 						}
@@ -291,9 +293,10 @@
 							width: 50px;
 
 							&:before {
-								font-size: 22px;
+								font-size: 20px;
 								line-height: 35px;
-								color: @green-color;
+								color: @search-green-color;
+                font-weight: 100;
 							}
 
 							&:hover {
@@ -443,6 +446,16 @@
 						@media all and (max-width:1024px) {
 							display: none;
 						}
+            &.switch{
+              line-height: 8px;
+              &:after{
+                content:'';
+                background-image:url("../../images/login-dropdown.png");
+                background-size: 8px;
+                width: 8px;
+                height: 6px;
+              }
+            }
 					}
 				}
 			}
@@ -574,7 +587,7 @@
 
 			.header {
 				&.content {
-					padding: 15px 25px !important;
+					padding: 15px !important;
 				}
 			}
 		}
@@ -583,6 +596,7 @@
 
 	.nav-sections {
 		background: #fff;
+    margin-bottom: 0;
 		@media all and (min-width:1025px) {
 			//	background: #97d700;
 			background: #84b90a;
@@ -610,6 +624,15 @@
 					border-top: 1px solid transparent;
 				}
 			}
+      li{
+        &:first-child{
+          a{
+            @media only screen and (max-width: 1024px) {
+              border-top: 1px solid #f2f2f2;
+            }
+          }
+        }
+      }
 		}
 
 		.section-items {
@@ -683,9 +706,9 @@
 
 		.store-view-container {
 			top: 81px;
-			right: 20px;
+			right: 10px;
 			@media all and (min-width:1500px) {
-				right: ~"calc((100% - 1500px)/2 + 20px)";
+				right: ~"calc((100% - 1500px)/2 + 10px)";
 			}
 		}
 	}
@@ -811,7 +834,7 @@ html.nav-before-open {
 		border-bottom: 0;
 	}
 
-	.nav-sections-item-content {
+	.nav-sections-items .nav-sections-item-content {
 		display: none !important;
 		box-sizing: border-box;
 		float: right;
@@ -892,9 +915,9 @@ html.nav-before-open {
 .hamburger-desktop {
 	button.btn-menu {
 		top: 83px;
-		left: 20px;
+		left: 0px;
 		@media all and (min-width:1500px) {
-			left: ~"calc((100% - 1500px)/2 + 20px)";
+			left: ~"calc((100% - 1500px)/2 + 0px)";
 		}
 	}
 }
