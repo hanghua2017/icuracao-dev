@@ -128,10 +128,10 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                 $installer->getTable('dyode_pricebeat_form'),
                 $setup->getIdxName(
                     $installer->getTable('dyode_pricebeat_form'),
-                    ['first_name','last_name','email','account_number','product_url','product_image_url'],
+                    ['first_name','last_name','email','product_url','product_image_url'],
                     \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
                 ),
-                ['first_name','last_name','email','account_number','product_url','product_image_url'],
+                ['first_name','last_name','email','product_url','product_image_url'],
                 \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
             );
         }
