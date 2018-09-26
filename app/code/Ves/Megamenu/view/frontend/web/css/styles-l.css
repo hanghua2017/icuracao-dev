@@ -332,7 +332,7 @@ body{
   }
   .ves-megamenu .navigation {
     background: transparent;
-    font-weight: 700;
+    font-weight: normal;
     height: inherit;
     left: auto;
     overflow: inherit;
@@ -349,15 +349,16 @@ body{
     display: inline-block;
     *display: inline;
     zoom: 1;
-    margin: 0 5px 0 0;
+    margin: 0 15px 0 0;
     position: relative;
   }
   .ves-megamenu .navigation .level0 > a {
-    font-size: 16px;
+    font-family: "iCuracao-Regular";
+    font-size: 15px;
     text-transform: uppercase;
     display: block;
     padding: 0 15px;
-    font-weight: 600;
+    font-weight: normal;
   }
   .ves-megamenu .navigation .level0 > a .cat-label {
     position: absolute;
@@ -496,7 +497,7 @@ body{
     padding-bottom: 10px;
   }
   .ves-megamenu .navigation .level0 .submenu .megamenu-widget .block-title strong {
-    font-weight: 500;
+    font-weight: normal;
   }
   .ves-megamenu .navigation .level0 .submenu .megamenu-widget .product-item {
     width: 100%;
@@ -719,7 +720,8 @@ body{
     float: left;
   }
   .ves-megamenu .navigation .level1 > a {
-    font-size: 15px;
+    font-family: "iCuracao-Regular";
+    font-size: 14px;
   }
   .ves-megamenu .navigation .level1 .cat-label:before {
     display: none;
@@ -885,7 +887,7 @@ body{
     position: relative;
     text-transform: none;
     color: #575757;
-    font-weight: 400;
+    font-weight: normal;
     text-decoration: none !important;
   }
   .ves-megamenu > .navigation .nav-item > a.parent {
@@ -2185,7 +2187,7 @@ print {
     }
     .navigation {
         background: #f0f0f0;
-        font-weight: 700;
+        font-weight: normal;
         height: inherit;
         left: auto;
         overflow: inherit;
@@ -2290,7 +2292,8 @@ print {
         display: block;
         line-height: inherit;
         padding: 8px 20px;
-        font-size: 15px;
+        font-family: "iCuracao-Regular";
+        font-size: 14px;
         color: black;
         font-weight: 300;
     }
@@ -2386,7 +2389,7 @@ print {
     }
     .ves-megamenu .navigation {
         background: transparent;
-        font-weight: 700;
+        font-weight: normal;
         height: inherit;
         left: auto;
         overflow: inherit;
@@ -2398,21 +2401,22 @@ print {
     }
     .ves-megamenu .navigation>ul {
         padding: 0;
-        padding-left:50px !important;
+        padding-left:70px !important;
     }
     .ves-megamenu .navigation .level0 {
         display: inline-block;
         *display: inline;
         zoom: 1;
-        margin: 0 5px 0 0;
+        margin: 0 15px 0 0;
         position: relative
     }
     .ves-megamenu .navigation .level0 > a {
-        font-size: 16px;
+        font-family: "iCuracao-Regular";
+        font-size: 15px;
         display: block;
         padding: 0 15px;
         text-transform: capitalize !important;
-        font-weight: 600 !important;
+        font-weight: normal !important;
         color: #fff;
     }
     .ves-megamenu .navigation .level0 > a .ves-caret{
@@ -2472,7 +2476,7 @@ print {
     .ves-megamenu .navigation .level0 .submenu .dynamic-top .dynamic-items .dynamic-active a>span,
     .ves-megamenu .navigation .level0 .submenu .dynamic-top .dynamic-items .current.dynamic-active a>span {
         color: black !important ;
-        font-weight: 600;
+        font-weight: normal;
     }
     .ves-megamenu .navigation .level0 .submenu .dynamic-top .dynamic-items .dynamic-active a:before,
     .ves-megamenu .navigation .level0 .submenu .dynamic-top .dynamic-items .current.dynamic-active a:before{
@@ -2583,7 +2587,7 @@ print {
         padding-bottom: 10px
     }
     .ves-megamenu .navigation .level0 .submenu .megamenu-widget .block-title strong {
-        font-weight: 500
+        font-weight: normal
     }
     .ves-megamenu .navigation .level0 .submenu .megamenu-widget .product-item {
         width: 100%
@@ -2785,7 +2789,8 @@ print {
     }
     @media (min-width: 1025px) {
       .ves-megamenu .navigation .nav-item .dynamic-items>ul>li>a {
-          font-size: 15px;
+          font-family: "iCuracao-Regular";
+          font-size: 14px;
       }
     }
     .ves-megamenu .navigation .nav-item .dynamic-items>ul>li>a .ves-caret {
@@ -2825,7 +2830,8 @@ print {
         margin: 0;
     }
     .ves-megamenu .navigation .level1>a {
-        font-size: 15px
+        font-family: "iCuracao-Regular";
+        font-size: 14px
     }
     .ves-megamenu .navigation .level1 .cat-label:before {
         display: none
@@ -3262,7 +3268,7 @@ print {
   }
 } */
 .ves-megamenu .navigation .nav-item.dynamic-active > a > span{
-  font-weight: 700 !important;
+  font-weight: normal !important;
 }
 .ves-megamenu .navigation .nav-item.dynamic-active > a:after{
   position:absolute;
@@ -3349,7 +3355,7 @@ print {
   }
   .nav-sections-item-content > .store-view-container{
     position: absolute;
-    top:108px;
+    top:81px;
     right:20px;
   }
   .nav-sections-item-content > .store-view-container ul{
@@ -3363,10 +3369,11 @@ print {
   }
   .nav-sections-item-content > .store-view-container ul li.language-switcher{
       border-right: 1px solid rgba(255,255,255,0.5);
+      padding-right: 15px;
   }
   .nav-sections-item-content > .store-view-container ul li a{
     font-family: "iCuracao-Regular";
-    font-size:15px;
+    font-size:14px;
     color:#fff;
     text-decoration: none;
   }
