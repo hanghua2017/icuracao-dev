@@ -315,7 +315,7 @@
                 list-style: none;
                 padding-left: 0;
                 margin: 10px 0;
-                max-height: 200px;
+                max-height: 190px;
                 overflow-y: auto;
               }
             }
@@ -880,13 +880,14 @@
             ~ .toolbar {
               width: 100%;
               margin: 0;
+              position: relative;
               @media all and (min-width:768px) {
                 border-bottom: 1px solid rgba(197,197,197,.21);
               }
 
               .pages {
                 float: right;
-                width: 85%;
+                width: 100%;
                 padding: 0 10px;
                 margin: 20px 0;
 
@@ -933,12 +934,15 @@
               }
 
               .limiter {
+                position: absolute;
+                top: 7px;
                 float: left;
-                width: 15%;
+                width: 100%;
                 //  margin-top: -44px;
                 padding-left: 10px;
                 margin: 20px 0;
                 display: block !important;
+                text-align: left;
 
                 .control,
                 .limiter-text,
@@ -1202,11 +1206,12 @@
   ul.search__result-tabs {
     border-bottom: none;
   }
-  h1.page-title{
-        font-family: 'iCuracao-Medium';
-        font-weight: normal;
-        font-size: 24px;
-        margin: 20px 0;
+
+  .page-main > .page-title-wrapper .page-title {
+    font-family: 'iCuracao-Medium';
+    font-weight: normal;
+    font-size: 24px;
+    margin: 20px 0;
   }
 }
 // .sorter-action:before {
