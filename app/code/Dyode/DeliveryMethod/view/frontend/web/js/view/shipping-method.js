@@ -15,11 +15,13 @@ define([
     ) {
     'use strict';
     var imageData = window.checkoutConfig.imageData;
+    var quoteItemData = window.checkoutConfig.quoteItemData;
     return Component.extend({
         defaults: {
             template: 'Dyode_DeliveryMethod/shipping-method'
         },
         imageData: imageData,
+        quoteItemData: quoteItemData,
         isLogedIn: customer.isLoggedIn(),
         getItems: ko.observableArray(quote.getItems()),
         getTotals: quote.getTotals(),
@@ -35,6 +37,9 @@ define([
                 return ret;
             }
                 return null;
+        },
+        getQuote: function() {
+            return this.quoteItemData;
         },
         getProductItems: function() {
             var self = this;
