@@ -19,21 +19,24 @@
  */
 $viewModel = $block->getViewModel();
 $shippingDaysLabel = $viewModel->shippingDaysLabel();
-$nearestStore = $viewModel->nearestStore();
-$productAvailableStores = $viewModel->availableStores()->getItems();
-$imageHelper = $viewModel->storeLocationImgHelper();
-$customerZipCode = $viewModel->customerZipCode();
 ?>
 <div class="shipping-pickup-details">
     <p class="shipping">
         <strong><?= __("Free Shipping") ?>: </strong><?= __($shippingDaysLabel); ?>
     </p>
-
     <?php if ($viewModel->canShowNearestStore()): ?>
-        <p class="pickup-option"><?= __("Want it today?") ?>
-            <a href="#" id="pickup-location"><?= __("Pick it up at") ?> <?= __($nearestStore->getName()) ?></a>
-        </p>
-    <?php endif; ?>
+
+    <?php
+    $nearestStore = $viewModel->nearestStore();
+    $productAvailableStores = $viewModel->availableStores()->getItems();
+    $imageHelper = $viewModel->storeLocationImgHelper();
+    $customerZipCode = $viewModel->customerZipCode();
+    ?>
+
+
+    <p class="pickup-option"><?= __("Want it today?") ?>
+        <a href="#" id="pickup-location"><?= __("Pick it up at") ?> <?= __($nearestStore->getName()) ?></a>
+    </p>
 </div>
 
 <div id="store-availability-check" class="check-store">
@@ -48,7 +51,8 @@ $customerZipCode = $viewModel->customerZipCode();
             <div class="store-zipcode-outer">
                 <label><?= $customerZipCode ?></label>
             </div>
-            <h4><?= __("Available Stores") ?><span class="store-count">(<?= count($productAvailableStores) ?>)</span>
+            <h4><?= __("Available Stores") ?><span class="store-count">(<?= count($productAvailableStores) ?>
+                    )</span>
             </h4>
             <div class="avail-store-outer">
 
@@ -73,6 +77,7 @@ $customerZipCode = $viewModel->customerZipCode();
             </div>
         </div>
     </div>
+    <?php endif; ?>
 </div>
 
 <script type="text/javascript">
