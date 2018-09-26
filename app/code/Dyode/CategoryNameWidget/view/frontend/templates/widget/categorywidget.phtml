@@ -5,6 +5,7 @@
          <?php
            $categories = $this->getCategoryCollection();
            $categoryHelper = $this->getCategoryHelper();
+           $salecategory= $this->getSaleCategory();
            ?>
        <!-- category list contents -->
        <div class="category-list" id="sticky">
@@ -15,7 +16,7 @@
            <div class="block-title">
              <img id="icon" src="<?php echo $block->getViewFileUrl('images/sale-icon.jpg'); ?>" alt="sales-icon">
              <!-- widget title -->
-             <h2><?php echo $this->getMainTitle(); ?></h2>
+             <h2><?php echo $this->getMainTitle();?></h2>
            </div>
            <div class="pn-ProductNav_Wrapper">
              <nav id="pnProductNav" class="pn-ProductNav">
@@ -24,7 +25,8 @@
                     <?php foreach ($categories as $category):
                          $cat = $this->getCategorymodel($category->getId());
                       ?>
-                       <a href="<?php echo $cat->getUrl(); ?>" class="pn-ProductNav_Link">
+
+                       <a href="<?php echo $block->getUrl('discount_sale/sale/saleproducts', ['category' => $cat->getId(),'sale' => $salecategory ]) ?>" class="pn-ProductNav_Link">
                           <!-- displaying category name -->
                           <?php echo $cat->getName(); ?></a>
                       <?php endforeach; ?>
@@ -45,6 +47,7 @@
          </div>
        </div>
      </div>
+
      <script>
      require([
            'jquery',

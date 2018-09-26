@@ -10,9 +10,14 @@
             </parameter>
           <parameter name="parentcat" xsi:type="block" visible="true" required="true" sort_order="10">
                 <label translate="true">Categories</label>
-                <description translate="true">Category must have image uploaded</description>
+                <description translate="true">Categories have sale products</description>
                 <block class="Dyode\CategoryNameWidget\Block\Adminhtml\Chooser" />
             </parameter>
+            <parameter name="salecat" xsi:type="block" visible="true" required="true" sort_order="11">
+                  <label translate="true">Sale Category</label>
+                  <description translate="true">Choose sale catergory</description>
+                  <block class="Dyode\CategoryNameWidget\Block\Adminhtml\Chooser" />
+              </parameter>
         </parameters>
     </widget>
 </widgets>

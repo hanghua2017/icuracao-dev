@@ -75,15 +75,15 @@ class CategoryNameWidget extends \Magento\Framework\View\Element\Template implem
         return $collection;
     }
 		/**
-		* function name : getClassName
-     * Retrieve classname
+		* function name : getSaleCategory
+     * Retrieve getSaleCategory
 		 *
     */
-		public function getClassName()
-	  {
-	      $className = $this->getData('classname');
-	       return $className;
-	  }
+		public function getSaleCategory()
+		{
+			$salecategory =$this->getData('salecat');
+			return $salecategory;
+		}
 		/**
 		* function name : getMainTitle
      * Retrieve blocktitle
