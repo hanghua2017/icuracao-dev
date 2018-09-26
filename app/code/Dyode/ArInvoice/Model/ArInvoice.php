@@ -149,17 +149,9 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             # Signify Score
             $this->_signifydModel->processSignifyd($order->getIncrementId());
         }
-        echo "Hello";
-        die();
-        # code... incomplete ... Prepare Order Items
+        # Prepare Order Items
         $itemsStoreLocation = $this->prepareOrderItems($orderId);
-        print_r($itemsStoreLocation);
-        die();
-        foreach ($itemsStoreLocation as $itemId => $storeId) {
-            # code...
-            # Set Store Id to Order Item
-        }
-        
+
         # Getting Order Values
         $incrementId = $order->getIncrementId();
         $createdDate = date('Y-m-d', strtotime($order->getData("created_at")));
@@ -207,10 +199,10 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             "ShippingDiscount" => (double)$shippingDiscount,
         );
         $items = array();
-        // Assigning values to input Array
+        // Assigning values to input Array items
         foreach ($order->getAllItems() as $item)
         {
-            echo $item->getData('delivery_type');
+            $item->getData('delivery_type');
             
             $product = $this->_productRepository->getById($item->getProductId()); 
             $itemType = $item->getProductType();
@@ -250,48 +242,9 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
 
             $explodeItemSku = explode("-", $itemSku);
 
+            echo $itemsStoreLocation[$itemId];
+
             array_push($items, array(
-                "itemtype" => $itemType,
-                "item_id" => $itemSku,
-                "item_name" => $itemName,
-                "model" => end($explodeItemSku),
-                "itemset" => $itemSet,
-                "qty" => (int)$itemQty,
-                "price" => (double)$itemPrice,
-                "cost" => (double)$itemCost,
-                "taxable" => $taxable, # incomplete
-                "webvendor" => (int)$vendorId,
-                "from" => "01", # incomplete...
-                "pickup" => $pickup, # incomplete...
-                "orditemid" => (int)$itemId,
-                "tax_amt" => (double)$itemTaxAmount,
-                "tax_rate" => (double)$itemTaxRate
-                )
-            );
-        }
-
-        $inputArray["items"] = $items;
-        echo "<pre>";
-        print_r(json_encode($inputArray));
-
-        # dummy values
-        $inputArray = array(
-            "CustomerID" => "53208833",
-            "CreateDate" => $createdDate,
-            "CreateTime" => $createdTime,
-            "WebReference" => $incrementId,
-            "SubTotal" => $subTotal,
-            "TaxAmount" => (double)$taxAmount,
-            "DestinationZip" => $postCode,
-            "ShipCharge" => (double)$shippingAmount,
-            "ShipDescription" => $shippingDescription,
-            "DownPmt" => (double)$downPaymentAmount,
-            "EmpID" => "",
-            "DiscountAmount" => (double)$discountAmount,
-            "DiscountDescription" => $discountDescription,
-            "ShippingDiscount" => (double)$shippingDiscount,
-            "items" =>  array(
-                array(
                     "itemtype" => $itemType,
                     "item_id" => $itemSku,
                     "item_name" => $itemName,
@@ -300,20 +253,60 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                     "qty" => (int)$itemQty,
                     "price" => (double)$itemPrice,
                     "cost" => (double)$itemCost,
-                    "taxable" => false,
+                    "taxable" => $taxable,
                     "webvendor" => (int)$vendorId,
-                    "from" => "01",
+                    "from" => $itemsStoreLocation[$itemId],
                     "pickup" => $pickup,
                     "orditemid" => (int)$itemId,
                     "tax_amt" => (double)$itemTaxAmount,
                     "tax_rate" => (double)$itemTaxRate
                 )
-            )
-        );
-        echo "<br>";
-        print_r(json_encode($inputArray));
-        
-        die();
+            );
+        }
+        $inputArray["items"] = $items;
+
+        // echo "<pre>";
+        // print_r(json_encode($inputArray));
+
+        // # dummy values
+        // $inputArray = array(
+        //     "CustomerID" => "53208833",
+        //     "CreateDate" => $createdDate,
+        //     "CreateTime" => $createdTime,
+        //     "WebReference" => $incrementId,
+        //     "SubTotal" => $subTotal,
+        //     "TaxAmount" => (double)$taxAmount,
+        //     "DestinationZip" => $postCode,
+        //     "ShipCharge" => (double)$shippingAmount,
+        //     "ShipDescription" => $shippingDescription,
+        //     "DownPmt" => (double)$downPaymentAmount,
+        //     "EmpID" => "",
+        //     "DiscountAmount" => (double)$discountAmount,
+        //     "DiscountDescription" => $discountDescription,
+        //     "ShippingDiscount" => (double)$shippingDiscount,
+        //     "items" =>  array(
+        //         array(
+        //             "itemtype" => $itemType,
+        //             "item_id" => $itemSku,
+        //             "item_name" => $itemName,
+        //             "model" => end($explodeItemSku),
+        //             "itemset" => $itemSet,
+        //             "qty" => (int)$itemQty,
+        //             "price" => (double)$itemPrice,
+        //             "cost" => (double)$itemCost,
+        //             "taxable" => $taxable,
+        //             "webvendor" => (int)$vendorId,
+        //             "from" => $itemsStoreLocation[$itemId],
+        //             "pickup" => $pickup,
+        //             "orditemid" => (int)$itemId,
+        //             "tax_amt" => (double)$itemTaxAmount,
+        //             "tax_rate" => (double)$itemTaxRate
+        //         )
+        //     )
+        // );
+        // echo "<br>";
+        // print_r(json_encode($inputArray));
+
         $createInvoiceResponse = $this->_arInvoiceHelper->createRevInvoice($inputArray);    # Creating Invoice using API CreateInvoiceRev
         /**
          * Create Invoice Response Validation
@@ -395,33 +388,33 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
          */
         $orderItemsLocation = array();
         $groupedItemsLocation = array();
-        // $orderItemsLocation = array("134"=>"01", "135"=>"16");
-        /**
-         * Get Order Info by Order Id
-         */
-        $order = $this->_orderRepository->get($orderId);
-        foreach ($order->getAllItems() as $orderItem) {
-            if ($orderItem->getParentItemId() == null) {
-                $orderItemsLocation[$orderItem->getItemId()] = $this->_arInvoiceHelper->assignInventoryLocation($orderItem);
-                // if ($orderItemsLocation[$orderItem->getItemId()] == "k") {
-                //     # code...
-                //     $orderItems[$orderItem->getItemId()] = array(
-                //         "ProductId" => $orderItem->getProductId(),
-                //         "ItemQty" => $orderItem->getQtyOrdered()
-                //     );
-                //     unset($orderItemsLocation[$orderItem->getItemId]);
-                // }
-            }
-        }
+        $orderItemsLocation = array("17774"=>"16");
+        // /**
+        //  * Get Order Info by Order Id
+        //  */
+        // $order = $this->_orderRepository->get($orderId);
+        // foreach ($order->getAllItems() as $orderItem) {
+        //     if ($orderItem->getParentItemId() == null) {
+        //         $orderItemsLocation[$orderItem->getItemId()] = $this->_arInvoiceHelper->assignInventoryLocation($orderItem);
+        //         // if ($orderItemsLocation[$orderItem->getItemId()] == "k") {
+        //         //     # code...
+        //         //     $orderItems[$orderItem->getItemId()] = array(
+        //         //         "ProductId" => $orderItem->getProductId(),
+        //         //         "ItemQty" => $orderItem->getQtyOrdered()
+        //         //     );
+        //         //     unset($orderItemsLocation[$orderItem->getItemId]);
+        //         // }
+        //     }
+        // }
 
-        if (!empty($orderItems)) {
-            # code...
-            $groupedItemsLocation = $this->_arInvoiceHelper->getGroupedLocation($order,$orderItems);
-            $orderItemsLocation = $orderItemsLocation + $groupedItemsLocation;
-            ksort($orderItemsLocation);
-        }
-        print_r($orderItemsLocation);
-        die();
+        // if (!empty($orderItems)) {
+        //     # code...
+        //     $groupedItemsLocation = $this->_arInvoiceHelper->getGroupedLocation($order,$orderItems);
+        //     $orderItemsLocation = $orderItemsLocation + $groupedItemsLocation;
+        //     ksort($orderItemsLocation);
+        // }
+        // print_r($orderItemsLocation);
+        // die();
         // $orderItemsLocation = array("133"=>"01", "134"=>"k", "135"=>"09", "136"=>"k", "137"=>"k");
         return $orderItemsLocation;
     }
