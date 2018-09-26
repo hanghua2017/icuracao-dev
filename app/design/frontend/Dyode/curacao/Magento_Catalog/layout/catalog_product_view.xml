@@ -57,6 +57,12 @@
                             </block>
                         </block>
                     </block>
+
+                    <block name="product.info.store.availability" as="store_availability" template="Magento_Catalog::product/view/store-availability.phtml">
+                        <arguments>
+                            <argument name="view_model" xsi:type="object">Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\StoreAvailability</argument>
+                        </arguments>
+                    </block>
                 </referenceBlock>
 
                 <referenceBlock name="product.info.addtocart.additional">
@@ -81,6 +87,12 @@
                                 </arguments>
                             </block>
                         </block>
+                    </block>
+
+                    <block name="product.addtocart.additional.store.availability" as="store_availability" template="Magento_Catalog::product/view/store-availability.phtml">
+                        <arguments>
+                            <argument name="view_model" xsi:type="object">Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\StoreAvailability</argument>
+                        </arguments>
                     </block>
                 </referenceBlock>
 

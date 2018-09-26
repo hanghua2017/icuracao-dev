@@ -19,7 +19,8 @@
  */
 define([
     'jquery',
-    'mage/translate'
+    'mage/translate',
+    'Magento_Ui/js/modal/modal',
 ], function ($, $t) {
     'use strict';
 
@@ -198,7 +199,6 @@ define([
             $(this.options.warrantyAddToCartModal)
                 .find(this.options.checkBoxInputs)
                 .click(this.checkboxModalClickHandler.bind(this));
-            $(document).on('ajax:addToCart', this.addToCartSubmitSuccessHandler.bind(this));
         },
 
         /**

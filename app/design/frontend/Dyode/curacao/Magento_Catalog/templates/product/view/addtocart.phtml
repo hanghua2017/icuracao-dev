@@ -52,29 +52,18 @@ if ($viewModel) {
         <?= $block->getChildHtml('warranty_options') ?>
 
         <div class="add-to-cart-block">
-          <div class="actions">
-            <button type="button"
-                title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
-                class="custom-button action tocart"
-                id="product-addtocart-button">
-                <img src="<?php echo $this->getViewFileUrl('images/cart-button.png'); ?>" />
-                <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
-            </button>
-        </div>
+            <div class="actions">
+                <button type="button"
+                        title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
+                        class="custom-button action tocart"
+                        id="product-addtocart-button">
+                    <img src="<?php echo $this->getViewFileUrl('images/cart-button.png'); ?>" />
+                    <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
+                </button>
+            </div>
 
-        <!-- Static block for pick up product  -->
-        <div class="shipping-pickup-details">
-          <p class="shipping"><strong>Free Shipping: </strong>Get it by Wed, Jul 11</p>
-          <p class="pickup-option">Want it today? <a href="#" id="pickup-location">Pick it up at Compton</a></p>
+            <?= $block->getChildHtml('store_availability') ?>
         </div>
-        <!-- End Static block for pick up product  -->
-      </div>
-
-      <!-- Check store new static block -->
-      <div class="check-store">
-        <a href="">Check Store</a>
-      </div>
-      <!-- End Check store new static block -->
     </div>
 </div>
 <?php endif; ?>
@@ -84,15 +73,4 @@ if ($viewModel) {
             "Magento_Catalog/js/validate-product": {}
         }
     }
-</script>
-<script type="text/javascript">
-    require([
-        'jquery',
-        'Magento_Ui/js/modal/modal'
-    ], function($, modal) {
-        'use strict';
-
-        $(function () {
-        });
-    });
 </script>

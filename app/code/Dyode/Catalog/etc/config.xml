@@ -16,7 +16,9 @@
         <curacao_catalog>
             <curacao_product_page>
                 <price_beat_cms_page/>
+                <emi_link />
                 <qty_dropdown_limit>10</qty_dropdown_limit>
+                <shipping_days_label>Get within 5-6 days</shipping_days_label>
             </curacao_product_page>
         </curacao_catalog>
     </default>

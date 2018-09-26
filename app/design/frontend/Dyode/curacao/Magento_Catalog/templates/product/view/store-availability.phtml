@@ -1,0 +1,136 @@
+<?php
+/**
+ * Dyode_curacao theme.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package Dyode
+ * @module  Dyode_curacao
+ * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * @var $block \Magento\Framework\View\Element\Template
+ * @var $viewModel \Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\StoreAvailability
+ */
+$viewModel = $block->getViewModel();
+$shippingDaysLabel = $viewModel->shippingDaysLabel();
+?>
+<div class="shipping-pickup-details">
+    <p class="shipping">
+        <strong><?= __("Free Shipping") ?>: </strong><?= __($shippingDaysLabel); ?>
+    </p>
+    <p class="pickup-option"><?= __("Want it today?") ?>
+        <a href="#" id="pickup-location"><?= __("Pick it up at Compton") ?></a>
+    </p>
+</div>
+
+<div id="store-availability-check" class="check-store">
+    <a href="#"><?= __("Check Store Availability") ?></a>
+</div>
+
+<div id="store-availability-modal" style="display:none;">
+    <div id="dialog-message">
+        <div class="modal-top-strip">Showing free in store pickup
+        </div>
+        <div class="modal-body-content">
+            <div class="store-zipcode-outer">
+                <label>90280
+                </label>
+                <button class="change">Change</button>
+            </div>
+            <h4>Available Stores<span class="store-count">(4)</span></h4>
+            <div class="avail-store-outer">
+                <div class="avail-store-item">
+                    <div class="avail-store-image">
+<!--                        <img src="http://mikemoir.com/mikemoir/wp-content/uploads/2015/06/MedRes_Product-presentation-2.jpg"/>-->
+
+                        <p class="store-distance">2mi</p>
+                    </div>
+                    <div class="avail-store-details">
+                        <ul>
+                            <li class="store-location">South Gate</li>
+                            <li>8618 Garfield Ave</li>
+                            <li>South Gate, CA 90280</li>
+                            <li>(562) 927-3027</li>
+                            <button>Select</button>
+                        </ul>
+                    </div>
+                </div>
+                <div class="avail-store-item">
+                    <div class="avail-store-image">
+                        <img src="../images/south-gate-store.png"/>
+                        <p class="store-distance">2mi</p>
+                    </div>
+                    <div class="avail-store-details">
+                        <ul>
+                            <li class="store-location">South Gate</li>
+                            <li>8618 Garfield Ave</li>
+                            <li>South Gate, CA 90280</li>
+                            <li>(562) 927-3027</li>
+                            <button>Select</button>
+                        </ul>
+                    </div>
+                </div>
+                <div class="avail-store-item">
+                    <div class="avail-store-image">
+                        <img src="../images/south-gate-store.png"/>
+                        <p class="store-distance">2mi</p>
+                    </div>
+                    <div class="avail-store-details">
+                        <ul>
+                            <li class="store-location">South Gate</li>
+                            <li>8618 Garfield Ave</li>
+                            <li>South Gate, CA 90280</li>
+                            <li>(562) 927-3027</li>
+                            <button>Select</button>
+                        </ul>
+                    </div>
+                </div>
+                <div class="avail-store-item">
+                    <div class="avail-store-image">
+                        <img src="../images/south-gate-store.png"/>
+                        <p class="store-distance">2mi</p>
+                    </div>
+                    <div class="avail-store-details">
+                        <ul>
+                            <li class="store-location">South Gate</li>
+                            <li>8618 Garfield Ave</li>
+                            <li>South Gate, CA 90280</li>
+                            <li>(562) 927-3027</li>
+                            <button>Select</button>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    require([
+        'jquery',
+        'mage/translate',
+        'Magento_Ui/js/modal/modal',
+    ], function ($, $t) {
+        'use strict';
+        var storeAvailabilityModal = $('#store-availability-modal');
+
+        storeAvailabilityModal.modal({
+            title: $t('Store Availability'),
+            modalClass: 'store-availability-modal',
+        });
+
+        $(function () {
+            $('#store-availability-check a').click(function (event) {
+                event.preventDefault();
+                storeAvailabilityModal.modal('openModal');
+            });
+        });
+
+    });
+</script>

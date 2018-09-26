@@ -29,6 +29,9 @@
                 <field id="qty_dropdown_limit" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
                     <label>Quantity Dropdown Limit</label>
                 </field>
+                <field id="shipping_days_label" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Shipping Days Label</label>
+                </field>
             </group>
         </section>
     </system>
