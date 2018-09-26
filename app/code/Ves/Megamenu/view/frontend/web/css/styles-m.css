@@ -560,14 +560,10 @@ body{
     border-bottom:none !important;
   }
 }
-@media all and (max-width:599px){
+@media all and (max-width:1024px){
   .ves-megamenu > .navigation .nav-item > a{
+    font-family: "iCuracao-Regular";
     font-size:14px;
-  }
-}
-@media all and (max-width:599px){
-  .ves-megamenu > .navigation .nav-item > a{
-    font-size:14px !important;
   }
 }
 @media all and (max-width:479px){
