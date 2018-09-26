@@ -126,6 +126,7 @@
         <move element="product.info.main" destination="product.info-block" before="-" />
         <move element="product.info.media" destination="product.info-block" after="product.info.main" />
         <move element="product.info.upsell" destination="product.info.details.before" />
+        <move element="product.info.review" destination="page.main.title" />
 
 
         <!-- REMOVED BLOCKS -->

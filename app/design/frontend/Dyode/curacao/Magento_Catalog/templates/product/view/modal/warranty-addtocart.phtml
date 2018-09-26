@@ -16,21 +16,23 @@
 $product = $block->getProduct();
 ?>
 
-<div id="addtocartModal" class="modal">
+<div id="addtocartModal" class="modal modal-cart">
     <div class="modal-content">
         <div class="apple-content">
             <div class="product-details">
 
                 <div class="top-section">
+                  <div class="modal-head">
                     <h1><span><?= __($product->getName()); ?></span></h1>
-                    <img src="<?= $block->getImage($product, 'category_page_list')->getImageUrl() ?>"
+                    <?= $block->getChildHtml('warranty_modal_review'); ?>
+                      </div>
+                  <div class="modal-img">  <img src="<?= $block->getImage($product, 'category_page_list')->getImageUrl() ?>"
                          alt="<?= __($product->getName()) ?>"
                     />
+                    </div>
                 </div>
 
-                <p class="modal-details"><?= __('Model') ?> #<?= $block->getProduct()->getSku() ?></p>
 
-                <?= $block->getChildHtml('warranty_modal_review'); ?>
 
                 <?= $block->getChildHtml('warranty_modal_options') ?>
 
@@ -45,5 +47,3 @@ $product = $block->getProduct();
         </div>
     </div>
 </div>
-
-
