@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 .sidebar-overlay {
-  background: rgba(54, 25, 25, 0.5);
+  background: rgba(0, 0, 0, 0.5);
   height: calc(100% - 108px);
   top:108px;
   left: -100%;
@@ -19,7 +19,7 @@ nav.sidebar {
   margin: 0;
   position: absolute;
   width: 250px;
-  z-index: 2;
+  z-index:99;
   -webkit-transition: all 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
   -moz-transition: all 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
   transition: all 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
@@ -77,19 +77,29 @@ nav.sidebar > ul > li > a {
 }
 nav.sidebar > ul > li > a:hover {
   text-decoration: none;
+  color:#575757;
 }
 nav.sidebar > ul > li.hamburger-link-border {
   border-bottom: 1px solid #dcdcdc;
   padding-bottom: 20px;
 }
+.hamburger-desktop nav.sidebar > ul > li.hamburger-language a{
+  color: #575757;
+}
+.hamburger-desktop nav.sidebar > ul > li.hamburger-language a img{
+  width:15px;
+  height:15px;
+  margin-right: 10px;
+}
 nav.sidebar > ul > li.hamburger-heading a {
   text-transform: uppercase;
   color: #989898;
 }
-.btn-menu {
+  .btn-menu {
   position: absolute;
   left: 20px;
   top: 113px;
+  z-index:9;
   background: transparent !important;
   font-size: 20px;
   border: none !important;
@@ -130,5 +140,50 @@ nav.sidebar > ul > li.hamburger-heading a {
   }
   to {
     opacity: 1;
+  }
+}
+@media all and (max-width:1024px){
+  .hamburger-desktop .btn-menu{
+    display: none !important;
+  }
+  .hamburger-desktop nav.sidebar{
+    position:static;
+    width:auto;
+    height:auto;
+  }
+  .hamburger-desktop nav.sidebar .sidebar-container{
+    display: none;
+  }
+  .hamburger-desktop nav.sidebar > ul{
+    margin-top:0;
+  }
+  .hamburger-desktop nav.sidebar > ul > li{
+    height:50px;
+    padding: 14px 10px;
+    border-top: 1px solid #d1d1d1;
+    border-top-color: rgba(0, 0, 0, 0.08);
+  }
+  .hamburger-desktop nav.sidebar > ul > li > a{
+    color:#575757;
+    font-size:16px;
+  }
+  .hamburger-desktop nav.sidebar > ul > li.hamburger-link-border {
+    border-bottom: none;
+  }
+  .hamburger-desktop nav.sidebar > ul > li.hamburger-heading a {
+    text-transform: uppercase;
+    color: #989898;
+  }
+  nav.sidebar > ul > li > a:hover {
+    text-decoration: none;
+    color:#575757;
+  }
+}
+@media all and (max-width:599px){
+  .hamburger-desktop nav.sidebar > ul > li{
+    padding: 15px 10px;
+  }
+  .hamburger-desktop nav.sidebar > ul > li > a{
+    font-size:14px;
   }
 }

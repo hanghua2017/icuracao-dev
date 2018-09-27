@@ -27,6 +27,9 @@ if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedPr
     $showCompare = true;
     $showCart = false;
     $rating = 'short';
+    //  view model
+    $emiBlock = $block->getLayout()->getBlock('emi_block');
+    $emiViewModel = $emiBlock->getViewModel();
     //$description = ($mode == 'list') ? true: false;
 }
 ?>
@@ -40,7 +43,7 @@ if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedPr
             <div class="products-<?= /* @escapeNotVerified */ $mode ?> <?= /* @escapeNotVerified */ $mode ?>">
                 <ol class="product-items <?= /* @escapeNotVerified */ $type ?>">
                     <?php $iterator = 1; ?>
-                    <div class="owl-carousel product-slider-home" id="recentlyviewed">
+                    <div class="owl-carousel product-slider-carousel" id="recentlyviewed">
                     <?php foreach ($items as $_item): ?>
                       <div class="item">
                         <?= /* @escapeNotVerified */ ($iterator++ == 1) ? '<li class="product-item">' : '</li><li class="product-item">' ?>
@@ -65,7 +68,13 @@ if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedPr
                                     ]
                                 )
                                 ?>
-                                  <p class="subtext"><?php echo "or as low as";?><span class="amount"><?php echo" $10/month";?></span></p>
+                                <?php if($emiViewModel != NULL) {?>
+                                   <?php $emi = $emiViewModel->monthlyEmi($_item->getFinalPrice());?>
+                                <?php }?>
+
+                                <?php if($emi!=0):?>
+                  <p class="subtext"><?php echo "or as low as ";?><span class="amount"><?php echo"$". "".$emi." "."/month";?></span></p>
+                  <?php endif?>
 
                                 <?php /*if ($rating): ?>
                                     <?= $block->getReviewsSummaryHtml($_item, $rating) ?>
@@ -137,7 +146,7 @@ if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedPr
 <?php endif;?>
 <script type="text/x-magento-init">
     {
-    ".product-slider-home": {
+    ".product-slider-carousel": {
         "OwlCarousel": {
           "items": 5,
           "dots":false,

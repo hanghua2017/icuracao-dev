@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Dyode_curacao theme.
+ *
+ * Extending Magento_Checkout
+ *
+ * @package Dyode
+ * @module  Dyode_curacao
+ * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+
+        <!-- GENERAL BLOCKS -->
+        <block name="cart.emi.suggestion" template="Magento_Checkout::cart/item/renderer/emi.phtml">
+            <arguments>
+                <argument name="emi_view_model" xsi:type="object">Dyode\Checkout\ViewModel\Cart\Emi</argument>
+            </arguments>
+        </block>
+
+        <referenceContainer name="page.wrapper">
+            <block name="curacao.credit.card" template="Magento_Checkout::cart/creditcard.phtml" before="main.content" />
+        </referenceContainer>
+
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument name="title" translate="true" xsi:type="string">Shopping Bag</argument>
+            </action>
+
+            <block class="Magento\Checkout\Block\Cart" name="cart.item.count.title" template="Magento_Checkout::cart/title.phtml" cacheable="false">
+                <block class="Magento\Checkout\Block\Cart" name="checkout.cart.methods.bottom" template="Magento_Checkout::cart/title/methods.phtml" />
+            </block>
+        </referenceBlock>
+
+        <referenceBlock name="checkout.cart.form">
+            <block class="Magento\Checkout\Block\Onepage\Link" name="checkout.bottom.button" template="Magento_Checkout::onepage/link.phtml" />
+        </referenceBlock>
+
+        <referenceContainer name="checkout.cart.container">
+            <block name="checkout.cart.bottom.sticker" after="checkout.cart.form" template="Magento_Checkout::cart/bottom_sticker.phtml" />
+        </referenceContainer>
+
+        <!-- REMOVED BLOCKS -->
+        <referenceBlock name="cart.summary" remove="true" />
+        <referenceBlock name="checkout.cart.crosssell" remove="true" />
+        <referenceBlock name="checkout.cart.coupon" remove="true" />
+        <referenceBlock name="checkout.cart.giftcardaccount" remove="true" />
+    </body>
+
+</page>

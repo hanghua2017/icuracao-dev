@@ -6,6 +6,12 @@
       <link src="Magento_Customer::view/authentication-popup.js"/> -->
     </head>
     <body>
+      <!-- view model for Emi function -->
+      <block name="emi_block">
+        <arguments>
+           <argument name="view_model" xsi:type="object">Dyode\Core\ViewModel\Emi</argument>
+        </arguments>
+      </block>
       <!-- Top panel wrapper with sign in and create an account if want to remove -->
       <!-- <referenceBlock name="header.panel.wrapper" remove="true" /> -->
       <referenceBlock name="header" remove="true" />
@@ -33,13 +39,14 @@
             <argument name="logo_img_height" xsi:type="number">150</argument>
         </arguments>
       </referenceBlock>
-        <!-- <referenceContainer name="footer-container">
+        <referenceContainer name="footer-container">
             <container name="footer" as="footer" label="Page Footer" htmlTag="div" htmlClass="footer content">
                 <block class="Magento\Framework\View\Element\Template" name="custom-footer-link" as="custom-link" before="store_switcher" template="Magento_Theme::footer-custom-links.phtml"/>
+                <!-- <block class="Magento\Framework\View\Element\Html\Links" name="footer_links" remove="true"/> -->
                 <block class="Magento\Framework\View\Element\Template" name="trust_factors" as="trust" after="subscribe" template="Magento_Theme::trust-factor.phtml"/>
                 <block class="Magento\Framework\View\Element\Template" name="footer-bottom" after="trust" template="Magento_Theme::footer-bottom.phtml"/>
                 <block class="Magento\Framework\View\Element\Template" name="copy-right" after="footer-bottom" template="Magento_Theme::copy-right.phtml"/>
             </container>
-        </referenceContainer> -->
+        </referenceContainer>
     </body>
 </page>

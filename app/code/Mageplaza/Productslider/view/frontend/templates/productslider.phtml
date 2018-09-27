@@ -23,7 +23,8 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
 	$title = $block->getConfigValue('heading');
 	$items = $block->getProductCollection();
 	$info  = $block->getConfigValue('description');
-
+	$emiBlock = $block->getLayout()->getBlock('emi_block');
+	$emiViewModel = $emiBlock->getViewModel();
 	$showWishlist = true;
 	$showCompare = true;
 	$showCart = true;
@@ -34,18 +35,21 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
 ?>
 
 <?php if ($exist):?>
+	<?php if($items !=NULL):?>
 	<?php if ($title): ?>
 	<div class="mp-product-slider-block block widget block-products-list <?php echo $mode; ?>">
 		<div class="slider-title">
+
 			<h2 class="widget-title"><?php echo $title; ?></h2>
 		</div>
 	<?php endif;?>
+<?php endif;?>
         <div class="block-content">
             <?php /* @escapeNotVerified */ echo '<!-- ' . $image . '-->' ?>
 			<div class="products-<?php /* @escapeNotVerified */ echo $mode; ?> <?php /* @escapeNotVerified */ echo $mode; ?>">
                 <ol class="product-items <?php /* @escapeNotVerified */ echo $type; ?>">
                     <?php $iterator = 1; ?>
-					<div class="owl-carousel product-slider-home" id="mageplaza-product-slider-<?php echo $productsliderId; ?>">
+										<div class="owl-carousel product-slider-carousel" id="mageplaza-product-slider-<?php echo $productsliderId; ?>">
 					<?php foreach ($items as $_item): ?>
 						<div class="item">
 						<?php /* @escapeNotVerified */ echo($iterator++ == 1) ? '<li class="product-item product-slider"">' : '</li><li class="product-item product-slider"">' ?>
@@ -68,7 +72,14 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
 										'price_id_suffix' => '-' . $type
 									]
 								) ?>
-								<p class="subtext"><?php echo "or as low as";?><span class="amount"><?php echo" $10/month";?></span></p>
+
+								<!-- emi function -->
+								<?php if($emiViewModel != NULL) {?>
+                   <?php $emi = $emiViewModel->monthlyEmi($_item->getFinalPrice());?>
+                <?php  }?>
+								<?php if($emi!=0):?>
+	                <p class="subtext"><?php echo "or as low as";?><span class="amount"><?php echo"$". " ".$emi." "."/month";?></span></p>
+               	<?php endif?>
 								<?php if ($rating): ?>
 									<?php echo $block->getReviewsSummaryHtml($_item, $rating) ?>
 								<?php endif; ?>
