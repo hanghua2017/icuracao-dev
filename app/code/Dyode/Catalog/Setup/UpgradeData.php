@@ -54,43 +54,9 @@ class UpgradeData implements UpgradeDataInterface
         ModuleDataSetupInterface $setup,
         ModuleContextInterface $context
     ) {
-        if (version_compare($context->getVersion(), "1.0.1", "<")) {
-            $this->upgradeDataOneZeroOne($setup);
-        }
         if (version_compare($context->getVersion(), "1.0.2", "<")) {
             $this->upgradeDataOneZeroTwo($setup);
         }
-    }
-
-    /**
-     * Create "warranty" relation for catalog product entity.
-     *
-     * @param \Magento\Framework\Setup\ModuleDataSetupInterface $setup
-     */
-    public function upgradeDataOneZeroOne(ModuleDataSetupInterface $setup)
-    {
-        $data = [
-            [
-                'link_type_id' => Link::LINK_TYPE_WARRANTY,
-                'code'         => Link::LINK_WARRANTY_CODE,
-            ],
-        ];
-
-        foreach ($data as $bind) {
-            $setup->getConnection()
-                ->insertForce($setup->getTable('catalog_product_link_type'), $bind);
-        }
-
-        $data = [
-            [
-                'link_type_id'                => Link::LINK_TYPE_WARRANTY,
-                'product_link_attribute_code' => 'position',
-                'data_type'                   => 'int',
-            ],
-        ];
-
-        $setup->getConnection()
-            ->insertMultiple($setup->getTable('catalog_product_link_attribute'), $data);
     }
 
     /**

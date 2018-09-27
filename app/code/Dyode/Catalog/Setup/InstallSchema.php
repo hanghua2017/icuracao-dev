@@ -27,16 +27,12 @@ class InstallSchema implements InstallSchemaInterface
         SchemaSetupInterface $setup,
         ModuleContextInterface $context
     ) {
+        $setup->startSetup();
+
         $tableName = $setup->getTable('catalog_product_option');
 
         if ($setup->getConnection()->isTableExists($tableName) == true) {
             $columns = [
-                'is_warranty'   => [
-                    'type'     => Table::TYPE_SMALLINT,
-                    'nullable' => false,
-                    'default'  => '0',
-                    'comment'  => 'Indicates whether the option is warranty type or not',
-                ],
                 'is_wall_mount' => [
                     'type'     => Table::TYPE_SMALLINT,
                     'nullable' => false,
