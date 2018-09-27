@@ -25,17 +25,21 @@ class Threshold extends \Magento\Framework\View\Element\Template {
 
       	$data = $this->csv->getData($file);
         //first line are the headers
-        $headers = $data[0];
+        if($data)
+        {	
+	        $headers = $data[0];
 
-        $allThresholdData = array();
-        for($i=1; $i<count($data); $i++){
-           $threshold = array();
-        foreach ($headers as $index=>$attributeCode) {
-           $threshold[$attributeCode] = $data[$i][$index];
-        }
-           $allThresholdData[] = $threshold;
-		        
+	        $allThresholdData = array();
+	        for($i=1; $i<count($data); $i++){
+	           $threshold = array();
+	        foreach ($headers as $index=>$attributeCode) {
+	           $threshold[$attributeCode] = $data[$i][$index];
+	        }
+	           $allThresholdData[] = $threshold;
+			        
+			}
+		   return $allThresholdData;
 		}
-	   return $allThresholdData;
+		return false;
     }
 }

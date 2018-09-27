@@ -15,7 +15,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
 		$request = new \Zend\Http\Request();
 		$request->setHeaders($httpHeaders);
-		$request->setUri("https://exchangeweb.lacuracao.com:2007/ws1/restapi/ecommerce/getSetItems?item_id=$productSKU");
+		$request->setUri("https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/getSetItems?item_id=$productSKU");
 		$request->setMethod(\Zend\Http\Request::METHOD_GET);
 
 		$client = new \Zend\Http\Client();

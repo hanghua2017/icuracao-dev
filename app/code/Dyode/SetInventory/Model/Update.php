@@ -34,13 +34,12 @@ class Update extends \Magento\Framework\View\Element\Template {
 	}
 
 	public function updateInventory($location) {
-		var_dump("expression");exit;
 		$products = $this->getProducts();
 		foreach ($products as $product) {
-			//var_dump($product->getID());exit;
+			// var_dump($product->getSku());exit;
 			//$this->helper->getSetItems($product->getID());
 			$ARsetDescription = $this->helper->getSetItems(utf8_encode($product->getSku()));
-			if ($ARsetDescription != NULL)
+			if ($ARsetDescription != 'NULL')
             {
 				if ($ARsetDescription->OK){
 					$previous = array();
@@ -61,7 +60,7 @@ class Update extends \Magento\Framework\View\Element\Template {
 				            foreach ($inventorylevel->LIST as $inventory) {
 
 				                if ($inventory->location != 'TOTAL' && $inventory->quantity != 0) {
-				                    $numberOfItemsSets = floor($inventory->quantity / $qtyNeeded);
+				                    $numberOfItemsSets = floor($inventory->quantity / $quantityNeeded);
 				                    if ($numberOfItemsSets > 0) {
 				                        $setQuantityTemp[$inventory->location] = $numberOfItemsSets;
 				                    }
@@ -90,13 +89,13 @@ class Update extends \Magento\Framework\View\Element\Template {
 			        else
 			            $setQuantity = 0;
 			        $AR_items_inventory = json_encode($AR_items_inventory_array, true);
-			        $model = $this->inventorylocation->create();
-					$model->addData([
+			        $locationInventory = $this->inventorylocation->create();
+					$locationInventory->addData([
 						"productid" => $product->getID(),
 						"productsku" => $product->getSku(),
-						"inventory" => $AR_items_inventory
+						"inventory" => $setQuantity
 						]);
-			        $saveData = $model->save();
+			        $saveData = $locationInventory->save();
 			        $stockItem=$this->_stockRegistry->getStockItem($product->getID());
 					$stockItem->setQty($setQuantity);
 					$stockItem->setIsInStock((bool)$setQuantity); 
@@ -109,9 +108,10 @@ class Update extends \Magento\Framework\View\Element\Template {
 	public function getProducts() {
 	    $productCollection = $this->_productCollectionFactory->create();
         $productCollection->addAttributeToSelect('*')
-                          ->addFieldToFilter('status',['in' => array('01')])
-                          ->addFieldToFilter('visibility',['in' => array('4')]);
-                          var_dump("expression");exit;                 
+                          ->addAttributeToFilter('inventorylookup', 14)
+					      ->addAttributeToFilter('set', 1)
+					      ->addAttributeToFilter('shprate','Domestic')
+					      ->addAttributeToFilter('vendorId', 2139);                
         return $productCollection;
 	}
 }

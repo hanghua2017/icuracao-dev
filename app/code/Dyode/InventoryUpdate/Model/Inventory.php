@@ -33,6 +33,7 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 	\Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,  
     \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
 	\Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory, 
+	\Dyode\InventoryLocation\Model\LocationFactory  $inventoryLocation,
 	\Dyode\InventoryUpdate\Helper\Data $helper,
 	\Dyode\Threshold\Model\Threshold $thresholdModel,
 	array $data = []
@@ -41,6 +42,7 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 	    $this->_orderCollectionFactory = $orderCollectionFactory;
 	    $this->_productRepository = $productRepository;
 	    $this->helper = $helper;
+	    $this->inventorylocation = $inventoryLocation;
 	    $this->threshold = $thresholdModel;
 	    parent::__construct($context, $data);
 	}
@@ -66,7 +68,10 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 	//get product collection
 	public function getProducts() {
 	    $productCollection = $this->_productCollectionFactory->create();
-        $productCollection->addAttributeToSelect('*')->addFieldToFilter('status',['in' => array('01')])->addFieldToFilter('visibility',['in' => array('4')]);
+        $productCollection->addAttributeToSelect('*')
+                          ->addAttributeToFilter('inventorylookup', 14)
+					      ->addAttributeToFilter('set', 0)
+					      ->addAttributeToFilter('vendorId', 2139); 
         return $productCollection;
 	}
 
@@ -120,16 +125,19 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 	public function getAllThreshold(){
 
 		$data = $this->threshold->getThreshold();
-		foreach ($data as $item) {	
-			$department = $item['Sub Departments Name'];
-			$sku = trim( $item['Sub Code'] );
-			
-			if(!isset($sku) || empty($sku)){				
-				// Department
-				$this->thresh[$department] = $item['Threshold'];
-			}else{				
-				// Sku
-				$this->thresh[$sku] = $item['Threshold'];
+		if($data)
+		{
+			foreach ($data as $item) {	
+				$department = $item['Sub Departments Name'];
+				$sku = trim( $item['Sub Code'] );
+				
+				if(!isset($sku) || empty($sku)){				
+					// Department
+					$this->thresh[$department] = $item['Threshold'];
+				}else{				
+					// Sku
+					$this->thresh[$sku] = $item['Threshold'];
+				}
 			}
 		}
 	}
@@ -181,12 +189,27 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 					// Company-wide Inventory
 					$inventory_values = array_values($this->pendingthreshold[$sku]);
 					$company_wide_inventory = array_sum($inventory_values);
-					var_dump($company_wide_inventory);exit;
+
+					$locationInventory = $this->inventorylocation->create();
+					$locationInventory->addData([
+						"productid" => $sku,
+						"productsku" => $sku,
+						"inventory" => $jsonAR_invAfterPendingAndThreshold
+						]);
+			        $saveData = $locationInventory->save();
 				}
 			}
 		}
-		$productCollection = $this->_productCollectionFactory->create()->addAttributeToSelect('*');
-		foreach($productCollection as $product) {
+		// $productCollection = $this->getProducts();
+		// foreach($productCollection as $product) {
+
+		// 	 $locationInventory = $this->inventorylocation->create();
+		// 			$locationInventory->addData([
+		// 				"productid" => $product->getID(),
+		// 				"productsku" => $product->getSku(),
+		// 				"inventory" => $jsonAR_inv
+		// 				]);
+		// 	        $saveData = $locationInventory->save();
 			//$item = $this->_productRepository->getById($product->getId());
 			// if($product->getDiscontinued()){
 				//$item->setData('status',0);
@@ -205,7 +228,7 @@ class Inventory extends \Magento\Framework\View\Element\Template {
     			//$productCollection->save($product);
     			var_dump("expression");exit;
 			//}
-		}
+		// }
 	}
 	
 }
