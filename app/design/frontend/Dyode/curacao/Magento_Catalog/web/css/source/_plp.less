@@ -3,13 +3,13 @@
 *Product Listing Page Styling
 *
 */
-@light-gray-color:#888;
+@light-gray-color: #888;
 @gray-text: #333;
 @orange-off: #ff4200;
-@black:#000;
-@white:#fff;
-@icon-color:#666;
-@icon-hover-color:#303030; //main class for PLP specific styling ans search result specific styling
+@black: #000;
+@white: #fff;
+@icon-color: #666;
+@icon-hover-color: #303030; //main class for PLP specific styling ans search result specific styling
 
 .catalog-category-view,
 .catalogsearch-result-index {
@@ -157,10 +157,12 @@
             }
           }
         }
+
         .filter.active {
           .filter-title {
             &.block-title {
-                  border-bottom: none;
+              border-bottom: none;
+
               strong {
                 @media all and (max-width:767px) {
                   right: 3px;
@@ -187,6 +189,7 @@
 
         .filter-options-item {
           border-bottom: none;
+          padding-bottom: 0;
           // more than six items , scroll will appear
           //  max-height: 270px;
           //  overflow-y: auto;
@@ -210,7 +213,7 @@
                 -moz-osx-font-smoothing: grayscale;
                 font-size: 22px;
                 line-height: 28px;
-                color:#757575;
+                color: #757575;
                 content: '\e611';
                 font-family: 'luma-icons';
                 margin: 0;
@@ -291,7 +294,7 @@
           }
 
           .filter-options {
-            margin-top: 15px;
+            margin-top: 25px;
 
             .filter-options-content,
             .filter-options-title {
@@ -319,6 +322,7 @@
             }
 
             .filter-options-content {
+              padding-bottom: 0;
               @media all and (min-width: 768px) {
                 display: block !important;
               }
@@ -326,16 +330,16 @@
               ol {
                 list-style: none;
                 padding-left: 0;
-                margin: 10px 0;
+                margin: 0 0 45px;
                 max-height: 190px;
                 overflow-y: auto;
+
+                .item {
+                  margin: 15px 0 0;
+                }
                 @media screen and (max-width: 767px) {
                   margin: 10px 0 0;
                   max-height: 195px;
-
-                  .item {
-                    margin: 10px 0 0;
-                  }
                 }
               }
             }
@@ -431,8 +435,10 @@
               }
 
               .swatch-attribute-options {
+                margin: 5px 0 45px;
+
                 .each-color {
-                  margin: 10px 0;
+                  margin: 0 0 15px;
                 }
 
                 a {
@@ -622,7 +628,7 @@
               .mode-list:before {
                 font-family: 'iCuracao-Medium';
                 content: 'List' !important;
-                              font-size: 12px;
+                font-size: 12px;
               }
 
               .mode-grid:before {
@@ -1073,7 +1079,7 @@
             .product-item-description {
               width: 50%;
               margin: 25px 0;
-              color:@light-gray-color;
+              color: @light-gray-color;
               @media all and (max-width:990px) {
                 display: none;
               }
@@ -1101,7 +1107,7 @@
               @media all and (max-width:990px) {
                 position: static;
                 width: 100%;
-                margin:10px 0 0;
+                margin: 10px 0 0;
               }
             }
 
@@ -1119,8 +1125,8 @@
                 }
 
                 .product-item-info {
-                  display:flex;
-                  width:100% !important;
+                  display: flex;
+                  width: 100% !important;
 
                   .price-off {
                     @media all and (max-width:767px) {
@@ -1128,9 +1134,9 @@
                     }
                   }
 
-                  .product-item-photo{
-                    padding:0;
-                    width:240px;
+                  .product-item-photo {
+                    padding: 0;
+                    width: 240px;
                   }
 
                   .product-item-details {
@@ -1145,7 +1151,7 @@
 
                     .product-item-name {
                       width: 70%;
-                      margin:0 0 10px;
+                      margin: 0 0 10px;
                       @media all and (max-width:1200px) {
                         width: 60%;
                       }
@@ -1165,7 +1171,7 @@
                     .price-box {
                       position: absolute;
                       right: 20px;
-                      top: 0px;
+                      top: 0;
                       margin: 0;
                       width: 170px;
                       text-align: left;
@@ -1175,7 +1181,7 @@
                       }
 
                       .price {
-                        color:@gray-text;
+                        color: @gray-text;
                         font-weight: 700;
                       }
 
