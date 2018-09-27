@@ -281,6 +281,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
     /**
      * Load product by Product Id
+     * 
+     * @return Object
      */
     private function getProductById($id)
     {
@@ -289,6 +291,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
     /**
      * Load product by SKU
+     * 
+     * @return Object
      */
     private function getProductBySku($sku)
     {
@@ -312,16 +316,24 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function assignInventoryLocation($item)
     {
+        $product = $this->_productRepository->getById($item->getProductId());
+        // print_r($item->getData());
+        echo "<pre>";
         # Sample Data
-        $shippingRate = "international";
-        $set = "Y";
+        // $shippingRate = "international";
+        // $set = "Y";
 
         # Setting Up values
-        $itemId = $item->getItemId();
-        $itemSku = $item->getSku();
-        $itemQty = $item->getQtyOrdered();
-        $itemQtyInvoiced = $item->getQtyInvoiced();
-        $productId = $item->getProductId();
+        echo $itemId = $item->getItemId();
+        echo "<br>";
+        echo $itemSku = $item->getSku();
+        echo "<br>";
+        echo $itemQty = $item->getQtyOrdered();
+        echo "<br>";
+        echo $itemQtyInvoiced = $item->getQtyInvoiced();
+        echo "<br>";
+        echo $productId = $item->getProductId();
+        echo "<br>";
 
         /**
          * Get Product Info by Sku
@@ -330,43 +342,49 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         /**
          * Get Product Vendor Id
          */
-        $vendorId = $product->getVendorId();
+        echo $vendorId = $product->getData('vendorid');
+        echo $set = $product->getData('set');
+        echo $shippingRate = $product->getData('shiptype');
+        
         /**
          * Getting the Inventory Level from Product Attribute
          */
-        if (!empty($product->getInventoryLevel())) {
-            # code...
-            $inventoryLevel = explode(", ", $product->getInventoryLevel());
-            $inventoryLocations =  array();
-            foreach ($inventoryLevel as $value) {
-                # code...
-                $inventoryLocations[explode(":", $value)[0]] = explode(":", $value)[1];
-            }
-            unset($inventoryLevel);
-        } else {
-            # code...
-            throw new Exception("Product Inventory Level Not Found", 1);
-        }
+        // if (!empty($product->getInventoryLevel())) {
+        //     # code...
+        //     $inventoryLevel = explode(", ", $product->getInventoryLevel());
+        //     $inventoryLocations =  array();
+        //     foreach ($inventoryLevel as $value) {
+        //         # code...
+        //         $inventoryLocations[explode(":", $value)[0]] = explode(":", $value)[1];
+        //     }
+        //     unset($inventoryLevel);
+        // } else {
+        //     # code...
+        //     throw new Exception("Product Inventory Level Not Found", 1);
+        // }
         if ($vendorId != '2139') {  # If the vendor is not Curacao
             return '33';
-        } else { # If the vendor is Curacao
+        } else {    # If the vendor is Curacao
             # Get Order Details
             $order = $this->getOrderInfo($item->getOrderId());
+            echo $order->getIncrementId();
             # Get Delivery Method
-            $storePickup = strtolower(trim($order->getShippingMethod())) == 'storepickup' ? True : False;   # incomplete...
-            if ($storePickup == True) { # If the Delivery Type is Store Pickup
-                # incomplete...
-                $storeLocationCode = $item->getPickupLocation();
+            $storePickup = $item->getData('delivery_type');
+            if ($storePickup != True) { # If the Delivery Type is Store Pickup
+                $storeLocationCode = $item->getData('store_location');
                 return $storeLocationCode;
             } else { # If the Delivery Type is Shipping
-                $shippingRate = $product->getShippingRate();
-                $shippingZipCode = $order->getShippingAddress()->getPostCode();
+                echo "World";
+                echo $shippingRate = $product->getData('shiptype');
+                
+
+                echo $shippingZipCode = $order->getShippingAddress()->getPostCode();
+                
                 if ($shippingRate == "Domestic") {
                     # dummy values...
                     $itemSku = '32A-061-101946';
                     $shippingZipCode = 35801;
                     if (array_key_exists($this->_domesticLocation, $inventoryLocations)) {
-                        # code...
                         $domesticItemInventory = $inventoryLocations[$this->_domesticLocation];
                         $storeLocationCode = $this->getDomesticInventoryLocation($itemSku, $itemQty, $shippingZipCode, $domesticItemInventory);
                     } else {
@@ -375,7 +393,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                     }
                     return $storeLocationCode;
                 } else {
-                    $set = $product->getIsSet();
+                    echo "Hello";
+                    echo $set = $product->getData('set');
+                    die();
                     if ($set == 'Yes') {
                         $itemSku = "17D-868-DSCW610PAK1";
                         $setItems = json_decode($this->getSetItems($itemSku));
@@ -446,17 +466,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                                 return $locations;
                             }
                         }
-                        // print_r($availableInventory);
-                        // print_r($setItemsQty);
-                        // echo "</pre>";
-                        // die();
                         if ($setLocationFound == 1) {
-                            # code...
                             # Send Out of Stock Notification
                             return 01;
                         }
                     } else {
-                        # code...
                         return "k";
                     }
                 }

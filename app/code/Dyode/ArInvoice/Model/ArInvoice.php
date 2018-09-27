@@ -180,7 +180,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         }
         $shippingDiscount = $order->getShippingDiscountAmount();
 
-        $accountNumber = "53208833";
+        // $accountNumber = "53208833";
         # Assigning values to input Array
         $inputArray = array(
             "CustomerID" => $accountNumber,
@@ -241,8 +241,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             }
 
             $explodeItemSku = explode("-", $itemSku);
-
-            echo $itemsStoreLocation[$itemId];
 
             array_push($items, array(
                     "itemtype" => $itemType,
@@ -319,6 +317,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         } else {  # Create Invoice Response is true
             $estimateNumber = $invoiceNumber = $createInvoiceResponse->DATA->INV_NO;    # Save Estimate Number in Order
             $order->setData('estimatenumber', $estimateNumber);
+            $order->addStatusToHistory($order->getStatus(), 'Estimate Number: ' . $estimateNumber );     # Add Comment to Order History
             $order->save();
             /**
              * Customer Status Validation
@@ -356,27 +355,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
     }
 
     /**
-     * Get Sales Order Collection for AR Invoice
-     */
-    public function getSalesOrderCollection()
-    {
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $orderCollection = $objectManager->create('\Magento\Sales\Model\ResourceModel\Order\Collection');
-        return $orderCollection->load();
-    }
-
-    /**
-     * Get status options
-     *
-     * @return array
-     */
-    public function getStatusOptions()
-    {
-        $options = $this->_statusCollectionFactory->create()->toOptionArray();        
-        return $options;
-    }
-
-    /**
      * Prepare Order Items for AR Invoice
      *
      * @return array
@@ -389,33 +367,33 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         $orderItemsLocation = array();
         $groupedItemsLocation = array();
         $orderItemsLocation = array("17774"=>"16");
-        // /**
-        //  * Get Order Info by Order Id
-        //  */
-        // $order = $this->_orderRepository->get($orderId);
-        // foreach ($order->getAllItems() as $orderItem) {
-        //     if ($orderItem->getParentItemId() == null) {
-        //         $orderItemsLocation[$orderItem->getItemId()] = $this->_arInvoiceHelper->assignInventoryLocation($orderItem);
-        //         // if ($orderItemsLocation[$orderItem->getItemId()] == "k") {
-        //         //     # code...
-        //         //     $orderItems[$orderItem->getItemId()] = array(
-        //         //         "ProductId" => $orderItem->getProductId(),
-        //         //         "ItemQty" => $orderItem->getQtyOrdered()
-        //         //     );
-        //         //     unset($orderItemsLocation[$orderItem->getItemId]);
-        //         // }
-        //     }
-        // }
+        /**
+         * Get Order Info by Order Id
+         */
+        $order = $this->_orderRepository->get($orderId);
+        foreach ($order->getAllItems() as $orderItem) {
+            if ($orderItem->getParentItemId() == null) {
+                $orderItemsLocation[$orderItem->getItemId()] = $this->_arInvoiceHelper->assignInventoryLocation($orderItem);
+                // if ($orderItemsLocation[$orderItem->getItemId()] == "k") {
+                //     # code...
+                //     $orderItems[$orderItem->getItemId()] = array(
+                //         "ProductId" => $orderItem->getProductId(),
+                //         "ItemQty" => $orderItem->getQtyOrdered()
+                //     );
+                //     unset($orderItemsLocation[$orderItem->getItemId]);
+                // }
+            }
+        }
 
-        // if (!empty($orderItems)) {
-        //     # code...
-        //     $groupedItemsLocation = $this->_arInvoiceHelper->getGroupedLocation($order,$orderItems);
-        //     $orderItemsLocation = $orderItemsLocation + $groupedItemsLocation;
-        //     ksort($orderItemsLocation);
-        // }
-        // print_r($orderItemsLocation);
-        // die();
-        // $orderItemsLocation = array("133"=>"01", "134"=>"k", "135"=>"09", "136"=>"k", "137"=>"k");
+        if (!empty($orderItems)) {
+            # code...
+            $groupedItemsLocation = $this->_arInvoiceHelper->getGroupedLocation($order,$orderItems);
+            $orderItemsLocation = $orderItemsLocation + $groupedItemsLocation;
+            ksort($orderItemsLocation);
+        }
+        print_r($orderItemsLocation);
+        die();
+        
         return $orderItemsLocation;
     }
 }
