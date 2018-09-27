@@ -7,7 +7,7 @@ footer {
     padding-bottom: 0;
     margin-top: 0;
     @media all and (max-width:1024px){
-      padding: 20px;
+      padding: 15px;
     }
     .footer {
       max-width: 1500px;
@@ -199,6 +199,9 @@ footer {
                 position: absolute;
                 right: 74px;
                 top: 0;
+                @media all and (max-width:479px){
+                  right:79px;
+                }
 
                 button {
                   border: none;
@@ -251,7 +254,7 @@ footer {
                 padding-right: 20px;
               }
               @media all and (max-width:479px){
-                text-align: center;
+                padding: 15px 0;
               }
               img {
                 @media all and (max-width: 767px) {
@@ -266,10 +269,6 @@ footer {
                   @media all and (max-width: 1160px) {
                     margin-left: 5px;
                   }
-                  @media all and (max-width:479px){
-                    text-align: center;
-                    margin-left: 0;
-                  }
                   p {
                     margin: 0;
                     &.title {
@@ -283,6 +282,9 @@ footer {
                       @media all and (max-width: 991px) {
                         font-size: 16px;
                       }
+                      @media all and (max-width:479px){
+                        font-size:14px;
+                      }
                     }
                     &.comment {
                       font-size: 15px;
@@ -295,7 +297,9 @@ footer {
                       @media all and (max-width: 991px) {
                         font-size: 14px;
                       }
-
+                      @media all and (max-width:479px){
+                        font-size:12px;
+                      }
                     }
                   }
 
@@ -423,10 +427,13 @@ footer {
 
       //Copy right section
       .copy-right-block{
-        margin-top: 25px;
+        margin: 25px 0 10px 0;
         width: 100%;
         border-top: solid 1px #b4b4b2;
         overflow: hidden;
+        @media all and (max-width:1024px){
+          margin: 25px 0 0 0;
+        }
         .copy-right-section{
           padding: 0px;
           max-width: 1500px;
@@ -443,6 +450,9 @@ footer {
               font-family: 'iCuracao-Light';
               font-size: 14px;
               color: #333333;
+              @media all and (max-width:1024px){
+                margin-top:15px;
+              }
               a{
                 text-decoration: none;
                 color: #333333;
@@ -461,6 +471,9 @@ footer {
               font-family: 'iCuracao-Light';
               font-size: 14px;
               color: #999999;
+              @media all and (max-width:1024px){
+                margin-top:15px;
+              }
             }
           }
         }

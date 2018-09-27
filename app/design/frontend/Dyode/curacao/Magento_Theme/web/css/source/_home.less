@@ -25,6 +25,17 @@
 	}
 }
 
+
+/*styling for page breakage on firefox*/
+.page-main{
+	.columns{
+		@media all and (max-width:767px){
+			display: block;
+		}
+	}
+}
+/*styling for page breakage on firefox*/
+
 /*styling for home page starts here*/
 .cms-index-index {
 	.page-wrapper {
@@ -41,6 +52,9 @@
 						display: flex;
 						justify-content: space-between;
 						margin-bottom: 20px;
+						@media all and (min-width:1025px){
+							margin:15px 0 20px 0;
+						}
 						@media screen and (max-width: 768px) {
 							flex-direction: column;
 							margin-bottom: 10px;
@@ -80,8 +94,12 @@
 												background-color: #f3f3f3;
 												width: 30px;
 												height: 90px;
+												top:45%;
 												background-repeat: no-repeat;
 												background-position: center;
+												@media all and (max-width:767px){
+													top:39%;
+												}
 												@media screen and (max-width: 480px) {
 													background-size: 50%;
 													width: 30px;
@@ -176,9 +194,9 @@
 					.guarantee-block-container {
 						.guarantee-block {
 							display: flex;
-							margin-bottom: 30px;
-							@media all and (max-width:768px) {
-								margin-bottom: 15px;
+							margin:0 0 30px 0;
+							@media all and (max-width:767px){
+								margin:0 0 20px 0;
 							}
 
 							.left-block,
@@ -189,11 +207,17 @@
 								padding: 10px;
 								border: 1px solid #d8d8d8;
 								box-sizing: border-box;
+								@media all and (max-width:480px){
+									flex-direction: column;
+								}
 
 								.image {
 									width: 45%;
 									text-align: right;
 									margin-right: 15px;
+									@media all and (max-width:480px){
+										margin-right:10px;
+									}
 
 									img {
 										max-width: 100px;
@@ -203,27 +227,26 @@
 										@media screen and (max-width: 991px) {
 											//
 										}
-										@media screen and (max-width: 768px) {
+										@media screen and (max-width: 767px) {
 											max-width: 80px;
 										}
 										@media screen and (max-width: 480px) {
-											max-width: 100%;
+											max-width: 75px;
 											height: auto;
-										}
-										@media screen and (max-width: 400px) {
-											height: 100%;
 										}
 									}
 									@media screen and (max-width: 890px) {
 										width: 30%;
 									}
-									@media screen and (max-width: 768px) {
+									@media screen and (max-width: 767px) {
 										text-align: left;
 										margin-right: 5px;
 										width: 100px;
 									}
 									@media screen and (max-width: 480px) {
-										//
+										width: 100%;
+										margin-right: 0;
+										text-align: center;
 									}
 								}
 
@@ -232,24 +255,25 @@
 									@media screen and (max-width: 890px) {
 										width: 70%;
 									}
-									@media screen and (max-width: 768px) {
+									@media screen and (max-width: 767px) {
 										width: 85%;
 									}
-									@media screen and (max-width: 400px) {
-										padding-top: 5px;
+									@media all and (max-width:480px){
+										width:100%;
+										text-align: center;
 									}
 
 									h2 {
-										font-family: 'iCuracao-Regular';
+										font-family: 'iCuracao-Medium';
 										font-size: 20px;
 										font-weight: normal;
-										margin-bottom: 2px;
+										margin-bottom: 3px;
 										margin-top: 3px;
 										color: @black;
 										@media screen and (max-width: 991px) {
 											font-size: 18px;
 										}
-										@media screen and (max-width: 768px) {
+										@media screen and (max-width: 767px) {
 											font-size: 17px;
 										}
 										@media screen and (max-width: 480px) {
@@ -261,18 +285,18 @@
 										font-family: 'iCuracao-Regular';
 										font-size: 14px;
 										font-weight: normal;
-										margin-bottom: 7px;
+										margin-bottom: 5px;
 										margin-top: 0;
 										color: @black;
 										@media screen and (max-width: 991px) {
 											font-size: 13px;
 										}
-										@media screen and (max-width: 768px) {
+										@media screen and (max-width: 767px) {
 											font-size: 12px;
-											margin-bottom: 4px;
+											margin-bottom: 3px;
 										}
 										@media screen and (max-width: 480px) {
-											font-size: 10px;
+											font-size: 12px;
 										}
 									}
 
@@ -286,37 +310,27 @@
 										@media screen and (max-width: 991px) {
 											//
 										}
-										@media screen and (max-width: 768px) {
+										@media screen and (max-width: 767px) {
 											font-size: 11px;
 										}
 										@media screen and (max-width: 480px) {
-											font-size: 7px;
+											font-size: 11px;
 										}
 									}
-								}
-								@media screen and (max-width: 400px) {
-									width: 100%;
 								}
 							}
 
 							.left-block {
 								margin-right: 15px;
-								@media screen and (max-width: 400px) {
-									margin-right: 0;
-									margin-bottom: 10px;
-								}
-							}
-							@media screen and (max-width: 400px) {
-								display: block;
 							}
 						}
 					}
 
 					.mp-product-slider-block {
 						.block-content {
-							margin-bottom: 30px;
-							@media all and (max-width:768px) {
-								margin-bottom: 15px;
+							margin:0 0 30px 0;
+							@media all and (max-width:767px){
+								margin:0 0 20px 0;
 							}
 						}
 					}
@@ -325,14 +339,17 @@
 					.block-viewed-products-grid,
 					.category-slider-container,
 					.todays-deals-container {
-						margin-bottom: 30px;
-						@media all and (max-width:768px) {
-							margin-bottom: 15px;
+						margin:0 0 30px 0;
+						@media all and (max-width:767px){
+							margin:0 0 20px 0;
 						}
 
 						.slider-title {
 							text-align: center;
-
+							margin: 0 0 20px 0;
+							@media all and (max-width:767px){
+								margin: 0 0 15px 0;
+							}
 							.widget-title {
 								font-family: 'iCuracao-Regular';
 								font-size: 18px;
@@ -351,7 +368,7 @@
 
 						.product-slider-carousel {
 							box-shadow: 0 0 10px @box-shadow-color;
-							margin: 15px 0;
+							margin: 15px 0 0 0;
 
 							.owl-stage {
 								position: relative;
@@ -417,7 +434,6 @@
 								font-family: 'iCuracao-Medium';
 								color: @black;
 								text-decoration: none;
-								overflow: hidden;
 
 								span.discount-flag {
 									position: absolute;
@@ -428,6 +444,7 @@
 									z-index: 9;
 									color: #fff;
 									padding: 5px;
+									font-family: "iCuracao-Regular";
 									font-size: 14px;
 									@media all and (max-width:767px) {
 										left: 20px;
@@ -440,17 +457,23 @@
 									}
 								}
 
-								img {
-									width: 100%;
-									vertical-align: middle;
-									-moz-transition: all 0.3s;
-									-webkit-transition: all 0.3s;
-									transition: all 0.3s;
-									// @media screen and (max-width: 400px) {
-									//     max-width: 85px;
-									//     max-height: 54px;
-									//     min-height: 54px;
-									// }
+								.productimage-container{
+									overflow: hidden;
+									display: block;
+									img {
+										max-width: 85%;
+										width: 100%;
+										vertical-align: middle;
+										-moz-transition: all 0.3s;
+										-webkit-transition: all 0.3s;
+										transition: all 0.3s;
+										margin:0 auto;
+										// @media screen and (max-width: 400px) {
+										//     max-width: 85px;
+										//     max-height: 54px;
+										//     min-height: 54px;
+										// }
+									}
 								}
 
 								h3 {
@@ -476,13 +499,13 @@
 								}
 
 								p.price {
-									font-family: 'iCuracao-Regular';
+									font-family: 'iCuracao-Medium';
 									text-align: center;
 									margin-bottom: 15px;
-									color: @black;
-									font-size: 18px;
+									color: @textColor;
+									font-size: 16px;
 									@media screen and (max-width: 768px) {
-										font-size: 15px;
+										font-size: 14px;
 										margin-bottom: 10px;
 									}
 
@@ -491,9 +514,9 @@
 											color: #888888;
 											text-decoration: line-through;
 											margin-right: 15px;
-											font-size: 16px;
+											font-size: 14px;
 											@media screen and (max-width: 768px) {
-												font-size: 14px;
+												font-size: 12px;
 											}
 										}
 									}
@@ -503,7 +526,7 @@
 									font-family: 'iCuracao-Medium';
 									font-size: 16px;
 									text-align: center;
-
+									color:@black;
 									span.amount {
 										color: #81b800;
 									}
@@ -517,6 +540,13 @@
 										-moz-transform: scale(1.1);
 										-webkit-transform: scale(1.1);
 										transform: scale(1.1);
+										transition: all 0.2s;
+										@media all and (max-width:1024px){
+											-moz-transform: scale(1);
+											-webkit-transform: scale(1);
+											transform: scale(1);
+											transition: all 0.2s;
+										}
 									}
 								}
 							}
@@ -543,22 +573,30 @@
 								.product-image-container {
 									width: 100% !important;
 
-									.product-image-photo {
-										max-width: 85%;
-										transition: all 0.2s;
-										margin: 0 auto;
-										width: 100%;
-										height: auto;
-										max-width: inherit;
-										max-height: inherit;
-										min-height: inherit;
-										vertical-align: middle;
-
-										&:hover {
-											transform: scale(1.1);
+									.product-image-wrapper{
+										padding-bottom: 85% !important;
+										.product-image-photo {
+											max-width: 85%;
 											transition: all 0.2s;
+											margin: 0 auto;
+											width: 100%;
+											height: auto;
+											max-height: inherit;
+											min-height: inherit;
+											vertical-align: middle;
+											transition: all 0.2s;
+
+											&:hover {
+												transform: scale(1.1);
+												transition: all 0.2s;
+												@media all and (max-width:1024px){
+													transform: scale(1);
+													transition: all 0.2s;
+												}
+											}
 										}
 									}
+
 									@media all and (max-width:990px) {
 										width: 100% !important;
 									}
@@ -589,6 +627,7 @@
 										z-index: 9;
 										color: #fff;
 										padding: 7px;
+										font-family: "iCuracao-Regular";
 										font-size: 14px;
 										@media all and (max-width:767px) {
 											left: 20px;
@@ -624,9 +663,10 @@
 										}
 
 										p.subtext {
+											font-family: 'iCuracao-Medium';
 											font-size: 16px;
 											text-align: center;
-											font-weight: 600;
+											color:@black;
 
 											span.amount {
 												color: #81b800;
@@ -644,11 +684,11 @@
 											}
 
 											.price {
-												color: black;
-												font-size: 18px;
-												font-weight: 400;
+												font-family: 'iCuracao-Medium';
+												color: @textColor;
+												font-size: 16px;
 												@media screen and (max-width: 768px) {
-													font-size: 15px;
+													font-size: 14px;
 												}
 											}
 
@@ -663,9 +703,9 @@
 													color: #888888;
 													text-decoration: line-through;
 													margin-right: 15px;
-													font-size: 16px;
+													font-size: 14px;
 													@media screen and (max-width: 768px) {
-														font-size: 13px;
+														font-size: 12px;
 													}
 												}
 											}
@@ -681,14 +721,17 @@
 					}
 
 					.banner-block-container {
-						margin-bottom: 15px;
+						margin-bottom: 30px;
+						@media all and (max-width:767px){
+							margin-bottom: 20px;
+						}
 
 						.block-products-list {
 							margin-bottom: 0;
 						}
 
 						.banner-block {
-							margin-bottom: 15px;
+							margin-bottom: 20px;
 							&.subsidiaries-banners{
 								@media all and (min-width:769px){
 									border-top:1px solid @white-shade;
@@ -716,7 +759,7 @@
 							display: flex;
 							justify-content: space-between;
 							justify-content: space-around;
-							padding-top: 30px;
+							padding-top: 20px;
 							@media screen and (max-width: 768px) {
 								margin-bottom: 10px;
 							}
@@ -740,19 +783,19 @@
 
 					.banner-block-container000000 {
 						.banner-block {
-							margin-bottom: 30px;
-							@media screen and (max-width: 768px) {
-								margin-bottom: 15px;
+							margin:0 0 30px 0;
+							@media all and (max-width:767px){
+								margin:0 0 20px 0;
 							}
 
 							.block {
 								overflow: hidden;
-								margin-bottom: 15px;
+								margin-bottom: 20px;
 								display: flex;
 								justify-content: space-between;
-								@media screen and (max-width: 768px) {
-									margin-bottom: 10px;
-								}
+								// @media screen and (max-width: 768px) {
+								// 	margin-bottom: 10px;
+								// }
 
 								&.full {
 									a {
@@ -809,7 +852,7 @@
 
 								&.onethird-subsidiaries {
 									justify-content: space-around;
-									padding-top: 30px;
+									padding-top: 20px;
 
 									img {
 										width: auto;

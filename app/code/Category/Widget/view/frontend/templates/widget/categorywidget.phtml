@@ -15,7 +15,7 @@
    $category = $categoryFactory->create()->load($categoryId);
    $categoryProducts = $category->getProductCollection()
                                  ->addAttributeToSelect('*')->setPageSize(5);
-   if($categoryProducts):                              
+   if($categoryProducts):
    if($block->getData('widgettitle')): ?>
    <div class="slider-title">
      <h2 class='widget-title'><?php echo $block->getData('widgettitle'); ?></h2>
@@ -49,7 +49,9 @@
                $imageheight = 250;
         ?>
           <?php $image_url = $imageHelper->init($product, 'product_page_image_large')->setImageFile($product->getFile())->resize($imagewidth, $imageheight)->getUrl();?>
-           <img src="<?php echo $image_url;?>" alt="product"/>
+          <div class="productimage-container">
+            <img src="<?php echo $image_url;?>" alt="product"/>
+          </div>
             <h3><?php echo $product->getName();?></h3>
               <p class="price"><span class="original-price <?php echo $product->getSpecialPrice() ? 'has-special-price' : '' ?>"><?php echo "$".$product->getPrice();?></span><span class="discount-price"><?php if($_finalPrice!=NULL){echo "$";}echo $product->getSpecialPrice();?></span></p>
               <?php if($emiViewModel != NULL) {?>
