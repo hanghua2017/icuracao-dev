@@ -45,14 +45,12 @@ $shippingDaysLabel = $viewModel->shippingDaysLabel();
 
 <div id="store-availability-modal" style="display:none;">
     <div id="dialog-message">
-        <div class="modal-top-strip"><?= __("Showing free in store pickup") ?>
-        </div>
+
         <div class="modal-body-content">
             <div class="store-zipcode-outer">
                 <label><?= $customerZipCode ?></label>
             </div>
-            <h4><?= __("Available Stores") ?><span class="store-count">(<?= count($productAvailableStores) ?>
-                    )</span>
+            <h4><?= __("Available Stores") ?><span class="store-count">(<?= count($productAvailableStores) ?>)</span>
             </h4>
             <div class="avail-store-outer">
 
@@ -90,7 +88,7 @@ $shippingDaysLabel = $viewModel->shippingDaysLabel();
         var storeAvailabilityModal = $('#store-availability-modal');
 
         storeAvailabilityModal.modal({
-            title: $t('Store Availability'),
+            title: $t('Showing available stores'),
             modalClass: 'store-availability-modal',
         });
 

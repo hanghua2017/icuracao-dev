@@ -23,7 +23,7 @@ class WarrantyDataProvider extends AbstractDataProvider
      */
     protected function getLinkType()
     {
-        return Link::WARRANTY_CODE;
+        return Link::LINK_WARRANTY_CODE;
     }
 
     /**
