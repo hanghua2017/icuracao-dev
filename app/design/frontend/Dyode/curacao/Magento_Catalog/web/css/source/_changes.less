@@ -1074,15 +1074,10 @@
               position: absolute;
               right: 20px;
               top: 70px;
-              text-align: right;
-              width: 30%;
-              @media all and (max-width:1195px) {
-                width: 42%;
-              }
+              width: 170px;
               @media all and (max-width:990px) {
                 position: static;
                 width: 100%;
-                text-align: left;
                 margin:10px 0 0;
               }
             }
@@ -1128,6 +1123,9 @@
                     .product-item-name {
                       width: 70%;
                       margin:0 0 10px;
+                      @media all and (max-width:1200px) {
+                        width: 60%;
+                      }
                       @media all and (max-width:990px) {
                         width: 100%;
                       }
@@ -1146,12 +1144,10 @@
                       right: 20px;
                       top: 0px;
                       margin: 0;
-                      width: 30%;
-                      text-align: right;
+                      width: 170px;
                       @media all and (max-width:990px) {
                         position: static;
                         width: 100%;
-                        text-align: left;
                       }
 
                       .price {
@@ -1167,10 +1163,6 @@
                       .special-price {
                         width: 100%;
                         float: left;
-                        text-align: right;
-                        @media all and (max-width:990px) {
-                          text-align: left;
-                        }
                       }
 
                       .old-price {
