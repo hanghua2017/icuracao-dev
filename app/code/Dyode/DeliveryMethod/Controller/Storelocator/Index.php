@@ -59,7 +59,25 @@ class Index extends Action {
           $result = $this->getStores($zipcode,$pid);
       //    $result = $this->_locationJson->getCollection();
           echo json_encode($result);
+      else:
+        if($this->getRequest()->getPost('pid')){
+          $pid = $this->getRequest()->getPost('pid');
+          $result = $this->removeStores($pid);
+        }
       endif;
+  }
+  public function removeStores($itemId){
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+    $connection = $resource->getConnection();
+    $quoteTable = $resource->getTableName('quote_item');
+
+    $sql = "UPDATE ". $quoteTable." SET `delivery_type` = '0', `pickup_location` = ' ', pickup_location_address = ' ' WHERE `item_id` =".$itemId;
+    $result = $connection->query($sql);
+    if($result)
+      echo 1;
+    else
+      echo 0;
   }
   public function getStores($zipcode,$itemId){
     $storeList = array();

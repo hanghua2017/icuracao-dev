@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2018 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Aheadworks_StoreLocator::store_locator" title="Store Locator by Aheadworks" module="Aheadworks_StoreLocator" sortOrder="90" parent="Magento_Backend::content" resource="Aheadworks_StoreLocator::store_locator"/>
+        <add id="Aheadworks_StoreLocator::location" title="Locations" module="Aheadworks_StoreLocator" sortOrder="10" parent="Aheadworks_StoreLocator::store_locator" action="aw_store_locator/location" resource="Aheadworks_StoreLocator::location"/>
+    </menu>
+</config>

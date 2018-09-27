@@ -2,9 +2,7 @@
 <!--
 /**
  * Dyode_Checkout Magento 2 module
- *
  * Extending Magento_Checkout
- *
  * @package Dyode
  * @module  Dyode_Chekout
  * @author  Kavitha <kavitha@dyode.com>
@@ -111,7 +109,6 @@
                                                            </item>
                                                        </item>
                                                    </item>
-
                                                  <item name="cart_items" xsi:type="array">
                                                       <item name="config" xsi:type="array">
                                                           <item name="componentDisabled" xsi:type="boolean">true</item>
@@ -122,10 +119,12 @@
                                            <item name="shipping-information" xsi:type="array">
                                                <item name="config" xsi:type="array">
                                                  <item name="componentDisabled" xsi:type="boolean">true</item>
+
                                                </item>
                                            </item>
                                        </item>
                                    </item>
+
                                 </item>
                             </item>
                           </item>

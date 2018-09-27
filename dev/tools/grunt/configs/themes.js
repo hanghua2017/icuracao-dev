@@ -41,6 +41,16 @@ module.exports = {
         ],
         dsl: 'less'
     },
+    curacao: {
+        area: 'frontend',
+        name: 'Dyode/curacao',
+        locale: 'en_US',
+        files: [
+            'css/styles-m',
+            'css/styles-l'
+        ],
+        dsl: 'less'
+    },
     backend: {
         area: 'adminhtml',
         name: 'Magento/backend',

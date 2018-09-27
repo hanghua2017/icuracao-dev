@@ -1,0 +1,33 @@
+{
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Aheadworks\\StoreLocator\\": ""
+        }
+    },
+    "description": "Shows your clients where they can find the nearest store with your products. Displays your locations on the Google map",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "name": "aheadworks/module-store-locator",
+    "require": {
+        "magento/framework": ">100.0",
+        "magento/module-backend": ">100.0",
+        "magento/module-cms": ">100.0",
+        "magento/module-config": ">100.0",
+        "magento/module-directory": ">100.0",
+        "magento/module-media-storage": ">100.0",
+        "magento/module-store": ">100.0",
+        "magento/module-theme": ">100.0",
+        "magento/module-ui": ">100.0"
+    },
+    "support": {
+        "email": "support@aheadworks.com",
+        "docs": "http://confluence.aheadworks.com/display/EUDOC/Documentation+Home"
+    },
+    "type": "magento2-module",
+    "version": "1.1.0"
+}

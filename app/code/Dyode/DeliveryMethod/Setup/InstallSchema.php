@@ -7,6 +7,7 @@
 
 namespace Dyode\DeliveryMethod\Setup;
 
+
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
@@ -31,6 +32,7 @@ public function install (SchemaSetupInterface $setup, ModuleContextInterface $co
             'nullable' => true,
             'default' => '0',
             'comment'=>'type of delivery'
+
         ],
         'pickup_location_address' => [
             'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
