@@ -40,8 +40,6 @@ class Sale extends  \Magento\Framework\View\Element\Template
       {
         return $this->outputHelper;
       }
-
-
        /**
         * Return categories helper
         */
@@ -49,7 +47,6 @@ class Sale extends  \Magento\Framework\View\Element\Template
        {
            return $this->_categoryHelper;
        }
-
        public function getCategory()
        {
          if (!$this->categoryId) {

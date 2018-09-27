@@ -1,9 +1,8 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd" layout="1column">
     <body>
         <referenceContainer name="content">
-            <block class="Dyode\CategoryNameWidget\Block\Sale" name="sale" template="Dyode_CategoryNameWidget::sale.phtml" />
-            <block class="Magento\Framework\View\Element\Template" name="sale.category" template="Dyode_CategoryNameWidget::sale-category.phtml" after="sale"/>
-
+            <block class="Magento\Framework\View\Element\Template" name="sale.category" template="Dyode_CategoryNameWidget::sale-category.phtml" />
+            <block class="Dyode\CategoryNameWidget\Block\Sale" name="sale" template="Dyode_CategoryNameWidget::sale.phtml" after="sale.category" />
         </referenceContainer>
     </body>
 </page>
