@@ -4,9 +4,8 @@
     <body>
         <attribute name="class" value="page-products"/>
 
-        <move element="search.result" destination="searchindex.result" as="catalogsearch_fulltext"/>
-
         <referenceContainer name="content">
+           <referenceBlock name="search.result">
             <block class="Mirasvit\Search\Block\Result" name="searchindex.result" template="result.phtml" cacheable="false">
                 <block class="Mirasvit\Search\Block\Suggestion"
                        ifconfig="search/advanced/show_related_terms"
@@ -71,6 +70,7 @@
                        name="aheadworks_blog_post"
                        template="index/aheadworks/blog/post.phtml" />
             </block>
+          </referenceBlock>
         </referenceContainer>
     </body>
 </page>

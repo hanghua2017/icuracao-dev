@@ -1,4 +1,4 @@
-
+@import "_customer-login.less";
 //ICuracao-Account common defualt style removal
 html, body, div, span, h1, h2, h3, h4, h5, h6, p, strong, ol, ul, li, form, label, footer, header, nav, section{
   	padding: 0;
@@ -40,9 +40,13 @@ body{
         margin-bottom: 15px;
       }
   }
-  .column{
+  .columns{
     .main {
       margin-bottom: 0px;
+    }
+    .message.info.empty {
+      font-family: 'iCuracao-Regular';
+      font-size: 13px;
     }
   }
 	.page-wrapper{
@@ -195,7 +199,7 @@ body{
 						border-bottom: 1px solid @border-color;
 						padding: 13px 10px;
 						@media only screen and (min-width: 768px){
-							padding: 30px 20px;
+							padding: 25px 20px;
 
 						}
             @media only screen and (max-width: 767px){
@@ -205,10 +209,10 @@ body{
 							color:@head-color;
 							.base{
                 @media only screen and (max-width: 767px){
-                  font-size: 20px !important;
+                  font-size: 20px;
                   color: @active-blue-color;
                 }
-								font-size: 35px !important;
+								font-size: 34px;
 								font-weight: 400 !important;
 								text-transform: capitalize !important;
 							}

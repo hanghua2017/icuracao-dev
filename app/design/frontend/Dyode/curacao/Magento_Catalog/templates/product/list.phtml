@@ -18,6 +18,10 @@ use Magento\Framework\App\Action\Action;
 <?php
 $_productCollection = $block->getLoadedProductCollection();
 $_helper = $this->helper('Magento\Catalog\Helper\Output');
+$viewModel = $block->getViewModel();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of Object 
+$priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data'); // 
+
 ?>
 <?php if (!$_productCollection->count()): ?>
     <div class="message info empty"><div><?= /* @escapeNotVerified */ __('We can\'t find products matching the selection.') ?></div></div>
@@ -58,10 +62,18 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
 
 
                     <!-- Static content for price off -->
-                    <p class="price-off">$100 off</p>
+                    <?php
+                    $originalPrice = $_product->getPrice();
+                    $finalPrice = $_product->getFinalPrice();
+                    ?>
+                    <?php
+                    if ($finalPrice && ($_product->getPrice()>$_product->getFinalPrice())):?>
+                    <p class="price-off"><?php echo $this->helper('Discount\Discountpercentage\Helper\Data')->DisplayDiscountLabel($_product); ?></p>
                     <!-- End Static content for price off -->
+                    <?php
+                  endif;
+                   ?>
 
-                    
                     <?php // Product Image ?>
                     <a href="<?= /* @escapeNotVerified */ $_product->getProductUrl() ?>" class="product photo product-item-photo" tabindex="-1">
                         <?= $productImage->toHtml() ?>
@@ -85,11 +97,11 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
                             </div>
                         <?php endif; ?>
 
-
-                        <!-- static section for emi option -->
-                        <p class="emi-stat">Or as low as <span>$10/month</span></p>
-                        <!-- End static section for emi option -->
-
+                        <?php $emi = $viewModel->monthlyEmi($finalPrice);?>
+                        <?php if($emi != 0):?>
+                            <?php $formattedEmi = $priceHelper->currency($emi, true, false);?>
+                            <p class="emi-stat">Or as low as <span><?php echo $formattedEmi;?>/month</span></p>
+                        <?php endif;?>
 
                     </div>
                 </div>

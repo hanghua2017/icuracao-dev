@@ -68,21 +68,30 @@ $url=$this->getReferenceUrlSingle();
              $url_triple_first= $this->getReferenceUrlTripleFirst();?>
       <?php if ($value_of_dropdown=="triple"){?>
       <div class="banner-row <?php echo $classname_triple?>">
-        <div class="banner-item  ">
-          <?php $desktop_image_triple_first = $this-> getDesktopImageTripleFirst();?>
+        <?php if($classname_triple=="three-image-grid"):?>
+          <?php $first_image_class = 'banner-item left'?>
+        <?php else:?>
+          <?php $first_image_class = 'banner-item'?>
+        <?php endif ?>
+        <div class="<?php echo $first_image_class;?>">
+          <?php $desktop_image_triple_first = $this->getDesktopImageTripleFirst();?>
           <?php $desktop_image_triple_first =  $baseurl . "pub/media/" . $desktop_image_triple_first;?>
           <a href="<?php echo $url_triple_first; ?>" class="large">
             <img src="<?php echo $desktop_image_triple_first; ?>"alt="<?php "abc" ?>" />
           </a>
           <!-- mobile image for triple -->
-          <?php $mobile_image_triple_first= $this-> getMobileImageTripleFirst(); ?>
+          <?php $mobile_image_triple_first= $this->getMobileImageTripleFirst(); ?>
           <?php $mobile_image_triple_first = $baseurl . "pub/media/" . $mobile_image_triple_first;?>
           <a href="<?php echo $url_triple_first; ?>" class="small">
               <img src="<?php echo $mobile_image_triple_first; ?>"alt="<?php "abcd" ?>" />
           </a>
         </div>
 
-        <div class="banner-item">
+        <!-- <div class="banner-item right"> -->
+        <?php if($classname_triple=="three-image-grid"):?>
+          <div class="banner-item right">
+        <?php endif ?>
+          <div class="banner-item">
           <?php
            $url_triple_second=$this->getReferenceUrlTripleSecond();
            $desktop_image_triple_second = $this-> getDesktopImageTripleSecond();?>
@@ -96,8 +105,8 @@ $url=$this->getReferenceUrlSingle();
           <a href="<?php echo $url_triple_second; ?>" class="small">
               <img src= "<?php echo $mobile_image_triple_second; ?>"alt="<?php "abcd" ?>" />
           </a>
-        </div>
-        <div class="banner-item">
+         </div>
+          <div class="banner-item">
           <?php
           $url_triple_third =$this->getReferenceUrlTripleThird();
           $desktop_image_triple_third = $this-> getDesktopImageTripleThird();?>
@@ -110,8 +119,11 @@ $url=$this->getReferenceUrlSingle();
           <a href="<?php echo $url_triple_third; ?>" class="small">
             <img src= "<?php echo $mobile_image_triple_third; ?>"alt="<?php "abcd" ?>" />
           </a>
-        </div>
       </div>
+      <?php if($classname_triple=="three-image-grid"):?>
+      </div>
+      <?php endif ?>
+    </div>
 <?php }?>
 
 <!-- quadruple -->

@@ -238,6 +238,7 @@
       </parameter>
            <!--Reference url -->
        <parameter name="imageurl_triple_second" xsi:type="text"  visible="true" required="true" sort_order="24">
+          <label translate="true">URL</label>
           <description>Enter reference url</description>
            <!-- added dependent parameter -->
             <depends>

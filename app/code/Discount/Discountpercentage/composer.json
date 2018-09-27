@@ -1,0 +1,6 @@
+{
+"name": "Discount/Discountpercentage",
+"autoload": {
+    "psr-4": { "Discount\\Discountpercentage\\": "" },
+    "files": [ "registration.php" ]
+} }

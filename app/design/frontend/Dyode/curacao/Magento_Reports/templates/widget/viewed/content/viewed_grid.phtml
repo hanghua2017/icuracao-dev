@@ -43,7 +43,7 @@ if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedPr
             <div class="products-<?= /* @escapeNotVerified */ $mode ?> <?= /* @escapeNotVerified */ $mode ?>">
                 <ol class="product-items <?= /* @escapeNotVerified */ $type ?>">
                     <?php $iterator = 1; ?>
-                    <div class="owl-carousel product-slider-home" id="recentlyviewed">
+                    <div class="owl-carousel product-slider-carousel" id="recentlyviewed">
                     <?php foreach ($items as $_item): ?>
                       <div class="item">
                         <?= /* @escapeNotVerified */ ($iterator++ == 1) ? '<li class="product-item">' : '</li><li class="product-item">' ?>
@@ -146,7 +146,7 @@ if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedPr
 <?php endif;?>
 <script type="text/x-magento-init">
     {
-    ".product-slider-home": {
+    ".product-slider-carousel": {
         "OwlCarousel": {
           "items": 5,
           "dots":false,
