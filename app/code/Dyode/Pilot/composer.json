@@ -1,0 +1,22 @@
+{
+    "name": "dyode/module-pilot",
+    "description": "",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Dyode",
+            "email": "mathew.joseph@dyode.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Dyode\\Pilot\\": ""
+        }
+    }
+}
