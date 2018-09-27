@@ -137,27 +137,26 @@
               }
               @media all and (max-width:767px) {
                 left: auto;
-                right: 40px;
-                top: 9px;
+                right: 31px;
+                top: 11px;
                 padding: 0 10px;
                 margin: 7px 15px 7px 0;
-                font-size: 14px;
-                color: #888888;
                 border-right: 1px solid #888;
+                border-radius: 0;
+                font-size: 12px;
+                color: #888888;
+                line-height: 11px;
+                font-family: 'iCuracao-Medium';
               }
             }
-          }
-        }
-
-        .filter-title {
-          &.block-title {
-            display: none;
           }
         }
 
         .filter.active {
           .filter-title {
             &.block-title {
+              border-bottom: none;
+
               strong {
                 @media all and (max-width:767px) {
                   right: 3px;
@@ -279,6 +278,12 @@
             @media screen and (min-width: 768px) {
               padding: 25px;
             }
+            @media screen and (max-width: 767px) {
+              padding: 15px 0 0 15px;
+              top: -6px;
+              font-size: 18px;
+              height: 55px;
+            }
           }
 
           .filter-options {
@@ -290,6 +295,9 @@
               @media screen and (min-width: 768px) {
                 padding-left: 25px;
                 padding-top: 0;
+              }
+              @media screen and (max-width: 767px) {
+                padding-bottom: 0;
               }
             }
 
@@ -317,6 +325,14 @@
                 margin: 10px 0;
                 max-height: 190px;
                 overflow-y: auto;
+                @media screen and (max-width: 767px) {
+                  margin: 10px 0 0;
+                  max-height: 195px;
+
+                  .item {
+                    margin: 10px 0 0;
+                  }
+                }
               }
             }
 
@@ -577,10 +593,10 @@
                     overflow: hidden !important;
                     speak: none !important;
                     text-align: center !important;
-                    padding: 9px 0 !important;
+                    padding: 11px 0 !important;
                     @media screen and (max-width: 767px) {
-                      font-weight: normal !important;
-                      padding: 7px 10px 10px 5px !important;
+                      //  font-weight: normal !important;
+                      //padding: 7px 10px 10px 5px !important;
                     }
                   }
                 }
@@ -602,13 +618,15 @@
               .mode-list:before {
                 font-family: 'iCuracao-Medium';
                 content: 'List' !important;
-                font-size: 14px;
+                font-size: 12px;
               }
 
               .mode-grid:before {
                 font-family: 'iCuracao-Medium';
                 content: 'Grid' !important;
-                font-size: 14px;
+                font-size: 12px;
+                left: 8px;
+                position: relative;
               }
             }
 
@@ -623,8 +641,8 @@
               }
               @media all and (max-width:767px) {
                 position: relative;
-                top: 10px;
-                right: -10px;
+                top: 13px;
+                right: 39px;
               }
 
               label {
@@ -634,10 +652,15 @@
                 @media all and (max-width:767px) {
                   color: #888888;
                   font-size: 12px;
+                  border-right: 1px solid #888;
+                  padding: 0 10px;
+                  margin: 0;
+                  line-height: 11px;
+                  display: block;
 
                   &:after {
-                    content: '|';
-                    margin-left: 8px;
+                    //    content: '|';
+                    //  margin-left: 8px;
                   }
                 }
               }
