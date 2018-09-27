@@ -31,74 +31,74 @@ class Sale extends  \Magento\Framework\View\Element\Template
        * Retrieving custom variable from registry
        * @return string
        */
-     public function getCustomVariable()
-     {
-     return $this->registry->registry('category');
-      }
+       public function getCustomVariable()
+       {
+       return $this->registry->registry('category');
+        }
 
-      public function helper()
-      {
-        return $this->outputHelper;
-      }
-       /**
-        * Return categories helper
-        */
-       public function getCategoryHelper()
-       {
-           return $this->_categoryHelper;
-       }
-       public function getCategory()
-       {
-         if (!$this->categoryId) {
-           $this->fetchCategoryIdFromRequest();
+        public function helper()
+        {
+          return $this->outputHelper;
+        }
+         /**
+          * Return categories helper
+          */
+         public function getCategoryHelper()
+         {
+             return $this->_categoryHelper;
+         }
+         public function getCategory()
+         {
+           if (!$this->categoryId) {
+             $this->fetchCategoryIdFromRequest();
+           }
+
+           return $this->categoryInstance()->load($this->categoryId);
          }
 
-         return $this->categoryInstance()->load($this->categoryId);
-       }
-
-       protected function fetchCategoryIdFromRequest()
-       {
-         $category = (int)$this->getRequest()->getParam('category');
-         if ($category) {
-           $this->categoryId = $category;
+         protected function fetchCategoryIdFromRequest()
+         {
+           $category = (int)$this->getRequest()->getParam('category');
+           if ($category) {
+             $this->categoryId = $category;
+           }
+           return $this;
          }
-         return $this;
-       }
 
-       public function categoryInstance()
-       {
-         return $this->_categoryFactory->create();
-       }
-       protected function fetchSaleCategoryIdFromRequest()
-       {
-         $salecategory = (int)$this->getRequest()->getParam('sale');
-         if ($salecategory) {
-           $this->salecategoryId = $salecategory;
+         public function categoryInstance()
+         {
+           return $this->_categoryFactory->create();
          }
-         return $this;
-       }
-       public function getProductCollection()
-       {
-            $filterCats= (int)$this->getRequest()->getParam('sale');
-            return $this->getCategory()
-            ->getProductCollection()
-            ->addAttributeToSelect('*')
-            ->addCategoriesFilter(array('in' =>$filterCats ));
-       }
-       /**
-        * Retrieve product image
-        *
-        * @param \Magento\Catalog\Model\Product $product
-        * @param string $imageId
-        * @param array $attributes
-        * @return \Magento\Catalog\Block\Product\Image
-        */
-       public function getImage($product, $imageId, $attributes = [])
-       {
-           return $this->imageBuilder->setProduct($product)
-               ->setImageId($imageId)
-               ->setAttributes($attributes)
-               ->create();
-       }
+         protected function fetchSaleCategoryIdFromRequest()
+         {
+           $salecategory = (int)$this->getRequest()->getParam('sale');
+           if ($salecategory) {
+             $this->salecategoryId = $salecategory;
+           }
+           return $this;
+         }
+         public function getProductCollection()
+         {
+              $filterCats= (int)$this->getRequest()->getParam('sale');
+              return $this->getCategory()
+              ->getProductCollection()
+              ->addAttributeToSelect('*')
+              ->addCategoriesFilter(array('in' =>$filterCats ));
+         }
+         /**
+          * Retrieve product image
+          *
+          * @param \Magento\Catalog\Model\Product $product
+          * @param string $imageId
+          * @param array $attributes
+          * @return \Magento\Catalog\Block\Product\Image
+          */
+         public function getImage($product, $imageId, $attributes = [])
+         {
+             return $this->imageBuilder->setProduct($product)
+                 ->setImageId($imageId)
+                 ->setAttributes($attributes)
+                 ->create();
+         }
 
 }
