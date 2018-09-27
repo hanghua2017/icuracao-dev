@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Dyode_Interestbeat extension
+ *                     NOTICE OF LICENSE
+ *
+ *                     This source file is subject to the MIT License
+ *                     that is bundled with this package in the file LICENSE.txt.
+ *                     It is also available through the world-wide-web at this URL:
+ *                     http://opensource.org/licenses/mit-license.php
+ *
+ *                     @category  Dyode
+ *                     @package   Dyode_Interestbeat
+ *                     @copyright Copyright (c) 2017
+ *                     @license   http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Dyode\Interestbeat\Block\Adminhtml\Form\Edit" name="dyode_interestbeat_form_view"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Dyode\Interestbeat\Block\Adminhtml\Form\Edit\Tabs" name="dyode_interestbeat_form_tabs">
+                <block class="Dyode\Interestbeat\Block\Adminhtml\Form\Edit\Tab\Form" name="dyode_interestbeat_form_view_tab_form"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">form</argument>
+                    <argument name="block" xsi:type="string">dyode_interestbeat_form_view_tab_form</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
