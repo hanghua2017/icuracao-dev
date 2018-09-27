@@ -651,15 +651,21 @@
               .mode-list:before {
                 font-family: 'iCuracao-Medium';
                 content: 'List' !important;
-                font-size: 12px;
+                font-size: 14px;
+                @media all and (max-width: 767px){
+                  font-size: 12px;
+                }
               }
 
               .mode-grid:before {
                 font-family: 'iCuracao-Medium';
                 content: 'Grid' !important;
-                font-size: 12px;
+                font-size: 14px;
                 left: 8px;
                 position: relative;
+                @media all and (max-width: 767px){
+                  font-size: 12px;
+                }
               }
             }
 
