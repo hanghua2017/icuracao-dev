@@ -1,10 +1,35 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd" layout="1column">
     <body>
         <referenceContainer name="content">
+          <referenceBlock name="breadcrumbs">
+              <action method="addCrumb">
+                  <argument name="crumbName" xsi:type="string">home</argument>
+                  <argument name="crumbInfo" xsi:type="array">
+                      <item name="title" xsi:type="string">Home</item>
+                      <item name="label" xsi:type="string">Home</item>
+                      <item name="link" xsi:type="string">/</item>
+                  </argument>
+              </action>
+              <action method="addCrumb">
+                  <argument name="crumbName" xsi:type="string">sale</argument>
+                  <argument name="crumbInfo" xsi:type="array">
+                      <item name="title" xsi:type="string">Sale</item>
+                      <item name="label" xsi:type="string">Sale</item>
+                      <item name="link" xsi:type="string">/sale</item>
+                  </argument>
+              </action>
+              <action method="addCrumb">
+                  <argument name="crumbName" xsi:type="string">sale-products</argument>
+                  <argument name="crumbInfo" xsi:type="array">
+                      <item name="title" xsi:type="string">sale-products</item>
+                      <item name="label" xsi:type="string">Sale Products</item>
+                  </argument>
+              </action>
+          </referenceBlock>
           <container name='sale.conatiner' htmlTag="div" htmlClass="sale-page-container" before="-">
             <block class="Magento\Framework\View\Element\Template" name="sale.category" template="Dyode_CategoryNameWidget::sale-category.phtml" />
             <block class="Dyode\CategoryNameWidget\Block\Sale" name="sale" template="Dyode_CategoryNameWidget::sale.phtml" after="sale.category" />
           </container>
         </referenceContainer>
-    </body>
+      </body>
 </page>
