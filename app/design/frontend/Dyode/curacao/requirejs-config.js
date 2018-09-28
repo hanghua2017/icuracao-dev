@@ -1,12 +1,18 @@
 var config = {
     "paths": {
-      'accordion': 'js/cms-accordion.js',
-      'checkbox': 'js/onclick.js',
-      "customjs":'js/custom.js'
+      'accordion':'js/cms-accordion',
+      'checkbox':'js/onclick',
+      'customjs':'js/custom'
     },
     "shim":{
-        "accordion": ["jquery"],
-        "checkbox": ["jquery"],
-        "customjs": ["jquery"]
-     }
+      'accordion': {
+          'deps': ['jquery']
+      },
+      'checkbox': {
+          'deps': ['jquery']
+      },
+      'customjs': {
+          'deps': ['jquery']
+      }
+    }
 };

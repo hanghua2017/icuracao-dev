@@ -11,7 +11,6 @@
         <css src="mage/calendar.css"/>
         <script src="requirejs/require.js"/>
         <script src="js/cms-accordion.js"/>
-        <css src="css/source/cms-common.css"/>
         <script src="js/custom.js" />
         <css src="css/source/common.css"/>
     </head>
