@@ -50,6 +50,7 @@ select:focus, input:focus {
       font-size: 13px;
     }
   }
+
 	.page-wrapper{
 		.page-main{
       padding-left: 0;
@@ -70,6 +71,10 @@ select:focus, input:focus {
 					@media only screen and (min-width: 768px){
 						border: 15px solid @white;
             margin-bottom: 15px;
+					}
+          @media only screen and (max-width: 768px){
+            font-family: "iCuracao-Regular";
+            font-size: 15px !important;
 					}
 					.content{
 						background:@white;
@@ -627,6 +632,12 @@ select:focus, input:focus {
 				@media only screen and (min-width: 768px){
 				padding:20px 20px 20px 0 !important;
 				}
+        .primary{
+          button{
+            float: left !important;
+            min-width: 100px;
+          }
+        }
 			}
 	  }
 	}
@@ -942,12 +953,16 @@ select:focus, input:focus {
           padding: 15px !important;
         }
       }
+      .block-return-details{
+        margin-bottom: 0 !important;
+      }
       .returns-details-items{
         .block-returns-items{
+          margin-bottom: 0 !important;
+          padding-top: 0 !important;
           .block-title{
             @media all and(max-width: 767px){
               margin-top: 0;
-              margin-bottom:0 !important;
             }
           }
           .block-content{
@@ -970,15 +985,11 @@ select:focus, input:focus {
         }
         .block-returns-comments{
           .block-title{
-            @media all and(max-width: 767px){
               margin-bottom: 0 !important;
-            }
           }
           .block-content{
             dl{
-              @media all and(max-width: 767px){
               margin-bottom: 0!important;
-              }
             }
             form{
               fieldset{
@@ -1243,6 +1254,42 @@ select:focus, input:focus {
     .dashboard_msg{
       @media all and (max-width: 767px){
               font-size: 15px;
+      }
+    }
+    .block-dashboard-addresses{
+      .block-title{
+        a{
+          @media all and(max-width: 767px){
+            float: none !important;
+          }
+        }
+      }
+    }
+  }
+}
+.customer-address-index{
+  .columns{
+    .column{
+      .actions-toolbar{
+        padding: 15px 23px !important;
+      }
+      .primary{
+        button{
+          float: left !important;
+        }
+      }
+    }
+  }
+}
+.newsletter-manage-index{
+  .columns{
+    .column{
+      form{
+        fieldset{
+          .choice{
+            width: 100% !important;
+          }
+        }
       }
     }
   }
