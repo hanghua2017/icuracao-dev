@@ -139,6 +139,42 @@ class General extends Generic implements TabInterface
             ]
         );
 
+        $fieldset->addField(
+            'store_location_code',
+            'text',
+            [
+                'name' => 'store_location_code',
+                'label' => __('Store Location Code'),
+                'title' => __('Store Location Code'),
+                'required' => true,
+                'disabled' => $isElementDisabled
+            ]
+        );
+
+        $fieldset->addField(
+            'store_manager',
+            'text',
+            [
+                'name' => 'store_manager',
+                'label' => __('Store Manager'),
+                'title' => __('Store Manager'),
+                'required' => false,
+                'disabled' => $isElementDisabled
+            ]
+        );
+
+        $fieldset->addField(
+            'store_email',
+            'text',
+            [
+                'name' => 'store_email',
+                'label' => __('Store Email'),
+                'title' => __('Store Email'),
+                'required' => false,
+                'disabled' => $isElementDisabled
+            ]
+        );
+
         $countries = $this->getCountries();
         $fieldset->addField(
             'country_id',
@@ -210,6 +246,18 @@ class General extends Generic implements TabInterface
                 'name' => 'phone',
                 'label' => __('Phone'),
                 'title' => __('Phone'),
+                'required' => false,
+                'disabled' => $isElementDisabled
+            ]
+        );
+
+        $fieldset->addField(
+            'fax',
+            'text',
+            [
+                'name' => 'fax',
+                'label' => __('Fax'),
+                'title' => __('Fax'),
                 'required' => false,
                 'disabled' => $isElementDisabled
             ]

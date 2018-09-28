@@ -5,124 +5,74 @@
     <div id="checkout-step-title"
          class="step-content"
          data-role="content">
-         <div class="step-title"  data-role="title">How do you want to get your Order?</div>
+         <div class="step-title"  data-role="title"><span data-bind="i18n: 'How do you want to get your Order?'"></span></div>
 
         <!-- Product listing along with delivery methods -->
         <div class="delivery-method-product-listing" data-bind="foreach: getProductItems()">
-          <div class="delivery-method-product-item">
-            <h2>Order Details (<span data-bind="text: $index() + 1"></span>)</h2>
-            <div>
+          <div class="delivery-method-product-item-container">
+            <h2><span data-bind="i18n: 'Order Details '"></span>(<span data-bind="text: $index() + 1"></span>)</h2>
+            <div class="delivery-method-product-item">
               <div class="delivery-method-product-image">
                 <img data-bind="attr: {'src': product_image_url}, src: product_image_url" />
               </div>
               <div class="delivery-method-product-details">
-                <h4 data-bind="text: product_name"></h4>
-                <h5 data-bind="text:product_price"></h5>
-                <h6 data-bind="text: product_qty"></h6>
+                <h4 class="product-name" data-bind="text: product_name"></h4>
+                <h5 class="product-price">&#36;<span data-bind="text:product_price"></span></h5>
+                <h6 class="product-qty" data-bind="i18n: 'Quantity '">: <span data-bind="text: product_qty"></span></h6>
               </div>
             </div>
             <div class="delivery-methods-options">
-              <h4>Delivery Method</h4>
-              <label>
-                    <input  type="radio" data-bind="attr: { name: 'delivery-product-' + $data.item_id() ,id: 'shipping-'+$data.item_id()},checked:'shipping',value:'shipping',event:{change:setStorepickup.bind(this)}" />
-                   <span data-bind="i18n: 'Ship to home'"></span>
-              </label>
+              <h4><span data-bind="i18n: 'Select delivery option'"></span></h4>
+              <div class="radio-button">
+                  <input type="radio" data-bind="attr: { name: 'delivery-product-' + $data.item_id() ,id: 'shipping-'+$data.item_id()},checked:'shipping',value:'shipping',event:{change:setStorepickup.bind(this)}" />
+                  <label class="label" data-bind="i18n: 'Ship to home',attr:{for: 'shipping-'+$data.item_id()}"></label>
+              </div>
 
-              <label>
-                 <input  type="radio" data-bind="attr: { name: 'delivery-product-' + $data.item_id(),id: 'storepickup-'+$data.item_id()},checked:$data.item_id(),value:'storepickup',event:{change:setStorepickup.bind(this)}" />
-                 <span data-bind="i18n: 'Store Pickup'"></span>
-              </label>
+              <div class="radio-button">
+                 <input type="radio" data-bind="attr: { name: 'delivery-product-' + $data.item_id(),id: 'storepickup-'+$data.item_id()},checked:$data.item_id(),value:'storepickup',event:{change:setStorepickup.bind(this)}" />
+                 <label class="label" data-bind="i18n: 'Store Pickup',attr:{for: 'storepickup-'+$data.item_id()}"></label>
+              </div>
 
               <form class="form" data-bind="attr: {'data-hasrequired': $t('* Required Fields'),id:'deliveryform'+$data.item_id()}">
                 <div class="store-pickup-pincode" data-bind="visible: state">
-                  <input type="hidden" name="type" value="1" />
-                  <input type="number" placeholder="Zipcode" name="pickup-zipcode" value="" />
+                    <input type="number" placeholder="Enter Zipcode" name="pickup-zipcode" value="" />
                   <button type="button" class="action" data-bind="event:{click:selectLocation.bind(this)}" >
-                     <span data-bind="i18n: 'Submit'"></span>
+                     <span data-bind="i18n: 'Search'"></span>
                   </button>
 
                 </div>
               </form>
+              <div id="deliverycontents" style="display:none" data-bind="visible: state">
+                 <div data-bind="attr: {id:'deliverydetails'+$data.item_id()}">
+                </div>
+                <button type="button" class="action" data-bind="event:{click:changeLocation.bind(this)}" >
+                   <span data-bind="i18n: 'Change'"></span>
+                </button>
+              </div>
             </div>
 
           </div>
-        </div>
+      </div>
+
 <div data-bind="text: ko.toJSON($root)"></div>
 
-            <div id="dialog-message">
+            <div id="dialog-message" style="display:none">
                 <div class="modal-top-strip">Showing free in store pickup for the Zip code
                 </div>
                 <div class="modal-body-content">
                   <div class="store-zipcode-outer">
                     <label>90280
                     </label>
-                    <button class="change">Change</button>
+                      <button class="change">Change</button>
                   </div>
                   <h4>Available Stores<span class="store-count"> (4)</span></h4>
                   <div class="avail-store-outer">
-                    <div class="avail-store-item">
-                      <div class="avail-store-image">
-                        <img src="../images/south-gate-store.png"/>
-                        <p class="store-distance">2mi</p>
-                      </div>
-                      <div class="avail-store-details">
-                        <ul>
-                          <li class="store-location">South Gate</li>
-                          <li>8618 Garfield Ave</li>
-                          <li>South Gate, CA 90280</li>
-                          <li>(562) 927-3027</li>
-                          <button>Select</button>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="avail-store-item">
-                      <div class="avail-store-image">
-                        <img src="../images/south-gate-store.png"/>
-                        <p class="store-distance">2mi</p>
-                      </div>
-                      <div class="avail-store-details">
-                        <ul>
-                          <li class="store-location">South Gate</li>
-                          <li>8618 Garfield Ave</li>
-                          <li>South Gate, CA 90280</li>
-                          <li>(562) 927-3027</li>
-                          <button>Select</button>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="avail-store-item">
-                      <div class="avail-store-image">
-                        <img src="../images/south-gate-store.png"/>
-                        <p class="store-distance">2mi</p>
-                      </div>
-                      <div class="avail-store-details">
-                        <ul>
-                          <li class="store-location">South Gate</li>
-                          <li>8618 Garfield Ave</li>
-                          <li>South Gate, CA 90280</li>
-                          <li>(562) 927-3027</li>
-                          <button>Select</button>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="avail-store-item">
-                      <div class="avail-store-image">
-                        <img src="../images/south-gate-store.png"/>
-                        <p class="store-distance">2mi</p>
-                      </div>
-                      <div class="avail-store-details">
-                        <ul>
-                          <li class="store-location">South Gate</li>
-                          <li>8618 Garfield Ave</li>
-                          <li>South Gate, CA 90280</li>
-                          <li>(562) 927-3027</li>
-                          <button>Select</button>
-                        </ul>
-                      </div>
-                    </div>
+                  <!-- temporary working -->
+
                   </div>
                 </div>
             </div>
+
         <!--- Next button -->
         <form data-bind="submit: navigateToNextStep" novalidate="novalidate">
             <div class="actions-toolbar">

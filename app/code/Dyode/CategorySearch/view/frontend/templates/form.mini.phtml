@@ -19,7 +19,7 @@ $helper = $this->helper(\Magento\Search\Helper\Data::class);
                 <div class="control">
                     <!-- begin category dropdown -->
                     <select name="cat" id="category_search_field">
-                        <option value="">-- Any Category --</option>
+                        <option value="">All Category</option>
                         <?php foreach ($this->getStoreCategories() as $_category): ?>
                         <?php if($_category->hasChildren()): ?>
                           <?php if($_category->getIsActive()) : ?>
@@ -40,7 +40,7 @@ $helper = $this->helper(\Magento\Search\Helper\Data::class);
                            type="text"
                            name="<?= /* @escapeNotVerified */ $helper->getQueryParamName() ?>"
                            value="<?= /* @escapeNotVerified */ $helper->getEscapedQueryText() ?>"
-                           placeholder="<?= /* @escapeNotVerified */ __('Search entire store here...') ?>"
+                           placeholder="<?= /* @escapeNotVerified */ __('Search Products and Brands') ?>"
                            class="input-text"
                            maxlength="<?= /* @escapeNotVerified */ $helper->getMaxQueryLength() ?>"
                            role="combobox"
@@ -61,5 +61,3 @@ $helper = $this->helper(\Magento\Search\Helper\Data::class);
         </form>
     </div>
 </div>
-
-
