@@ -1,0 +1,94 @@
+<div class="custom-footer-links">
+  <?php
+    echo $this->getLayout()
+               ->createBlock('Magento\Cms\Block\Block')
+               ->setBlockId('footer-links1')
+               ->toHtml();
+   ?>
+   <?php
+     echo $this->getLayout()
+                ->createBlock('Magento\Cms\Block\Block')
+                ->setBlockId('footer-links2')
+                ->toHtml();
+    ?>
+    <?php
+      echo $this->getLayout()
+                 ->createBlock('Magento\Cms\Block\Block')
+                 ->setBlockId('footer-links3')
+                 ->toHtml();
+     ?>
+     <?php
+       echo $this->getLayout()
+                  ->createBlock('Magento\Cms\Block\Block')
+                  ->setBlockId('footer-links4')
+                  ->toHtml();
+      ?>
+</div>
+
+<script>
+require([
+      'jquery',
+
+  ], function($)
+     {
+        if ($(window).width() < 768) {
+          $('#company-information').addClass('accordion');
+        } else {
+          $('#company-information').removeClass('accordion');
+        }
+        if ($(window).width() < 768) {
+          $('#company-information-panel').addClass('panel');
+        } else {
+          $('#company-information-panel').removeClass('panel');
+        }
+
+        if ($(window).width() < 768) {
+          $('#shop-footer').addClass('accordion');
+        } else {
+          $('#shop-footer').removeClass('accordion');
+        }
+        if ($(window).width() < 768) {
+          $('#shop-panel').addClass('panel');
+        } else {
+          $('#shop-panel').removeClass('panel');
+        }
+
+        if ($(window).width() < 768) {
+          $('#curacao-account-footer').addClass('accordion');
+        } else {
+          $('#curacao-account-footer').removeClass('accordion');
+        }
+        if ($(window).width() < 768) {
+          $('#curacao-account-panel').addClass('panel');
+        } else {
+          $('#curacao-account-panel').removeClass('panel');
+        }
+
+        if ($(window).width() < 768) {
+          $('#ccuracao-payment-footer').addClass('accordion');
+        } else {
+          $('#curacao-payment-footer').removeClass('accordion');
+        }
+        if ($(window).width() < 768) {
+          $('#curacao-payment-panel').addClass('panel');
+        } else {
+          $('#curacao-payment-panel').removeClass('panel');
+        }
+
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+          acc[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+              panel.style.maxHeight = null;
+            } else {
+              panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+          });
+        }
+      }
+    );
+</script>

@@ -1,0 +1,49 @@
+<?php
+/**
+ * Dyode_curacao theme.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package   Dyode
+ * @module    Dyode_curacao
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+
+/**
+ * @var $block \Magento\Catalog\Block\Product\View
+ */
+$product = $block->getProduct();
+?>
+
+<div id="addtocartModal" class="modal modal-cart">
+    <div class="modal-content">
+        <div class="apple-content">
+            <div class="product-details">
+
+                <div class="top-section">
+                  <div class="modal-head">
+                    <h1><span><?= __($product->getName()); ?></span></h1>
+                    <?= $block->getChildHtml('warranty_modal_review'); ?>
+                      </div>
+                  <div class="modal-img">  <img src="<?= $block->getImage($product, 'category_page_list')->getImageUrl() ?>"
+                         alt="<?= __($product->getName()) ?>"
+                    />
+                    </div>
+                </div>
+
+
+
+                <?= $block->getChildHtml('warranty_modal_options') ?>
+
+                <div class="buttons-block">
+                    <a href="<?= $block->getUrl('checkout/cart'); ?>"
+                       style="display:none"
+                       id="warranty-go-to-cart-link">
+                        <?= __('Go to Cart'); ?>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

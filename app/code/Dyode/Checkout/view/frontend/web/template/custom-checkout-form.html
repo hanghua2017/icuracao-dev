@@ -1,0 +1,42 @@
+<div class='curacao-outer'>
+  <div class="linkaccount" data-bind="if: (!isLogedIn || getCuracaoId()== null)">
+    <h2><span data-bind="i18n: 'Pay with Curacao credit'"></span><span class="credit-logo"></span></h2>
+    <div class="curacao-credit-fieldset">
+      <form id="custom-checkout-form" method="post" action="/creditapp/credit/index" class="form" data-bind="attr: {'data-hasrequired': $t('* Required Fields')}">
+          <!-- ko foreach: getRegion('custom-checkout-form-fields') -->
+          <!-- ko template: getTemplate() --><!-- /ko -->
+          <!--/ko-->
+          <input type="hidden" data-bind="value: getGuestEmail()" name="customer_email" placeholder="Enter account number or code"/>
+          <input type="submit" name="submit" data-bind="i18n: 'Link account'" />
+      </form>
+      <p data-bind="i18n: 'If you have received our pre-approved offer, enter your activation code to set up your account'"></p>
+      <h3><span data-bind="i18n: 'Don’t have a Curacao account?'"></span>&nbsp;<a href="#" data-bind="i18n: 'Apply Now'"></a></h3>
+    </div>
+  </div>
+  <div data-bind="if: (isLogedIn && getCuracaoId()!= null)" class="creditlimit">
+    <h2><span data-bind="i18n: 'Pay with Curacao credit'"></span><span class="credit-logo"></span></h2>
+    <div class="curacao-account-info">
+      <div class="curacao-details">
+        <div class="curacao-checkbox">
+          <input type="checkbox" id="curacao-pay-checkbox" name="curacao-pay" value="custom-discount" data-bind='checked: ApplyDiscount'/>
+          <label class="checkbox-label" for="curacao-pay-checkbox"><span>CR</span></label>
+        </div>
+        <div class="curacao-id">
+          <div class="label"><!-- ko i18n: 'ending with XXXX ' --><!-- /ko --></div>
+          <div class="seller_content" data-bind="text: getCuracaoId()" data-content="curacaoid"></div>
+        </div>
+        <div class="curacao-limit">
+          <div class="label"><!-- ko i18n: 'Your available credit limit is : ' --><!-- /ko --></div>
+          <div class="seller_content" data-bind="text: getCreditLimit()" data-content="curacaolimit"> </div>
+        </div>
+      </div>
+      <div class="downpayment">
+        <div class="initial-payment">
+          <div class="label"><!-- ko i18n: 'Initial Payment:' --><!-- /ko --></div>
+          <div class="seller_content" data-bind="text: getDownPayment()" data-content="curacao-payment"></div>
+        </div>
+        <div class="label-alert"><!-- ko i18n: 'Please add another payment method for initial amount due today' --><!-- /ko --></div>
+      </div>
+    </div>
+  </div>
+</div>
