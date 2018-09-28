@@ -1,6 +1,7 @@
 var config = {
     map: {
         '*': {
+            'accordion': 'curacao/js/cms-accordion',
             'checkbox': 'curacao/js/onclick'
         }
     },

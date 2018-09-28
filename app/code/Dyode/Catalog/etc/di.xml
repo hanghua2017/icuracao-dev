@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Dyode_Catalog Magento2 Module.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package Dyode
+ * @module  Dyode_Catalog
+ * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Model\Product\LinkTypeProvider">
+        <arguments>
+            <argument name="linkTypes" xsi:type="array">
+                <item name="fbt" xsi:type="const">Dyode\Catalog\Model\Product\Link::LINK_TYPE_FBT</item>
+                <item name="warranty" xsi:type="const">Dyode\Catalog\Model\Product\Link::LINK_TYPE_WARRANTY</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Model\ProductLink\CollectionProvider">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="fbt" xsi:type="object">Dyode\Catalog\Model\ProductLink\CollectionProvider\Fbt</item>
+                <item name="warranty" xsi:type="object">Dyode\Catalog\Model\ProductLink\CollectionProvider\Warranty</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

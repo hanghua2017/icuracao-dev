@@ -1,295 +1,344 @@
-
 @box-shadow-color: rgba(0, 0, 0, 0.2);
 @underline: #81b800;
-@textColor:#333333;
-@commonPadding:15px;
-@commonwidgetPadding:30px;
+@textColor: #333333;
+@commonPadding: 15px;
+@commonwidgetPadding: 30px; 
 // @import "productItem";
 // @import "productSlider";
 // @import "brandSlider";
 // @import "var";
-
 //Common Styling For Gateway Pages
-
 * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .content {
-    max-width: 1500px;
-    margin: 0 auto;
-    // padding: @commonwidgetPadding @commonPadding @commonPadding;
-    .clear-fix {
-        clear: both;
+  max-width: 1500px;
+  margin: 0 auto;
+  // padding: @commonwidgetPadding @commonPadding @commonPadding;
+  .clear-fix {
+    clear: both;
+  }
+
+  a {
+    text-decoration: none;
+  }
+  //Styling for Banners
+
+  .banner-block {
+    margin-bottom: @commonwidgetPadding;
+    @media all and(max-width: 768px) {
+      margin-bottom: @commonPadding;
     }
-    a {
-        text-decoration: none;
-    }
-//Styling for Banners
-    .banner-block {
-        margin-bottom: @commonwidgetPadding;
-        @media all and(max-width: 768px){
-          margin-bottom: @commonPadding;
+
+    .banner-item {
+      a {
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
         }
-        .banner-item {
-            a {
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    display: block;
-                }
-                &.large {
-                    display: block;
-                    @media all and(max-width: 768px) {
-                        display: none;
-                    }
-                }
-                &.small {
-                    display: none;
-                    @media all and(max-width: 768px) {
-                        display: block;
-                    }
-                }
-            }
-        }
-        .banner-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: @commonPadding;
-            @media all and(max-width: 425px){
-              margin-bottom: 8px;
-            }
-            &.full {
-                .banner-item {
-                    width: 100%;
-                }
-            }
-            &.half {
-                .banner-item {
-                    width: 50%;
-                    &:first-of-type {
-                        margin-right: @commonPadding;
-                        @media all and(max-width: 768px){
-                          margin-right: 8px;
-                        }
-                        @media all and(max-width: 425px){
-                          margin-right: 3px;
-                        }
-                    }
-                }
-            }
-            &.one-third {
-                .banner-item {
-                    &:first-of-type {
-                        flex-basis: 71%;
-                        margin-right: @commonPadding;
-                        @media all and(max-width: 768px) {
-                          flex-basis: 50%;
-                          margin-right:8px;
-                        }
-                        @media all and(max-width: 425px) {
-                          margin-right:3px;
-                        }
-                    }
-                    &:last-of-type {
-                        flex-basis: 38%;
-                        @media all and(max-width: 768px) {
-                          flex-basis: 50%;
-                        }
-                    }
-                }
-            }
-            &.four-banner {
-                .banner-item {
-                    width: 100%;
-                    margin-right: 5px;
-                    &:last-of-type {
-                        margin-right: 0px;
-                    }
-                    @media all and(max-width: 768px) {
-                        width: 49.5%;
-                        margin-right: 0px;
-                        &:nth-child(1),
-                        &:nth-child(2) {
-                            margin-bottom: 10px;
-                        }
-                    }
-                }
-                @media all and(max-width: 768px) {
-                    flex-wrap: wrap;
-                }
-            }
-            &.three-equal {
-                .banner-item {
-                    width: 33.3333%;
-                    &:nth-child(1),
-                    &:nth-child(2) {
-                        margin-right: @commonPadding;
-                    }
-                    @media all and(max-width: 768px) {
-                        width: 100%;
-                        &:nth-child(1),
-                        &:nth-child(2) {
-                            margin-right: 0;
-                            margin-bottom: @commonPadding;
-                        }
-                    }
-                }
-                @media all and(max-width: 768px) {
-                    flex-wrap: wrap;
-                }
-            }
-            &.three-image-grid {
-                display: flex;
-                margin-top: @commonPadding;
-                @media all and(max-width: 768px){
-                    display: block;
-                    margin-top: 8px;
-                  }
-                .banner-item {
-                    a {
-                        img {
-                            width: 100%;
-                            height: 100%;
-                        }
-                    }
-                }
-                .left {
-                    width: 70%;
-                    margin-right: @commonPadding;
-                    @media all and(max-width: 768px){
-                        width: 100%;
-                        margin-right: 0;
-                      }
-                }
-                .right {
-                    a{
-                        display: block;
-                        height:50%;
-                    }
-                    display: flex;
-                    flex-direction: column;
-                    width: 40%;
-                    @media all and (max-width: 768px){
-                      flex-direction: row;
-                      width: 100%;
-                      margin-top: 8px;
-                    }
-                }
-                .margin{
-                  margin-bottom: @commonPadding;
-                  @media all and(max-width: 768px){
-                    margin-right: 12px;
-                  }
-                }
-            }
-        }
-    }
-//Styling For Product-Category
-    .camera-category {
-        padding: 25px 0px;
-        box-shadow: 0px 0px 12px #dadadab3;
-        width: 100%;
-        margin: @commonwidgetPadding 0px;
-        display: flex;
-        @media all and(max-width: 768px) {
+
+        &.large {
+          display: block;
+          @media all and(max-width: 768px) {
             display: none;
+          }
         }
-        .active {
-            h1 {
-                color: #7fa82e !important;
-            }
+
+        &.small {
+          display: none;
+          @media all and(max-width: 768px) {
+            display: block;
+          }
         }
-        .single-item-category {
-            text-decoration: none;
-            text-align: center;
-            width: 100%;
-            max-width: 250px;
-            font-family: 'Roboto', sans-serif;
-            font-weight: normal;
-            color: black !important;
-            img {
-                max-width: 130px;
-                @media all and(max-width: 1024px) {
-                    max-width: 100px;
-                }
-                @media all and(max-width: 991px) {
-                    max-width: 80px;
-                }
-                @media all and(max-width: 768px) {
-                    max-width: 80px;
-                }
-            }
-            h1 {
-                color: black;
-                font-size: 18px;
-                margin: 0px;
-                @media all and(max-width: 1024px) {
-                    font-size: 15px;
-                }
-                @media all and(max-width:991px) {
-                    font-size: 13px;
-                }
-                @media all and(max-width: 768px) {
-                    font-size: 12px;
-                }
-            }
-        }
+      }
     }
-//Styling for Grooming Items
-    .mens-grooming-items {
-        margin-bottom: @commonwidgetPadding;
-        @media all and(max-width: 768px){
-          margin-bottom: @commonPadding;
+
+    .banner-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: @commonPadding;
+      @media all and(max-width: 425px) {
+        margin-bottom: 8px;
+      }
+
+      &.full {
+        .banner-item {
+          width: 100%;
         }
-        h2 {
-            text-transform: capitalize;
-            margin: 0;
-            font-family: Roboto-light;
-            font-size: 24px;
-            @media all and(max-width: 400px){
-              font-size: 18px;
+      }
+
+      &.half {
+        .banner-item {
+          width: 50%;
+
+          &:first-of-type {
+            margin-right: @commonPadding;
+            @media all and(max-width: 768px) {
+              margin-right: 8px;
+            }
+            @media all and(max-width: 425px) {
+              margin-right: 3px;
+            }
+          }
+        }
+      }
+
+      &.one-third {
+        .banner-item {
+          &:first-of-type {
+            flex-basis: 71%;
+            margin-right: @commonPadding;
+            @media all and(max-width: 768px) {
+              flex-basis: 50%;
+              margin-right: 8px;
+            }
+            @media all and(max-width: 425px) {
+              margin-right: 3px;
+            }
+          }
+
+          &:last-of-type {
+            flex-basis: 38%;
+            @media all and(max-width: 768px) {
+              flex-basis: 50%;
+            }
+          }
+        }
+      }
+
+      &.four-banner {
+        .banner-item {
+          width: 100%;
+          margin-right: 5px;
+
+          &:last-of-type {
+            margin-right: 0;
+          }
+          @media all and(max-width: 768px) {
+            width: 49.5%;
+            margin-right: 0;
+
+            &:nth-child(1),
+            &:nth-child(2) {
+              margin-bottom: 10px;
+            }
+          }
+        }
+        @media all and(max-width: 768px) {
+          flex-wrap: wrap;
+        }
+      }
+
+      &.three-equal {
+        .banner-item {
+          width: 33.3333%;
+
+          &:nth-child(1),
+          &:nth-child(2) {
+            margin-right: @commonPadding;
+          }
+          @media all and(max-width: 768px) {
+            width: 100%;
+
+            &:nth-child(1),
+            &:nth-child(2) {
+              margin-right: 0;
+              margin-bottom: @commonPadding;
+            }
+          }
+        }
+        @media all and(max-width: 768px) {
+          flex-wrap: wrap;
+        }
+      }
+
+      &.three-image-grid {
+        display: flex;
+        margin-top: 15px;
+        @media all and(max-width: 767px) {
+          display: block;
+          margin-top: 8px;
+        }
+
+        .banner-item {
+          a {
+            img {
+              width: 100%;
+              height: 100%;
             }
 
+            &.large {
+              display: block;
+              @media all and(max-width: 768px) {
+                display: none;
+              }
+            }
+
+            &.small {
+              display: none;
+              @media all and(max-width: 768px) {
+                display: block;
+              }
+            }
+          }
         }
-        .grooming-items {
-            display: inline-flex;
-            margin-top: @commonPadding;
+
+        .left {
+          width: 70%;
+          margin-right: 15px;
+          @media all and(max-width: 767px) {
             width: 100%;
-            box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
-            .face-care {
-                width: 16.6%;
-                margin: 10px 0;
-                text-align: center;
-                @media all and(max-width: 768px)and(min-width: 320px) {
-                    width: 20%;
-                }
-                img {
-                    width: 100%;
-                    -moz-transition: all 0.3s;
-                    -webkit-transition: all 0.3s;
-                    transition: all 0.3s;
-                }
-                h3 {
-                    font-family: Roboto-light;
-                    padding-top: 0;
-                    margin: 5px 0 10px;
-                    font-size: 17px;
-                    font-weight: 600;
-                    text-transform: capitalize;
-                    @media all and(max-width: 768px)and(min-width: 320px) {
-                        font-size: 14px;
-                    }
-                }
-            }
-            .spa {
-                @media all and(max-width: 768px) {
-                    display: none;
-                }
-            }
+            margin-right: 0;
+          }
         }
+
+        .right {
+          .banner-item {
+            display: block;
+            height: 50%;
+
+            &:first-of-type {
+              margin-bottom: 15px;
+              @media all and(max-width: 767px) {
+                margin-right: 12px;
+              }
+            }
+          }
+
+          a {
+            display: block;
+            height: 100%;
+          }
+          display: flex;
+          flex-direction: column;
+          width: 40%;
+          @media all and (max-width: 767px) {
+            flex-direction: row;
+            width: 100%;
+            margin-top: 8px;
+          }
+        }
+      }
     }
+  }
+  //Styling For Product-Category
+
+  .camera-category {
+    padding: 25px 0;
+    box-shadow: 0 0 12px #dadadab3;
+    width: 100%;
+    margin: @commonwidgetPadding 0;
+    display: flex;
+    @media all and(max-width: 768px) {
+      display: none;
+    }
+
+    .active {
+      h1 {
+        color: #7fa82e !important;
+      }
+    }
+
+    .single-item-category {
+      text-decoration: none;
+      text-align: center;
+      width: 100%;
+      max-width: 250px;
+      font-family: 'Roboto', sans-serif;
+      font-weight: normal;
+      color: black !important;
+
+      img {
+        max-width: 130px;
+        @media all and(max-width: 1024px) {
+          max-width: 100px;
+        }
+        @media all and(max-width: 991px) {
+          max-width: 80px;
+        }
+        @media all and(max-width: 768px) {
+          max-width: 80px;
+        }
+      }
+
+      h1 {
+        color: black;
+        font-size: 18px;
+        margin: 0;
+        @media all and(max-width: 1024px) {
+          font-size: 15px;
+        }
+        @media all and(max-width:991px) {
+          font-size: 13px;
+        }
+        @media all and(max-width: 768px) {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  //Styling for Grooming Items
+
+  .mens-grooming-items {
+    margin-bottom: @commonwidgetPadding;
+    @media all and(max-width: 768px) {
+      margin-bottom: @commonPadding;
+    }
+
+    h2 {
+      text-transform: capitalize;
+      margin: 0;
+      font-family: Roboto-light;
+      font-size: 24px;
+      @media all and(max-width: 400px) {
+        font-size: 18px;
+      }
+    }
+
+    .grooming-items {
+      display: inline-flex;
+      margin-top: @commonPadding;
+      width: 100%;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+      .face-care {
+        width: 16.6%;
+        margin: 10px 0;
+        text-align: center;
+        @media all and(max-width: 768px)and(min-width: 320px) {
+          width: 20%;
+        }
+
+        img {
+          width: 100%;
+          -moz-transition: all 0.3s;
+          -webkit-transition: all 0.3s;
+          transition: all 0.3s;
+        }
+
+        h3 {
+          font-family: Roboto-light;
+          padding-top: 0;
+          margin: 5px 0 10px;
+          font-size: 17px;
+          font-weight: 600;
+          text-transform: capitalize;
+          @media all and(max-width: 768px)and(min-width: 320px) {
+            font-size: 14px;
+          }
+        }
+      }
+
+      .spa {
+        @media all and(max-width: 768px) {
+          display: none;
+        }
+      }
+    }
+  }
 }

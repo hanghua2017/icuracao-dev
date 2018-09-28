@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Dyode_Pricebeat extension
+ *                     NOTICE OF LICENSE
+ *
+ *                     This source file is subject to the MIT License
+ *                     that is bundled with this package in the file LICENSE.txt.
+ *                     It is also available through the world-wide-web at this URL:
+ *                     http://opensource.org/licenses/mit-license.php
+ *
+ *                     @category  Dyode
+ *                     @package   Dyode_Pricebeat
+ *                     @copyright Copyright (c) 2017
+ *                     @license   http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Dyode_Pricebeat::pricebeat" title="pricebeat" module="Dyode_Pricebeat" sortOrder="23" resource="Dyode_Pricebeat::pricebeat"/>
+        <add id="Dyode_Pricebeat::form" title="Manage form" module="Dyode_Pricebeat" sortOrder="10" action="dyode_pricebeat/form" resource="Dyode_Pricebeat::form" parent="Dyode_Pricebeat::pricebeat"/>
+        <add id="Dyode_Pricebeat::configuration" title="Settings" module="Dyode_Pricebeat" sortOrder="20" action="adminhtml/system_config/edit/section/pricebeatform" resource="Dyode_Pricebeat::form" parent="Dyode_Pricebeat::pricebeat"/>
+    </menu>
+</config>
