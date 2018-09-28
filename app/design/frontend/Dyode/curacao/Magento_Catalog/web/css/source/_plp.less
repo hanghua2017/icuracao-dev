@@ -915,6 +915,9 @@
 
                   .price-box {
                     text-align: center;
+                    .price-label {
+                      display: none;
+                    }
 
                     .price {
                       font-size: 18px;
@@ -928,10 +931,6 @@
 
                     .old-price {
                       margin-right: 5px;
-
-                      .price-label {
-                        display: none;
-                      }
 
                       .price {
                         font-size: 14px;
@@ -1052,25 +1051,20 @@
 
           &.products-grid {
             .product-items {
-              display: grid;
-              grid-template-columns: 25% 25% 25% 25%;
+              display: block;
               //  border-bottom: none;
               border-bottom: 1px solid rgba(197,197,197,.21) !important;
-              @media all and (max-width:767px) {
-                grid-template-columns: 50% 50%;
-              }
             }
 
             .product-item {
-              width: 100%;
-              //width: 25%;
-              //  border-bottom: 1px solid rgba(197,197,197,.21) !important;
+              display: inline-block;
+              width: 25%;
               @media all and (max-width:1024px) {
                 padding-left: 0;
-                //  width: 33.33%;
+                 width: 33.33%;
               }
               @media all and (max-width:767px) {
-                //  width: 50%;
+                 width: 50%;
                 border-bottom: 1px solid rgba(197,197,197,.21) !important;
                 border-right: 1px solid rgba(197,197,197,.21) !important;
               }
