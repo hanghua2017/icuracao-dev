@@ -239,6 +239,10 @@
         .block-content {
           //filter content styling - selected filter section - Now shoppping by
           .filter-current {
+            @media only screen and (max-width: 767px) {
+              display: none;
+            }
+
             ol.items {
               padding: 10px 10px 10px 25px;
 
@@ -356,8 +360,8 @@
               }
               /* Track */
               ol::-webkit-scrollbar-track {
-               box-shadow: inset 0 0 5px #ebebeb;
-              background: #ebebeb;
+                box-shadow: inset 0 0 5px #ebebeb;
+                background: #ebebeb;
                 border-radius: 10px;
               }
               /* Handle */
@@ -953,6 +957,7 @@
               width: 100%;
               margin: 0;
               position: relative;
+              min-height: 60px;
               @media all and (min-width:768px) {
                 border-bottom: 1px solid rgba(197,197,197,.21);
               }
