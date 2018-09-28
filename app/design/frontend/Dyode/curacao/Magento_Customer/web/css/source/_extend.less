@@ -1082,6 +1082,7 @@ select:focus, input:focus {
       .actions-toolbar{
         .primary{
           button{
+            float: left !important;
             @media all and(max-width: 767px){
               text-align: left;
             }
@@ -1178,11 +1179,11 @@ select:focus, input:focus {
     }
   }
 }
-.customer-account-index,.sales-order-history,.customer-address-form,.newsletter-manage-index{
+.customer-account-index,.sales-order-history,.customer-address-form,.newsletter-manage-index,.customer-address-index{
   .columns{
     .column{
       .dashboard_msg,.block-dashboard-orders,.block-dashboard-info,.block-dashboard-addresses,.orders-history,
-      .form-address-edit,.form-newsletter-manage{
+      .form-address-edit,.form-newsletter-manage,.block-addresses-default,.block-addresses-list,.actions-toolbar{
         @media all and(max-width: 767px){
               padding: 15px !important;
         }
