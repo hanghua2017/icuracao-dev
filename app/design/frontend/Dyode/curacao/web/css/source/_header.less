@@ -9,6 +9,7 @@
 @black: #000;
 @white-shade:#efefef;
 @search-green-color:#99c334;
+@placeholder-color:#b9b9b9;
 
 .header-message {
 	display: none;
@@ -204,26 +205,27 @@
 
 							input::-webkit-input-placeholder {
 								/* Chrome/Opera/Safari */
-								color: #929292;
+								color: @placeholder-color;
 							}
 
 							input::-moz-placeholder {
 								/* Firefox 19+ */
-								color: #929292;
+								color: @placeholder-color;
 							}
 
 							input:-ms-input-placeholder {
 								/* IE 10+ */
-								color: #929292;
+								color: @placeholder-color;
 							}
 
 							input:-moz-placeholder {
 								/* Firefox 18- */
-								color: #929292;
+								color: @placeholder-color;
 							}
 							//Search auto searchautocomplete styling
 							.searchautocomplete__autocomplete._active {
 								text-align: left;
+								padding:10px 0;
 
 								a.title {
 									color: black;
@@ -256,6 +258,27 @@
 
 								.searchautocomplete__item-magento_search_query .num_results {
 									display: none;
+								}
+							}
+							.searchautocomplete__autocomplete._active._loading{
+								.searchautocomplete__spinner{
+							    bottom: 5px;
+							    top: auto;
+									height: 15px;
+								}
+							}
+							.searchautocomplete__autocomplete{
+								ul{
+									li{
+										a{
+											font-family: "iCuracao-Regular";
+											font-size:14px;
+											text-decoration: none;
+											&:hover{
+												text-decoration: none;
+											}
+										}
+									}
 								}
 							}
 						}
