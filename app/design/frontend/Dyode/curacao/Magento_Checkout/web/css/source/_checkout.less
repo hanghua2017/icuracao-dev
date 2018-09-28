@@ -553,6 +553,9 @@ input[type="radio"] {
                 font-size:14px;
                 color:@black;
                 padding:0;
+                &.choice{
+                  width:100%;
+                }
               }
               .payment-method-content{
                 padding: 0 0 20px 25px;
@@ -709,7 +712,10 @@ input[type="radio"] {
                 min-width: auto;
                 tbody{
                   tr{
-                    padding:0 0 10px 0;
+                      padding: 0;
+                      border-bottom: 0;
+                      display: block;
+                      margin: 0 0 10px 0;
                     td{
                       padding:0 5px;
                       width:auto;
