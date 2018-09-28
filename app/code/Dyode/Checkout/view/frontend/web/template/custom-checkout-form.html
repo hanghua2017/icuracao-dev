@@ -1,6 +1,6 @@
 <div class='curacao-outer'>
   <div class="linkaccount" data-bind="if: (!isLogedIn || getCuracaoId()== null)">
-    <h2><span data-bind="i18n: 'Pay with Curacao credit'"></span><span class="credit-logo"></span></h2>
+    <h2><span data-bind="i18n: 'Pay with Curacao credit'"></span><div class="curacao-credit-logo"></div></h2>
     <div class="curacao-credit-fieldset">
       <form id="custom-checkout-form" method="post" action="/creditapp/credit/index" class="form" data-bind="attr: {'data-hasrequired': $t('* Required Fields')}">
           <!-- ko foreach: getRegion('custom-checkout-form-fields') -->
@@ -14,12 +14,12 @@
     </div>
   </div>
   <div data-bind="if: (isLogedIn && getCuracaoId()!= null)" class="creditlimit">
-    <h2><span data-bind="i18n: 'Pay with Curacao credit'"></span><span class="credit-logo"></span></h2>
+    <h2><span data-bind="i18n: 'Pay with Curacao credit'"></span><div class="curacao-credit-logo"></div></h2>
     <div class="curacao-account-info">
       <div class="curacao-details">
         <div class="curacao-checkbox">
           <input type="checkbox" id="curacao-pay-checkbox" name="curacao-pay" value="custom-discount" data-bind='checked: ApplyDiscount'/>
-          <label class="checkbox-label" for="curacao-pay-checkbox"><span>CR</span></label>
+          <label class="checkbox-label" for="curacao-pay-checkbox"><div class="credit-card-logo"></div></label>
         </div>
         <div class="curacao-id">
           <div class="label"><!-- ko i18n: 'ending with XXXX ' --><!-- /ko --></div>

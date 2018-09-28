@@ -114,8 +114,7 @@ class Index extends Action
             $totals = $cart->getQuote()->getTotals();
 
             $subtotal = $totals['subtotal']['value'];
-            echo "subtotal".$subtotal;
-            exit;
+           
             $totals = $cart->getQuote()->getTotals();
 
             $subtotal = $totals['subtotal']['value'];
@@ -169,8 +168,7 @@ class Index extends Action
                              'country_id' => 'US',
                              'telephone' => $customerInfo['PHONE']);
 
-                             print_r($_custom_address);
-                             exit;
+                           
              //get the customer address model and update the address information
 
              $customAddress = $this->_addressFactory->create();
