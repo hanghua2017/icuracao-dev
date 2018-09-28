@@ -48,6 +48,7 @@
           width: 75%;
           margin: 0 auto;
           padding-top: 30px;
+          background-color: #fff;
           @media all and (max-width: 599px) and (min-width: 468px) {
             width: 65%;
           }
@@ -91,7 +92,7 @@
 
           .fieldset {
             margin: 0;
-
+            background-color: #fff;
             .field {
               margin: 0;
               padding: 3px 0;
@@ -113,6 +114,11 @@
               &.confirmation {
                 border-bottom-left-radius: 3px;
                 border-bottom-right-radius: 3px;
+              }
+              .control {
+                .mage-error {
+                  padding: 0 10px;
+                }
               }
 
               label {
@@ -274,6 +280,7 @@
           }
 
           .actions-toolbar {
+            margin-bottom: 15px;
             .primary {
               width: 100%;
 
@@ -322,4 +329,39 @@
 }
 .choice{
   width: 160px;
+}
+.customer-account-logoutsuccess {
+  .page-wrapper {
+    #maincontent {
+      background-image: url(../images/login-background.png);
+      background-color: #f4f4f4;
+      max-width: none;
+      padding: 0;
+      .page-title {
+        font-family: 'iCuracao-Medium' !important;
+        font-size: 22px;
+        @media all and (max-width: 768px) {
+          font-size: 20px;
+        }
+        @media all and (max-width: 599px) {
+          font-size: 18px;
+        }
+      }
+      .columns {
+        font-family: 'iCuracao-Regular' !important;
+        font-size: 16px !important;
+        @media all and (max-width:768px) {
+          font-size: 14px !important;
+        }
+        p {
+          margin: 10px 0;
+          font-family: 'iCuracao-Regular' !important;
+          font-size: 16px !important;
+          @media all and (max-width:768px) {
+            font-size: 14px !important;
+          }
+        }
+      }
+    }
+  }
 }
