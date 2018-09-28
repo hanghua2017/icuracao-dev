@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Dyode_StoreLocator Magento2 Module.
+ *
+ * Extending Aheadworks_StoreLocator
+ *
+ * @package   Dyode
+ * @module    Dyode_StoreLocator
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Dyode\StoreLocator\Api\GeoCoordinateRepositoryInterface" type="Dyode\StoreLocator\Model\GeoCoordinateRepository"/>
+	<preference for="Dyode\StoreLocator\Api\Data\GeoCoordinateInterface" type="Dyode\StoreLocator\Model\GeoCoordinate"/>
+	<preference for="Dyode\StoreLocator\Api\Data\GeoCoordinateSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+</config>

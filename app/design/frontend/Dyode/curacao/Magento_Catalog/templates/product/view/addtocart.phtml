@@ -1,0 +1,91 @@
+<?php
+/**
+ * Dyode_curacao theme.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package Dyode
+ * @module  Dyode_curacao
+ * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * @var $block \Magento\Catalog\Block\Product\View
+ * @var $viewModel \Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\Addtocart
+ */
+$_product = $block->getProduct();
+$buttonTitle = __('Add to Cart');
+$viewModel = $block->getViewModel();
+$qtySelectLimit = 10;
+if ($viewModel) {
+    $qtySelectLimit = $viewModel->getQtyLimit();
+}
+?>
+<?php if ($_product->isSaleable()): ?>
+<div class="box-tocart">
+    <div class="fieldset">
+
+        <?php if ($block->shouldRenderQuantity()): ?>
+        <div class="field qty">
+            <label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
+            <div class="control">
+                <select
+                        name="qty"
+                        id="qty"
+                        title="<?= /* @escapeNotVerified */ __('Qty') ?>"
+                        class="input-text qty"
+                        data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>">
+
+                  <?php for($qtyIncr = 1; $qtyIncr <= $qtySelectLimit; $qtyIncr++): ?>
+                      <option value="<?= $qtyIncr ?>" <?= ($qtyIncr === 1) ? 'selected': '' ?>><?= $qtyIncr ?></option>
+                  <?php endfor; ?>
+
+                </select>
+            </div>
+        </div>
+        <?php endif; ?>
+
+        <?= $block->getChildHtml('warranty_options') ?>
+
+        <div class="add-to-cart-block">
+            <div class="actions">
+                <button type="button"
+                        title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
+                        class="custom-button action tocart"
+                        id="product-addtocart-button">
+                    <img src="<?php echo $this->getViewFileUrl('images/cart-button.png'); ?>" />
+                    <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
+                </button>
+            </div>
+
+            <?= $block->getChildHtml('store_availability') ?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>
+<script type="text/javascript">
+    require(['jquery'], function ($) {
+        'use strict';
+
+        $(function () {
+            var addToCartButton = $('#product-addtocart-button');
+
+            addToCartButton.click(function () {
+                if ($('#warranty_options').length === 0) {
+                    addToCartButton.trigger('submit');
+                }
+            });
+        });
+    });
+</script>

@@ -34,17 +34,17 @@ $bannerCollection = $block->getBannerCollection();
 (function  () {
     var flexSliderSelector = '<?php echo $htmlId; ?>';
     require(['jquery', 'magestore/flexslider'], function($) {
-        var fitImageSlider = function (slider) {
-            if(slider && slider[0]) {
-                var height = $(slider[0]).find('.slides li img').height();
-                $(slider[0]).find('.slides li img').each(function(index, element){
-                    if($(element).height() > height) {
-                        height = $(element).height();
-                    }
-                });
-                $(slider[0]).find('.slides li,.slides  li a,.slides li img').css('height', height + 'px');
-            }
-        }
+        // var fitImageSlider = function (slider) {
+        //     if(slider && slider[0]) {
+        //         var height = $(slider[0]).find('.slides li img').height();
+        //         $(slider[0]).find('.slides li img').each(function(index, element){
+        //             if($(element).height() > height) {
+        //                 height = $(element).height();
+        //             }
+        //         });
+        //         $(slider[0]).find('.slides li,.slides  li a,.slides li img').css('height', height + 'px');
+        //     }
+        // }
         $(document).ready(function($) {
             var STYLESLIDE_FLEXSLIDER_ONE = <?php echo \Magestore\Bannerslider\Model\Slider::STYLESLIDE_FLEXSLIDER_ONE ?>;
             var STYLESLIDE_FLEXSLIDER_TWO = <?php echo \Magestore\Bannerslider\Model\Slider::STYLESLIDE_FLEXSLIDER_TWO ?>;

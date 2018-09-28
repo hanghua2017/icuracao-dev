@@ -1,0 +1,26 @@
+{
+  "name": "dyode/module-catalog",
+  "description": "Customizing Magento_Catalog",
+  "type": "magento2-module",
+  "license": "proprietary",
+  "authors": [
+    {
+      "email": "rajeev.ktomy@dyode.com",
+      "name": "Rajeev K Tomy"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": "~5.5.0|~5.6.0|~7.0.0|~7.1.0",
+    "magento/module-catalog": "100.0.*",
+    "magento/module-cms": "100.0.*"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Dyode\\Catalog\\": ""
+    }
+  }
+}

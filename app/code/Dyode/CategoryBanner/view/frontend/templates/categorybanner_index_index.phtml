@@ -1,0 +1,36 @@
+<?php
+ $_category  = $block->getCurrentCategory();
+$mediaUrl = $block->getMediaUrl();
+$baseUrl = $block->getBaseUrl();
+$bannerDesktopImg = $_category->getCategorydesktopbanner();
+$bannerMobileImg = $_category->getCategorymobilebanner();
+$bannerUrl = $_category->getCategorybannerlink();
+?>
+
+<div class="categorybanner-container">
+    <?php if($bannerDesktopImg) :?>
+	    <div class="catgeorybanner-desktop">
+	    	<?php if($bannerUrl):?>
+	    	    <a href="<?php echo $baseUrl.$bannerUrl; ?>">
+	        <?php endif;?>
+	    		    <img src="<?php echo $mediaUrl; ?>/catalog/category/<?php echo $bannerDesktopImg;?>">
+	    	<?php if($bannerUrl):?>	    		
+	    	    </a>
+	        <?php endif;?>	    	
+	    </div>
+	<?php endif;?>     
+    <?php if($bannerMobileImg) :?>
+        <div class="catgeorybanner-mobile">
+	    	<?php if($bannerUrl):?>
+	    	    <a href="<?php echo $baseUrl.$bannerUrl; ?>">
+	        <?php endif;?>
+	    		    <img src="<?php echo $mediaUrl; ?>/catalog/category/<?php echo $bannerMobileImg;?>">
+	    	<?php if($bannerUrl):?>	    		
+	    	    </a>
+	        <?php endif;?>	
+        </div>
+    <?php endif;?>    
+</div>
+
+
+
