@@ -366,33 +366,28 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
          */
         $orderItemsLocation = array();
         $groupedItemsLocation = array();
-        $orderItemsLocation = array("17774"=>"16");
         /**
          * Get Order Info by Order Id
          */
         $order = $this->_orderRepository->get($orderId);
         foreach ($order->getAllItems() as $orderItem) {
             if ($orderItem->getParentItemId() == null) {
-                $orderItemsLocation[$orderItem->getItemId()] = $this->_arInvoiceHelper->assignInventoryLocation($orderItem);
-                // if ($orderItemsLocation[$orderItem->getItemId()] == "k") {
-                //     # code...
-                //     $orderItems[$orderItem->getItemId()] = array(
-                //         "ProductId" => $orderItem->getProductId(),
-                //         "ItemQty" => $orderItem->getQtyOrdered()
-                //     );
-                //     unset($orderItemsLocation[$orderItem->getItemId]);
-                // }
+                echo $orderItemsLocation[$orderItem->getItemId()] = $this->_arInvoiceHelper->assignInventoryLocation($orderItem);
+                if ($orderItemsLocation[$orderItem->getItemId()] == "k") {
+                    $orderItems[$orderItem->getItemId()] = array(
+                        "ProductId" => $orderItem->getProductId(),
+                        "ItemQty" => $orderItem->getQtyOrdered()
+                    );
+                    unset($orderItemsLocation[$orderItem->getItemId()]);
+                }
             }
         }
 
         if (!empty($orderItems)) {
-            # code...
             $groupedItemsLocation = $this->_arInvoiceHelper->getGroupedLocation($order,$orderItems);
             $orderItemsLocation = $orderItemsLocation + $groupedItemsLocation;
             ksort($orderItemsLocation);
         }
-        print_r($orderItemsLocation);
-        die();
         
         return $orderItemsLocation;
     }

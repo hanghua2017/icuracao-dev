@@ -112,7 +112,7 @@ class Index extends \Magento\Framework\App\Action\Action
         // echo $inventoryLevel = $this->_arInvoiceHelper->getDomesticInventoryLocation($itemId, 41, 35801, 40);
         // die();
         // echo "Hello";
-        $this->arInvoice->prepareOrderItems(13069);
+        $this->arInvoice->prepareOrderItems(13045);
         // $this->arInvoice->createInvoice(13069);
         // var_dump($orders);
         die();
