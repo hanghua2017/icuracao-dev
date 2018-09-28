@@ -85,14 +85,14 @@ define(
                          storeElement.state(true);
                       }
                     },
-            		   selectLocation:function(formelement) {
+                       selectLocation:function(formelement) {
                       console.log("here");
                       var pid = formelement.pid;
                       var serviceUrl,storeParams;
                       console.log(pid);
                       var zipcode = jQuery("#deliveryform"+pid+" input[name=pickup-zipcode]").val();
                       if(zipcode){
-			                  fullScreenLoader.startLoader();
+                              fullScreenLoader.startLoader();
                         jQuery.ajax({
                             url: '/storeloc/storelocator/index',
                             type: 'POST',
@@ -102,7 +102,7 @@ define(
                                 pid: pid,
                             },
                             success: function(response) {
-				                        fullScreenLoader.stopLoader();
+                                        fullScreenLoader.stopLoader();
                                 jQuery(".avail-store-outer").html(response);
                                 jQuery(".avail-store-outer").applyBindings();
                                 jQuery("#dialog-message").dialog({
@@ -119,8 +119,8 @@ define(
                                 console.log('Error happens. Try again.');
                             },
                             complete: function() {
-                				          fullScreenLoader.stopLoader();
-                			      }
+                                          fullScreenLoader.stopLoader();
+                                  }
                         });
                       }
 

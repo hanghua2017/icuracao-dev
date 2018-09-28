@@ -89,13 +89,29 @@ input[type="radio"] {
       max-width:1280px;
       width:100%;
       margin:0 auto;
-      @media all and (max-width:767px){
-        webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-        -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-        box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-      }
       .opc-estimated-wrapper {
-        display: none;
+        @media only screen and (max-width: 767px){
+          margin: 0px;
+          padding: 18px 25px;
+        }
+        .minicart-wrapper{
+          @media all and (max-width:767px){
+            position: static;
+          }
+        }
+    }
+    .opc-estimated-wrapper .minicart-wrapper button.action.showcart {
+      width: 39px;
+      height: 39px;
+      background-image: url(../images/checkout-image.png);
+      background-position: -35px;
+      margin-right: 8px;
+
+    }
+    .minicart-wrapper .action.showcart:before {
+      @media only screen and (max-width: 767px){
+        content: '';
+        }
       }
       .section-heading{
         h2{
@@ -106,22 +122,14 @@ input[type="radio"] {
         }
       }
       .opc-sidebar{
-        @media only screen and (min-width: 768px){
-          width:33.333%;
-          margin-top: 30px;
-        }
-        @media only screen and (min-width: 991px){
-          width:30%;
+        @media only screen and (min-width: 767px){
+          margin-top: 120px;
         }
       }
-      /*styling for the Checkout progress bar starts here*/
       .opc-progress-bar{
-        margin:0;
-        height:100px;
-        margin-top:30px;
         li{
             @media only screen and (min-width: 768px){
-              width: 32%;
+              width: 29%;
               position: relative;
             }
             @media only screen and (min-width: 991px){

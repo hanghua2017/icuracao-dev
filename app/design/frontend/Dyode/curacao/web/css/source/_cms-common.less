@@ -1,0 +1,102 @@
+@import "_typography";
+@import "_order&returns";
+@import "_accordion";
+@import "_privacy-policy";
+@import "_order-tracking";
+@import "_return-policy";
+@import "_instore";
+@import "_faq";
+@import "_contact";
+@import "_beat";
+@import "_var";
+//Common styling for all CMS pages
+body{
+  margin: 0;
+}
+input,select,button{outline: none;}
+.cms-contact-us,.cms-privacy-policy,.cms-return-policy,.cms-faq,.cms-order-tracking,.cms-order-and-returns,.cms-instore-pickup,
+.cms-shipping-information,.cms-terms-and-conditions,.cms-interest-beat-form,.cms-price-beat-form,.cms-price-beat,
+.cms-interest-beat{
+  main{
+    background: url("../../images/Order-returns-BG.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    .column,.main{
+      padding-bottom: 0 !important;
+    }
+  }
+  .page-main{
+        max-width: none !important;
+        padding: 0 !important;
+  }
+}
+.cms-price-beat,.cms-interest-beat,.cms-store-pickup{
+    .page-main{
+        background: @white !important;
+  }
+}
+  .cms-container{
+//common styles for form pages
+    .inner-container{
+      .cms-content{
+        .cms-heading{
+          font-size: 28px;
+          color: @black;
+          text-transform: capitalize;
+          font-family: 'iCuracao-Light' !important;
+          @media all and(max-width: 768px){
+            font-size: 24px;
+          }
+        }
+        button{
+          font-family: 'iCuracao-Light' !important;
+          background-color: @curacao-green;
+          border-radius: 4px;
+          color: @white;
+          border: none;
+          box-shadow: none;
+          cursor: pointer;
+        }
+        input,textarea{
+          border:none;
+          width: 100%;
+          outline: none;
+          font-family: 'iCuracao-Light' !important;
+          &::placeholder{
+            font-size:15px;
+            font-family: 'iCuracao-Light' !important;
+            @media all and (max-width: 425px){
+              font-size: 13px;
+            }
+          }
+        }
+      }
+    }
+//common styles for accordion containing pages
+    .inner-cms-container{
+      .cms-content{
+        max-width: 1090px;
+        margin: 0 auto;
+        padding: 30px 0;
+        @media all and(max-width: 1250px){
+          max-width: 860px;
+        }
+        @media all and (max-width: 991px){
+          max-width: 655px;
+        }
+        @media all and(max-width: 768px) {
+          max-width: 768px;
+          margin: 0 15px
+        }
+        @media all and(max-width: 425px) {
+          padding: 35px 0;
+        }
+        .cms-heading{
+          text-align: left;
+          margin: 0;
+          padding-bottom: 30px;
+          font-family: 'iCuracao-Light' !important;
+        }
+      }
+    }
+  }

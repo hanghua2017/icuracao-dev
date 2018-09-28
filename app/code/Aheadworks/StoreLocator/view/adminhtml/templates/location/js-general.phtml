@@ -1,0 +1,24 @@
+<?php
+/**
+ * Copyright 2018 aheadWorks. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+<script>
+require([
+    "jquery",
+    "mage/adminhtml/form"
+], function(){
+
+    var updater = new RegionUpdater(
+        'location_country_id',
+        'location_region',
+        'location_region_id',
+        <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getRegionJson() ?>,
+        'disable'
+    );
+    updater.disableRegionValidation();
+
+    window.updater = updater;
+});
+</script>
