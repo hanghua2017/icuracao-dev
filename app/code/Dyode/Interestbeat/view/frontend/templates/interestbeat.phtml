@@ -1,4 +1,4 @@
-<form id="interestbeat" class="form" action="<?= $block->getUrl('interestbeat/user/post',['_secure' => $this->getRequest()->isSecure()]) ?>);" method="post" enctype="multipart/form-data">
+<form id="interestbeat" class="form" action="<?= $block->getUrl('interestbeat/user/post',['_secure' => $this->getRequest()->isSecure()]);?>" method="post" enctype="multipart/form-data">
     <fieldset class="fieldset">
       <p class="title"><span><?php /* @escapeNotVerified */ echo __('Interest Beat') ?></span></p>
       <p class="title-desc"><span><?php /* @escapeNotVerified */ echo __("We'll Beat any Competitor's Prices") ?></span></p>
