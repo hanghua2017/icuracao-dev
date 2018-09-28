@@ -24,6 +24,7 @@ input[type="radio"] {
   + .label {
     color:@black;
     font-size:14px;
+    font-family: "iCuracao-Regular";
     &:before {
       content: '';
       background: @off-white;
@@ -89,29 +90,13 @@ input[type="radio"] {
       max-width:1280px;
       width:100%;
       margin:0 auto;
+      @media all and (max-width:767px){
+        webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+      }
       .opc-estimated-wrapper {
-        @media only screen and (max-width: 767px){
-          margin: 0px;
-          padding: 18px 25px;
-        }
-        .minicart-wrapper{
-          @media all and (max-width:767px){
-            position: static;
-          }
-        }
-    }
-    .opc-estimated-wrapper .minicart-wrapper button.action.showcart {
-      width: 39px;
-      height: 39px;
-      background-image: url(../images/checkout-image.png);
-      background-position: -35px;
-      margin-right: 8px;
-
-    }
-    .minicart-wrapper .action.showcart:before {
-      @media only screen and (max-width: 767px){
-        content: '';
-        }
+        display: none;
       }
       .section-heading{
         h2{
@@ -122,14 +107,22 @@ input[type="radio"] {
         }
       }
       .opc-sidebar{
-        @media only screen and (min-width: 767px){
-          margin-top: 120px;
+        @media only screen and (min-width: 768px){
+          width:33.333%;
+          margin-top: 30px;
+        }
+        @media only screen and (min-width: 991px){
+          width:30%;
         }
       }
+      /*styling for the Checkout progress bar starts here*/
       .opc-progress-bar{
+        margin:0;
+        height:100px;
+        margin-top:30px;
         li{
             @media only screen and (min-width: 768px){
-              width: 29%;
+              width: 32%;
               position: relative;
             }
             @media only screen and (min-width: 991px){
@@ -156,12 +149,9 @@ input[type="radio"] {
       .opc-progress-bar-item > span {
         color: @white !important;
         font-weight: 300 !important;
+        font-size:14px;
         @media only screen and (min-width: 768px){
           padding-top: 38px;
-          font-size:16px;
-        }
-        @media all and (min-width:991px){
-          font-size:18px;
         }
       }
       .opc-progress-bar-item._active > span {
@@ -274,6 +264,7 @@ input[type="radio"] {
             opacity:1;
           }
           .modal-inner-wrap{
+            width:100% !important;
             @media all and (max-width:767px){
               -webkit-transform: translateX(0);
               transform: translateX(0);
@@ -291,6 +282,7 @@ input[type="radio"] {
             border-bottom: 1px solid @dark-gray-border;
           }
           .payment-option-title{
+            font-family: "iCuracao-Regular";
             font-size: 14px;
             color: #616060;
             text-align: center;
@@ -301,6 +293,9 @@ input[type="radio"] {
             @media all and (max-width:767px){
               text-align: left;
               font-weight:700;
+            }
+            &.choice{
+              width:100%;
             }
           }
           .payment-option-content{
@@ -320,6 +315,7 @@ input[type="radio"] {
                 .field{
                   margin-bottom: 15px;
                   .input-text{
+                    font-family: "iCuracao-Regular";
                     border: 1px solid @black;
                     text-align: center;
                     @media all and (max-width:767px){
@@ -342,6 +338,8 @@ input[type="radio"] {
                   float: none !important;
                   display: block;
                   button{
+                    font-family: "iCuracao-Medium";
+                    font-weight: normal;
                     width: 100%;
                     margin-right: 0;
                     box-shadow: none;
@@ -364,7 +362,8 @@ input[type="radio"] {
           background: @white;
           margin: 20px 0 10px;
           span.title{
-            font-weight: 600;
+            font-family: "iCuracao-Medium";
+            font-weight: normal;
             font-size: 18px;
             color: @black;
             text-transform: capitalize;
@@ -373,10 +372,8 @@ input[type="radio"] {
             }
           }
           .table-wrapper{
-            margin-bottom: 0px;
-            @media all and (max-width: 639px){
-              border-top:none;
-            }
+            margin:0;
+            border:none !important;
             .table{
               tr{
                 &.grand{
@@ -400,11 +397,14 @@ input[type="radio"] {
               tbody{
                 tr{
                   th,td{
+                    background: transparent;
                     border-top:none;
                     padding: 0 0 10px;
+                    font-family: "iCuracao-Regular";
                     font-weight: normal;
                     color: #000;
                     font-size: 14px;
+                    text-transform: capitalize;
                 }
                 td{
                   &.amount{
@@ -414,6 +414,7 @@ input[type="radio"] {
                 &.grand{
                   th,td{
                     strong{
+                      font-family: "iCuracao-Medium";
                       font-weight:normal;
                       color:@curacao-red-text;
                       font-size:18px;
@@ -430,6 +431,8 @@ input[type="radio"] {
             margin-bottom:15px;
           }
           button{
+            font-family: "iCuracao-Medium";
+            font-weight: normal;
             width:100%;
             background: @light-orange-color;
             box-shadow: none;
@@ -450,6 +453,8 @@ input[type="radio"] {
             text-align: center;
             font-size: 12px;
             margin:0 0 20px;
+            font-family: "iCuracao-Regular";
+            color:@black;
             p{
               a{
                 text-decoration: underline;
@@ -460,6 +465,7 @@ input[type="radio"] {
           .block-secure-message{
             border-top:1px solid @light-gray-border;
             color:@dark-gray-text;
+            font-family: "iCuracao-Regular";
             font-size: 12px;
             padding:20px 0 0 50px;
             background-image: url("../../images/shield.png");
@@ -467,7 +473,7 @@ input[type="radio"] {
             background-size: 40px;
             background-position: 0 10px;
             @media all and (max-width:767px){
-              width: 280px;
+              width: 240px;
               border-top: none;
               margin: 0 auto;
             }
@@ -529,6 +535,8 @@ input[type="radio"] {
                 }
                 .primary{
                   button{
+                    font-family: "iCuracao-Medium";
+                    font-weight: normal;
                     width:100%;
                   }
                 }
@@ -647,12 +655,17 @@ input[type="radio"] {
           width:66.667%;
         }
         @media all and (min-width:991px){
-          padding-right:30px;
+          padding-right:20px;
           width:70%;
         }
         @media all and (max-width:767px){
           border-bottom: 5px solid #e8e8e8;
           margin:0 0 10px;
+        }
+        #checkout-step-shipping{
+          .mandatory{
+            display: none;
+          }
         }
         /*styling for the Checkout forms section starts here*/
         .form-login{
@@ -660,8 +673,9 @@ input[type="radio"] {
           border-bottom: none;
           margin:0;
         }
-        .form-shipping-address{
+        .form-shipping-address,.billing-address-form{
           margin:0 0 20px;
+          font-family: "iCuracao-Regular";
         }
         #checkout-step-shipping_method{
           margin-bottom:0;
@@ -681,6 +695,8 @@ input[type="radio"] {
                  margin-top:30px;
                 }
                button{
+                 font-family: "iCuracao-Medium";
+                 font-weight: normal;
                  margin-top:0;
                 @media all and (max-width:639px){
                   width:100%;
@@ -688,18 +704,117 @@ input[type="radio"] {
                }
               }
 	           }
+            #checkout-shipping-method-load{
+              .table-checkout-shipping-method{
+                min-width: auto;
+                tbody{
+                  tr{
+                    padding:0 0 10px 0;
+                    td{
+                      padding:0 5px;
+                      width:auto;
+                      font-family: "iCuracao-Regular";
+                      font-size:14px;
+                      color:@black;
+                      input[type="radio"]{
+                        position:static;
+                        opacity: 1;
+                        margin-left: -5px;
+                      }
+                      &.col-price{
+                        font-family: "iCuracao-Medium";
+                        font-size:16px;
+                        font-weight:normal;
+                        color:@curacao-red-text;
+                        border-right:1px solid @curacao-red-text;
+                      }
+                      &.col-method,&.col-carrier{
+                        font-family: "iCuracao-Regular";
+                        font-size:14px;
+                        font-weight: normal;
+                        font-style:italic;
+                        color:@theme-color;
+                        border-right:1px solid @black;
+                      }
+                      &.col-method:first-child,&.col-carrier{
+                        border-right:none;
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
+          /*styling for the order details section on shipping page starts here*/
+          #onepage-checkout-shipping-method-additional-load{
+            #shipping-method-product-listing{
+              .shipping-method-product-item{
+                border-bottom:1px solid #d1d1d1;
+                &:last-child{
+                  border-bottom:none;
+                }
+                h2{
+                  font-family: "iCuracao-Medium";
+                  font-size: 18px;
+                  color:@black;
+                  margin:20px 0;
+                  @media all and (max-width:767px){
+                    font-size:16px;
+                    margin:15px 0;
+                  }
+                }
+                > div{
+                  display: flex;
+                  align-items: center;
+                  .shipping-method-product-image{
+                    width:75px;
+                    height: 75px;
+                    img{
+                      width: 100%;
+                    }
+                  }
+                  .shipping-method-product-details{
+                    width:~"calc(100% - 75px)";
+                    padding-left: 15px;
+                    box-sizing: border-box;
+                    h4,h6{
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      white-space: nowrap;
+                      text-transform: capitalize;
+                      font-size:14px;
+                      font-weight:normal;
+                      font-family: "iCuracao-Regular";
+                      color:@black;
+                      margin: 0 0 10px;
+                      line-height: 1.25;
+                    }
+                    h5{
+                      font-family: "iCuracao-Regular";
+                      font-size:16px;
+                      color:@curacao-red-text;
+                      margin:0 0 10px;
+                      line-height: 1.25;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          /*styling for the order details section on shipping page ends here*/
         }
-        .form-shipping-address, .form-login{
+        .form-shipping-address, .form-login,.billing-address-form{
           .label{
-              font-weight: 600;
+              font-family:"iCuracao-Medium";
               color:#000;
+              font-weight: normal;
+              font-size: 14px;
           }
           @media only screen and (min-width: 768px){
             max-width: 100%;
           }
         }
-        .form-login, .form-shipping-address, .methods-shipping {
+        .form-login, .form-shipping-address, .methods-shipping,.billing-address-form {
           @media only screen and (max-width: 990px){
             background: @white;
             padding:0;
@@ -710,7 +825,7 @@ input[type="radio"] {
             width: 100%;
           }
         }
-        .form-shipping-address, .form-login{
+        .form-shipping-address, .form-login,.billing-address-form{
           .field{
             width: 100%;
             .control{
@@ -740,6 +855,51 @@ input[type="radio"] {
         }
       }
       /*styling for the Checkout forms section ends here*/
+      /*styling for the Billing Address section starts here*/
+        .checkout-billing-address{
+          .billing-address-same-as-shipping-block{
+            &.choice{
+              width:100%;
+              margin:0 0 20px;
+            }
+            input[type="checkbox"]{
+              display: none;
+              + label{
+                position: relative;
+                font-size: 14px;
+                font-family: "iCuracao-Medium";
+                color:@black;
+                &:before{
+                  content: '';
+                  display: inline-block;
+                  position: relative;
+                  top: 1px;
+                  margin-right: 5px;
+                  vertical-align: top;
+                  cursor: pointer;
+                  text-align: center;
+                  width:15px;
+                  height: 15px;
+                  border:2px solid #d1d1d1;
+                  transition: all 0.2s;
+                }
+              }
+              &:checked{
+                + label{
+                  &:before{
+                    width:20px;
+                    height: 20px;
+                    border:none;
+                    background-image:url("../images/billing-address-checkbox.png");
+                    background-repeat: no-repeat;
+                    transition: all 0.2s;
+                  }
+                }
+              }
+            }
+          }
+        }
+      /*styling for the Billing Address section ends here*/
       }
       .checkout-shipping-method, .step-content{
         @media only screen and (min-width: 768px){
@@ -787,7 +947,7 @@ input[type="radio"] {
             max-height: 0px;
             overflow: hidden;
             transition: all 0.5s ease;
-            .form-shipping-address{
+            .form-shipping-address,.billing-address-form{
               .field{
                 .control{
                   .field-tooltip{
@@ -811,7 +971,7 @@ input[type="radio"] {
       .opc{
         padding: 15px 15px 30px 15px;
         @media only screen and (min-width: 768px){
-          padding: 35px 35px 15px 35px;
+          padding: 35px;
           webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
           -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
           box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
@@ -839,6 +999,7 @@ input[type="radio"] {
               border-bottom:none;
             }
             h2{
+              font-family: "iCuracao-Medium";
               font-size: 18px;
               color:@black;
               margin:20px 0;
@@ -852,6 +1013,10 @@ input[type="radio"] {
               align-items: center;
               .delivery-method-product-image{
                 width:75px;
+                height: 75px;
+                img{
+                  width: 100%;
+                }
               }
               .delivery-method-product-details{
                 width:~"calc(100% - 75px)";
@@ -884,6 +1049,8 @@ input[type="radio"] {
                 margin:15px 0;
               }
               h4{
+                font-family:"iCuracao-Medium";
+                font-weight: normal;
                 font-size:15px;
                 color:@black;
                 margin:0 0 10px;
@@ -958,9 +1125,7 @@ input[type="radio"] {
         /*styling for the Checkout Delivery Method Tab ends here*/
         /*styling for the edit address section starts here*/
         .step-content{
-          @media only screen and (max-width: 767px){
-            margin: 0;
-          }
+          margin: 0;
           .action-show-popup, .action-select-shipping-item{
           padding: 7px 12px;
 	            @media only screen and (min-width: 991px){
@@ -1019,6 +1184,8 @@ input[type="radio"] {
             &.selected-item{
               border:1px solid @button-orange;
               .action{
+                font-family: "iCuracao-Medium";
+                font-weight: normal;
                 background:@button-dark;
                 border: 1px solid @button-dark;
               }
@@ -1090,7 +1257,7 @@ input[type="radio"] {
                     margin-left: 10px;
                     position: absolute;
                     top: 0;
-                    left: 173px;
+                    left: 193px;
                     width: 60px;
                     height: 25px;
                     background-size: 60px;
@@ -1356,6 +1523,8 @@ input[type="radio"] {
       /*common styling for buttons on Checkout page starts here*/
       .actions-toolbar{
       .primary{
+        font-family: "iCuracao-Medium";
+        font-weight: normal;
         .continue,button{
           text-transform: capitalize;
           background: @theme-color;
