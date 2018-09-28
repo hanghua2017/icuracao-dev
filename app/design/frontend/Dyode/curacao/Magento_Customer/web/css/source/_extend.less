@@ -8,8 +8,9 @@ html, body, div, span, h1, h2, h3, h4, h5, h6, p, strong, ol, ul, li, form, labe
 ol, ul {
     list-style: none;
 }
-body{
-	// font-family: 'iCuracao-Regular';
+
+select:focus, input:focus {
+  box-shadow: none !important;
 }
 
 //ICuracao-Account variables
@@ -49,6 +50,7 @@ body{
       font-size: 13px;
     }
   }
+
 	.page-wrapper{
 		.page-main{
       padding-left: 0;
@@ -70,6 +72,10 @@ body{
 						border: 15px solid @white;
             margin-bottom: 15px;
 					}
+          @media only screen and (max-width: 768px){
+            font-family: "iCuracao-Regular";
+            font-size: 15px !important;
+					}
 					.content{
 						background:@white;
 						color: @item-color;
@@ -88,7 +94,8 @@ body{
 										color: @active-blue-color !important;
 										font-size: 14px;
 										font-weight: 600;
-										padding: 12px 18px 12px 15px;
+										// padding: 12px 18px 12px 15px;
+                    padding: 11px 35px 14px 35px !important;
                     @media only screen and (max-width: 767px){
                       border-left:4px solid @hover-green-color;
                     }
@@ -142,7 +149,7 @@ body{
       .block-collapsible-nav {
         background-color: @white;
         strong{
-          color:  @head-color !important;
+          // color:  @head-color !important;
           @media only screen and (max-width: 767px){
            font-size: 22px;
          }
@@ -207,17 +214,149 @@ body{
             }
 						.page-title{
 							color:@head-color;
+              padding-top: 0;
 							.base{
                 @media only screen and (max-width: 767px){
                   font-size: 20px;
                   color: @active-blue-color;
                 }
-								font-size: 34px;
-								font-weight: 400 !important;
+								font-size: 26px;
+								font-weight: 500;
 								text-transform: capitalize !important;
 							}
 						}
+            .order-date{
+              margin: 0px 0 18px 3px !important;
+            }
+            .order-status{
+              padding: 0 7px 0 7px !important;
+              font-size: 16px !important;
+            }
 					}
+          .block-order-details-comments{
+            margin-bottom: 0;
+            padding: 25px 20px;
+            .block-title{
+              margin: 0;
+              padding-top: 0;
+              padding-bottom: 15px;
+            }
+            .block-content{
+                  padding: 15px 0 0 0;
+                  dl{
+                    display: grid;
+                    margin-bottom: 0;
+                    dt{
+                      max-width: unset;
+                    }
+                    dd{
+                      margin-bottom: 0;
+                    }
+                  }
+            }
+          }
+          .order-links{
+                padding: 0 20px;
+            .item{
+              strong{
+                padding: 12px 35px 13px 35px !important;
+              }
+            }
+          }
+          #rma_create_form{
+            fieldset{
+              .address{
+                .control{
+                  a{
+                    color: #666 !important;
+                  }
+                }
+              }
+            }
+            fieldset{
+                  padding: 25px 20px;
+                  margin-bottom: 15px;
+                  @media all and (max-width: 767px) {
+                    padding: 0;
+                  }
+                  .legend {
+                    padding: 0 0 15px;
+                    @media all and(max-width: 767px){
+                      padding: 15px 0 15px !important;
+                    }
+                    span {
+                      font-size: 16px;
+                      color: rgb(51,51,51);
+                      font-family: "iCuracao-Regular";
+                      letter-spacing: 0.7px;
+                    }
+                  }
+                  .control {
+                    @media all and (max-width: 768px) {
+                      width: 100%;
+                    }
+                  }
+                  .field {
+                    font-family: 'iCuracao-Regular' !important;
+                    color: rgb(102,102,102);
+                    .control  {
+                      span  {
+                        font-family: 'iCuracao-Light' !important;
+                      }
+                    }
+                  }
+                  #registrant-options {
+                    .additional {
+                      .actions-toolbar {
+                        .secondary {
+                          display: block !important;
+                          clear: both !important;
+                          margin: 0 !important;
+                          float: left !important;
+                          button {
+                            font-family: 'iCuracao-Regular';
+                            font-size: 14px;
+                            top: -5px;
+                          }
+                        }
+                      }
+                    }
+                  }
+                  .actions-toolbar {
+                    padding: 0;
+                    .secondary {
+                      button#add-item-to-return {
+                        margin: 0;
+                      }
+                    }
+                    .primary{
+                      @media all and(max-width: 767px){
+                        padding-left: 15px !important;
+                        padding-right: 15px !important;
+                      }
+                    }
+                  }
+                  .field.comment {
+                    margin-top: 20px;
+                    width: 100%;
+                    margin-right: 0;
+                  }
+            }
+            .actions-toolbar {
+              padding: 0;
+              .primary {
+                button {
+                  background: #f05c23;
+                  border-color: #f05c23;
+                }
+              }
+            }
+            select,input{
+              border-radius: 5px;
+              min-height: 40px;
+              padding-top: 2px;
+            }
+          }
 					.dashboard_msg,
           .block-dashboard-info,
           .block-dashboard-addresses,
@@ -329,20 +468,136 @@ body{
 						.actions-toolbar{
 							padding: 10px;
 							@media only screen and (min-width: 768px){
-							padding: 15px 20px;
+							padding: 15px 0px;
 							}
         			.primary{
+                float: none;
+                display: block;
           			button{
             			background: @hover-green-color;
             			border-color: @hover-green-color;
-									border-radius: 0;
+                  border-radius: 5px;
+                  margin: 0 auto;
+                    padding: 15px;
             		span{
               		font-size:16px;
               		color:@white;
             		}
           		}
         		}
+            .secondary{
+              float: none;
+              display: block;
+              button{
+                background: @hover-green-color;
+                border: none;
+                border-radius: 5px;
+                padding: 15px;
+                span{
+                  color: @white;
+                }
+              }
+            }
       		}
+          .curacao-payments{
+            width: 55%;
+            margin: 25px 25px 0;
+            color: #333;
+            @media all and (max-width: 1199px) {
+              width: 70%;
+            }
+            @media all and (max-width: 991px) {
+              width: 90%;
+            }
+            .credit{
+              font-family: 'iCuracao-Regular';
+              font-size: 16px;
+              padding-bottom: 15px;
+            }
+          }
+          .other-payments{
+              padding-bottom: 25px;
+              border-bottom: 1px solid #f2f2f2;
+              img {
+                padding: 5px;
+              }
+          }
+          .navigation-bar{
+            float: right;
+            padding: 25px 25px 0 0;
+            .back-navigation{
+              display: flex;
+              .image{
+                width: 10px;
+                padding-top: 1px;
+              }
+            }
+          }
+          .clear{
+            clear: right;
+          }
+          .ordered{
+            padding: 0 20px 0 20px;
+            .order-items{
+              margin-top: 20px;
+              @media all and(max-width: 767px){
+                margin-top: 0;
+              }
+                table{
+                  @media all and (max-width: 767px){
+                    padding-left: 0;
+                  }
+                  thead{
+                    tr{
+                      th{
+                        border-bottom: none !important;
+                      }
+                    }
+                  }
+                  tbody{
+                    .price,.subtotal{
+                      @media all and(max-width: 639px){
+                        text-align: left !important;
+                      }
+                    }
+                  }
+                }
+            }
+          }
+          .invoice,.shipments{
+            border: 0;
+            margin-bottom: 0;
+            .actions-toolbar{
+              @media all and(max-width: 767px){
+                padding-left: 0;
+              }
+            }
+            .order-title{
+              border:none !important;
+            }
+          }
+          #my-invoice-table-2,#my-shipment-table-2{
+            @media all and (max-width: 767px){
+              padding-left: 0;
+            }
+            .qty{
+              @media all and (max-width: 767px)and (min-width: 640px){
+                text-align: center;
+              }
+            }
+            th{
+              border:none !important;
+            }
+          }
+          .shipments{
+            padding-bottom: 0;
+            .order-items-shipment{
+              @media all and(max-width: 767px){
+                margin-bottom: 0;
+                padding: 0 !important;
+              }
+            }
+          }
 				}
 			}
 		}
@@ -377,6 +632,12 @@ body{
 				@media only screen and (min-width: 768px){
 				padding:20px 20px 20px 0 !important;
 				}
+        .primary{
+          button{
+            float: left !important;
+            min-width: 100px;
+          }
+        }
 			}
 	  }
 	}
@@ -400,6 +661,11 @@ body{
           }
         }
       }
+      .fieldset{
+        .choice{
+          width: 100% !important;
+        }
+      }
     }
   }
 .form-newsletter-manage{
@@ -418,11 +684,17 @@ body{
     margin-bottom: 0;
   }
 }
+.block{
+  padding: 25px;
+}
 //ICuracao-My orders tab With LESS styles
 
 .table-wrapper{
   border-bottom: 1px solid @border-color !important;
   border-top: none;
+  @media all and(max-width: 767px){
+    border-bottom: 0 !important;
+  }
   &.orders-history{
     @media all and (min-width:768px) and (max-width:900px){
       overflow-x: scroll;
@@ -497,6 +769,11 @@ body{
 .sales-order-history{
   .table-wrapper{
     border-bottom: none !important;
+    table{
+      @media all and(max-width: 767px){
+        padding: 0;
+      }
+    }
   }
   .order-products-toolbar{
     margin: 15px;
@@ -518,6 +795,7 @@ body{
   }
   .actions-toolbar{
     text-align: right;
+    padding-right: 20px !important;
     @media only screen and (max-width: 767px){
       display: none;
     }
@@ -531,6 +809,7 @@ body{
             color: inherit;
             content: '\003C';
             margin-right: 5px;
+            margin-top: -4px;
             vertical-align: middle;
             display: inline-block;
             font-weight: normal;
@@ -552,31 +831,456 @@ body{
     }
   }
 }
-
-.customer-address-index{
-  .block{
-    @media only screen and (min-width: 768px){
-    margin-bottom: 0px;
-    }
-  }
-  .primary {
-    background-image: none !important;
-    background: transparent !important;
-    border: none !important;
-    padding: 0 !important;
-    button {
-        background: transparent !important;
-        border: none !important;
-        border-radius: 0 !important;
-        span{
-          font-size: 14px !important;
-          font-weight: 600 !important;
-          color: #006bb4 !important;
+.sales-order-view,.sales-order-invoice,.sales-order-shipment{
+  .columns{
+    .column{
+      .page-title-wrapper{
+        .page-title{
+          margin-right: 0;
         }
+        .order-status{
+          border: none;
+          text-transform: capitalize;
+          color: #cccccc;
+          font-style: italic;
+          @media all and(max-width: 767px){
+            margin-top: 6px;
+          }
+        }
+        .order-date{
+              padding-top: 15px;
+              @media all and(max-width: 767px){
+                padding-top: 0px;
+              }
+        }
+        .order-actions-toolbar{
+          padding: 0 !important;
+          margin-bottom: 0;
+        }
+      }
+      .block{
+        @media all and(max-width: 767px){
+          padding: 15px !important;
+        }
+      }
+      .order-links{
+        padding-top: 20px !important;
+        @media all and(max-width: 767px){
+          padding: 15px !important;
+        }
+        .item{
+          strong{
+                border: 1px solid #f2f2f2;
+                border-bottom: 0;
+          }
+          a{
+              border: 1px solid #f2f2f2;
+          }
+        }
+      }
+    }
+    .sidebar-main{
+      .block-collapsible-nav{
+        top:5px !important;
+      }
+    }
+    .main{
+      .block-order-details-view {
+        .block-title{
+
+        }
+        .block-content {
+              border-bottom: 1px solid #f2f2f2;
+          .box{
+            width: 50% !important;
+            display: inline-block !important;
+            min-height: 140px !important;
+            clear: none !important;
+            @media all and(max-width: 767px){
+            width: 100% !important;
+            min-height: 50px !important;
+            }
+          }
+          .box:nth-child(1){
+            float: left !important;
+            @media all and(max-width: 767px){
+              float: none !important;
+            }
+          }
+        }
+      }
     }
   }
 }
 
+.magento-rma-returns-view{
+  .columns{
+    .sidebar-main{
+      .block-collapsible-nav{
+        @media all and(max-width: 767px){
+                  top:5px !important;
+                  padding-left: 15px;
+        }
+        .block-collapsible-nav-title{
+          @media all and(max-width: 767px){
+                    padding-left: 0px;
+          }
+        }
+      }
+    }
+    .column{
+      .page-title-wrapper{
+        @media all and(max-width: 767px){
+          padding-top: 95px !important;
+        }
+        .page-title{
+          margin-right: 0;
+        }
+        .return-status{
+          border: none;
+          text-transform: capitalize;
+          color: #cccccc;
+          font-style: italic;
+          font-size: 16px !important;
+          padding: 0 !important;
+          @media all and(max-width: 767px){
+            margin-top: 6px;
+          }
+        }
+      }
+      .block{
+        @media all and(max-width: 767px){
+          padding: 15px !important;
+        }
+      }
+      .block-return-details{
+        margin-bottom: 0 !important;
+      }
+      .returns-details-items{
+        .block-returns-items{
+          margin-bottom: 0 !important;
+          padding-top: 0 !important;
+          .block-title{
+            @media all and(max-width: 767px){
+              margin-top: 0;
+            }
+          }
+          .block-content{
+            .table-returns{
+              margin: 0 !important;
+              @media all and(max-width: 639px){
+                padding: 0;
+              }
+              table{
+                tbody{
+                  tr{
+                    td{
+                      border: none !important;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        .block-returns-comments{
+          .block-title{
+              margin-bottom: 0 !important;
+          }
+          .block-content{
+            dl{
+              margin-bottom: 0!important;
+            }
+            form{
+              fieldset{
+                .comment{
+                  label{
+                    span{
+                      @media all and(max-width: 767px){
+                      font-size:15px !important;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.magento-rma-returns-create{
+  .columns{
+    .sidebar-main{
+      .block-collapsible-nav{
+        top:5px !important;
+      }
+    }
+    .column{
+      #rma_create_form{
+        @media all and(max-width: 767px){
+          padding-left: 15px !important;
+          padding-right: 15px !important;
+        }
+        fieldset{
+              .field{
+                span,address{
+                  @media all and(max-width: 767px){
+                    font-size: 15px;
+                  }
+                }
+              }
+              #registrant-options{
+                .additional{
+                  .actions-toolbar{
+                    .secondary{
+                      button{
+                        @media all and(max-width: 767px){
+                          top:-14px !important;
+                          padding: 10px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.customer-address-index{
+  .columns{
+    .sidebar-main{
+      .block-collapsible-nav{
+        @media all and(max-width: 767px){
+          top:5px !important;
+          padding-left: 15px !important;
+        }
+        .block-collapsible-nav-title{
+          @media all and(max-width: 767px){
+            padding-left:0 !important;
+          }
+        }
+      }
+    }
+    .column{
+      .page-title-wrapper{
+        @media all and(max-width: 767px){
+            padding-top: 85px !important;
+        }
+      }
+      .block-addresses-default,.block-addresses-list{
+        .block-title{
+          @media all and(max-width: 767px){
+            margin-bottom: 0;
+          }
+        }
+      }
+      .actions-toolbar{
+        .primary{
+          button{
+            float: left !important;
+            @media all and(max-width: 767px){
+              text-align: left;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.newsletter-manage-index,.vault-cards-listaction,.customer-account-edit,.magento-rma-returns-history,
+.customer-account-index,.sales-order-history,.sales-order-view,.magento-rma-returns-create,.customer-address-form{
+  .columns{
+    .sidebar-main{
+      .block-collapsible-nav{
+        @media all and(max-width: 767px){
+          top:5px !important;
+          padding-left: 15px !important;
+        }
+        .block-collapsible-nav-title{
+          @media all and(max-width: 767px){
+            padding-left:0 !important;
+
+          }
+        }
+      }
+    }
+    .column{
+      .page-title-wrapper{
+        @media all and(max-width: 767px){
+          padding-top: 85px !important;
+          font-family: "iCuracao-Regular";
+        }
+      }
+      .block-dashboard-orders,.block-order-details-view{
+        margin-bottom: 0 !important;
+        .block-title{
+          margin-bottom: 0 !important;
+          @media all and(max-width: 767px){
+            padding: 0;
+          }
+        }
+        .block-content{
+          padding-bottom: 0 !important;
+          @media all and(max-width: 767px){
+            font-size: 15px;
+          }
+          table{
+            @media all and(max-width: 767px){
+              padding: 0;
+            }
+          }
+        }
+      }
+      .block-dashboard-info{
+        margin-bottom: 0 !important;
+      }
+      .block-dashboard-info,.block-dashboard-addresses{
+        .block-title{
+            margin-bottom: 0 !important;
+        }
+        .block-content{
+          @media all and(max-width: 767px){
+            font-size: 15px;
+          }
+
+          .box-information,.box-newsletter{
+            .box-content{
+              p{
+                @media all and(max-width: 767px){
+                  font-size: 15px !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.magento-rma-returns-history{
+  .columns{
+    .column{
+      table{
+        @media all and(max-width: 767px){
+          padding-left: 15px !important;
+        }
+        tbody{
+          @media all and(max-width: 767px){
+            font-size: 15px !important;
+          }
+        }
+      }
+    }
+  }
+}
+.customer-account-index,.sales-order-history,.customer-address-form,.newsletter-manage-index,.customer-address-index{
+  .columns{
+    .column{
+      .dashboard_msg,.block-dashboard-orders,.block-dashboard-info,.block-dashboard-addresses,.orders-history,
+      .form-address-edit,.form-newsletter-manage,.block-addresses-default,.block-addresses-list,.actions-toolbar{
+        @media all and(max-width: 767px){
+              padding: 15px !important;
+        }
+      }
+    }
+  }
+}
+.newsletter-manage-index,.vault-cards-listaction,.customer-account-edit,.magento-rma-returns-history,
+.customer-address-index,.magento-rma-returns-create,.magento-rma-returns-view,.sales-order-view,.sales-order-invoice,
+.sales-order-shipment,.customer-account-index,.sales-order-history,.customer-address-form{
+  .columns{
+    .sidebar-main{
+      .block-collapsible-nav{
+        .block-collapsible-nav-title{
+          font-family: "iCuracao-Medium";
+        }
+      }
+    }
+    .column{
+      .page-title-wrapper,.table-wrapper,.block-return-details,.returns-details-items,.fieldset,.dashboard_msg,
+      .block-dashboard-orders,.block-dashboard-info,.block-dashboard-addresses,.block-order-details-comments,.order-links,
+      .order-details-items,.block-order-details-view,.block-addresses-default,.block-addresses-list,.actions-toolbar,
+      .customer-address-form{
+          font-family: "iCuracao-Regular";
+      }
+    }
+  }
+}
+.sales-order-shipment,.sales-order-invoice{
+.column{
+    .order-details-items{
+      padding: 15px;
+    }
+  }
+}
+.customer-address-form,.customer-account-edit,.newsletter-manage-index{
+  .columns{
+    .column{
+      form{
+        fieldset{
+          legend{
+            span{
+              @media all and(max-width: 767px){
+                font-size: 15px !important;
+              }
+            }
+          }
+          .field{
+            label{
+              span{
+                @media all and(max-width: 767px){
+                  font-size: 15px !important;
+                }
+              }
+            }
+          }
+        }
+        .actions-toolbar{
+          @media all and(max-width: 767px){
+            padding: 0 !important;
+          }
+        }
+      }
+    }
+  }
+}
+.customer-account-index{
+  .column{
+    .dashboard_msg{
+      @media all and (max-width: 767px){
+              font-size: 15px;
+      }
+    }
+    .block-dashboard-addresses{
+      .block-title{
+        a{
+          @media all and(max-width: 767px){
+            float: none !important;
+          }
+        }
+      }
+    }
+  }
+}
+.newsletter-manage-index{
+  .columns{
+    .column{
+      form{
+        fieldset{
+          .choice{
+            width: 100% !important;
+          }
+        }
+      }
+    }
+  }
+}
 .sales-order-view{
   .page-main{
     .page-title-wrapper{
@@ -590,7 +1294,6 @@ body{
         text-transform: capitalize;
         color: #cccccc;
         font-style: italic;
-        padding-left: 0;
         @media only screen and (min-width: 991px){
           font-size: 20px !important;
           float: left;
@@ -600,7 +1303,6 @@ body{
         }
       }
       .order-date{
-
         @media only screen and (min-width: 991px){
               display: none;
         }
@@ -613,9 +1315,11 @@ body{
         }
       }
       .order-actions-toolbar{
-        @media all and (max-width:767px){
-          margin-bottom:0;
-        }
+        margin-bottom: 0 !important;
+        padding: 0 !important;
+        // @media all and (max-width:767px){
+        //   margin-bottom:0;
+        // }
         @media only screen and (min-width: 991px){
             float: right;
         }
@@ -650,9 +1354,9 @@ body{
         padding-bottom:10px;
       }
       .block-content{
-        @media all and (max-width:767px){
-          padding:10px !important;
-        }
+        // @media all and (max-width:767px){
+        //   padding:10px !important;
+        // }
       }
     }
   }
@@ -662,6 +1366,9 @@ body{
           float: left;
           padding-right: 10px;
         }
+        @media all and(max-width: 767px){
+          margin-bottom: 10px;
+        }
       }
       .box-content{
         @media only screen and (min-width: 768px){
@@ -670,9 +1377,13 @@ body{
       }
     }
   .order-details-items {
-    border: none;
+    border: none !important;
     @media only screen and (min-width: 768px){
       margin-bottom: 10px;
+    }
+    @media only screen and (max-width: 767px){
+      margin-bottom:0px;
+      padding: 0 15px 0 15px !important;
     }
     .order-title {
       @media only screen and (max-width: 767px){
@@ -683,12 +1394,21 @@ body{
   }
   .order-links{
       @media only screen and (min-width: 768px){
-        padding: 15px 15px 15px 0;
+        padding: 15px 15px 15px 25px;
       }
       .item strong {
-        border: none;
+        background: #fff;
+        color: #6d6d6d;
+        border: 1px solid #f2f2f2;
+        display: block;
+        padding: 14px 35px 11px 35px !important;
         @media only screen and (max-width: 768px){
           display: none;
+        }
+      }
+      .current{
+        strong{
+      padding: 14px 35px 11px 35px !important;
         }
       }
     }
@@ -728,6 +1448,29 @@ body{
         }
       }
     }
+}
+.customer-address-index{
+  .block{
+    @media only screen and (min-width: 768px){
+    margin-bottom: 0px;
+    }
+  }
+  .primary {
+    background-image: none !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    button {
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        span{
+          font-size: 14px !important;
+          font-weight: 600 !important;
+          color: #006bb4 !important;
+        }
+    }
+  }
 }
 .box-order-billing-address{
   .box-content{
