@@ -45,7 +45,7 @@
               <div id="deliverycontents" style="display:none" data-bind="visible: state">
                  <div data-bind="attr: {id:'deliverydetails'+$data.item_id()}">
                 </div>
-                <button type="button" class="action" data-bind="event:{click:changeLocation.bind(this)}" >
+                <button type="button" class="action" style="display:none" data-bind="event:{click:changeLocation.bind(this)}" >
                    <span data-bind="i18n: 'Change'"></span>
                 </button>
               </div>
@@ -63,87 +63,22 @@
    display: none;
  }
 </style>
-            <div id="dialog-message">
-                <div class="modal-top-strip">Showing free in store pickup for the Zip code
-                </div>
-                <div class="modal-body-content">
-                  <div class="store-zipcode-outer">
-                    <label>90280
-                    </label>
-                      <button class="change">Change</button>
-                  </div>
-                  <h4>Available Stores<span class="store-count">(4)</span></h4>
-                  <div class="avail-store-outer">
-                    <div class="avail-store-item">
-                      <div class="avail-store-image">
-                        <img src="http://mikemoir.com/mikemoir/wp-content/uploads/2015/06/MedRes_Product-presentation-2.jpg"/>
+     <div id="dialog-message" style="display:none">
+      <div class="modal-top-strip" data-bind="i18n: 'Showing free in store pickup for the Zip code'">
+      </div>
+      <div class="modal-body-content">
+        <div class="store-zipcode-outer">
+          <label>90280
+          </label>
+            <button class="change" data-bind="i18n: 'Change'"></button>
+        </div>
+        <h4 data-bind="i18n: 'Available Stores'"> <span class="store-count"> (4)</span></h4>
+        <div class="avail-store-outer">
+        <!-- temporary working -->
 
-                        <p class="store-distance">2mi</p>
-                      </div>
-                      <div class="avail-store-details">
-                        <ul>
-                          <li class="store-location">South Gate</li>
-                          <li>8618 Garfield Ave</li>
-                          <li>South Gate, CA 90280</li>
-                          <li>(562) 927-3027</li>
-                          <form class="form" data-bind="attr: {id:'storeselection'}">
-                              <input type="hidden" data-bind="attr: {id:'location_id',name:'location_id'},value:'2'"/>
-                              <input type="hidden" data-bind="attr: {id:'item_id',name:'item_id'},value:'56'"/>
-                              <button type="button" class="action" data-bind="event:{click:updateLocation.bind(this,event)}" >
-                                 <span data-bind="i18n: 'Change'"></span>
-                              </button>
-                          </form>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="avail-store-item">
-                      <div class="avail-store-image">
-                        <img src="../images/south-gate-store.png"/>
-                        <p class="store-distance">2mi</p>
-                      </div>
-                      <div class="avail-store-details">
-                        <ul>
-                          <li class="store-location">South Gate</li>
-                          <li>8618 Garfield Ave</li>
-                          <li>South Gate, CA 90280</li>
-                          <li>(562) 927-3027</li>
-                          <button>Select</button>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="avail-store-item">
-                      <div class="avail-store-image">
-                        <img src="../images/south-gate-store.png"/>
-                        <p class="store-distance">2mi</p>
-                      </div>
-                      <div class="avail-store-details">
-                        <ul>
-                          <li class="store-location">South Gate</li>
-                          <li>8618 Garfield Ave</li>
-                          <li>South Gate, CA 90280</li>
-                          <li>(562) 927-3027</li>
-                          <button>Select</button>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="avail-store-item">
-                      <div class="avail-store-image">
-                        <img src="../images/south-gate-store.png"/>
-                        <p class="store-distance">2mi</p>
-                      </div>
-                      <div class="avail-store-details">
-                        <ul>
-                          <li class="store-location">South Gate</li>
-                          <li>8618 Garfield Ave</li>
-                          <li>South Gate, CA 90280</li>
-                          <li>(562) 927-3027</li>
-                          <button>Select</button>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </div>
+        </div>
+      </div>
+  </div>
         <!--- Next button -->
         <form data-bind="submit: navigateToNextStep" novalidate="novalidate">
             <div class="actions-toolbar">
