@@ -74,3 +74,18 @@ if ($viewModel) {
         }
     }
 </script>
+<script type="text/javascript">
+    require(['jquery'], function ($) {
+        'use strict';
+
+        $(function () {
+            var addToCartButton = $('#product-addtocart-button');
+
+            addToCartButton.click(function () {
+                if ($('#warranty_options').length === 0) {
+                    addToCartButton.trigger('submit');
+                }
+            });
+        });
+    });
+</script>
