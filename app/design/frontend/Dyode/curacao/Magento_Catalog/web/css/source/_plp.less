@@ -29,9 +29,14 @@
       box-shadow: none;
     }
   }
+
+  .nav-sections {
+    margin-bottom: 25px;
+  }
   //breadcrumbs styling
   .breadcrumbs {
     max-width: 1500px !important;
+    margin-bottom: 25px;
 
     .items {
       .item {
@@ -74,11 +79,14 @@
 
   .page-main {
     max-width: 1500px !important;
+    @media all and (max-width:767px) {
+      margin-top: 170px !important;
+    }
     //PLP banner styling for sektop and mobile version
     .categorybanner-container {
       margin-bottom: 25px;
       @media screen and (max-width: 767px) {
-        margin-bottom: 15px;
+        margin-bottom: 20px;
       }
 
       .catgeorybanner-desktop {
@@ -330,7 +338,7 @@
               ol {
                 list-style: none;
                 padding-left: 0;
-                margin: 0 0 45px;
+                margin: 0 0 50px;
                 max-height: 220px;
                 overflow-y: auto;
 
@@ -348,17 +356,18 @@
               }
               /* Track */
               ol::-webkit-scrollbar-track {
-                box-shadow: inset 0 0 5px grey;
+               box-shadow: inset 0 0 5px #ebebeb;
+              background: #ebebeb;
                 border-radius: 10px;
               }
               /* Handle */
               ol::-webkit-scrollbar-thumb {
-                background:#84b90a;
+                background: #d0d0d0;
                 border-radius: 10px;
               }
               /* Handle on hover */
               ol::-webkit-scrollbar-thumb:hover {
-                background: green;
+                background: #d0d0d0;
               }
             }
 
@@ -652,7 +661,7 @@
                 font-family: 'iCuracao-Medium';
                 content: 'List' !important;
                 font-size: 14px;
-                @media all and (max-width: 767px){
+                @media all and (max-width: 767px) {
                   font-size: 12px;
                 }
               }
@@ -663,7 +672,7 @@
                 font-size: 14px;
                 left: 8px;
                 position: relative;
-                @media all and (max-width: 767px){
+                @media all and (max-width: 767px) {
                   font-size: 12px;
                 }
               }
@@ -953,19 +962,20 @@
                 width: 100%;
                 padding: 0 10px 0 100px;
                 margin: 20px 0;
-                @media all and (max-width: 479px){
+                @media all and (max-width: 479px) {
                   margin: 20px 0 0;
                   padding: 0 10px;
                 }
 
                 .items {
-                  &.pages-items{
+                  &.pages-items {
                     padding: 0;
                   }
+
                   .item {
                     text-transform: uppercase;
                     font-family: 'iCuracao-Light';
-                    margin:0 15px 0 0;
+                    margin: 0 15px 0 0;
 
                     a {
                       color: @black;
@@ -977,10 +987,12 @@
                       }
                     }
 
-                    &.pages-item-next,&.pages-item-previous {
+                    &.pages-item-next,
+                    &.pages-item-previous {
                       position: static;
                     }
-                    &.pages-item-next{
+
+                    &.pages-item-next {
                       margin-right: 0;
                     }
                   }
@@ -1010,7 +1022,7 @@
                 margin: 20px 0;
                 display: block !important;
                 text-align: left;
-                @media all and (max-width: 479px){
+                @media all and (max-width: 479px) {
                   padding: 0 10px;
                   margin: 10px 0 20px;
                   position: static;
@@ -1085,9 +1097,10 @@
               }
 
               .product-item-info {
-                @media all and (max-width: 479px){
-                  width:100% !important;
+                @media all and (max-width: 479px) {
+                  width: 100% !important;
                 }
+
                 .product-item-details {
                   text-align: center;
                 }
@@ -1268,7 +1281,7 @@
           @media all and (max-width:767px) {
             font-size: 12px;
           }
-          @media all and (max-width: 375px){
+          @media all and (max-width: 375px) {
             font-size: 11px;
           }
 
@@ -1302,9 +1315,10 @@
     margin: 20px 0;
   }
 }
-#layer-product-list{
-  dl{
-    &.block{
+
+#layer-product-list {
+  dl {
+    &.block {
       display: none;
     }
   }
@@ -1334,7 +1348,7 @@
 .catalog-category-view {
   @media all and (min-width:768px) and (max-width:1024px) {
     .breadcrumbs {
-      margin-top: 100px;
+      margin-top: 120px;
     }
 
     main#maincontent {
