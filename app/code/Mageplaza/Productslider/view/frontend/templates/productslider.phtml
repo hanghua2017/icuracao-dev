@@ -30,16 +30,15 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
 	$showCart = true;
 	$rating = 'short';
 	$description = ($mode == 'list') ? true : false;
-
 }
 ?>
 
 <?php if ($exist):?>
-	<?php if($items !=NULL):?>
-	<?php if ($title): ?>
-	<div class="mp-product-slider-block block widget block-products-list <?php echo $mode; ?>">
-		<div class="slider-title">
 
+	<div class="mp-product-slider-block block widget block-products-list <?php echo $mode; ?>">
+	<?php if($items !=NULL):?>
+		<?php if ($title): ?>
+		<div class="slider-title">
 			<h2 class="widget-title"><?php echo $title; ?></h2>
 		</div>
 	<?php endif;?>
