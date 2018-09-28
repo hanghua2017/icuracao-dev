@@ -194,7 +194,10 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 					$locationInventory->addData([
 						"productid" => $sku,
 						"productsku" => $sku,
-						"inventory" => $jsonAR_invAfterPendingAndThreshold
+						"set" => 0,
+						"arinventory" => $jsonAR_inv,
+						"inventoryafterpending" => $jsonAR_invAfterPending,
+						"finalinventory" => $jsonAR_invAfterPendingAndThreshold
 						]);
 			        $saveData = $locationInventory->save();
 				}

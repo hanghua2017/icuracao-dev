@@ -29,7 +29,24 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface{
                                 ['nullable'=>false]
                                 )
                             ->addColumn(
-                                'inventory',
+                                'isset',
+                                Table::TYPE_BOOLEAN,
+                                ['nullable'=>false]
+                                )
+                            ->addColumn(
+                                'arinventory',
+                                Table::TYPE_TEXT,
+                                '2M',
+                                ['nullbale'=>true,'default'=>'']
+                                )
+                            ->addColumn(
+                                'inventoryafterpending',
+                                Table::TYPE_TEXT,
+                                '2M',
+                                ['nullbale'=>true,'default'=>'']
+                                )
+                            ->addColumn(
+                                'finalinventory',
                                 Table::TYPE_TEXT,
                                 '2M',
                                 ['nullbale'=>true,'default'=>'']
