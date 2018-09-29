@@ -4,7 +4,7 @@
         <p class="title-desc"><span><?php /* @escapeNotVerified */ echo __("We'll Beat any Competitor's Prices") ?></span></p>
         <div class="field required firstName-box">
             <div class="control">
-                <input type="text" id="first_name" name="first_name" placeholder="First Name" class="input-text" required="true"/>
+                <input type="text" id="first_name" name="first_name" placeholder="First Name" class="input-text"/>
             </div>
         </div>
         <div class="field required lastName-box">
@@ -45,7 +45,7 @@
         </div>
 
         <label for="productimage" class="label"><span><?php /* @escapeNotVerified */ echo __("Competitor's product image or screenshot") ?></span></label>
-        <div class="control uploadFile-box">
+        <div class="control uploadFile-box" id= "upload_file_box">
           <input type="file" name="upload_file" class="input-text upload"/>
           <label for="file">Choose file</label>
         </div>
@@ -87,46 +87,46 @@
 require([
   'jquery'
 ], function($) {$(function() {
-    console.log('Interestbeat js is called');
+    console.log('Pricebeat js is called');
     $('#pricebeat-btn').on('click', function(e) {
       e.preventDefault();
-      var productlink = $('#product_url').val();
-      var product_image = $('input[name=upload_file]').val();
-      var first_name = $('#first_name').val();
-      var last_name = $('#first_name').val();
-      var email = $('#email').val();
-      var phonenumber = $('#phonenumber').val();
-      var account_number = $('#account_number').val();
-      var invoice_number = $('#invoice_number').val();
-      if(first_name=="")
-      {
-        $('#first_name').after('<span class="error">This field is required</span>');
+      var productlink    = $('#product_url').val();
+      var product_image  = $('input[name=upload_file]').val();
+      var first_name     = $('#first_name').val();
+      var last_name      =$('#last_name').val();
+      var email          =$('#email').val();
+      var phonenumber    =$('#phonenumber').val();
+      var account_number =$('#account_number').val();
+      var invoice_number =$('#invoice_number').val();
+      $(".error").remove();
+      if(first_name== ""){
+        console.log('firstname is empty');
+        $('#first_name').after('<span class="error">First name is required</span>');
       }
-      if(last_name=="")
-      {
-        $('#last_name').after('<span class="error">This field is required</span>');
+      if(last_name== ""){
+        console.log('lastname is empty');
+        $('#last_name').after('<span class="error">Last name is required</span>');
       }
-      if(email=="")
-      {<div class="price-beat-details">
-  <img src="<?php echo $this->getViewFileUrl('images/price-beat-detail.png'); ?>" />
-</div>
-        $('#email').after('<span class="error">This field is required</span>');
+      if(email== ""){
+        console.log('email is empty');
+        $('#email').after('<span class="error">Email-id is required</span>');
       }
-      if(phonenumber=="")
-      {
-        $('#phonenumber').after('<span class="error">This field is required</span>');
+      if(phonenumber== ""){
+        console.log('phonenumber is empty');
+        $('#phonenumber').after('<span class="error">Phone number is required</span>');
       }
-      if(account_number=="")
-      {
-        $('#account_number').after('<span class="error">This field is required</span>');
+      if(account_number== ""){
+        console.log('account_number is empty');
+        $('#account_number').after('<span class="error">Account number is required</span>');
       }
-      if(invoice_number=="")
-      {
-        $('#invoice_number').after('<span class="error">This field is required</span>');
+      if(invoice_number== ""){
+        console.log('invoice_number is empty');
+        $('#invoice_number').after('<span class="error">Invoice number is required</span>');
       }
       console.log(productlink+" "+product_image);
       if (productlink == "" && product_image == "") {
-        $('#product_url').after('<span class="error">This field is required</span>');
+        console.log('file and url not uploaded');
+        $('#product_url').after('<span class="error">Product Link or Product Image is required</span>');
       } else {
         console.log('hello from else');
         $('#pricebeat').submit();

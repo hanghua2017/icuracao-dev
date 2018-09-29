@@ -5,7 +5,7 @@
 
       <div class="field required firstName-box">
           <div class="control">
-              <input type="text" id="first_name" name="first_name"  placeholder="First Name" class="input-text" required="true"/>
+              <input type="text" id="first_name" name="first_name"  placeholder="First Name" class="input-text"/>
           </div>
       </div>
       <div class="field required lastName-box">
@@ -87,11 +87,43 @@ require([
   console.log('Interestbeat js is called');
   $('#interestbeat-btn').on('click', function(e) {
     e.preventDefault();
-    var productlink = $('#product_url').val();
-    var product_image = $('input[name=upload_file]').val();
+    var productlink    = $('#product_url').val();
+    var product_image  = $('input[name=upload_file]').val();
+    var first_name     = $('#first_name').val();
+    var last_name      =$('#last_name').val();
+    var email          =$('#email').val();
+    var phonenumber    =$('#phonenumber').val();
+    var account_number =$('#account_number').val();
+    var invoice_number =$('#invoice_number').val();
+    $(".error").remove();
+    if(first_name== ""){
+      console.log('firstname is empty');
+      $('#first_name').after('<span class="error">First name is required</span>');
+    }
+    if(last_name== ""){
+      console.log('lastname is empty');
+      $('#last_name').after('<span class="error">Last name is required</span>');
+    }
+    if(email== ""){
+      console.log('email is empty');
+      $('#email').after('<span class="error">Email-id is required</span>');
+    }
+    if(phonenumber== ""){
+      console.log('phonenumber is empty');
+      $('#phonenumber').after('<span class="error">Phone number is required</span>');
+    }
+    if(account_number== ""){
+      console.log('account_number is empty');
+      $('#account_number').after('<span class="error">Account number is required</span>');
+    }
+    if(invoice_number== ""){
+      console.log('invoice_number is empty');
+      $('#invoice_number').after('<span class="error">Invoice number is required</span>');
+    }
     console.log(productlink+" "+product_image);
     if (productlink == "" && product_image == "") {
-        $('#product_url').after('<span class="error">This field is required</span>');
+      console.log('file and url not uploaded');
+        $('#product_url').after('<span class="error">Product Link or Product Image is required</span>');
     } else {
       console.log('hello from else');
       $('#interestbeat').submit();
