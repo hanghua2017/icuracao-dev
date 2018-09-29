@@ -44,8 +44,12 @@
           margin: 0;
         }
         .column.main {
+          @media all and (max-width: 768px) {
+            padding-top: 30px;
+          }
           @media all and (max-width: 599px) {
             padding-bottom: 0;
+            padding-top: 0;
           }
           .login-container {
             max-width: 485px;
@@ -115,6 +119,58 @@
                         &.password {
                           border-bottom-left-radius: 5px;
                           border-bottom-right-radius: 5px;
+                        }
+                        //Styling for captcha
+                        &.captcha {
+                          &.required {
+                            margin-top: 20px;
+                          }
+                          border: none !important;
+                          label[for=captcha_user_login] {
+                            display: block;
+                          }
+                          .control.captcha {
+                            input {
+                              border: 1px solid #c2c2c2 !important;
+                              border-radius: 3px;
+                              height: 38px;
+                            }
+                            .nested {
+                              clear: both;
+                              float: left;
+                              width: 100%;
+                              margin-bottom: 20px;
+                              #captcha-container-user_login {
+                                margin-bottom: 0;
+                              }
+                              .field.captcha {
+                                border: none;
+                                .captcha-image {
+                                  .captcha-img {
+                                    float: left;
+                                  }
+                                  button.captcha-reload {
+                                    float: right;
+                                  }
+                                  // button.captcha-reload {
+                                  //   padding: 7px 10px;
+                                  //   border-radius: 5px;
+                                  //   background-color: @theme-color;
+                                  //   border-color: @theme-color;
+                                  //   margin-top: 20px;
+                                  //   margin-right: 0;
+                                  //   box-shadow: none;
+                                  //   span {
+                                  //     font-size: 19px;
+                                  //     color: white;
+                                  //     font-family: "iCuracao-Light";
+                                  //     letter-spacing: 1px;
+                                  //   }
+                                  // }
+                                }
+                              }
+                            }
+                          }
                         }
                         .label {
                           display: none;
@@ -215,8 +271,8 @@
                           width: 100%;
                           height: 44px;
                           border-radius: 5px;
-                          background-color: @green-color;
-                          border-color: @green-color;
+                          background-color: @theme-color;
+                          border-color: @theme-color;
                           margin-top: 20px;
                           margin-right: 0;
                           span {
