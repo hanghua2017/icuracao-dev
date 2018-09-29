@@ -668,25 +668,6 @@ select:focus, input:focus {
       }
     }
   }
-.form-newsletter-manage{
-  padding: 10px;
-  @media all and (min-width:768px){
-    padding:10px 20px;
-  }
-}
-.block-wishlist{
-  display: none;
-}
-.block, .customer-review .product-details,
-.block-banners,
-.block-banners-inline {
-  @media only screen and (max-width: 767px){
-    margin-bottom: 0;
-  }
-}
-.block{
-  padding: 25px;
-}
 //ICuracao-My orders tab With LESS styles
 
 .table-wrapper{
@@ -748,18 +729,6 @@ select:focus, input:focus {
 .sales-guest-view .data.table .col.actions .action:after,
 .block .box-actions .action:after {
   border-left: none;
-}
-.order-products-toolbar {
-  padding: 10px 0;
-  @media only screen and (min-width: 768px){
-    padding: 20px;
-  }
-}
-.toolbar{
-  select {
-      background-color: @white;
-      border-radius: 0;
-  }
 }
 .account .page-main, .cms-privacy-policy .page-main {
   @media only screen and (max-width: 767px){
@@ -1472,38 +1441,75 @@ select:focus, input:focus {
     }
   }
 }
-.box-order-billing-address{
-  .box-content{
-    address{
-      a{
-        color: #666;
-      }
 
-    }
-  }
-}
-.block-addresses-list{
-  .block-content{
-    address{
-      a{
-        color: #666;
-      }
-
-    }
-  }
-}
-.choice{
-  input[type="checkbox"] {
-      margin: 0px 5px 0 0;
-      vertical-align: middle;
-  }
-  .label{
-    vertical-align: middle;
-  }
-}
 //Mobile tablet View
 .account .column.main .block:not(.widget) .order > .view {
   @media only screen and (max-width: 767px){
     float: none;
+  }
+}
+/*common styling for account pages*/
+.account{
+  .page-main{
+    .choice{
+      input[type="checkbox"] {
+          margin: 0px 5px 0 0;
+          vertical-align: middle;
+      }
+      .label{
+        vertical-align: middle;
+      }
+    }
+    .block-addresses-list{
+      .block-content{
+        address{
+          a{
+            color: #666;
+          }
+
+        }
+      }
+    }
+    .box-order-billing-address{
+      .box-content{
+        address{
+          a{
+            color: #666;
+          }
+
+        }
+      }
+    }
+    .order-products-toolbar {
+      padding: 10px 0;
+      @media only screen and (min-width: 768px){
+        padding: 20px;
+      }
+    }
+    .toolbar{
+      select {
+          background-color: @white;
+          border-radius: 0;
+      }
+    }
+    .form-newsletter-manage{
+      padding: 10px;
+      @media all and (min-width:768px){
+        padding:10px 20px;
+      }
+    }
+    .block-wishlist{
+      display: none;
+    }
+    .block, .customer-review .product-details,
+    .block-banners,
+    .block-banners-inline {
+      @media only screen and (max-width: 767px){
+        margin-bottom: 0;
+      }
+    }
+    .block{
+      padding: 25px;
+    }
   }
 }

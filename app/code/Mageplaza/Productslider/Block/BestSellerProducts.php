@@ -50,10 +50,18 @@ class BestSellerProducts extends \Mageplaza\Productslider\Block\AbstractSlider
 		$productCollection = $reportCollection->create('Magento\Sales\Model\ResourceModel\Report\Bestsellers\Collection');
         $productCollection->setPeriod('month');
         foreach ($productCollection as $product) {
-				//	echo $product->getProductId();
+				//	getProductId()
            $productIds[]=$this->getProductData($product->getProductId());
         }
+        $isNumeric = is_numeric($this->getData('parentcat'));
+        $filterCats = $this->getData('parentcat');
+       // filter bestselling products using category id
+        if ($isNumeric && $filterCats!='0' ){
+        $collection      = $objectManager->create('\Magento\Catalog\Model\ResourceModel\Product\Collection')->addIdFilter($productIds)->addCategoriesFilter(array('in' => $filterCats));
+        }
+         else{
         $collection      = $objectManager->create('\Magento\Catalog\Model\ResourceModel\Product\Collection')->addIdFilter($productIds);
+        }
         $collection->addMinimalPrice()
             ->addFinalPrice()
             ->addTaxPercents()
