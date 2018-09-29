@@ -35,7 +35,7 @@ select:focus, input:focus {
     border-bottom: 1px solid @border-color;
 }
 //ICuracao-Account With LESS styles
-.account{
+.account.customer-account-index {
 	background-color: @background-white;
   .page.messages{
       @media only screen and (max-width: 767px){
@@ -68,15 +68,30 @@ select:focus, input:focus {
   					-moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
   					box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
             border: 1px solid @border-color;
-    			}
-					@media only screen and (min-width: 768px){
-						border: 15px solid @white;
+            padding: 20px;
             margin-bottom: 15px;
-					}
-          @media only screen and (max-width: 768px){
+    			}
+          @media only screen and (max-width: 767px){
             font-family: "iCuracao-Regular";
             font-size: 15px !important;
+            padding-top: 10px;
+            padding-bottom: 0;
 					}
+          .block-collapsible-nav-title {
+            padding: 15px 15px 20px;
+            @media all and (max-width: 1199px) {
+              padding: 15px 10px 20px;
+            }
+            @media all and (max-width: 767px) {
+              padding-top: 0;
+              padding-bottom: 0;
+            }
+            strong {
+              font-size: 17px;
+              font-family: "iCuracao-Medium";
+              font-weight: 500;
+            }
+          }
 					.content{
 						background:@white;
 						color: @item-color;
@@ -95,19 +110,24 @@ select:focus, input:focus {
 										color: @active-blue-color !important;
 										font-size: 14px;
 										font-weight: 600;
-										// padding: 12px 18px 12px 15px;
-                    padding: 11px 35px 14px 35px !important;
+										padding: 15px;
                     @media only screen and (max-width: 767px){
                       border-left:4px solid @hover-green-color;
+                    }
+                    @media all and (max-width: 1099px) {
+                      padding: 15px 10px;
                     }
 								}
 								a{
 									color: @head-color;
-									padding: 12px 18px 12px 15px;
+									padding: 15px;
 									border-color: transparent !important;
 									@media only screen and (min-width: 768px){
 										font-size: 14px;
 									}
+                  @media all and (max-width: 1099px) {
+                    padding: 15px 10px;
+                  }
 									&:hover {
 										color: @hover-green-color;
 										background-color:@background-white;
@@ -132,7 +152,7 @@ select:focus, input:focus {
       .block-collapsible-nav .title:after {
         color: @active-blue-color !important;
         @media only screen and (max-width: 767px){
-          margin: 10px 0 0 0;
+          margin: 5px -10px 0 0;
         }
       }
       .abs-visually-hidden-desktop, .modes-label,
@@ -1221,6 +1241,17 @@ select:focus, input:focus {
   }
 }
 .customer-account-index{
+  #maincontent {
+    .columns {
+      .sidebar-main {
+        .block {
+          &.block-collapsible-nav {
+            padding: 20px;
+          }
+        }
+      }
+    }
+  }
   .column{
     .dashboard_msg{
       @media all and (max-width: 767px){
