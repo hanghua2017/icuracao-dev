@@ -1,0 +1,99 @@
+
+  <?php
+   $Id = $block->getData('id_path');
+   $categoryId=filter_var($Id, FILTER_SANITIZE_NUMBER_INT);
+   //  view model
+   $emiBlock = $block->getLayout()->getBlock('emi_block');
+   $emiViewModel = $emiBlock->getViewModel();
+   $_objectManager =  \Magento\Framework\App\ObjectManager::getInstance();
+   $categoryFactory = $_objectManager->get('\Magento\Catalog\Model\CategoryFactory');
+   $categoryHelper = $_objectManager->get('\Magento\Catalog\Helper\Category');
+   $categoryRepository = $_objectManager->get('\Magento\Catalog\Model\CategoryRepository');
+   $imageHelper  = $_objectManager->get('\Magento\Catalog\Helper\Image');
+   $productHelper = $_objectManager->create('Magento\Catalog\Model\Product');
+   $productData = $_objectManager->create('Magento\Catalog\Model\ProductRepository');
+   $category = $categoryFactory->create()->load($categoryId);
+   $categoryProducts = $category->getProductCollection()
+                                 ->addAttributeToSelect('*')->setPageSize(5);
+   if($categoryProducts):
+   if($block->getData('widgettitle')): ?>
+   <div class="slider-title">
+     <h2 class='widget-title'><?php echo $block->getData('widgettitle'); ?></h2>
+   </div>
+   <?php endif; ?>
+   <div class="owl-carousel product-slider-carousel" >
+     <?php
+      foreach ($categoryProducts as $product) {
+        ?>
+      <div class="item">
+        <a href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>">
+          <?php
+              $_price= $product->getPrice();
+              $_finalPrice= $product->getSpecialPrice();
+              // $specialPriceFromDate = $product->getSpecialFromDate();
+              // $specialPriceToDate = $product->getSpecialToDate();
+              // $today =  time();
+                if ($_finalPrice && ($product->getPrice()>$product->getFinalPrice())):
+                  // if($today >= strtotime( $specialPriceFromDate) && $today <= strtotime($specialPriceToDate) ||
+                  //      $today >= strtotime( $specialPriceFromDate) && is_null($specialPriceToDate)):
+                       //product in sales
+                      $_savePercent = 100-round(($_finalPrice / $_price) * 100);
+                 ?>
+                  <span class="discount-flag"><?php echo $_savePercent . "% Off";?></span>
+                  <?php
+                // endif;
+              endif;
+          ?>
+        <?php
+               $imagewidth = 250;
+               $imageheight = 250;
+        ?>
+          <?php $image_url = $imageHelper->init($product, 'product_page_image_large')->setImageFile($product->getFile())->resize($imagewidth, $imageheight)->getUrl();?>
+          <div class="productimage-container">
+            <img src="<?php echo $image_url;?>" alt="product"/>
+          </div>
+            <h3><?php echo $product->getName();?></h3>
+
+              <p class="price"><span class="original-price <?php echo $product->getSpecialPrice() ? 'has-special-price' : '' ?>"><?php echo "$".number_format($_price,2);?></span><span class="discount-price"><?php if($_finalPrice!=NULL){echo "$";echo number_format(  $_finalPrice,2);}?></span></p>
+              <?php if($emiViewModel != NULL) {?>
+                 <?php $emi = $emiViewModel->monthlyEmi($product->getFinalPrice());?>
+              <?php }?>
+
+              <?php if($emi!=0):?>
+<p class="subtext"><?php echo "or as low as ";?><span class="amount"><?php echo"$". "".number_format($emi,2)." "."/month";?></span></p>
+<?php endif?>
+          </a>
+      </div>
+  <?php
+      }
+      ?>
+  </div>
+  <?php endif; ?>
+  <script type="text/x-magento-init">
+      {
+      ".product-slider-carousel": {
+          "OwlCarousel": {
+            "items": 5,
+            "dots":false,
+            "loop": true,
+            "nav":true,
+            "margin": 0,
+            "navText": ["<div class='custom-prev'><div class='left'></div></div>", "<div class='custom-next'><div class='right'></div></div>"],
+            "responsive": {
+              "0": {
+                "items": 1
+              },
+              "400": {
+                "items": 2
+              },
+              "768": {
+                "items": 3
+              },
+              "1045": {
+                "items": 5
+              }
+            }
+          }
+        }
+      }
+  </script>
