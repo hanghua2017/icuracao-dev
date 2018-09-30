@@ -372,8 +372,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         }
         $inventoryLocations = json_decode($result[0]['finalinventory']);
         print_r($inventoryLocations);
-        die();
-        if ($vendorId == '2139') {  # If the vendor is not Curacao
+        if ($vendorId != '2139') {  # If the vendor is not Curacao 
             return '33';
         } else {    # If the vendor is Curacao
             # Get Order Details
@@ -547,6 +546,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $groupedLocationFound = 0;
         $availableLocations = array();
         $groupedLocation = array();
+        
         foreach ($orderItems as $itemId => $productInfo) {
             # code...
             $product = $this->getProductById($productInfo['ProductId']);
