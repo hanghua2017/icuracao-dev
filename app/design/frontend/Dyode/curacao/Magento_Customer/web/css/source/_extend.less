@@ -35,7 +35,7 @@ select:focus, input:focus {
     border-bottom: 1px solid @border-color;
 }
 //ICuracao-Account With LESS styles
-.account.customer-account-index {
+.account {
 	background-color: @background-white;
   .page.messages{
       @media only screen and (max-width: 767px){
@@ -61,51 +61,75 @@ select:focus, input:focus {
 			}
 			//ICuracao-Account sidebar navigation tab styles
       .sidebar-main{
-				.block-collapsible-nav{
-					border: none;
-          @media only screen and (min-width: 768px){
-            -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
-  					-moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
-  					box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
-            border: 1px solid @border-color;
-            padding: 20px;
-            margin-bottom: 15px;
-    			}
-          @media only screen and (max-width: 767px){
+        .block {
+          &.block-collapsible-nav{
+  					border: none;
             font-family: "iCuracao-Regular";
-            font-size: 15px !important;
-            padding-top: 10px;
-            padding-bottom: 0;
-					}
-          .block-collapsible-nav-title {
-            padding: 15px 15px 20px;
-            @media all and (max-width: 1199px) {
-              padding: 15px 10px 20px;
+            @media only screen and (min-width: 768px){
+              -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+    					-moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+    					box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+              border: 1px solid @border-color;
+              padding: 20px;
+              margin-bottom: 15px;
+      			}
+            @media all and (max-width: 991px) {
+              padding: 20px 15px;
             }
-            @media all and (max-width: 767px) {
-              padding-top: 0;
-              padding-bottom: 0;
-            }
-            strong {
-              font-size: 17px;
-              font-family: "iCuracao-Medium";
-              font-weight: 500;
-            }
-          }
-					.content{
-						background:@white;
-						color: @item-color;
             @media only screen and (max-width: 767px){
-              border-bottom:none;
+              font-size: 15px !important;
+              padding: 20px 0 0 !important;
+  					}
+            .block-collapsible-nav-title {
+              padding: 15px 15px 20px;
+              @media all and (max-width: 1199px) {
+                padding: 15px 10px 20px;
+              }
+              @media all and (max-width: 767px) {
+                  padding: 0 45px 20px 20px;
+              }
+              @media all and (max-width: 479px) {
+                padding: 0 30px 20px 15px;
+              }
+              strong {
+                font-size: 16px;
+                font-family: "iCuracao-Medium";
+                font-weight: 500;
+              }
             }
-						.items{
-							.item{
-								margin: 0;
-								border-bottom: 1px solid @border-color;
-								&:last-child {
-									border: none;
-								}
-								&.current a, &.current > strong{
+            .block-collapsible-nav-content
+            {
+              background:@white;
+              color: @item-color;
+              @media only screen and (max-width: 767px){
+                  border-bottom: 1px solid #f2f2f2;
+              }
+              &.active {
+                @media all and (max-width: 767px) {
+                  padding-top: 0;
+                  border-bottom: 1px solid #f2f2f2;
+                  -webkit-box-shadow: 0px 4px 10px -5px rgba(0,0,0,0.06);
+                  -moz-box-shadow: 0px 4px 10px -5px rgba(0,0,0,0.06);
+                  box-shadow: 0px 4px 10px -5px rgba(0,0,0,0.06);
+                }
+              }
+              .items{
+  							.item{
+  								margin: 0;
+  								border-bottom: 1px solid @border-color;
+  								&:last-child {
+  									border: none;
+  								}
+                  &.current > strong {
+                    @media all and (max-width: 767px) {
+                      padding: 15px 16px;
+                    }
+                    @media all and (max-width: 479px) {
+                      padding: 10px 6px;
+                    }
+                  }
+  								&.current a,
+                  &.current > strong {
 										border: none;
 										color: @active-blue-color !important;
 										font-size: 14px;
@@ -117,27 +141,127 @@ select:focus, input:focus {
                     @media all and (max-width: 1099px) {
                       padding: 15px 10px;
                     }
-								}
-								a{
-									color: @head-color;
-									padding: 15px;
-									border-color: transparent !important;
-									@media only screen and (min-width: 768px){
-										font-size: 14px;
-									}
-                  @media all and (max-width: 1099px) {
-                    padding: 15px 10px;
-                  }
-									&:hover {
-										color: @hover-green-color;
-										background-color:@background-white;
-									}
-								}
-							}
+                    @media all and (max-width: 767px) {
+                      font-size: 14px !important;
+                    }
+  								}
+  								a {
+  									color: @head-color;
+  									padding: 15px;
+  									border-color: transparent !important;
+  									@media only screen and (min-width: 768px){
+  										font-size: 14px;
+  									}
+                    @media all and (max-width: 1099px) {
+                      padding: 15px 10px;
+                    }
+                    @media all and (max-width: 767px) {
+                      padding: 15px 20px;
+                    }
+                    @media all and (max-width: 479px) {
+                      padding: 10px;
+                    }
+  									&:hover {
+  										color: @hover-green-color;
+  										background-color:@background-white;
+  									}
+  								}
+  							}
+  						}
+            }
+  				}
+        }
+			}
+
+      .columns {
+        //Content section styling
+        .column.main {
+          background-color: @white;
+	        border: none;
+					color: @item-color;
+          font-size: 14px;
+	        -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+	        -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+	        box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+
+          @media only screen and (max-width: 767px){
+            padding-bottom: 0;
+          }
+          span{
+						font-size: 12px;
+						font-weight:600;
+						@media only screen and (min-width: 768px){
+							font-size: 14px;
 						}
 					}
-				}
-			}
+					strong{
+						font-size: 14px;
+						font-weight: 500;
+            font-family: "iCuracao-Medium";
+						line-height: 1.1;
+            font-size:16px;
+						@media only screen and (max-width: 768px){
+							font-size: 14px;
+						}
+					}
+          .page-title-wrapper{
+            border-bottom: 1px solid @border-color;
+						padding: 13px 10px;
+						@media only screen and (min-width: 768px){
+							padding: 25px 20px;
+						}
+            @media only screen and (max-width: 767px){
+              border-left: 4px solid #97d700;
+              padding: 15px 20px;
+            }
+            h1.page-title {
+              color:@head-color;
+              padding-top: 0;
+							.base{
+                font-size: 20px;
+								font-weight: 500;
+                font-family: "iCuracao-Medium";
+                letter-spacing: 0.5px;
+								text-transform: capitalize !important;
+                @media only screen and (max-width: 767px){
+                  font-size: 18px;
+                  color: @active-blue-color;
+                  line-height: 1;
+                }
+                @media all and (max-width: 479px) {
+                  font-size: 16px;
+                }
+
+							}
+            }
+          }
+          .dashboard_msg,
+          .block-dashboard-info,
+          .block-dashboard-addresses,
+          .block-addresses-default,
+          .block-addresses-list,
+          .block-dashboard-orders{
+						padding: 10px;
+						@media only screen and (min-width: 768px){
+							padding: 15px 20px;
+						}
+					}
+          .dashboard_msg{
+	          h3{
+              color: @head-color;
+              font-size: 16px;
+	            padding-bottom:10px;
+              font-weight: 500;
+              font-family: "iCuracao-Medium";
+	            @media only screen and (max-width: 768px){
+	              font-size: 14px;
+	            }
+	          }
+	        }
+        }
+      }
+
+
       .abs-toggling-title-mobile,
       .block-wishlist-management .wishlist-select .wishlist-name,
       .block-collapsible-nav .title {
@@ -152,7 +276,7 @@ select:focus, input:focus {
       .block-collapsible-nav .title:after {
         color: @active-blue-color !important;
         @media only screen and (max-width: 767px){
-          margin: 5px -10px 0 0;
+          margin: -5px 0 0 0;
         }
       }
       .abs-visually-hidden-desktop, .modes-label,
@@ -181,42 +305,16 @@ select:focus, input:focus {
          }
         }
       }
-    .column.main .block:not(.widget) .block-title > .action {
+      .column.main .block:not(.widget) .block-title > .action {
           @media only screen and (max-width: 767px){
              margin-top: 0px;
          }
-        }
+      }
 			//ICuracao-Account content block styles
 			.columns{
 				.column{
-					background-color: @white;
-	        border: none;
-					color: @item-color;
-          font-size: 14px !important;
-	        -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
-	        -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
-	        box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
-          @media only screen and (min-width: 768px){
-            font-size: 14px !important;
-          }
-          @media only screen and (max-width: 767px){
-            padding-bottom: 0;
-          }
-					span{
-						font-size: 12px;
-						font-weight:600;
-						@media only screen and (min-width: 768px){
-							font-size: 14px;
-						}
-					}
-					strong{
-						font-size: 14px;
-						font-weight: 600 !important;
-						line-height: 1.1;
-						@media only screen and (min-width: 768px){
-							font-size:16px;
-						}
-					}
+
+
 					a{
 						text-decoration: none;
             &:hover {
@@ -224,27 +322,9 @@ select:focus, input:focus {
             }
             }
 					.page-title-wrapper{
-						border-bottom: 1px solid @border-color;
-						padding: 13px 10px;
-						@media only screen and (min-width: 768px){
-							padding: 25px 20px;
 
-						}
-            @media only screen and (max-width: 767px){
-              border-left: 4px solid #97d700;
-            }
 						.page-title{
-							color:@head-color;
-              padding-top: 0;
-							.base{
-                @media only screen and (max-width: 767px){
-                  font-size: 20px;
-                  color: @active-blue-color;
-                }
-								font-size: 26px;
-								font-weight: 500;
-								text-transform: capitalize !important;
-							}
+
 						}
             .order-date{
               margin: 0px 0 18px 3px !important;
@@ -378,28 +458,8 @@ select:focus, input:focus {
               padding-top: 2px;
             }
           }
-					.dashboard_msg,
-          .block-dashboard-info,
-          .block-dashboard-addresses,
-          .block-addresses-default,
-          .block-addresses-list,
-          .block-dashboard-orders{
-						padding: 10px;
-						@media only screen and (min-width: 768px){
-							padding: 15px 20px;
-						}
-					}
-					.dashboard_msg{
-	          h3{
-              color: @head-color !important;
-              font-size: 1.8rem;
-	            padding-bottom: 5px;
-	            @media only screen and (min-width: 768px){
-	              padding-bottom: 10px;
-                font-size: 18px !important;
-	            }
-	          }
-	        }
+
+
 					.block-content{
 						padding: 10px 0;
 						@media only screen and (min-width: 768px){
@@ -412,11 +472,17 @@ select:focus, input:focus {
 						padding:10px 0;
 						border-bottom: 1px solid @border-color;
 						strong{
-							font-size: 20px !important;
+							font-size: 16px;
 						}
             a{
+              .action.edit {
+                span {
+                  font-size: 13px;
+                }
+              }
               span{
                 text-transform: uppercase;
+                font-size: 13px;
               }
             }
 					}
@@ -431,6 +497,7 @@ select:focus, input:focus {
 								}
 							}
 							.box-content{
+                word-wrap: break-word;
 								font-size: 14px !important;
 								a{
 									color:@item-color;
@@ -448,6 +515,7 @@ select:focus, input:focus {
 						.block-content{
 							a{
 								font-size: 14px;
+                font-weight: 600;
 							}
 						}
 					}
@@ -478,12 +546,27 @@ select:focus, input:focus {
 								}
 							}
 						}
+            .table-wrapper .table > thead > tr > th,
+            .table-wrapper table > tbody > tr > td {
+              font-family: "iCuracao-Medium";
+              font-size: 14px;
+              @media all and (max-width: 767px) {
+                font-size: 14px !important;
+              }
+              @media all and (max-width: 479px) {
+                font-size: 13px !important;
+              }
+            }
+
             .table-wrapper .table > thead > tr > th{
-              font-weight: 400;
+              font-weight: 500;
             }
             .table-wrapper table > tbody > tr > td {
-              @media only screen and (min-width: 768px){
-                font-weight: 600 !important;
+              .action.view {
+                span {
+                  font-size: 13px;
+                  font-family: "iCuracao-Medium";
+                }
               }
             }
 						.actions-toolbar{
@@ -1047,6 +1130,9 @@ select:focus, input:focus {
       .block-collapsible-nav{
         @media all and(max-width: 767px){
           top:5px !important;
+          padding-left: 20px !important;
+        }
+        @media all and (max-width: 599px) {
           padding-left: 15px !important;
         }
         .block-collapsible-nav-title{
@@ -1059,7 +1145,7 @@ select:focus, input:focus {
     .column{
       .page-title-wrapper{
         @media all and(max-width: 767px){
-            padding-top: 85px !important;
+            padding-top: 35px !important;
         }
       }
       .block-addresses-default,.block-addresses-list{
@@ -1092,18 +1178,12 @@ select:focus, input:focus {
           top:5px !important;
           padding-left: 15px !important;
         }
-        .block-collapsible-nav-title{
-          @media all and(max-width: 767px){
-            padding-left:0 !important;
-
-          }
-        }
       }
     }
     .column{
       .page-title-wrapper{
         @media all and(max-width: 767px){
-          padding-top: 85px !important;
+          padding-top: 40px !important;
           font-family: "iCuracao-Regular";
         }
       }
@@ -1141,6 +1221,7 @@ select:focus, input:focus {
 
           .box-information,.box-newsletter{
             .box-content{
+              word-wrap: break-word;
               p{
                 @media all and(max-width: 767px){
                   font-size: 15px !important;
@@ -1240,35 +1321,7 @@ select:focus, input:focus {
     }
   }
 }
-.customer-account-index{
-  #maincontent {
-    .columns {
-      .sidebar-main {
-        .block {
-          &.block-collapsible-nav {
-            padding: 20px;
-          }
-        }
-      }
-    }
-  }
-  .column{
-    .dashboard_msg{
-      @media all and (max-width: 767px){
-              font-size: 15px;
-      }
-    }
-    .block-dashboard-addresses{
-      .block-title{
-        a{
-          @media all and(max-width: 767px){
-            float: none !important;
-          }
-        }
-      }
-    }
-  }
-}
+
 .newsletter-manage-index{
   .columns{
     .column{
@@ -1372,6 +1425,7 @@ select:focus, input:focus {
         }
       }
       .box-content{
+        word-wrap: break-word;
         @media only screen and (min-width: 768px){
           float: left;
         }
@@ -1504,6 +1558,7 @@ select:focus, input:focus {
     }
     .box-order-billing-address{
       .box-content{
+        word-wrap: break-word;
         address{
           a{
             color: #666;
@@ -1546,6 +1601,7 @@ select:focus, input:focus {
   }
 }
 
+//Forget Password styling
 .customer-account-forgotpassword {
   .page-wrapper {
     #maincontent {
