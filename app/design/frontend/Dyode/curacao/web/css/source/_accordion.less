@@ -5,7 +5,7 @@
     margin:20px 0;
     .accordion-item{
       &:last-child{
-        border-bottom:1px solid @faq-border-color;
+        border-bottom:none!important;
       }
 //common styles for accordion-title
       .accordion-title {
@@ -16,11 +16,11 @@
         padding-right: 36px;
         text-align: left;
         outline: none;
-        font-size: 16px !important;
+        font-size: 18px !important;
         transition: 0.4s;
         position: relative;
         font-family: 'iCuracao-Regular';
-        @media all and (max-width: 768px){
+        @media all and (max-width: 767px){
           font-size:14px;
         }
         &:after{
@@ -33,7 +33,7 @@
           transform: translateY(-50%);
           font-size: 24px;
           transition:all 0.5s;
-          @media all and (max-width: 768px){
+          @media all and (max-width: 767px){
             font-size:17px;
           }
         }
@@ -48,7 +48,7 @@
         }
       }
       .interest-title{
-        @media all and(max-width: 768px){
+        @media all and(max-width: 767px){
           font-size: 15px !important;
         }
         &.active{
@@ -59,7 +59,7 @@
         }
       }
       .price-title{
-        @media all and(max-width: 768px){
+        @media all and(max-width: 767px){
           font-size: 15px !important;
         }
       }
@@ -71,25 +71,26 @@
           width:100%;
         }
         p{
-          font-family: 'iCuracao-Regular';
+          font-family: 'iCuracao-Light';
           color:@black;
           font-size: 14px !important;
           margin:0;
-          margin-bottom: 15px;
+          line-height: 24px;
+          // margin-bottom: 15px;
         }
         ul{
           margin: 0;
           padding-left:20px;
-          list-style-type: circle;
+          list-style-type:disc;
+          @media all and (max-width: 767px){
+            width:100%;
+          }
           li{
             color:@curacao-green;
             font-size: 14px;
-            margin-bottom: 0px;
-            @media all and (max-width: 768px){
-              width:80%;
-            }
-            @media all and (max-width: 479px){
-              width:90%;
+            margin-bottom: 0;
+            @media all and (max-width: 767px){
+              width:100%;
             }
           }
         }
@@ -101,16 +102,13 @@
              }
            }
          }
-         div.accordion-panel.show{
+         div.accordion-panel.show-accordion{
            max-height: 1920px;
-           padding-bottom: 50px;
-           @media all and(max-width: 768px){
+           padding-bottom: 20px!important;
+           @media all and(max-width: 767px){
                  padding-bottom: 20px;
            }
          }
-      }
-      .last{
-        border-bottom: 0 !important;
       }
    }
    .rem-content{
@@ -151,7 +149,7 @@
      .alt-panel{
        .panel-content{
          padding: 0 25px;
-         @media all and(max-width: 768px){
+         @media all and(max-width: 767px){
            padding: 0 15px;
          }
          @media all and(max-width: 425px){
@@ -161,7 +159,7 @@
            display: flex;
            ul{
              margin: 20px 20px 20px 0;
-             list-style-type: unset;
+             // list-style-type: unset;
              @media all and(max-width: 425px){
                margin-top: 5px;
                line-height: 1.5;
@@ -174,10 +172,13 @@
                  font-size: 13px;
                }
              }
-             @media all and(max-width: 768px){
+             @media all and(max-width: 767px){
                padding: 0;
-               margin-right: 45px;
+               margin-right: 27px;
                margin-bottom: 0;
+             }
+             @media all and(max-width: 330px){
+               margin-right: 20px;
              }
            }
          }
@@ -188,7 +189,7 @@
          font-family: 'iCuracao-Light';
          color: @black !important;
          font-size: 14px;
-         line-height: 1.7;
+         line-height: 24px;
          a{
            color: @curacao-green;
          }
@@ -209,8 +210,8 @@
              background: @curacao-green;
              margin: 0;
              padding: 15px;
-             color: @white;
-             @media all and(max-width: 768px){
+             color: @white!important;
+             @media all and(max-width: 767px){
                    padding:10px;
              }
              @media all and(max-width: 425px){
@@ -225,11 +226,11 @@
          }
          ul{
            color: @curacao-green !important;
-           line-height: 1.5 !important;
+           line-height: 24px !important;
            margin: 16px;
            padding-left: 23px;
-           list-style-type: unset;
-           @media all and(max-width: 768px){
+           // list-style-type: unset;
+           @media all and(max-width: 767px){
                  padding: 0 15px;
                  margin: 16px 0;
            }

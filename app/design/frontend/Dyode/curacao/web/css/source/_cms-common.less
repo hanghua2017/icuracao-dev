@@ -14,12 +14,13 @@ body{
   margin: 0;
 }
 input,select,button{outline: none;}
+
 .cms-contact-us,.cms-privacy-policy,.cms-return-policy,.cms-faq,.cms-order-tracking,.cms-order-and-returns,.cms-instore-pickup,
 .cms-shipping-information,.cms-terms-and-conditions,.cms-interest-beat-form,.cms-price-beat-form,.cms-price-beat,
 .cms-interest-beat{
   main{
     background: url("../../images/Order-returns-BG.png");
-    background-size: cover;
+    background-size: 100%;
     background-repeat: no-repeat;
     .column,.main{
       padding-bottom: 0 !important;
@@ -28,6 +29,10 @@ input,select,button{outline: none;}
   .page-main{
         max-width: none !important;
         padding: 0 !important;
+        .column{
+          margin-top: 0 !important;
+          padding-top:0 !important;
+        }
   }
 }
 .cms-price-beat,.cms-interest-beat,.cms-store-pickup{
@@ -37,6 +42,11 @@ input,select,button{outline: none;}
 }
   .cms-container{
 //common styles for form pages
+    padding: 50px 0;
+
+    @media all and(max-width: 767px){
+        padding:0;
+    }
     .inner-container{
       .cms-content{
         .cms-heading{
@@ -44,7 +54,7 @@ input,select,button{outline: none;}
           color: @black;
           text-transform: capitalize;
           font-family: 'iCuracao-Light' !important;
-          @media all and(max-width: 768px){
+          @media all and(max-width: 767px){
             font-size: 24px;
           }
         }
@@ -77,26 +87,37 @@ input,select,button{outline: none;}
       .cms-content{
         max-width: 1090px;
         margin: 0 auto;
-        padding: 30px 0;
+        padding: 30px;
+        background-color: white;
+        box-shadow: 1px 2px 5px 4px #e6e6e6;
         @media all and(max-width: 1250px){
           max-width: 860px;
         }
         @media all and (max-width: 991px){
           max-width: 655px;
         }
-        @media all and(max-width: 768px) {
-          max-width: 768px;
+        @media all and(max-width: 767px) {
+          max-width: 767px;
           margin: 0 15px
         }
         @media all and(max-width: 425px) {
-          padding: 35px 0;
+          padding: 25px 0;
         }
         .cms-heading{
           text-align: left;
           margin: 0;
           padding-bottom: 30px;
           font-family: 'iCuracao-Light' !important;
+          @media all and(max-width: 425px) {
+            padding-bottom:25px;
+          }
         }
       }
+    }
+
+    h2 {
+      font-family: 'iCuracao-Light'!important;
+      font-size: 20px!important;
+      color: black!important;
     }
   }
