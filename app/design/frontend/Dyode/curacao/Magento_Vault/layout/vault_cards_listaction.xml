@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="curacao.card.block" template="Magento_Vault::curacao-card-block.phtml" before="vault.cards.list"/>
+            <block class="Magento\Framework\View\Element\Template" name="other.card.block" template="Magento_Vault::other-payments.phtml" after="curacao.card.block"/>
+          </referenceContainer>
+    </body>
+</page>

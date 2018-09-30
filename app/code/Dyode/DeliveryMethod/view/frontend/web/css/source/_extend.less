@@ -1,5 +1,4 @@
 
-
 .ui-widget-overlay
 {
   width: 100%;
@@ -7,6 +6,7 @@
     background: #00000091;
     position: fixed;
     top: 0;
+
     z-index: 10;
 }
 
@@ -30,6 +30,7 @@
         right: 20px;
         top: 10px;
         box-shadow:none;
+        text-decoration: none !important;
         .ui-button-text{
           font-size:0px;
           &:before{
@@ -77,6 +78,7 @@
           border: none;
           color: white;
           background: #97d70b;
+          box-shadow: none;
         }
       }
       h4{
@@ -128,7 +130,8 @@
             }
           }
           .avail-store-details{
-            padding:10px;
+            width:45%;
+            padding:25px 10px;
             box-sizing: border-box;
             ul{
               list-style-type: none;
@@ -138,6 +141,9 @@
                 font-size:14px;
                 color:#000;
                 line-height:25px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
                 &.store-location{
                   font-weight:700;
                 }
@@ -153,5 +159,8 @@
           }
         }
       }
+    }
+    .ui-dialog-buttonpane{
+      display: none;
     }
 }
