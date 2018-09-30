@@ -375,29 +375,20 @@ footer {
                a{
                  text-decoration: none;
                  margin-right: 15px;
+                 @media all and (max-width:499px){
+                   margin-right: 10px;
+                 }
                }
                .social-icons {
                  float: left;
                  @media all and (max-width: 499px) {
-                   width: 100%;
-                   margin-bottom: 20px;
                    img {
-                     width: 10%;
+                     width: 28px;
                    }
-                 }
-                 @media all and (max-width:479px){
-                   text-align: center;
                  }
                }
                .curacao-icons {
                  float: right;
-                 @media all and (max-width: 499px) {
-                   width: 100%;
-                   float: left;
-                 }
-                 @media all and (max-width:479px){
-                   text-align: center;
-                 }
                  img {
                    margin-right: 15px;
                    @media all and (max-width: 991px)
@@ -406,6 +397,17 @@ footer {
                        margin-right: 0;
                      }
                    }
+                   @media all and (max-width:499px){
+                     margin-right:10px;
+                     width:37px;
+                     &:nth-child(2) {
+                       margin-right: 0;
+                       width:60px;
+                     }
+                   }
+                 }
+                 @media all and (max-width:479px){
+
                  }
                }
              }

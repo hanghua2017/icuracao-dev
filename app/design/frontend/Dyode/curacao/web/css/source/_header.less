@@ -10,6 +10,7 @@
 @white-shade:#efefef;
 @search-green-color:#99c334;
 @placeholder-color:#b9b9b9;
+@light-border-color:rgba(204, 204, 204, 0.4);
 
 .header-message {
 	display: none;
@@ -230,7 +231,11 @@
 							//Search auto searchautocomplete styling
 							.searchautocomplete__autocomplete._active {
 								text-align: left;
-								padding:10px 0;
+								width:~"calc(100% - 77px)" !important;
+								border: 1px solid @light-border-color !important;
+								@media all and (min-width:768px){
+									width:~"calc(100% - 205px)" !important;
+								}
 
 								a.title {
 									color: black;
@@ -267,9 +272,7 @@
 							}
 							.searchautocomplete__autocomplete._active._loading{
 								.searchautocomplete__spinner{
-							    bottom: 5px;
-							    top: auto;
-									height: 15px;
+							    display: none;
 								}
 							}
 							.searchautocomplete__autocomplete{
