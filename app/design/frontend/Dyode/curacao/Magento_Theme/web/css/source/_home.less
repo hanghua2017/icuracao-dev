@@ -42,7 +42,7 @@
 		.page-main {
 			max-width: 1500px;
 			margin: 0 auto;
-			padding: 15px;
+			padding: 15px 15px 0 15px;
 
 			.columns {
 				.main {
@@ -92,14 +92,16 @@
 										.flex-nav-prev,.flex-nav-next{
 											a{
 												background-color: #f3f3f3;
-												width: 30px;
-												height: 90px;
-												top:45%;
+												width: 35px;
+												height: 120px;
+												top:44%;
 												background-repeat: no-repeat;
 												background-position: center;
 												z-index: 2;
 												@media all and (max-width:767px){
-													top:39%;
+													top:42%;
+													width: 30px;
+													height: 80px;
 												}
 												@media screen and (max-width: 480px) {
 													background-size: 50%;
@@ -197,7 +199,7 @@
 							display: flex;
 							margin:0 0 30px 0;
 							@media all and (max-width:767px){
-								margin:0 0 20px 0; 
+								margin:0 0 20px 0;
 							}
 
 							.left-block,
@@ -206,7 +208,6 @@
 								display: flex;
 								box-shadow: 0 0 10px @box-shadow-color;
 								padding: 10px;
-								border: 1px solid #d8d8d8;
 								box-sizing: border-box;
 								@media all and (max-width:480px){
 									flex-direction: column;
@@ -356,7 +357,7 @@
 							}
 							.widget-title {
 								font-family: 'iCuracao-Regular';
-								font-size: 18px;
+								font-size: 16px;
 								font-weight: normal;
 								display: inline-block;
 								color: @black;
@@ -371,20 +372,29 @@
 						}
 
 						.product-slider-carousel {
-							box-shadow: 0 0 10px @box-shadow-color;
+							box-shadow: 0 0 40px @box-shadow-color;
 							margin: 15px 0 0 0;
-
-							.owl-stage {
-								position: relative;
+							.owl-stage-outer{
+								margin-left: 4px;
+								.owl-stage {
+									position: relative;
+									display: -webkit-flex;
+									display: flex;
+									align-items: stretch;
+								}
 							}
-
 							.owl-nav {
 								.custom-next,
 								.custom-prev {
 									background-color: #f3f3f3;
-									width: 30px;
-									height: 90px;
+									width: 35px;
+									height: 120px;
 									@media screen and (max-width: 480px) {
+										width: 30px;
+										height: 80px;
+									}
+									@media screen and (max-width: 480px) {
+										width: 30px;
 										height: 60px;
 									}
 								}
@@ -432,7 +442,9 @@
 							display: inline-block;
 							border-right: 1px solid #ebebeb;
 							width: 100%;
+							height: 100%;
 							box-sizing: border-box;
+
 
 							a {
 								font-family: 'iCuracao-Medium';
@@ -743,6 +755,11 @@
 									border-top:1px solid @white-shade;
 								}
 							}
+							.onethird-subsidiaries {
+								@media all and (min-width:769px){
+									border-top:1px solid @white-shade;
+								}
+							}
 						}
 
 						.banner-row.double {
@@ -750,11 +767,11 @@
 								flex-basis: 50%;
 
 								&:first-child {
-									padding-right: 7.5px;
+									padding-right: 10px;
 								}
 
 								&:last-child {
-									padding-left: 7.5px;
+									padding-left: 10px;
 								}
 							}
 						}
@@ -765,7 +782,7 @@
 							display: flex;
 							justify-content: space-between;
 							justify-content: space-around;
-							padding-top: 20px;
+							padding-top: 35px;
 							@media screen and (max-width: 768px) {
 								margin-bottom: 10px;
 							}

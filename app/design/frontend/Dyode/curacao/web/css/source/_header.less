@@ -134,11 +134,15 @@
 			.block-search {
 				display: block;
 				float: none;
-				width: 63%;
-				//	float: left;
+				width: 73%;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 				margin: 10px auto 0;
 				padding: 0;
 				z-index: 9;
+				height: 40px;
+				@media all and (max-width:1250px){
+					width: 64%;
+				}
 				@media all and (max-width:1024px){
 					margin: 7px 15px 0 0;
 				}
@@ -150,6 +154,7 @@
 					margin: 0 auto;
 					width:100%;
 					padding:0 15px;
+					box-shadow: none;
 				}
 
 				.minisearch {
@@ -400,7 +405,7 @@
 					padding-left: 0;
 				}
 				@media all and (max-width:1024px){
-					width:85px;
+					width:95px;
 				}
 				@media all and (max-width:767px){
 					display: block;
@@ -565,13 +570,13 @@
 				position: relative;
 				text-align: left;
 				@media all and (min-width:1025px) {
-					margin: 15px 0 0 15px;
+					margin: 15px 0 0 30px;
 				}
 				@media all and (max-width:1024px) {
 					margin: 10px 0 0 15px;
 				}
 				@media all and (max-width:767px) {
-					margin: 5px 0 10px 10px;
+					margin: 5px 0 10px 20px;
 				}
 				@media all and (max-width:479px) {
 					margin: 5px 0 10px 5px;
@@ -732,6 +737,12 @@
 			right: 10px;
 			@media all and (min-width:1500px) {
 				right: ~"calc((100% - 1500px)/2 + 10px)";
+			}
+			.language-switcher{
+				img{
+					vertical-align: middle;
+					 margin-top: -2px;
+				}
 			}
 		}
 	}
