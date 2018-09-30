@@ -1,4 +1,9 @@
 <?php
+/**
+ * @category  Dyode
+ * @package   Dyode_ArInvoice
+ * @author    Sooraj Sathyan
+ */
 namespace Magento\SampleMinimal\Cron;
 use \Psr\Log\LoggerInterface;
 
