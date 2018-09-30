@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="columns.top">
+            <block class="Dyode\CategoryBanner\Block\Index\Index" name="categorybanner_index_index" before="category.products" template="Dyode_CategoryBanner::categorybanner_index_index.phtml" />
+        </referenceContainer>
+        <move element="page.main.title" destination="content" before="category.products"/>
+        <referenceBlock name="category.products.list" template="Magento_Catalog::product/list.phtml">
+            <arguments>
+              <argument name="view_model" xsi:type="object">Dyode\Core\ViewModel\Emi</argument>
+            </arguments>
+	    </referenceBlock>
+      <referenceBlock name="catalog.compare.sidebar" remove="true" />
+      <referenceBlock name="sidebar.additional" remove="true" />
+      <referenceBlock name="category.image" remove="true"/>
+      <referenceBlock name="category.description" remove="true"/>
+    </body>
+</page>

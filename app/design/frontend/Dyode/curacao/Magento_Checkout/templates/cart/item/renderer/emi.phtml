@@ -1,0 +1,25 @@
+<?php
+/**
+ * Copyright © Dyode
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Framework\View\Element\Template */
+?>
+
+<?php
+/** @var $_emiViewModel \Dyode\Checkout\ViewModel\Cart\Emi */
+$_emiViewModel = $block->getEmiViewModel()->setItem($block->getItem());
+$_checkoutHelper = $_emiViewModel->helper();
+$_monthlyEmi = $_emiViewModel->monthlyEmi();
+?>
+
+<?php if ($_emiViewModel->hasEmi()): ?>
+    <p class="credit-desc">
+        <?= __('or as low as') ?>
+        <span class="emi-amount">
+            <?= /* @escapeNotVerified */ $_checkoutHelper->formatPrice($_monthlyEmi) ?>/<?= __('mo') ?>
+        </span>
+    </p>
+<?php endif; ?>

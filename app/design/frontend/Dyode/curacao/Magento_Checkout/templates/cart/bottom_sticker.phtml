@@ -1,0 +1,22 @@
+<?php
+/**
+ * Dyode_curacao theme.
+ *
+ * Extending Magento_Checkout
+ *
+ * @package Dyode
+ * @module  Dyode_curacao
+ * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+
+// @codingStandardsIgnoreFile
+
+/**  @var $block \Magento\Framework\View\Element\Template */
+?>
+
+<?php
+$_blockId = 'checkout_cart_container_bottom_sticker';
+?>
+
+<?= /** @escapeNotVerified */ $block->getLayout()->createBlock(\Magento\Cms\Block\Block::class)->setBlockId($_blockId)->toHtml() ?>

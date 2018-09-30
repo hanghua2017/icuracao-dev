@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package   Dyode
+ * @author    kavitha@dyode.component
+ * Date       14/08/2018
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/sales.xsd">
+    <section name="quote">
+      <group name="totals">
+          <item name="creditappdiscount" instance="Dyode\Checkout\Model\Quote\Custom" sort_order="500">
+          </item>
+      </group>
+  </section>
+</config>

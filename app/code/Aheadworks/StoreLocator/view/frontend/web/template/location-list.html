@@ -1,0 +1,26 @@
+<!-- ko ifnot: locationItems.length > 0 -->
+<div class="mage-error" data-bind="i18n: 'There are no store locations matching the selection'"></div>
+<!-- /ko -->
+<!-- ko foreach: {data: locationItems, as: 'item'}  -->
+<div class="aw-storelocator-navigation-item" data-bind="css: { 'active': $parent.selectedLocation().location_id === $data.location_id }, click: $parent.setSelectedLocation.bind($parent, $data)">
+    <div class="aw-storelocator-description">
+        <div class="aw-storelocator-navigation-item-title" data-bind="text: item.title"></div>
+        <div>
+            <span data-bind="text: item.street"></span>, <span data-bind="text: item.city"></span>
+        </div>
+        <div data-bind="text: item.country"></div>
+        <div data-bind="text: item.region"></div>
+        <div data-bind="text: item.zip"></div>
+        <div data-bind="text: item.phone"></div>
+    </div>
+    <div class="aw-storelocator-navigation-item-image">
+        <!-- ko if: item.image -->
+        <img data-bind="attr: {src: item.image, 'alt': title}" />
+        <!-- /ko -->
+        <!-- ko ifnot: item.image -->
+        &nbsp;
+        <!-- /ko -->
+    </div>
+    <div style="clear:both;"></div>
+</div>
+<!-- /ko -->
