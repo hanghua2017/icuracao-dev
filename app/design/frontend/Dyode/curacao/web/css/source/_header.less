@@ -43,6 +43,10 @@
 .page-wrapper {
 	header.page-header {
 		background-color: @green-color;
+		position: fixed;
+		width: 100%;
+		top: 0;
+		z-index: 99999;
 		@media all and (max-width:1024px) {
 			position: fixed;
 			width: 100%;
@@ -615,10 +619,65 @@
 			width: 100%;
 			top: 0;
 			z-index: 99999;
-
+			@media all and (max-width: 767px)
+			{
+				 top: -139px;
+			}
 			.header {
 				&.content {
-					padding: 15px !important;
+					padding-top: 0px !important;
+					padding-bottom: 5px !important;
+					@media all and (max-width: 767px)
+					{
+						 top: 139px;
+						 background-color: @green-color;
+					}
+					.nav-toggle
+					{
+						@media all and (max-width: 767px)
+						{    margin-bottom: 0;
+							 top: 6px;
+						}
+					}
+					.customer-signin
+					{
+						 margin-top: 13px;
+						 @media all and (max-width: 767px)
+ 						{
+ 							 margin-top: 8px;
+ 						}
+					}
+					.block-search
+					{
+						transition: all ease 0.5s;
+						@media all and (max-width: 767px)
+						{
+							top: 53px;
+							background: @green-color;
+							padding: 15px;
+							height: 50px;
+							padding-top: 10px;
+							transition: all ease 0.5s;
+						}
+						.label
+						{
+							transition: all ease 0.5s;
+							@media all and (max-width: 767px)
+							{
+								 top: -1px !important;
+								 transition: all ease 0.5s;
+							}
+						}
+					}
+
+					.header-message
+					{
+						@media all and (max-width: 767px)
+					 {
+						 top: -20px;
+	 				 		opacity: 0;
+					 }
+					}
 				}
 			}
 		}
@@ -628,10 +687,15 @@
 	.nav-sections {
 		background: #fff;
     margin-bottom: 0;
+		padding-top: 80px;
 		@media all and (min-width:1025px) {
 			//	background: #97d700;
 			background: #84b90a;
 		}
+		@media all and (min-width:767px) {
+			padding-top: 0px;
+		}
+
 
 		.header.links {
 			border-bottom: none;
@@ -752,9 +816,7 @@
 }
 /*styling on page main since the header is fixed*/
 .page-main {
-	&.main-scrolled {
-		margin-top: 186px !important;
-	}
+
 	@media all and (max-width:1024px) {
 		margin-top: 81px !important;
 	}
