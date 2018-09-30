@@ -1,0 +1,22 @@
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-container"><h2>Hello<span class="sidebar__btn-close" id="sidebarBtnClose"><span></h2></div>
+  <ul>
+    <li><a href="#">Curacao Credit</a></li>
+    <li><a href="#">Pay Bill</a></li>
+    <li><a href="#">Digital Catalog</a></li>
+    <li class="hamburger-link-border"><a href="#">Our Stores</a></li>
+    <li><a href="#">Today's Deal</a></li>
+    <li class="hamburger-link-border"><a href="#">Sale</a></li>
+    <li class="hamburger-heading"><a href="#">Help & Settings</a></li>
+    <li><a href="#">Your Account</a></li>
+    <!-- Store Switcher Start -->
+    <?php if ($block->getStoreCode() == 'default') : ?>
+      <li class="hamburger-language"><a href="esp"><img src="<?php echo $block->getViewFileUrl('images/lang-icon.png'); ?>" alt="lang-icon" />ESPANOL</a></li>
+    <?php else: ?>
+      <li class="hamburger-language"><a href="#"><img src="<?php echo $block->getViewFileUrl('images/lang-icon.png'); ?>" alt="lang-icon" />ENGLISH</a></li>
+    <?php endif; ?>
+    <!-- Store Switcher End -->
+    <li><a href="#">Customer Service</a></li>
+  </ul>
+</nav>
+<div class="sidebar-overlay"></div>

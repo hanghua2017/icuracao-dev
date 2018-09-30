@@ -93,7 +93,8 @@ class Update extends \Magento\Framework\View\Element\Template {
 					$locationInventory->addData([
 						"productid" => $product->getID(),
 						"productsku" => $product->getSku(),
-						"inventory" => $setQuantity
+						"isset" => 0,
+						"arinventory" => $AR_items_inventory
 						]);
 			        $saveData = $locationInventory->save();
 			        $stockItem=$this->_stockRegistry->getStockItem($product->getID());

@@ -1,0 +1,22 @@
+{
+    "name": "dyode/module-storelocator",
+    "description": "Extending Aheadworks_StoreLocator module",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Dyode Dev",
+            "email": "rajeev.ktomy@dyode.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Dyode\\StoreLocator\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}
