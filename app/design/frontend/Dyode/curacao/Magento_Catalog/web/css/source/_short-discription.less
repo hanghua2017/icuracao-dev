@@ -1,0 +1,53 @@
+/************************************************************
+* @package Dyode
+* @module  Dyode_curacao
+* @theme  Curacao
+* @author  Sangeetha D <sangeetha.d@dyode.com>
+* PARTIAL - Short product details on product info block
+****************************************************************/
+.catalog-product-view{
+  .product-info-block{
+    .product-info-main{
+      .product.attribute {
+        clear: both;
+        @media all and (max-width: 901px) {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+        @media all and (max-width: 467px) {
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+        .value {
+            max-height: 145px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            p {
+              line-height: 24px;
+              font-family: 'iCuracao-Regular';
+            }
+            ul {
+              padding-left: 17px;
+              margin-bottom: 0;
+              li::before {
+                content: "•";
+                color: @content-light-grey;
+                display: inline-block;
+                width: 1em;
+                margin-left: -1em;
+                font-family: 'iCuracao-Regular';
+                font-size: 12px;
+                @media all and (min-width: 991px) {
+                  font-size: 14px;
+                }
+              }
+            }
+          a.redirect-view-details, a.redirect-view-details:hover{
+            color: @link-blue;
+            font-family: 'iCuracao-Regular';
+          }
+        }
+      }
+    }
+  }
+}
