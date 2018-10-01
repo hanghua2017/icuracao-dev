@@ -48,6 +48,9 @@
 		}
 		.owl-stage {
 			position: relative;
+			display: -webkit-flex;
+			display: flex;
+			align-items: stretch;
 		}
 		.owl-nav {
 			.custom-prev,
@@ -237,6 +240,7 @@
 						 a {
 							 img{
 								 max-width: 150px;
+								 margin: 0 auto;
 							 }
 					 }
 					 }
@@ -244,11 +248,9 @@
 				 .owl-prev,
 				 .owl-next {
 						 position: absolute;
-						 top: 5% !important;
+						 top: 50% !important;
+						 transform: translateY(-50%);
 						 outline: none;
-						 @media screen and (max-width: 480px) {
-								 top: 20% !important;
-						 }
 				 }
 	}
 	.block.widget .pager {
