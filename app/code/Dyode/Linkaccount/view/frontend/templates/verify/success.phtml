@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Success</title>
-  </head>
-  <body>
     <div class="linkaccount-container">
       <div class="linkaccount-inner-container">
         <div class="success-content">
@@ -22,16 +15,14 @@
           </div>
 <!--description of curacao card holder-->
           <div class="card-description">
-            <p>Your Curacao card number:<span> XXXX XXXX 8655 </span></p>
-            <p>Name on card:<span> John doe</span></p>
-            <p>Expiry date:<span> 02/22</span></p>
-          </div>
+            <p><?php echo __('Your Curacao card number:');?><span> XXXX XXXX <?php echo $block->getCuracaoId(); ?></span></p>
+            <p><?php echo __('Name on card:');?><span><?php echo $block->getCustomer(); ?></span></p>
+            </div>
 <!--Button to continue shopping-->
           <div class="button">
-            <button type="submit" name="button">Continue Shopping</button>
+            <button type="submit" name="button"><?php echo __('Continue Shopping');?></button>
           </div>
         </div>
       </div>
     </div>
-  </body>
-</html>
+ 

@@ -37,10 +37,7 @@ class Code extends \Magento\Framework\App\Action\Action {
    {
       $verifytype = $this->getRequest()->getParam('verifytype', false);
       $this->_coreSession->start();
-      $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-      $logger = $objectManager->get("Psr\Log\LoggerInterface");
-      $logger->info("test".$this->_coreSession->getCurAcc());
-
+      
       $accountNumber = $this->_coreSession->getCurAcc();
       $accountInfo   =  $this->_helper->getARCustomerInfoAction($accountNumber);
       $phone  =  $accountInfo->PHONE;
