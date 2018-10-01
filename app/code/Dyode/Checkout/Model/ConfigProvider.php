@@ -34,7 +34,6 @@ class ConfigProvider implements ConfigProviderInterface
 
    public function getConfig()
    {
-      $configArr['cms_block']   =   $this->_cmsBlock;
       $configArr['canapply']    =   $this->_canApply;
       $configArr['limit']       =   $this->getLimit();
       $configArr['total']       =   $this->getDownPayment();
