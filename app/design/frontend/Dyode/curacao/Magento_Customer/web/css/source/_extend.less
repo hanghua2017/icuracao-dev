@@ -14,14 +14,17 @@ select:focus, input:focus {
 }
 
 //ICuracao-Account variables
-@theme-color: #82b800;
-@active-blue-color:#006bb4;
-@hover-green-color:#97d700;
-@background-white:#fcfcfc;
-@border-color:#f2f2f2;
-@item-color:#666666;
-@head-color:#333333;
+@theme-color: #97d700; //Header light green
+@theme-color-dark: #81b800; //Header darkgreen
+@heading-text: #000000; //Heading text
+@content-text: #666666; //Content text
+@footer-text: #333333; //Footer text
+@active-blue-color:#4048d1;
 @white: #ffffff;
+@border-color:#f2f2f2;
+@background-white: #fcfcfc;
+
+
 //ICuracao-Account border color
 .multicheckout .block-title,
 .multicheckout .block-content .title,
@@ -36,7 +39,7 @@ select:focus, input:focus {
 }
 //ICuracao-Account With LESS styles
 .account {
-	background-color: @background-white;
+	background-color: @white;
   .page.messages{
       @media only screen and (max-width: 767px){
         margin-bottom: 15px;
@@ -81,26 +84,29 @@ select:focus, input:focus {
               padding: 20px 0 0 !important;
   					}
             .block-collapsible-nav-title {
-              padding: 15px 15px 20px;
+              padding: 15px 15px 20px !important;
               @media all and (max-width: 1199px) {
-                padding: 15px 10px 20px;
+                padding: 15px 10px 20px !important;
               }
               @media all and (max-width: 767px) {
-                  padding: 0 45px 20px 20px;
+                  padding: 0 45px 20px 20px !important;
               }
               @media all and (max-width: 479px) {
-                padding: 0 30px 20px 15px;
+                padding: 0 30px 20px 15px !important;
               }
               strong {
-                font-size: 16px;
-                font-family: "iCuracao-Medium";
+                font-size: 18px;
+                font-family: "iCuracao-Regular";
                 font-weight: 500;
+                @media all and (max-width: 767px) {
+                  font-size: 16px;
+                }
               }
             }
             .block-collapsible-nav-content
             {
               background:@white;
-              color: @item-color;
+              color: @content-text;
               @media only screen and (max-width: 767px){
                   border-bottom: 1px solid #f2f2f2;
               }
@@ -136,7 +142,7 @@ select:focus, input:focus {
 										font-weight: 600;
 										padding: 15px;
                     @media only screen and (max-width: 767px){
-                      border-left:4px solid @hover-green-color;
+                      border-left:4px solid @theme-color;
                     }
                     @media all and (max-width: 1099px) {
                       padding: 15px 10px;
@@ -146,7 +152,7 @@ select:focus, input:focus {
                     }
   								}
   								a {
-  									color: @head-color;
+  									color: @footer-text;
   									padding: 15px;
   									border-color: transparent !important;
   									@media only screen and (min-width: 768px){
@@ -162,7 +168,7 @@ select:focus, input:focus {
                       padding: 10px;
                     }
   									&:hover {
-  										color: @hover-green-color;
+  										color: @theme-color;
   										background-color:@background-white;
   									}
   								}
@@ -176,9 +182,10 @@ select:focus, input:focus {
       .columns {
         //Content section styling
         .column.main {
+          margin-bottom: 25px;
           background-color: @white;
 	        border: none;
-					color: @item-color;
+					color: @content-text;
           font-size: 14px;
 	        -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
 	        -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
@@ -197,7 +204,7 @@ select:focus, input:focus {
 					strong{
 						font-size: 14px;
 						font-weight: 500;
-            font-family: "iCuracao-Medium";
+            font-family: "iCuracao-Regular";
 						line-height: 1.1;
             font-size:16px;
 						@media only screen and (max-width: 768px){
@@ -215,17 +222,17 @@ select:focus, input:focus {
               padding: 15px 20px;
             }
             h1.page-title {
-              color:@head-color;
+              color:@footer-text;
               padding-top: 0;
 							.base{
-                font-size: 20px;
+                font-size: 18px;
 								font-weight: 500;
                 font-family: "iCuracao-Medium";
                 letter-spacing: 0.5px;
 								text-transform: capitalize !important;
                 @media only screen and (max-width: 767px){
-                  font-size: 18px;
-                  color: @active-blue-color;
+                  font-size: 16px;
+                  color: @theme-color;
                   line-height: 1;
                 }
                 @media all and (max-width: 479px) {
@@ -248,7 +255,7 @@ select:focus, input:focus {
 					}
           .dashboard_msg{
 	          h3{
-              color: @head-color;
+              color: @footer-text;
               font-size: 16px;
 	            padding-bottom:10px;
               font-weight: 500;
@@ -258,9 +265,15 @@ select:focus, input:focus {
 	            }
 	          }
 	        }
+          .actions-toolbar{
+            padding: 10px;
+            @media only screen and (min-width: 768px){
+               padding: 15px 0px;
+            }
+          }
         }
-      }
 
+      }
 
       .abs-toggling-title-mobile,
       .block-wishlist-management .wishlist-select .wishlist-name,
@@ -294,7 +307,6 @@ select:focus, input:focus {
       .block-collapsible-nav {
         background-color: @white;
         strong{
-          // color:  @head-color !important;
           @media only screen and (max-width: 767px){
            font-size: 22px;
          }
@@ -316,9 +328,10 @@ select:focus, input:focus {
 
 
 					a{
+            color: @active-blue-color;
 						text-decoration: none;
             &:hover {
-              color: @hover-green-color;
+              color: @theme-color;
             }
             }
 					.page-title-wrapper{
@@ -467,7 +480,7 @@ select:focus, input:focus {
 						}
 					}
 					.block-title{
-						color: @head-color !important;
+						color: @heading-text !important;
 						font-size: 1.8rem;
 						padding:10px 0;
 						border-bottom: 1px solid @border-color;
@@ -475,14 +488,15 @@ select:focus, input:focus {
 							font-size: 16px;
 						}
             a{
+              color: @active-blue-color;
               .action.edit {
                 span {
-                  font-size: 13px;
+                  font-size: 12px;
                 }
               }
               span{
                 text-transform: uppercase;
-                font-size: 13px;
+                font-size: 12px;
               }
             }
 					}
@@ -500,7 +514,7 @@ select:focus, input:focus {
                 word-wrap: break-word;
 								font-size: 14px !important;
 								a{
-									color:@item-color;
+									color:@content-text;
 								}
 								p{
 									@media only screen and (max-width: 767px){
@@ -514,18 +528,18 @@ select:focus, input:focus {
 						 margin-bottom: 20px;
 						.block-content{
 							a{
+                color: @active-blue-color;
 								font-size: 14px;
                 font-weight: 600;
 							}
 						}
 					}
-					.block-dashboard-orders{
-
+					.block-dashboard-orders {
             @media only screen and (min-width: 991px){
-                margin-bottom: 20px;
-              }
-						.order{
-						@media only screen and (min-width: 640px){
+              margin-bottom: 20px;
+            }
+					  .order{
+					    @media only screen and (min-width: 640px){
 								border:none;
 							}
 
@@ -562,9 +576,9 @@ select:focus, input:focus {
               font-weight: 500;
             }
             .table-wrapper table > tbody > tr > td {
-              .action.view {
+              a, .action.view {
                 span {
-                  font-size: 13px;
+                  font-size: 13px !important;
                   font-family: "iCuracao-Medium";
                 }
               }
@@ -572,14 +586,14 @@ select:focus, input:focus {
 						.actions-toolbar{
 							padding: 10px;
 							@media only screen and (min-width: 768px){
-							padding: 15px 0px;
+							   padding: 15px 0px;
 							}
         			.primary{
                 float: none;
                 display: block;
           			button{
-            			background: @hover-green-color;
-            			border-color: @hover-green-color;
+            			background: @theme-color;
+            			border-color: @theme-color;
                   border-radius: 5px;
                   margin: 0 auto;
                     padding: 15px;
@@ -593,7 +607,7 @@ select:focus, input:focus {
               float: none;
               display: block;
               button{
-                background: @hover-green-color;
+                background: @theme-color;
                 border: none;
                 border-radius: 5px;
                 padding: 15px;
@@ -706,6 +720,41 @@ select:focus, input:focus {
 			}
 		}
 	}
+
+  &.vault-cards-listaction {
+    .page-wrapper {
+      .page-main {
+        .columns {
+          .column.main {
+            .credit-payment {
+              padding: 20px 20px 0;
+              @media all and (max-width: 767px) {
+                padding: 15px 15px 0;
+              }
+              h2 {
+                text-transform: capitalize;
+                font-size: 16px;
+                color: #000;
+              }
+              .credit-card {
+                width: 70%;
+                @media all and (max-width: 768px) {
+                  width: 100%;
+                }
+                li
+                {
+                  display: initial;
+                  img {
+                    min-width: 180px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 	//ICuracao-Address-information tab With LESS styles
@@ -719,7 +768,7 @@ select:focus, input:focus {
 	      .fieldset{
 	        margin-bottom:25px;
 					.legend{
-						color:@head-color;
+						color:@theme-color;
 						padding-top:20px;
 						border-bottom: 1px solid @border-color;
 			      @media all and (max-width:767px){
@@ -761,7 +810,9 @@ select:focus, input:focus {
       .fieldset{
         .legend{
           span{
-             color: @head-color !important;
+             color: @content-text !important;
+             font-size: 16px;
+             font-family: 'iCuracao-Regular';
           }
         }
       }
@@ -876,6 +927,7 @@ select:focus, input:focus {
       .back{
         display: block;
         color: #6e6e6e;
+        text-align: right;
         &:before {
             font-size: 20px;
             line-height: 22px;
@@ -1297,6 +1349,9 @@ select:focus, input:focus {
         fieldset{
           legend{
             span{
+              color: @content-text !important;
+              font-size: 16px;
+              font-family: 'iCuracao-Regular';
               @media all and(max-width: 767px){
                 font-size: 15px !important;
               }
@@ -1371,9 +1426,6 @@ select:focus, input:focus {
       .order-actions-toolbar{
         margin-bottom: 0 !important;
         padding: 0 !important;
-        // @media all and (max-width:767px){
-        //   margin-bottom:0;
-        // }
         @media only screen and (min-width: 991px){
             float: right;
         }
@@ -1406,11 +1458,6 @@ select:focus, input:focus {
       .block-title{
         padding-top:0;
         padding-bottom:10px;
-      }
-      .block-content{
-        // @media all and (max-width:767px){
-        //   padding:10px !important;
-        // }
       }
     }
   }
@@ -1671,11 +1718,12 @@ select:focus, input:focus {
           width: 75%;
           margin: 0 auto;
           padding-top: 30px;
-          @media all and (max-width: 599px) and (min-width: 468px) {
-            width: 68%;
+          @media all and (max-width: 1099px) {
+            min-width: 80%;
           }
           @media all and (max-width: 599px) {
             padding-top: 25px;
+            width: 68%;
           }
           @media all and (max-width: 420px) {
             width: 85%;
@@ -1798,6 +1846,7 @@ select:focus, input:focus {
               margin-top: 15px;
               .action.back {
                 display: block;
+                color: @footer-text;
                 &:hover {
                   text-decoration: none;
                   color: @theme-color;
