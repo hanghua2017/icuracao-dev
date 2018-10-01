@@ -10,10 +10,8 @@ class CategoryNameWidget extends \Magento\Framework\View\Element\Template implem
      */
      protected $_categoryHelper;
      protected $categoryFlatConfig;
-
      protected $topMenu;
      protected $_categoryFactory;
-
      protected $mainTitle;
      protected $className;
 
@@ -42,7 +40,9 @@ class CategoryNameWidget extends \Magento\Framework\View\Element\Template implem
     {
         return $this->_categoryHelper;
     }
-
+		/**
+		 * Return category
+		 */
     public function getCategorymodel($id)
     {
          $_category = $this->_categoryFactory->create();
@@ -50,24 +50,12 @@ class CategoryNameWidget extends \Magento\Framework\View\Element\Template implem
             return $_category;
     }
     /**
-		* function name : getCategoryCollection
-     * Retrieve current store categories
-     *
-     * @param bool|string $sorted
-     * @param bool $asCollection
-     * @param bool $toLoad
-     * @return \Magento\Framework\Data\Tree\Node\Collection|\Magento\Catalog\Model\Resource\Category\Collection|array
-     */
-
-    /**
-	     * Retrieve collection of selected categories
-    */
+		  * Retrieve collection of selected categories
+      */
    public function getCategoryCollection()
     {
-        $rootCat = $this->getData('parentcat');
-
-
-        $category = $this->_categoryFactory->create();
+        $rootCat    = $this->getData('parentcat');
+        $category   = $this->_categoryFactory->create();
         $collection = $category
                       ->getCollection()
                       ->addAttributeToSelect('image')
@@ -75,15 +63,15 @@ class CategoryNameWidget extends \Magento\Framework\View\Element\Template implem
         return $collection;
     }
 		/**
-		* function name : getClassName
-     * Retrieve classname
-		 *
-    */
-		public function getClassName()
-	  {
-	      $className = $this->getData('classname');
-	       return $className;
-	  }
+		  * function name : getSaleCategory
+      * Retrieve getSaleCategory
+		  *
+      */
+		public function getSaleCategory()
+		{
+			$salecategory =$this->getData('salecat');
+			return $salecategory;
+		}
 		/**
 		* function name : getMainTitle
      * Retrieve blocktitle
