@@ -2,7 +2,7 @@
 require([
   'jquery'
 ], function($){
-  $('input[name="curacaocustid"]').attr("placeholder", "Do you have a Curacao Account?");
+  $('input[name="curacaocustid"]').attr("placeholder", "Curacao Account Number");
   $('.field-curacaocustid').hide();
   $('input[name="account-check"]').on('click', function () {
       if ($(this).prop('checked')) {

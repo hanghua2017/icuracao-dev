@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="dyode_inventoryupdate_cron_group">
+	
+        <job name="dyode_inventoryupdate_cronjob_inventoryupdate" instance="Dyode\InventoryUpdate\Cron\Inventoryupdate" method="execute">
+            <schedule>*/5 * * * *</schedule>
+        </job>
+		 
+    </group>
+</config>

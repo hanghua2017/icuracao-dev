@@ -30,20 +30,25 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
 	$showCart = true;
 	$rating = 'short';
 	$description = ($mode == 'list') ? true : false;
-
 }
 ?>
-
-<?php if ($exist):?>
-	<?php if($items !=NULL):?>
-	<?php if ($title): ?>
+<?php
+$allow = false;
+foreach ($items as $item):
+	if ($block->getProductUrl($item)){
+	$allow = true;
+	break;
+	}
+endforeach;
+?>
+<?php if ($exist): ?>
 	<div class="mp-product-slider-block block widget block-products-list <?php echo $mode; ?>">
+	<?php if($allow == true):?>
+		<?php if ($title): ?>
 		<div class="slider-title">
-
 			<h2 class="widget-title"><?php echo $title; ?></h2>
 		</div>
-	<?php endif;?>
-<?php endif;?>
+	 <?php endif;?>
         <div class="block-content">
             <?php /* @escapeNotVerified */ echo '<!-- ' . $image . '-->' ?>
 			<div class="products-<?php /* @escapeNotVerified */ echo $mode; ?> <?php /* @escapeNotVerified */ echo $mode; ?>">
@@ -147,4 +152,5 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
 			<?php echo $block->getPagerHtml() ?>
         </div>
 			</div>
+			<?php endif;?>
 <?php endif;?>
