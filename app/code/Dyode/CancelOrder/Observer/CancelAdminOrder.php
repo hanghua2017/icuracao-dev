@@ -35,22 +35,22 @@ class CancelAdminOrder implements ObserverInterface
 	 */
 	public function execute(Observer $observer)
 	{
-		$writer = new \Zend\Log\Writer\Stream(BP . "/var/log/mylogfile.log");
-        $logger = new \Zend\Log\Logger();
+		$writer = new \Zend\Log\Writer\Stream(BP . "/var/log/ordercancellation.log");
+		$logger = new \Zend\Log\Logger();
 		$logger->addWriter($writer);
 
 		$order = $observer->getEvent()->getOrder();
 		$orderId = $order->getIncrementId();
-		$invoiceNumber = "ZEP58QX";
+		// Getting the Invoice Number
+		$invoiceNumber = $order->getData('estimatenumber');
 
+		if (empty($invoiceNumber)) {
+			$logger->info("Estimate Number not found");
+			throw new \Exception("Estimate Number not found");
+		}
 		$response = $this->_cancelOrderHelper->cancelEstimate($invoiceNumber);
 
-		if ($response->OK == true) {
-			# code...
-			$logger->info($response->OK);
-		}
-		else {
-			# code...
+		if ($response->OK != true) {
 			$logger->info($response->INFO);
 			throw new \Exception($response->INFO);
 		}
