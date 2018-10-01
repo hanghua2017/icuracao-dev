@@ -226,7 +226,26 @@
 	.brand-widget{
 		.single-item {
 			margin: 0 !important;
+			padding: 20px 0;
 		}
+				 .owl-carousel{
+					 .single-item {
+						 a {
+							 img{
+								 max-width: 150px;
+							 }
+					 }
+					 }
+				 }
+				 .owl-prev,
+				 .owl-next {
+						 position: absolute;
+						 top: 5% !important;
+						 outline: none;
+						 @media screen and (max-width: 480px) {
+								 top: 20% !important;
+						 }
+				 }
 	}
 	.block.widget .pager {
 		display: none;
