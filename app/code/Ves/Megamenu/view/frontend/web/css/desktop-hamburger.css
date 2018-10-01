@@ -47,8 +47,8 @@ nav.sidebar .sidebar-container .sidebar__btn-close {
 nav.sidebar .sidebar-container .sidebar__btn-close:before{
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 26px;
-    line-height: 26px;
+    font-size: 18px;
+    line-height: 18px;
     color: #fff;
     content: '\e616';
     font-family: 'luma-icons';
