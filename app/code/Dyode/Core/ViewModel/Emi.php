@@ -106,11 +106,14 @@ class Emi implements ArgumentInterface
     {
         switch ($price) {
             case $price > 1000:
-                return $price * 0.05;
+              $emi= $price * 0.05;
+              return number_format($emi,2);
             case ($price > 500 && $price <= 1000):
-                return $price * 0.075;
+              $emi =$price * 0.075;
+              return number_format($emi,2);
             case ($price > 200 && $price <= 500):
-                return $price * 0.1;
+                $emi = $price * 0.1;
+                return number_format($emi,2);
             case ($price > 40 && $price <= 200):
                 return 20;
             default:

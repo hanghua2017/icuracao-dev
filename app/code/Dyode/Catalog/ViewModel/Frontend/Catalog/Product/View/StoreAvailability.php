@@ -1,9 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: rajeevktomy
- * Date: 26/09/18
- * Time: 11:06 AM
+ * Dyode_Catalog Magento2 Module.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package Dyode
+ * @module  Dyode_Catalog
+ * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
  */
 
 namespace Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View;
@@ -197,7 +201,7 @@ class StoreAvailability implements ArgumentInterface
      * @return bool|\Dyode\StoreLocator\Api\Data\GeoCoordinateInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    protected function findStoreLocationGeoCoordiante(Location $location)
+    public function findStoreLocationGeoCoordiante(Location $location)
     {
         foreach ($this->storeGeoCoordinates()->getItems() as $storeGeoCoordinate) {
             if ($location->getZip() == $storeGeoCoordinate->getZip()) {
@@ -313,5 +317,15 @@ class StoreAvailability implements ArgumentInterface
     public function customerZipCode()
     {
         return $this->getCustomer()->getDefaultShippingAddress()->getPostcode();
+    }
+
+    /**
+     * AR Invoice Helper
+     *
+     * @return \Dyode\ArInvoice\Helper\Data
+     */
+    public function arInvoiceHelper()
+    {
+        return $this->arInvoiceHelper;
     }
 }

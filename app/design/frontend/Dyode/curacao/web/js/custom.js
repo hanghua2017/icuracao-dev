@@ -8,7 +8,7 @@ require([
 				 var page_main = $(".page-main");
          var ns = "nav-scrolled";
 				 var ms = "main-scrolled";
-         var min_width = window.matchMedia("(min-width: 1025px)")
+         var min_width = window.matchMedia("(min-width: 1025px)");
 				 if(min_width.matches){
 					 $(window).scroll(function() {
 	          if( $(this).scrollTop() > 158 ) {
