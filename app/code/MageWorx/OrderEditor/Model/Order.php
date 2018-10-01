@@ -447,27 +447,35 @@ class Order extends \Magento\Sales\Model\Order
     protected function loadOrderItem($id, $params)
     {
         $item = clone $this->item;
-        $writer = new \Zend\Log\Writer\Stream(BP . "/var/log/mylogfile.log");
+        $writer = new \Zend\Log\Writer\Stream(BP . "/var/log/ordercancellation.log");
         $logger = new \Zend\Log\Logger();
         $logger->addWriter($writer);
         if (!isset($params['quote_item'])) {
             if (isset($params['action']) && $params['action'] == 'remove') {
                 $this->removedItems[] = $id;
+
+            /**
+             * Start - Custom Code for Order Cancellation in AR
+             */
                 $order = $this->_orderRepository->get($this->orderId);
+                // Getting Order Item Details
                 foreach ($order->getAllItems() as $orderItem) {
-                    # code...
                     if ($orderItem->getId() == $params['item_id']) {
-                        # code...
                         break;
                     }
                 }
-                $invoiceNumber = "ZEP58XC";
-                $itemSku = "09A-RA3-RS16FT5050RB";
+                // Getting the Invoice Number
+                $invoiceNumber = $order->getData('estimatenumber');
+                // Getting the Item Sku
+                $itemSku = $$orderItem->getSku();
+                // Setting the Item Quantity
                 $qty = 0;
-                $response = $this->cancelOrderHelper->adjustItem($invoiceNumber, $itemSku, 0);
+                // Calling the AR Web Service - AdjustItem
+                $response = $this->cancelOrderHelper->adjustItem($invoiceNumber, $itemSku, $qty);
+                // Getting the Current Admin User
                 $user = $this->getCurrentUser();
+
                 if ($response->OK == true) {
-                    # code...
                     $logger->info("Item Cancelled");
                     # Send Notification to Customer
                     $order->addStatusToHistory($order->getStatus(),
@@ -476,13 +484,16 @@ class Order extends \Magento\Sales\Model\Order
                         ' has been removed Successfully by Admin User: ' .
                         $user->getUsername() .
                         ' ( ' . $user->getEmail() . ' ). '
-                    );     # Add Comment to Order History
-                    $order->save();     # Save the Changes in Order Status & History
+                    );     // Add Comment to Order History
+                    $order->save();    // Save the Changes in Order Status & History
                 } else {
-                    # code...
-                    $logger->info($response->INFO);
+                    $logger->info($response->INFO . " Order Id: " . $order->getIncrementId());
                     throw new \Exception($response->INFO);
                 }
+            /**
+             * End - Custom Code for Order Cancellation in AR
+             */
+
             }
             $item = $item->load($id);
         }

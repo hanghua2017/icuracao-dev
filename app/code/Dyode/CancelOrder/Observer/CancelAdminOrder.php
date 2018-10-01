@@ -45,13 +45,13 @@ class CancelAdminOrder implements ObserverInterface
 		$invoiceNumber = $order->getData('estimatenumber');
 
 		if (empty($invoiceNumber)) {
-			$logger->info("Estimate Number not found");
+			$logger->info("Estimate Number not found" . "| Order Id: " . $order->getIncrementId());
 			throw new \Exception("Estimate Number not found");
 		}
 		$response = $this->_cancelOrderHelper->cancelEstimate($invoiceNumber);
 
 		if ($response->OK != true) {
-			$logger->info($response->INFO);
+			$logger->info($response->INFO . " Order Id: " . $order->getIncrementId());
 			throw new \Exception($response->INFO);
 		}
 	}
