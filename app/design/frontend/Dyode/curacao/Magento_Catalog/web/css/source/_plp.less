@@ -332,6 +332,9 @@
               color: @gray-text;
               font-family: 'iCuracao-Medium';
               font-weight: normal;
+              @media all and (min-width:768px){
+                margin: 0 0 10px;
+              }
 
               &:after {
                 @media all and (min-width:768px) {
@@ -352,9 +355,12 @@
                 margin: 0 0 50px;
                 max-height: 220px;
                 overflow-y: auto;
+                @media all and (min-width:768px){
+                  margin: 0 0 30px;
+                }
 
                 .item {
-                  margin: 15px 0 0;
+                  margin: 3px 0 0;
                   @media screen and (max-width: 767px) {
                     margin: 10px 0 0;
                   }
@@ -403,6 +409,13 @@
 
                 .input-container {
                   display: block;
+                  &:after{
+                    @media all and (min-width: 768px){
+                      content: '';
+                      display: table;
+                      clear: both;
+                    }
+                  }
                 }
 
                 input[type="checkbox"] {
@@ -420,6 +433,11 @@
                   transition: all 0.2s;
                   font-family: 'iCuracao-Regular';
                   font-size: 14px;
+                  @media all and (min-width:768px){
+                    float: left;
+                    font-size: 12px;
+                    padding: 0 0 0 20px;
+                  }
 
                   span {
                     color: @icon-color;
@@ -440,6 +458,12 @@
                     margin-right: 15px;
                     margin-top: -2px;
                     transition: all 0.2s;
+                    @media all and (min-width:768px){
+                      position: absolute;
+                      left:0;
+                      top:3px;
+                      margin-right: 5px;
+                    }
                   }
                 }
 
