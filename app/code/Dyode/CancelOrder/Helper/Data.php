@@ -30,6 +30,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
     /**
      * Cancel Order Item using API -> AdjustItem
+     *
+     * @return Json
      */
     public function adjustItem($invNo, $itemId, $qty, $newSubTotal = '', $newTotalTax = '', $newPrice = '', $newDescription = '')
     {
@@ -63,6 +65,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         return json_decode($response);
     }
 
+    /**
+     * Cancel Order using API -> CancelEstimate
+     *
+     * @return Json
+     */
     public function cancelEstimate($invNo)
     {
         /**
