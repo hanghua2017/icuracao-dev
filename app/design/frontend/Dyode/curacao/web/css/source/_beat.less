@@ -121,12 +121,18 @@
       }
       .how-it-works-container{
         margin-top:20px;
+
+        @media all and (max-width:767px){
+          margin-top:0;
+        }
+
         .content-row{
           display: flex;
           justify-content: space-around;
           margin:20px 0;
           @media all and (max-width:767px){
             flex-direction:column;
+            margin-bottom: 0;
           }
           .content-item{
             font-family: 'iCuracao-Regular';
