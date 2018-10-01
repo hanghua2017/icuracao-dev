@@ -92,12 +92,19 @@
 										.flex-nav-prev,.flex-nav-next{
 											a{
 												background-color: #f3f3f3;
-												width: 35px;
-												height: 120px;
+												width: 30px;
+												height: 90px;
 												top:44%;
 												background-repeat: no-repeat;
 												background-position: center;
 												z-index: 2;
+												transition: all 0.2s;
+												&:hover{
+													@media all and (min-width:1025px){
+														background-color:#ddd;
+														transition: all 0.2s;
+													}
+												}
 												@media all and (max-width:767px){
 													top:42%;
 													width: 30px;
@@ -254,11 +261,20 @@
 
 								.details {
 									width: 50%;
+									margin-top:8px;
+									@media screen and (max-width: 991px) {
+										margin-top:4px;
+									}
 									@media screen and (max-width: 890px) {
 										width: 70%;
+										margin-top:10px;
 									}
 									@media screen and (max-width: 767px) {
 										width: 85%;
+										margin-top:6px;
+									}
+									@media screen and (max-width: 639px) {
+										margin-top:0px;
 									}
 									@media all and (max-width:480px){
 										width:100%;
@@ -387,11 +403,14 @@
 								.custom-next,
 								.custom-prev {
 									background-color: #f3f3f3;
-									width: 35px;
-									height: 120px;
-									@media screen and (max-width: 480px) {
-										width: 30px;
-										height: 80px;
+									width: 30px;
+									height: 90px;
+									transition: all 0.2s;
+									&:hover{
+										@media all and (min-width:1025px){
+											background-color:#ddd;
+											transition: all 0.2s;
+										}
 									}
 									@media screen and (max-width: 480px) {
 										width: 30px;
