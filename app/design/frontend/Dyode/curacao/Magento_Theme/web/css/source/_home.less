@@ -53,7 +53,7 @@
 						justify-content: space-between;
 						margin-bottom: 20px;
 						@media all and (min-width:1025px){
-							margin:20px 0 25px 0;
+							margin:20px 0 30px 0;
 						}
 						@media screen and (max-width: 768px) {
 							flex-direction: column;
@@ -501,7 +501,7 @@
 									}
 									@media all and (max-width:479px) {
 										font-size: 12px;
-										left: 0;
+										left: 10px;
 										top: 10px;
 									}
 								}
@@ -779,17 +779,16 @@
 					}
 
 					.banner-block-container {
-						margin-bottom: 30px;
-						@media all and (max-width:767px){
-							margin-bottom: 20px;
-						}
 
 						.block-products-list {
 							margin-bottom: 0;
 						}
 
 						.banner-block {
-							margin-bottom: 20px;
+							margin:0 0 30px 0;
+							@media all and (max-width:767px){
+								margin:0 0 20px 0;
+							}
 							&.subsidiaries-banners{
 								@media all and (min-width:769px){
 									border-top:1px solid @white-shade;

@@ -109,15 +109,19 @@
 					margin: 7px 0 10px 40px !important;
 				}
 				@media all and (max-width:479px) {
-					margin: 7px 0 10px 35px !important;
+					width:110px;
+					margin: 9px 0 10px 35px !important;
 				}
 
 
 				img {
+					min-width: 120px;
 					@media all and (min-width:768px){
 						min-width:130px;
 					}
-					min-width: 120px;
+					@media all and (max-width:479px){
+						min-width:110px;
+					}
 				}
 			}
 
@@ -142,12 +146,12 @@
 				float: none;
 				width: 73%;
 				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-				margin: 10px auto 0;
+				margin: 10px auto 3px;
 				padding: 0;
 				z-index: 9;
 				height: 40px;
 				@media all and (max-width:1250px){
-					width: 64%;
+					width: 63%;
 				}
 				@media all and (max-width:1024px){
 					margin: 7px 15px 0 0;
@@ -359,8 +363,8 @@
 				position: relative;
 				.hello-text{
 					position: absolute;
-					top: 0px;
-					left: 36px;
+					top: 2px;
+					left: 39px;
 					color: @white;
 					font-family: "iCuracao-Regular";
 					font-size:12px;
@@ -368,17 +372,17 @@
 						left:43px;
 					}
 					@media all and (max-width:800px){
-						left:34px;
+						left:35px;
 					}
 					@media all and (max-width:767px){
-						left:43px;
+						left:39px;
 					}
 				}
 				@media all and (min-width:768px){
 					margin:10px 0 0;
 				}
 				@media all and (min-width:1025px) {
-					margin: 15px 0 0 20px;
+					margin: 10px 0 0 20px;
 					padding-left: 0;
 				}
 				@media all and (max-width:1024px) {
@@ -406,12 +410,12 @@
 							content: "";
 							background-image: url("../../images/sign-white.png");
 							background-repeat: no-repeat;
-							background-size: 25px;
+							background-size: 30px;
 							display: inline-block;
-							height: 25px;
+							height: 30px;
 							margin: 0;
 							overflow: hidden;
-							width: 25px;
+							width: 30px;
 							-webkit-font-smoothing: antialiased;
 							-moz-osx-font-smoothing: grayscale;
 							vertical-align: top;
@@ -419,7 +423,7 @@
 						}
 
 						span {
-      				line-height: 37px;
+      				line-height: 44px;
 						}
 					}
 				}
@@ -430,15 +434,15 @@
 				text-align: left;
 				margin:9px 0 0;
 				position: relative;
-				@media all and (min-width:768px){
-					margin:15px 0 0;
-				}
+				transition: all 0.5s;
 				@media all and (min-width:1025px) {
-					margin: 20px 0 0 20px;
+					margin: 14px 0 0 20px;
 					padding-left: 0;
 				}
 				@media all and (max-width:1024px){
 					width:95px;
+					margin:6px 0 0;
+					transform:translateY(7px);
 				}
 				@media all and (max-width:767px){
 					display: block;
@@ -461,13 +465,13 @@
 						content: "";
 						background-image: url("../../images/sign-white.png");
 						background-repeat: no-repeat;
-						background-size: 25px;
+						background-size: 30px;
 						display: block;
 						float:left;
-						height: 25px;
+						height: 30px;
 						margin: 0 5px 0 0;
 						overflow: hidden;
-						width: 25px;
+						width: 30px;
 						-webkit-font-smoothing: antialiased;
 						-moz-osx-font-smoothing: grayscale;
 						vertical-align: middle;
@@ -498,10 +502,10 @@
 						font-family: "iCuracao-Regular";
 						font-size: 12px;
 						position: absolute;
-						top:-5px;
+						top:-2px;
 					}
 					.customer-firstname{
-						line-height: 36px;
+						line-height: 43px;
 						font-size: 14px;
 					}
 					.action{
@@ -604,7 +608,7 @@
 				position: relative;
 				text-align: left;
 				@media all and (min-width:1025px) {
-					margin: 15px 0 0 30px;
+					margin: 10px 0 0 30px;
 				}
 				@media all and (max-width:1024px) {
 					margin: 10px 0 0 15px;
@@ -621,9 +625,9 @@
 						content: "";
 						background-image: url("../../images/minicart-cart.png");
 						background-repeat: no-repeat;
-						height: 23px;
+						height: 30px;
 				    width: 30px;
-				    background-size: 23px;
+				    background-size: 30px;
 					}
 					.qty{
 						width: 23px;
@@ -653,7 +657,10 @@
 			.header {
 				&.content {
 					padding-top: 0px !important;
-					padding-bottom: 5px !important;
+					padding-bottom: 10px !important;
+					@media all and (max-width:1024px){
+						padding-bottom:5px !important;
+					}
 					@media all and (max-width: 767px)
 					{
 						padding-top: 5px !important;
@@ -673,7 +680,7 @@
 					}
 					.customer-signin
 					{
-						 margin-top: 13px;
+						 margin-top: 9px;
 						 transition: all ease 0.5s;
 						 @media all and (max-width:1024px){
 							 margin-top: 9px;
@@ -683,8 +690,21 @@
  							 margin-top: 4px;
  						}
 					}
+					.customer-welcome{
+						margin-top:7px;
+						transform:translateY(7px);
+						transition:all 0.5s;
+						@media all and (max-width:1024px){
+							transform:translateY(6px);
+						}
+						@media all and (max-width:767px){
+							margin-top: 4px;
+    					transform: translateY(5px);
+						}
+					}
 					.block-search
 					{
+						margin:10px auto 0;
 						transition: all ease 0.5s;
 						@media all and (max-width:1024px){
 							margin:10px 15px 0 0;
@@ -694,7 +714,7 @@
 						@media all and (max-width: 767px)
 						{
 							margin:0;
-							top: 50px;
+							top: 53px;
 							background: @green-color;
 							padding: 0 15px;
 							height: 45px;
