@@ -1,6 +1,7 @@
 <?php
 /**
- * @package   Dyode 
+ * @category  Dyode
+ * @package   Dyode_ArInvoice
  * @author    Sooraj Sathyan
  */
 namespace Dyode\ArInvoice\Controller\Test;
@@ -38,37 +39,37 @@ class Index extends \Magento\Framework\App\Action\Action
 
     public function execute()
     {
-        $invoiceNo = "ZEP5903";
-        $customerId = "53208833";
-        $firstName = "TED";
-        $lastName = "JOHN";
-        $email = "someone@somesite.tld";
-        $phone = "(999)999-9999";
-        $inputArray = array(
-            "invoice" => $invoiceNo,
-            "cust_id" => $customerId,
-            "f_name" => $firstName,
-            "l_name" => $lastName,
-            "email" => $email,
-            "cell_no" => $phone,
-            "items" => array(
-                array(
-                    "23H-N05-MC544LL/A",
-                    "23Y-417-S5094LL/A"
-                )
-            )
-        );
-        echo "<pre>";
-        print_r($inputArray);
-        // die();
-        echo "<br>";
-        $result = $this->_arInvoiceHelper->appleCareSetWarranty($inputArray);
-        print_r($result);
+        // $invoiceNo = "ZEP5903";
+        // $customerId = "53208833";
+        // $firstName = "TED";
+        // $lastName = "JOHN";
+        // $email = "someone@somesite.tld";
+        // $phone = "(999)999-9999";
+        // $inputArray = array(
+        //     "invoice" => $invoiceNo,
+        //     "cust_id" => $customerId,
+        //     "f_name" => $firstName,
+        //     "l_name" => $lastName,
+        //     "email" => $email,
+        //     "cell_no" => $phone,
+        //     "items" => array(
+        //         array(
+        //             "23H-N05-MC544LL/A",
+        //             "23Y-417-S5094LL/A"
+        //         )
+        //     )
+        // );
+        // echo "<pre>";
+        // print_r($inputArray);
+        // // die();
+        // echo "<br>";
+        // $result = $this->_arInvoiceHelper->appleCareSetWarranty($inputArray);
+        // print_r($result);
 
-        $warrantyList = $this->_arInvoiceHelper->appleCareListWarranties();
-        print_r($warrantyList);
-        echo "</pre>";
-        die();
+        // $warrantyList = $this->_arInvoiceHelper->appleCareListWarranties();
+        // print_r($warrantyList);
+        // echo "</pre>";
+        // die();
         // $collection = $this->_orderCollectionFactory->create()->addAttributeToSelect('*');
         // $collection->addFieldToFilter('status', 'approved_fraud');
         // $collection->addFieldToFilter('status', 'credit_review');
@@ -110,8 +111,10 @@ class Index extends \Magento\Framework\App\Action\Action
 
         // echo $inventoryLevel = $this->_arInvoiceHelper->getDomesticInventoryLocation($itemId, 41, 35801, 40);
         // die();
-        // $this->arInvoice->prepareOrderItems(95);
+        // echo "Hello";
+        $this->arInvoice->prepareOrderItems(13045);
+        // $this->arInvoice->createInvoice(13069);
         // var_dump($orders);
-        // die();
+        die();
     }
 }

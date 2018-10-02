@@ -55,6 +55,13 @@
 				background-color: #f3f3f3;
 				width: 30px;
 				height: 90px;
+				transition: all 0.2s;
+				&:hover{
+					@media all and (min-width:1025px){
+						background-color:#ddd;
+						transition: all 0.2s;
+					}
+				}
 				@media screen and (max-width: 480px) {
 					height: 60px;
 				}
@@ -219,14 +226,33 @@
 		.items{
 			.item{
 				width: auto;
-				border-right: none;
+				border-right:none;
 			}
 		}
 	}
 	.brand-widget{
 		.single-item {
 			margin: 0 !important;
+			padding: 20px 0;
 		}
+				 .owl-carousel{
+					 .single-item {
+						 a {
+							 img{
+								 max-width: 150px;
+							 }
+					 }
+					 }
+				 }
+				 .owl-prev,
+				 .owl-next {
+						 position: absolute;
+						 top: 5% !important;
+						 outline: none;
+						 @media screen and (max-width: 480px) {
+								 top: 20% !important;
+						 }
+				 }
 	}
 	.block.widget .pager {
 		display: none;
