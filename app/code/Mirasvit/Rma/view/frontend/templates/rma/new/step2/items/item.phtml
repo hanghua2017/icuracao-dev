@@ -10,9 +10,10 @@
             <div class="item-description">
                 <input type='checkbox' name="items[<?= $item->getOrderItemId() ?>][is_return]"
                        data-item-id="<?= $item->getOrderItemId() ?>"
-                       class="rma-item-checkbox"
-                       value='1' <?= ($block->getQtyAvailable($item) == 0 || $product->getRmaAllowed() == '0') ? 'disabled' : '' ?>
+                       class="rma-item-checkbox" id="<?= $item->getOrderItemId() ?>"
+                       value='1'<?= ($block->getQtyAvailable($item) == 0 || $product->getRmaAllowed() == '0') ? 'disabled' : '' ?>
                     <?= $item->getIsRmaAllowed() ? '' : 'style="visibility:hidden"' ?>>
+                <label for="<?= $item->getOrderItemId() ?>" class="rma-checkbox"></label>
 
                 <img class="image"
                      src="<?= $block->initImage($item, 'product_page_image_small')->resize(300)->getUrl() ?>"
@@ -88,3 +89,16 @@
         </div>
     <?php endif; ?>
 <?php endif; ?>
+
+
+<script type="text/javascript">
+require([
+  'jquery'
+], function($) {$(function() {
+
+  console.log("helloo");
+
+});
+});
+
+</script>
