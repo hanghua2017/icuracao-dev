@@ -38,6 +38,9 @@ class Emi implements ArgumentInterface
      */
     protected $_item;
 
+    /**
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     */
     protected $_scopeConfig;
 
     /**
