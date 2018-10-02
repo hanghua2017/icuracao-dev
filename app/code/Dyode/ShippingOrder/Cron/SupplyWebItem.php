@@ -64,6 +64,10 @@ class SupplyWebItem
     */
     public function execute()
     {
+        $writer = new \Zend\Log\Writer\Stream(BP . "/var/log/supplywebitem.log");
+		$logger = new \Zend\Log\Logger();
+		$logger->addWriter($writer);
+
         $searchCriteria = $this->_searchCriteriaBuilder
                 ->addFilter('status','processing','eq')
                 ->addSortOrder($this->_sortBuilder->setField('entity_id')
@@ -80,6 +84,8 @@ class SupplyWebItem
         foreach ($ordersList as $order) {
             $invoiceNumber = $order->getData('estimatenumber');
             if (empty($invoiceNumber)) {
+                $logger->info("Order Id : " . $order->getId());
+                $logger->info("Invoice Number Not found ");
                 throw new Exception("Invoice Number Not found " . " Order Id: " . $order->getIncrementId(), 1);
             }
             // $invoiceNumber = "ZEP591R";
@@ -96,11 +102,16 @@ class SupplyWebItem
                     $response = $this->_shippingOrderHelper->supplyWebItem($invoiceNumber, $itemSku, $itemName, $qty);
 
                     if (empty($response)) {
+                        $logger->info("Order Id : " . $order->getId());
+                        $logger->info("Order Item Id : " . $orderItem->getId());
+                        $logger->info("API Response not Found.");
                         throw new Exception("API Response not Found", 1);
                     }
                     if ($response->OK != true) {
                         array_push($shippedArray, $orderItem->getId());
                     } else {
+                        $logger->info("Order Id : " . $order->getId());
+                        $logger->info("Order Item Id : " . $orderItem->getId());
                         throw new Exception($response->INFO, 1);
                     }
                 }

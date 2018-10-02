@@ -52,7 +52,6 @@ class Invoice extends \Magento\Framework\Model\AbstractModel// implements \Magen
         $order = $this->_orderRepository->get($orderId);
         if ($order->canInvoice()) {
             # code...
-            echo "Yes";
             $invoice = $this->_invoiceService->prepareInvoice($order);
             $invoice->register();
             try {
@@ -71,10 +70,6 @@ class Invoice extends \Magento\Framework\Model\AbstractModel// implements \Magen
                 __($e->getMessage())
                 );
             }
-        }
-        else {
-            # code...
-            echo "No";
         }
         return;
     }
