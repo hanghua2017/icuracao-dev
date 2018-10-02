@@ -21,32 +21,48 @@
         .value {
             max-height: 145px;
             overflow: hidden;
-            margin-bottom: 15px;
+            margin-bottom: 0;
             p {
               line-height: 24px;
               font-family: 'iCuracao-Regular';
             }
             ul {
-              padding-left: 17px;
+              padding-left: 22px;
               margin-bottom: 0;
-              li::before {
-                content: "•";
-                color: @content-light-grey;
-                display: inline-block;
-                width: 1em;
-                margin-left: -1em;
+              li{
                 font-family: 'iCuracao-Regular';
                 font-size: 12px;
+                margin-bottom: 5px;
                 @media all and (min-width: 991px) {
                   font-size: 14px;
                 }
+                &::before {
+                  content: "•";
+                  color: #aeaeae;
+                  font-size: 22px;
+                  display: inline-block;
+                  width: 1em;
+                  height: 6px;
+                  margin-left: -1em;
+
+                }
               }
+                }
             }
           a.redirect-view-details, a.redirect-view-details:hover{
             color: @link-blue;
             font-family: 'iCuracao-Regular';
+            text-decoration: underline;
+            display: none;
+            &::after{
+              content: "\e622";
+              color: #4046d1;
+              font-family: 'luma-icons';
+              display: inline-block;
+              font-size: 12px;
+            }
           }
-        }
+
       }
     }
   }

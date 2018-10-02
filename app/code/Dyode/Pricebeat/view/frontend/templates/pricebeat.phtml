@@ -45,9 +45,14 @@
         </div>
 
         <label for="productimage" class="label"><span><?php /* @escapeNotVerified */ echo __("Competitor's product image or screenshot") ?></span></label>
-        <div class="control uploadFile-box" id= "upload_file_box">
-          <input type="file" name="upload_file" class="input-text upload"/>
-          <label for="file">Choose file</label>
+        <div class="curacao-file-upload">
+          <div class="file-upload">
+            <div class="file-select">
+              <div class="file-select-button" id="fileName">Choose File</div>
+              <div class="file-select-name" id="noFile">No file chosen</div>
+              <input type="file" name="upload_file" id="chooseFile">
+            </div>
+          </div>
         </div>
 
         <div class="actions-toolbar">
@@ -145,4 +150,25 @@ require([
   });
 });
 
+</script>
+
+<script>
+require([
+  'jquery'
+], function($) {$(function() {
+
+$('#chooseFile').bind('change', function () {
+  var filename = $("#chooseFile").val();
+  if (/^\s*$/.test(filename)) {
+    $(".file-upload").removeClass('active');
+    $("#noFile").text("No file chosen...");
+  }
+  else {
+    $(".file-upload").addClass('active');
+    $("#noFile").text(filename.replace("C:\\fakepath\\", ""));
+  }
+});
+
+});
+});
 </script>

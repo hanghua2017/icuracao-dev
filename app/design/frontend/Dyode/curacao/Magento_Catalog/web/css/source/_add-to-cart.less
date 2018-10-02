@@ -10,21 +10,29 @@
   .add-to-cart-block {
     width: 100%;
     clear: both;
+    @media all and (min-width: 768px) {
     float: left;
+    }
+    @media all and (max-width: 767px) {
+    text-align: center;
+    }
     margin-bottom: 15px;
     .actions {
       display: inline-block;
       float: left;
       margin-right: 20px;
       min-width:200px;
+      @media all and (max-width: 767px) {
+        width: 100%;
+      }
       #product-addtocart-button {
         background-color: @btn-orange;
         border-color: @btn-orange;
         color: #fff;
         width: 100%;
         border-radius: 0;
-        padding: 12px 15px;
-        text-transform: uppercase;
+        padding: 10px 15px;
+        // text-transform: uppercase;
         margin-bottom: 0;
         box-shadow: none;
         span {
@@ -35,7 +43,7 @@
         }
         img {
           position: relative;
-          top: 5px;
+          top: 3px;
         }
       }
     }
@@ -43,7 +51,7 @@
       display: inline-block;
       p {
         font-size: 14px;
-        margin-bottom: 5px;
+        margin: 5px 0;
         &.shipping {
           color: @darkgreen-color;
           font-family: 'iCuracao-Regular';
@@ -271,11 +279,13 @@
   .modal-inner-wrap{
     @media all and (min-width: 991px) {
       width: 40% !important;
+      margin: 15rem auto;
     }
     .modal-header{
-      background-color: @popup-header;
+      background-color:  @popup-header !important;
       padding: 5px 0;
       overflow: hidden;
+      color: @black;
       border-bottom: 1px solid @content-light-grey;
       .modal-title{
         font-size: 16px;
@@ -416,9 +426,9 @@
     text-transform: uppercase;
     font-size: 16px;
     border-radius: 4px;
-    padding: 10px 15px;
+    padding: 15px;
     &.add-warranty-btn{
-      background-color: @darkgreen-color;
+      background-color: @green-color;
       margin-right: 30px;
       @media all and (max-width: 600px) {
         margin-right: 15px;
