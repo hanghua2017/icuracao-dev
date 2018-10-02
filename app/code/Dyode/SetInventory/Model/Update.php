@@ -29,12 +29,12 @@ class Update extends \Magento\Framework\View\Element\Template {
 	public function setInventoryUpdate(){
 		$domesticLocation = '06';
 		$nonDomesticLocations ='16,33,22,01';
-		$this->updateInventory($domesticLocation);
-		$this->updateInventory($nonDomesticLocations);
+		$this->updateInventory($domesticLocation, 'domestic');
+		$this->updateInventory($nonDomesticLocations, 'nondomestic');
 	}
 
-	public function updateInventory($location) {
-		$products = $this->getProducts();
+	public function updateInventory($location, $type) {
+		$products = $this->getProducts($type);
 		foreach ($products as $product) {
 			// var_dump($product->getSku());exit;
 			//$this->helper->getSetItems($product->getID());
@@ -93,7 +93,7 @@ class Update extends \Magento\Framework\View\Element\Template {
 					$locationInventory->addData([
 						"productid" => $product->getID(),
 						"productsku" => $product->getSku(),
-						"isset" => 0,
+						"isset" => 1,
 						"arinventory" => $AR_items_inventory
 						]);
 			        $saveData = $locationInventory->save();
@@ -106,13 +106,21 @@ class Update extends \Magento\Framework\View\Element\Template {
 	    } 
 	}	
 
-	public function getProducts() {
+	public function getProducts($type) {
 	    $productCollection = $this->_productCollectionFactory->create();
-        $productCollection->addAttributeToSelect('*')
+	    if($type == 'domestic'){
+        	$productCollection->addAttributeToSelect('*')
                           ->addAttributeToFilter('inventorylookup', 14)
 					      ->addAttributeToFilter('set', 1)
 					      ->addAttributeToFilter('shprate','Domestic')
-					      ->addAttributeToFilter('vendorId', 2139);                
+					      ->addAttributeToFilter('vendorId', 2139);    
+		} else {
+			$productCollection->addAttributeToSelect('*')
+                          ->addAttributeToFilter('inventorylookup', 14)
+					      ->addAttributeToFilter('set', 1)
+					      ->addAttributeToFilter('shprate',['nin' => array('Domestic')])
+					      ->addAttributeToFilter('vendorId', 2139); 
+		}		                  
         return $productCollection;
 	}
 }

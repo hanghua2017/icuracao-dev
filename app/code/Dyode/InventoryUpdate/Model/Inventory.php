@@ -34,6 +34,7 @@ class Inventory extends \Magento\Framework\View\Element\Template {
     \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
 	\Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory, 
 	\Dyode\InventoryLocation\Model\LocationFactory  $inventoryLocation,
+	\Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry, 
 	\Dyode\InventoryUpdate\Helper\Data $helper,
 	\Dyode\Threshold\Model\Threshold $thresholdModel,
 	array $data = []
@@ -44,11 +45,11 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 	    $this->helper = $helper;
 	    $this->inventorylocation = $inventoryLocation;
 	    $this->threshold = $thresholdModel;
+	    $this->_stockRegistry = $stockRegistry;
 	    parent::__construct($context, $data);
 	}
 
 	public function updateInventory() {
-
 		$products = $this->getProducts();
 		foreach ($products as $product) {
 			$productSKU = trim($product->getSku());
@@ -57,9 +58,8 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 			$this->productSKUs[$productSKU] = array();
 			$this->productIDs[$productSKU] = $productId;
 		}
-
 		$this->processBatchInventory();
-		$this->getAllPending();
+		$this->getAllPending();	
 		$this->getAllThreshold();
 		$this->processThreshold();
 		$this->executeProductSkus();
@@ -169,18 +169,20 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 
 	//execute all available products in the inventory
 	public function executeProductSkus(){
-		foreach ($this->productSKUs as $sku => $inv)
-		{			
-			if (isset($this->productIDs[$sku]))
+		$products = $this->getProducts();
+		foreach ($products as $product)
+		{		
+			if (isset($this->productSKUs[$product->getSku()]))
 			{
+				$sku = $product->getSku();
 				$eid = $this->productIDs[$sku];
-				if (count($inv) == 0)
+				if (count($this->productSKUs[$sku]) == 0)
 				{
 										
 				}
 				else
 				{
-					$jsonAR_inv = json_encode($inv, true);
+					$jsonAR_inv = json_encode($this->productSKUs[$sku], true);
 					$jsonAR_invAfterPending = json_encode($this->pending[$sku], true);
 					$jsonAR_invAfterPendingAndThreshold = json_encode($this->pendingthreshold[$sku], true);
 					$finalInv = max($this->pendingthreshold[$sku]);
@@ -192,46 +194,58 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 
 					$locationInventory = $this->inventorylocation->create();
 					$locationInventory->addData([
-						"productid" => $sku,
+						"productid" => $product->getID(),
 						"productsku" => $sku,
-						"set" => 1,
+						"isset" => 0,
 						"arinventory" => $jsonAR_inv,
 						"inventoryafterpending" => $jsonAR_invAfterPending,
 						"finalinventory" => $jsonAR_invAfterPendingAndThreshold
 						]);
 			        $saveData = $locationInventory->save();
+			        $stockItem=$this->_stockRegistry->getStockItem($product->getID());
+
+			        if ($product->getArStatus() =='D') {
+			        	$product->setStatus(0);
+			        	$product->setVisibiity(1);
+			        	$product->setInventorylookup('16');
+			        	$product->setCron('15');
+			        	$product->save();
+			        	continue;
+			        }
+
+			        if ($product->getArStatus() =='Z') {
+			        	$product->setStatus(0);
+			        	$product->setVisibiity(1);
+			        	$product->save();
+			        	continue;
+			        }
+
+			        if ($product->getArStatus() =='R' && $company_wide_inventory < 5) {
+			        	$product->setStatus(0);
+			        	$product->setVisibiity(1);
+			        	$product->save();
+			        	continue;
+			        }
+
+			        if($finalInv > '0'){
+			        	$product->setStatus(1);
+			        	$product->setVisibiity(4);
+			        	$product->setOosDate('');
+			        	$product->save();
+			        	$stockItem->setQty($finalInv);
+			        } else {
+			        	$product->setStatus(0);
+			        	$product->setVisibiity(1);
+			        	$product->setOosDate(date("Y-m-d 00:00:00"));
+			        	$product->setInventorylookup('14');
+			        	$product->save();
+			        	$stockItem->setQty('0');
+			        }
+					$stockItem->setIsInStock((bool)$finalInv); 
+					$stockItem->save();
 				}
 			}
 		}
-		// $productCollection = $this->getProducts();
-		// foreach($productCollection as $product) {
-
-		// 	 $locationInventory = $this->inventorylocation->create();
-		// 			$locationInventory->addData([
-		// 				"productid" => $product->getID(),
-		// 				"productsku" => $product->getSku(),
-		// 				"inventory" => $jsonAR_inv
-		// 				]);
-		// 	        $saveData = $locationInventory->save();
-			//$item = $this->_productRepository->getById($product->getId());
-			// if($product->getDiscontinued()){
-				//$item->setData('status',0);
-				//$item->setData('visibility',0);
-				//$item->setData('inventory_lookup','499');
-				//$item->setData('run_cron','492');
-            	//$this->_productRepository->save($item);
-				//$product->setDiscontinued('0'); 
-				// $product->getResource()->saveAttribute($product,'status');
-				// $product->setData('visibility',0);
-				// $product->getResource()->saveAttribute($product,'visibility');
-				// $product->setData('inventory_lookup',499);
-				// $product->getResource()->saveAttribute($product,'inventory_lookup');
-				// $product->getResource()->saveAttribute($product,'discontinued');
-				// $product->setData('run_cron',492);
-    			//$productCollection->save($product);
-    			var_dump("expression");exit;
-			//}
-		// }
 	}
 	
 }
