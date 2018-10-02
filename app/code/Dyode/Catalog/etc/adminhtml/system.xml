@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Dyode_Catalog Magento2 Module.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package Dyode
+ * @module  Dyode_Catalog
+ * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="curacao_catalog" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+            <label>Catalog</label>
+            <tab>curacao_settings</tab>
+            <resource>Dyode_Catalog::config</resource>
+            <group id="curacao_product_page" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>Product Details Page</label>
+                <field id="price_beat_cms_page" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+                    <label>Price Beat CMS Page</label>
+                    <source_model>Magento\Cms\Model\Config\Source\Page</source_model>
+                </field>
+                <field id="emi_link" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Apply Now Link</label>
+                </field>
+                <field id="qty_dropdown_limit" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Quantity Dropdown Limit</label>
+                </field>
+                <field id="shipping_days_label" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Shipping Days Label</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

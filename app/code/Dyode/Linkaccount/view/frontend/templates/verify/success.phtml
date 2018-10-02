@@ -1,1 +1,30 @@
-<?php  echo "success....."; ?>
+    <div class="linkaccount-container">
+      <div class="linkaccount-inner-container">
+        <div class="success-content">
+<!--Succes logo-->
+          <div class="success-logo">
+              <img src="<?php echo $block->getViewFileUrl('images/success.png'); ?>" alt="success icon" />
+          </div>
+<!--description for success message-->
+          <div class="success-description">
+            <p>Thank you<br /><span>your curacao card has been linked</span></p>
+          </div>
+<!--image for curacao card-->
+          <div class="card-image">
+            <img src="<?php echo $block->getViewFileUrl('images/credit.png'); ?>" alt="Credit image" />
+          </div>
+<!--description of curacao card holder-->
+          <div class="card-description">
+            <p><?php echo __('Your Curacao card number:');?><span> XXXX XXXX <?php echo $block->getCuracaoId(); ?></span></p>
+            <p><?php echo __('Name on card:');?><span>
+              <?php echo $block->getCustomer(); ?></span>
+            </p>
+          </div>
+<!--Button to continue shopping-->
+          <div class="button">
+            <button type="submit" name="button"><?php echo __('Continue Shopping');?></button>
+          </div>
+        </div>
+      </div>
+    </div>
+ 

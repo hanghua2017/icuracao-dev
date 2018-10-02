@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Dyode_Interestbeat extension
+ *                     NOTICE OF LICENSE
+ *
+ *                     This source file is subject to the MIT License
+ *                     that is bundled with this package in the file LICENSE.txt.
+ *                     It is also available through the world-wide-web at this URL:
+ *                     http://opensource.org/licenses/mit-license.php
+ *
+ *                     @category  Dyode
+ *                     @package   Dyode_Interestbeat
+ *                     @copyright Copyright (c) 2017
+ *                     @license   http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Dyode_Interestbeat::interestbeat" title="Interestbeat" module="Dyode_Interestbeat" sortOrder="23" resource="Dyode_Interestbeat::interestbeat"/>
+        <add id="Dyode_Interestbeat::form" title="Manage form" module="Dyode_Interestbeat" sortOrder="10" action="dyode_interestbeat/form" resource="Dyode_Interestbeat::form" parent="Dyode_Interestbeat::interestbeat"/>
+        <add id="Dyode_Interestbeat::configuration" title="Settings" module="Dyode_Interestbeat" sortOrder="20" action="adminhtml/system_config/edit/section/interestbeatform" resource="Dyode_Interestbeat::form" parent="Dyode_Interestbeat::interestbeat"/>
+    </menu>
+</config>
