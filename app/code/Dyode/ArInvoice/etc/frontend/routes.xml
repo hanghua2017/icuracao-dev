@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category  Dyode
+ * @package   Dyode_ArInvoice
+ * @author    Sooraj Sathyan
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="arinvoice" frontName="arinvoice">
+            <module name="Dyode_ArInvoice" />
+        </route>
+    </router>
+</config>
