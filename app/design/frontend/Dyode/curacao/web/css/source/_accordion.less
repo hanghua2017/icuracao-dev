@@ -86,11 +86,24 @@
             width:100%;
           }
           li{
-            color:@curacao-green;
+            position: relative;
+            color:black;
             font-size: 14px;
             margin-bottom: 0;
             @media all and (max-width: 767px){
               width:100%;
+            }
+
+            &:before {
+              position: absolute;
+              left: -20px;
+              content: '';
+              background-image: url('../images/list-style.png');
+              margin-right: 10px;
+              display: inline-block;
+              vertical-align: text-top;
+              width: 20px;
+              height: 20px;
             }
           }
         }
