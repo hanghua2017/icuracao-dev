@@ -136,8 +136,10 @@
 				.productimage-container{
 					overflow: hidden;
 					display: block;
+					padding: 10px 0;
+					margin-top:20px;
 					img {
-						max-width: 85%;
+						max-width: 150px;
 						width: 100%;
 						vertical-align: middle;
 						-moz-transition: all 0.3s;
@@ -267,9 +269,11 @@
 			.product-image-container{
 				width:100% !important;
 				.product-image-wrapper{
-					padding-bottom: 85% !important;
+					padding-bottom: 0% !important;
+					height:auto;
+					margin-top:20px;
 					.product-image-photo {
-						max-width: 85%;
+						max-width: 150px;
 						transition: all 0.2s;
 						margin: 0px auto;
 						width: 100%;
@@ -366,8 +370,8 @@
 					.price-box{
 						text-align: center;
 						margin-bottom: 15px;
-						.price-label{
-							display:none;
+						.price-label,.price-discount {
+							display: none;
 						}
 						.price{
 							color: black;

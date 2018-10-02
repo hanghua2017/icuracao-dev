@@ -21,6 +21,7 @@
 	bottom: 0px;
 	padding: 7px 0;
 	background: @dark-green-color;
+	transition: all 0.5s;
 	@media all and (max-width:767px) {
 		display: block;
 	}
@@ -29,7 +30,6 @@
 		font-family: 'iCuracao-Regular';
 		font-size: 14px;
 		color: @white;
-		letter-spacing: 1px;
 		@media all and (max-width:479px) {
 			font-size: 12px;
 		}
@@ -70,6 +70,7 @@
 		.header.content {
 			display: flex;
 			padding: 10px 15px !important;
+			transition: all 0.5s;
 			@media all and (min-width: 768px) {
 				padding: 15px !important;
 			}
@@ -114,7 +115,7 @@
 
 				img {
 					@media all and (min-width:768px){
-						min-width:140px;
+						min-width:130px;
 					}
 					min-width: 120px;
 				}
@@ -355,6 +356,24 @@
 			.customer-signin {
 				width:85px;
 				margin:5px 0 0;
+				position: relative;
+				.hello-text{
+					position: absolute;
+					top: 0px;
+					left: 36px;
+					color: @white;
+					font-family: "iCuracao-Regular";
+					font-size:12px;
+					@media all and (max-width:1024px){
+						left:43px;
+					}
+					@media all and (max-width:800px){
+						left:34px;
+					}
+					@media all and (max-width:767px){
+						left:43px;
+					}
+				}
 				@media all and (min-width:768px){
 					margin:10px 0 0;
 				}
@@ -400,7 +419,7 @@
 						}
 
 						span {
-      				line-height: 24px;
+      				line-height: 37px;
 						}
 					}
 				}
@@ -476,6 +495,7 @@
 						display: block;
 					}
 					.hello-text{
+						font-family: "iCuracao-Regular";
 						font-size: 12px;
 						position: absolute;
 						top:-5px;
@@ -636,34 +656,48 @@
 					padding-bottom: 5px !important;
 					@media all and (max-width: 767px)
 					{
+						padding-top: 5px !important;
 						 top: 139px;
 						 background-color: @green-color;
 					}
 					.nav-toggle
 					{
+						transition: all ease 0.5s;
+						@media all and (max-width:1024px){
+							top:9px;
+						}
 						@media all and (max-width: 767px)
 						{    margin-bottom: 0;
-							 top: 6px;
+							 top: 10px;
 						}
 					}
 					.customer-signin
 					{
 						 margin-top: 13px;
+						 transition: all ease 0.5s;
+						 @media all and (max-width:1024px){
+							 margin-top: 9px;
+						 }
 						 @media all and (max-width: 767px)
  						{
- 							 margin-top: 8px;
+ 							 margin-top: 4px;
  						}
 					}
 					.block-search
 					{
 						transition: all ease 0.5s;
+						@media all and (max-width:1024px){
+							margin:10px 15px 0 0;
+							height:35px;
+							transition: all ease 0.5s;
+						}
 						@media all and (max-width: 767px)
 						{
-							top: 53px;
+							margin:0;
+							top: 50px;
 							background: @green-color;
-							padding: 15px;
-							height: 50px;
-							padding-top: 10px;
+							padding: 0 15px;
+							height: 45px;
 							transition: all ease 0.5s;
 						}
 						.label
@@ -672,7 +706,34 @@
 							@media all and (max-width: 767px)
 							{
 								 top: -1px !important;
+								 height:35px !important;
 								 transition: all ease 0.5s;
+							}
+							&:before{
+								@media all and (max-width:767px){
+									line-height:35px !important;
+									transition: all ease 0.5s;
+								}
+							}
+						}
+						.minisearch{
+							.field.search{
+								.control{
+									select#category_search_field,input#search{
+										@media all and (max-width:1024px){
+											height:35px;
+											transition: all ease 0.5s;
+										}
+									}
+								}
+							}
+							.actions{
+								button{
+									@media all and (max-width:1024px){
+										height:35px;
+										transition: all ease 0.5s;
+									}
+								}
 							}
 						}
 					}
@@ -681,8 +742,9 @@
 					{
 						@media all and (max-width: 767px)
 					 {
-						 top: -20px;
+    		 			top: 53px;
 	 				 		opacity: 0;
+
 					 }
 					}
 				}
@@ -698,7 +760,7 @@
 		@media all and (min-width:1025px) {
 			background: @dark-green-color;
 		}
-		@media all and (max-width:767px) {
+		@media all and (max-width:1024px) {
 			padding-top: 0px;
 		}
 
@@ -857,6 +919,7 @@ html.nav-before-open {
 	.nav-toggle {
 		display: block !important;
 		top: 24px;
+		transition: all ease 0.5s;
 	}
 
 	.nav-sections {
@@ -1007,6 +1070,7 @@ html.nav-before-open {
 @media all and (max-width:767px) {
 	.nav-toggle {
 		top: 15px;
+		transition: all ease 0.5s;
 	}
 }
 

@@ -2411,6 +2411,12 @@ print {
         margin: 0 20px 0 0;
         position: relative
     }
+    .ves-megamenu .navigation .level0.link-with-border a span{
+      line-height: 30px;
+      padding: 0 17px;
+      border: 1px solid #fff;
+      font-family: "iCuracao-Medium";
+    }
     .ves-megamenu .navigation .level0 > a {
         font-family: "iCuracao-Regular";
         font-size: 15px;

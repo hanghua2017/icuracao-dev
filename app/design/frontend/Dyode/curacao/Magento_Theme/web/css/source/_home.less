@@ -53,7 +53,7 @@
 						justify-content: space-between;
 						margin-bottom: 20px;
 						@media all and (min-width:1025px){
-							margin:15px 0 20px 0;
+							margin:20px 0 25px 0;
 						}
 						@media screen and (max-width: 768px) {
 							flex-direction: column;
@@ -224,6 +224,12 @@
 									width: 50%;
 									text-align: right;
 									margin-right: 15px;
+									@media all and (max-width:1200px){
+										width:43%;
+									}
+									@media screen and (max-width: 890px) {
+										width: 30%;
+									}
 									@media all and (max-width:480px){
 										margin-right:10px;
 									}
@@ -244,9 +250,6 @@
 											height: auto;
 										}
 									}
-									@media screen and (max-width: 890px) {
-										width: 30%;
-									}
 									@media screen and (max-width: 767px) {
 										text-align: left;
 										margin-right: 5px;
@@ -262,6 +265,9 @@
 								.details {
 									width: 50%;
 									margin-top:8px;
+									@media all and (max-width:1200px){
+										width:57%;
+									}
 									@media screen and (max-width: 991px) {
 										margin-top:4px;
 									}
@@ -494,8 +500,10 @@
 								.productimage-container{
 									overflow: hidden;
 									display: block;
+									padding: 10px 0;
+									margin-top:20px;
 									img {
-										max-width: 85%;
+										max-width: 150px;
 										width: 100%;
 										vertical-align: middle;
 										-moz-transition: all 0.3s;
@@ -540,6 +548,7 @@
 									margin-bottom: 15px;
 									color: @textColor;
 									font-size: 16px;
+									font-weight:normal;
 									@media screen and (max-width: 768px) {
 										font-size: 14px;
 										margin-bottom: 10px;
@@ -611,15 +620,16 @@
 									width: 100% !important;
 
 									.product-image-wrapper{
-										padding-bottom: 85% !important;
+										padding-bottom: 0% !important;
+										height:auto;
+										margin-top:20px;
 										.product-image-photo {
-											max-width: 85%;
+											position:static;
+											max-width: 150px;
 											transition: all 0.2s;
 											margin: 0 auto;
 											width: 100%;
 											height: auto;
-											max-height: inherit;
-											min-height: inherit;
 											vertical-align: middle;
 											transition: all 0.2s;
 
@@ -718,7 +728,7 @@
 										.price-box {
 											text-align: center;
 											margin-bottom: 15px;
-											.price-label {
+											.price-label,.price-discount {
 												display: none;
 											}
 											@media screen and (max-width: 768px) {
@@ -729,6 +739,7 @@
 												font-family: 'iCuracao-Medium';
 												color: @textColor;
 												font-size: 16px;
+												font-weight: normal;
 												@media screen and (max-width: 768px) {
 													font-size: 14px;
 												}
@@ -907,6 +918,47 @@
 									}
 								}
 							}
+						}
+					}
+				}
+			}
+		}
+		.page-footer{
+			padding-top:0;
+			@media all and (max-width:768px){
+				padding-top:15px;
+			}
+			.curacao-subsidiaries-banner{
+				margin:0 -40px 40px;
+				padding-bottom: 30px;
+				background: @white;
+				border-top:1px solid #efefef;
+				@media all and (max-width:1024px){
+					margin:0 -15px 15px;
+				}
+				@media screen and (max-width: 768px) {
+					display: none;
+				}
+				.banner-block-container {
+					max-width: 1500px;
+					margin: 0 auto;
+
+					.block-products-list {
+						margin-bottom: 0;
+					}
+
+					.onethird-subsidiaries {
+						overflow: hidden;
+						display: flex;
+						justify-content: space-between;
+						justify-content: space-around;
+						padding-top: 35px;
+						margin-bottom: 0px;
+
+						img {
+							width: auto;
+							height: 100%;
+							max-width: 100%;
 						}
 					}
 				}

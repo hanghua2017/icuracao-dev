@@ -39,8 +39,19 @@
         <block class="Magento\Framework\View\Element\Template" name="banner.block.3" template="Magento_Theme::home-banner-block-3.phtml" after="category.block.1"/>
         <block class="Magento\Framework\View\Element\Template" name="category.block.2" template="Magento_Theme::category-2.phtml" after="banner.block.3"/>
         <block class="Magento\Framework\View\Element\Template" name="banner.block.4" template="Magento_Theme::home-banner-block-4.phtml" after="category.block.2"/>
-        <block class="Magento\Framework\View\Element\Template" name="curacao.banners" template="Magento_Theme::curacao-banners.phtml" after="banner.block.4"/>
       </container>
+    </referenceContainer>
+    <referenceContainer name="footer-container">
+        <container name="curacao.subsidiaries.container" htmlTag="div" htmlClass="curacao-subsidiaries-banner" before="footer">
+          <block class="Magento\Framework\View\Element\Template" name="curacao.banners" template="Magento_Theme::curacao-banners.phtml" before="-"/>
+        </container>
+        <container name="footer" as="footer" label="Page Footer" htmlTag="div" htmlClass="footer content">
+            <block class="Magento\Framework\View\Element\Template" name="custom-footer-link" as="custom-link" before="store_switcher" template="Magento_Theme::footer-custom-links.phtml"/>
+            <!-- <block class="Magento\Framework\View\Element\Html\Links" name="footer_links" remove="true"/> -->
+            <block class="Magento\Framework\View\Element\Template" name="trust_factors" as="trust" after="subscribe" template="Magento_Theme::trust-factor.phtml"/>
+            <block class="Magento\Framework\View\Element\Template" name="footer-bottom" after="trust" template="Magento_Theme::footer-bottom.phtml"/>
+            <block class="Magento\Framework\View\Element\Template" name="copy-right" after="footer-bottom" template="Magento_Theme::copy-right.phtml"/>
+        </container>
     </referenceContainer>
     </body>
 </page>
