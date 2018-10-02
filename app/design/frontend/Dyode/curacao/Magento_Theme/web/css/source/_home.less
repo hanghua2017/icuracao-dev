@@ -57,7 +57,7 @@
 						}
 						@media screen and (max-width: 768px) {
 							flex-direction: column;
-							margin-bottom: 10px;
+							margin-bottom: 0px;
 						}
 
 						.magestore-bannerslider {
@@ -70,6 +70,9 @@
 								height: 100%;
 								background-color: white;
 								box-shadow: 0 0 10px 0 @box-shadow-color;
+								@media all and (max-width:768px){
+									height:auto;
+								}
 
 								.magestore-bannerslider-title {
 									display: none;
@@ -78,6 +81,9 @@
 								.magestore-bannerslide-flex-slider {
 									margin-bottom: 0 !important;
 									height: 100%;
+									@media all and (max-width:768px){
+										height:auto;
+									}
 
 									.flex-control-nav {
 										display: none;
@@ -135,6 +141,9 @@
 
 									.flexslider {
 										height: 100%;
+										@media all and (max-width:768px){
+											height:auto;
+										}
 
 										.flex-viewport {
 											height: 100%;
