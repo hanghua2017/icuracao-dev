@@ -1,7 +1,10 @@
 <?php
 /**
- * @package   Dyode
- * @author    Sooraj Sathyan
+ * Dyode
+ *
+ * @category  Dyode
+ * @package   Dyode_ShippingOrder
+ * @author    Sooraj Sathyan (soorajcs.mec@gmail.com)
  */
 namespace Dyode\ShippingOrder\Model\Order;
 
@@ -43,7 +46,7 @@ class Shipment extends \Magento\Framework\Model\AbstractModel// implements \Mage
         $this->_shipmentNotifier = $shipmentNotifier;
         return parent::__construct($context, $data);
     }
-    
+
     public function createShipment($orderId)
     {
         $order = $this->_orderRepository->get($orderId);

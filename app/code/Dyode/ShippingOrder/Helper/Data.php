@@ -1,7 +1,10 @@
 <?php
 /**
- * @package   Dyode
- * @author    Sooraj Sathyan
+ * Dyode
+ *
+ * @category  Dyode
+ * @package   Dyode_ShippingOrder
+ * @author    Sooraj Sathyan (soorajcs.mec@gmail.com)
  */
 namespace Dyode\ShippingOrder\Helper;
 
@@ -28,7 +31,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Supply Web Item using API -> SupplyWebItem
      */
-    public function supplyWebItem($invNo, $itemId, $itemName, $qty, $isSet)
+    public function supplyWebItem($invNo, $itemId, $itemName, $qty)
     {
         /**
          * Input Array
@@ -37,8 +40,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             "InvNo" => $invNo,
             "ItemID" => $itemId,
             "ItemName" => $itemName,
-            "Qty" => $qty,
-            "IsSet" => $isSet,
+            "Qty" => $qty
         );
         /**
          * Initialize Rest Api Connection

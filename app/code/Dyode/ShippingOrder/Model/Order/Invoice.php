@@ -1,7 +1,10 @@
 <?php
 /**
- * @package   Dyode
- * @author    Sooraj Sathyan
+ * Dyode
+ *
+ * @category  Dyode
+ * @package   Dyode_ShippingOrder
+ * @author    Sooraj Sathyan (soorajcs.mec@gmail.com)
  */
 namespace Dyode\ShippingOrder\Model\Order;
 
@@ -26,6 +29,9 @@ class Invoice extends \Magento\Framework\Model\AbstractModel// implements \Magen
      * Construct
      *
      * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
+     * @param \Magento\Sales\Model\Service\InvoiceService $invoiceService
+     * @param \Magento\Framework\DB\Transaction $transaction
      * @param \Magento\Framework\Registry $data
      */
 	public function __construct(
@@ -40,7 +46,7 @@ class Invoice extends \Magento\Framework\Model\AbstractModel// implements \Magen
         $this->_transaction = $transaction;
 		return parent::__construct($context, $data);
     }
-    
+
     public function createInvoice($orderId)
     {
         $order = $this->_orderRepository->get($orderId);
