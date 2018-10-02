@@ -10,17 +10,20 @@
 	.page-main{
 		.column{
 			margin-top: 30px;
+			padding-bottom: 0;
 			@media (max-width: 767px){
 				margin-top: 0;
 				padding-top: 15px;
 			}
 		}
 	.block{
-		@media (min-width: 991px){
-			margin-bottom: 40px;
-		}
 		@media (min-width: 768px){
 			margin-bottom: 30px;
+		}
+	}
+	.gateway-playstation-section{
+		.banner-block{
+			margin-bottom: 0;
 		}
 	}
 	.slider-title, .block-title{
@@ -43,14 +46,14 @@
 	.product-slider-carousel, .product-slider-new-arrivals{
 		box-shadow: 0 0px 10px @box-shadow-color;
 		margin: 15px 0 30px 0;
-		@media screen and (min-width: 991px) {
-			margin: 15px 0 40px 0;
-		}
-		.owl-stage {
-			position: relative;
-			display: -webkit-flex;
-			display: flex;
-			align-items: stretch;
+		.owl-stage-outer{
+			margin-left: 4px;
+			.owl-stage {
+				position: relative;
+				display: -webkit-flex;
+				display: flex;
+				align-items: stretch;
+			}
 		}
 		.owl-nav {
 			.custom-prev,
@@ -273,6 +276,7 @@
 					height:auto;
 					margin-top:20px;
 					.product-image-photo {
+						position: static;
 						max-width: 150px;
 						transition: all 0.2s;
 						margin: 0px auto;
