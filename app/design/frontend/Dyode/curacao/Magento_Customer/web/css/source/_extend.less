@@ -24,6 +24,7 @@ select:focus, input:focus {
 @white: #ffffff;
 @border-color:#f2f2f2;
 @background-white: #fcfcfc;
+@badge-orange: #ff4200;
 
 
 //ICuracao-Account border color
@@ -694,11 +695,12 @@ select:focus, input:focus {
 			        padding-top:10px;
 			      }
 					}
+          input {
+    				border-radius: 3px;
+    			}
 	      }
 	    }
-			input[type="text"]{
-				border-radius: 5px;
-			}
+
 			.actions-toolbar{
 				border-top: 1px solid @border-color;
 				@media only screen and (min-width: 768px){
@@ -1668,9 +1670,7 @@ select:focus, input:focus {
         margin-bottom: 0;
       }
     }
-    // .block{
-    //   padding: 25px;
-    // }
+
   }
 }
 
