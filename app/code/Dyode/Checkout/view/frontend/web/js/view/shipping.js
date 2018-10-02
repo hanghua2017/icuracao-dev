@@ -1,7 +1,13 @@
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
+/** 
+ * Dyode_Checkout Module
+ *
+ * Extending Magento_Checkout shipping core js file
+ *
+ * @package   Dyode
+ * @module    Dyode_Checkout
+ * @author    Mathew Joseph <mathew.joseph@dyode.com>
+ * @copyright Copyright © Dyode
+*/
 
 define([
     'jquery',
