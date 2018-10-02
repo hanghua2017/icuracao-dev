@@ -15,6 +15,7 @@
 @import "_short-discription";
 @black:000;
 @price-grey:#888888;
+
 .price-label-font {
   font-size: 16px;
   font-family: 'iCuracao-Regular';
@@ -115,8 +116,6 @@
     height: 47px;
   }
 }
-
-
 .catalog-product-view {
   .page-wrapper {
       .columns {
@@ -179,6 +178,22 @@
                 &:last-child{
                   border-bottom: none !important;
                 }
+                table{
+                  tbody{
+                    tr{
+                      font-size: small;
+                      .label{
+                        background: @white;
+                      }
+                    }
+                  }
+                }
+              }
+              .review-fieldset{
+                font-size: small;
+                .review-legend{
+                  font-size: small;
+                }
               }
               .product.description {
                 .value {
@@ -217,16 +232,14 @@
                   display: none !important;
                 }
               }
-              .review-add {
-                .block-content {
-                  padding: 20px;
-                }
-              }
+              // .review-add {
+              //   // .block-content {
+              //   //   padding: 20px;
+              //   // }
+              // }
             }
           }
         }
-
-
       .product-info-block {
         clear: both;
         float: left;
@@ -357,7 +370,6 @@
                           .price-wrapper  {
                             margin-right: 25px;
                             margin-left: 5px;
-                            // font-family: 'iCuracao-Regular';
                             @media all and (max-width: 991px) {
                               margin-right: 20px;
                             }
@@ -555,19 +567,13 @@
                         height: 40px;
                       }
                     }
-
-
-
                   }
                 }
               }
             }
-
-
-
             //Check store box
             .check-store {
-              padding-bottom: 25px;
+              padding-bottom: 10px;
               padding-top: 10px;
               float: left;
               clear: both;
@@ -623,9 +629,12 @@
                       display: none !important;
                     }
                     .fotorama__stage__frame {
-                      .fotorama__img {
-                        @media all and (max-width: 901px) and (min-width: 768px) {
-                          max-width: 28%;
+                      .fotorama__img{
+                        @media all and (min-width: 991px) and (max-width: 1024px) {
+                          max-width: 60%;
+                        }
+                        @media all and (max-width: 990px) and (min-width: 768px) {
+                          max-width: 4%;
                         }
                       }
                     }

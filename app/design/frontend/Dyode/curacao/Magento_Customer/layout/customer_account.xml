@@ -10,6 +10,8 @@
         <!-- Downloadable product link -->
         <referenceBlock name="customer-account-navigation-downloadable-products-link" remove="true"/>
 
+        <!-- Wish list link -->
+        <referenceBlock name="customer-account-navigation-wish-list-link" remove="true"/>
 
         <!-- Order by SKU -->
         <referenceBlock name="customer-account-navigation-checkout-sku-link" remove="true"/>
