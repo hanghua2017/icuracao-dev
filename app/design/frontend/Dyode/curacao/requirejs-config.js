@@ -1,15 +1,22 @@
 var config = {
-    map: {
-        '*': {
-            'accordion': 'curacao/js/cms-accordion',
-            'checkbox': 'curacao/js/onclick'
-        }
-    },
-    'deps': ["jquery"],
     "paths": {
-      "customjs":'js/custom.js'
+      'accordion':'js/cms-accordion',
+      'checkbox':'js/onclick',
+      'customjs':'js/custom',
+      'custom-select':'js/custom-select'
     },
     "shim":{
-        "customjs": ["jquery"]
-     }
+      'accordion': {
+          'deps': ['jquery']
+      },
+      'checkbox': {
+          'deps': ['jquery']
+      },
+      'custom-select': {
+          'deps': ['jquery']
+      },
+      'customjs': {
+          'deps': ['jquery']
+      }
+    }
 };

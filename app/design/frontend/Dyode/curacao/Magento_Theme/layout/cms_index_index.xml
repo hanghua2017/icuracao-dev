@@ -29,6 +29,7 @@
         	<arguments>
         	    <argument name="products_count" xsi:type="number">8</argument>
         	    <argument name="margin" xsi:type="string">5</argument>
+              <argument name="parentcat" xsi:type="string">0</argument>
         	    <argument name="heading" xsi:type="string">Best Sellers</argument>
         	    <argument name="description" xsi:type="string">Here is your Best Sellers description </argument>
         	</arguments>
