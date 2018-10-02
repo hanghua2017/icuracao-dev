@@ -605,6 +605,7 @@
 							.product-item {
 								width: 100% !important;
 								padding-left: 0;
+								margin-bottom: 0;
 
 								.product-image-container {
 									width: 100% !important;
@@ -704,6 +705,7 @@
 											font-size: 16px;
 											text-align: center;
 											color:@black;
+											font-weight:normal;
 
 											span.amount {
 												color: #81b800;
@@ -716,6 +718,9 @@
 										.price-box {
 											text-align: center;
 											margin-bottom: 15px;
+											.price-label {
+												display: none;
+											}
 											@media screen and (max-width: 768px) {
 												margin-bottom: 10px;
 											}
@@ -731,10 +736,6 @@
 
 											.old-price {
 												margin-right: 5px;
-
-												.price-label {
-													display: none;
-												}
 
 												.price {
 													color: #888888;

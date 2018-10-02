@@ -77,7 +77,7 @@
 
                         <block name="product.info.warranty.options.modal.details" template="Magento_Catalog::product/view/modal/warranty-details.phtml" />
 
-                        <block name="product.info.warranty.options.modal.addtocart" template="Magento_Catalog::product/view/modal/warranty-addtocart.phtml">
+                        <block class="Magento\Catalog\Block\Product\View" name="product.info.warranty.options.modal.addtocart" template="Magento_Catalog::product/view/modal/warranty-addtocart.phtml">
                             <block class="Magento\Catalog\Block\Product\View" name="warranty.addtocart.modal.review" as="warranty_modal_review" template="Magento_Catalog::product/view/review.phtml" />
 
                             <block name="product.info.warranty.modal.options" as="warranty_modal_options" template="Magento_Catalog::product/view/warranty-options.phtml">
