@@ -1,52 +1,58 @@
 <?xml version="1.0"?>
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <head>
-      <!-- <link src="Magento_Customer::customer-data.js"/>
-      <link src="Magento_Customer::view/customer.js"/>
-      <link src="Magento_Customer::view/authentication-popup.js"/> -->
-    </head>
-    <body>
-      <!-- view model for Emi function -->
-      <block name="emi_block">
+  <head>
+    <!-- <link src="Magento_Customer::customer-data.js"/> <link src="Magento_Customer::view/customer.js"/> <link src="Magento_Customer::view/authentication-popup.js"/> -->
+  </head>
+  <body>
+    <!-- view model for Emi function -->
+    <block name="emi_block">
+      <arguments>
+        <argument name="view_model" xsi:type="object">Dyode\Core\ViewModel\Emi</argument>
+      </arguments>
+    </block>
+    <!-- google tag manager code starts -->
+    <!-- <referenceContainer name="head.additional">
+      <block class="Magento\Framework\View\Element\Template" name="gtm.head" before="-" template="Magento_Theme::html/gtm_head.phtml"/>
+    </referenceContainer>
+    <referenceContainer name="after.body.start">
+      <block class="Magento\Framework\View\Element\Template" name="gtm.body" before="-" template="Magento_Theme::html/gtm_body.phtml"/>
+    </referenceContainer> -->
+    <!-- google tag manager code ends -->
+    <!-- Top panel wrapper with sign in and create an account if want to remove -->
+    <!-- <referenceBlock name="header.panel.wrapper" remove="true" /> -->
+    <referenceBlock name="header" remove="true"/>
+    <referenceBlock name="register-link" remove="true"/>
+    <referenceBlock name="authorization-link-login" remove="true"/>
+    <!-- Keep minicart next to search block -->
+    <!-- <move element="header.links" destination="header-wrapper" after="top.search"/> -->
+    <referenceContainer name="header-wrapper">
+      <block class="Magento\Customer\Block\Account\Customer" name="top.line" after="top.search" template="Magento_Customer::account/customer-menu.phtml"/>
+      <block class="Magento\Customer\Block\Account\Navigation" name="top.links">
         <arguments>
-           <argument name="view_model" xsi:type="object">Dyode\Core\ViewModel\Emi</argument>
+          <argument name="css_class" xsi:type="string">header links</argument>
         </arguments>
       </block>
-      <!-- Top panel wrapper with sign in and create an account if want to remove -->
-      <!-- <referenceBlock name="header.panel.wrapper" remove="true" /> -->
-      <referenceBlock name="header" remove="true" />
-      <referenceBlock name="register-link" remove="true" />
-      <referenceBlock name="authorization-link-login" remove="true" />
-      <!-- Keep minicart next to search block -->
-      <!-- <move element="header.links" destination="header-wrapper" after="top.search"/> -->
-      <referenceContainer name="header-wrapper">
-            <block class="Magento\Customer\Block\Account\Customer" name="top.line"  after="top.search" template="Magento_Customer::account/customer-menu.phtml"/>
-            <block class="Magento\Customer\Block\Account\Navigation" name="top.links">
-                <arguments>
-                    <argument name="css_class" xsi:type="string">header links</argument>
-                </arguments>
-            </block>
-            <block class="Magento\Framework\View\Element\Template" name="header.message" template="Magento_Theme::header-message.phtml" after="top.line"/>
-      </referenceContainer>
-      <!-- Move top All Header Links next to minicart -->
-      <!-- <move element="minicart" destination="header-wrapper" after="header.links"/> -->
-      <!-- <move element="customer" destination="header-wrapper" after="top.search"/> -->
-      <move element="minicart" destination="header-wrapper" after="top.line"/>
-      <referenceBlock name="logo">
-        <arguments>
-            <argument name="logo_file" xsi:type="string">images/icuracao-logo.png</argument>
-            <argument name="logo_img_width" xsi:type="number">250</argument>
-            <argument name="logo_img_height" xsi:type="number">150</argument>
-        </arguments>
-      </referenceBlock>
-        <referenceContainer name="footer-container">
-            <container name="footer" as="footer" label="Page Footer" htmlTag="div" htmlClass="footer content">
-                <block class="Magento\Framework\View\Element\Template" name="custom-footer-link" as="custom-link" before="store_switcher" template="Magento_Theme::footer-custom-links.phtml"/>
-                <!-- <block class="Magento\Framework\View\Element\Html\Links" name="footer_links" remove="true"/> -->
-                <block class="Magento\Framework\View\Element\Template" name="trust_factors" as="trust" after="subscribe" template="Magento_Theme::trust-factor.phtml"/>
-                <block class="Magento\Framework\View\Element\Template" name="footer-bottom" after="trust" template="Magento_Theme::footer-bottom.phtml"/>
-                <block class="Magento\Framework\View\Element\Template" name="copy-right" after="footer-bottom" template="Magento_Theme::copy-right.phtml"/>
-            </container>
-        </referenceContainer>
-    </body>
+      <block class="Magento\Framework\View\Element\Template" name="header.message" template="Magento_Theme::header-message.phtml" after="top.line"/>
+    </referenceContainer>
+    <!-- Move top All Header Links next to minicart -->
+    <!-- <move element="minicart" destination="header-wrapper" after="header.links"/> -->
+    <!-- <move element="customer" destination="header-wrapper" after="top.search"/> -->
+    <move element="minicart" destination="header-wrapper" after="top.line"/>
+    <referenceBlock name="logo">
+      <arguments>
+        <argument name="logo_file" xsi:type="string">images/icuracao-logo.png</argument>
+        <argument name="logo_img_width" xsi:type="number">250</argument>
+        <argument name="logo_img_height" xsi:type="number">150</argument>
+      </arguments>
+    </referenceBlock>
+    <referenceContainer name="footer-container">
+      <container name="footer" as="footer" label="Page Footer" htmlTag="div" htmlClass="footer content">
+        <block class="Magento\Framework\View\Element\Template" name="custom-footer-link" as="custom-link" before="store_switcher" template="Magento_Theme::footer-custom-links.phtml"/>
+        <!-- <block class="Magento\Framework\View\Element\Html\Links" name="footer_links" remove="true"/> -->
+        <block class="Magento\Framework\View\Element\Template" name="trust_factors" as="trust" after="subscribe" template="Magento_Theme::trust-factor.phtml"/>
+        <block class="Magento\Framework\View\Element\Template" name="footer-bottom" after="trust" template="Magento_Theme::footer-bottom.phtml"/>
+        <block class="Magento\Framework\View\Element\Template" name="copy-right" after="footer-bottom" template="Magento_Theme::copy-right.phtml"/>
+      </container>
+    </referenceContainer>
+  </body>
 </page>
