@@ -20,6 +20,9 @@ interface LocationInterface extends ExtensibleDataInterface
      */
     const LOCATION_ID = 'location_id';
     const TITLE = 'title';
+    const STORE_LOCATION_CODE = 'store_location_code';
+    const STORE_MANAGER = 'store_manager';
+    const STORE_EMAIL = 'store_email';
     const DESCRIPTION = 'description';
     const STATUS = 'status';
     const SORT_ORDER = 'sort_order';
@@ -29,6 +32,7 @@ interface LocationInterface extends ExtensibleDataInterface
     const STREET = 'street';
     const ZIP = 'zip';
     const PHONE = 'phone';
+    const FAX = 'fax';
     const ZOOM = 'zoom';
     const LATITUDE = 'latitude';
     const LONGITUDE = 'longitude';
@@ -68,6 +72,51 @@ interface LocationInterface extends ExtensibleDataInterface
      * @return $this
      */
     public function setTitle($title);
+
+    /**
+     * Get store location code.
+     *
+     * @return int|null
+     */
+    public function getStoreLocationCode();
+
+    /**
+     * Set store location code.
+     *
+     * @param int $storeLocationCode
+     * @return $this
+     */
+    public function setStoreLocationCode($storeLocationCode);
+
+    /**
+     * Get store manager.
+     *
+     * @return string|null
+     */
+    public function getStoreManager();
+
+    /**
+     * Set store manager.
+     *
+     * @param string $storeManager
+     * @return $this
+     */
+    public function setStoreManager($storeManager);
+
+    /**
+     * Get store email.
+     *
+     * @return string|null
+     */
+    public function getStoreEmail();
+
+    /**
+     * Set store email.
+     *
+     * @param string $storeEmail
+     * @return $this
+     */
+    public function setStoreEmail($storeEmail);
 
     /**
      * Get location code name.
@@ -203,6 +252,21 @@ interface LocationInterface extends ExtensibleDataInterface
      * @return $this
      */
     public function setPhone($phone);
+
+    /**
+     * Get location fax.
+     *
+     * @return string|null
+     */
+    public function getFax();
+
+    /**
+     * Set location fax.
+     *
+     * @param string $fax
+     * @return $this
+     */
+    public function setFax($fax);
 
     /**
      * Get location zoom.

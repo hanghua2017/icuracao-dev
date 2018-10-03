@@ -1,0 +1,69 @@
+/************************************************************
+* @package Dyode
+* @module  Dyode_curacao
+* @theme  Curacao
+* @author  Sangeetha D <sangeetha.d@dyode.com>
+* PARTIAL - Short product details on product info block
+****************************************************************/
+.catalog-product-view{
+  .product-info-block{
+    .product-info-main{
+      .product.attribute {
+        clear: both;
+        @media all and (max-width: 901px) {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+        @media all and (max-width: 467px) {
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+        .value {
+            max-height: 145px;
+            overflow: hidden;
+            margin-bottom: 0;
+            p {
+              line-height: 24px;
+              font-family: 'iCuracao-Regular';
+            }
+            ul {
+              padding-left: 22px;
+              margin-bottom: 0;
+              li{
+                font-family: 'iCuracao-Regular';
+                font-size: 12px;
+                margin-bottom: 5px;
+                @media all and (min-width: 991px) {
+                  font-size: 14px;
+                }
+                &::before {
+                  content: "•";
+                  color: #aeaeae;
+                  font-size: 22px;
+                  display: inline-block;
+                  width: 1em;
+                  height: 6px;
+                  margin-left: -1em;
+
+                }
+              }
+                }
+            }
+          a.redirect-view-details, a.redirect-view-details:hover{
+            color: @link-blue;
+            font-family: 'iCuracao-Regular';
+            text-decoration: underline;
+            display: none;
+            &::after{
+              content: "\e622";
+              color: #4046d1;
+              font-family: 'luma-icons';
+              display: inline-block;
+              font-size: 12px;
+            }
+          }
+
+      }
+    }
+  }
+}
