@@ -1,8 +1,10 @@
 <?php
 /**
+ * Dyode
+ *
  * @category  Dyode
  * @package   Dyode_ArInvoice
- * @author    Sooraj Sathyan
+ * @author    Sooraj Sathyan (soorajcs.mec@gmail.com)
  */
 namespace Dyode\ArInvoice\Controller\Test;
 

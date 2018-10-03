@@ -1,12 +1,11 @@
 <?php
 /**
- * ArInoice Helper
+ * Dyode
  *
  * @category  Dyode
  * @package   Dyode_ArInvoice
- * @author    Sooraj Sathyan
+ * @author    Sooraj Sathyan (soorajcs.mec@gmail.com)
  */
-
 namespace Dyode\ArInvoice\Helper;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
@@ -177,8 +176,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function validateAccountNumber($accountNumber)
     {
-        // dummy content
-        // $accountNumber = "52041";
         if (strlen($accountNumber) == 7) {
             return $accountNumberFormatted = substr_replace($accountNumber, "-", 3, 0);
         } elseif (strlen($accountNumber) < 7) {
@@ -214,7 +211,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * getSetItems() returns a encoded json of items quantity in each location
+     * Get Set Items using API -> GetSetItems
+     *
+     * @return Array
      */
     public function getSetItems($itemId)
     {
@@ -250,7 +249,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $response = curl_exec($ch);
         curl_close($ch);
         return json_decode($response);
-        // return $response;
     }
 
     /**
@@ -276,7 +274,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $response = curl_exec($ch);
         curl_close($ch);
         return json_decode($response);
-        // return $response;
     }
 
     /**
@@ -360,9 +357,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
          * Get Product Shipping Type
          */
         $shippingRate = $product->getData('shiptype');
-        echo "<br>";
-        echo $productId . " - ";
-        echo "<br>";
         /**
          * Getting the Inventory Level from location_inventory table
          */
@@ -371,7 +365,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             throw new Exception("Product Inventory Level Not Found", 1);
         }
         $inventoryLocations = json_decode($result[0]['finalinventory']);
-        print_r($inventoryLocations);
+
         if ($vendorId != '2139') {  # If the vendor is not Curacao 
             return '33';
         } else {    # If the vendor is Curacao
@@ -407,7 +401,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                             $pendingValue = 0;
                         }
                         $availableInventory = array();
-                        
+
                         if ($setItems->OK) {
                             $itemsArray = array();
                             $setItemsQty = array();
@@ -546,9 +540,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $groupedLocationFound = 0;
         $availableLocations = array();
         $groupedLocation = array();
-        
+
         foreach ($orderItems as $itemId => $productInfo) {
-            # code...
             $product = $this->getProductById($productInfo['ProductId']);
 
             $resultSetItem = $this->getProductInventory($productId);
@@ -558,13 +551,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             $inventoryLevel = json_decode($resultSetItem[0]['finalinventory']);
 
             foreach ($inventoryLevel as $key => $value) {
-                # code...
+                // Array Initializing
                 if (empty($availableLocations[$key])) {
-                    # code...
                     $availableLocations[$key] = array();
                 }
                 if ($value > $productInfo['ItemQty']) {
-                    # code...
                     array_push($availableLocations[$key], $itemId);
                 }
             }
