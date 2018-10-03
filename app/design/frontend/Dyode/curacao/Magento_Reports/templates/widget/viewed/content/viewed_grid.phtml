@@ -76,9 +76,9 @@ if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedPr
                   <p class="subtext"><?php echo "or as low as ";?><span class="amount"><?php echo"$". "".$emi." "."/month";?></span></p>
                   <?php endif?>
 
-                                <?php if ($rating): ?>
+                                <?php /*if ($rating): ?>
                                     <?= $block->getReviewsSummaryHtml($_item, $rating) ?>
-                                <?php endif; ?>
+                                <?php endif; */?>
                                 <?php if ($showWishlist || $showCompare || $showCart): ?>
                                     <div class="product-item-actions">
                                         <?php if ($showCart): ?>
@@ -150,7 +150,7 @@ if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedPr
         "OwlCarousel": {
           "items": 5,
           "dots":false,
-          "loop": true,
+          "loop": false,
           "nav":true,
           "margin": 0,
           "navText": ["<div class='custom-prev'><div class='left'></div></div>", "<div class='custom-next'><div class='right'></div></div>"],

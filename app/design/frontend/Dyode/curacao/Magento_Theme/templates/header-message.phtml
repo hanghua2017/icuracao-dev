@@ -1,3 +1,8 @@
 <div class="header-message">
-  <h3>Free shipping on orders over &#36;49</h3>
+  <?php
+    echo $this->getLayout()
+               ->createBlock('Magento\Cms\Block\Block')
+               ->setBlockId('free-shipping-message')
+               ->toHtml();
+   ?>
 </div>

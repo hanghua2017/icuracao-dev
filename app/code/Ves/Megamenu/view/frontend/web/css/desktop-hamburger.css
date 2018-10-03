@@ -3,23 +3,23 @@
 }
 .sidebar-overlay {
   background: rgba(0, 0, 0, 0.5);
-  height: calc(100% - 108px);
-  top:108px;
+  height: calc(100% - 81px);
+  top:81px;
   left: -100%;
   position: absolute;
   width: 100%;
-  z-index: 1;
+  z-index: 99;
 }
 nav.sidebar {
   background: #fff;
   color: #000;
-  height: calc(100% - 108px);
-  top: 108px;
+  height: calc(100% - 81px);
+  top: 81px;
   left: -50%;
   margin: 0;
   position: absolute;
   width: 250px;
-  z-index:99;
+  z-index:100;
   -webkit-transition: all 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
   -moz-transition: all 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
   transition: all 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
@@ -27,12 +27,13 @@ nav.sidebar {
 nav.sidebar .sidebar-container {
   position: relative;
   background-color: #82b800;
-  padding: 15px 0;
+  padding: 14.5px 0;
   padding-left:25px;
   color: #fff;
 }
 nav.sidebar .sidebar-container h2 {
   margin: 0;
+  font-family: "iCuracao-Regular";
   font-size:19px;
   font-weight:600;
 }
@@ -46,8 +47,8 @@ nav.sidebar .sidebar-container .sidebar__btn-close {
 nav.sidebar .sidebar-container .sidebar__btn-close:before{
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 19px;
-    line-height: inherit;
+    font-size: 18px;
+    line-height: 18px;
     color: #fff;
     content: '\e616';
     font-family: 'luma-icons';
@@ -71,7 +72,8 @@ nav.sidebar > ul > li {
 }
 nav.sidebar > ul > li > a {
   color: #000;
-  font-size: 15px;
+  font-family: "iCuracao-Regular";
+  font-size: 14px;
   font-weight: 400;
   text-decoration: none;
 }
@@ -98,7 +100,7 @@ nav.sidebar > ul > li.hamburger-heading a {
   .btn-menu {
   position: absolute;
   left: 20px;
-  top: 113px;
+  top: 82px;
   z-index:9;
   background: transparent !important;
   font-size: 20px;
@@ -108,7 +110,7 @@ nav.sidebar > ul > li.hamburger-heading a {
   cursor: pointer;
   outline: none !important;
   box-shadow: none !important;
-  padding: 10px;
+  padding: 10px 15px;
   -webkit-animation: fadein 2s;
   /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein 2s;
@@ -122,8 +124,8 @@ nav.sidebar > ul > li.hamburger-heading a {
 .btn-menu::before{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 20px;
-  line-height: inherit;
+  font-size: 26px;
+  line-height: 26px;
   color: #fff;
   content: '\e609';
   font-family: 'luma-icons';
@@ -159,13 +161,17 @@ nav.sidebar > ul > li.hamburger-heading a {
   }
   .hamburger-desktop nav.sidebar > ul > li{
     height:50px;
-    padding: 14px 10px;
     border-top: 1px solid #d1d1d1;
+    padding: 0;
     border-top-color: rgba(0, 0, 0, 0.08);
   }
   .hamburger-desktop nav.sidebar > ul > li > a{
+    float: left;
+    width:100%;
+    font-family: "iCuracao-Regular";
     color:#575757;
-    font-size:16px;
+    padding: 14px 10px;
+    font-size:14px;
   }
   .hamburger-desktop nav.sidebar > ul > li.hamburger-link-border {
     border-bottom: none;
@@ -180,10 +186,7 @@ nav.sidebar > ul > li.hamburger-heading a {
   }
 }
 @media all and (max-width:599px){
-  .hamburger-desktop nav.sidebar > ul > li{
-    padding: 15px 10px;
-  }
   .hamburger-desktop nav.sidebar > ul > li > a{
-    font-size:14px;
+    padding: 15px 10px;
   }
 }

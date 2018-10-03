@@ -1,24 +1,3 @@
-@theme-color: #82b800;
-@desc-border: #e8e8e8;
-@content-light-grey: #aeaeae;
-@content-dark-grey: #5c5c5c;
-@box-orange: #f05c23;
-@link-blue: #4046d1;
-@color-orange: #f88203;
-@btn-orange: #f05c23;
-@green-color: #81b800;
-@darkgreen-color:#4a9f28;
-@org-price: 16px;
-@mrp-price: 26px;
-@popup-header:#d9d8d8;
-@button-greybg:#787878;
-@red-color:#c50606;
-@button-color: #7dac0f;
-@link-blue: #4046d1;
-@field-border: #b4b4b4;
-@field-text: #919191;
-@title-text: #000;
-
 .customer-account-login {
   .page-wrapper {
     background-color: #fff;
@@ -44,8 +23,12 @@
           margin: 0;
         }
         .column.main {
+          @media all and (max-width: 768px) {
+            padding-top: 30px;
+          }
           @media all and (max-width: 599px) {
             padding-bottom: 0;
+            padding-top: 0;
           }
           .login-container {
             max-width: 485px;
@@ -116,6 +99,43 @@
                           border-bottom-left-radius: 5px;
                           border-bottom-right-radius: 5px;
                         }
+                        //Styling for captcha
+                        &.captcha {
+                          &.required {
+                            margin-top: 20px;
+                          }
+                          border: none !important;
+                          label[for=captcha_user_login] {
+                            display: block;
+                          }
+                          .control.captcha {
+                            input {
+                              border: 1px solid #c2c2c2 !important;
+                              border-radius: 3px;
+                              height: 38px;
+                            }
+                            .nested {
+                              clear: both;
+                              float: left;
+                              width: 100%;
+                              margin-bottom: 20px;
+                              #captcha-container-user_login {
+                                margin-bottom: 0;
+                              }
+                              .field.captcha {
+                                border: none;
+                                .captcha-image {
+                                  .captcha-img {
+                                    float: left;
+                                  }
+                                  button.captcha-reload {
+                                    float: right;
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
                         .label {
                           display: none;
                         }
@@ -151,6 +171,9 @@
                               font-family: "iCuracao-light";
                             }
                           }
+                          .mage-error {
+                            padding: 0 10px;
+                          }
                         }
                         &.note {
                           display: none;
@@ -166,7 +189,7 @@
                         .forget-password {
                           float: left;
                           font-size: 12px;
-                          color: rgb(213,22,44);
+                          color: @badge-orange;
                           font-family: "iCuracao-Regular";
                           margin: 0;
                           width: auto;
@@ -194,7 +217,7 @@
                           a.primary {
                             font-size: 12px;
                             padding: 0;
-                            color: @link-blue;
+                            color: @active-blue-color;
                             margin: 0;
                             float: right;
                             background: none;
@@ -212,8 +235,8 @@
                           width: 100%;
                           height: 44px;
                           border-radius: 5px;
-                          background-color: @green-color;
-                          border-color: @green-color;
+                          background-color: @theme-color;
+                          border-color: @theme-color;
                           margin-top: 20px;
                           margin-right: 0;
                           span {

@@ -1,0 +1,175 @@
+/************************************************************
+* @package Dyode
+* @module  Dyode_curacao
+* @theme  Curacao
+* @author  Sangeetha D <sangeetha.d@dyode.com>
+* PARTIAL - COMMON STYLING FULL WIDTH BANNER
+****************************************************************/
+@box-shadow-color: rgba(0, 0, 0, 0.2);
+@underline: #81b800;
+@textColor:#333333;
+@commonPadding:15px;
+@commonwidgetPadding:30px;
+.catalog-product-view{
+//Styling for Banners
+    .banner-block {
+        margin-bottom: @commonwidgetPadding;
+        @media all and(max-width: 768px){
+          margin-bottom: @commonPadding;
+        }
+        .banner-item {
+            a {
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    display: block;
+                }
+                &.large {
+                    display: block;
+                    @media all and(max-width: 768px) {
+                        display: none;
+                    }
+                }
+                &.small {
+                    display: none;
+                    @media all and(max-width: 768px) {
+                        display: block;
+                    }
+                }
+            }
+        }
+        .banner-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: @commonPadding;
+            @media all and(max-width: 425px){
+              margin-bottom: 8px;
+            }
+            &.full {
+                .banner-item {
+                    width: 100%;
+                }
+            }
+            &.half {
+                .banner-item {
+                    width: 50%;
+                    &:first-of-type {
+                        margin-right: @commonPadding;
+                        @media all and(max-width: 768px){
+                          margin-right: 8px;
+                        }
+                        @media all and(max-width: 425px){
+                          margin-right: 3px;
+                        }
+                    }
+                }
+            }
+            &.one-third {
+                .banner-item {
+                    &:first-of-type {
+                        flex-basis: 71%;
+                        margin-right: @commonPadding;
+                        @media all and(max-width: 768px) {
+                          flex-basis: 50%;
+                          margin-right:8px;
+                        }
+                        @media all and(max-width: 425px) {
+                          margin-right:3px;
+                        }
+                    }
+                    &:last-of-type {
+                        flex-basis: 38%;
+                        @media all and(max-width: 768px) {
+                          flex-basis: 50%;
+                        }
+                    }
+                }
+            }
+            &.four-banner {
+                .banner-item {
+                    width: 100%;
+                    margin-right: 5px;
+                    &:last-of-type {
+                        margin-right: 0px;
+                    }
+                    @media all and(max-width: 768px) {
+                        width: 49.5%;
+                        margin-right: 0px;
+                        &:nth-child(1),
+                        &:nth-child(2) {
+                            margin-bottom: 10px;
+                        }
+                    }
+                }
+                @media all and(max-width: 768px) {
+                    flex-wrap: wrap;
+                }
+            }
+            &.three-equal {
+                .banner-item {
+                    width: 33.3333%;
+                    &:nth-child(1),
+                    &:nth-child(2) {
+                        margin-right: @commonPadding;
+                    }
+                    @media all and(max-width: 768px) {
+                        width: 100%;
+                        &:nth-child(1),
+                        &:nth-child(2) {
+                            margin-right: 0;
+                            margin-bottom: @commonPadding;
+                        }
+                    }
+                }
+                @media all and(max-width: 768px) {
+                    flex-wrap: wrap;
+                }
+            }
+            &.three-image-grid {
+                display: flex;
+                margin-top: @commonPadding;
+                @media all and(max-width: 768px){
+                    display: block;
+                    margin-top: 8px;
+                  }
+                .banner-item {
+                    a {
+                        img {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                }
+                .left {
+                    width: 70%;
+                    margin-right: @commonPadding;
+                    @media all and(max-width: 768px){
+                        width: 100%;
+                        margin-right: 0;
+                      }
+                }
+                .right {
+                    a{
+                        display: block;
+                        height:50%;
+                    }
+                    display: flex;
+                    flex-direction: column;
+                    width: 40%;
+                    @media all and (max-width: 768px){
+                      flex-direction: row;
+                      width: 100%;
+                      margin-top: 8px;
+                    }
+                }
+                .margin{
+                  margin-bottom: @commonPadding;
+                  @media all and(max-width: 768px){
+                    margin-right: 12px;
+                  }
+                }
+            }
+        }
+    }
+}
