@@ -2311,6 +2311,9 @@ print {
         border-width: 0 0 0 3px;
         color: #333
     }
+    .ves-megamenu .level0 .submenu .nav-item>a{
+      padding: 0 10px;
+    }
     .navigation .level0 .submenu .submenu {
         top: 0 !important;
         left: 100% !important
