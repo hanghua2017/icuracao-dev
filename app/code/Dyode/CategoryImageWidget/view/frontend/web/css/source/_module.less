@@ -73,9 +73,14 @@
           display: none;
         }
       }
-      .owl-stage {
+      .owl-stage-outer{
+        margin-left: 4px;
+        .owl-stage {
           position: relative;
-
+          display: -webkit-flex;
+          display: flex;
+          align-items: stretch;
+        }
       }
       .owl-nav {
           .custom-prev,

@@ -218,6 +218,10 @@
 								float: right;
 								color: black;
 								padding: 0 35px 0 15px;
+								@media all and (max-width:1024px){
+									width:~"calc(100% - 210px)";
+									padding: 0 15px;
+								}
 								@media screen and (max-width: 767px) {
 									position: static;
 									width: 100%;
@@ -250,7 +254,7 @@
 								width:~"calc(100% - 77px)" !important;
 								border: 1px solid @light-border-color !important;
 								@media all and (min-width:768px){
-									width:~"calc(100% - 205px)" !important;
+									width:~"calc(100% - 210px)" !important;
 								}
 
 								a.title {
@@ -375,7 +379,7 @@
 						left:35px;
 					}
 					@media all and (max-width:767px){
-						left:39px;
+						left:43px;
 					}
 				}
 				@media all and (min-width:768px){
@@ -490,7 +494,7 @@
 						cursor: default;
 
 						a:hover {
-							background-color: #97d700;
+							background-color: @green-color;
 						}
 					}
 				}
@@ -671,7 +675,7 @@
 					{
 						transition: all ease 0.5s;
 						@media all and (max-width:1024px){
-							top:9px;
+							top:7px;
 						}
 						@media all and (max-width: 767px)
 						{    margin-bottom: 0;
@@ -881,10 +885,18 @@
 					.level0 {
 						& > a {
 							text-transform: none;
-							@media all and (max-width:1024px){
-								background: @white;
-								color:#575757;
-								border-color: transparent;
+						}
+						&.active,&.has-active{
+							> a:not(.ui-state-active){
+								@media all and (max-width:1024px){
+									border-width:0;
+									background:@white-shade;
+									border-bottom:2px solid @green-color;
+									color:@textColor;
+									span:not(.ui-menu-icon){
+										margin-left:0;
+									}
+								}
 							}
 						}
 					}
@@ -893,7 +905,7 @@
 		}
 
 		.store-view-container {
-			top: 81px;
+			top: 79px;
 			right: 10px;
 			@media all and (min-width:1500px) {
 				right: ~"calc((100% - 1500px)/2 + 10px)";
@@ -1108,7 +1120,7 @@ html.nav-before-open {
 
 .hamburger-desktop {
 	button.btn-menu {
-		top: 83px;
+		top: 82px;
 		left: 0px;
 		@media all and (min-width:1500px) {
 			left: ~"calc((100% - 1500px)/2 + 0px)";
