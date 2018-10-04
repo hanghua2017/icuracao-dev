@@ -1,7 +1,10 @@
 <?php
 /**
- * @package   Dyode
- * @author    Sooraj Sathyan
+ * Dyode
+ *
+ * @category  Dyode
+ * @package   Dyode_ArInvoice
+ * @author    Sooraj Sathyan (soorajcs.mec@gmail.com)
  */
 namespace Dyode\CancelOrder\Observer;
 
@@ -45,13 +48,23 @@ class CancelAdminOrder implements ObserverInterface
 		$invoiceNumber = $order->getData('estimatenumber');
 
 		if (empty($invoiceNumber)) {
-			$logger->info("Estimate Number not found" . "| Order Id: " . $order->getIncrementId());
-			throw new \Exception("Estimate Number not found");
+			$logger->info("Order Id : " . $order->getIncrementId());
+			$logger->info("Invoice Number Not found ");
+			throw new Exception("Invoice Number Not found ");
 		}
 		$response = $this->_cancelOrderHelper->cancelEstimate($invoiceNumber);
 
+		if (empty($response)) {
+			$logger->info("Order Id : " . $order->getIncrementId());
+			$logger->info("Order Item Id : " . $orderItem->getId());
+			$logger->info("API Response not Found.");
+			throw new Exception("API Response not Found", 1);
+		}
+
 		if ($response->OK != true) {
-			$logger->info($response->INFO . " Order Id: " . $order->getIncrementId());
+			$logger->info("Order Id : " . $order->getIncrementId());
+			$logger->info("Order Item Id : " . $orderItem->getId());
+			$logger->info($response->INFO);
 			throw new \Exception($response->INFO);
 		}
 	}

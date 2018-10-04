@@ -1,0 +1,22 @@
+<?php
+/* @var $block \Mirasvit\Rma\Block\Rma\View */
+$rma = $block->getRma();
+$order = $block->getOrder();
+?>
+<div class="rma-view">
+    <?= $block->getChildHtml('rma.view.buttons') ?>
+    <?= $block->getChildHtml('rma.view.info') ?>
+    <?php if ($order->getIsOffline()): ?>
+        <?= $block->getChildHtml('rma.view.offline.items') ?>
+    <?php else: ?>
+        <?= $block->getChildHtml('rma.view.items') ?>
+    <?php endif; ?>
+    <div class="block">
+        <div class="block-content">
+            <div class="box"><?= $block->getChildHtml('rma.view.history') ?></div>
+            <div class="box"><?= $block->getChildHtml('rma.view.message') ?></div>
+        </div>
+    </div>
+
+
+</div>

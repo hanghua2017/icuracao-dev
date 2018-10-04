@@ -1,8 +1,10 @@
 <?php
 /**
+ * Dyode
+ *
  * @category  Dyode
  * @package   Dyode_ArInvoice
- * @author    Sooraj Sathyan
+ * @author    Sooraj Sathyan (soorajcs.mec@gmail.com)
  */
 namespace Dyode\ArInvoice\Model;
 
@@ -97,32 +99,35 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
 
     /**
      * Create AR Invoice by Order Id
+     *
+     * @return void
      */
     public function createInvoice($orderId)
     {
+        $writer = new \Zend\Log\Writer\Stream(BP . "/var/log/ordercancellation.log");
+		$logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+
         $order = $this->getOrderInfo($orderId);
         # Getting the Payment Method
         $paymentMethod = $order->getPayment()->getMethod();
-        # signifyRequired False as default 
-        $signifyRequired = false;
+
+        // $signifyRequired = false;
         /**
          * Validating the Payment Method
          */
         if (strpos($paymentMethod, 'authorizenet') !== false) {
-            echo 'Authorize.net';
             // Signify_Required
-            $signifyRequired = True;    # Setting Signify Required = True
+            // $signifyRequired = True;    # Setting Signify Required = True
 
             # Loading Transactional Details
             $amountPaid = $order->getPayment()->getAmountPaid();
             $orderTotal = $order->getGrandTotal();
             if ($amountPaid >= $orderTotal) {
-                # code...
                 $cashAmount = $amountPaid;
                 $accountNumber = '500-8555';
                 $orderType = "full_credit_card";
             } else {
-                # code...
                 $cashAmount = $amountPaid;
                 $orderType = "partial_credit_card";
             }
@@ -143,12 +148,12 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             $customerStatusResponse = $this->_customerStatusHelper->checkCustomerStatus($order, '54421729');
             $customerStatus = json_decode($customerStatusResponse);
         }
-        echo $signifyRequired;
 
-        if ($signifyRequired == True) {
-            # Signify Score
-            $this->_signifydModel->processSignifyd($order->getIncrementId());
-        }
+        // if ($signifyRequired == True) {
+        //     # Signify Score
+        //     $this->_signifydModel->processSignifyd($order->getIncrementId());
+        // }
+
         # Prepare Order Items
         $itemsStoreLocation = $this->prepareOrderItems($orderId);
 
@@ -160,24 +165,36 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         $taxAmount = $order->getTaxAmount();
         $postCode = $order->getShippingAddress()->getPostCode();
         $shippingAmount = $order->getShippingAmount();
-        if ($order->getShippingDescription() !== null) {
-            $shippingDescription = $order->getShippingDescription();
-        } else {
-            $shippingDescription = "";
-        }
+
+        $shippingDescription = ($order->getShippingDescription() !== null) ? $order->getShippingDescription() : "";
+
+        // if ($order->getShippingDescription() !== null) {
+        //     $shippingDescription = $order->getShippingDescription();
+        // } else {
+        //     $shippingDescription = "";
+        // }
+
         $amountPaid = $order->getPayment()->getAmountPaid();
         $orderTotal = $order->getGrandTotal();
-        if ($orderType == "full_credit_card" or $orderType == "full_curacao_credit") {
-            $downPaymentAmount = '0';
-        } else {
-            $downPaymentAmount = $amountPaid;
-        }
+
+        $downPaymentAmount = ($orderType == "full_credit_card" or $orderType == "full_curacao_credit") ? '0' : $amountPaid;
+
+        // if ($orderType == "full_credit_card" or $orderType == "full_curacao_credit") {
+        //     $downPaymentAmount = '0';
+        // } else {
+        //     $downPaymentAmount = $amountPaid;
+        // }
+
         $discountAmount = $order->getDiscountAmount();
-        if ($order->getData("discount_description") !== null) {
-            $discountDescription = $order->getData("discount_description");
-        } else {
-            $discountDescription = "";
-        }
+
+        $discountDescription = ($order->getData("discount_description") !== null) ? $order->getData("discount_description") : "";
+
+        // if ($order->getData("discount_description") !== null) {
+        //     $discountDescription = $order->getData("discount_description");
+        // } else {
+        //     $discountDescription = "";
+        // }
+
         $shippingDiscount = $order->getShippingDiscountAmount();
 
         // $accountNumber = "53208833";
@@ -202,43 +219,49 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         // Assigning values to input Array items
         foreach ($order->getAllItems() as $item)
         {
-            $item->getData('delivery_type');
-            
             $product = $this->_productRepository->getById($item->getProductId()); 
-            $itemType = $item->getProductType();
             $itemSku = $item->getSku();
             $itemName = $item->getName();
             $itemQty = $item->getQtyOrdered();
             $itemPrice = $item->getPrice();
             $itemCost = $item->getBasePrice();
-            if ($item->getData('delivery_type') == 1) {
-                $pickup = true;
-            } else {
-                $pickup = false;
-            }
-            if ($item->getTaxAmount() > 0) {
-                $taxable = true;
-            } else {
-                $taxable = false;
-            }
+
+            $pickup = ($item->getData('delivery_type') == 1) ? true : false;
+
+            // if ($item->getData('delivery_type') == 1) {
+            //     $pickup = true;
+            // } else {
+            //     $pickup = false;
+            // }
+            $taxable = ($item->getTaxAmount() > 0) ? true : false;
+
+            // if ($item->getTaxAmount() > 0) {
+            //     $taxable = true;
+            // } else {
+            //     $taxable = false;
+            // }
 
             $itemId = $item->getId();
             $itemTaxAmount = $item->getTaxAmount();
             $itemTaxRate = $item->getTaxPercent();
 
-            if ($product->getData('set')) {
-                $itemSet = true;
-            } else {
-                $itemSet = false;
-            }
+            $itemSet = ($product->getData('set')) ? true : false;
+
+            // if ($product->getData('set')) {
+            //     $itemSet = true;
+            // } else {
+            //     $itemSet = false;
+            // }
 
             $vendorId = $product->getData('vendorid');
 
-            if ($product->getData('vendorid') == 2139) {
-                $itemType = "CUR";
-            } else {
-                $itemType = "";
-            }
+            $itemType = ($product->getData('vendorid') == 2139) ? "CUR" : "";
+
+            // if ($product->getData('vendorid') == 2139) {
+            //     $itemType = "CUR";
+            // } else {
+            //     $itemType = "";
+            // }
 
             $explodeItemSku = explode("-", $itemSku);
 
@@ -262,9 +285,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             );
         }
         $inputArray["items"] = $items;
-
-        // echo "<pre>";
-        // print_r(json_encode($inputArray));
 
         // # dummy values
         // $inputArray = array(
@@ -302,18 +322,25 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         //         )
         //     )
         // );
-        // echo "<br>";
-        // print_r(json_encode($inputArray));
 
         $createInvoiceResponse = $this->_arInvoiceHelper->createRevInvoice($inputArray);    # Creating Invoice using API CreateInvoiceRev
+
+        if (empty($response)) {
+			$logger->info("Order Id : " . $order->getIncrementId());
+			$logger->info("API Response not Found.");
+			throw new Exception("API Response not Found", 1);
+        }
+
         /**
          * Create Invoice Response Validation
          */
         if ($createInvoiceResponse->OK != true) {   # Create Invoice Response is false
-            # code...
             $order->setState("processing")->setStatus("estimate_issue");    # Change the Order Status and Order State
             $order->addStatusToHistory($order->getStatus(), 'Estimate not Issued');     # Add Comment to Order History
             $order->save();     # Save the Changes in Order Status & History
+            // Logger
+            $logger->info("Order Id : " . $order->getIncrementId());
+            $logger->info($response->INFO);
         } else {  # Create Invoice Response is true
             $estimateNumber = $invoiceNumber = $createInvoiceResponse->DATA->INV_NO;    # Save Estimate Number in Order
             $order->setData('estimatenumber', $estimateNumber);
@@ -335,12 +362,16 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
 
                 # Web Down Payment API
                 $webDownPaymentResponse = $this->_arInvoiceHelper->webDownPayment($accountNumber, $downPaymentAmount, $invoiceNumber, $referId);
-                
-                $customerFirstName = $order->getCustomerFirstname();
-                $customerLastName = $order->getCustomerLastname();
-                $customerEmail = $order->getCustomerEmail();
-                # Supply Invoice API
-                $supplyInvoiceResponse = $this->_arInvoiceHelper->supplyInvoice($invoiceNumber, $customerFirstName, $customerLastName, $customerEmail);
+                /**
+                 * Not Required
+                 */
+                /*
+                    $customerFirstName = $order->getCustomerFirstname();
+                    $customerLastName = $order->getCustomerLastname();
+                    $customerEmail = $order->getCustomerEmail();
+                    # Supply Invoice API
+                    $supplyInvoiceResponse = $this->_arInvoiceHelper->supplyInvoice($invoiceNumber, $customerFirstName, $customerLastName, $customerEmail);
+                */
             }
         }
         return;
@@ -372,7 +403,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         $order = $this->_orderRepository->get($orderId);
         foreach ($order->getAllItems() as $orderItem) {
             if ($orderItem->getParentItemId() == null) {
-                echo $orderItemsLocation[$orderItem->getItemId()] = $this->_arInvoiceHelper->assignInventoryLocation($orderItem);
+                $orderItemsLocation[$orderItem->getItemId()] = $this->_arInvoiceHelper->assignInventoryLocation($orderItem);
                 if ($orderItemsLocation[$orderItem->getItemId()] == "k") {
                     $orderItems[$orderItem->getItemId()] = array(
                         "ProductId" => $orderItem->getProductId(),
@@ -382,13 +413,11 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                 }
             }
         }
-
         if (!empty($orderItems)) {
             $groupedItemsLocation = $this->_arInvoiceHelper->getGroupedLocation($order,$orderItems);
             $orderItemsLocation = $orderItemsLocation + $groupedItemsLocation;
             ksort($orderItemsLocation);
         }
-        
         return $orderItemsLocation;
     }
 }
