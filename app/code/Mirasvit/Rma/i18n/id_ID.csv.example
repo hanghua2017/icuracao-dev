@@ -1,0 +1,204 @@
+"Request RMA","Meminta RMA"
+"My Returns","Pengembalian saya"
+Grid,Grid
+List,Daftar
+All,Semua
+"Create RMA","Buat RMA"
+"Request New Return","Minta Pengembalian Baru"
+"Max file size: %1Mb","Ukuran file maksimum: %1Mb"
+"New Return for Order #%1","Pengembalian Baru untuk Pesanan #%1"
+"RMA #%1","RMA #%1"
+"RMA #%1 - %2","RMA #%1 - %2"
+"Wrong Order #, Email or Last Name","Pesanan Salah, Email atau Nama Belakang"
+Items,Item
+"To apply changes you should fill in required ""%1"" field","Untuk menerapkan perubahan, Anda harus mengisi bidang &quot;%1&quot; yang diperlukan"
+"Please, add order items to the RMA (set 'Qty to Return')","Tolong, tambahkan item pesanan ke RMA (set &#39;Qty to Return&#39;)"
+"Please, set correct order items Quantity to return","Silakan, atur urutan yang benar. Kuantitas untuk kembali"
+"RMA was successfully created","RMA berhasil dibuat"
+"Shipping is confirmed. Thank you!","Pengiriman dikonfirmasi. Terima kasih!"
+"Your message was successfully added","Pesan Anda berhasil ditambahkan"
+"Allowed extensions:","Ekstensi yang dibolehkan:"
+"Maximum size:","Ukuran maksimum:"
+"-- Please Select --","-- Silahkan pilih --"
+" at %1 (%2)","di %1 (%2)"
+"Mark as unresolved","Tandai sebagai belum terselesaikan"
+"Mark as resolved","Tandai sebagai terselesaikan"
+"not set","tidak diatur"
+Pattern,Pola
+"Attribute Value","Nilai Atribut"
+Default,Default
+Integer,"Bilangan bulat"
+Price,Harga
+"Strip Tags","Strip Tag"
+"Primary Attributes","Atribut Utama"
+"Stock Attributes","Atribut Stock"
+"Prices & Taxes","Harga &amp; Pajak"
+Images,Gambar
+"Custom Attributes","Atribut Khusus"
+Mapping,Pemetaan
+Category,Kategori
+"Amasty Meta Tags","Tag Meta Amat"
+"Others Attributes","Atribut Lainnya"
+Text,Teks
+"Multi-line text","Teks multi-baris"
+Date,Tanggal
+Checkbox,"Kotak centang"
+"Drop-down list","Daftar drop-down"
+Reason,Alasan
+Condition,Kondisi
+Resolution,Resolusi
+"RMA #","RMA #"
+"Order #","Pesanan #"
+"Customer Email","Surel pelanggan"
+"Customer Name","Nama Pelanggan"
+Owner,Pemilik
+"Last Replier","Folder Terakhir"
+Status,Status
+Store,Toko
+"Created At","Dibuat di"
+"Last Activity","Aktivitas terakhir"
+"View link","Lihat tautan"
+"New RMA has been created","RMA baru telah dibuat"
+"RMA has been changed","RMA telah diubah"
+"New reply from customer","Balasan baru dari pelanggan"
+"New reply from staff","Jawaban baru dari staf"
+"-- Default Address --","- Alamat Default -"
+"Update the Product","Perbarui Produk"
+"Conditions Combination","Kombinasi Ketentuan"
+"RMA Attribute","Atribut RMA"
+"Last 7-days Clicks","Klik 7 Hari Terakhir"
+"Last 7-days Orders","Pesanan 7-hari terakhir"
+"Last 7-days Revenue","Pendapatan 7 Hari Terakhir"
+"Last 7-days Conversation Rate (%)","Laju Percakapan 7 Hari Terakhir (%)"
+"Attribute Set","Set Atribut"
+Quantity,Kuantitas
+"Product Type","Tipe produk"
+"Base Image","Gambar Dasar"
+Thumbnail,Thumbnail
+"Small Image","Gambar Kecil"
+"Base Image Size (bytes)","Ukuran Gambar Dasar (byte)"
+"Thumbnail Size (bytes)","Ukuran Thumbnail (byte)"
+"Small Image Size (bytes)","Ukuran Gambar Kecil (byte)"
+"PHP Condition","Kondisi PHP"
+"Open Chooser","Buka Chooser"
+"Last message body","Tubuh pesan terakhir"
+"Updated At","Diperbarui pada"
+"Status (before change)","Status (sebelum berubah)"
+"Owner (before change)","Owner (sebelum perubahan)"
+"Last Reply By","Balasan Terakhir Oleh"
+"Hours since Created","Jam sejak Dibuat"
+"Hours since Updated","Jam sejak Diperbarui"
+"Hours since Last reply","Jam sejak balasan Terakhir"
+"Items have reason","Item memiliki alasan"
+"Items have condition","Barang memiliki kondisi"
+"Items have resolution","Item memiliki resolusi"
+"%1 (before change)","%1 (sebelum perubahan)"
+Customer,Pelanggan
+Staff,Staf
+"- Disable these emails -","- Nonaktifkan email ini -"
+Yes,"Iya nih"
+No,Tidak
+Save,Menyimpan
+"Save & Continue Edit","Simpan &amp; Lanjutkan Edit"
+"Save & Close","Simpan &amp; Tutup"
+Edit,Edit
+Delete,Menghapus
+"Delete ""${ $.$data.name }""","Hapus "${ $.$data.name }""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Apakah Anda yakin tidak ingin menghapus catatan "${ $.$data.name }"?"
+"Are you sure you want to do this?","Anda yakin ingin melakukan ini?"
+"Convert To Ticket","Konversi Ke Tiket"
+"View order #${ $.$data.order_id }","Lihat pesanan #${ $.$data.order_id }"
+"View exchange order %1","Lihat pesanan pertukaran %1"
+"RMA: Report by Attribute","RMA: Laporan berdasarkan Atribut"
+"RMA: Report by Status","RMA: Laporan oleh Status"
+"RMA: Report by Product","RMA: Laporkan berdasarkan Produk"
+"RMA: Report by Reasons","RMA: Laporan oleh Alasan"
+"Cannot delete return address with id %1","Tidak dapat menghapus alamat pengirim dengan id %1"
+"Cannot delete item with id %1","Tidak dapat menghapus item dengan id %1"
+"Cannot delete condition with id %1","Tidak dapat menghapus ketentuan dengan id %1"
+"Cannot delete field with id %1","Tidak dapat menghapus bidang dengan id %1"
+"Cannot delete message with id %1","Tidak dapat menghapus pesan dengan id %1"
+"Cannot delete history with id %1","Tidak dapat menghapus riwayat dengan id %1"
+"Cannot delete Quick Response with id %1","Tidak dapat menghapus Respons Cepat dengan id %1"
+"Cannot delete reason with id %1","Tidak dapat menghapus alasan dengan id %1"
+"Cannot delete resolution with id %1","Tidak dapat menghapus resolusi dengan id %1"
+"Cannot delete rma with id %1","Tidak dapat menghapus rma dengan id %1"
+"Cannot delete rule with id %1","Tidak dapat menghapus aturan dengan id %1"
+"Cannot delete status with id %1","Tidak dapat menghapus status dengan id %1"
+"Please, enter a message","Tolong, masukkan pesan"
+"Product Name","Nama Produk"
+SKU,SKU
+Qty,Qty
+"This was a gift, please do not notify purchaser","Ini adalah hadiah, mohon jangan memberi tahu pembeli"
+"Enter your contact information","Masukkan informasi kontak Anda"
+"First Name","Nama depan"
+"Last Name","Nama keluarga"
+Email,E-mail
+Telephone,Telepon
+"To request a new RMA or check the status of current RMA, please, fill the form:","Untuk meminta RMA baru atau memeriksa status RMA saat ini, harap isi formulir:"
+"* Required Fields","* Wajib diisi"
+"Order Information","Informasi pemesanan"
+"Email or Last Name","Email atau Nama Belakang"
+Next,Berikutnya
+RMA,RMA
+Actions,Tindakan
+"View Return","Lihat Pengembalian"
+"There are no Returns","Tidak ada Pengembalian"
+"Items %1 to %2 of %3 total","Item %1 hingga %2 dari total %3"
+"%1 Item(s)","%1 Item"
+Show,Menunjukkan
+"per page","per halaman"
+"View as","Menampilkan sebagai"
+"Sort by","Sortir dengan"
+"Set Ascending Direction","Atur Arah Naik"
+"Set Descending Direction","Atur Arah Descending"
+"Please, select an order","Tolong, pilih pesanan"
+Order,Memesan
+"-- Select an Order --","- Pilih Pesanan -"
+"You have no completed orders to request RMA or your orders were placed more than %1 days ago. Please, contact customer service.","Anda belum menyelesaikan pesanan untuk meminta RMA atau pesanan Anda ditempatkan lebih dari %1 hari yang lalu. Silakan, hubungi layanan pelanggan."
+"Submit Request","Kirim Permintaan"
+"Please, select RMA items which you would like to return.","Silakan, pilih item RMA yang ingin Anda kembalikan."
+"Additional Information","Informasi tambahan"
+"Attach files","Lampirkan file"
+"Request Information","Permintaan Informasi"
+"Email Address","Alamat email"
+"Order Shipping Address","Pesan Alamat Pengiriman"
+"Items in this order","Item dalam urutan ini"
+"There are no items for this product that can be returned.","Tidak ada item untuk produk ini yang dapat dikembalikan."
+"Another RMA for this product: %1","RMA lain untuk produk ini: %1"
+"This product can not be returned due to RMA Policy","Produk ini tidak dapat dikembalikan karena Kebijakan RMA"
+"This is a non-returnable item per our return policy.","Ini adalah barang yang tidak dapat dikembalikan sesuai dengan kebijakan pengembalian kami."
+"Quantity to return","Kuantitas untuk kembali"
+"-- Select a Reason --","- Pilih sebuah Alasan -"
+"-- Select a Condition --","- Pilih Kondisi -"
+"-- Select a Resolution --","- Pilih Resolusi -"
+"I agree","Saya setuju"
+"Date: %1","Tanggal: %1"
+"Original order: #%1","Pesanan awal: #%1"
+"Return Address","Alamat pengembalian"
+"Customer Information","Informasi pengguna"
+"RMA History","Sejarah RMA"
+"RMA Items","Item RMA"
+Weight,Berat
+"Print RMA Packing Slip","Cetak RMA Packing Slip"
+"Print RMA Shipping Label","Cetak Label Pengiriman RMA"
+"Confirm Shipping","Konfirmasi Pengiriman"
+"(This was a gift)","(Ini adalah hadiah)"
+"Date Requested","Tanggal Diminta"
+"Contact Information","Kontak informasi"
+"Items RMA Requested for","Item RMA Diminta untuk"
+QTY,QTY
+"Add Message","Tambahkan Pesan"
+Submit,Menyerahkan
+%name,%nama
+"The quantity is incorrect.","Kuantitasnya salah."
+"New Return for Offline Order","Pengembalian Baru untuk Urutan Offline"
+" at %1","di %1"
+Select,Memilih
+"If you do not have account on this store please fill the form below.","Jika Anda tidak memiliki akun di toko ini, silakan isi formulir di bawah ini."
+"-- Create Offline Order --","- Buat Pesanan Offline -"
+"Returned Item","Item yang Dikembalikan"
+"Remove Item","Hapus Item"
+"Order or Receipt #","Pesanan atau Tanda Terima #"
+"Add Item","Tambahkan Barang"
+"Add at least one item to this RMA","Tambahkan setidaknya satu item ke RMA ini"

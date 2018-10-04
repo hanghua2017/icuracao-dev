@@ -5,7 +5,7 @@
 * @author  Sangeetha D <sangeetha.d@dyode.com>
 * PARTIAL - COMMON STYLING Frequently bought items section
 ****************************************************************/
-
+.catalog-product-view{
 .frequently-bought-items {
   clear: both;
   width: 100%;
@@ -35,17 +35,21 @@
     @media all and (max-width: 1260px) {
       width: 80%;
     }
-    @media all and (max-width: 991px) {
+    @media all and (max-width: 990px) {
       width: 100%;
       margin-top: 20px;
     }
-    .include-item {
-      padding: 5px;
-      img {
-        position: relative;
-        top: 40%;
-      }
-      }
+    .plus-item{
+      .include-item {
+        padding: 5px;
+        img {
+          position: relative;
+          top: 35%;
+          right: 5px;
+        }
+        }
+    }
+
     }
     .frequent-item-list {
       padding-left: 0;
@@ -109,8 +113,11 @@
           .prod-details {
             width: 70%;
             margin: 0 auto;
-            @media all and (max-width: 767px) {
+            @media all and (max-width: 1025px) {
               width: 80%;
+            }
+            @media all and (max-width: 767px) {
+              width: 90%;
             }
             @media all and (max-width: 478px) {
               width: 95%;
@@ -249,11 +256,11 @@
         border-top: 1px solid @content-light-grey;
       }
       .frequently-bought-adon-sum {
-        width: 80%;
-        padding: 20px 0;
         margin: 0 auto;
-        @media all and (max-width: 991px) {
-          width: 100%;
+        width: 100% !important;
+        padding: 20px 0 !important;
+        @media all and (min-width: 991px) {
+          width: 80% !important;
           padding-top: 0;
         }
         .price-adons {
@@ -286,7 +293,7 @@
               @media all and (max-width: 1199px) {
                 padding: 0 50px;
               }
-              @media all and (max-width: 991px) {
+              @media all and (max-width: 990px) {
                 padding: 0 45px;
               }
               @media all and (max-width: 767px) {
@@ -315,16 +322,16 @@
               }
               label {
                 color: @content-light-grey;
-                font-size: 14px;
+                font-size: 13px;
                 font-family: 'iCuracao-Light';
                 @media all and (max-width: 767px) {
-                  font-size: 12px;
+                  font-size: 11px;
                 }
                 @media all and (max-width: 478px) {
-                  font-size: 13px;
+                  font-size: 12px;
                 }
                 @media all and (max-width: 380px) {
-                  font-size: 12px;
+                  font-size: 11px;
                 }
               }
               .price {
@@ -334,7 +341,7 @@
                 margin-bottom: 0;
                 font-family: 'iCuracao-Medium';
                 margin-top: 15px;
-                @media all and (max-width: 991px) {
+                @media all and (max-width: 990px) {
                   font-size: 16px;
                   margin-top: 15px;
                 }
@@ -349,7 +356,7 @@
                   margin-top: 5px;
                 }
                 @media all and (max-width: 380px) {
-                  font-size: 14px;
+                  font-size: 10px;
                 }
               }
             }
@@ -361,7 +368,7 @@
               position: relative;
               top: 25px;
               font-family: 'iCuracao-Regular';
-              @media all and (max-width: 991px) {
+              @media all and (max-width: 990px) {
                 font-size: 18px;
                 top: 25px;
               }
@@ -377,7 +384,7 @@
             position: absolute;
             right: 0;
             top: 5px;
-            @media all and (max-width: 991px) {
+            @media all and (max-width: 990px) {
               right: 20px;
               top: 0;
             }
@@ -395,7 +402,7 @@
               padding: 12px 15px;
               text-transform: uppercase;
               box-shadow: none;
-              font-size: 16px;
+              font-size: 14px;
               position: relative;
               top: -5px;
               font-family: 'iCuracao-Regular';
@@ -403,7 +410,7 @@
                 position: static;
                 clear: both;
               }
-              @media all and (max-width: 991px) {
+              @media all and (max-width: 990px) {
                 top: 0;
                 font-size: 14px;
               }
@@ -436,3 +443,4 @@
     }
   }
   // End of Frequently bought items section
+}
