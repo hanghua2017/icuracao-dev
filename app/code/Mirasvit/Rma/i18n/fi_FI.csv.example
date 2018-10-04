@@ -1,0 +1,204 @@
+"Request RMA","Pyydä RMA"
+"My Returns","My Returns"
+Grid,Ruudukko
+List,Lista
+All,Kaikki
+"Create RMA","Luo RMA"
+"Request New Return","Pyydä uutta paluuta"
+"Max file size: %1Mb","Tiedoston enimmäiskoko: %1Mb"
+"New Return for Order #%1","Uusi palautus tilaukselle #%1"
+"RMA #%1","RMA #%1"
+"RMA #%1 - %2","RMA #%1 - %2"
+"Wrong Order #, Email or Last Name","Väärä tilaus, sähköposti tai sukunimi"
+Items,Tuotteet
+"To apply changes you should fill in required ""%1"" field","Jos haluat tehdä muutoksia, sinun on täytettävä vaadittava &quot;%1&quot; -kenttä"
+"Please, add order items to the RMA (set 'Qty to Return')","Lisää tilausmäärät RMA: han (aseta &quot;Qty to Return&quot;)"
+"Please, set correct order items Quantity to return","Ole hyvä ja aseta oikeat tilausmäärät palataksesi"
+"RMA was successfully created","RMA luotiin onnistuneesti"
+"Shipping is confirmed. Thank you!","Toimitus vahvistetaan. Kiitos!"
+"Your message was successfully added","Viestiasi lisättiin onnistuneesti"
+"Allowed extensions:","Sallitut laajennukset:"
+"Maximum size:","Suurin koko:"
+"-- Please Select --","-- Ole hyvä ja valitse --"
+" at %1 (%2)","kello 12__)"
+"Mark as unresolved","Merkitse kuin ratkaisematon"
+"Mark as resolved","Merkitse ratkaistu"
+"not set","ei valittu"
+Pattern,Kuvio
+"Attribute Value",Attribuuttiarvo
+Default,Oletusarvo
+Integer,Kokonaisluku
+Price,Hinta
+"Strip Tags","Strip Tagit"
+"Primary Attributes","Ensisijaiset ominaisuudet"
+"Stock Attributes",Kantaominaisuudet
+"Prices & Taxes","Hinnat ja verot"
+Images,Kuvat
+"Custom Attributes","Mukautetut määritykset"
+Mapping,Kartoitus
+Category,Kategoria
+"Amasty Meta Tags","Amasty Meta Tags"
+"Others Attributes","Muut ominaisuudet"
+Text,Teksti
+"Multi-line text","Usean rivin teksti"
+Date,Treffi
+Checkbox,Valintaruutu
+"Drop-down list",Pudotusvalikosta
+Reason,Syy
+Condition,Kunto
+Resolution,Päätöslauselma
+"RMA #","RMA #"
+"Order #","Tilaus #"
+"Customer Email","Asiakkaan sähköposti"
+"Customer Name","Asiakkaan nimi"
+Owner,Omistaja
+"Last Replier","Viimeinen kansio"
+Status,Status
+Store,Myymälä
+"Created At","Luotu klo"
+"Last Activity","Viimeinen toiminta"
+"View link","Näytä linkki"
+"New RMA has been created","Uusi RMA on luotu"
+"RMA has been changed","RMA on muutettu"
+"New reply from customer","Uusi vastaus asiakkaalta"
+"New reply from staff","Uusi vastaus henkilökunnalta"
+"-- Default Address --","-- Oletusosoite --"
+"Update the Product","Päivitä tuote"
+"Conditions Combination","Ehdot Yhdistelmä"
+"RMA Attribute",RMA-attribuutit
+"Last 7-days Clicks","Viimeiset 7 päivän napsautukset"
+"Last 7-days Orders","Viimeiset 7 päivän tilaukset"
+"Last 7-days Revenue","Viimeiset 7 päivän tulot"
+"Last 7-days Conversation Rate (%)","Viimeisen 7 päivän keskusteluaste (%)"
+"Attribute Set","Attribute Set"
+Quantity,Määrä
+"Product Type",Tuotetyyppi
+"Base Image",Peruskuva
+Thumbnail,Thumbnail
+"Small Image","Pieni kuva"
+"Base Image Size (bytes)","Peruskuvan koko (tavua)"
+"Thumbnail Size (bytes)","Pikkukuvan koko (tavua)"
+"Small Image Size (bytes)","Pienikokoinen kuvakoko (tavua)"
+"PHP Condition","PHP kunnossa"
+"Open Chooser","Avaa valitsija"
+"Last message body","Viestin viimeinen viesti"
+"Updated At","Päivitetty klo"
+"Status (before change)","Tila (ennen muutosta)"
+"Owner (before change)","Omistaja (ennen muutosta)"
+"Last Reply By","Viimeinen vastaus"
+"Hours since Created","Tuntia luodusta lähtien"
+"Hours since Updated","Tuntia päivästä lähtien"
+"Hours since Last reply","Tuntia viimeisen vastauksen jälkeen"
+"Items have reason","Kohteilla on syy"
+"Items have condition","Kohteissa on kunnossa"
+"Items have resolution","Kohteissa on resoluutio"
+"%1 (before change)","%1 (ennen muutosta)"
+Customer,Asiakas
+Staff,Henkilöstö
+"- Disable these emails -","- Poista nämä sähköpostit käytöstä -"
+Yes,Joo
+No,Ei
+Save,Tallentaa
+"Save & Continue Edit","Tallenna &amp; Jatka Muokkaa"
+"Save & Close","Tallenna &amp; sulje"
+Edit,Muokata
+Delete,Poistaa
+"Delete ""${ $.$data.name }""","Poista "${ $.$data.name }""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Oletko varma, ettet poista "${ $.$data.name }" -tiedostoa?"
+"Are you sure you want to do this?","Haluatko varmasti tehdä tämän?"
+"Convert To Ticket","Muunna lipuksi"
+"View order #${ $.$data.order_id }","Katso tilaus #${ $.$data.order_id }"
+"View exchange order %1","Katso vaihtotilaus %1"
+"RMA: Report by Attribute","RMA: raportti ominaisuuden mukaan"
+"RMA: Report by Status","RMA: raportti tilasta"
+"RMA: Report by Product","RMA: Raportti tuotteittain"
+"RMA: Report by Reasons","RMA: Raportti syistä"
+"Cannot delete return address with id %1","Palautusosoitetta ei voi poistaa tunnuksella %1"
+"Cannot delete item with id %1","Et voi poistaa kohdetta id %1"
+"Cannot delete condition with id %1","Ehtoa ei voi poistaa tunnuksella %1"
+"Cannot delete field with id %1","Kenttä ei voi poistaa tunnuksella %1"
+"Cannot delete message with id %1","Viestiä ei voi poistaa tunnuksella %1"
+"Cannot delete history with id %1","Historiasta ei voi poistaa tunnusta %1"
+"Cannot delete Quick Response with id %1","Pikavastausta ei voi poistaa tunnuksella %1"
+"Cannot delete reason with id %1","Reittiä ei voi poistaa tunnuksella %1"
+"Cannot delete resolution with id %1",
+"Cannot delete rma with id %1","Rma: ta ei voida poistaa tunnuksella %1"
+"Cannot delete rule with id %1","Ei voida poistaa sääntöä tunnuksella %1"
+"Cannot delete status with id %1","Tilatietoa ei voi poistaa tunnuksella %1"
+"Please, enter a message","Kirjoita viesti"
+"Product Name","Tuotteen nimi"
+SKU,SKU
+Qty,Määrä
+"This was a gift, please do not notify purchaser","Tämä oli lahja, äläkä ilmoita ostajalle"
+"Enter your contact information","Anna yhteystietosi"
+"First Name",Etunimi
+"Last Name",Sukunimi
+Email,Sähköposti
+Telephone,Puhelin
+"To request a new RMA or check the status of current RMA, please, fill the form:","Jos haluat pyytää uutta RMA: ta tai tarkistaa nykyisen RMA: n tilan, täytä lomake:"
+"* Required Fields","* Pakolliset kentät"
+"Order Information","Tilaus Informaatio"
+"Email or Last Name","Sähköposti tai sukunimi"
+Next,Seuraava
+RMA,RMA
+Actions,Toimet
+"View Return","Näytä paluu"
+"There are no Returns","Ei palautusta"
+"Items %1 to %2 of %3 total","Kohteita %1 - %2 yhteensä %3"
+"%1 Item(s)","%1 Tuote (t)"
+Show,Show
+"per page","per sivu"
+"View as",Näytä
+"Sort by",Järjestä
+"Set Ascending Direction","Aseta nouseva suunta"
+"Set Descending Direction","Aseta laskeva suunta"
+"Please, select an order","Valitse tilaus"
+Order,Tilata
+"-- Select an Order --","- Valitse tilaus -"
+"You have no completed orders to request RMA or your orders were placed more than %1 days ago. Please, contact customer service.","Sinulla ei ole valmiita tilauksia pyytää RMA: ta tai tilauksesi sijoitettiin yli %1 päivää sitten. Ota yhteyttä asiakaspalveluun."
+"Submit Request","Lähetä pyyntö"
+"Please, select RMA items which you would like to return.","Valitse RMA-kohteet, jotka haluat palauttaa."
+"Additional Information",Lisäinformaatio
+"Attach files","Liitä tiedostot"
+"Request Information","Pyytää tietoa"
+"Email Address",Sähköpostiosoite
+"Order Shipping Address","Tilaa toimitusosoite"
+"Items in this order","Tilaukset tässä järjestyksessä"
+"There are no items for this product that can be returned.","Tällä tuotteella ei ole tuotteita, jotka voidaan palauttaa."
+"Another RMA for this product: %1","Toinen RMA tämän tuotteen osalta: %1"
+"This product can not be returned due to RMA Policy","Tätä tuotetta ei voi palauttaa RMA-käytännön vuoksi"
+"This is a non-returnable item per our return policy.","Tämä on palauttamaton kohde palauttamispolitiikkamme mukaan."
+"Quantity to return","Palautettava määrä"
+"-- Select a Reason --","- Valitse syy -"
+"-- Select a Condition --","- Valitse kunto -"
+"-- Select a Resolution --","- Valitse tarkkuus -"
+"I agree","Olen samaa mieltä"
+"Date: %1","Päivämäärä: %1"
+"Original order: #%1","Alkuperäinen tilaus: #%1"
+"Return Address",Palautusosoite
+"Customer Information",Asiakastiedot
+"RMA History","RMA Historia"
+"RMA Items",RMA-kohteet
+Weight,Paino
+"Print RMA Packing Slip","Tulosta RMA-pakkausliuska"
+"Print RMA Shipping Label","Tulosta RMA Shipping Label"
+"Confirm Shipping","Vahvista lähetys"
+"(This was a gift)","(Tämä oli lahja)"
+"Date Requested","Pyydetty päivämäärä"
+"Contact Information",Yhteystiedot
+"Items RMA Requested for","RMA-kohteet, joita pyydetään"
+QTY,KPL
+"Add Message","Lisää viesti"
+Submit,Lähetä
+%name,%nimi
+"The quantity is incorrect.","Määrä on virheellinen."
+"New Return for Offline Order","Uusi palautus offline-tilaukselle"
+" at %1","klo %1"
+Select,Valita
+"If you do not have account on this store please fill the form below.","Jos sinulla ei ole tiliä tässä kaupassa, täytä alla oleva lomake."
+"-- Create Offline Order --","- Luo offline tilaus -"
+"Returned Item","Palautettu tuote"
+"Remove Item","Poista esine"
+"Order or Receipt #","Tilaus tai kuitti #"
+"Add Item","Lisää tavara"
+"Add at least one item to this RMA","Lisää vähintään yksi kohde tähän RMA: han"
