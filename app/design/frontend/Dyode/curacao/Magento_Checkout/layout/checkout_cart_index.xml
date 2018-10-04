@@ -21,8 +21,8 @@
             </arguments>
         </block>
 
-        <referenceContainer name="page.wrapper">
-            <block name="curacao.credit.card" template="Magento_Checkout::cart/creditcard.phtml" before="main.content" />
+        <referenceContainer name="main.content">
+            <block name="curacao.credit.card" template="Magento_Checkout::cart/creditcard.phtml" before="-" />
         </referenceContainer>
 
         <referenceBlock name="page.main.title">
