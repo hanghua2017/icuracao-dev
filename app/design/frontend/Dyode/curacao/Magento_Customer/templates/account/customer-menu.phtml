@@ -51,6 +51,7 @@ $customerSession = $objectManager->create('Magento\Customer\Model\Session');
     </li>
   <?php else: ?>
     <li class="customer-signin">
+      <span class="hello-text">Hello,</span>
           <div class="account-wrapper">
                     <a href="<?php echo $block->getUrl();?>customer/account/login/">
                     <span><?php echo __('Sign in')?></span>

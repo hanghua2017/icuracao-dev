@@ -13,7 +13,4 @@
            <argument name="blockId" xsi:type="string">curacao_checkout_block</argument>
        </arguments>
     </type>
-    <type name="Magento\Checkout\Model\DefaultConfigProvider">
-        <plugin name="Dyode_Checkout_Default_Config_Plugin" type="Dyode\Checkout\Plugin\DefaultConfigProvider" sortOrder="10" disabled="false" />
-    </type>
 </config>

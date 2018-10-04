@@ -24,13 +24,15 @@ class Index extends \Magento\Framework\View\Element\Template
      *
      * @return string
      */
-    public function getFormAction()
-    {
+    public function getFormAction()  {
         return '/linkaccount/verify/index';
-
     }
-    public function getCodeFormAction()
-    {
+    /**
+    * Get form action URL for POST request
+    *
+    * @return string
+    */
+    public function getCodeFormAction()  {
         return '/linkaccount/verify/codeverify';
 
     }

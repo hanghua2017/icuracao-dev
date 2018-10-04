@@ -1,0 +1,20 @@
+<?php
+/** @var \Mirasvit\Rma\Block\Rma\NewRma\Step2\Order $block */
+?>
+<div class="block">
+    <div class="block-content ui-rma-items">
+        <fieldset class="fieldset">
+            <div class="field required">
+                <label class="label">
+                    <span><?= __('Order or Receipt #') ?></span>
+                </label>
+                <input type="text" name="receipt_number" value="" title="Order or Receipt #" maxlength="255" class="input-text receiptnumber required-entry">
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+<input type="hidden" name="customer_id" value="<?= $block->getCustomerId(); ?>" title="Customer ID">
+<input type="hidden" name="store_id" value="<?= $block->getStoreId(); ?>" title="Store ID">
+
+<div class="clearfix"></div>
