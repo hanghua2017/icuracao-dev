@@ -5,12 +5,7 @@
  *
  * @module    Dyode_DeliveryMethod
  * @copyright Copyright © Dyode
- */
-
-'use strict';
-
-/**
- * Product Delivery Options Step
+ * @author Rajeev K Tomy <rajeev.ktomy@dyode.com>
  */
 define([
         'jquery',
@@ -23,6 +18,7 @@ define([
         'mage/translate',
         'Magento_Checkout/js/model/full-screen-loader',
         'mage/url',
+        '../data/delivery-data-provider',
         'Magento_Ui/js/modal/modal'
     ],
     function (
@@ -35,11 +31,50 @@ define([
         priceUtils,
         $t,
         fullScreenLoader,
-        Url
+        Url,
+        deliveryDataProvider
     ) {
 
-        var quoteItemData = window.checkoutConfig.quoteItemData;
+        'use strict';
 
+        /**
+         * Prepare delivery option radio button's checked attribute value.
+         *
+         * @return {Object} checked
+         */
+        var getRadioCheckedStatusInfo = function (quoteItemData) {
+            var checked = {
+                shipToHome: false,
+                storePickup: false
+            };
+
+            _.each(quoteItemData, function (quoteItem) {
+                var deliveryInfo = _.findWhere(deliveryDataProvider.getDeliveryData(), {
+                    quoteItemId: parseInt(quoteItem.item_id)
+                });
+
+                if (!deliveryInfo) {
+                    return checked;
+                }
+
+                if (deliveryInfo.deliveryType == 'ship_to_home') {
+                    checked.shipToHome = 'ship_to_home';
+                } else {
+                    checked.storePickup = 'store_pickup';
+                }
+            });
+
+            return checked;
+        },
+
+        quoteItemData = window.checkoutConfig.quoteItemData,
+        radioDefaultCheckedInfo = getRadioCheckedStatusInfo(quoteItemData);
+
+        /**
+         * Delivery Step Component
+         *
+         * @extends uiComponent
+         */
         return Component.extend({
             defaults: {
                 template: 'Dyode_DeliveryMethod/delivery-method',
@@ -95,7 +130,7 @@ define([
                 var self = this,
                     products = ko.observableArray([]);
 
-                $(quoteItemData).each(function (index, quoteItem) {
+                _.each(quoteItemData, function (quoteItem) {
                     products.push({
 
                         //quote related data
@@ -106,7 +141,7 @@ define([
                         //product related data
                         productId: quoteItem.product_id,
                         productName: quoteItem.product.name,
-                        productPrice: priceUtils.formatPrice(quoteItem.product.price).toString(),
+                        productPrice: priceUtils.formatPrice(quoteItem.price),
                         productImageUrl: quoteItem.thumbnail,
 
                         //forms related data
@@ -118,10 +153,10 @@ define([
                         storePickupModalId: 'store_pickup_modal_' + quoteItem.item_id,
                         storePickupModalFormInp: 'store_pickup_modal_' + quoteItem.item_id + '_form_inp',
                         storeDisplaySectionId: 'selected_store_section_' + quoteItem.item_id,
-                        deliveryRadioShip: ko.observable('ship'),
-                        deliveryRadioStore: ko.observable('store'),
-                        deliveryRadioShipChecked: ko.observable(true),
-                        deliveryRadioStoreChecked: ko.observable(false),
+                        deliveryRadioShip: ko.observable('ship_to_home'),
+                        deliveryRadioStore: ko.observable('store_pickup'),
+                        deliveryRadioShipChecked: ko.observable(radioDefaultCheckedInfo.shipToHome),
+                        deliveryRadioStoreChecked: ko.observable(radioDefaultCheckedInfo.storePickup),
                         showZipForm: ko.observable(false),
                         showZipFormError: ko.observable(false),
                         showZipInputModalForm: ko.observable(false),
@@ -151,24 +186,42 @@ define([
              */
             onDeliveryOptionChange: function (model, event) {
                 var showZipForm = true,
-                    showStoreSelected = true;
+                    showStoreSelected = true,
+                    radioInputValue = event.target.value;
 
-                if (event.target.value == 'ship') {
+                if (radioInputValue == 'ship_to_home') {
                     model.deliveryRadioStoreChecked(false);
                     showZipForm = false;
                     showStoreSelected = false;
                 } else {
                     model.deliveryRadioShipChecked(false);
-                }
 
-                if (model.currentSelectedStore().zipCode) {
-                    showZipForm = false;
-                } else {
-                    showStoreSelected = false;
+                    if (model.currentSelectedStore().zipCode) {
+                        showZipForm = false;
+                    } else {
+                        showStoreSelected = false;
+                    }
                 }
 
                 model.showZipForm(showZipForm);
                 model.showStoreSelectedSection(showStoreSelected);
+
+                //prepare new deliveryInfo based on the selection
+                var deliveryData = deliveryDataProvider.getDeliveryData(),
+                    deliveryInfo = _.extend(
+                        _.findWhere(deliveryData, {
+                            quoteItemId: parseInt(model.quoteItemId)
+                        }),
+                        {
+                            deliveryType: radioInputValue
+                        }
+                    );
+
+                //update delivery option observable array.
+                if (deliveryInfo) {
+                    var newDeliveryData = _.extend(deliveryData, [deliveryInfo]);
+                    deliveryDataProvider.deliveryData(newDeliveryData);
+                }
             },
 
             /**
@@ -383,7 +436,6 @@ define([
                     });
                 }
             }
-
         });
     }
 );
