@@ -6,53 +6,59 @@
  * @package   Dyode_ArInvoice
  * @author    Sooraj Sathyan (soorajcs.mec@gmail.com)
  */
-namespace Magento\SampleMinimal\Cron;
-use \Psr\Log\LoggerInterface;
+namespace Dyode\ArInvoice\Cron;
 
-class ApprovedFraudOrders
- {
-    protected $logger;
-
+class GenerateInvoice
+{
     /**
-     * @var \Dyode\ArInvoice\Model\ArInvoice $arInvoice
+     * @var \Dyode\ArInvoice\Model\ArInvoice $_arInvoiceModel
      **/
-    protected $arInvoice;
+    protected $_arInvoiceModel;
 
     /**
-     * @var \Magento\Sales\Model\ResourceModel\Order\CollectionFactory
+     * @var \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $_orderCollectionFactory
      */
     protected $_orderCollectionFactory;
 
     /**
+     * @var \Dyode\ArInvoice\Helper\Data $_arInvoiceHelper 
+     **/
+    protected $_arInvoiceHelper;
+
+    /**
      * Constructor
      *
-     * @param \Dyode\ArInvoice\Model\ArInvoice $arInvoice
+     * @param \Dyode\ArInvoice\Model\ArInvoice $arInvoiceModel
+     * @param \Dyode\ArInvoice\Helper\Data $arInvoiceHelper
      * @param \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory
      */
     public function __construct(
-        LoggerInterface $logger,
-        \Dyode\ArInvoice\Model\ArInvoice $arInvoice,
+        \Dyode\ArInvoice\Model\ArInvoice $arInvoiceModel,
+        \Dyode\ArInvoice\Helper\Data $arInvoiceHelper,
         \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory
     ) {
-        $this->logger = $logger;
-        $this->arInvoice = $arInvoice;
+        $this->_arInvoiceModel = $arInvoiceModel;
+        $this->_arInvoiceHelper = $arInvoiceHelper;
         $this->_orderCollectionFactory = $orderCollectionFactory;
     }
 
-/**
-   * Write to system.log
-   *
-   * @return void
-   */
+    /**
+     * Generate Invoice
+     *
+     * @return void
+     */
+    public function execute()
+    {
+        $writer = new \Zend\Log\Writer\Stream(BP . "/var/log/generateinvoicecron.log");
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info("Cron Works");
 
-    public function execute() {
-        $this->logger->info('Cron Works');
         $collection = $this->_orderCollectionFactory->create()->addAttributeToSelect('*');
         $collection->addFieldToFilter('status', 'review_order');
         foreach ($collection as $salesOrder) {
-            $this->arInvoice->createInvoice($salesOrder->getId());
-            # Link AppleCareSetWarranty
+            $this->_arInvoice->createInvoice($salesOrder->getId());
+            $this->_arInvoiceHelper->linkAppleCare($salesOrder);
         }
     }
-
 }

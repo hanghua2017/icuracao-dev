@@ -23,24 +23,41 @@ class Index extends \Magento\Framework\App\Action\Action
     protected $_arInvoiceHelper;
 
     /**
+     * @var \Magento\Sales\Model\OrderRepository $orderRepository
+     **/
+    protected $_orderRepository;
+
+    /**
      * @var \Magento\Sales\Model\ResourceModel\Order\CollectionFactory
      */
     protected $_orderCollectionFactory;
 
+    /**
+     * @var \Magento\Catalog\Model\ProductRepository $productRepository
+     */
+    protected $_productRepository;
+
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Dyode\ArInvoice\Model\ArInvoice $arInvoice,
+        \Magento\Sales\Model\OrderRepository $orderRepository,
         \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
+        \Magento\Catalog\Model\ProductRepository $productRepository,
         \Dyode\ArInvoice\Helper\Data $arInvoiceHelper
     ) {
         $this->arInvoice = $arInvoice;
         $this->_orderCollectionFactory = $orderCollectionFactory;
+        $this->_orderRepository = $orderRepository;
         $this->_arInvoiceHelper = $arInvoiceHelper;
+        $this->_productRepository = $productRepository;
         parent::__construct($context);
     }
 
     public function execute()
     {
+        $order = $this->_orderRepository->get(13045);
+        $this->_arInvoiceHelper->linkAppleCare($order);
+        die();
         // $invoiceNo = "ZEP5903";
         // $customerId = "53208833";
         // $firstName = "TED";

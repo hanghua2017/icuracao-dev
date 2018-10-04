@@ -21,14 +21,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     private $_domesticLocation = '06';
 
     /**
-     * Order Items
-     */
-    private $_orderItems;
-
-    /**
-     * @var \Magento\Framework\Json\Helper\Data
-     */
-    protected $jsonHelper;
+     * @var \Magento\Sales\Model\OrderRepository
+     **/
+    protected $_orderRepository;
 
     /**
      * @var \Magento\Catalog\Model\ProductRepository
@@ -36,32 +31,33 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     protected $_productRepository;
 
     /**
-     * @var \Magento\Sales\Model\OrderRepository
-     **/
-    protected $_orderRepository;
-
-    /**
      * \Magento\Framework\App\ResourceConnection
      */
     protected $_resourceConnection;
 
     /**
+     * @var \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface
+     */
+    protected $_customerRepositoryInterface;
+
+    /**
      * Constructor
      *
      * @param \Magento\Sales\Model\OrderRepository $orderRepository
-     * @param \Magento\Framework\Json\Helper\Data $jsonHelper
      * @param \Magento\Catalog\Model\ProductRepository $productRepository
+     * @param \Magento\Framework\App\ResourceConnection $resourceConnection
+     * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface
      */
     public function __construct(
         \Magento\Sales\Model\OrderRepository $orderRepository,
-        \Magento\Framework\Json\Helper\Data $jsonHelper,
         \Magento\Catalog\Model\ProductRepository $productRepository,
-        \Magento\Framework\App\ResourceConnection $resourceConnection
+        \Magento\Framework\App\ResourceConnection $resourceConnection,
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface
     ) {
         $this->_orderRepository = $orderRepository;
-        $this->jsonHelper = $jsonHelper;
         $this->_productRepository = $productRepository;
         $this->_resourceConnection = $resourceConnection;
+        $this->_customerRepositoryInterface = $customerRepositoryInterface;
     }
 
     /**
@@ -599,5 +595,89 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         ksort($groupedItemsLocation);
 
         return $groupedItemsLocation;
+    }
+
+    /**
+     * Link Apple Care Warranty
+     *
+     * @return Void
+     */
+    public function linkAppleCare($order)
+    {
+        $writer = new \Zend\Log\Writer\Stream(BP . "/var/log/linkapplecare.log");
+		$logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+
+        $appleItems = array();
+        $itemsArray = array();
+        $toLinkItems = array();
+        $firstName = $order->getCustomerFirstName();
+        $lastName = $order->getCustomerLastName();
+        $email = $order->getCustomerEmail();
+        $telephone = $order->getBillingAddress()->getTelephone();
+        $customerId = $order->getCustomerId();
+        $customer = $this->_customerRepositoryInterface->getById($customerId);
+        $accountNumber = $customer->getCustomAttribute("curacaocustid")->getValue();
+        $invoiceNumber = $order->getData('estimatenumber');
+        if (empty($invoiceNumber)) {
+			$logger->info("Order Id : " . $order->getIncrementId());
+			$logger->info("Invoice Number Not found ");
+			throw new Exception("Invoice Number Not found ");
+		}
+        foreach ($order->getAllItems() as $orderItem) {
+            $product = $this->_productRepository->getById($orderItem->getProductId()); 
+            $brand = $product->getResource()->getAttribute('tv_brand')->getFrontend()->getValue($product);
+            if ($brand != 'Apple') {
+                array_push($appleItems, $orderItem);
+                $itemsArray[$orderItem->getId()] = $product->getSku();
+            }
+        }
+        if (count($appleItems) > 1) {
+            foreach ($appleItems as $appleItem) {
+                if ($appleItem->getProductType() != 'virtual') {
+                    if ($appleItem->getData('warranty_parent_id')) {
+                        $productToLink = $itemsArray[$appleItem->getData('warranty_parent_id')];
+                        $warrantyToLink = $appleItem->getSku();
+                        array_push($toLinkItems, array($productToLink, $warrantyToLink));
+                    }
+                }
+            }
+        }
+
+        // Setting up input values
+        $inputArray = array(
+            "invoice" => (string)$invoiceNumber,
+            "cust_id" => $accountNumber,
+            "f_name" => $firstName,
+            "l_name" => $lastName,
+            "email" => $email,
+            "cell_no" => $telephone,
+        );
+        $inputArray["items"] = $toLinkItems;
+
+        # Dummy Values
+        // $inputArray = array(
+        //     "invoice" => "ZEP5903",
+        //     "cust_id" => "53208833",
+        //     "f_name" => "TED",
+        //     "l_name" => "JOHN",
+        //     "email" => "someone@somesite.tld",
+        //     "cell_no" => "(999)999-9999",
+        //     "items" => array(
+        //         array("23H-N05-MC544LL/A","23Y-417-S5094LL/A")
+        //         )
+        // );
+        $response = $this->appleCareSetWarranty($inputArray);
+
+        if (empty($response)) {
+			$logger->info("Order Id : " . $order->getIncrementId());
+			$logger->info("API Response not Found.");
+			throw new Exception("API Response not Found", 1);
+		}
+		if ($response->OK != true) {
+			$logger->info("Order Id : " . $order->getIncrementId());
+			$logger->info($response->INFO);
+            throw new \Exception($response->INFO);
+        }
     }
 }
