@@ -16,7 +16,7 @@
     }
     @media all and (max-width: 767px) {
     text-align: center;
-    } 
+    }
     .actions {
       display: inline-block;
       float: left;
@@ -307,6 +307,10 @@
         color: #aaaaaa;
         font-size: 28px;
         font-weight: bold;
+        width: 70px;
+        @media all and (max-width: 767px) {
+        width: 40px;
+        }
       }
       .action-close:hover,
       .action-close:focus,.action-close:hover,
@@ -323,11 +327,17 @@
       padding-right: 0 !important;
     }
     .product-details{
-      padding: 10px 0 10px 0;
+      //  padding: 10px 0 10px 0;
+      padding: 0px 0 20px 0;
+      margin-top: 20px;
       width: 100%;
       box-sizing: border-box;
+      max-height: 400px;
+      overflow: auto;
       @media all and (max-width: 767px) {
-        padding: 5px;
+          //padding: 5px;
+        padding: 10px 5px;
+        max-height: 300px;
       }
       .top-section{
         clear: both;
@@ -413,6 +423,25 @@
         }
       }
     }
+
+      .product-details::-webkit-scrollbar {
+        width: 8px;
+      }
+      /* Track */
+      .product-details::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 8px #ebebeb;
+        background: #ebebeb;
+        border-radius: 10px;
+      }
+      /* Handle */
+      .product-details::-webkit-scrollbar-thumb {
+        background: #d0d0d0;
+        border-radius: 10px;
+      }
+      /* Handle on hover */
+      .product-details::-webkit-scrollbar-thumb:hover {
+        background: #d0d0d0;
+      }
     .warranty-plan{
       label.warranty-box{
         @media all and (max-width: 600px) {
