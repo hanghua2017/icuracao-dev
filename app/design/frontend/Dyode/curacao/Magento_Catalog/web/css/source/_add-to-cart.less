@@ -10,13 +10,13 @@
   .add-to-cart-block {
     width: 100%;
     clear: both;
+    margin-bottom: 30px;
     @media all and (min-width: 768px) {
     float: left;
     }
     @media all and (max-width: 767px) {
     text-align: center;
-    }
-    margin-bottom: 15px;
+    } 
     .actions {
       display: inline-block;
       float: left;
@@ -30,7 +30,7 @@
         border-color: @btn-orange;
         color: #fff;
         width: 100%;
-        border-radius: 0;
+        border-radius: 3px;
         padding: 10px 15px;
         // text-transform: uppercase;
         margin-bottom: 0;
@@ -117,6 +117,7 @@
           margin-right: 10px;
           margin-top: 0;
           display: inline-flex;
+          width: auto;
           //Media query for align the  mount option with same width
           @media all and (max-width: 1001px) and (min-width: 902px) {
             min-width: 240px;
@@ -148,6 +149,9 @@
           }
           @media all and (max-width: 467px) {
             font-size: 13px;
+          }
+          &:before{
+          content: none;
           }
         }
         input[type=radio]+label:hover {
