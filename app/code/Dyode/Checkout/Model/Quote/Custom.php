@@ -36,43 +36,39 @@ class Custom extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
   ) {
       parent::collect($quote, $shippingAssignment, $total);
       $address = $shippingAssignment->getShipping()->getAddress();
-      $customDiscount = $curaAccId = $downPayment = $discount = 0;
-
+      $customDiscount  = $downPayment = $discount = 0;
+      $curaAccId = '';
        if($address->getAddressType() != 'billing'){
            return $this;
        }
         if(!$this->_customerSession->isLoggedIn()){
           return $this;
         }
-        $curaAccId = $quote->getCustomer()->getCustomAttribute('curacaocustid')->getValue()? $quote->getCustomer()->getCustomAttribute('curacaocustid')->getValue() : 0;
-        $downPayment = $this->_customerSession->getDownPayment()? $this->_customerSession->getDownPayment() : 0;
-        $this->_curacaocredit = 0;
 
-        if($curaAccId == 0){
-          return $this;
+        if($quote->getCustomer()->getCustomAttribute('curacaocustid')){
+
+            $curaAccId = $quote->getCustomer()->getCustomAttribute('curacaocustid')->getValue();
+            $downPayment = $this->_customerSession->getDownPayment()? $this->_customerSession->getDownPayment() : 0;
+            $this->_curacaocredit = 0;
+
+            if(!($curaAccId)){
+                return $this;
+            }
+            if ($quote->getCustomer()->getId() && $curaAccId != 0) {
+          
+                if ($quote->getUseCredit() && $downPayment>0) {
+                  //Calculate the discount
+                  $subTotal  = $quote->getSubtotal();
+                  $discount = $subTotal - $downPayment;
+                  $customDiscount = -$discount;
+                  $this->_curacaocredit = -$discount;
+      
+                  $total->addTotalAmount('customdiscount', $customDiscount);
+                  $total->addBaseTotalAmount('customdiscount', $customDiscount);
+                  $quote->setCuracaocreditUsed($this->_curacaocredit);
+                }
+            }
         }
-
-        $om =   \Magento\Framework\App\ObjectManager::getInstance();
-        $logger = $om->get("Psr\Log\LoggerInterface");
-        $logger->info("inside ");
-
-        if ($quote->getCustomer()->getId() && $curaAccId != 0) {
-          $logger->info("inside if ");
-          if ($quote->getUseCredit() && $downPayment>0) {
-            //Calculate the discount
-            $subTotal  = $quote->getSubtotal();
-            $discount = $subTotal - $downPayment;
-            $customDiscount = -$discount;
-            $this->_curacaocredit = -$discount;
-
-            $logger->info("customer Id = ".$curaAccId. "basetotal". $quote->getSubtotal()."downpayment = ".$downPayment);
-            $total->addTotalAmount('customdiscount', $customDiscount);
-            $total->addBaseTotalAmount('customdiscount', $customDiscount);
-            $quote->setCuracaocreditUsed($this->_curacaocredit);
-          }
-        }
-
-
       return $this;
    }
 
