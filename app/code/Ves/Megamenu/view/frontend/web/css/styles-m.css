@@ -573,5 +573,6 @@ body{
   .nav-sections{
     left:calc(-80%);
     width: calc(80%) !important;
+    transition: all 0.3s;
   }
 }

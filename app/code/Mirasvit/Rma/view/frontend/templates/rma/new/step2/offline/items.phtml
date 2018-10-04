@@ -1,0 +1,13 @@
+<?php
+/** @var \Mirasvit\Rma\Block\Rma\NewRma\Step2\Items $block */
+?>
+<div class="block">
+    <div class="title">
+        <strong><?= __('Items in this order') ?></strong>
+    </div>
+    <div class="block-content ui-rma-items">
+        <?php echo $block->getChildBlock('rma.new.offline.step2.offline.items.item')->toHtml() ?>
+    </div>
+</div>
+
+<div class="clearfix"></div>
