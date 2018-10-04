@@ -11,7 +11,8 @@ define([
     'Magento_Checkout/js/action/get-payment-information',
     'Magento_Checkout/js/model/totals',
     'Magento_Ui/js/model/messageList',
-    'Magento_Customer/js/model/customer'
+    'Magento_Customer/js/model/customer',
+    'mage/url',
 ], function(
       $,
       ko,
@@ -24,7 +25,8 @@ define([
       getPaymentInformationAction,
       totals,
       messageList,
-      customer
+      customer,
+      Url
     ) {
     'use strict';
 
@@ -32,6 +34,7 @@ define([
     var limit = window.checkoutConfig.limit;
     var dpayment = window.checkoutConfig.total;
     var canapply = window.checkoutConfig.canapply;
+    var linked = window.checkoutConfig.linked;
 
     return Component.extend({
 
@@ -40,7 +43,11 @@ define([
         dpayment:dpayment,
         limit:limit,
         canapply:canapply,
+        linked :linked,
 
+        getLinkUrl: function(){
+           return Url.build('creditapp/credit/index');
+        },
         getDiscount: function () {
               var self = this;
               var message = $t('Your store credit was successfully applied');
@@ -99,7 +106,15 @@ define([
           });
         },
         getGuestEmail: function () {
-            return quote.guestEmail;
+            if(quote.guestEmail){
+                return quote.guestEmail;
+            } else {
+                var storageDetails = localStorage.getItem('mage-cache-storage');
+                var checkoutDetails = JSON.parse(storageDetails);
+                var email = checkoutDetails['checkout-data'].inputFieldEmailValue;
+                return email;
+            }
+           
         },
 
         getCuracaoId:function(){

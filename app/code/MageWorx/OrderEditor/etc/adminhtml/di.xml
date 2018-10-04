@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\Info">
+        <plugin name="addDeviceInfoToCustomerAccountBlock" type="MageWorx\OrderEditor\Plugin\Block\Sales\Adminhtml\Order\View\Info"/>
+    </type>
+
+    <!-- Edit order-->
+    <type name="Magento\GiftCardAccount\Model\Plugin\TotalsCollector">
+        <plugin name="mageworx_ordereditor_totalscollect"
+                type="MageWorx\OrderEditor\Plugin\BeforeCollectTotalsPlugin"/>
+    </type>
+
+    <!-- store credit -->
+    <type name="Magento\CustomerBalance\Model\Total\Quote\Customerbalance">
+        <plugin name="mageworx_ordereditor_storecredit"
+                type="MageWorx\OrderEditor\Plugin\CollectCustomerBalancePlugin"/>
+    </type>
+
+</config>

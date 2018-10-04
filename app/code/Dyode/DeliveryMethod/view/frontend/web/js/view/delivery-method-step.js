@@ -4,7 +4,6 @@
  * Add a new checkout step in checkout
  *
  * @module    Dyode_DeliveryMethod
- * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
  * @copyright Copyright © Dyode
  */
 
@@ -384,40 +383,6 @@ define([
                     });
                 }
             }
-
-            // updateLocation: function (locElement, e) {
-            //     console.log('updateLocation')
-            //     var location_item = jQuery(locElement.target).closest('.form').find('input').val()
-            //     var res = location_item.split('-')
-            //     var location_id = res[0]
-            //     var item_id = res[1]
-            //     console.log(location_id + item_id)
-            //     fullScreenLoader.startLoader()
-            //     jQuery.ajax({
-            //         url: '/storeloc/deliverylocation/index',
-            //         type: 'POST',
-            //         dataType: 'json',
-            //         data: {
-            //             location_id: location_id,
-            //             item_id: item_id
-            //         },
-            //         success: function (response) {
-            //             jQuery('#deliverydetails' + item_id).html(response)
-            //             fullScreenLoader.stopLoader()
-            //             jQuery('#deliveryform' + item_id).css('display', 'none')
-            //             jQuery('#deliverydetails' + item_id).parent().css('display', 'block')
-            //             //  jQuery(".avail-store-outer").applyBindings();
-            //             jQuery('#dialog-message').dialog('close')
-            //             //  console.log(productItems.length);
-            //         },
-            //         error: function (xhr, status, errorThrown) {
-            //             console.log('Error happens. Try again.')
-            //         },
-            //         complete: function () {
-            //             fullScreenLoader.stopLoader()
-            //         }
-            //     })
-            // }
 
         });
     }

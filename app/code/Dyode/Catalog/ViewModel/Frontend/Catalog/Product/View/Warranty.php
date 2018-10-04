@@ -49,6 +49,11 @@ class Warranty implements ArgumentInterface
     protected $priceHelper;
 
     /**
+     * @var [\Magento\Catalog\Model\Product]
+     */
+    protected $warrantyProducts;
+
+    /**
      * Warranty constructor.
      *
      * @param \Magento\Catalog\Api\ProductRepositoryInterface     $productRepository
@@ -88,19 +93,22 @@ class Warranty implements ArgumentInterface
      */
     public function warrantyProducts()
     {
-        $warrantyProductSkus = [];
-        foreach ($this->productLinkRepository->getList($this->product) as $linkItem) {
-            if ($linkItem->getLinkType() === Link::LINK_WARRANTY_CODE) {
-                $warrantyProductSkus[] = $linkItem->getLinkedProductSku();
+        if (!$this->warrantyProducts) {
+            $warrantyProductSkus = [];
+            foreach ($this->productLinkRepository->getList($this->product) as $linkItem) {
+                if ($linkItem->getLinkType() === Link::LINK_WARRANTY_CODE) {
+                    $warrantyProductSkus[] = $linkItem->getLinkedProductSku();
+                }
             }
+
+            $fbtProducts = [];
+            foreach ($warrantyProductSkus as $sku) {
+                $fbtProducts[] = $this->productRepository->get($sku);
+            }
+            $this->warrantyProducts = $fbtProducts;
         }
 
-        $fbtProducts = [];
-        foreach ($warrantyProductSkus as $sku) {
-            $fbtProducts[] = $this->productRepository->get($sku);
-        }
-
-        return $fbtProducts;
+        return $this->warrantyProducts;
     }
 
     /**
