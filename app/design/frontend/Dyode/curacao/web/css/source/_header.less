@@ -146,7 +146,7 @@
 				float: none;
 				width: 73%;
 				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-				margin: 10px auto 3px;
+				margin: 10px auto 5px;
 				padding: 0;
 				z-index: 9;
 				height: 40px;
@@ -253,8 +253,11 @@
 								text-align: left;
 								width:~"calc(100% - 77px)" !important;
 								border: 1px solid @light-border-color !important;
-								@media all and (min-width:768px){
-									width:~"calc(100% - 210px)" !important;
+								@media all and (max-width:768px){
+									width:~"calc(100% - 210px)";
+								}
+								@media all and (min-width:1025px){
+									width:~"calc(100% - 205px)" !important;
 								}
 
 								a.title {
@@ -442,16 +445,19 @@
 				@media all and (min-width:1025px) {
 					margin: 14px 0 0 20px;
 					padding-left: 0;
+					width:120px;
 				}
 				@media all and (max-width:1024px){
-					width:95px;
 					margin:6px 0 0;
 					transform:translateY(7px);
+					width:125px;
 				}
 				@media all and (max-width:767px){
 					display: block;
 					width:auto;
-					margin-left: auto;
+					margin: 3px 0 0 auto;
+					transform: translateY(6px);
+					width:auto;
 				}
 				ul {
 					@media all and (min-width:768px) {
@@ -703,7 +709,7 @@
 						}
 						@media all and (max-width:767px){
 							margin-top: 4px;
-    					transform: translateY(5px);
+					    transform: translateY(6px);
 						}
 					}
 					.block-search
@@ -905,7 +911,7 @@
 		}
 
 		.store-view-container {
-			top: 79px;
+			top: 80px;
 			right: 10px;
 			@media all and (min-width:1500px) {
 				right: ~"calc((100% - 1500px)/2 + 10px)";
