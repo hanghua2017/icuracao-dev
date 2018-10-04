@@ -63,6 +63,7 @@
         <?php endif; ?>
 
         <div class="cart main actions">
+          <?= $block->getChildHtml('checkout.bottom.button') ?>
             <?php if ($block->getContinueShoppingUrl()): ?>
                 <a class="action continue"
                    href="<?= $block->escapeUrl($block->getContinueShoppingUrl()) ?>"
@@ -70,7 +71,6 @@
                     <span><?= /* @escapeNotVerified */ __('Continue Shopping') ?></span>
                 </a>
             <?php endif; ?>
-            <?= $block->getChildHtml('checkout.bottom.button') ?>
 
             <?php
             /**
