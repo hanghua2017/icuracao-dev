@@ -1,0 +1,204 @@
+"Request RMA","Prašyti RMA"
+"My Returns","Mano grąžinimas"
+Grid,Tinklelis
+List,Sąrašas
+All,Visi
+"Create RMA","Sukurkite RMA"
+"Request New Return","Prašyti naujo grąžinimo"
+"Max file size: %1Mb","Maksimalus failo dydis: %1Mb"
+"New Return for Order #%1","Naujas grąžinimas už užsakymą #%1"
+"RMA #%1","RMA #%1"
+"RMA #%1 - %2","RMA #%1 - %2"
+"Wrong Order #, Email or Last Name","Neteisingas užsakymas #, el. Pašto adresas arba pavardė"
+Items,Elementai
+"To apply changes you should fill in required ""%1"" field","Norėdami pritaikyti pakeitimus, turite užpildyti lauką &quot;%1&quot;"
+"Please, add order items to the RMA (set 'Qty to Return')","Prašome pridėti užsakymo elementus į RMA (nustatyti &quot;Qty to Return&quot;)"
+"Please, set correct order items Quantity to return","Prašome nustatyti teisingus užsakymo elementus, kuriuos reikia grąžinti"
+"RMA was successfully created","RMA buvo sėkmingai sukurta"
+"Shipping is confirmed. Thank you!","Pristatymas patvirtinamas. Ačiū!"
+"Your message was successfully added","Jūsų pranešimas sėkmingai pridėtas"
+"Allowed extensions:","Leidžiami plėtiniai:"
+"Maximum size:","Didžiausias dydis:"
+"-- Please Select --","-- Prašome pasirinkti --"
+" at %1 (%2)","ne %1 (%2)"
+"Mark as unresolved","Pažymėti kaip neišspręstą"
+"Mark as resolved","Pažymėti kaip išspręstą"
+"not set",nenustatytas
+Pattern,Modelis
+"Attribute Value","Atributo reikšmė"
+Default,Numatytas
+Integer,"Sveikasis skaitmuo"
+Price,Kaina
+"Strip Tags","Juostelės žymos"
+"Primary Attributes","Pirminiai atributai"
+"Stock Attributes","Vertybiniai popieriai"
+"Prices & Taxes","Kainos ir mokesčiai"
+Images,Vaizdai
+"Custom Attributes","Pasirinktiniai atributai"
+Mapping,Atvaizdavimas
+Category,Kategorija
+"Amasty Meta Tags","&quot;Amasty&quot; meta žymeles"
+"Others Attributes","Kiti atributai"
+Text,Tekstas
+"Multi-line text","Daugialypis tekstas"
+Date,Data
+Checkbox,"Žymimasis langelis"
+"Drop-down list","Pasirinkimu sarasas"
+Reason,Priežastis
+Condition,Sąlyga
+Resolution,Rezoliucija
+"RMA #","RMA #"
+"Order #","Įsakymas #"
+"Customer Email","Kliento el. Paštas"
+"Customer Name","Kliento vardas"
+Owner,Savininkas
+"Last Replier","Paskutinis aplankas"
+Status,Statusas
+Store,Parduotuvė
+"Created At","Sukurta ne"
+"Last Activity","Paskutinė veikla"
+"View link","Žiūrėti nuorodą"
+"New RMA has been created","Sukurtas naujas RMA"
+"RMA has been changed","RMA pakeistas"
+"New reply from customer","Naujas kliento atsakymas"
+"New reply from staff","Naujas darbuotojo atsakymas"
+"-- Default Address --","- Numatytasis adresas -"
+"Update the Product","Atnaujinkite produktą"
+"Conditions Combination","Sąlygos derinys"
+"RMA Attribute","RMA atributai"
+"Last 7-days Clicks","Paskutiniai 7 dienų paspaudimai"
+"Last 7-days Orders","Paskutinės septynių dienų užsakymai"
+"Last 7-days Revenue","Paskutinės 7 dienų pajamos"
+"Last 7-days Conversation Rate (%)","Paskutinė septynių dienų pokalbio norma (%)"
+"Attribute Set","Atributo rinkinys"
+Quantity,Kiekis
+"Product Type","Produkto tipas"
+"Base Image","Bazinis vaizdas"
+Thumbnail,Miniatiūra
+"Small Image","Mažas vaizdas"
+"Base Image Size (bytes)","Bazinio vaizdo dydis (baitai)"
+"Thumbnail Size (bytes)","Miniatiūros dydis (baitai)"
+"Small Image Size (bytes)","Mažas vaizdo dydis (baitai)"
+"PHP Condition","PHP sąlyga"
+"Open Chooser","Atidaryti pasirinkimą"
+"Last message body","Paskutinio laiško kūnas"
+"Updated At","Atnaujinta At"
+"Status (before change)","Būsena (prieš pakeitimą)"
+"Owner (before change)","Savininkas (prieš pakeitimą)"
+"Last Reply By","Paskutinis atsakymas pagal"
+"Hours since Created","Valandos nuo sukūrimo"
+"Hours since Updated","Valandos nuo atnaujintos"
+"Hours since Last reply","Valandos nuo paskutinio atsakymo"
+"Items have reason","Elementai turi priežastį"
+"Items have condition","Daiktai turi sąlygą"
+"Items have resolution","Elementai turi skiriamąją gebą"
+"%1 (before change)","%1 (prieš pakeitimą)"
+Customer,Klientas
+Staff,Darbuotojai
+"- Disable these emails -","- Išjungti šiuos el. Laiškus -"
+Yes,Taip
+No,Ne
+Save,Sutaupyti
+"Save & Continue Edit","Išsaugoti ir tęsti redagavimą"
+"Save & Close","Išsaugoti ir uždaryti"
+Edit,Redaguoti
+Delete,Ištrinti
+"Delete ""${ $.$data.name }""","Ištrinti "${ $.$data.name }""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Ar tikrai negalite ištrinti įrašo "${ $.$data.name }"?"
+"Are you sure you want to do this?","Ar tikrai norite tai padaryti?"
+"Convert To Ticket","Konvertuoti į bilietą"
+"View order #${ $.$data.order_id }","Peržiūrėkite užsakymą #${ $.$data.order_id }"
+"View exchange order %1","Peržiūrėti keitimo tvarką %1"
+"RMA: Report by Attribute","RMA: ataskaita pagal atributą"
+"RMA: Report by Status","RMA: ataskaita pagal būseną"
+"RMA: Report by Product","RMA: produkto ataskaita"
+"RMA: Report by Reasons","RMA: pranešimas pagal priežastis"
+"Cannot delete return address with id %1","Negalima panaikinti grąžinimo adreso su id %1"
+"Cannot delete item with id %1","Negalima ištrinti elemento su id %1"
+"Cannot delete condition with id %1","Negalima ištrinti būklės su id %1"
+"Cannot delete field with id %1","Negalima ištrinti lauko su id %1"
+"Cannot delete message with id %1","Negalima ištrinti pranešimo su id %1"
+"Cannot delete history with id %1","Negalima ištrinti istorijos su id %1"
+"Cannot delete Quick Response with id %1","Negalima ištrinti greito atsakymo su id %1"
+"Cannot delete reason with id %1","Negalima ištrinti priežasties su id %1"
+"Cannot delete resolution with id %1","Nepavyko pašalinti rezoliucijos su id %1"
+"Cannot delete rma with id %1","Negalima ištrinti rma su id %1"
+"Cannot delete rule with id %1","Negalima ištrinti taisyklės su id %1"
+"Cannot delete status with id %1","Negalima ištrinti būsenos su id %1"
+"Please, enter a message","Prašome įvesti pranešimą"
+"Product Name","Produkto pavadinimas"
+SKU,"Prekės kodas"
+Qty,Kiekis
+"This was a gift, please do not notify purchaser","Tai buvo dovana, prašome nepranešti pirkėjui"
+"Enter your contact information","Įveskite savo kontaktinę informaciją"
+"First Name","Pirmas vardas"
+"Last Name",Pavardė
+Email,"El. Paštas"
+Telephone,Telefonas
+"To request a new RMA or check the status of current RMA, please, fill the form:","Norėdami paprašyti naujo RMA arba patikrinti dabartinio RMA statusą, užpildykite formą:"
+"* Required Fields","* Privalomi laukai"
+"Order Information","Užsakymo informacija"
+"Email or Last Name","El. Paštas arba pavardė"
+Next,Kitas
+RMA,RMA
+Actions,Veiksmai
+"View Return","Peržiūrėti grįžimą"
+"There are no Returns","Nėra grąžinimo"
+"Items %1 to %2 of %3 total","Vienetai %1 iki %2 iš %3 viso"
+"%1 Item(s)","%1 elementas (-ai)"
+Show,Rodyti
+"per page","per puslapį"
+"View as","Žiūrėti kaip"
+"Sort by","Rūšiuoti pagal"
+"Set Ascending Direction","Nustatyti didėjančią kryptį"
+"Set Descending Direction","Nustatyti mažėjančia kryptimi"
+"Please, select an order","Pasirinkite užsakymą"
+Order,Įsakymas
+"-- Select an Order --","- Pasirinkite užsakymą -"
+"You have no completed orders to request RMA or your orders were placed more than %1 days ago. Please, contact customer service.","Jūs neturite baigtų užsakymų prašyti RMA arba užsakymai buvo pateikti daugiau nei prieš %1 dienas. Susisiekite su klientų aptarnavimo tarnyba."
+"Submit Request","Pateikti prašymą"
+"Please, select RMA items which you would like to return.","Pasirinkite RMA elementus, kuriuos norėtumėte grąžinti."
+"Additional Information","Papildoma informacija"
+"Attach files","Prisegti failus"
+"Request Information","Užsisakyti informaciją"
+"Email Address","Elektroninio pašto adresas"
+"Order Shipping Address","Užsakymo pristatymo adresas"
+"Items in this order","Šios eilės elementai"
+"There are no items for this product that can be returned.","Nėra šio gaminio elementų, kuriuos galima grąžinti."
+"Another RMA for this product: %1","Kitas šio gaminio RMA: %1"
+"This product can not be returned due to RMA Policy","Šis produktas negali būti grąžinamas dėl RMA politikos"
+"This is a non-returnable item per our return policy.","Tai yra negrąžinamas elementas pagal mūsų grąžinimo politiką."
+"Quantity to return","Kiekis grąžinti"
+"-- Select a Reason --","- Pasirinkite priežastį -"
+"-- Select a Condition --","- Pasirinkite sąlygą -"
+"-- Select a Resolution --","- Pasirinkite raišką -"
+"I agree","Aš sutinku"
+"Date: %1","Data: %1"
+"Original order: #%1","Originalus užsakymas: #%1"
+"Return Address","Grįžimo adresas"
+"Customer Information","Klientų informacija"
+"RMA History","RMA istorija"
+"RMA Items","RMA elementai"
+Weight,Svoris
+"Print RMA Packing Slip","Spausdinti RMA pakavimo slydimą"
+"Print RMA Shipping Label","Spausdinti RMA etiketę"
+"Confirm Shipping","Patvirtinkite pristatymą"
+"(This was a gift)","(Tai buvo dovana)"
+"Date Requested","Prašoma data"
+"Contact Information","Kontaktinė informacija"
+"Items RMA Requested for","RMA reikalaujami daiktai"
+QTY,QTY
+"Add Message","Pridėti pranešimą"
+Submit,Pateikti
+%name,%vardas
+"The quantity is incorrect.","Kiekis neteisingas."
+"New Return for Offline Order","Nauja atgrata neprisijungus užsakytai programai"
+" at %1","ne %1"
+Select,Pasirinkite
+"If you do not have account on this store please fill the form below.","Jei neturite paskyros šioje parduotuvėje, užpildykite žemiau esančią formą."
+"-- Create Offline Order --","- Sukurti neautonominį užsakymą -"
+"Returned Item","Grąžintas elementas"
+"Remove Item","Pašalinti daiktą"
+"Order or Receipt #","Užsakymas ar gavimas #"
+"Add Item","Pridėti daiktą"
+"Add at least one item to this RMA","Į šį RMA pridėkite bent vieną elementą"

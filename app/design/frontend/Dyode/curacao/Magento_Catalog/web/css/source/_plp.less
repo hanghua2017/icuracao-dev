@@ -9,7 +9,8 @@
 @black: #000;
 @white: #fff;
 @icon-color: #666;
-@icon-hover-color: #303030; //main class for PLP specific styling ans search result specific styling
+@icon-hover-color: #303030;
+@theme-color:#97d700; //main class for PLP specific styling ans search result specific styling
 
 .catalog-category-view,
 .catalogsearch-result-index {
@@ -80,7 +81,7 @@
   .page-main {
     max-width: 1500px !important;
     @media all and (max-width:767px) {
-      margin-top: 170px !important;
+      margin-top: 157px !important;
     }
     //PLP banner styling for sektop and mobile version
     .categorybanner-container {
@@ -128,13 +129,6 @@
 
     .columns {
       margin: 0 0 30px;
-      @media screen and (max-width: 990px) {
-        //  padding-top:0;
-        margin: 0;
-      }
-      @media screen and (min-width: 991px) {
-        //  margin:30px 0;
-      }
       @media all and (max-width:767px) {
         padding-top: 0;
       }
@@ -177,6 +171,9 @@
                   top: 10px;
                   margin-right: 0;
                   border-right: none;
+                }
+                &:after{
+                  line-height:16px !important;
                 }
               }
             }
@@ -331,6 +328,9 @@
               color: @gray-text;
               font-family: 'iCuracao-Medium';
               font-weight: normal;
+              @media all and (min-width:768px){
+                margin: 0 0 10px;
+              }
 
               &:after {
                 @media all and (min-width:768px) {
@@ -351,9 +351,12 @@
                 margin: 0 0 50px;
                 max-height: 220px;
                 overflow-y: auto;
+                @media all and (min-width:768px){
+                  margin: 0 0 30px;
+                }
 
                 .item {
-                  margin: 15px 0 0;
+                  margin: 3px 0 0;
                   @media screen and (max-width: 767px) {
                     margin: 10px 0 0;
                   }
@@ -365,11 +368,11 @@
               }
 
               ol::-webkit-scrollbar {
-                width: 5px;
+                width: 8px;
               }
               /* Track */
               ol::-webkit-scrollbar-track {
-                box-shadow: inset 0 0 5px #ebebeb;
+                box-shadow: inset 0 0 8px #ebebeb;
                 background: #ebebeb;
                 border-radius: 10px;
               }
@@ -402,6 +405,13 @@
 
                 .input-container {
                   display: block;
+                  &:after{
+                    @media all and (min-width: 768px){
+                      content: '';
+                      display: table;
+                      clear: both;
+                    }
+                  }
                 }
 
                 input[type="checkbox"] {
@@ -419,6 +429,11 @@
                   transition: all 0.2s;
                   font-family: 'iCuracao-Regular';
                   font-size: 14px;
+                  @media all and (min-width:768px){
+                    float: left;
+                    font-size: 12px;
+                    padding: 0 0 0 20px;
+                  }
 
                   span {
                     color: @icon-color;
@@ -439,6 +454,12 @@
                     margin-right: 15px;
                     margin-top: -2px;
                     transition: all 0.2s;
+                    @media all and (min-width:768px){
+                      position: absolute;
+                      left:0;
+                      top:3px;
+                      margin-right: 5px;
+                    }
                   }
                 }
 
@@ -563,10 +584,10 @@
         .page-title-wrapper {
           float: left;
           margin: 15px 15px 10px;
-          width: ~"calc(100% - 150px)";
+          width: ~"calc(100% - 180px)";
           @media screen and (min-width: 768px) {
             margin: 25px 25px 23px;
-            width: ~"calc(100% - 325px)";
+            width: ~"calc(100% - 334px)";
           }
 
           h1 {
@@ -715,7 +736,7 @@
                   font-size: 12px;
                   font-size: 12px;
                   border-right: 1px solid #888;
-                  border-top: 1px solid transparent; 
+                  border-top: 1px solid transparent;
                   padding: 0 10px;
                   margin: 0;
                   line-height: 11px;
@@ -825,12 +846,16 @@
               }
 
               select {
+                width:115px;
                 box-shadow: none !important;
                 border-radius: 0;
                 background: transparent url("../images/sorter-down-arrow.png") no-repeat 95% 50% !important;
                 background-size: 10px !important;
                 font-size: 14px;
                 color: rgba(158, 155, 155, 255);
+                &:active,&:hover{
+                  outline:none !important;
+                }
               }
             }
           }
@@ -888,6 +913,7 @@
                   color: @white;
                   padding: 5px;
                   font-size: 14px;
+                  font-weight:700;
                   font-family: 'iCuracao-Regular';
                   @media all and (max-width:767px) {
                     left: 20px;
@@ -945,7 +971,7 @@
                       .price {
                         font-size: 14px;
                         text-decoration: line-through;
-                        color: #9b9b9b;
+                        color: #888888;
                         font-family: 'iCuracao-Regular';
                         @media all and (max-width:767px) {
                           font-size: 12px;
@@ -1113,11 +1139,23 @@
 
                 .product-item-details {
                   text-align: center;
+                  @media all and (max-width: 767px){
+                    min-height:70px;
+                  }
+                  @media all and (max-width: 375px){
+                    min-height:68px;
+                  }
+                  @media all and (max-width: 342px){
+                    min-height:83px;
+                  }
                 }
 
                 .price-box {
                   text-align: center;
                   margin: 12px 0;
+                  .price-discount{
+                    display: none;
+                  }
 
                   .old-price {
                     margin-right: 15px;
@@ -1202,14 +1240,17 @@
                   width: 100% !important;
 
                   .price-off {
-                    @media all and (max-width:767px) {
-                      left: 0;
-                    }
+                    top:0;
+                    left:0;
                   }
 
                   .product-item-photo {
                     padding: 0;
                     width: 240px;
+                    .product-image-wrapper{
+                      max-width: 85%;
+                      margin: 0 auto;
+                    }
                   }
 
                   .product-item-details {
@@ -1248,6 +1289,7 @@
                       margin: 0;
                       width: 170px;
                       text-align: left;
+                      font-family: "iCuracao-Regular";
                       @media all and (max-width:990px) {
                         position: static;
                         width: 100%;
@@ -1255,23 +1297,47 @@
 
                       .price {
                         color: @gray-text;
-                        font-weight: 700;
-                      }
-
-                      .old-price {
-                        font-size: 14px;
                         font-weight: normal;
+                        font-family: "iCuracao-Medium";
+                        @media all and (max-width:767px){
+                          font-size: 16px;
+                        }
                       }
 
-                      .old-price,
-                      .special-price {
-                        width: 100%;
-                        float: left;
+                      .special-price-block{
+                        position: relative;
+                        .old-price {
+                          font-size: 14px;
+                          font-weight: normal;
+                          position: absolute;
+                          top: 20px;
+                          left: 1px;
+                          @media all and (max-width:767px){
+                            font-size: 14px;
+                          }
+                        }
+
+                        .old-price,
+                        .special-price {
+                          width: 100%;
+                          float: left;
+                        }
+
+                        .special-price{
+                          margin-bottom: 25px;
+                        }
+
+                        .price-discount{
+                          position: absolute;
+                          left: 70px;
+                          top:25px;
+                          color:@theme-color;
+                        }
                       }
 
                       .old-price {
                         .price {
-                          color: @gray-text;
+                          color: #888888;
                           font-weight: normal;
                         }
                       }
@@ -1288,7 +1354,7 @@
           font-family: 'iCuracao-Medium';
           font-weight: normal;
           font-size: 14px;
-          @media all and (max-width:767px) {
+          @media all and (max-width:1024px) {
             font-size: 12px;
           }
           @media all and (max-width: 375px) {
@@ -1333,32 +1399,11 @@
     }
   }
 }
-// .sorter-action:before {
-//   // content: '\021F5';
-//   content: '' !important;
-//   font-size: 18px;
-//   height: 15px;
-//   display: block;
-//   background-image: url(../images/sort-by.png);
-//   background-position: bottom;
-//   background-repeat: no-repeat;
-//   @media all and (max-width:990px){
-//     font-size:18px;
-//     padding: 3px 7px !important;
-// }
-// @media all and (max-width:768px){
-//   padding: 7px 7px !important;
-//   font-size:16px;
-// }
-// @media all and (max-width:767px){
-//   font-size:18px;
-// }
-// }
 
 .catalog-category-view {
   @media all and (min-width:768px) and (max-width:1024px) {
     .breadcrumbs {
-      margin-top: 120px;
+      margin-top: 106px;
     }
 
     main#maincontent {

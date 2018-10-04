@@ -1,12 +1,11 @@
 <?php
 /**
- * ArInoice Helper
+ * Dyode
  *
  * @category  Dyode
  * @package   Dyode_ArInvoice
- * @author    Sooraj Sathyan
+ * @author    Sooraj Sathyan (soorajcs.mec@gmail.com)
  */
-
 namespace Dyode\ArInvoice\Helper;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
@@ -22,14 +21,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     private $_domesticLocation = '06';
 
     /**
-     * Order Items
-     */
-    private $_orderItems;
-
-    /**
-     * @var \Magento\Framework\Json\Helper\Data
-     */
-    protected $jsonHelper;
+     * @var \Magento\Sales\Model\OrderRepository
+     **/
+    protected $_orderRepository;
 
     /**
      * @var \Magento\Catalog\Model\ProductRepository
@@ -37,32 +31,33 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     protected $_productRepository;
 
     /**
-     * @var \Magento\Sales\Model\OrderRepository
-     **/
-    protected $_orderRepository;
-
-    /**
      * \Magento\Framework\App\ResourceConnection
      */
     protected $_resourceConnection;
 
     /**
+     * @var \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface
+     */
+    protected $_customerRepositoryInterface;
+
+    /**
      * Constructor
      *
      * @param \Magento\Sales\Model\OrderRepository $orderRepository
-     * @param \Magento\Framework\Json\Helper\Data $jsonHelper
      * @param \Magento\Catalog\Model\ProductRepository $productRepository
+     * @param \Magento\Framework\App\ResourceConnection $resourceConnection
+     * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface
      */
     public function __construct(
         \Magento\Sales\Model\OrderRepository $orderRepository,
-        \Magento\Framework\Json\Helper\Data $jsonHelper,
         \Magento\Catalog\Model\ProductRepository $productRepository,
-        \Magento\Framework\App\ResourceConnection $resourceConnection
+        \Magento\Framework\App\ResourceConnection $resourceConnection,
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface
     ) {
         $this->_orderRepository = $orderRepository;
-        $this->jsonHelper = $jsonHelper;
         $this->_productRepository = $productRepository;
         $this->_resourceConnection = $resourceConnection;
+        $this->_customerRepositoryInterface = $customerRepositoryInterface;
     }
 
     /**
@@ -177,8 +172,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function validateAccountNumber($accountNumber)
     {
-        // dummy content
-        // $accountNumber = "52041";
         if (strlen($accountNumber) == 7) {
             return $accountNumberFormatted = substr_replace($accountNumber, "-", 3, 0);
         } elseif (strlen($accountNumber) < 7) {
@@ -214,7 +207,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * getSetItems() returns a encoded json of items quantity in each location
+     * Get Set Items using API -> GetSetItems
+     *
+     * @return Array
      */
     public function getSetItems($itemId)
     {
@@ -250,7 +245,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $response = curl_exec($ch);
         curl_close($ch);
         return json_decode($response);
-        // return $response;
     }
 
     /**
@@ -276,7 +270,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $response = curl_exec($ch);
         curl_close($ch);
         return json_decode($response);
-        // return $response;
     }
 
     /**
@@ -360,9 +353,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
          * Get Product Shipping Type
          */
         $shippingRate = $product->getData('shiptype');
-        echo "<br>";
-        echo $productId . " - ";
-        echo "<br>";
         /**
          * Getting the Inventory Level from location_inventory table
          */
@@ -371,7 +361,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             throw new Exception("Product Inventory Level Not Found", 1);
         }
         $inventoryLocations = json_decode($result[0]['finalinventory']);
-        print_r($inventoryLocations);
+
         if ($vendorId != '2139') {  # If the vendor is not Curacao 
             return '33';
         } else {    # If the vendor is Curacao
@@ -407,7 +397,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                             $pendingValue = 0;
                         }
                         $availableInventory = array();
-                        
+
                         if ($setItems->OK) {
                             $itemsArray = array();
                             $setItemsQty = array();
@@ -546,9 +536,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $groupedLocationFound = 0;
         $availableLocations = array();
         $groupedLocation = array();
-        
+
         foreach ($orderItems as $itemId => $productInfo) {
-            # code...
             $product = $this->getProductById($productInfo['ProductId']);
 
             $resultSetItem = $this->getProductInventory($productId);
@@ -558,13 +547,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             $inventoryLevel = json_decode($resultSetItem[0]['finalinventory']);
 
             foreach ($inventoryLevel as $key => $value) {
-                # code...
+                // Array Initializing
                 if (empty($availableLocations[$key])) {
-                    # code...
                     $availableLocations[$key] = array();
                 }
                 if ($value > $productInfo['ItemQty']) {
-                    # code...
                     array_push($availableLocations[$key], $itemId);
                 }
             }
@@ -608,5 +595,89 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         ksort($groupedItemsLocation);
 
         return $groupedItemsLocation;
+    }
+
+    /**
+     * Link Apple Care Warranty
+     *
+     * @return Void
+     */
+    public function linkAppleCare($order)
+    {
+        $writer = new \Zend\Log\Writer\Stream(BP . "/var/log/linkapplecare.log");
+		$logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+
+        $appleItems = array();
+        $itemsArray = array();
+        $toLinkItems = array();
+        $firstName = $order->getCustomerFirstName();
+        $lastName = $order->getCustomerLastName();
+        $email = $order->getCustomerEmail();
+        $telephone = $order->getBillingAddress()->getTelephone();
+        $customerId = $order->getCustomerId();
+        $customer = $this->_customerRepositoryInterface->getById($customerId);
+        $accountNumber = $customer->getCustomAttribute("curacaocustid")->getValue();
+        $invoiceNumber = $order->getData('estimatenumber');
+        if (empty($invoiceNumber)) {
+			$logger->info("Order Id : " . $order->getIncrementId());
+			$logger->info("Invoice Number Not found ");
+			throw new Exception("Invoice Number Not found ");
+		}
+        foreach ($order->getAllItems() as $orderItem) {
+            $product = $this->_productRepository->getById($orderItem->getProductId()); 
+            $brand = $product->getResource()->getAttribute('tv_brand')->getFrontend()->getValue($product);
+            if ($brand != 'Apple') {
+                array_push($appleItems, $orderItem);
+                $itemsArray[$orderItem->getId()] = $product->getSku();
+            }
+        }
+        if (count($appleItems) > 1) {
+            foreach ($appleItems as $appleItem) {
+                if ($appleItem->getProductType() != 'virtual') {
+                    if ($appleItem->getData('warranty_parent_id')) {
+                        $productToLink = $itemsArray[$appleItem->getData('warranty_parent_id')];
+                        $warrantyToLink = $appleItem->getSku();
+                        array_push($toLinkItems, array($productToLink, $warrantyToLink));
+                    }
+                }
+            }
+        }
+
+        // Setting up input values
+        $inputArray = array(
+            "invoice" => (string)$invoiceNumber,
+            "cust_id" => $accountNumber,
+            "f_name" => $firstName,
+            "l_name" => $lastName,
+            "email" => $email,
+            "cell_no" => $telephone,
+        );
+        $inputArray["items"] = $toLinkItems;
+
+        # Dummy Values
+        // $inputArray = array(
+        //     "invoice" => "ZEP5903",
+        //     "cust_id" => "53208833",
+        //     "f_name" => "TED",
+        //     "l_name" => "JOHN",
+        //     "email" => "someone@somesite.tld",
+        //     "cell_no" => "(999)999-9999",
+        //     "items" => array(
+        //         array("23H-N05-MC544LL/A","23Y-417-S5094LL/A")
+        //         )
+        // );
+        $response = $this->appleCareSetWarranty($inputArray);
+
+        if (empty($response)) {
+			$logger->info("Order Id : " . $order->getIncrementId());
+			$logger->info("API Response not Found.");
+			throw new Exception("API Response not Found", 1);
+		}
+		if ($response->OK != true) {
+			$logger->info("Order Id : " . $order->getIncrementId());
+			$logger->info($response->INFO);
+            throw new \Exception($response->INFO);
+        }
     }
 }

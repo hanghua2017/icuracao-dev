@@ -14,14 +14,19 @@ select:focus, input:focus {
 }
 
 //ICuracao-Account variables
-@theme-color: #82b800;
-@active-blue-color:#006bb4;
-@hover-green-color:#97d700;
-@background-white:#fcfcfc;
-@border-color:#f2f2f2;
-@item-color:#666666;
-@head-color:#333333;
+@theme-color: #97d700; //Header light green
+@theme-color-dark: #81b800; //Header darkgreen
+@heading-text: #000000; //Heading text
+@content-text: #666666; //Content text
+@footer-text: #333333; //Footer text
+@active-blue-color:#4048d1;
+@orange-button: #f26722;
 @white: #ffffff;
+@border-color:#f2f2f2;
+@background-white: #fcfcfc;
+@badge-orange: #ff4200;
+
+
 //ICuracao-Account border color
 .multicheckout .block-title,
 .multicheckout .block-content .title,
@@ -36,7 +41,7 @@ select:focus, input:focus {
 }
 //ICuracao-Account With LESS styles
 .account {
-	background-color: @background-white;
+	background-color: @white;
   .page.messages{
       @media only screen and (max-width: 767px){
         margin-bottom: 15px;
@@ -81,26 +86,29 @@ select:focus, input:focus {
               padding: 20px 0 0 !important;
   					}
             .block-collapsible-nav-title {
-              padding: 15px 15px 20px;
+              padding: 15px 15px 20px !important;
               @media all and (max-width: 1199px) {
-                padding: 15px 10px 20px;
+                padding: 15px 10px 20px !important;
               }
               @media all and (max-width: 767px) {
-                  padding: 0 45px 20px 20px;
+                  padding: 0 45px 20px 20px !important;
               }
               @media all and (max-width: 479px) {
-                padding: 0 30px 20px 15px;
+                padding: 0 30px 20px 15px !important;
               }
               strong {
-                font-size: 16px;
-                font-family: "iCuracao-Medium";
+                font-size: 18px;
+                font-family: "iCuracao-Regular";
                 font-weight: 500;
+                @media all and (max-width: 767px) {
+                  font-size: 16px;
+                }
               }
             }
             .block-collapsible-nav-content
             {
               background:@white;
-              color: @item-color;
+              color: @content-text;
               @media only screen and (max-width: 767px){
                   border-bottom: 1px solid #f2f2f2;
               }
@@ -136,7 +144,7 @@ select:focus, input:focus {
 										font-weight: 600;
 										padding: 15px;
                     @media only screen and (max-width: 767px){
-                      border-left:4px solid @hover-green-color;
+                      border-left:4px solid @theme-color;
                     }
                     @media all and (max-width: 1099px) {
                       padding: 15px 10px;
@@ -146,7 +154,7 @@ select:focus, input:focus {
                     }
   								}
   								a {
-  									color: @head-color;
+  									color: @footer-text;
   									padding: 15px;
   									border-color: transparent !important;
   									@media only screen and (min-width: 768px){
@@ -162,7 +170,7 @@ select:focus, input:focus {
                       padding: 10px;
                     }
   									&:hover {
-  										color: @hover-green-color;
+  										color: @theme-color;
   										background-color:@background-white;
   									}
   								}
@@ -176,9 +184,10 @@ select:focus, input:focus {
       .columns {
         //Content section styling
         .column.main {
+          margin-bottom: 25px;
           background-color: @white;
 	        border: none;
-					color: @item-color;
+					color: @content-text;
           font-size: 14px;
 	        -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
 	        -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
@@ -187,9 +196,18 @@ select:focus, input:focus {
           @media only screen and (max-width: 767px){
             padding-bottom: 0;
           }
+          .block {
+            .block-content {
+              .box-title {
+                span {
+                  font-family: "iCuracao-Medium";
+                }
+              }
+            }
+          }
           span{
 						font-size: 12px;
-						font-weight:600;
+						font-family: 'iCuracao-Medium';
 						@media only screen and (min-width: 768px){
 							font-size: 14px;
 						}
@@ -197,7 +215,7 @@ select:focus, input:focus {
 					strong{
 						font-size: 14px;
 						font-weight: 500;
-            font-family: "iCuracao-Medium";
+            font-family: "iCuracao-Regular";
 						line-height: 1.1;
             font-size:16px;
 						@media only screen and (max-width: 768px){
@@ -215,17 +233,17 @@ select:focus, input:focus {
               padding: 15px 20px;
             }
             h1.page-title {
-              color:@head-color;
+              color:@footer-text;
               padding-top: 0;
 							.base{
-                font-size: 20px;
+                font-size: 18px;
 								font-weight: 500;
                 font-family: "iCuracao-Medium";
                 letter-spacing: 0.5px;
 								text-transform: capitalize !important;
                 @media only screen and (max-width: 767px){
-                  font-size: 18px;
-                  color: @active-blue-color;
+                  font-size: 16px;
+                  color: @theme-color;
                   line-height: 1;
                 }
                 @media all and (max-width: 479px) {
@@ -248,7 +266,7 @@ select:focus, input:focus {
 					}
           .dashboard_msg{
 	          h3{
-              color: @head-color;
+              color: @footer-text;
               font-size: 16px;
 	            padding-bottom:10px;
               font-weight: 500;
@@ -258,9 +276,15 @@ select:focus, input:focus {
 	            }
 	          }
 	        }
+          .actions-toolbar{
+            padding: 0 20px;
+            @media only screen and (max-width: 768px){
+               padding: 0 15px;
+            }
+          }
         }
-      }
 
+      }
 
       .abs-toggling-title-mobile,
       .block-wishlist-management .wishlist-select .wishlist-name,
@@ -294,7 +318,6 @@ select:focus, input:focus {
       .block-collapsible-nav {
         background-color: @white;
         strong{
-          // color:  @head-color !important;
           @media only screen and (max-width: 767px){
            font-size: 22px;
          }
@@ -316,11 +339,12 @@ select:focus, input:focus {
 
 
 					a{
+            color: @active-blue-color;
 						text-decoration: none;
             &:hover {
-              color: @hover-green-color;
+              color: @theme-color;
             }
-            }
+          }
 					.page-title-wrapper{
 
 						.page-title{
@@ -360,104 +384,12 @@ select:focus, input:focus {
                 padding: 0 20px;
             .item{
               strong{
+                font-family: "iCuracao-Medium";
                 padding: 12px 35px 13px 35px !important;
               }
             }
           }
-          #rma_create_form{
-            fieldset{
-              .address{
-                .control{
-                  a{
-                    color: #666 !important;
-                  }
-                }
-              }
-            }
-            fieldset{
-                  padding: 25px 20px;
-                  margin-bottom: 15px;
-                  @media all and (max-width: 767px) {
-                    padding: 0;
-                  }
-                  .legend {
-                    padding: 0 0 15px;
-                    @media all and(max-width: 767px){
-                      padding: 15px 0 15px !important;
-                    }
-                    span {
-                      font-size: 16px;
-                      color: rgb(51,51,51);
-                      font-family: "iCuracao-Regular";
-                      letter-spacing: 0.7px;
-                    }
-                  }
-                  .control {
-                    @media all and (max-width: 768px) {
-                      width: 100%;
-                    }
-                  }
-                  .field {
-                    font-family: 'iCuracao-Regular' !important;
-                    color: rgb(102,102,102);
-                    .control  {
-                      span  {
-                        font-family: 'iCuracao-Light' !important;
-                      }
-                    }
-                  }
-                  #registrant-options {
-                    .additional {
-                      .actions-toolbar {
-                        .secondary {
-                          display: block !important;
-                          clear: both !important;
-                          margin: 0 !important;
-                          float: left !important;
-                          button {
-                            font-family: 'iCuracao-Regular';
-                            font-size: 14px;
-                            top: -5px;
-                          }
-                        }
-                      }
-                    }
-                  }
-                  .actions-toolbar {
-                    padding: 0;
-                    .secondary {
-                      button#add-item-to-return {
-                        margin: 0;
-                      }
-                    }
-                    .primary{
-                      @media all and(max-width: 767px){
-                        padding-left: 15px !important;
-                        padding-right: 15px !important;
-                      }
-                    }
-                  }
-                  .field.comment {
-                    margin-top: 20px;
-                    width: 100%;
-                    margin-right: 0;
-                  }
-            }
-            .actions-toolbar {
-              padding: 0;
-              .primary {
-                button {
-                  background: #f05c23;
-                  border-color: #f05c23;
-                }
-              }
-            }
-            select,input{
-              border-radius: 5px;
-              min-height: 40px;
-              padding-top: 2px;
-            }
-          }
+
 
 
 					.block-content{
@@ -467,7 +399,7 @@ select:focus, input:focus {
 						}
 					}
 					.block-title{
-						color: @head-color !important;
+						color: @heading-text !important;
 						font-size: 1.8rem;
 						padding:10px 0;
 						border-bottom: 1px solid @border-color;
@@ -475,14 +407,15 @@ select:focus, input:focus {
 							font-size: 16px;
 						}
             a{
+              color: @active-blue-color;
               .action.edit {
                 span {
-                  font-size: 13px;
+                  font-size: 12px;
                 }
               }
               span{
                 text-transform: uppercase;
-                font-size: 13px;
+                font-size: 12px;
               }
             }
 					}
@@ -500,7 +433,7 @@ select:focus, input:focus {
                 word-wrap: break-word;
 								font-size: 14px !important;
 								a{
-									color:@item-color;
+									color:@content-text;
 								}
 								p{
 									@media only screen and (max-width: 767px){
@@ -514,18 +447,18 @@ select:focus, input:focus {
 						 margin-bottom: 20px;
 						.block-content{
 							a{
+                color: @active-blue-color;
 								font-size: 14px;
-                font-weight: 600;
+                font-family: 'iCuracao-Medium';
 							}
 						}
 					}
-					.block-dashboard-orders{
-
+					.block-dashboard-orders {
             @media only screen and (min-width: 991px){
-                margin-bottom: 20px;
-              }
-						.order{
-						@media only screen and (min-width: 640px){
+              margin-bottom: 20px;
+            }
+					  .order{
+					    @media only screen and (min-width: 640px){
 								border:none;
 							}
 
@@ -562,24 +495,24 @@ select:focus, input:focus {
               font-weight: 500;
             }
             .table-wrapper table > tbody > tr > td {
-              .action.view {
+              a, .action.view {
                 span {
-                  font-size: 13px;
+                  font-size: 13px !important;
                   font-family: "iCuracao-Medium";
                 }
               }
             }
 						.actions-toolbar{
-							padding: 10px;
-							@media only screen and (min-width: 768px){
-							padding: 15px 0px;
+							padding: 0 20px;
+							@media only screen and (max-width: 768px){
+							   padding: 0 15px;
 							}
         			.primary{
                 float: none;
                 display: block;
           			button{
-            			background: @hover-green-color;
-            			border-color: @hover-green-color;
+            			background: @theme-color;
+            			border-color: @theme-color;
                   border-radius: 5px;
                   margin: 0 auto;
                     padding: 15px;
@@ -593,7 +526,7 @@ select:focus, input:focus {
               float: none;
               display: block;
               button{
-                background: @hover-green-color;
+                background: @theme-color;
                 border: none;
                 border-radius: 5px;
                 padding: 15px;
@@ -706,6 +639,42 @@ select:focus, input:focus {
 			}
 		}
 	}
+
+  &.vault-cards-listaction {
+    .page-wrapper {
+      .page-main {
+        .columns {
+          .column.main {
+            .credit-payment {
+              padding: 20px;
+              @media all and (max-width: 767px) {
+                padding: 15px;
+              }
+              h2 {
+                text-transform: capitalize;
+                font-size: 16px;
+                color: #000;
+              }
+              .credit-card {
+                width: 70%;
+                @media all and (max-width: 768px) {
+                  width: 100%;
+                }
+                li
+                {
+                  display: initial;
+                  img {
+                    min-width: 180px;
+                    padding-right: 5px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 	//ICuracao-Address-information tab With LESS styles
@@ -719,18 +688,19 @@ select:focus, input:focus {
 	      .fieldset{
 	        margin-bottom:25px;
 					.legend{
-						color:@head-color;
+						color:@theme-color;
 						padding-top:20px;
 						border-bottom: 1px solid @border-color;
 			      @media all and (max-width:767px){
 			        padding-top:10px;
 			      }
 					}
+          input {
+    				border-radius: 3px;
+    			}
 	      }
 	    }
-			input[type="text"]{
-				border-radius: 5px;
-			}
+
 			.actions-toolbar{
 				border-top: 1px solid @border-color;
 				@media only screen and (min-width: 768px){
@@ -761,7 +731,9 @@ select:focus, input:focus {
       .fieldset{
         .legend{
           span{
-             color: @head-color !important;
+             color: @content-text !important;
+             font-size: 16px;
+             font-family: 'iCuracao-Regular';
           }
         }
       }
@@ -876,6 +848,7 @@ select:focus, input:focus {
       .back{
         display: block;
         color: #6e6e6e;
+        text-align: right;
         &:before {
             font-size: 20px;
             line-height: 22px;
@@ -945,8 +918,10 @@ select:focus, input:focus {
           strong{
                 border: 1px solid #f2f2f2;
                 border-bottom: 0;
+                font-family: 'iCuracao-Medium';
           }
           a{
+             color: @content-text;
               border: 1px solid #f2f2f2;
           }
         }
@@ -960,14 +935,14 @@ select:focus, input:focus {
     .main{
       .block-order-details-view {
         .block-title{
-
         }
         .block-content {
-              border-bottom: 1px solid #f2f2f2;
+          padding: 0;
+          border-bottom: 1px solid #f2f2f2;
           .box{
             width: 50% !important;
             display: inline-block !important;
-            min-height: 140px !important;
+            min-height: 150px !important;
             clear: none !important;
             @media all and(max-width: 767px){
             width: 100% !important;
@@ -1092,32 +1067,129 @@ select:focus, input:focus {
       }
     }
     .column{
+
       #rma_create_form{
         @media all and(max-width: 767px){
           padding-left: 15px !important;
           padding-right: 15px !important;
         }
-        fieldset{
-              .field{
-                span,address{
-                  @media all and(max-width: 767px){
-                    font-size: 15px;
-                  }
+        fieldset {
+          padding: 25px 20px;
+          margin-bottom: 15px;
+          @media all and (max-width: 767px) {
+            padding: 0;
+          }
+          .legend {
+            padding: 0 0 15px;
+            @media all and(max-width: 767px){
+              padding: 15px 0 15px !important;
+            }
+            span {
+              font-size: 16px;
+              color: rgb(51,51,51);
+              font-family: "iCuracao-Medium";
+              font-weight: 500;
+              letter-spacing: 0.7px;
+            }
+          }
+          .field {
+            span,address {
+              @media all and(max-width: 767px){
+                font-size: 15px;
+              }
+            }
+          }
+          .field {
+            font-family: 'iCuracao-Regular' !important;
+            color: rgb(102,102,102);
+            .control  {
+              span  {
+                font-family: 'iCuracao-Regular' !important;
+              }
+            }
+          }
+          .address{
+            .control{
+              a{
+                color: #666 !important;
+              }
+            }
+          }
+          .control {
+            @media all and (max-width: 768px) {
+              width: 100%;
+            }
+          }
+          .actions-toolbar {
+            padding: 0;
+            .primary {
+              @media all and(max-width: 767px){
+                padding-left: 15px !important;
+                padding-right: 15px !important;
+              }
+              button {
+                background-color: @orange-button;
+                border-color: @orange-button;
+                border-radius: 3px;
+                padding: 10px 12px;
+                @media all and(max-width: 767px){
+                  top:-14px !important;
+                  padding: 10px 12px;
                 }
               }
-              #registrant-options{
-                .additional{
-                  .actions-toolbar{
-                    .secondary{
-                      button{
-                        @media all and(max-width: 767px){
-                          top:-14px !important;
-                          padding: 10px;
+            }
+            .secondary {
+              button#add-item-to-return {
+                margin: 0;
+                border-radius: 3px;
+                padding: 10px 12px;
+              }
+            }
+          }
+          #registrant-options {
+            .additional {
+              .actions-toolbar {
+                .secondary {
+                  display: block !important;
+                  clear: both !important;
+                  margin: 0 !important;
+                  float: left !important;
+                  button.remove {
+                    font-family: 'iCuracao-Regular';
+                    font-size: 14px;
+                    top: -5px;
+                    padding: 10px 12px;
+                    border-radius: 3px;
+                    &:hover {
+                      text-align: none;
                     }
+                    @media all and (max-width: 1024px) {
+                      margin-left: 90%;
+                    }
+                    @media all and (max-width: 768px) {
+                      margin-left: 90%;
+                    }
+                    @media all and (max-width: 599px) {
+                      margin-left: 85%;
+                    }
+                    @media all and (max-width: 420px) {
+                      margin-left: 80%;
+                    }
+
                   }
                 }
               }
             }
+          }
+          select,input{
+            border-radius: 3px;
+            min-height: 40px;
+            padding-top: 2px;
+          }
+          .field.comment {
+            margin-top: 20px;
+            width: 100%;
+            margin-right: 0;
           }
         }
       }
@@ -1148,6 +1220,11 @@ select:focus, input:focus {
             padding-top: 35px !important;
         }
       }
+      .block{
+        @media only screen and (min-width: 768px){
+        margin-bottom: 0px;
+        }
+      }
       .block-addresses-default,.block-addresses-list{
         .block-title{
           @media all and(max-width: 767px){
@@ -1158,9 +1235,18 @@ select:focus, input:focus {
       .actions-toolbar{
         .primary{
           button{
+            background: transparent !important;
+            border: none !important;
+            border-radius: 0 !important;
             float: left !important;
+            padding: 0 !important;
             @media all and(max-width: 767px){
               text-align: left;
+            }
+            span {
+              font-size: 14px !important;
+              font-family: 'iCuracao-Medium';
+              color: @active-blue-color !important;
             }
           }
         }
@@ -1287,6 +1373,23 @@ select:focus, input:focus {
 .column{
     .order-details-items{
       padding: 15px;
+      &.shipments {
+        .actions-toolbar {
+          .actions-toolbar {
+            a.track {
+              margin-right: 1px;
+            }
+          }
+        }
+        .order-title {
+          strong {
+            font-family: "iCuracao-Medium";
+          }
+          a.print {
+            margin-right: 15px;
+          }
+        }
+      }
     }
   }
 }
@@ -1297,6 +1400,9 @@ select:focus, input:focus {
         fieldset{
           legend{
             span{
+              color: @content-text !important;
+              font-size: 16px;
+              font-family: 'iCuracao-Regular';
               @media all and(max-width: 767px){
                 font-size: 15px !important;
               }
@@ -1371,9 +1477,6 @@ select:focus, input:focus {
       .order-actions-toolbar{
         margin-bottom: 0 !important;
         padding: 0 !important;
-        // @media all and (max-width:767px){
-        //   margin-bottom:0;
-        // }
         @media only screen and (min-width: 991px){
             float: right;
         }
@@ -1406,11 +1509,6 @@ select:focus, input:focus {
       .block-title{
         padding-top:0;
         padding-bottom:10px;
-      }
-      .block-content{
-        // @media all and (max-width:767px){
-        //   padding:10px !important;
-        // }
       }
     }
   }
@@ -1504,29 +1602,6 @@ select:focus, input:focus {
       }
     }
 }
-.customer-address-index{
-  .block{
-    @media only screen and (min-width: 768px){
-    margin-bottom: 0px;
-    }
-  }
-  .primary {
-    background-image: none !important;
-    background: transparent !important;
-    border: none !important;
-    padding: 0 !important;
-    button {
-        background: transparent !important;
-        border: none !important;
-        border-radius: 0 !important;
-        span{
-          font-size: 14px !important;
-          font-weight: 600 !important;
-          color: #006bb4 !important;
-        }
-    }
-  }
-}
 
 //Mobile tablet View
 .account .column.main .block:not(.widget) .order > .view {
@@ -1595,9 +1670,7 @@ select:focus, input:focus {
         margin-bottom: 0;
       }
     }
-    .block{
-      padding: 25px;
-    }
+
   }
 }
 
@@ -1634,7 +1707,7 @@ select:focus, input:focus {
         width: 487px;
         box-shadow: 0px 3px 13px rgba(27,32,42,0.1);
         background-color: #ffffff;
-        padding: 40px 0;
+        padding: 20px 0;
         @media all and (max-width: 599px) {
           max-width: 100%;
           width: 100%;
@@ -1671,11 +1744,12 @@ select:focus, input:focus {
           width: 75%;
           margin: 0 auto;
           padding-top: 30px;
-          @media all and (max-width: 599px) and (min-width: 468px) {
-            width: 68%;
+          @media all and (max-width: 1099px) {
+            min-width: 80%;
           }
           @media all and (max-width: 599px) {
             padding-top: 25px;
+            width: 68%;
           }
           @media all and (max-width: 420px) {
             width: 85%;
@@ -1798,6 +1872,7 @@ select:focus, input:focus {
               margin-top: 15px;
               .action.back {
                 display: block;
+                color: @footer-text;
                 &:hover {
                   text-decoration: none;
                   color: @theme-color;
@@ -1843,3 +1918,254 @@ select:focus, input:focus {
     }
   }
 }
+/*styling for rma form begins here*/
+.rma-new-step2 {
+  .curacao-file-upload{
+    max-width: 500px;
+    .file-upload{
+      display:block;
+      text-align:center;
+    }
+    .file-upload .file-select{
+      display:block;
+      border: 1px solid #b4b4b4!important;
+      border-radius: 5px!important;
+      cursor:pointer;
+      height:40px;
+      line-height:40px;
+      text-align:left;
+      background:#FFFFFF;
+      overflow:hidden;
+      position:relative;
+    }
+    .file-upload .file-select .file-select-button{
+      font-size: 14px;
+      font-family: 'iCuracao-Regular';
+      background-color: #888888;
+      font-weight: 500;
+      color: white;padding:0 10px;
+      display:inline-block;
+      height:40px;
+      width: 30%;
+      float: left;
+      line-height:40px;
+    }
+    .file-upload .file-select .file-select-name{
+      line-height:40px;
+      width: 70%;
+      display:inline-block;
+      padding:0 10px;
+      color: #8a8888;
+      font-size: 14px;
+      font-family: "iCuracao-Regular";
+    }
+    .file-upload .file-select:hover{
+      border-color:#888888;
+      transition:all .2s ease-in-out;
+      -moz-transition:all .2s ease-in-out;
+      -webkit-transition:all .2s ease-in-out;
+      -o-transition:all .2s ease-in-out;
+    }
+    .file-upload .file-select:hover .file-select-button{
+      background:#888888;
+      color:#FFFFFF;
+      transition:all .2s ease-in-out;
+      -moz-transition:all .2s ease-in-out;
+      -webkit-transition:all .2s ease-in-out;
+      -o-transition:all .2s ease-in-out;
+    }
+    .file-upload.active .file-select{
+      border-color:#888888;
+      transition:all .2s ease-in-out;
+      -moz-transition:all .2s ease-in-out;
+      -webkit-transition:all .2s ease-in-out;
+      -o-transition:all .2s ease-in-out;
+    }
+    .file-upload.active .file-select .file-select-button{
+      background:#888888;
+      color:#FFFFFF;
+      transition:all .2s ease-in-out;
+      -moz-transition:all .2s ease-in-out;
+      -webkit-transition:all .2s ease-in-out;
+      -o-transition:all .2s ease-in-out;
+    }
+    .file-upload .file-select input[type=file]{
+      z-index:100;
+      cursor:pointer;
+      position:absolute;
+      height:100%;
+      width:100%;
+      top:0;
+      left:0;
+      opacity:0;
+      filter:alpha(opacity=0);
+    }
+    .file-upload .file-select.file-select-disabled{
+      opacity:0.65;
+    }
+    .file-upload .file-select.file-select-disabled:hover{
+      cursor:default;
+      display:block;
+      border: 2px solid #dce4ec;
+      color: #888888;
+      cursor:pointer;
+      height:40px;
+      line-height:40px;
+      margin-top:5px;
+      text-align:left;
+      background:#FFFFFF;
+      overflow:hidden;
+      position:relative;
+    }
+    .file-upload .file-select.file-select-disabled:hover .file-select-button{
+      background:#dce4ec;
+      color:#666666;
+      padding:0 10px;
+      display:inline-block;
+      height:40px;
+      line-height:40px;
+    }
+    .file-upload .file-select.file-select-disabled:hover .file-select-name{
+      line-height:40px;
+      display:inline-block;
+      padding:0 10px;
+    }
+  }
+  select {
+    font-family: 'iCuracao-Light';
+    width: 100%;
+    background: #fff;
+    color: #8a8888;
+    -webkit-appearance: none;
+    background-image: url(../../images/arrow.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    padding-top: 4px;
+    font-size: 14px;
+  }
+  .input {
+    font-family: 'iCuracao-Light';
+    font-size: 14px;
+    background: #fff;
+    color: #8a8888;
+  }
+  .fieldset > .field {
+    margin: 0 0 10px;
+  }
+  .block {
+    margin-bottom: 0;
+    padding: 0px 25px!important;
+  }
+  button {
+    float: left!important;
+    margin: 0 25px!important;
+  }
+  .custom-select {
+    position: relative;
+    width: 100%;
+    select {
+      display: none; /*hide original SELECT element:*/
+    }
+    .select-selected {
+      background-color: white;
+      border:none!important;
+    }
+    .select-selected:after {
+      position: absolute;
+      content: "";
+      top: 14px;
+      right: 10px;
+      width: 0;
+      height: 0;
+      border: 6px solid transparent;
+      border-color: #8a8888 transparent transparent transparent;
+    }
+    /*point the arrow upwards when the select box is open (active):*/
+    .select-selected.select-arrow-active:after {
+      border-color: transparent transparent #8a8888 transparent;
+      top: 7px;
+    }
+    /*style the items (options), including the selected item:*/
+    .select-items div,.select-selected {
+      font-family: 'iCuracao-Light';
+      color: #8a8888;
+      font-size: 16px;
+      padding: 5px 16px;
+      border: 1px solid transparent;
+      border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+      cursor: pointer;
+    }
+    /*style items (options):*/
+    .select-items {
+      position: absolute;
+      border: 1px solid #bbbbbb;
+      border-radius: 2px;
+      background-color: white;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 99;
+    }
+    /*hide the items when the select box is closed:*/
+    .select-hide{
+      display: none;
+    }
+    .select-items div:hover{
+      background-color: rgba(183, 183, 183, 0.7);
+      color: 666666!important;
+    }
+    .same-as-selected{
+      background-color: #dedede!important;
+      color: #666666!important;
+    }
+  }
+  .rma-checkbox{
+    cursor: pointer;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .rma-item-checkbox + label:before {
+    content: '';
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: text-top;
+    width: 20px;
+    height: 20px;
+    background: white;
+    -webkit-box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
+    border: 1px solid #3857f3;
+    @media all and (max-width: 767px) {
+      width: 17px;
+      height: 17px;
+    }
+  }
+  .rma-item-checkbox:checked + label:before {
+    background-color: #3857f3;
+    background-image: url(../images/frequent-select.png);
+    @media all and (max-width: 767px) {
+      width: 17px;
+      height: 17px;
+      background-size: contain;
+    }
+  }
+  .rma-one-item {
+    padding: 25px;
+    .item-description {
+      width: 20%;
+      .image {
+        float: none;
+        margin: 0 35px;
+        width: 100%;
+      }
+      b{
+        display: block;
+        margin: 5px 35px;
+      }
+    }
+  }
+}
+/*styling for rma form ends here*/
