@@ -1,0 +1,204 @@
+"Request RMA","Барам RMA"
+"My Returns","Мои враќа"
+Grid,Мрежа
+List,Листа
+All,Сите
+"Create RMA","Направете RMA"
+"Request New Return","Барам ново враќање"
+"Max file size: %1Mb","Големина на датотеката: %1Mb"
+"New Return for Order #%1","Нов поврат за нарачка #%1"
+"RMA #%1","RMA #%1"
+"RMA #%1 - %2","RMA #%1 - %2"
+"Wrong Order #, Email or Last Name","Погрешен налог #, имејл или презиме"
+Items,Предмети
+"To apply changes you should fill in required ""%1"" field","За да ги примените промените, треба да го пополните бараното поле &quot;%1&quot;"
+"Please, add order items to the RMA (set 'Qty to Return')","Ве молиме додадете нарачки во RMA (поставете &quot;Коли за враќање&quot;)"
+"Please, set correct order items Quantity to return","Ве молам, поставете точни ставки за нарачка Кол. За враќање"
+"RMA was successfully created","RMA беше успешно креиран"
+"Shipping is confirmed. Thank you!","Испораката е потврдена. Ви благодарам!"
+"Your message was successfully added","Вашата порака беше успешно додадена"
+"Allowed extensions:","Дозволени дозволи:"
+"Maximum size:","Максимална големина:"
+"-- Please Select --","- Изберете -"
+" at %1 (%2)","во %1 (%2)"
+"Mark as unresolved","Означи како нерешено"
+"Mark as resolved","Означи како решен"
+"not set","не е поставено"
+Pattern,Модел
+"Attribute Value","Вредност на атрибутот"
+Default,Стандардно
+Integer,"Цел број"
+Price,Цена
+"Strip Tags","Стрип тагови"
+"Primary Attributes","Основни атрибути"
+"Stock Attributes","Атрибути на акции"
+"Prices & Taxes","Цени и даноци"
+Images,Слики
+"Custom Attributes","Прилагодени атрибути"
+Mapping,Мапирање
+Category,Категорија
+"Amasty Meta Tags","Amasty Мета Тагови"
+"Others Attributes","Други атрибути"
+Text,Текст
+"Multi-line text","Текст со повеќе линии"
+Date,Датум
+Checkbox,Штиклирај
+"Drop-down list","Паѓачката листа"
+Reason,Причина
+Condition,Состојба
+Resolution,Резолуција
+"RMA #","RMA #"
+"Order #","Со цел #"
+"Customer Email","Е-пошта на потрошувачот"
+"Customer Name","Име на клиентот"
+Owner,Сопственик
+"Last Replier","Последна папка"
+Status,Статус
+Store,Магазин
+"Created At","Создаден во"
+"Last Activity","Последна активност"
+"View link","Преглед на врската"
+"New RMA has been created","Создаден е нов RMA"
+"RMA has been changed","RMA е променета"
+"New reply from customer","Нов одговор од купувачи"
+"New reply from staff","Нов одговор од персоналот"
+"-- Default Address --","- Стандардна адреса -"
+"Update the Product","Ажурирајте го производот"
+"Conditions Combination","Комбинација на состојби"
+"RMA Attribute","RMA атрибути"
+"Last 7-days Clicks","Последни 7-дневни кликања"
+"Last 7-days Orders","Последни 7-дневни нарачки"
+"Last 7-days Revenue","Последните 7-дена приходи"
+"Last 7-days Conversation Rate (%)","Последна 7-дневна конверзација (%)"
+"Attribute Set","Поставен атрибут"
+Quantity,Квантитет
+"Product Type","Тип на производ"
+"Base Image","Основна слика"
+Thumbnail,Мини-слика
+"Small Image","Мала слика"
+"Base Image Size (bytes)","Базна големина на слика (бајти)"
+"Thumbnail Size (bytes)","Големина на сликата (бајти)"
+"Small Image Size (bytes)","Мала големина на слика (бајти)"
+"PHP Condition","Состојба на PHP"
+"Open Chooser","Отвори избирач"
+"Last message body","Последно тело за пораки"
+"Updated At","Ажурирано во"
+"Status (before change)","Статус (пред промена)"
+"Owner (before change)","Сопственик (пред промена)"
+"Last Reply By","Последен одговор од"
+"Hours since Created","Часови од Креирано"
+"Hours since Updated","Часови од освежено"
+"Hours since Last reply","Часови од Последниот одговор"
+"Items have reason","Предмети имаат причина"
+"Items have condition","Предмети имаат состојба"
+"Items have resolution","Предмети имаат резолуција"
+"%1 (before change)","%1 (пред промена)"
+Customer,Клиент
+Staff,Персонал
+"- Disable these emails -","- Оневозможете ги овие пораки -"
+Yes,Да
+No,Не
+Save,Зачувај
+"Save & Continue Edit","Зачувај и продолжи Уредувај"
+"Save & Close","Зачувај и затвори"
+Edit,Уредување
+Delete,Избриши
+"Delete ""${ $.$data.name }""","Избриши "${ $.$data.name }""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Дали сте сигурни дека нема да избришете "${ $.$data.name }" рекорд?"
+"Are you sure you want to do this?","Дали сте сигурни дека сакате да го направите ова?"
+"Convert To Ticket","Конвертирај на билет"
+"View order #${ $.$data.order_id }","Прикажете ја нарачката #${ $.$data.order_id }"
+"View exchange order %1","Прикажи налог за размена %1"
+"RMA: Report by Attribute","RMA: Извештај од атрибути"
+"RMA: Report by Status","RMA: Извештај по статус"
+"RMA: Report by Product","RMA: Извештај по производ"
+"RMA: Report by Reasons","RMA: Извештај од причини"
+"Cannot delete return address with id %1","Не можам да ја избришам повратната адреса со ID %1"
+"Cannot delete item with id %1","Не може да се избрише ставка со ID %1"
+"Cannot delete condition with id %1","Не може да се избрише состојба со ID %1"
+"Cannot delete field with id %1","Не може да се избрише поле со ID %1"
+"Cannot delete message with id %1","Не можам да ја избришам пораката со ID %1"
+"Cannot delete history with id %1","Не можам да ја избришам историјата со ID %1"
+"Cannot delete Quick Response with id %1","Не може да се избрише Брз одговор со ID %1"
+"Cannot delete reason with id %1","Не може да се избрише причината со ID %1"
+"Cannot delete resolution with id %1","Не може да се избрише резолуција со ID %1"
+"Cannot delete rma with id %1","Не може да се избрише rma со ID %1"
+"Cannot delete rule with id %1","Не може да се избрише правило со ID %1"
+"Cannot delete status with id %1","Не може да се избрише статусот со ID %1"
+"Please, enter a message","Ве молиме внесете порака"
+"Product Name","Име на производ"
+SKU,SKU
+Qty,Количина
+"This was a gift, please do not notify purchaser","Ова беше подарок, ве молиме да не го известите купувачот"
+"Enter your contact information","Внесете ги вашите информации за контакт"
+"First Name",Име
+"Last Name",Презиме
+Email,Е-пошта
+Telephone,Телефон
+"To request a new RMA or check the status of current RMA, please, fill the form:","За да побарате нова RMA или да го проверите статусот на тековната RMA, ве молиме пополнете го формуларот:"
+"* Required Fields","* Задолжителни полиња"
+"Order Information","Информации за нарачка"
+"Email or Last Name","Е-пошта или презиме"
+Next,Следно
+RMA,RMA
+Actions,Акции
+"View Return","Прикажи враќање"
+"There are no Returns","Нема враќање"
+"Items %1 to %2 of %3 total","Предмети %1 до %2 од %3 вкупно"
+"%1 Item(s)","%1 Точка (и)"
+Show,Покажи
+"per page","на страница"
+"View as","Погледнете како"
+"Sort by","Сортирај по"
+"Set Ascending Direction","Поставете го растечкото раководство"
+"Set Descending Direction","Постави опаѓање насока"
+"Please, select an order","Ве молиме, одберете нарачка"
+Order,"Со цел"
+"-- Select an Order --","- Изберете ред -"
+"You have no completed orders to request RMA or your orders were placed more than %1 days ago. Please, contact customer service.","Немате нарачани да барате RMA или вашите нарачки се поставени повеќе од %1 дена. Ве молиме, контактирајте со службата за корисници."
+"Submit Request","Испрати барање"
+"Please, select RMA items which you would like to return.","Ве молиме, одберете RMA ставки кои сакате да ги вратите."
+"Additional Information","Дополнителни информации"
+"Attach files","Прикачи датотеки"
+"Request Information","Барам информации"
+"Email Address","И-мејл адреса"
+"Order Shipping Address","Нарачајте адреса за испорака"
+"Items in this order","Предмети во овој редослед"
+"There are no items for this product that can be returned.","Нема предмети за овој производ што може да се вратат."
+"Another RMA for this product: %1","Уште еден RMA за овој производ: %1"
+"This product can not be returned due to RMA Policy","Овој производ не може да се врати поради политика на RMA"
+"This is a non-returnable item per our return policy.","Ова е неповратен елемент по нашата политика за враќање."
+"Quantity to return","Количина за враќање"
+"-- Select a Reason --","- Изберете Причина -"
+"-- Select a Condition --","- Изберете состојба -"
+"-- Select a Resolution --","- Изберете резолуција -"
+"I agree","Се согласувам"
+"Date: %1","Датум: %1"
+"Original order: #%1","Авторски ред: #%1"
+"Return Address","Врати адреса"
+"Customer Information","Информации за купувачи"
+"RMA History","Историја на RMA"
+"RMA Items","RMA елементи"
+Weight,Тежина
+"Print RMA Packing Slip","Печатење на RMA пакетот за печатење"
+"Print RMA Shipping Label","Печатење на етикети за RMA"
+"Confirm Shipping","Потврди превозот"
+"(This was a gift)","(Ова беше подарок)"
+"Date Requested","Бараниот датум"
+"Contact Information","Контакт информации"
+"Items RMA Requested for","Барани предмети за RMA"
+QTY,QTY
+"Add Message","Додај порака"
+Submit,Поднесете
+%name,"% име"
+"The quantity is incorrect.","Количината е неточна."
+"New Return for Offline Order","Нов поврат за офлајн налог"
+" at %1","во %1"
+Select,Изберете
+"If you do not have account on this store please fill the form below.","Ако немате сметка во оваа продавница, ве молиме пополнете го формуларот подолу."
+"-- Create Offline Order --","- Креирај офлајн ордер -"
+"Returned Item","Врати предмет"
+"Remove Item","Отстрани ја ставката"
+"Order or Receipt #","Нарачка или прием #"
+"Add Item","Додај елемент"
+"Add at least one item to this RMA","Додајте најмалку еден елемент на оваа RMA"
