@@ -56,6 +56,7 @@ select:focus, input:focus {
     .message.info.empty {
       font-family: 'iCuracao-Regular';
       font-size: 13px;
+      font-weight: 500;
     }
   }
 
@@ -72,6 +73,7 @@ select:focus, input:focus {
           &.block-collapsible-nav{
   					border: none;
             font-family: "iCuracao-Regular";
+            font-weight: 500;
             @media only screen and (min-width: 768px){
               -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
     					-moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
@@ -143,7 +145,7 @@ select:focus, input:focus {
 										border: none;
 										color: @active-blue-color !important;
 										font-size: 14px;
-										font-weight: 600;
+										font-weight: 500 !important;
 										padding: 15px;
                     @media only screen and (max-width: 767px){
                       border-left:4px solid @theme-color;
@@ -159,6 +161,7 @@ select:focus, input:focus {
   									color: @footer-text;
   									padding: 15px;
   									border-color: transparent !important;
+                    font-weight: 500;
   									@media only screen and (min-width: 768px){
   										font-size: 14px;
   									}
@@ -203,6 +206,7 @@ select:focus, input:focus {
               .box-title {
                 span {
                   font-family: "iCuracao-Medium";
+                  font-weight: 500;
                 }
               }
             }
@@ -349,9 +353,6 @@ select:focus, input:focus {
           }
 					.page-title-wrapper{
 
-						.page-title{
-
-						}
             .order-date{
               margin: 0px 0 18px 3px !important;
             }
@@ -515,7 +516,7 @@ select:focus, input:focus {
           			button{
             			background: @theme-color;
             			border-color: @theme-color;
-                  border-radius: 5px;
+                  border-radius: 3px;
                   margin: 0 auto;
                     padding: 15px;
             		span{
@@ -530,7 +531,7 @@ select:focus, input:focus {
               button{
                 background: @theme-color;
                 border: none;
-                border-radius: 5px;
+                border-radius: 3px;
                 padding: 15px;
                 span{
                   color: @white;
@@ -671,6 +672,61 @@ select:focus, input:focus {
                   }
                 }
               }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.rma-rma-order {
+    .page-main {
+      .columns {
+        .column.main {
+          .page-title-wrapper {
+            position: relative;
+            @media all and (max-width: 768px) {
+              padding: 15px !important;
+            }
+            .order-actions-toolbar {
+              position: absolute;
+              top: 35px;
+              right: 0;
+            }
+            .page-title {
+              margin-right: 5px !important;
+            }
+            span.order-status {
+              border: none;
+              text-transform: capitalize;
+              color: #cccccc;
+              font-size: 16px !important;
+              font-style: italic;
+              @media all and (max-width: 768px) {
+                font-size: 14px !important;
+                margin-top: 8px;
+              }
+            }
+            .order-date {
+              margin-bottom: 0;
+              padding-top: 10px;
+              @media all and (max-width: 768px) {
+                loat: left;
+                width: 100%;
+              }
+            }
+          }
+          .items.order-links {
+            margin-bottom: 15px;
+            @media all and (max-width: 768px) {
+              padding: 0 15px;
+            }
+          }
+          .order-details-items {
+            padding: 0;
+            margin: 0 20px;
+            @media all and (max-width: 768px) {
+              margin: 0 15px;
             }
           }
         }
@@ -823,11 +879,16 @@ select:focus, input:focus {
     }
   }
   .order-products-toolbar{
-    margin: 15px;
-    padding-bottom: 20px;
+    margin: 20px;
+    padding: 20px 0;
+    @media all and (max-width: 767px) {
+      padding: 15px 0;
+      margin: 15px;
+    }
     .limiter{
-      select {
+      select#limiter {
         background-color: #fff;
+        margin-right: 0;
       }
       .limiter-text{
         display: none;
@@ -1644,12 +1705,12 @@ select:focus, input:focus {
         }
       }
     }
-    .order-products-toolbar {
-      padding: 10px 0;
-      @media only screen and (min-width: 768px){
-        padding: 20px;
-      }
-    }
+    // .order-products-toolbar {
+    //   padding: 10px 0;
+    //   @media only screen and (min-width: 768px){
+    //     padding: 20px;
+    //   }
+    // }
     .toolbar{
       select {
           background-color: @white;
@@ -1660,6 +1721,25 @@ select:focus, input:focus {
       padding: 10px;
       @media all and (min-width:768px){
         padding:10px 20px;
+      }
+      .actions-toolbar {
+        padding-left: 0;
+        .primary {
+          button.primary {
+            float: left;
+            padding: 7px 15px;
+            border-radius: 3px;
+            min-width: 100px;
+            background-color: @theme-color-dark;
+            &:hover {
+              background-color: darken(@theme-color-dark, 10%);
+            }
+            span {
+              font-family: 'iCuracao-Regular';
+
+            }
+          }
+        }
       }
     }
     .block-wishlist{
@@ -1681,7 +1761,7 @@ select:focus, input:focus {
   .page-wrapper {
     #maincontent {
       background-image: url(../images/login-background.png);
-      background-color: #f4f4f4;
+      background-color: white;
       max-width: none;
       width: 100%;
       padding: 0;
@@ -1707,9 +1787,10 @@ select:focus, input:focus {
         max-width: 485px;
         margin: 50px auto;
         width: 487px;
-        box-shadow: 0px 3px 13px rgba(27,32,42,0.1);
+        box-shadow: 0px 4px 20px rgba(27, 32, 42, 0.12);
         background-color: #ffffff;
         padding: 20px 0;
+        padding-top: 40px;
         @media all and (max-width: 599px) {
           max-width: 100%;
           width: 100%;
@@ -1853,10 +1934,15 @@ select:focus, input:focus {
               button.submit {
                 width: 100%;
                 height: 44px;
-                border-radius: 5px;
+                border-radius: 3px;
                 background-color: @theme-color;
                 border-color: @theme-color;
                 margin:0;
+                &:hover
+                {
+                  background-color:@theme-color-dark;
+                  border-color: @theme-color-dark;
+                }
                 span {
                     font-size: 16px;
                     color: white;
@@ -1902,15 +1988,19 @@ select:focus, input:focus {
         .field {
           button.captcha-reload {
             padding: 7px 10px;
-            border-radius: 5px;
-            background-color: @theme-color;
-            border-color: @theme-color;
+            border-radius: 2px;
+            background-color: #f0efef;
+            border-color: #f0efef;
             margin-top: 20px;
             margin-right: 0;
             box-shadow: none;
+            &:hover
+            {
+              background-color: #e8e7e7;
+            }
             span {
               font-size: 12px;
-              color: white;
+              color: #888888;
               font-family: "iCuracao-Light";
               letter-spacing: 1px;
             }
