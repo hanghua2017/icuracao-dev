@@ -16,7 +16,7 @@
     background-color: #fff;
     #maincontent {
       background-image: url("../images/login-background.png");
-      background-color: #f4f4f4;
+      background-color: white;
       max-width: none;
       padding: 0;
       @media all and (max-width: 599px) {
@@ -302,11 +302,16 @@
                 border: 1px solid @theme-color;
                 width: 100%;
                 height: 44px;
-                border-radius: 5px;
-                font-size: 20px;
+                border-radius: 3px;
+                font-size: 16px;
                 margin-right: 0;
+                &:hover
+                {
+                  background-color:@theme-color-dark;
+                  border-color: @theme-color-dark;
+                }
                 span {
-                  font-size: 19px;
+                  font-size: 16px;
                   color: white;
                   font-family: "iCuracao-Light";
                   letter-spacing: 1px;
@@ -347,7 +352,7 @@
   .page-wrapper {
     #maincontent {
       background-image: url(../images/login-background.png);
-      background-color: #f4f4f4;
+      background-color: white;
       max-width: none;
       padding: 0;
       .page-title-wrapper {

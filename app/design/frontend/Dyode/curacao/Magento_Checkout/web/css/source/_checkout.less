@@ -371,6 +371,22 @@ input[type="radio"] {
               margin:0 0 10px;
             }
           }
+          form
+          {
+            .actions-toolbar
+            {
+                .primary
+                {
+                  width: 100%;
+                  .button
+                  {
+                    width: 100%;
+                    background-color: @button-orange;
+                    border-color: @button-orange;
+                  }
+                }
+            }
+          }
           .table-wrapper{
             margin:0;
             border:none !important;
@@ -664,6 +680,10 @@ input[type="radio"] {
         @media all and (max-width:767px){
           border-bottom: 5px solid #e8e8e8;
           margin:0 0 10px;
+        }
+        #checkoutSteps
+        {
+          padding-bottom: 60px;
         }
         #checkout-step-shipping{
           .mandatory{
@@ -1067,39 +1087,52 @@ input[type="radio"] {
               }
               .form{
                 .store-pickup-pincode{
-                  display: flex;
                   padding-left: 30px;
+                  float: left;
+
                   @media all and (max-width:479px){
                     padding-left: 0;
+                    width: 150px;
                   }
                   input[type="number"]{
                     width:200px;
                     @media all and (max-width:479px){
-                      width:65%;
+                      width:100%;
                     }
                     &::placeholder{
                       font-style:italic;
                     }
                   }
+                }
+                .add-store-sec
+                {
+                  margin-left: 3px;
+                  float: left;
+
                   button{
                     background: @button-orange;
                     border:1px solid @button-orange;
                     box-shadow: none;
                     color:@white;
                     padding: 7px 30px;
+                    margin-top: 10px;
+                    margin-top: 0;
+                    height: 32px;
                     @media all and (max-width:479px){
-                      width:35%;
+                      width:100%;
                       padding: 7px 15px;
                     }
                   }
                 }
+
               }
-              #deliverycontents{
-               > div{
-                  display: flex;
+              .storeDisplayDetails{
+
+                  display: block;
                   padding-left: 30px;
                   .left{
                     width:100px;
+                    float: left;
                     img{
                       width:100%;
                     }
@@ -1107,6 +1140,7 @@ input[type="radio"] {
                   .right{
                     padding:0 0 0 15px;
                     width: ~"calc(100% - 115px)";
+                    float: left;
                     div{
                       margin: 0 0 5px;
                       color: @dark-gray-text;
@@ -1116,14 +1150,18 @@ input[type="radio"] {
                       }
                     }
                   }
-                }
-                button{
-                  background: @theme-color;
-                  border:1px solid @theme-color;
-                  box-shadow: none;
-                  color:@white;
-                  margin-left: 115px;
-                }
+                  .change-store-sec
+                  {
+                    clear: both;
+                    button{
+                      background: @theme-color;
+                      border:1px solid @theme-color;
+                      box-shadow: none;
+                      color:@white;
+                      margin-left: 115px;
+                    }
+                  }
+
               }
             }
           }
