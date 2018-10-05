@@ -66,6 +66,10 @@ class Order implements OrderInterface
                 throw new \Exception('Order is already canceled');
             }
 
+            if($order->canUnhold()) {
+                $order->unhold()->save();
+            }
+
             if($wholeOrder){
                 if($order->canCancel()){
                     $order->cancel();
@@ -105,7 +109,7 @@ class Order implements OrderInterface
                         $history->setIsCustomerNotified(true); // for backwards compatibility
                         $order->save();
                     }else{
-                        $this->cancelInvoicedItem($order, $sku, $quantity, $refundShipping);
+                        $this->cancelInvoicedItem($order, $sku, $quantity, $refundShipping, $comment);
                         $history = $order->addStatusHistoryComment($comment);
                         $history->setIsCustomerNotified(true); // for backwards compatibility
                         $order->save();
@@ -122,7 +126,7 @@ class Order implements OrderInterface
     }
 
 
-    public function cancelInvoicedItem($order, $sku, $qty, $refundShipping){
+    public function cancelInvoicedItem($order, $sku, $qty, $refundShipping, $comment){
         $invoices = $order->getInvoiceCollection();
         foreach ($invoices as $invoice) {
             $invoiceincrementid = $invoice->getIncrementId();
