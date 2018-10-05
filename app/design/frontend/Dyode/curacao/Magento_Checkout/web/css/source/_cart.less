@@ -6,18 +6,20 @@ input, select {
 }
 .checkout-cart-index{
   .columns .column.main {
-     @media all and (max-width: 991px) {
-      padding-bottom: 0 !important;
-     }
+     // @media all and (max-width: 991px) {
+     //  padding-bottom: 0 !important;
+     // }
 }
   .page-wrapper {
     .page-main {
       max-width: 1500px; //Removable max
       .message.success {
         margin: 0;
-        -webkit-box-shadow: 0px 5px 10px 0px rgba(27, 32, 42, 0.1);
-        -moz-box-shadow: 0px 5px 10px 0px rgba(27, 32, 42, 0.1);
-        box-shadow: 0px 5px 10px 0px rgba(27, 32, 42, 0.1);
+        @media all and (min-width: 991px) {
+          -webkit-box-shadow: 0px 5px 10px 0px rgba(27, 32, 42, 0.1);
+          -moz-box-shadow: 0px 5px 10px 0px rgba(27, 32, 42, 0.1);
+          box-shadow: 0px 5px 10px 0px rgba(27, 32, 42, 0.1);
+        }
       }
       /*page title with bag item count and checkout button*/
       .page-title-wrapper {
@@ -95,7 +97,6 @@ input, select {
             }
           }
           .cart-container {
-            //box-shadow: 0px 5px 21px rgba(27,32,42,0.1);
             -webkit-box-shadow: 0px 3px 10px 0 rgba(27,32,42,0.1);
             -moz-box-shadow: 0px 3px 10px 0 rgba(27,32,42,0.1);
             box-shadow: 0px 3px 10px 0 rgba(27,32,42,0.1);
@@ -107,17 +108,15 @@ input, select {
             /* cart table styling */
             .form-cart{
               width: 100%;
-              // padding: 20px;
               padding: 0;
               margin-bottom: 0;
               @media all and (max-width: 767px) {
-                padding: 0 0 10px 0;
+                padding: 0 0 5px;
               }
               /*Product info table */
               .table-wrapper {
                 @media all and (min-width: 768px) {
-                  // margin: 20px 0;
-                  margin: 0;
+                  margin: 20px;
                 }
                 @media all and (max-width: 767px) {
                   border: 1px solid @table-border;
@@ -129,7 +128,7 @@ input, select {
                       text-align: center;
                       text-transform: uppercase;
                       border-bottom: none;
-                      font-size: 12px;
+                      font-size: 11px;
                       letter-spacing: 0px;
                       line-height: 18px;
                       color: @content-light-grey;
@@ -167,12 +166,17 @@ input, select {
                     padding-bottom: 10px;
                     td {
                       width: 18%;
-                      @media all and (max-width: 1199px) {
-
+                      @media all and (min-width: 768px) {
+                        border-left: 1px solid @table-border;
                       }
                       @media all and (min-width: 768px) {
                         padding-left: 0;
                         padding-right: 0;
+                      }
+                      &:first-child{
+
+                          border-left:none;
+
                       }
                       /*Styling expect first td*/
                       @media all and (max-width: 767px) {
@@ -314,8 +318,9 @@ input, select {
                             height: 40px;
                             text-overflow: ellipsis;
                             a {
-                              font-family: 'iCuracao-Medium';
+                              font-family: 'iCuracao-Regular';
                               font-size: 16px;
+                              font-weight: 500;
                               letter-spacing: 0.5px;
                               color: @content-dark-grey;
                               @media all and (max-width: 768px) {
@@ -351,10 +356,10 @@ input, select {
                           }
                           .action-delete {
                             &::before {
-                              content: 'x';
+                              content: '\e616';
                               color: @del-item;
-                              font-family: 'iCuracao-Light';
-                              font-size: 22px;
+                              font-family: 'luma-icons';
+                              font-size: 14px;
                               padding: 0 3px;
 
                                   @media all and (min-width: 768px) {
@@ -399,7 +404,7 @@ input, select {
                             display: none;
                           }
                           .action-edit
-                          {
+                          { display: none;
                             position: static;
                             margin: 0;
                             color: @content-dark-grey;
@@ -460,8 +465,9 @@ input, select {
                           top: -45px;
                           margin: 0;
                           color: @content-dark-grey;
-                          font-family: 'iCuracao-Medium';
+                          font-family: 'iCuracao-Regular';
                           font-size: 14px;
+                          font-weight: 500;
                           @media all and (max-width: 767px) {
                             top: -15px;
                           }
@@ -485,12 +491,12 @@ input, select {
                         }
                       }
                       .price-excluding-tax, .field.qty {
-                        @media all and (min-width: 768px) {
-                            border-left: 1px solid @table-border;
-                        }
+                        // @media all and (min-width: 768px) {
+                        //     border-left: 1px solid @table-border;
+                        // }
                       }
                       .price-excluding-tax {
-                        padding: 20px 0 50px;
+                        padding: 20px 0 55px;
                         @media all and (max-width: 767px) {
                           padding: 20px 0;
                         }
@@ -511,8 +517,10 @@ input, select {
               .estimated-total-block {
                 background-color: #f9f9f9;
                 padding: 20px;
+                    margin: 20px 20px 0 20px;
                 @media all and (max-width: 767px) {
                   padding: 20px 0;
+                  margin: 0;
                 }
                 .grand-total {
                   text-align: right;
@@ -539,7 +547,8 @@ input, select {
                   /*common styling button*/
                   .continue, button.checkout {
                     color: white;
-                    font-family: 'iCuracao-Medium';
+                    font-family: 'iCuracao-Regular';
+                    font-weight: 500;
                     font-size: 14px;
                     letter-spacing: 0.5px;
                     @media all and (max-width: 767px) {
@@ -556,13 +565,14 @@ input, select {
                     float: left;
                     background-color: #81b800;
                     border-radius: 3px;
-                    padding: 8px 20px 8px 5px;
+                    padding: 8px 30px 8px 23px;
                     text-align: center;
                     &:hover {
                       text-decoration: none;
                     }
                     @media all and (max-width: 767px) {
                       padding: 10px 0;
+                      float: none;
 
                     }
                     @media all and (max-width: 478px) {
@@ -588,18 +598,26 @@ input, select {
             }
             /*Payment feature block*/
             .payment-features {
-              clear: both;
-              width: 97%;
-              margin: 0 auto;
-              padding-top: 15px;
-              @media all and (max-width: 767px) {
+              display: flex;
+              text-align: center;
+              @media all and (max-width: 768px) {
+                display: block;
+                padding: 5px 0 10px 0;
+                margin: 0;
+              }
+              @media all and (min-width: 768px) {
                 width: 100%;
-                padding: 10px 0 5px 0;
+                padding: 10px 20px 10px 20px;
+                float: none;
+                clear: both;
               }
               p {
                 font-size: 12px;
                 color: @content-light-grey;
                 font-family: 'iCuracao-Regular';
+                @media all and (max-width: 767px) {
+                  font-size: 11px;
+                }
                 b {
                   color: @content-dark-grey;
                 }
@@ -609,41 +627,46 @@ input, select {
                   padding-right: 3px;
                 }
                 &.feature-1 {
-                  float: left;
+                  flex: 1;
+                  text-align: left;
+                  padding: 20px;
                    img {
                      width: 14px;
                     margin-right: 7px;
                    }
                 }
                 &.feature-2 {
-                  width: 60%;
-                  margin: 0 auto;
-                  text-align: left;
-                  float: none;
+                  flex: 2;
+                  text-align: center;
+                  padding: 20px;
                   img {
                     width: 18px;
                     margin-right: 7px;
+                    @media all and (max-width: 768px) {
+                      margin-right: 3px;
+                    }
                   }
                 }
                 &.feature-3 {
-                  float: right;
-                  position: relative;
-                  top: -15px;
+                  text-align: right;
+                  flex: 1;
+                  padding: 20px;
                   img {
                     width: 16px;
                     margin-right: 7px;
+                    @media all and (max-width: 768px) {
+                      margin-right: 3px;
+                    }
                   }
                 }
-                @media all and (max-width: 767px) {
+                @media all and (max-width: 768px) {
                   &.feature-1, &.feature-2, &.feature-3 {
-                    float: none;
-                    text-align: left;
-                    width: 100%;
-                    margin-bottom: 1rem;
+                      padding:5px 15px;
+                      text-align: left;
+                    }
                   }
                   &.feature-3 {
-                    position: static;
-                  }
+                  position: static;
                 }
               }
             }
@@ -659,7 +682,8 @@ input, select {
           padding-right: 35px;
           background-repeat: no-repeat;
           background-size: 20px;
-          font-family: 'iCuracao-Medium';
+          font-family: 'iCuracao-Regular';
+          font-weight: 500;
           font-size: 14px;
           letter-spacing: 0.5px;
         }
