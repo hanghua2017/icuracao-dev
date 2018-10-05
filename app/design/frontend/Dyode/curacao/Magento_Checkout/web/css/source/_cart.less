@@ -4,109 +4,34 @@ input, select {
     box-shadow: none !important;
   }
 }
-.checkout-cart-index
-{
+.checkout-cart-index{
+  .columns .column.main {
+     @media all and (max-width: 991px) {
+      padding-bottom: 0 !important;
+     }
+}
   .page-wrapper {
-    .page-main{
-      /*Credit card ad*/
-      .curacao-ad {
-        max-width: 1500px;
-        width: 100%;
-        margin: 15px auto;
-        margin-bottom: 0;
-        .apply-credit-ad {
-          .desktop-view, .mobile-view {
-            .apply-card {
-              background: @theme-color;
-              box-shadow: none;
-              color: #fff;
-              font-family: 'iCuracao-Medium';
-              font-size: 16px;
-              padding: 12px 30px;
-              letter-spacing: 0.7px;
-              border-radius: 3px;
-              text-decoration: none;
-              @media all and (max-width: 991px) {
-                padding: 10px 20px;
-                font-size: 14px;
-              }
-            }
-          }
-          .desktop-view {
-            position: relative;
-            clear: both;
-            width: 100%;
-            float: left;
-            padding: 15px 0;
-            -webkit-box-shadow: 0px 0px 10px 1px rgba(27,32,42,0.1);
-            -moz-box-shadow: 0px 0px 10px 1px rgba(27,32,42,0.1);
-            box-shadow: 0px 0px 10px 1px rgba(27,32,42,0.1);
-            @media all and (max-width: 767px) {
-              display: none;
-            }
-            .apply-card {
-              float: right;
-              position: absolute;
-              top: 45px;
-              right: 20px;
-              @media all and (max-width: 767px) {
-                right: 0;
-              }
-            }
-            img {
-              width: auto;
-              float: left;
-              padding-left: 20px;
-              @media all and (max-width: 991px) {
-                width: 82%;
-              }
-              @media all and (max-width: 767px) {
-                padding-left: 0;
-              }
-            }
-          }
-          .mobile-view {
-            text-align: center;
-            margin-bottom: 15px;
-            .apply-card {
-              float: none;
-              padding: 7px 40px;
-              @media all and (max-width: 420px) {
-                padding: 7px 0;
-                width: 100%;
-                display: block;
-              }
-            }
-            img {
-              width: 100%;
-              margin-bottom: 10px;
-            }
-            @media all and (min-width: 767px) {
-              display: none;
-            }
-          }
-        }
-      }
-    }
     .page-main {
       max-width: 1500px; //Removable max
+      .message.success {
+        margin: 0;
+        -webkit-box-shadow: 0px 5px 10px 0px rgba(27, 32, 42, 0.1);
+        -moz-box-shadow: 0px 5px 10px 0px rgba(27, 32, 42, 0.1);
+        box-shadow: 0px 5px 10px 0px rgba(27, 32, 42, 0.1);
+      }
       /*page title with bag item count and checkout button*/
       .page-title-wrapper {
         background: white;
-        padding: 20px;
+        padding: 17px 20px 15px 20px;
         border-bottom: 1px solid @table-border;
         -webkit-box-shadow: 0px 5px 10px 0px rgba(27,32,42,0.1);
         -moz-box-shadow: 0px 5px 10px 0px rgba(27,32,42,0.1);
         box-shadow: 0px 5px 10px 0px rgba(27,32,42,0.1);
         clear: both;
         overflow: hidden;
-
-        @media all and (max-width: 768px) {
+        @media all and (max-width: 767px) {
           box-shadow: none;
           border-bottom: none;
-        }
-        @media all and (min-width: 991px) {
-          padding: 35px 20px 20px;
         }
         .page-title {
           float: left;
@@ -114,8 +39,7 @@ input, select {
           font-family: 'iCuracao-Regular';
           font-size: 16px;
           font-weight: 600;
-          // letter-spacing: 1px;
-          line-height: 2.5;
+          line-height: 38px;
           @media all and (max-width: 767px) {
             font-size: 14px;
           }
@@ -128,7 +52,7 @@ input, select {
           font-size: 16px;
           font-weight: 600;
           padding-left: 3px;
-          line-height: 2.5;
+          line-height: 38px;
           @media all and (max-width: 767px) {
             font-size: 14px;
           }
@@ -145,7 +69,7 @@ input, select {
             margin-bottom: 0;
             text-align: right;
             button.checkout {
-              padding: 8px 25px 8px 40px;
+              padding: 8px 50px 8px 70px;
               @media all and (max-width: 479px) {
                 padding: 7px 5px 7px 12px;
                 span {
@@ -154,6 +78,11 @@ input, select {
                   padding-right: 25px;
                 }
               }
+            }
+          }
+          .item{
+            .multicheckout{
+              display:none;
             }
           }
         }
@@ -166,27 +95,26 @@ input, select {
             }
           }
           .cart-container {
-            //box-shadow: 0px 5px 21px rgba(27,32,42,0.1);
             -webkit-box-shadow: 0px 3px 10px 0 rgba(27,32,42,0.1);
             -moz-box-shadow: 0px 3px 10px 0 rgba(27,32,42,0.1);
             box-shadow: 0px 3px 10px 0 rgba(27,32,42,0.1);
             background-color: #ffffff;
             @media all and (max-width: 767px) {
-              padding: 15px 15px 0 15px;
+              padding: 0 15px 0 15px;
               box-shadow: none;
             }
             /* cart table styling */
             .form-cart{
               width: 100%;
-              padding: 20px;
+              padding: 0;
               margin-bottom: 0;
-              @media all and (max-width: 768px) {
-                padding: 0 0 20px 0;
+              @media all and (max-width: 767px) {
+                padding: 0 0 5px;
               }
               /*Product info table */
               .table-wrapper {
                 @media all and (min-width: 768px) {
-                  margin: 20px 0;
+                  margin: 20px;
                 }
                 @media all and (max-width: 767px) {
                   border: 1px solid @table-border;
@@ -198,7 +126,7 @@ input, select {
                       text-align: center;
                       text-transform: uppercase;
                       border-bottom: none;
-                      font-size: 12px;
+                      font-size: 11px;
                       letter-spacing: 0px;
                       line-height: 18px;
                       color: @content-light-grey;
@@ -208,7 +136,15 @@ input, select {
                         font-size: 14px;
                       }
                       &.col {
-                        padding-bottom: 5px;
+
+                        @media all and (max-width: 991px) {
+                          padding-bottom: 24px;
+                          padding-top: 24px;
+                        }
+                        @media all and (max-width: 991px) {
+                          padding-bottom: 12px !important;
+                          padding-top: 12px;
+                        }
                       }
                     }
                   }
@@ -220,7 +156,7 @@ input, select {
                   @media all and (max-width: 767px) {
                     border-bottom: 1px solid @table-border;
                     &:last-child {
-                      border-bottom: none;
+                      // border-bottom: none;
                     }
                   }
                   .item-info {
@@ -260,7 +196,7 @@ input, select {
                           }
                         }
                       }
-                      @media all and (max-width: 650px) {768px
+                      @media all and (max-width: 650px) {
                         &.price, &.subtotal {
                           width: 25%;
                         }
@@ -358,14 +294,19 @@ input, select {
                           }
                         }
                         .product-item-details {
-                          padding-top: 15px;
+                          // padding-top: 15px;
                           padding-left: 2%;
                           padding-right: 1%;
-                          @media all and (max-width: 599px) {
-                            padding-top: 20px;
+                          @media all and (min-width: 767px) {
+                            padding-right: 16%;
                           }
                           .product-item-name {
-                            width: 85% !important;
+                            @media all and (min-width: 768px) {
+                                width: 75% !important;
+                            }
+                            @media all and (min-width: 991px) {
+                                width: 80% !important;
+                            }
                             overflow: hidden;
                             height: 40px;
                             text-overflow: ellipsis;
@@ -375,14 +316,14 @@ input, select {
                               letter-spacing: 0.5px;
                               color: @content-dark-grey;
                               @media all and (max-width: 768px) {
-                                font-size: 15px;
-                              }
-                              @media all and (max-width: 478px) {
                                 font-size: 14px;
                               }
+                              @media all and (max-width: 768px) {
+                                font-size: 13px;
+                              }
                             }
-                            @media all and (min-width: 768px) {
-                              width: 90%;
+                            @media all and (max-width: 768px) {
+                              width: 85%;
                             }
                             a:hover {
                               text-decoration: none;
@@ -392,26 +333,30 @@ input, select {
                         /* Remove action button */
                         .product-name-action {
                           position: absolute;
-                          top: 25px;
+                          top: 12px;
                           right: 25px;
-                          @media all and (max-width: 991px) {
-                            right: 10px;
+                          @media all and (min-width: 768px) {
+                            top: 17px;
+                            right: 15px;
                           }
-                          @media all and (max-width: 768px) {
+                          @media all and (max-width: 767px) {
                             top: 10px;
                             right: 30px;
                           }
                           @media all and (max-width: 599px) {
-                            right: 20px;
+                            right: 15px;
                           }
                           .action-delete {
-                            font-size: 20px;
                             &::before {
-                              content: 'x';
+                              content: '\e616';
                               color: @del-item;
-                              font-family: 'iCuracao-Light';
-                              font-size: 22px;
-                              padding: 0 5px;
+                              font-family: 'luma-icons';
+                              font-size: 14px;
+                              padding: 0 3px;
+
+                                  @media all and (min-width: 768px) {
+                                    top: -15px;
+                                  }
                             }
                           }
                           .action-edit {
@@ -433,6 +378,12 @@ input, select {
                           @media all and (max-width: 375px) {
                             padding: 15px 0 0;
                           }
+                          .input-text{
+                            width: 40px;
+                          }
+                          input[type="number"]{
+                            padding: 0 5px;
+                          }
                         }
                         /* Edit action button */
                         .quantity-action {
@@ -448,7 +399,7 @@ input, select {
                           {
                             position: static;
                             margin: 0;
-                            color: @content-light-grey;
+                            color: @content-dark-grey;
                             font-size: 13px;
                             &::before {
                               display: none;
@@ -505,17 +456,18 @@ input, select {
                           position: relative;
                           top: -45px;
                           margin: 0;
-                          color: @content-light-grey;
-                          font-size: 12px;
+                          color: @content-dark-grey;
                           font-family: 'iCuracao-Medium';
+                          font-size: 14px;
                           @media all and (max-width: 767px) {
                             top: -15px;
                           }
                           @media all and (max-width: 599px) and (min-width: 479px) {
                             display: grid;
+                            font-size: 12px;
                           }
                           @media all and (max-width: 478px) {
-                            font-size: 11px;
+                            font-size: 12px;
                           }
                           .emi-amount {
                             color: @theme-color;
@@ -535,7 +487,7 @@ input, select {
                         }
                       }
                       .price-excluding-tax {
-                        padding: 20px 0 50px;
+                        padding: 20px 0 55px;
                         @media all and (max-width: 767px) {
                           padding: 20px 0;
                         }
@@ -556,25 +508,27 @@ input, select {
               .estimated-total-block {
                 background-color: #f9f9f9;
                 padding: 20px;
-                @media all and (max-width: 768px) {
+                    margin: 20px 20px 0 20px;
+                @media all and (max-width: 767px) {
                   padding: 20px 0;
+                  margin: 0;
                 }
                 .grand-total {
                   text-align: right;
-                  @media all and (max-width: 768px) {
+                  @media all and (max-width: 767px) {
                     text-align: center;
                   }
                   strong {
                     color: @estimated-grey;
-                    font-size: 16px;
+                    font-size: 18px;
                     line-height: 23px;
-                    font-family: 'iCuracao-Medium';
+                    font-family: 'iCuracao-Regular';
                     letter-spacing: 1px;
                     @media all and (max-width: 599px) {
                       font-size: 14px;
                     }
                     .price {
-                      color: @content-dark-grey;
+                      color: @black;
                       padding-left: 7px;
                     }
                   }
@@ -587,7 +541,7 @@ input, select {
                     font-family: 'iCuracao-Medium';
                     font-size: 14px;
                     letter-spacing: 0.5px;
-                    @media all and (max-width: 768px) {
+                    @media all and (max-width: 767px) {
                       width: 100%;
                       margin-bottom: 15px;
                     }
@@ -599,15 +553,16 @@ input, select {
                   .continue {
                     display: block;
                     float: left;
-                    background-color: @theme-color;
+                    background-color: #81b800;
                     border-radius: 3px;
                     padding: 8px 20px 8px 5px;
                     text-align: center;
                     &:hover {
                       text-decoration: none;
                     }
-                    @media all and (max-width: 768px) {
+                    @media all and (max-width: 767px) {
                       padding: 10px 0;
+                      float: none;
 
                     }
                     @media all and (max-width: 478px) {
@@ -619,6 +574,10 @@ input, select {
                       background-position-x: 10px;
                       padding-left: 40px;
                     }
+                    &:hover {
+                      background-color: @btn-green-hover;
+                      box-shadow: 0 4px 6px 0 rgba(0,0,0,.12);
+                    }
                   }
                 }
               }
@@ -629,16 +588,24 @@ input, select {
             }
             /*Payment feature block*/
             .payment-features {
-              clear: both;
-              width: 97%;
-              margin: 0 auto;
+              display: flex;
+              text-align: center;
               @media all and (max-width: 768px) {
+                display: block;
+                padding: 5px 0 10px 0;
+                margin: 0;
+              }
+              @media all and (min-width: 767px) {
                 width: 100%;
+                padding: 0px 20px 0 20px;
               }
               p {
                 font-size: 12px;
                 color: @content-light-grey;
                 font-family: 'iCuracao-Regular';
+                @media all and (max-width: 768px) {
+                  font-size: 11px;
+                }
                 b {
                   color: @content-dark-grey;
                 }
@@ -648,38 +615,46 @@ input, select {
                   padding-right: 3px;
                 }
                 &.feature-1 {
-                  float: left;
+                  flex: 1;
+                  text-align: left;
+                  padding: 20px;
                    img {
-                     width: 10px;
+                     width: 14px;
+                    margin-right: 7px;
                    }
                 }
                 &.feature-2 {
-                  width: 65%;
-                  margin: 0 auto;
-                  text-align: left;
-                  float: none;
+                  flex: 2;
+                  text-align: center;
+                  padding: 20px;
                   img {
-                    width: 14px;
+                    width: 18px;
+                    margin-right: 7px;
+                    @media all and (max-width: 768px) {
+                      margin-right: 3px;
+                    }
                   }
                 }
                 &.feature-3 {
-                  float: right;
-                  position: relative;
-                  top: -15px;
+                  text-align: right;
+                  flex: 1;
+                  padding: 20px;
                   img {
-                    width: 12px;
+                    width: 16px;
+                    margin-right: 7px;
+                    @media all and (max-width: 768px) {
+                      margin-right: 3px;
+                    }
                   }
                 }
                 @media all and (max-width: 768px) {
                   &.feature-1, &.feature-2, &.feature-3 {
-                    float: none;
-                    text-align: left;
-                    width: 100%;
-                    margin-bottom: 1rem;
+                      padding:5px 15px;
+                      text-align: left;
+                    }
                   }
                   &.feature-3 {
-                    position: static;
-                  }
+                  position: static;
                 }
               }
             }
@@ -701,13 +676,18 @@ input, select {
         }
         background-color: @btn-orange;
         border: 1px solid @btn-orange;
-        padding: 8px 25px 8px 40px;
+        padding: 8px 50px 8px 70px;
         line-height: 2rem;
-        @media all and (max-width: 768px) {
+        @media all and (max-width: 767px) {
           padding: 10px 0;
         }
         @media all and (max-width: 478px) {
           padding: 8px 0;
+        }
+        &:hover {
+          background-color: @btn-orange-hover;
+          border: 1px solid @btn-orange-hover;
+          box-shadow: 0 4px 6px 0 rgba(0,0,0,.12);
         }
       }
     }
@@ -733,8 +713,7 @@ input, select {
   }
   .cart.table-wrapper .actions-toolbar > .action-delete {
     @media all and (max-width: 991px) and (min-width: 768px) {
-      right: -16px;
-      top: 16px;
+      top: -3px;
     }
 
   }
