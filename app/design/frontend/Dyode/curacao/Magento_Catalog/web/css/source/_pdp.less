@@ -26,14 +26,15 @@
 .price-font{
   font-size: 14px !important;
   font-family: 'iCuracao-Medium';
-  font-weight: 600;
+  font-weight: normal;
   @media all and (min-width: 991px) {
     font-size: 16px !important;
   }
 }
 .special-price-font{
   font-size: 20px;
-  font-family: 'iCuracao-Regular';
+  font-family: 'iCuracao-Medium';
+  font-weight: normal;
   @media all and (min-width: 991px) {
     font-size: 22px;
   }
@@ -117,6 +118,9 @@
   }
 }
 .catalog-product-view {
+  header.page-header{
+    z-index: 999;
+  }
   .page-wrapper {
       .columns {
         .column {
@@ -151,7 +155,7 @@
                 text-transform: uppercase;
                 font-size: 14px;
                 letter-spacing: 1px;
-                font-weight: 600;
+                font-weight: normal;
                 font-family: 'iCuracao-Medium';
                 @media all and (max-width: 767px) {
                   padding-left: 20px;
@@ -416,7 +420,7 @@
                              color: @content-label-grey;
                              font-family: 'iCuracao-Medium';
                              margin-right: 10px;
-                             font-weight: 500;
+                             font-weight: normal;
                              @media all and (min-width: 768px) {
                                line-height: 36px;
                              }
@@ -425,13 +429,15 @@
                              .price {
                                color: @black;
                                font-size: @mrp-price;
+                               font-family: 'iCuracao-Medium';
+                               font-weight: normal;
                     .credit-card-emi {
                       .credit-card-desc {
                         display: inline-block;
                         clear: both;
                         .emi-amount {
                           color: @green-color;
-                          font-weight: 700;
+                          font-weight: normal;
                           font-size: 18px;
                           display: inline-block;
                           clear: both;
@@ -466,7 +472,7 @@
                       clear: both;
                       .emi-amount {
                         color: @green-color;
-                        font-weight: 700;
+                        font-weight: normal;
                         font-size: 18px;
                         font-family: 'iCuracao-Regular';
                         @media all and (max-width: 991px) {
@@ -486,7 +492,7 @@
                       margin: 7px 0;
                       text-transform: uppercase;
                       .price-font();
-                      font-weight: 500;
+                      font-weight: normal;
                       color: @box-orange;
 
                     }
@@ -496,7 +502,7 @@
                 .emi-amount {
                   .price{
                     color: @green-color;
-                    font-weight: 700;
+                    font-weight: normal;
                     font-size: 18px;
                     margin-right: 5px;
                     font-family: 'iCuracao-Regular';
@@ -560,7 +566,7 @@
                           font-size: 13px;
                         }
                         span {
-                          font-weight: 500;
+                          font-weight: normal;
                         }
                       }
                       .control {
@@ -587,7 +593,7 @@
                 border: 1px solid @content-light-grey;
                 color: @link-blue;
                 font-size: 14px;
-                font-weight: 600;
+                font-weight: normal;
                 font-family: 'iCuracao-Regular';
                 padding: 5px 30px;
                 text-transform: uppercase;
@@ -610,6 +616,7 @@
           &.media {
             width: 38%;
             padding: 50px 20px;
+            margin-bottom: 0;
             @media all and (min-width: 901px) {
                     min-height: 700px;
                 }
