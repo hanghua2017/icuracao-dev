@@ -1,6 +1,6 @@
 <?php
 /**
- * Dyode_Catalog Magento2 Module.
+ * Dyode_Checkout Magento2 Module.
  *
  * Extending Magento_Catalog
  *
@@ -12,6 +12,8 @@
 
 namespace Dyode\Catalog\Observer;
 
+use Magento\Catalog\Model\Product;
+use Magento\Checkout\Model\Session;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
@@ -50,17 +52,25 @@ class AddWarrantyToCart implements ObserverInterface
     protected $cart;
 
     /**
+     * @var \Magento\Checkout\Model\Session
+     */
+    protected $checkoutSession;
+
+    /**
      * AddWarrantyToCart constructor.
      *
      * @param \Magento\Catalog\Api\ProductRepositoryInterface $productRepository
      * @param \Magento\Checkout\Model\CartFactory             $cartFactory
+     * @param \Magento\Checkout\Model\Session                 $checkoutSession
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
-        CartFactory $cartFactory
+        CartFactory $cartFactory,
+        Session $checkoutSession
     ) {
         $this->productRepository = $productRepository;
         $this->cartFactory = $cartFactory;
+        $this->checkoutSession = $checkoutSession;
     }
 
     /**
@@ -93,16 +103,70 @@ class AddWarrantyToCart implements ObserverInterface
      */
     public function addWarrantyIntoCart(array $warranties)
     {
+        $quote = $this->checkoutSession->getQuote();
+
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $logger = $objectManager->get("Psr\Log\LoggerInterface");
+        $logger->info("addWarrantyIntoCart ++++". $quote->getId());
+
         foreach ($warranties as $warranty) {
             $product = $this->initProduct((int)$warranty);
+            //Check if there is a quote
+            if($quote){
+                //Get all item from cart
+                $allItems = $this->cart->getItems();
+                $logger->info("addWarrantyIntoCart ++++". json_encode($allItems));
+                foreach ($allItems as $eachItem) {
+                    if($eachItem->getWarrantyParentItemId() != null){
+                        $warrantyInCart = $eachItem->getProductId();
+                        if($warrantyInCart ==  $product->getId()){
+                            $logger->info("parentInCart == this->product->getId()". $product->getId());
+                            throw new \Exception('Already warranty is added against this product');
+                        }
+                    }
+                
+                }
+            }
             $params = ['qty' => $this->product->getQty()];
 
             try {
                 $this->cart->addProduct($product, $params);
                 $this->cart->save();
+
+                $this->establishWarrantyQuoteRelation($product);
+
             } catch (\Exception $e) {
                 return false;
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return \Magento\Quote\Model\Quote
+     */
+    public function getQuote()
+    {
+        return $this->checkoutSession->getQuote();
+    }
+
+    /**
+     * Set a warranty quote item to the parent quote item.
+     *
+     * @param \Magento\Catalog\Model\Product $product
+     * @return $this
+     */
+    protected function establishWarrantyQuoteRelation(Product $product)
+    {
+        $parentQuoteItem = $this->getQuote()->getItemByProduct($this->product);
+
+        if ($parentQuoteItem) {
+            $this->getQuote()
+                ->getItemByProduct($product)
+                ->setWarrantyParentItemId($parentQuoteItem->getItemId())
+                ->save();
+
         }
 
         return $this;
