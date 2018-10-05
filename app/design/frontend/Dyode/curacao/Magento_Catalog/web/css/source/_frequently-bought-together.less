@@ -29,7 +29,7 @@
   }
   .frequently-product-block {
     display: flex;
-    width: 60%;
+    width: 70%;
     margin: 0 auto;
     margin-top: 45px;
     @media all and (max-width: 1260px) {
@@ -40,12 +40,14 @@
       margin-top: 20px;
     }
     .plus-item{
+      position: relative;
       .include-item {
         padding: 5px;
         img {
-          position: relative;
-          top: 35%;
+          position: absolute;
+          top: 50%;
           right: 5px;
+          transform: translateY(-50%);
         }
         }
     }
@@ -123,6 +125,9 @@
               width: 95%;
               display: inline-block;
             }
+            .img-wrapper{
+              min-height: 175px;
+            }
             .prod-img {
               width: 150px;
               margin-top: 22px;
@@ -141,7 +146,7 @@
             }
             .price-details {
               @media all and (max-width: 478px) {
-                float: left;
+                float: right;
                 margin-top: 40px;
               }
               .name {

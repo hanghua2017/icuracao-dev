@@ -13,10 +13,16 @@ input, select {
   .page-wrapper {
     .page-main {
       max-width: 1500px; //Removable max
+      .message.success {
+        margin: 0;
+        -webkit-box-shadow: 0px 5px 10px 0px rgba(27, 32, 42, 0.1);
+        -moz-box-shadow: 0px 5px 10px 0px rgba(27, 32, 42, 0.1);
+        box-shadow: 0px 5px 10px 0px rgba(27, 32, 42, 0.1);
+      }
       /*page title with bag item count and checkout button*/
       .page-title-wrapper {
         background: white;
-        padding: 20px;
+        padding: 17px 20px 15px 20px;
         border-bottom: 1px solid @table-border;
         -webkit-box-shadow: 0px 5px 10px 0px rgba(27,32,42,0.1);
         -moz-box-shadow: 0px 5px 10px 0px rgba(27,32,42,0.1);
@@ -27,17 +33,13 @@ input, select {
           box-shadow: none;
           border-bottom: none;
         }
-        @media all and (min-width: 991px) {
-          padding: 30px 20px;
-        }
         .page-title {
           float: left;
           margin-bottom: 0;
           font-family: 'iCuracao-Regular';
           font-size: 16px;
           font-weight: 600;
-          // letter-spacing: 1px;
-          line-height: 2.5;
+          line-height: 38px;
           @media all and (max-width: 767px) {
             font-size: 14px;
           }
@@ -50,7 +52,7 @@ input, select {
           font-size: 16px;
           font-weight: 600;
           padding-left: 3px;
-          line-height: 2.5;
+          line-height: 38px;
           @media all and (max-width: 767px) {
             font-size: 14px;
           }
@@ -67,7 +69,7 @@ input, select {
             margin-bottom: 0;
             text-align: right;
             button.checkout {
-              padding: 8px 25px 8px 40px;
+              padding: 8px 50px 8px 70px;
               @media all and (max-width: 479px) {
                 padding: 7px 5px 7px 12px;
                 span {
@@ -99,7 +101,7 @@ input, select {
             box-shadow: 0px 3px 10px 0 rgba(27,32,42,0.1);
             background-color: #ffffff;
             @media all and (max-width: 767px) {
-              padding: 0px 15px 0 15px;
+              padding: 0 15px 0 15px;
               box-shadow: none;
             }
             /* cart table styling */
@@ -379,6 +381,12 @@ input, select {
                           @media all and (max-width: 375px) {
                             padding: 15px 0 0;
                           }
+                          .input-text{
+                            width: 40px;
+                          }
+                          input[type="number"]{
+                            padding: 0 5px;
+                          }
                         }
                         /* Edit action button */
                         .quantity-action {
@@ -394,7 +402,7 @@ input, select {
                           {
                             position: static;
                             margin: 0;
-                            color: @content-light-grey;
+                            color: @content-dark-grey;
                             font-size: 13px;
                             &::before {
                               display: none;
@@ -451,17 +459,18 @@ input, select {
                           position: relative;
                           top: -45px;
                           margin: 0;
-                          color: @content-light-grey;
-                          font-size: 12px;
+                          color: @content-dark-grey;
                           font-family: 'iCuracao-Medium';
+                          font-size: 14px;
                           @media all and (max-width: 767px) {
                             top: -15px;
                           }
                           @media all and (max-width: 599px) and (min-width: 479px) {
                             display: grid;
+                            font-size: 12px;
                           }
                           @media all and (max-width: 478px) {
-                            font-size: 11px;
+                            font-size: 12px;
                           }
                           .emi-amount {
                             color: @theme-color;
@@ -512,9 +521,9 @@ input, select {
                   }
                   strong {
                     color: @estimated-grey;
-                    font-size: 16px;
+                    font-size: 18px;
                     line-height: 23px;
-                    font-family: 'iCuracao-Medium';
+                    font-family: 'iCuracao-Regular';
                     letter-spacing: 1px;
                     @media all and (max-width: 599px) {
                       font-size: 14px;
@@ -565,6 +574,10 @@ input, select {
                       background-position-x: 10px;
                       padding-left: 40px;
                     }
+                    &:hover {
+                      background-color: @btn-green-hover;
+                      box-shadow: 0 4px 6px 0 rgba(0,0,0,.12);
+                    }
                   }
                 }
               }
@@ -584,7 +597,7 @@ input, select {
                 padding: 10px 0 5px 0;
               }
               p {
-                font-size: 11px;
+                font-size: 12px;
                 color: @content-light-grey;
                 font-family: 'iCuracao-Regular';
                 b {
@@ -598,7 +611,8 @@ input, select {
                 &.feature-1 {
                   float: left;
                    img {
-                     width: 10px;
+                     width: 14px;
+                    margin-right: 7px;
                    }
                 }
                 &.feature-2 {
@@ -607,7 +621,8 @@ input, select {
                   text-align: left;
                   float: none;
                   img {
-                    width: 14px;
+                    width: 18px;
+                    margin-right: 7px;
                   }
                 }
                 &.feature-3 {
@@ -615,7 +630,8 @@ input, select {
                   position: relative;
                   top: -15px;
                   img {
-                    width: 12px;
+                    width: 16px;
+                    margin-right: 7px;
                   }
                 }
                 @media all and (max-width: 767px) {
@@ -649,13 +665,18 @@ input, select {
         }
         background-color: @btn-orange;
         border: 1px solid @btn-orange;
-        padding: 8px 25px 8px 40px;
+        padding: 8px 50px 8px 70px;
         line-height: 2rem;
         @media all and (max-width: 767px) {
           padding: 10px 0;
         }
         @media all and (max-width: 478px) {
           padding: 8px 0;
+        }
+        &:hover {
+          background-color: @btn-orange-hover;
+          border: 1px solid @btn-orange-hover;
+          box-shadow: 0 4px 6px 0 rgba(0,0,0,.12);
         }
       }
     }
