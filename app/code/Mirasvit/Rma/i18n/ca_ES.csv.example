@@ -1,0 +1,204 @@
+"Request RMA","Sol·liciteu RMA"
+"My Returns","Els meus retorns"
+Grid,Graella
+List,Llista
+All,Tots
+"Create RMA","Crea RMA"
+"Request New Return","Sol·liciteu una nova devolució"
+"Max file size: %1Mb","Mida màxima del fitxer: %1Mb"
+"New Return for Order #%1",
+"RMA #%1","RMA #%1"
+"RMA #%1 - %2","RMA #%1 - %2"
+"Wrong Order #, Email or Last Name","Ordre incorrecte #, correu electrònic o cognom"
+Items,Articles
+"To apply changes you should fill in required ""%1"" field","Per aplicar els canvis heu d&#39;emplenar el camp &quot;%1&quot; obligatori"
+"Please, add order items to the RMA (set 'Qty to Return')","Si us plau, afegiu elements de comanda a la RMA (estableix &#39;Qty to Return&#39;)"
+"Please, set correct order items Quantity to return","Si us plau, estableixi els elements de comanda correctes Quantitat per tornar"
+"RMA was successfully created","S&#39;ha creat correctament la RMA"
+"Shipping is confirmed. Thank you!","S&#39;ha confirmat l&#39;enviament. Gràcies!"
+"Your message was successfully added","El vostre missatge s&#39;ha afegit correctament"
+"Allowed extensions:","Extensions permeses:"
+"Maximum size:","Mida màxima:"
+"-- Please Select --","- Seleccioneu -"
+" at %1 (%2)","a %1 (%2)"
+"Mark as unresolved","Marca com a resum"
+"Mark as resolved","Marca com a resolt"
+"not set","no configurat"
+Pattern,Patró
+"Attribute Value","Valor de l&#39;atribut"
+Default,"Per defecte"
+Integer,Enter
+Price,Preu
+"Strip Tags","Etiquetes de franja"
+"Primary Attributes","Atributs primaris"
+"Stock Attributes","Atributs d&#39;estoc"
+"Prices & Taxes","Preus i impostos"
+Images,Imatges
+"Custom Attributes","Atributs personalitzats"
+Mapping,Cartografia
+Category,Categoria
+"Amasty Meta Tags","Etiquetes Meta Amasty"
+"Others Attributes","Altres atributs"
+Text,Text
+"Multi-line text","Text de diverses línies"
+Date,Data
+Checkbox,"Caixa de verificació"
+"Drop-down list","Llista desplegable"
+Reason,Raó
+Condition,Condició
+Resolution,Resolució
+"RMA #","RMA #"
+"Order #","Ordre núm."
+"Customer Email","Email del client"
+"Customer Name","Nom del client"
+Owner,Propietari
+"Last Replier","Última carpeta"
+Status,Estat
+Store,Botiga
+"Created At","Creat a"
+"Last Activity",
+"View link","Veure enllaç"
+"New RMA has been created","S&#39;ha creat la nova RMA"
+"RMA has been changed","S&#39;ha canviat RMA"
+"New reply from customer","Nova resposta del client"
+"New reply from staff","Nova resposta del personal"
+"-- Default Address --","- Direcció per defecte -"
+"Update the Product","Actualitzeu el producte"
+"Conditions Combination","Combinació de condicions"
+"RMA Attribute","Atributs RMA"
+"Last 7-days Clicks","Darrers clics de 7 dies"
+"Last 7-days Orders","Últims comandes de 7 dies"
+"Last 7-days Revenue","Últims ingressos de 7 dies"
+"Last 7-days Conversation Rate (%)","Darrer tipus de conversa de 7 dies (%)"
+"Attribute Set","Conjunt d&#39;atributs"
+Quantity,Quantitat
+"Product Type","Tipus de Producte"
+"Base Image","Imatge base"
+Thumbnail,Miniatura
+"Small Image","Imatge petita"
+"Base Image Size (bytes)","Mida d&#39;imatge base (bytes)"
+"Thumbnail Size (bytes)","Mida de miniatures (bytes)"
+"Small Image Size (bytes)","Mida d&#39;imatge petita (bytes)"
+"PHP Condition","Condició de PHP"
+"Open Chooser","Obre el selector"
+"Last message body","Cos de l&#39;últim missatge"
+"Updated At","Actualitzat a"
+"Status (before change)","Estat (abans del canvi)"
+"Owner (before change)","Propietari (abans del canvi)"
+"Last Reply By","Última resposta de"
+"Hours since Created","Hores des de la seva creació"
+"Hours since Updated","Hores des de l&#39;actualització"
+"Hours since Last reply","Hores des de l&#39;última resposta"
+"Items have reason","Els articles tenen raó"
+"Items have condition","Els articles tenen condició"
+"Items have resolution","Els articles tenen resolució"
+"%1 (before change)","%1 (abans del canvi)"
+Customer,Client
+Staff,Personal
+"- Disable these emails -","- Desactiveu aquests correus electrònics:"
+Yes,Sí
+No,No
+Save,Desa
+"Save & Continue Edit","Desa i continua Edita"
+"Save & Close","Desa i tanca"
+Edit,Edita
+Delete,Suprimeix
+"Delete ""${ $.$data.name }""","Suprimeix "${ $.$data.name }""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Estàs segur que no vols esborrar un registre "${ $.$data.name }"?"
+"Are you sure you want to do this?","Estàs segur que vols fer això?"
+"Convert To Ticket","Converteix al bitllet"
+"View order #${ $.$data.order_id }","Visualitza l&#39;ordre #${ $.$data.order_id }"
+"View exchange order %1","Mostra l&#39;ordre de canvi %1"
+"RMA: Report by Attribute","RMA: informe per atribut"
+"RMA: Report by Status","RMA: informe per estat"
+"RMA: Report by Product","RMA: informe per producte"
+"RMA: Report by Reasons","RMA: Informe per motius"
+"Cannot delete return address with id %1","No es pot eliminar l&#39;adreça de retorn amb l&#39;identificador %1"
+"Cannot delete item with id %1","No es pot esborrar l&#39;element amb l&#39;identificador %1"
+"Cannot delete condition with id %1","No es pot esborrar la condició amb l&#39;identificador %1"
+"Cannot delete field with id %1","No es pot suprimir el camp amb l&#39;identificador %1"
+"Cannot delete message with id %1","No es pot eliminar el missatge amb l&#39;identificador %1"
+"Cannot delete history with id %1","No es pot eliminar l&#39;historial amb l&#39;identificador %1"
+"Cannot delete Quick Response with id %1","No es pot eliminar la resposta ràpida amb l&#39;identificador %1"
+"Cannot delete reason with id %1","No es pot eliminar la raó amb l&#39;identificador %1"
+"Cannot delete resolution with id %1","No es pot eliminar la resolució amb l&#39;identificador %1"
+"Cannot delete rma with id %1","No es pot eliminar rma amb l&#39;identificador %1"
+"Cannot delete rule with id %1","No es pot eliminar la regla amb l&#39;identificador %1"
+"Cannot delete status with id %1","No es pot eliminar l&#39;estat amb l&#39;identificador %1"
+"Please, enter a message","Introduïu un missatge"
+"Product Name","Nom del producte"
+SKU,SKU
+Qty,Quant
+"This was a gift, please do not notify purchaser","Aquest va ser un regal, no ho notifiquis al comprador"
+"Enter your contact information","Introduïu la vostra informació de contacte"
+"First Name",Nom
+"Last Name",Cognom
+Email,"Correu electrònic"
+Telephone,Telèfon
+"To request a new RMA or check the status of current RMA, please, fill the form:","Per sol·licitar un nou RMA o consultar l&#39;estat de la RMA actual, si us plau, ompli el formulari:"
+"* Required Fields","* Els camps obligatoris"
+"Order Information","Informació de comandes"
+"Email or Last Name","Correu electrònic o cognom"
+Next,Pròxim
+RMA,RMA
+Actions,Accions
+"View Return","Veure retorn"
+"There are no Returns","No hi ha devolucions"
+"Items %1 to %2 of %3 total","Articles %1 a %2 de %3 total"
+"%1 Item(s)","%1 ítem (s)"
+Show,Espectacle
+"per page","per pàgina"
+"View as","Mostra com a"
+"Sort by","Ordenar per"
+"Set Ascending Direction","Estableix l&#39;adreça ascendent"
+"Set Descending Direction","Estableix la direcció descendent"
+"Please, select an order","Seleccioneu una comanda"
+Order,Ordre
+"-- Select an Order --","- Seleccioneu una comanda -"
+"You have no completed orders to request RMA or your orders were placed more than %1 days ago. Please, contact customer service.","No teniu cap ordre finalitzada per sol·licitar RMA o les vostres comandes es van col·locar fa més de %1 dies. Contacteu amb el servei d&#39;atenció al client."
+"Submit Request","Sol·licitud d&#39;enviament"
+"Please, select RMA items which you would like to return.","Seleccioneu els elements RMA que voleu tornar."
+"Additional Information","Informació adicional"
+"Attach files","Adjunta fitxers"
+"Request Information","Sol·licitud d&#39;informació"
+"Email Address","Correu electrònic"
+"Order Shipping Address","Ordre Adreça d&#39;enviament"
+"Items in this order","Elements d&#39;aquest ordre"
+"There are no items for this product that can be returned.","No hi ha articles per a aquest producte que es puguin retornar."
+"Another RMA for this product: %1","Una altra RMA per a aquest producte: %1"
+"This product can not be returned due to RMA Policy","Aquest producte no es pot retornar a causa de la Política RMA"
+"This is a non-returnable item per our return policy.","Aquest és un article no retornable per la nostra política de devolució."
+"Quantity to return","Quantitat per tornar"
+"-- Select a Reason --","- Seleccioneu una raó -"
+"-- Select a Condition --","- Seleccioneu una condició -"
+"-- Select a Resolution --","- Seleccioneu una resolució -"
+"I agree","Estic dacord"
+"Date: %1","Data: %1"
+"Original order: #%1","Ordre original: #%1"
+"Return Address","Adreça de retorn"
+"Customer Information","Informació del consumidor"
+"RMA History","Història de RMA"
+"RMA Items","Articles RMA"
+Weight,Pes
+"Print RMA Packing Slip","Impressió d&#39;embalatge RMA"
+"Print RMA Shipping Label","Imprimeix l&#39;etiqueta d&#39;enviament RMA"
+"Confirm Shipping","Confirma enviament"
+"(This was a gift)","(Això va ser un regal)"
+"Date Requested","Data sol·licitada"
+"Contact Information","Informació de contacte"
+"Items RMA Requested for","Elements sol·licitats per a RMA"
+QTY,QTY
+"Add Message","Afegeix missatge"
+Submit,Presentar
+%name,%nom
+"The quantity is incorrect.","La quantitat és incorrecta."
+"New Return for Offline Order","Nova devolució per a comandes fora de línia"
+" at %1","a %1"
+Select,Selecciona
+"If you do not have account on this store please fill the form below.","Si no teniu compte en aquesta botiga, ompli el següent formulari."
+"-- Create Offline Order --","- Crea una comanda sense connexió -"
+"Returned Item","Article retornat"
+"Remove Item","Suprimeix l&#39;element"
+"Order or Receipt #","Ordre o rebut #"
+"Add Item","Afegeix un element"
+"Add at least one item to this RMA","Afegiu com a mínim un element a aquesta RMA"

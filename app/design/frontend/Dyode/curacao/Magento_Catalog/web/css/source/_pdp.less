@@ -264,6 +264,7 @@
             border-left: 1px solid @content-light-grey;
             @media all and (min-width: 991px) {
               padding: 40px 25px;
+              min-height: 705px;
             }
             @media all and (max-width: 1339px) {
               width: 52%;
@@ -415,6 +416,7 @@
                              color: @content-label-grey;
                              font-family: 'iCuracao-Medium';
                              margin-right: 10px;
+                             font-weight: 500;
                              @media all and (min-width: 768px) {
                                line-height: 36px;
                              }
@@ -601,8 +603,6 @@
                   display: none;
               }
             }
-
-
         }
 
         //Styling for product image section - left side //
@@ -610,6 +610,9 @@
           &.media {
             width: 38%;
             padding: 50px 20px;
+            @media all and (min-width: 901px) {
+                    min-height: 700px;
+                }
             @media all and (max-width: 901px) {
               -ms-flex-order: -1;
               -webkit-order: -1;

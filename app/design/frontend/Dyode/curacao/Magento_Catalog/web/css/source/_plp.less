@@ -129,13 +129,6 @@
 
     .columns {
       margin: 0 0 30px;
-      @media screen and (max-width: 990px) {
-        //  padding-top:0;
-        margin: 0;
-      }
-      @media screen and (min-width: 991px) {
-        //  margin:30px 0;
-      }
       @media all and (max-width:767px) {
         padding-top: 0;
       }
@@ -978,7 +971,7 @@
                       .price {
                         font-size: 14px;
                         text-decoration: line-through;
-                        color: #9b9b9b;
+                        color: #888888;
                         font-family: 'iCuracao-Regular';
                         @media all and (max-width:767px) {
                           font-size: 12px;
@@ -1304,7 +1297,8 @@
 
                       .price {
                         color: @gray-text;
-                        font-weight: 700;
+                        font-weight: normal;
+                        font-family: "iCuracao-Medium";
                         @media all and (max-width:767px){
                           font-size: 16px;
                         }
@@ -1335,7 +1329,7 @@
 
                         .price-discount{
                           position: absolute;
-                          left: 60px;
+                          left: 70px;
                           top:25px;
                           color:@theme-color;
                         }
@@ -1343,7 +1337,7 @@
 
                       .old-price {
                         .price {
-                          color: @gray-text;
+                          color: #888888;
                           font-weight: normal;
                         }
                       }
@@ -1360,7 +1354,7 @@
           font-family: 'iCuracao-Medium';
           font-weight: normal;
           font-size: 14px;
-          @media all and (max-width:767px) {
+          @media all and (max-width:1024px) {
             font-size: 12px;
           }
           @media all and (max-width: 375px) {

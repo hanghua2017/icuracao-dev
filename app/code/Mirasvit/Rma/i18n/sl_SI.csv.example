@@ -1,0 +1,204 @@
+"Request RMA","Zahtevajte RMA"
+"My Returns","Moja vrnitev"
+Grid,Mreža
+List,Seznam
+All,Vse
+"Create RMA","Ustvari RMA"
+"Request New Return","Zahtevajte novo vrnitev"
+"Max file size: %1Mb","Največja velikost datoteke: %1Mb"
+"New Return for Order #%1","Nov vračilo naročila #%1"
+"RMA #%1","RMA #%1"
+"RMA #%1 - %2","RMA #%1 - %2"
+"Wrong Order #, Email or Last Name","Napačen naročilo #, e-pošta ali priimek"
+Items,Elementi
+"To apply changes you should fill in required ""%1"" field","Če želite uporabiti spremembe, morate izpolniti zahtevano polje &quot;%1&quot;"
+"Please, add order items to the RMA (set 'Qty to Return')","Prosimo, dodajte elemente za naročanje v RMA (nastavite &quot;Količina za vrnitev&quot;)"
+"Please, set correct order items Quantity to return","Prosimo, nastavite pravilne postavke naročila Količina za vrnitev"
+"RMA was successfully created","RMA je bil uspešno ustvarjen"
+"Shipping is confirmed. Thank you!","Dostava je potrjena. Hvala vam!"
+"Your message was successfully added","Vaše sporočilo je bilo uspešno dodano"
+"Allowed extensions:","Dovoljene razširitve:"
+"Maximum size:","Največja velikost:"
+"-- Please Select --","-- Prosim izberite --"
+" at %1 (%2)","na %1 (%2)"
+"Mark as unresolved","Označi kot nerešeno"
+"Mark as resolved","Označi kot razrešeno"
+"not set","ni nastavljen"
+Pattern,Vzorec
+"Attribute Value","Vrednost lastnosti"
+Default,Privzeto
+Integer,Integer
+Price,Cena
+"Strip Tags","Strip Tags"
+"Primary Attributes","Primarni atributi"
+"Stock Attributes","Stock lastnosti"
+"Prices & Taxes","Cene in davki"
+Images,Slike
+"Custom Attributes","Atributi atributa"
+Mapping,Kartiranje
+Category,Kategorija
+"Amasty Meta Tags","Amasty Meta Tags"
+"Others Attributes","Drugi atributi"
+Text,Besedilo
+"Multi-line text","Večvrstično besedilo"
+Date,Datum
+Checkbox,"Potrditveno polje"
+"Drop-down list","Spustni seznam"
+Reason,Razlog
+Condition,Pogoj
+Resolution,Resolucija
+"RMA #","RMA #"
+"Order #","Naročilo #"
+"Customer Email","E-pošta stranke"
+"Customer Name","Ime stranke"
+Owner,Lastnik
+"Last Replier","Zadnja mapa"
+Status,Stanje
+Store,Shranjujte
+"Created At","Ustvarjeno pri"
+"Last Activity","Zadnja aktivnost"
+"View link","Prikaži povezavo"
+"New RMA has been created","Nova RMA je bila ustvarjena"
+"RMA has been changed","RMA je bil spremenjen"
+"New reply from customer","Nov odgovor odjemalca"
+"New reply from staff","Nov odgovor osebja"
+"-- Default Address --","- Privzeti naslov -"
+"Update the Product","Posodobite izdelek"
+"Conditions Combination","Pogoji Kombinacija"
+"RMA Attribute","RMA atribute"
+"Last 7-days Clicks","Zadnjih 7 dni klikov"
+"Last 7-days Orders","Zadnjih 7-dnevnih naročil"
+"Last 7-days Revenue","Zadnji 7-dnevni prihodek"
+"Last 7-days Conversation Rate (%)","Najvišja stopnja konverzije v zadnjih 7 dneh (%)"
+"Attribute Set","Atribut Set"
+Quantity,Količina
+"Product Type","Tip izdelka"
+"Base Image","Osnovna slika"
+Thumbnail,Thumbnail
+"Small Image","Majhna slika"
+"Base Image Size (bytes)","Osnovna velikost slike (bajtov)"
+"Thumbnail Size (bytes)","Velikost sličic (bajtov)"
+"Small Image Size (bytes)","Majhna velikost slike (bajtov)"
+"PHP Condition","Pogoj PHP"
+"Open Chooser","Odpri izbirnik"
+"Last message body","Zadnje sporočilo telesa"
+"Updated At","Posodobljeno na"
+"Status (before change)","Stanje (pred spremembo)"
+"Owner (before change)","Lastnik (pred spremembo)"
+"Last Reply By","Zadnji odgovor"
+"Hours since Created","Ure od nastanka"
+"Hours since Updated","Ure od posodobitve"
+"Hours since Last reply","Ura od zadnjega odgovora"
+"Items have reason","Elementi imajo razlog"
+"Items have condition","Elementi imajo stanje"
+"Items have resolution","Elementi imajo ločljivost"
+"%1 (before change)","%1 (pred spremembo)"
+Customer,Stranka
+Staff,Osebje
+"- Disable these emails -","- Onemogoči te e-poštna sporočila -"
+Yes,Ja
+No,Ne
+Save,Shrani
+"Save & Continue Edit","Shrani in nadaljuj uredi"
+"Save & Close","Shrani in zapri"
+Edit,Uredi
+Delete,Izbriši
+"Delete ""${ $.$data.name }""","Izbriši "${ $.$data.name }""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Ali ste prepričani, da ne želite izbrisati zapisa "${ $.$data.name }"?"
+"Are you sure you want to do this?","Ste prepričani, da želite to storiti?"
+"Convert To Ticket","Pretvarjanje v vozovnico"
+"View order #${ $.$data.order_id }","Prikaži naročilo #${ $.$data.order_id }"
+"View exchange order %1","Ogled naročila za menjavo %1"
+"RMA: Report by Attribute","RMA: poročilo po atributu"
+"RMA: Report by Status","RMA: poročilo po stanju"
+"RMA: Report by Product","RMA: poročilo po izdelku"
+"RMA: Report by Reasons","RMA: poročilo po razlogih"
+"Cannot delete return address with id %1","Ne morem izbrisati povratnega naslova z ID-jem %1"
+"Cannot delete item with id %1","Elementa z ID-jem ni mogoče izbrisati %1"
+"Cannot delete condition with id %1","Ne morem izbrisati stanja z ID-jem %1"
+"Cannot delete field with id %1","Ni mogoče izbrisati polja z ID-jem %1"
+"Cannot delete message with id %1","Ne morem izbrisati sporočila z ID-jem %1"
+"Cannot delete history with id %1","Zgodovino z ID-jem ni mogoče izbrisati %1"
+"Cannot delete Quick Response with id %1","Hitrega odgovora z ID-jem ni mogoče izbrisati %1"
+"Cannot delete reason with id %1","Ne morem izbrisati razloga z id %1"
+"Cannot delete resolution with id %1","Resolucije z ID-jem ni mogoče izbrisati %1"
+"Cannot delete rma with id %1","Rma z ID-jem ni mogoče izbrisati %1"
+"Cannot delete rule with id %1","Ne morem izbrisati pravila z ID-jem %1"
+"Cannot delete status with id %1","Stanje z ID-jem ni mogoče izbrisati %1"
+"Please, enter a message","Prosimo, vnesite sporočilo"
+"Product Name","Ime izdelka"
+SKU,SKU
+Qty,Količina
+"This was a gift, please do not notify purchaser","To je bilo darilo, prosimo, ne obvestite kupca"
+"Enter your contact information","Vnesite svoje podatke za stik"
+"First Name",Ime
+"Last Name",Priimek
+Email,E-naslov
+Telephone,Telefon
+"To request a new RMA or check the status of current RMA, please, fill the form:","Če želite zahtevati novo RMA ali preveriti stanje trenutne RMA, izpolnite obrazec:"
+"* Required Fields","* Zahtevana polja"
+"Order Information","Informacije o naročilu"
+"Email or Last Name","E-pošta ali priimek"
+Next,Naslednji
+RMA,RMA
+Actions,Akcije
+"View Return","Poglej vrnitev"
+"There are no Returns","Ni vrnitev"
+"Items %1 to %2 of %3 total","Točke %1 do %2 od %3 skupaj"
+"%1 Item(s)","%1 element (i)"
+Show,Pokaži
+"per page","na stran"
+"View as","Poglej kot"
+"Sort by","Razvrsti po"
+"Set Ascending Direction","Nastavite naraščajočo smer"
+"Set Descending Direction","Nastavi padajočo smer"
+"Please, select an order","Prosimo, izberite naročilo"
+Order,Naročilo
+"-- Select an Order --","- Izberite naročilo -"
+"You have no completed orders to request RMA or your orders were placed more than %1 days ago. Please, contact customer service.","Nimate izpolnjenih naročil za zahtevo RMA ali če so bila vaša naročila dana več kot %1 dni nazaj. Prosimo, pokličite servisno službo."
+"Submit Request","Pošlji zahtevo"
+"Please, select RMA items which you would like to return.","Prosimo, izberite elemente RMA, ki bi jih radi vrnili."
+"Additional Information","Dodatne informacije"
+"Attach files","Priložite datoteke"
+"Request Information","Zahtevajte informacije"
+"Email Address","Email naslov"
+"Order Shipping Address","Naročite naslov za dostavo"
+"Items in this order","Elementi v tem vrstnem redu"
+"There are no items for this product that can be returned.","Za ta izdelek ni artiklov, ki bi jih bilo mogoče vrniti."
+"Another RMA for this product: %1","Drug RMA za ta izdelek: %1"
+"This product can not be returned due to RMA Policy","Ta izdelek ni mogoče vrniti zaradi pravilnika RMA"
+"This is a non-returnable item per our return policy.","To je nepovratna postavka po našem pravilniku o vračanju."
+"Quantity to return","Količina za vrnitev"
+"-- Select a Reason --","- Izberite razlog -"
+"-- Select a Condition --","- Izberite stanje -"
+"-- Select a Resolution --","- Izberite ločljivost -"
+"I agree","Strinjam se"
+"Date: %1","Datum: %1"
+"Original order: #%1","Prvotni naročilo: #%1"
+"Return Address","Vrnitev naslova"
+"Customer Information","Informacije za stranke"
+"RMA History","Zgodovina RMA"
+"RMA Items","RMA elementi"
+Weight,Utež
+"Print RMA Packing Slip","Natisni RMA Packing Slip"
+"Print RMA Shipping Label","Natisni RMA Shipping Label"
+"Confirm Shipping","Potrdite pošiljanje"
+"(This was a gift)","(To je bilo darilo)"
+"Date Requested","Zahtevani datum"
+"Contact Information","Kontaktni podatki"
+"Items RMA Requested for","Postavke, zahtevane za RMA"
+QTY,QTY
+"Add Message","Dodaj sporočilo"
+Submit,Pošlji
+%name,"% ime"
+"The quantity is incorrect.","Količina je napačna."
+"New Return for Offline Order","Nov povratek za naročilo brez povezave"
+" at %1","na %1"
+Select,Izberite
+"If you do not have account on this store please fill the form below.","Če nimate računa v tej trgovini, izpolnite spodnji obrazec."
+"-- Create Offline Order --","- Ustvari naročilo brez povezave -"
+"Returned Item","Vrnjena postavka"
+"Remove Item","Odstrani element"
+"Order or Receipt #","Naročilo ali potrdilo #"
+"Add Item","Dodaj postavko"
+"Add at least one item to this RMA","V ta RMA dodajte vsaj en element"

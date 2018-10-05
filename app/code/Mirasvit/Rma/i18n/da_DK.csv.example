@@ -1,0 +1,204 @@
+"Request RMA","Anmod om RMA"
+"My Returns","Mine tilbagevenden"
+Grid,Grid
+List,Liste
+All,Alle
+"Create RMA","Opret RMA"
+"Request New Return","Anmod om nyt retur"
+"Max file size: %1Mb","Maks filstørrelse: %1Mb"
+"New Return for Order #%1","Ny retur for bestilling #%1"
+"RMA #%1","RMA #%1"
+"RMA #%1 - %2","RMA #%1 - %2"
+"Wrong Order #, Email or Last Name","Forkert ordre nr., E-mail eller efternavn"
+Items,Elementer
+"To apply changes you should fill in required ""%1"" field","For at anvende ændringer skal du udfylde det krævede &quot;%1&quot; -felt"
+"Please, add order items to the RMA (set 'Qty to Return')","Tilføj venligst ordreelementer til RMA (sæt &#39;Qty to Return&#39;)"
+"Please, set correct order items Quantity to return","Vær venlig at angive korrekte ordreelementer Mængde, der skal returneres"
+"RMA was successfully created","RMA blev vellykket skabt"
+"Shipping is confirmed. Thank you!","Forsendelsen er bekræftet. Tak skal du have!"
+"Your message was successfully added","Din besked blev tilføjet"
+"Allowed extensions:","Tilladte udvidelser:"
+"Maximum size:","Maksimal størrelse:"
+"-- Please Select --","-- Vælg venligst --"
+" at %1 (%2)","ved 12__)"
+"Mark as unresolved","Marker som uopløst"
+"Mark as resolved","Markér som løst"
+"not set","ikke indstillet"
+Pattern,Mønster
+"Attribute Value",Egenskabsværdi
+Default,Standard
+Integer,Heltal
+Price,Pris
+"Strip Tags","Strip Tags"
+"Primary Attributes","Primær attributter"
+"Stock Attributes","Lager attributter"
+"Prices & Taxes","Priser og skatter"
+Images,Billeder
+"Custom Attributes","Brugerdefinerede attributter"
+Mapping,Kortlægning
+Category,Kategori
+"Amasty Meta Tags","Amasty Meta Tags"
+"Others Attributes","Andre attributter"
+Text,Tekst
+"Multi-line text","Multi-line tekst"
+Date,Dato
+Checkbox,Afkrydsningsfelt
+"Drop-down list","Drop-down liste"
+Reason,Grund
+Condition,Tilstand
+Resolution,Løsning
+"RMA #","RMA #"
+"Order #","Bestil #"
+"Customer Email","Kunde Email"
+"Customer Name",Kundenavn
+Owner,Ejer
+"Last Replier","Sidste mappe"
+Status,Status
+Store,Butik
+"Created At","Oprettet på"
+"Last Activity","Sidste aktivitet"
+"View link","Se link"
+"New RMA has been created","Ny RMA er blevet oprettet"
+"RMA has been changed","RMA er blevet ændret"
+"New reply from customer","Nyt svar fra kunde"
+"New reply from staff","Nyt svar fra personalet"
+"-- Default Address --","- Standardadresse -"
+"Update the Product","Opdater produktet"
+"Conditions Combination","Betingelser Kombination"
+"RMA Attribute","RMA attributter"
+"Last 7-days Clicks","Sidste 7-dages klik"
+"Last 7-days Orders","Sidste 7-dages ordrer"
+"Last 7-days Revenue","Sidste 7-dages indtjening"
+"Last 7-days Conversation Rate (%)","Sidste 7-dages samtalehastighed (%)"
+"Attribute Set",Egenskabssæt
+Quantity,Antal
+"Product Type",Produkttype
+"Base Image","Base billede"
+Thumbnail,Miniature
+"Small Image","Lille billede"
+"Base Image Size (bytes)","Base Image Size (bytes)"
+"Thumbnail Size (bytes)","Miniaturestørrelse (bytes)"
+"Small Image Size (bytes)","Lille billedstørrelse (bytes)"
+"PHP Condition","PHP betingelse"
+"Open Chooser","Åbn vælger"
+"Last message body","Sidste beskedlegeme"
+"Updated At","Opdateret kl"
+"Status (before change)","Status (før ændring)"
+"Owner (before change)","Ejer (før ændring)"
+"Last Reply By","Sidste svar af"
+"Hours since Created","Timer siden Oprettet"
+"Hours since Updated","Timer siden opdateret"
+"Hours since Last reply","Timer siden Sidste svar"
+"Items have reason","Varer har grund"
+"Items have condition","Varer har betingelse"
+"Items have resolution","Varer har en opløsning"
+"%1 (before change)","%1 (før ændring)"
+Customer,Kunde
+Staff,Personale
+"- Disable these emails -","- Deaktiver disse e-mails -"
+Yes,Ja
+No,Ingen
+Save,Gemme
+"Save & Continue Edit","Gem &amp; Fortsæt Rediger"
+"Save & Close","Gem og luk"
+Edit,Redigere
+Delete,Slet
+"Delete ""${ $.$data.name }""","Slet "${ $.$data.name }""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Er du sikker på, at du vil slette en "${ $.$data.name }" -optegnelse?"
+"Are you sure you want to do this?","Er du sikker på, at du vil gøre dette?"
+"Convert To Ticket","Konverter til billet"
+"View order #${ $.$data.order_id }","Se rækkefølge #${ $.$data.order_id }"
+"View exchange order %1","Se udvekslingsordre %1"
+"RMA: Report by Attribute","RMA: Rapport ved Attribut"
+"RMA: Report by Status","RMA: Rapporter efter status"
+"RMA: Report by Product","RMA: Rapporter efter produkt"
+"RMA: Report by Reasons","RMA: Rapport af grunde"
+"Cannot delete return address with id %1","Kan ikke slette returadresse med id %1"
+"Cannot delete item with id %1","Kan ikke slette element med id %1"
+"Cannot delete condition with id %1","Kan ikke slette tilstand med id %1"
+"Cannot delete field with id %1","Kan ikke slette felt med id %1"
+"Cannot delete message with id %1","Kan ikke slette besked med id %1"
+"Cannot delete history with id %1","Kan ikke slette historie med id %1"
+"Cannot delete Quick Response with id %1","Kan ikke slette hurtig svar med id %1"
+"Cannot delete reason with id %1","Kan ikke slette grund med id %1"
+"Cannot delete resolution with id %1","Kan ikke slette opløsning med id %1"
+"Cannot delete rma with id %1","Kan ikke slette rma med id %1"
+"Cannot delete rule with id %1","Kan ikke slette regel med id %1"
+"Cannot delete status with id %1","Kan ikke slette status med id %1"
+"Please, enter a message","Indtast venligst en besked"
+"Product Name",Produktnavn
+SKU,SKU
+Qty,Antal
+"This was a gift, please do not notify purchaser","Dette var en gave, vær venlig at notificere køberen"
+"Enter your contact information","Indtast dine kontaktoplysninger"
+"First Name",Fornavn
+"Last Name",Efternavn
+Email,E-mail
+Telephone,Telefon
+"To request a new RMA or check the status of current RMA, please, fill the form:","For at anmode om en ny RMA eller kontrollere status for nuværende RMA, bedes du udfylde formularen:"
+"* Required Fields","* Krævede felter"
+"Order Information",Ordreinformation
+"Email or Last Name","Email eller Efternavn"
+Next,Næste
+RMA,RMA
+Actions,Handlinger
+"View Return","Se Retur"
+"There are no Returns","Der er ingen returneringer"
+"Items %1 to %2 of %3 total","Varer %1 til %2 af %3 total"
+"%1 Item(s)","%1 vare (r)"
+Show,"At vise"
+"per page","pr. side"
+"View as","Se som"
+"Sort by","Sorter efter"
+"Set Ascending Direction","Angiv stigende retning"
+"Set Descending Direction","Sorter faldende"
+"Please, select an order","Vælg venligst en ordre"
+Order,Bestille
+"-- Select an Order --","- Vælg en ordre -"
+"You have no completed orders to request RMA or your orders were placed more than %1 days ago. Please, contact customer service.","Du har ikke gennemført ordrer for at anmode om RMA, eller dine ordrer blev placeret mere end %1 dage siden. Kontakt venligst kundeservice."
+"Submit Request","Send anmodning"
+"Please, select RMA items which you would like to return.","Vælg venligst RMA-elementer, som du gerne vil returnere."
+"Additional Information","Yderligere Information"
+"Attach files","Vedhæft filer"
+"Request Information","Anmod om information"
+"Email Address","Email adresse"
+"Order Shipping Address","Bestil forsendelsesadresse"
+"Items in this order","Varer i denne ordre"
+"There are no items for this product that can be returned.","Der er ingen varer til dette produkt, der kan returneres."
+"Another RMA for this product: %1","En anden RMA for dette produkt: %1"
+"This product can not be returned due to RMA Policy","Dette produkt kan ikke returneres på grund af RMA Policy"
+"This is a non-returnable item per our return policy.","Dette er en retur, der ikke kan returneres, pr. Returpolitik."
+"Quantity to return","Mængde at returnere"
+"-- Select a Reason --","- Vælg en grund -"
+"-- Select a Condition --","- Vælg en tilstand -"
+"-- Select a Resolution --","- Vælg en opløsning -"
+"I agree","Jeg er enig"
+"Date: %1","Dato: %1"
+"Original order: #%1","Original ordre: #%1"
+"Return Address","Retur adresse"
+"Customer Information","Kunde information"
+"RMA History","RMA historie"
+"RMA Items",RMA-elementer
+Weight,Vægt
+"Print RMA Packing Slip","Udskriv RMA Packing Slip"
+"Print RMA Shipping Label","Udskriv RMA Shipping Label"
+"Confirm Shipping","Bekræft forsendelse"
+"(This was a gift)","(Dette var en gave)"
+"Date Requested","Dato anmodet"
+"Contact Information","Kontakt information"
+"Items RMA Requested for","Varer RMA anmodet om"
+QTY,QTY
+"Add Message","Tilføj besked"
+Submit,
+%name,%navn
+"The quantity is incorrect.","Mængden er forkert."
+"New Return for Offline Order","Ny retur for offline ordre"
+" at %1","på %1"
+Select,Vælg
+"If you do not have account on this store please fill the form below.","Hvis du ikke har konto på denne butik, bedes du udfylde formularen herunder."
+"-- Create Offline Order --","- Opret offline ordre -"
+"Returned Item","Returneret vare"
+"Remove Item","Fjern element"
+"Order or Receipt #","Bestilling eller Kvittering #"
+"Add Item","Tilføj produkt"
+"Add at least one item to this RMA","Tilføj mindst et element til denne RMA"
