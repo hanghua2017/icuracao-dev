@@ -14,7 +14,7 @@
 @import "_pdpbreadcrumbs";
 @import "_short-discription";
 @black: 0;
-@price-grey: #888888;
+@price-grey: #838282;
 
 .price-label-font {
   font-size: 16px;
@@ -325,9 +325,9 @@
               }
 
               .page-title {
-                font-size: 22px;
+                font-size: 24px;
                 margin-bottom: 8px;
-                font-family: 'iCuracao-Medium';
+                font-family: 'iCuracao-Regular';
                 color: @black;
                 @media all and (max-width: 991px) {
                   font-size: 20px;
@@ -416,7 +416,7 @@
 
                         .price {
                           .price-font();
-                          color: @price-grey;
+                          color: #c7c7c7;
                           text-decoration: line-through;
                           @media all and (max-width: 767px) {
                             line-height: 36px;
@@ -460,7 +460,7 @@
 
                       .price-wrapper {
                         .price {
-                          color: @black;
+                          color: #282828;
                           font-size: @mrp-price;
                           font-family: 'iCuracao-Medium';
                           font-weight: normal;
@@ -471,7 +471,7 @@
                               clear: both;
 
                               .emi-amount {
-                                color: @green-color;
+                                color: @green-color-pdp;
                                 font-weight: normal;
                                 font-size: 18px;
                                 display: inline-block;
@@ -507,7 +507,7 @@
                       clear: both;
 
                       .emi-amount {
-                        color: @green-color;
+                        color: @green-color-pdp;
                         font-weight: normal;
                         font-size: 18px;
                         font-family: 'iCuracao-Regular';
@@ -539,7 +539,7 @@
               .credit-card-emi {
                 .emi-amount {
                   .price {
-                    color: @green-color;
+                    color: #81b800;
                     font-weight: normal;
                     font-size: 18px;
                     margin-right: 5px;
@@ -735,6 +735,10 @@
                     }
                   }
                 }
+              }
+              .magnifier-preview{
+                //width: 70% !important;
+              //  height:70% !important;
               }
             }
           }
