@@ -164,8 +164,8 @@ input, select {
                     padding-bottom: 10px;
                     td {
                       width: 18%;
-                      @media all and (max-width: 1199px) {
-
+                      @media all and (min-width: 768px) {
+                          border-left: 1px solid @table-border;
                       }
                       @media all and (min-width: 768px) {
                         padding-left: 0;
@@ -482,9 +482,9 @@ input, select {
                         }
                       }
                       .price-excluding-tax, .field.qty {
-                        @media all and (min-width: 768px) {
-                            border-left: 1px solid @table-border;
-                        }
+                        // @media all and (min-width: 768px) {
+                        //     border-left: 1px solid @table-border;
+                        // }
                       }
                       .price-excluding-tax {
                         padding: 20px 0 55px;
