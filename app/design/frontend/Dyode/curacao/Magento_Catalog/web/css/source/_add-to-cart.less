@@ -7,7 +7,7 @@
 ****************************************************************/
 //Add to cart box
 .catalog-product-view{
-  .add-to-cart-block {
+  .add-to-cart-block,.update-cart-block {
     width: 100%;
     clear: both;
     margin-bottom: 30px;
@@ -25,7 +25,7 @@
       @media all and (max-width: 767px) {
         width: 100%;
       }
-      #product-addtocart-button {
+      #product-addtocart-button,#product-updatecart-button {
         background-color: @btn-orange;
         border-color: @btn-orange;
         color: #fff;
@@ -67,7 +67,7 @@
         }
       }
     }
-  }
+}
   //product spec MOUNTING OPTIONS above the add to cart buttons
   .mount-option {
     .spec {

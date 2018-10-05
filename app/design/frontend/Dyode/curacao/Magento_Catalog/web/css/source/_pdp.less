@@ -594,7 +594,7 @@
                 color: @link-blue;
                 font-size: 14px;
                 font-weight: normal;
-                font-family: 'iCuracao-Regular';
+                font-family: 'iCuracao-Medium';
                 padding: 5px 30px;
                 text-transform: uppercase;
                 &:hover {
@@ -614,12 +614,12 @@
         //Styling for product image section - left side //
         .product {
           &.media {
-            width: 38%;
+            width: 45%;
             padding: 50px 20px;
             margin-bottom: 0;
             @media all and (min-width: 901px) {
                     min-height: 700px;
-                }
+            }
             @media all and (max-width: 901px) {
               -ms-flex-order: -1;
               -webkit-order: -1;
@@ -641,10 +641,10 @@
                     .fotorama__stage__frame {
                       .fotorama__img{
                         @media all and (min-width: 991px) and (max-width: 1024px) {
-                          max-width: 60%;
+                          max-width: 100%;
                         }
                         @media all and (max-width: 990px) and (min-width: 768px) {
-                          max-width: 4%;
+                          //max-width: 4%;
                         }
                       }
                     }

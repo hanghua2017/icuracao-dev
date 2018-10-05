@@ -35,7 +35,9 @@ $product = $block->getProduct();
                 <li>
                     <div class="product slected-item">
                         <div class="prod-details">
-                            <img class="prod-img" src="<?= $viewModel->getProductImageUrl($product) ?>"/>
+                          <div class="img-wrapper">
+                          <img class="prod-img" src="<?= $viewModel->getProductImageUrl($product) ?>"/>
+                          </div>
                             <div class="price-details">
                                 <label class="name"><?= $block->escapeHtml($product->getName()) ?></label>
 
@@ -77,8 +79,10 @@ $product = $block->getProduct();
                         <label for="frequent-checkbox-<?= $fbtProduct->getId(); ?>">
                             <div class="product frequent-item">
                                 <div class="prod-details">
+                                      <div class="img-wrapper">
                                     <img class="prod-img"
                                          src="<?= $viewModel->getProductImageUrl($fbtProduct) ?>" />
+                                       </div>
                                     <div class="price-details">
                                         <label class="name"><?= $block->escapeHtml($fbtProduct->getName()) ?></label>
 
