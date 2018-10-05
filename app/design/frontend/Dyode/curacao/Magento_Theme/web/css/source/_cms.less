@@ -10,17 +10,21 @@
 	.page-main{
 		.column{
 			margin-top: 30px;
+			padding-bottom: 0;
 			@media (max-width: 767px){
 				margin-top: 0;
 				padding-top: 15px;
 			}
 		}
 	.block{
-		@media (min-width: 991px){
-			margin-bottom: 40px;
-		}
 		@media (min-width: 768px){
 			margin-bottom: 30px;
+		}
+	}
+	.gateway-banner-container{
+		margin:0 0 15px;
+		.banner-block{
+			margin:0;
 		}
 	}
 	.slider-title, .block-title{
@@ -43,14 +47,14 @@
 	.product-slider-carousel, .product-slider-new-arrivals{
 		box-shadow: 0 0px 10px @box-shadow-color;
 		margin: 15px 0 30px 0;
-		@media screen and (min-width: 991px) {
-			margin: 15px 0 40px 0;
-		}
-		.owl-stage {
-			position: relative;
-			display: -webkit-flex;
-			display: flex;
-			align-items: stretch;
+		.owl-stage-outer{
+			margin-left: 4px;
+			.owl-stage {
+				position: relative;
+				display: -webkit-flex;
+				display: flex;
+				align-items: stretch;
+			}
 		}
 		.owl-nav {
 			.custom-prev,
@@ -108,6 +112,7 @@
 			border-right: 1px solid #ebebeb;
 			width: 100%;
 			height: 100%;
+			min-height:320px;
 			box-sizing: border-box;
 			a {
 				color: @textColor;
@@ -129,15 +134,17 @@
 					}
 					@media all and (max-width:479px){
 						font-size:12px;
-						left:0px;
+						left:10px;
 						top:10px;
 					}
 				}
 				.productimage-container{
 					overflow: hidden;
 					display: block;
+					padding: 10px 0;
+					margin-top:20px;
 					img {
-						max-width: 85%;
+						max-width: 150px;
 						width: 100%;
 						vertical-align: middle;
 						-moz-transition: all 0.3s;
@@ -267,9 +274,12 @@
 			.product-image-container{
 				width:100% !important;
 				.product-image-wrapper{
-					padding-bottom: 85% !important;
+					padding-bottom: 0% !important;
+					height:auto;
+					margin-top:20px;
 					.product-image-photo {
-						max-width: 85%;
+						position: static;
+						max-width: 150px;
 						transition: all 0.2s;
 						margin: 0px auto;
 						width: 100%;
@@ -366,8 +376,8 @@
 					.price-box{
 						text-align: center;
 						margin-bottom: 15px;
-						.price-label{
-							display:none;
+						.price-label,.price-discount {
+							display: none;
 						}
 						.price{
 							color: black;

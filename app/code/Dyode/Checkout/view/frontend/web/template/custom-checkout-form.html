@@ -1,8 +1,8 @@
 <div class='curacao-outer'>
-  <div class="linkaccount" data-bind="if: (!isLogedIn || getCuracaoId()== null)">
+  <div class="linkaccount" data-bind="if: (!linked)">
     <h2><span data-bind="i18n: 'Pay with Curacao credit'"></span><div class="curacao-credit-logo"></div></h2>
     <div class="curacao-credit-fieldset">
-      <form id="custom-checkout-form" method="post" action="/creditapp/credit/index" class="form" data-bind="attr: {'data-hasrequired': $t('* Required Fields')}">
+      <form id="custom-checkout-form" method="post" class="form" data-bind="attr: {'data-hasrequired': $t('* Required Fields'),'action':getLinkUrl()}">
           <!-- ko foreach: getRegion('custom-checkout-form-fields') -->
           <!-- ko template: getTemplate() --><!-- /ko -->
           <!--/ko-->
@@ -13,7 +13,7 @@
       <h3><span data-bind="i18n: 'Don’t have a Curacao account?'"></span>&nbsp;<a href="#" data-bind="i18n: 'Apply Now'"></a></h3>
     </div>
   </div>
-  <div data-bind="if: (isLogedIn && getCuracaoId()!= null)" class="creditlimit">
+  <div data-bind="if: (linked)" class="creditlimit">
     <h2><span data-bind="i18n: 'Pay with Curacao credit'"></span><div class="curacao-credit-logo"></div></h2>
     <div class="curacao-account-info">
       <div class="curacao-details">

@@ -25,6 +25,8 @@ select:focus, input:focus {
 @border-color:#f2f2f2;
 @background-white: #fcfcfc;
 @badge-orange: #ff4200;
+@black:#000000;
+@form-label:#929292;
 
 
 //ICuracao-Account border color
@@ -1918,3 +1920,436 @@ select:focus, input:focus {
     }
   }
 }
+/*styling for rma form begins here*/
+.rma-new-step2 {
+  .curacao-file-upload{
+    max-width: 500px;
+    .file-upload{
+      display:block;
+      text-align:center;
+    }
+    .file-upload .file-select{
+      display:block;
+      border: 1px solid #b4b4b4!important;
+      border-radius: 5px!important;
+      cursor:pointer;
+      height:40px;
+      line-height:40px;
+      text-align:left;
+      background:#FFFFFF;
+      overflow:hidden;
+      position:relative;
+    }
+    .file-upload .file-select .file-select-button{
+      font-size: 14px;
+      font-family: 'iCuracao-Regular';
+      background-color: #888888;
+      font-weight: 500;
+      color: white;padding:0 10px;
+      display:inline-block;
+      height:40px;
+      width: 100px;
+      float: left;
+      line-height:40px;
+    }
+    .file-upload .file-select .file-select-name{
+      line-height:40px;
+      width: 165px;
+      display:inline-block;
+      padding:0 10px;
+      color: #8a8888;
+      font-size: 14px;
+      font-family: "iCuracao-Regular";
+    }
+    .file-upload .file-select:hover{
+      border-color:#888888;
+      transition:all .2s ease-in-out;
+      -moz-transition:all .2s ease-in-out;
+      -webkit-transition:all .2s ease-in-out;
+      -o-transition:all .2s ease-in-out;
+    }
+    .file-upload .file-select:hover .file-select-button{
+      background:#888888;
+      color:#FFFFFF;
+      transition:all .2s ease-in-out;
+      -moz-transition:all .2s ease-in-out;
+      -webkit-transition:all .2s ease-in-out;
+      -o-transition:all .2s ease-in-out;
+    }
+    .file-upload.active .file-select{
+      border-color:#888888;
+      transition:all .2s ease-in-out;
+      -moz-transition:all .2s ease-in-out;
+      -webkit-transition:all .2s ease-in-out;
+      -o-transition:all .2s ease-in-out;
+    }
+    .file-upload.active .file-select .file-select-button{
+      background:#888888;
+      color:#FFFFFF;
+      transition:all .2s ease-in-out;
+      -moz-transition:all .2s ease-in-out;
+      -webkit-transition:all .2s ease-in-out;
+      -o-transition:all .2s ease-in-out;
+    }
+    .file-upload .file-select input[type=file]{
+      z-index:100;
+      cursor:pointer;
+      position:absolute;
+      height:100%;
+      width:100%;
+      top:0;
+      left:0;
+      opacity:0;
+      filter:alpha(opacity=0);
+    }
+    .file-upload .file-select.file-select-disabled{
+      opacity:0.65;
+    }
+    .file-upload .file-select.file-select-disabled:hover{
+      cursor:default;
+      display:block;
+      border: 2px solid #dce4ec;
+      color: #888888;
+      cursor:pointer;
+      height:40px;
+      line-height:40px;
+      margin-top:5px;
+      text-align:left;
+      background:#FFFFFF;
+      overflow:hidden;
+      position:relative;
+    }
+    .file-upload .file-select.file-select-disabled:hover .file-select-button{
+      background:#dce4ec;
+      color:#666666;
+      padding:0 10px;
+      display:inline-block;
+      height:40px;
+      line-height:40px;
+    }
+    .file-upload .file-select.file-select-disabled:hover .file-select-name{
+      line-height:40px;
+      display:inline-block;
+      padding:0 10px;
+    }
+  }
+  select {
+    font-family: 'iCuracao-Light';
+    width: 100%;
+    background: #fff;
+    color: #8a8888;
+    -webkit-appearance: none;
+    background-image: url(../../images/arrow.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    padding-top: 4px;
+    font-size: 14px;
+  }
+  .input {
+    font-family: 'iCuracao-Light';
+    font-size: 14px;
+    background: #fff;
+    color: #8a8888;
+  }
+  .fieldset > .field {
+    margin: 0 0 10px;
+  }
+  .block {
+    margin-bottom: 0;
+    padding: 0px 25px!important;
+  }
+  button {
+    float: left!important;
+    margin: 0 25px!important;
+  }
+  .actions-toolbar{
+    .primary{
+      float: left;
+      button{
+        margin: 0 auto!important;
+      }
+    }
+    @media all and (max-width:767px){
+      padding: 0 25px 20px !important;
+    }
+  }
+  .custom-select {
+    position: relative;
+    width: 100%;
+    select {
+      display: none; /*hide original SELECT element:*/
+    }
+    .select-selected {
+      background-color: white;
+      border:none!important;
+    }
+    .select-selected:after {
+      position: absolute;
+      content: "";
+      top: 14px;
+      right: 10px;
+      width: 0;
+      height: 0;
+      border: 6px solid transparent;
+      border-color: #8a8888 transparent transparent transparent;
+    }
+    /*point the arrow upwards when the select box is open (active):*/
+    .select-selected.select-arrow-active:after {
+      border-color: transparent transparent #8a8888 transparent;
+      top: 7px;
+    }
+    /*style the items (options), including the selected item:*/
+    .select-items div,.select-selected {
+      font-family: 'iCuracao-Light';
+      color: #8a8888;
+      font-size: 16px;
+      padding: 5px 16px;
+      border: 1px solid transparent;
+      border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+      cursor: pointer;
+    }
+    /*style items (options):*/
+    .select-items {
+      position: absolute;
+      border: 1px solid #bbbbbb;
+      border-radius: 2px;
+      background-color: white;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 99;
+    }
+    /*hide the items when the select box is closed:*/
+    .select-hide{
+      display: none;
+    }
+    .select-items div:hover{
+      background-color: rgba(183, 183, 183, 0.7);
+      color: 666666!important;
+    }
+    .same-as-selected{
+      background-color: #dedede!important;
+      color: #666666!important;
+    }
+  }
+  .rma-checkbox{
+    cursor: pointer;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .rma-item-checkbox + label:before {
+    content: '';
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: text-top;
+    width: 20px;
+    height: 20px;
+    background: white;
+    -webkit-box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
+    border: 1px solid #3857f3;
+    @media all and (max-width: 767px) {
+      width: 17px;
+      height: 17px;
+    }
+  }
+  .rma-item-checkbox:checked + label:before {
+    background-color: #3857f3;
+    background-image: url(../images/frequent-select.png);
+    @media all and (max-width: 767px) {
+      width: 17px;
+      height: 17px;
+      background-size: contain;
+    }
+  }
+  .rma-one-item {
+    padding: 25px;
+    .item-description {
+      width: 20%;
+      .image {
+        float: none;
+        margin: 0 35px;
+        width: 100%;
+      }
+      b{
+        display: block;
+        margin: 5px 35px;
+      }
+    }
+  }
+}
+/*styling for rma form ends here*/
+/*styling for rma-list starts here*/
+.rma-rma-list{
+  .page-main{
+    .columns{
+      .column{
+        .action{
+          &.primary{
+            background:@theme-color;
+            border:1px solid @theme-color;
+            font-family: "iCuracao-Medium";
+            font-weight:normal;
+            margin:25px 15px 0 0;
+            @media all and (max-width:767px){
+              margin: 15px 15px 0 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/*styling for rma-list ends here*/
+/*styling for rma request form starts here*/
+.rma-guest-new {
+  .page-main{
+    background: url("../../images/Order-returns-BG.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    .columns{
+      padding: 60px 0;
+      @media all and (max-width: 767px){
+        padding: 0;
+      }
+      .column.main{
+        width: 800px;
+        margin:  0 auto;
+        background-color: @white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
+        margin-top: 0 !important;
+        padding:0 !important;
+        @media all and(max-width: 991px){
+          width: 600px;
+        }
+        @media all and (max-width: 767px){
+          width: 100%;
+          box-shadow:none;
+        }
+        .page-title-wrapper{
+          text-align: center;
+          margin: 0;
+          padding-top: 60px;
+          @media all and (max-width: 767px){
+           padding-top: 45px;
+          }
+          @media all and (max-width: 425px){
+           padding-top: 30px;
+          }
+          h1{
+            font-size: 28px;
+            color: @black;
+            text-transform: capitalize;
+            font-family: 'iCuracao-Light' !important;
+            @media all and(max-width: 767px){
+              font-size: 24px;
+            }
+          }
+        }
+          //styling for form
+        .form{
+          max-width: 500px;
+          min-width: auto;
+          width:100%;
+          margin: 0 auto;
+          @media all and (max-width: 767px){
+            max-width: calc(80% + 30px);
+          }
+          .fieldset{
+            padding: 35px 0 70px 0;
+            @media all and (max-width: 767px){
+              padding: 45px 0;
+            }
+            @media all and (max-width: 425px){
+             padding: 30px 0;
+            }
+            legend{
+              font-family: 'iCuracao-Light';
+              text-transform: capitalize;
+              margin-bottom: 10px;
+              font-size: 20px;
+              color: @black;
+              font-weight: normal;
+              border: none;
+              padding: 0;
+              @media all and (max-width: 425px){
+                font-size: 18px;
+              }
+            }
+            .field{
+              margin:0;
+              input{
+                font-family: 'iCuracao-Light';
+                padding: 14px 20px;
+                min-height: 50px;
+                border: 1px solid @form-label;
+                border-radius: 5px 5px 0 0px;
+                &::placeholder{
+                  font-size:16px;
+                  text-transform: capitalize;
+                  color: #8a8888;
+                  font-weight: lighter;
+                }
+                ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                  font-size:16px;
+                  text-transform: capitalize;
+                  color: #8a8888;
+                  font-weight: lighter;
+                  }
+                  ::-moz-placeholder { /* Firefox 19+ */
+                    font-size:16px;
+                    text-transform: capitalize;
+                    color: #8a8888;
+                    font-weight: lighter;
+                  }
+                  :-ms-input-placeholder { /* IE 10+ */
+                    font-size:16px;
+                    text-transform: capitalize;
+                    color: #8a8888;
+                    font-weight: lighter;
+                  }
+                  :-moz-placeholder { /* Firefox 18- */
+                    font-size:16px;
+                    text-transform: capitalize;
+                    color: #8a8888;
+                    font-weight: lighter;
+                  }
+              }
+              &.email{
+                input{
+                  border-top: none;
+                  border-radius: 0 0 5px 5px;
+                }
+              }
+            }
+          }
+          //Styling for button
+          .actions-toolbar{
+            .primary{
+              float: none;
+              display: block;
+              button{
+                width: 100%;
+                margin-top: 30px;
+                padding: 15px;
+                min-height: 50px;
+                font-size: 17px;
+                font-family: 'iCuracao-Medium';
+                background: @theme-color-dark;
+                border:1px solid @theme-color-dark;
+                font-weight: normal;
+                @media all and (max-width: 768px){
+                  max-width: 600px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/*styling for rma request form ends here*/

@@ -138,13 +138,10 @@ footer {
               margin-top: 0;
               display: inline-block;
               position: relative;
-              @media all and (max-width: 767px) {
-                display:block;
-              }
+              display:block;
               .newsletter {
                 text-align: left;
-                margin-right: 80px;
-                margin-bottom: 0;
+                margin: 0;
                 label {
                   font-family: 'iCuracao-Light';
                   color: #333333;
@@ -153,26 +150,6 @@ footer {
                 .control {
                   &::before {
                     display: none;
-                  }
-                  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-                    font-family: 'iCuracao-Regular';
-                    color: #a6a6a6;
-                    line-height: 1;
-                  }
-                  ::-moz-placeholder { /* Firefox 19+ */
-                    font-family: 'iCuracao-Regular';
-                    color: #a6a6a6;
-                    line-height: 1;
-                  }
-                  :-ms-input-placeholder { /* IE 10+ */
-                    font-family: 'iCuracao-Regular';
-                    color: #a6a6a6;
-                    line-height: 1;
-                  }
-                  :-moz-placeholder { /* Firefox 18- */
-                    font-family: 'iCuracao-Regular';
-                    color: #a6a6a6;
-                    line-height: 1;
                   }
 
                   input {
@@ -184,6 +161,26 @@ footer {
                     height: 37px;
                     border: none;
                     border-radius: 2px 0 0 2px;
+                    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                      font-family: 'iCuracao-Regular';
+                      color: #a6a6a6;
+                      line-height: 1;
+                    }
+                    ::-moz-placeholder { /* Firefox 19+ */
+                      font-family: 'iCuracao-Regular';
+                      color: #a6a6a6;
+                      line-height: 1;
+                    }
+                    :-ms-input-placeholder { /* IE 10+ */
+                      font-family: 'iCuracao-Regular';
+                      color: #a6a6a6;
+                      line-height: 1;
+                    }
+                    :-moz-placeholder { /* Firefox 18- */
+                      font-family: 'iCuracao-Regular';
+                      color: #a6a6a6;
+                      line-height: 1;
+                    }
 
                     &:focus {
                       outline: none;
@@ -198,11 +195,10 @@ footer {
 
               .actions {
                 position: absolute;
-                right: 74px;
+                right: 0px;
                 top: 0;
-                @media all and (max-width:479px){
-                  right:79px;
-                }
+                display: block;
+                width: auto;
 
                 button {
                   border: none;
@@ -417,7 +413,10 @@ footer {
                  width: 100%;
                }
                img{
-                 margin-bottom: 5px;
+                 margin: 5px 0;
+                 @media all and (max-width:991px){
+                   margin:0 0 5px;
+                 }
                }
              }
            }
@@ -430,7 +429,6 @@ footer {
                margin: 0px;
                margin-top: 20px;
                color: #333333;
-               letter-spacing: 0.7px;
              }
            }
          }
@@ -446,6 +444,11 @@ footer {
         @media all and (max-width:1024px){
           margin: 25px 0 0 0;
         }
+        @media all and (max-width:767px){
+          border-top:none;
+          margin:25px -15px 0;
+          width:~"calc(100% + 30px)";
+        }
         .copy-right-section{
           padding: 0px;
           max-width: 1500px;
@@ -456,6 +459,8 @@ footer {
             @media all and (max-width:767px){
               float: left;
               width:100%;
+              padding: 0 15px 10px;
+              background: #e7e7e7;
             }
             p{
               margin-top: 1rem;
@@ -468,6 +473,7 @@ footer {
               a{
                 text-decoration: none;
                 color: #333333;
+                padding: 0 5px;
               }
             }
           }
@@ -477,6 +483,7 @@ footer {
             @media all and (max-width:767px){
               float: left;
               width:100%;
+              padding: 0 15px;
             }
             p{
               margin-top: 1rem;

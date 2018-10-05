@@ -1,12 +1,46 @@
 .modals-overlay
 {
-  z-index: 899000;
+  z-index: 899000 !important;
+}
+.modal-popup {
+    z-index: 99999999 !important;
+}
+.store-availability-modal{
+  .modal-header
+  {
+    width: 100%;
+      text-align: left;
+      padding: 15px !important;
+      box-sizing: border-box;
+      padding-left: 35px !important;
+      background: #97d700 !important;
+      color: white;
+      border: none !important;
+    .modal-title
+    {
+      padding: 0 !important;
+      font-weight: 500 !important;
+    }
+    .action-close
+    {
+      padding: 0;
+    width: 40px;
+    line-height: 40px;
+    margin-top: 3px;
+      &::before
+      {
+        color: #ffffff !important;
+        padding: 13px !important;
+      }
+    }
+  }
 }
 .modals-wrapper
 {
   .modal-inner-wrap
   {
     width: 800px !important;
+    margin-bottom: 0;
     @media all and (max-width : 805px)
     {
       width:90% !important;
@@ -21,7 +55,6 @@
     background: #00000091;
     position: fixed;
     top: 0;
-
     z-index: 10;
 }
 .modal-content
@@ -51,34 +84,7 @@
     }
   }
 }
-.modal-header
-{
-  width: 100%;
-    text-align: left;
-    padding: 15px !important;
-    box-sizing: border-box;
-    padding-left: 35px !important;
-    background: #97d700 !important;
-    color: white;
-    border: none !important;
-  .modal-title
-  {
-    padding: 0 !important;
-    font-weight: 500 !important;
-  }
-  .action-close
-  {
-    padding: 0;
-  width: 40px;
-  line-height: 40px;
-  margin-top: 3px;
-    &::before
-    {
-      color: #ffffff !important;
-      padding: 13px !important;
-    }
-  }
-}
+
 .modal-body-content
 {
   box-sizing: border-box;
@@ -170,7 +176,7 @@
         display: flex;
         position: relative;
         ul{
-          list-style-type: none;
+          list-style-type:none;
           padding:0;
           margin:0;
           position: absolute;
@@ -178,11 +184,12 @@
           transform: translateY(-50%);
           li{
             font-size:14px;
+            font-family: 'iCuracao-Regular';
             color:#000;
             line-height:25px;
             &.store-location{
               font-size: 12px;
-              font-weight: 500;
+              font-family: 'iCuracao-Regular';
               padding-left: 15px;
               margin-bottom: 0;
             }
