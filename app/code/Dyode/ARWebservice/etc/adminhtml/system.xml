@@ -1,12 +1,9 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
 	<system>
-		<tab id="curacao" sortOrder="999" translate="label">
-			<label>curacao</label>
-		</tab>
 		<section id="linkaccount" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
-			<label>Linkaccount</label>
-			<tab>curacao</tab>
+			<label>AR Settings</label>
+			<tab>curacao_settings</tab>
 			<resource>Dyode_ARWebservice::config_dyode_arwebservice</resource>
 			<group id="curacao" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
 				<label>Settings</label>

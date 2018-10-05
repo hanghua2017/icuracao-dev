@@ -54,27 +54,49 @@ class Index extends Action {
   public function execute()
   {
   //stdClass Object ( [CELL] => (323)274-6810 [CITY] => LOS ANGELES [CUST_ID] => 52398671 [F_NAME] => MARTHA [L_NAME] => LINARES [OTHER] => AURELIA [PHONE] => (323)274-6810 [STATE] => CA [STREET] => 846 W 42ND PL APT 2 [ZIP] => 90037 )
-    $postVariables = (array) $this->getRequest()->getPost();
-
+    $postVariables = (array) $this->getRequest()->getParams();
     $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
     if(!empty($postVariables)){
-        print_r($postVariables);
-        exit;
+       
         $accountNumber = $postVariables['curacao_account'];
-    //    $customerEmail = $postVariables['customer_email'];
+        $customerEmail = $postVariables['customer_email'];
         //Verify Credit Account Infm
         $accountInfo   =  $this->_helper->getARCustomerInfoAction($accountNumber);
+        
+        if($accountInfo){
+            $this->_coreSession->setCurAcc($accountNumber);
+            $this->_coreSession->setCustEmail($customerEmail);
+            $this->_coreSession->setCustomerInfo($accountInfo);
+            $this->coreSession->setPass('test@123');
+            $this->_coreSession->setPrevpage('checkout');
 
-        $this->_coreSession->setCurAcc($accountNumber);
-      //  $this->_coreSession->setCustEmail($customerEmail);
-        $this->_coreSession->setCustomerInfo($accountInfo);
-        $this->_coreSession->setPrevpage('checkout');
+            if($accountInfo !== false){              
+                $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
+                /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
+                return $resultRedirect->setUrl($defaultUrl);
+            } else{
+                $this->messageManager->addErrorMessage(
+                    'Curacao Id is wrong...'
+                );
+                $defaultUrl = $this->urlModel->getUrl('checkout/cart/index', ['_secure' => true]);
+                /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
+                return $resultRedirect->setUrl($defaultUrl);
+            }
 
-        if($accountInfo !== false){
-            $resultRedirect->setPath('linkaccount/verify/index');
-            return $resultRedirect;
+        } else{
+            $this->messageManager->addErrorMessage(
+                'Curacao Id is wrong...'
+            );
+            $defaultUrl = $this->urlModel->getUrl('checkout/cart/index', ['_secure' => true]);
+            /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
+            return $resultRedirect->setUrl($defaultUrl);
         }
     }
-
+    $this->messageManager->addErrorMessage(
+        'Curacao Id is wrong...'
+    );
+    $defaultUrl = $this->urlModel->getUrl('checkout/cart/index', ['_secure' => true]);
+    /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
+    return $resultRedirect->setUrl($defaultUrl);
   }
 }

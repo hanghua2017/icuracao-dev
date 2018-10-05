@@ -1,0 +1,204 @@
+"Request RMA",請求RMA
+"My Returns",我的退貨
+Grid,格
+List,名單
+All,所有
+"Create RMA",創建RMA
+"Request New Return",申請新的回報
+"Max file size: %1Mb",最大文件大小：%1Mb
+"New Return for Order #%1",新訂單#%1的退貨
+"RMA #%1","RMA #%1"
+"RMA #%1 - %2","RMA #%1  -  %2"
+"Wrong Order #, Email or Last Name",錯誤的訂單號，電子郵件或姓氏
+Items,項目
+"To apply changes you should fill in required ""%1"" field",要應用更改，請填寫必填“%1”字段
+"Please, add order items to the RMA (set 'Qty to Return')",請將訂單商品添加到RMA（設置“退貨數量”）
+"Please, set correct order items Quantity to return",請設置正確的訂單項數量返回
+"RMA was successfully created",RMA成功創建
+"Shipping is confirmed. Thank you!",運輸已確認。謝謝！
+"Your message was successfully added",您的消息已成功添加
+"Allowed extensions:",允許的擴展名
+"Maximum size:",最大尺寸：
+"-- Please Select --","-  請選擇  -"
+" at %1 (%2)",在12__）
+"Mark as unresolved",標記為未解決
+"Mark as resolved",標記為已解決
+"not set",沒有設置
+Pattern,模式
+"Attribute Value",屬性值
+Default,默認
+Integer,整數
+Price,價錢
+"Strip Tags",帶標籤
+"Primary Attributes",主要屬性
+"Stock Attributes",股票屬性
+"Prices & Taxes",價格和稅收
+Images,圖片
+"Custom Attributes",自定義屬性
+Mapping,製圖
+Category,類別
+"Amasty Meta Tags","Amasty Meta標籤"
+"Others Attributes",其他屬性
+Text,文本
+"Multi-line text",多行文字
+Date,日期
+Checkbox,複選框
+"Drop-down list",下拉列表
+Reason,原因
+Condition,條件
+Resolution,解析度
+"RMA #",RMA＃
+"Order #",訂單＃
+"Customer Email",客戶電郵
+"Customer Name",顧客姓名
+Owner,所有者
+"Last Replier",上次文件夾
+Status,狀態
+Store,商店
+"Created At",創建於
+"Last Activity",上次活動
+"View link",查看鏈接
+"New RMA has been created",新的RMA已經創建
+"RMA has been changed",RMA已更改
+"New reply from customer",客戶的新答复
+"New reply from staff",工作人員的新答复
+"-- Default Address --","-  默認地址  -"
+"Update the Product",更新產品
+"Conditions Combination",條件組合
+"RMA Attribute",RMA屬性
+"Last 7-days Clicks",最近7天的點擊次數
+"Last 7-days Orders",最近7天的訂單
+"Last 7-days Revenue",最近7天的收入
+"Last 7-days Conversation Rate (%)",最近7天對話率（％）
+"Attribute Set",屬性集
+Quantity,數量
+"Product Type",產品類別
+"Base Image",基本圖像
+Thumbnail,縮略圖
+"Small Image",小圖片
+"Base Image Size (bytes)",基本圖像大小（字節）
+"Thumbnail Size (bytes)",縮略圖大小（字節）
+"Small Image Size (bytes)",小圖像大小（字節）
+"PHP Condition",PHP條件
+"Open Chooser",打開選擇器
+"Last message body",最後的郵件正文
+"Updated At",更新於
+"Status (before change)",狀態（更改前）
+"Owner (before change)",所有者（變更前）
+"Last Reply By",最後回复者
+"Hours since Created",創建後的小時數
+"Hours since Updated",已更新的小時數
+"Hours since Last reply",自上次回復後的小時數
+"Items have reason",物品有理由
+"Items have condition",物品有條件
+"Items have resolution",項目有解決方案
+"%1 (before change)",%1（更改前）
+Customer,顧客
+Staff,員工
+"- Disable these emails -","- 禁用這些電子郵件 -"
+Yes,是
+No,沒有
+Save,保存
+"Save & Continue Edit",保存並繼續編輯
+"Save & Close",保存並關閉
+Edit,編輯
+Delete,刪除
+"Delete ""${ $.$data.name }""","刪除"${ $.$data.name }""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","你確定你不想刪除""${ $.$data.name }""記錄嗎？"
+"Are you sure you want to do this?",你確定你要這麼做嗎？
+"Convert To Ticket",轉換成票
+"View order #${ $.$data.order_id }","查看訂單＃${ $.$data.order_id }"
+"View exchange order %1",查看交換訂單%1
+"RMA: Report by Attribute",RMA：按屬性報告
+"RMA: Report by Status",RMA：狀態報告
+"RMA: Report by Product",RMA：按產品報告
+"RMA: Report by Reasons",RMA：按原因報告
+"Cannot delete return address with id %1","無法使用ID %1刪除返回地址"
+"Cannot delete item with id %1",無法刪除ID為%1的項目
+"Cannot delete condition with id %1",無法刪除id為%1的條件
+"Cannot delete field with id %1",無法刪除ID為%1的字段
+"Cannot delete message with id %1",無法刪除ID為%1的訊息
+"Cannot delete history with id %1",無法刪除id為%1的歷史記錄
+"Cannot delete Quick Response with id %1","無法使用ID %1刪除快速響應"
+"Cannot delete reason with id %1","無法使用ID %1刪除原因"
+"Cannot delete resolution with id %1","無法使用ID %1刪除分辨率"
+"Cannot delete rma with id %1",無法刪除id為%1的rma
+"Cannot delete rule with id %1",無法刪除ID為%1的規則
+"Cannot delete status with id %1",無法刪除id為%1的狀態
+"Please, enter a message",請輸入消息
+"Product Name",產品名稱
+SKU,SKU
+Qty,數量
+"This was a gift, please do not notify purchaser",這是禮物，請不要通知購買者
+"Enter your contact information",輸入您的聯繫信息
+"First Name",名字
+"Last Name",姓
+Email,電子郵件
+Telephone,電話
+"To request a new RMA or check the status of current RMA, please, fill the form:",要請求新的RMA或檢查當前RMA的狀態，請填寫以下表格：
+"* Required Fields",*必填字段
+"Order Information",訂單信息
+"Email or Last Name",電子郵件或姓氏
+Next,下一個
+RMA,RMA
+Actions,操作
+"View Return",查看退貨
+"There are no Returns",沒有退貨
+"Items %1 to %2 of %3 total",共%3個項目%1至%2
+"%1 Item(s)",%1項目
+Show,顯示
+"per page",每頁
+"View as",查看為
+"Sort by",排序方式
+"Set Ascending Direction",設置升序
+"Set Descending Direction",設置降序
+"Please, select an order",請選擇一個訂單
+Order,訂購
+"-- Select an Order --","- 選擇一個訂單 -"
+"You have no completed orders to request RMA or your orders were placed more than %1 days ago. Please, contact customer service.",您沒有完成的訂單來申請RMA，或者您的訂單在%1天前發貨。請聯繫客服。
+"Submit Request",提交請求
+"Please, select RMA items which you would like to return.",請選擇您想要返回的RMA項目。
+"Additional Information",附加信息
+"Attach files",附加文件
+"Request Information",請求信息
+"Email Address",電子郵件地址
+"Order Shipping Address",訂單送貨地址
+"Items in this order",項目按此順序
+"There are no items for this product that can be returned.",此產品沒有可退貨的物品。
+"Another RMA for this product: %1",此產品的另一個RMA：%1
+"This product can not be returned due to RMA Policy",由於RMA政策，此產品無法退貨
+"This is a non-returnable item per our return policy.",根據我們的退貨政策，這是不可退貨的商品。
+"Quantity to return",數量返回
+"-- Select a Reason --","- 選擇一個原因 -"
+"-- Select a Condition --","- 選擇一個條件 -"
+"-- Select a Resolution --","- 選擇一個分辨率 -"
+"I agree",我同意
+"Date: %1",日期：%1
+"Original order: #%1",原始順序：#%1
+"Return Address",退貨地址
+"Customer Information",客戶信息
+"RMA History",RMA歷史
+"RMA Items",RMA項目
+Weight,重量
+"Print RMA Packing Slip",打印RMA包裝清單
+"Print RMA Shipping Label",打印RMA運輸標籤
+"Confirm Shipping",確認發貨
+"(This was a gift)",（這是一份禮物）
+"Date Requested",要求的日期
+"Contact Information",聯繫信息
+"Items RMA Requested for",RMA要求的項目
+QTY,QTY
+"Add Message",添加消息
+Submit,提交
+%name,％名稱
+"The quantity is incorrect.",數量不正確。
+"New Return for Offline Order",離線訂單的新回報
+" at %1",在%1
+Select,選擇
+"If you do not have account on this store please fill the form below.",如果您在這家商店沒有賬戶，請填寫下面的表格。
+"-- Create Offline Order --","- 創建離線訂單 -"
+"Returned Item",退回物品
+"Remove Item",除去項目
+"Order or Receipt #",訂單或收據＃
+"Add Item",新增項目
+"Add at least one item to this RMA",至少向此RMA添加一個項目
