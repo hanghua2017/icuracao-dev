@@ -7,4 +7,7 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
       <preference for="Dyode\CheckoutDeliveryMethod\Api\StorePickupInterface" type="Dyode\CheckoutDeliveryMethod\Model\StorePickup" />
+      <!-- API for setting delivery type -->
+      <preference for="Dyode\CheckoutDeliveryMethod\Api\DeliveryMethodManagementInterface" type="Dyode\CheckoutDeliveryMethod\Model\DeliveryMethodManagement"/>
+      <preference for="Dyode\CheckoutDeliveryMethod\Api\DeliveryMethodInformationInterface" type="Dyode\CheckoutDeliveryMethod\Model\DeliveryMethodInformation"/>
 </config>
