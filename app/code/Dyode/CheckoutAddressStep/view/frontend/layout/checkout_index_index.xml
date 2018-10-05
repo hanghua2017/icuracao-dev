@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package   Dyode
+ * @author    kavitha@dyode.com
+ */
+ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="checkout.root">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="checkout" xsi:type="array">
+                                <item name="children" xsi:type="array">
+                                    <item name="steps" xsi:type="array">
+                                        <item name="children" xsi:type="array">
+
+                                            <!--Change sort order -->
+                                            <item name="delivery-method-step" xsi:type="array">
+                                                <item name="sortOrder" xsi:type="string">1</item>
+                                            </item>
+
+                                            <!--Define shipping method step here -->
+                                            <item name="address-step" xsi:type="array">
+                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                <item name="sortOrder" xsi:type="string">2</item>
+                                                <item name="children" xsi:type="array">
+                                                    <item name="step-config" xsi:type="array">
+                                                        <item name="children" xsi:type="array">
+                                                            <item name="shipping-rates-validation" xsi:type="array">
+                                                                <item name="children" xsi:type="array">
+                                                                    <!--Step configuration components-->
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                    <item name="shippingAddress" xsi:type="array">
+                                                        <item name="config" xsi:type="array">
+                                                            <item name="deps" xsi:type="array">
+                                                                <item name="0" xsi:type="string">checkout.steps.shipping-step.step-config</item>
+                                                                <item name="1" xsi:type="string">checkoutProvider</item>
+                                                            </item>
+                                                            <item name="popUpForm" xsi:type="array">
+                                                                <item name="element" xsi:type="string">#opc-new-shipping-address</item>
+                                                                <item name="options" xsi:type="array">
+                                                                    <item name="type" xsi:type="string">popup</item>
+                                                                    <item name="responsive" xsi:type="boolean">true</item>
+                                                                    <item name="innerScroll" xsi:type="boolean">true</item>
+                                                                    <item name="title" xsi:type="string" translate="true">Shipping Address</item>
+                                                                    <item name="trigger" xsi:type="string">opc-new-shipping-address</item>
+                                                                    <item name="buttons" xsi:type="array">
+                                                                        <item name="save" xsi:type="array">
+                                                                            <item name="text" xsi:type="string" translate="true">Save Address</item>
+                                                                            <item name="class" xsi:type="string">action primary action-save-address</item>
+                                                                        </item>
+                                                                        <item name="cancel" xsi:type="array">
+                                                                            <item name="text" xsi:type="string" translate="true">Cancel</item>
+                                                                            <item name="class" xsi:type="string">action secondary action-hide-popup</item>
+                                                                        </item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                        <item name="component" xsi:type="string">Dyode_CheckoutAddressStep/js/view/address</item>
+                                                        <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                        <item name="sortOrder" xsi:type="string">1</item>
+                                                        <item name="children" xsi:type="array"></item>
+                                                    </item>
+                                                </item>
+                                            </item>
+
+                                            <!--Change sort order -->
+                                            <item name="shipping-step" xsi:type="array">
+                                                <item name="sortOrder" xsi:type="string">3</item>
+                                            </item>
+
+                                            <!--Change sort order -->
+                                            <item name="billing-step" xsi:type="array">
+                                                <item name="sortOrder" xsi:type="string">4</item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+        </referenceBlock>
+    </body>
+</page>
