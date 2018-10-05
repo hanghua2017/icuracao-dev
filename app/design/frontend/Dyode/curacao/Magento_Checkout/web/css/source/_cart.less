@@ -4,90 +4,13 @@ input, select {
     box-shadow: none !important;
   }
 }
-.checkout-cart-index
-{
+.checkout-cart-index{
+  .columns .column.main {
+     @media all and (max-width: 991px) {
+      padding-bottom: 0 !important;
+     }
+}
   .page-wrapper {
-    .page-main{
-      /*Credit card ad*/
-      .curacao-ad {
-        max-width: 1500px;
-        width: 100%;
-        margin: 15px auto;
-        margin-bottom: 0;
-        .apply-credit-ad {
-          .desktop-view, .mobile-view {
-            .apply-card {
-              background: @theme-color;
-              box-shadow: none;
-              color: #fff;
-              font-family: 'iCuracao-Medium';
-              font-size: 16px;
-              padding: 12px 30px;
-              letter-spacing: 0.7px;
-              border-radius: 3px;
-              text-decoration: none;
-              @media all and (max-width: 991px) {
-                padding: 10px 20px;
-                font-size: 14px;
-              }
-            }
-          }
-          .desktop-view {
-            position: relative;
-            clear: both;
-            width: 100%;
-            float: left;
-            padding: 15px 0;
-            -webkit-box-shadow: 0px 0px 10px 1px rgba(27,32,42,0.1);
-            -moz-box-shadow: 0px 0px 10px 1px rgba(27,32,42,0.1);
-            box-shadow: 0px 0px 10px 1px rgba(27,32,42,0.1);
-            @media all and (max-width: 767px) {
-              display: none;
-            }
-            .apply-card {
-              float: right;
-              position: absolute;
-              top: 45px;
-              right: 20px;
-              @media all and (max-width: 767px) {
-                right: 0;
-              }
-            }
-            img {
-              width: auto;
-              float: left;
-              padding-left: 20px;
-              @media all and (max-width: 991px) {
-                width: 82%;
-              }
-              @media all and (max-width: 767px) {
-                padding-left: 0;
-              }
-            }
-          }
-          .mobile-view {
-            text-align: center;
-            margin-bottom: 15px;
-            .apply-card {
-              float: none;
-              padding: 7px 40px;
-              @media all and (max-width: 420px) {
-                padding: 7px 0;
-                width: 100%;
-                display: block;
-              }
-            }
-            img {
-              width: 100%;
-              margin-bottom: 10px;
-            }
-            @media all and (min-width: 767px) {
-              display: none;
-            }
-          }
-        }
-      }
-    }
     .page-main {
       max-width: 1500px; //Removable max
       /*page title with bag item count and checkout button*/
@@ -100,13 +23,12 @@ input, select {
         box-shadow: 0px 5px 10px 0px rgba(27,32,42,0.1);
         clear: both;
         overflow: hidden;
-
-        @media all and (max-width: 768px) {
+        @media all and (max-width: 767px) {
           box-shadow: none;
           border-bottom: none;
         }
         @media all and (min-width: 991px) {
-          padding: 35px 20px 20px;
+          padding: 30px 20px;
         }
         .page-title {
           float: left;
@@ -156,6 +78,11 @@ input, select {
               }
             }
           }
+          .item{
+            .multicheckout{
+              display:none;
+            }
+          }
         }
       }
       .columns {
@@ -172,21 +99,23 @@ input, select {
             box-shadow: 0px 3px 10px 0 rgba(27,32,42,0.1);
             background-color: #ffffff;
             @media all and (max-width: 767px) {
-              padding: 15px 15px 0 15px;
+              padding: 0px 15px 0 15px;
               box-shadow: none;
             }
             /* cart table styling */
             .form-cart{
               width: 100%;
-              padding: 20px;
+              // padding: 20px;
+              padding: 0;
               margin-bottom: 0;
-              @media all and (max-width: 768px) {
-                padding: 0 0 20px 0;
+              @media all and (max-width: 767px) {
+                padding: 0 0 10px 0;
               }
               /*Product info table */
               .table-wrapper {
                 @media all and (min-width: 768px) {
-                  margin: 20px 0;
+                  // margin: 20px 0;
+                  margin: 0;
                 }
                 @media all and (max-width: 767px) {
                   border: 1px solid @table-border;
@@ -208,7 +137,15 @@ input, select {
                         font-size: 14px;
                       }
                       &.col {
-                        padding-bottom: 5px;
+
+                        @media all and (max-width: 991px) {
+                          padding-bottom: 24px;
+                          padding-top: 24px;
+                        }
+                        @media all and (max-width: 991px) {
+                          padding-bottom: 12px !important;
+                          padding-top: 12px;
+                        }
                       }
                     }
                   }
@@ -220,7 +157,7 @@ input, select {
                   @media all and (max-width: 767px) {
                     border-bottom: 1px solid @table-border;
                     &:last-child {
-                      border-bottom: none;
+                      // border-bottom: none;
                     }
                   }
                   .item-info {
@@ -260,7 +197,7 @@ input, select {
                           }
                         }
                       }
-                      @media all and (max-width: 650px) {768px
+                      @media all and (max-width: 650px) {
                         &.price, &.subtotal {
                           width: 25%;
                         }
@@ -358,14 +295,19 @@ input, select {
                           }
                         }
                         .product-item-details {
-                          padding-top: 15px;
+                          // padding-top: 15px;
                           padding-left: 2%;
                           padding-right: 1%;
-                          @media all and (max-width: 599px) {
-                            padding-top: 20px;
+                          @media all and (min-width: 767px) {
+                            padding-right: 16%;
                           }
                           .product-item-name {
-                            width: 85% !important;
+                            @media all and (min-width: 768px) {
+                                width: 75% !important;
+                            }
+                            @media all and (min-width: 991px) {
+                                width: 80% !important;
+                            }
                             overflow: hidden;
                             height: 40px;
                             text-overflow: ellipsis;
@@ -375,14 +317,14 @@ input, select {
                               letter-spacing: 0.5px;
                               color: @content-dark-grey;
                               @media all and (max-width: 768px) {
-                                font-size: 15px;
-                              }
-                              @media all and (max-width: 478px) {
                                 font-size: 14px;
                               }
+                              @media all and (max-width: 768px) {
+                                font-size: 13px;
+                              }
                             }
-                            @media all and (min-width: 768px) {
-                              width: 90%;
+                            @media all and (max-width: 768px) {
+                              width: 85%;
                             }
                             a:hover {
                               text-decoration: none;
@@ -392,26 +334,30 @@ input, select {
                         /* Remove action button */
                         .product-name-action {
                           position: absolute;
-                          top: 25px;
+                          top: 12px;
                           right: 25px;
-                          @media all and (max-width: 991px) {
-                            right: 10px;
+                          @media all and (min-width: 768px) {
+                            top: 17px;
+                            right: 15px;
                           }
-                          @media all and (max-width: 768px) {
+                          @media all and (max-width: 767px) {
                             top: 10px;
                             right: 30px;
                           }
                           @media all and (max-width: 599px) {
-                            right: 20px;
+                            right: 15px;
                           }
                           .action-delete {
-                            font-size: 20px;
                             &::before {
                               content: 'x';
                               color: @del-item;
                               font-family: 'iCuracao-Light';
                               font-size: 22px;
-                              padding: 0 5px;
+                              padding: 0 3px;
+
+                                  @media all and (min-width: 768px) {
+                                    top: -15px;
+                                  }
                             }
                           }
                           .action-edit {
@@ -556,12 +502,12 @@ input, select {
               .estimated-total-block {
                 background-color: #f9f9f9;
                 padding: 20px;
-                @media all and (max-width: 768px) {
+                @media all and (max-width: 767px) {
                   padding: 20px 0;
                 }
                 .grand-total {
                   text-align: right;
-                  @media all and (max-width: 768px) {
+                  @media all and (max-width: 767px) {
                     text-align: center;
                   }
                   strong {
@@ -574,7 +520,7 @@ input, select {
                       font-size: 14px;
                     }
                     .price {
-                      color: @content-dark-grey;
+                      color: @black;
                       padding-left: 7px;
                     }
                   }
@@ -587,7 +533,7 @@ input, select {
                     font-family: 'iCuracao-Medium';
                     font-size: 14px;
                     letter-spacing: 0.5px;
-                    @media all and (max-width: 768px) {
+                    @media all and (max-width: 767px) {
                       width: 100%;
                       margin-bottom: 15px;
                     }
@@ -599,14 +545,14 @@ input, select {
                   .continue {
                     display: block;
                     float: left;
-                    background-color: @theme-color;
+                    background-color: #81b800;
                     border-radius: 3px;
                     padding: 8px 20px 8px 5px;
                     text-align: center;
                     &:hover {
                       text-decoration: none;
                     }
-                    @media all and (max-width: 768px) {
+                    @media all and (max-width: 767px) {
                       padding: 10px 0;
 
                     }
@@ -632,11 +578,13 @@ input, select {
               clear: both;
               width: 97%;
               margin: 0 auto;
-              @media all and (max-width: 768px) {
+              padding-top: 15px;
+              @media all and (max-width: 767px) {
                 width: 100%;
+                padding: 10px 0 5px 0;
               }
               p {
-                font-size: 12px;
+                font-size: 11px;
                 color: @content-light-grey;
                 font-family: 'iCuracao-Regular';
                 b {
@@ -654,7 +602,7 @@ input, select {
                    }
                 }
                 &.feature-2 {
-                  width: 65%;
+                  width: 60%;
                   margin: 0 auto;
                   text-align: left;
                   float: none;
@@ -670,7 +618,7 @@ input, select {
                     width: 12px;
                   }
                 }
-                @media all and (max-width: 768px) {
+                @media all and (max-width: 767px) {
                   &.feature-1, &.feature-2, &.feature-3 {
                     float: none;
                     text-align: left;
@@ -703,7 +651,7 @@ input, select {
         border: 1px solid @btn-orange;
         padding: 8px 25px 8px 40px;
         line-height: 2rem;
-        @media all and (max-width: 768px) {
+        @media all and (max-width: 767px) {
           padding: 10px 0;
         }
         @media all and (max-width: 478px) {
@@ -733,8 +681,7 @@ input, select {
   }
   .cart.table-wrapper .actions-toolbar > .action-delete {
     @media all and (max-width: 991px) and (min-width: 768px) {
-      right: -16px;
-      top: 16px;
+      top: -3px;
     }
 
   }
