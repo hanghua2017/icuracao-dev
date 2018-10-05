@@ -1,8 +1,16 @@
 <!--
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
+ * Dyode_Checkout Magento 2 module
+ * Extending Magento_Checkout
+ * @package Dyode
+ * @module  Dyode_Chekout
+ * @author  Kavitha <kavitha@dyode.com>
+ * @copyright Copyright © Dyode
  */
+
+ /**
+  * Extending this template to add "continue" button and terms and conditions section
+  * after the"summary" part.
 -->
 
 <div id="opc-sidebar"
@@ -22,6 +30,9 @@
         <!-- ko template: getTemplate() --><!-- /ko -->
     <!--/ko-->
 
+    <!-- ko foreach: getRegion('additional_summary') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!--/ko-->
 
     <div class="opc-block-shipping-information test">
         <!-- ko foreach: getRegion('shipping-information') -->
