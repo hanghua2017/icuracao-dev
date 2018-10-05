@@ -1,0 +1,204 @@
+"Request RMA","Solicitar RMA"
+"My Returns","Mis devoluciones"
+Grid,Cuadrícula
+List,Lista
+All,Todas
+"Create RMA","Crear RMA"
+"Request New Return","Solicitar nuevo retorno"
+"Max file size: %1Mb","Tamaño máximo de archivo: %1Mb"
+"New Return for Order #%1","Nueva devolución para la orden #%1"
+"RMA #%1","RMA #%1"
+"RMA #%1 - %2","RMA #%1 - %2"
+"Wrong Order #, Email or Last Name","Número de pedido incorrecto, correo electrónico o apellido"
+Items,Artículos
+"To apply changes you should fill in required ""%1"" field","Para aplicar cambios, debe completar el campo &quot;%1&quot; requerido"
+"Please, add order items to the RMA (set 'Qty to Return')","Por favor, agregue artículos de pedido a la RMA (establezca &#39;Cantidad a devolver&#39;)"
+"Please, set correct order items Quantity to return","Por favor, configure los artículos del pedido correcto Cantidad a devolver"
+"RMA was successfully created","RMA fue creado exitosamente"
+"Shipping is confirmed. Thank you!","El envío está confirmado. ¡Gracias!"
+"Your message was successfully added","Su mensaje fue agregado exitosamente"
+"Allowed extensions:","Extensiones permitidas:"
+"Maximum size:","Talla máxima:"
+"-- Please Select --","- Seleccione -"
+" at %1 (%2)","a las 12__)"
+"Mark as unresolved","Marcar como no resuelto"
+"Mark as resolved","Marca como resuelto"
+"not set","no establecido"
+Pattern,Patrón
+"Attribute Value","Valor de atributo"
+Default,Defecto
+Integer,Entero
+Price,Precio
+"Strip Tags","Etiquetas de tira"
+"Primary Attributes","Atributos principales"
+"Stock Attributes","Atributos de stock"
+"Prices & Taxes","Precios e Impuestos"
+Images,Imágenes
+"Custom Attributes","Atributos personalizados"
+Mapping,Cartografía
+Category,Categoría
+"Amasty Meta Tags","Amasty Meta Tags"
+"Others Attributes","Otros atributos"
+Text,Texto
+"Multi-line text","Texto de varias líneas"
+Date,Fecha
+Checkbox,Caja
+"Drop-down list","La lista desplegable"
+Reason,Razón
+Condition,Condición
+Resolution,Resolución
+"RMA #","RMA #"
+"Order #","Orden #"
+"Customer Email","Correo electrónico del cliente"
+"Customer Name","Nombre del cliente"
+Owner,Propietario
+"Last Replier","Última carpeta"
+Status,Estado
+Store,Almacenar
+"Created At","Creado en"
+"Last Activity","Última actividad"
+"View link","Ver enlace"
+"New RMA has been created","Nueva RMA ha sido creada"
+"RMA has been changed","RMA ha sido cambiado"
+"New reply from customer","Nueva respuesta del cliente"
+"New reply from staff","Nueva respuesta del personal"
+"-- Default Address --","-- Dirección predeterminada --"
+"Update the Product","Actualiza el producto"
+"Conditions Combination","Combinación de condiciones"
+"RMA Attribute","Atributos de RMA"
+"Last 7-days Clicks","Últimos 7 días de clics"
+"Last 7-days Orders","Últimos 7 días Pedidos"
+"Last 7-days Revenue","Los últimos 7 días de ingresos"
+"Last 7-days Conversation Rate (%)","Tasa de conversación pasada de 7 días (%)"
+"Attribute Set","Conjunto de atributos"
+Quantity,Cantidad
+"Product Type","Tipo de producto"
+"Base Image","Imagen base"
+Thumbnail,Miniatura
+"Small Image","Imagen pequeña"
+"Base Image Size (bytes)","Tamaño de imagen base (bytes)"
+"Thumbnail Size (bytes)","Tamaño de miniatura (bytes)"
+"Small Image Size (bytes)","Tamaño de imagen pequeño (bytes)"
+"PHP Condition","Condición de PHP"
+"Open Chooser","Open Chooser"
+"Last message body","Último mensaje cuerpo"
+"Updated At","Actualizado en"
+"Status (before change)","Estado (antes del cambio)"
+"Owner (before change)","Propietario (antes del cambio)"
+"Last Reply By","Última respuesta por"
+"Hours since Created","Horas desde Creado"
+"Hours since Updated","Horas desde Actualizado"
+"Hours since Last reply","Horas desde la última respuesta"
+"Items have reason","Los artículos tienen razón"
+"Items have condition","Los artículos tienen condición"
+"Items have resolution","Los artículos tienen resolución"
+"%1 (before change)","%1 (antes del cambio)"
+Customer,Cliente
+Staff,Personal
+"- Disable these emails -","- Deshabilitar estos correos electrónicos -"
+Yes,Sí
+No,No
+Save,Salvar
+"Save & Continue Edit","Guardar y continuar Editar"
+"Save & Close","Guardar cerrar"
+Edit,Editar
+Delete,Borrar
+"Delete ""${ $.$data.name }""","Eliminar "${ $.$data.name }""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","¿Estás seguro de que deseas eliminar un registro "${ $.$data.name }"?"
+"Are you sure you want to do this?","¿Seguro que quieres hacer esto?"
+"Convert To Ticket","Convertir a ticket"
+"View order #${ $.$data.order_id }","Ver orden #${ $.$data.order_id }"
+"View exchange order %1","Ver orden de intercambio %1"
+"RMA: Report by Attribute","RMA: informe por atributo"
+"RMA: Report by Status","RMA: informe por estado"
+"RMA: Report by Product","RMA: informe por producto"
+"RMA: Report by Reasons","RMA: Informe por Razones"
+"Cannot delete return address with id %1","No se puede eliminar la dirección de devolución con id %1"
+"Cannot delete item with id %1","No se puede eliminar el elemento con id %1"
+"Cannot delete condition with id %1","No se puede eliminar la condición con id %1"
+"Cannot delete field with id %1","No se puede eliminar el campo con id %1"
+"Cannot delete message with id %1","No se puede eliminar el mensaje con id %1"
+"Cannot delete history with id %1","No se puede borrar el historial con ID %1"
+"Cannot delete Quick Response with id %1","No se puede eliminar la respuesta rápida con id %1"
+"Cannot delete reason with id %1","No se puede eliminar la razón con id %1"
+"Cannot delete resolution with id %1","No se puede eliminar la resolución con id %1"
+"Cannot delete rma with id %1","No se puede eliminar rma con id %1"
+"Cannot delete rule with id %1","No se puede eliminar la regla con ID %1"
+"Cannot delete status with id %1","No se puede eliminar el estado con id %1"
+"Please, enter a message","Por favor, ingrese un mensaje"
+"Product Name","Nombre del producto"
+SKU,SKU
+Qty,Cantidad
+"This was a gift, please do not notify purchaser","Este fue un regalo, por favor no avise al comprador"
+"Enter your contact information","Ingrese su información de contacto"
+"First Name","Nombre de pila"
+"Last Name",Apellido
+Email,Email
+Telephone,Teléfono
+"To request a new RMA or check the status of current RMA, please, fill the form:","Para solicitar una nueva RMA o verificar el estado de la RMA actual, complete el formulario:"
+"* Required Fields","* Campos requeridos"
+"Order Information","Información del pedido"
+"Email or Last Name","Correo electrónico o apellido"
+Next,Siguiente
+RMA,RMA
+Actions,Comportamiento
+"View Return","Ver retorno"
+"There are no Returns","No hay devoluciones"
+"Items %1 to %2 of %3 total","Artículos %1 a %2 de %3 total"
+"%1 Item(s)","%1 Artículo (s)"
+Show,Espectáculo
+"per page","por página"
+"View as","Visto como"
+"Sort by","Ordenar por"
+"Set Ascending Direction","Establecer dirección ascendente"
+"Set Descending Direction","Establecer dirección descendente"
+"Please, select an order","Por favor, seleccione una orden"
+Order,Orden
+"-- Select an Order --","- Seleccione un pedido -"
+"You have no completed orders to request RMA or your orders were placed more than %1 days ago. Please, contact customer service.","No tiene pedidos completados para solicitar RMA o sus pedidos se realizaron hace más de %1 días. Por favor, contacte al servicio al cliente."
+"Submit Request","Enviar peticion"
+"Please, select RMA items which you would like to return.","Por favor, seleccione los artículos RMA que le gustaría devolver."
+"Additional Information","Información Adicional"
+"Attach files","Adjuntar archivos"
+"Request Information","Información requerida"
+"Email Address","Dirección de correo electrónico"
+"Order Shipping Address","Dirección de envío del pedido"
+"Items in this order","Artículos en este orden"
+"There are no items for this product that can be returned.","No hay artículos para este producto que puedan devolverse."
+"Another RMA for this product: %1","Otra RMA para este producto: %1"
+"This product can not be returned due to RMA Policy","Este producto no puede devolverse debido a la política de RMA"
+"This is a non-returnable item per our return policy.","Este es un artículo no retornable según nuestra política de devolución."
+"Quantity to return","Cantidad para devolver"
+"-- Select a Reason --","-- Seleccione una razón --"
+"-- Select a Condition --","- Seleccione una condición -"
+"-- Select a Resolution --","- Seleccione una Resolución -"
+"I agree","Estoy de acuerdo"
+"Date: %1","Fecha: %1"
+"Original order: #%1","Orden original: #%1"
+"Return Address","Dirección del remitente"
+"Customer Information","Información al cliente"
+"RMA History","Historia de RMA"
+"RMA Items","Artículos de RMA"
+Weight,Peso
+"Print RMA Packing Slip","Imprimir RMA Packing Slip"
+"Print RMA Shipping Label","Imprimir etiqueta de envío RMA"
+"Confirm Shipping","Confirmar envío"
+"(This was a gift)","(Esto fue un regalo)"
+"Date Requested","Fecha solicitada"
+"Contact Information","Información del contacto"
+"Items RMA Requested for","Artículos RMA solicitados"
+QTY,QTY
+"Add Message","Agregar mensaje"
+Submit,Enviar
+%name,%nombre
+"The quantity is incorrect.","La cantidad es incorrecta"
+"New Return for Offline Order","Nueva devolución para pedido fuera de línea"
+" at %1","a la 1__"
+Select,Seleccionar
+"If you do not have account on this store please fill the form below.","Si no tiene cuenta en esta tienda, complete el siguiente formulario."
+"-- Create Offline Order --","- Crear orden sin conexión -"
+"Returned Item","Artículo devuelto"
+"Remove Item","Remover el artículo"
+"Order or Receipt #","Pedido o Recibo #"
+"Add Item","Añadir artículo"
+"Add at least one item to this RMA","Agregue al menos un artículo a esta RMA"

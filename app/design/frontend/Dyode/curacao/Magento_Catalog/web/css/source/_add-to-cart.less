@@ -7,16 +7,16 @@
 ****************************************************************/
 //Add to cart box
 .catalog-product-view{
-  .add-to-cart-block {
+  .add-to-cart-block,.update-cart-block {
     width: 100%;
     clear: both;
+    margin-bottom: 30px;
     @media all and (min-width: 768px) {
     float: left;
     }
     @media all and (max-width: 767px) {
     text-align: center;
     }
-    margin-bottom: 15px;
     .actions {
       display: inline-block;
       float: left;
@@ -25,12 +25,12 @@
       @media all and (max-width: 767px) {
         width: 100%;
       }
-      #product-addtocart-button {
+      #product-addtocart-button,#product-updatecart-button {
         background-color: @btn-orange;
         border-color: @btn-orange;
         color: #fff;
         width: 100%;
-        border-radius: 0;
+        border-radius: 3px;
         padding: 10px 15px;
         // text-transform: uppercase;
         margin-bottom: 0;
@@ -67,7 +67,7 @@
         }
       }
     }
-  }
+}
   //product spec MOUNTING OPTIONS above the add to cart buttons
   .mount-option {
     .spec {
@@ -117,6 +117,7 @@
           margin-right: 10px;
           margin-top: 0;
           display: inline-flex;
+          width: auto;
           //Media query for align the  mount option with same width
           @media all and (max-width: 1001px) and (min-width: 902px) {
             min-width: 240px;
@@ -148,6 +149,9 @@
           }
           @media all and (max-width: 467px) {
             font-size: 13px;
+          }
+          &:before{
+          content: none;
           }
         }
         input[type=radio]+label:hover {
@@ -303,6 +307,10 @@
         color: #aaaaaa;
         font-size: 28px;
         font-weight: bold;
+        width: 70px;
+        @media all and (max-width: 767px) {
+        width: 40px;
+        }
       }
       .action-close:hover,
       .action-close:focus,.action-close:hover,
@@ -319,11 +327,19 @@
       padding-right: 0 !important;
     }
     .product-details{
-      padding: 20px 0 20px 0;
+      //// TODO: check nad remove conflict
+      //  padding: 10px 0 10px 0;
+      padding: 0px 0 20px 0;
+      margin-top: 20px;
       width: 100%;
       box-sizing: border-box;
+      max-height: 400px;
+      overflow: auto;
       @media all and (max-width: 767px) {
+              //// TODO: check nad remove conflict
+          //padding: 5px;
         padding: 10px 5px;
+        max-height: 300px;
       }
       .top-section{
         clear: both;
@@ -409,6 +425,25 @@
         }
       }
     }
+
+      .product-details::-webkit-scrollbar {
+        width: 8px;
+      }
+      /* Track */
+      .product-details::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 8px #ebebeb;
+        background: #ebebeb;
+        border-radius: 10px;
+      }
+      /* Handle */
+      .product-details::-webkit-scrollbar-thumb {
+        background: #d0d0d0;
+        border-radius: 10px;
+      }
+      /* Handle on hover */
+      .product-details::-webkit-scrollbar-thumb:hover {
+        background: #d0d0d0;
+      }
     .warranty-plan{
       label.warranty-box{
         @media all and (max-width: 600px) {
@@ -418,15 +453,21 @@
       }
     }
   }
+.modal-footer {
+    margin-top: auto;
+    padding-bottom: 2rem;
+    padding-top: 1rem;
+}
   button{
     box-shadow: none;
     border-radius: 0;
-    width: 150px;
+    width: 130px;
     color: white;
     text-transform: uppercase;
     font-size: 16px;
     border-radius: 4px;
-    padding: 15px;
+    padding: 10px;
+    font-family: "iCuracao-Regular";
     &.add-warranty-btn{
       background-color: @green-color;
       margin-right: 30px;

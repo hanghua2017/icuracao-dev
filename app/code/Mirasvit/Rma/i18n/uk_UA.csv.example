@@ -1,0 +1,204 @@
+"Request RMA","Запит на RMA"
+"My Returns","Мої повернення"
+Grid,Сітки
+List,Перелік
+All,Все
+"Create RMA","Створити RMA"
+"Request New Return","Запит на нове повернення"
+"Max file size: %1Mb","Максимальний розмір файлу: %1Mb"
+"New Return for Order #%1","Нове повернення для замовлення №%1"
+"RMA #%1","RMA #%1"
+"RMA #%1 - %2","RMA #%1 - %2"
+"Wrong Order #, Email or Last Name","Невірний номер замовлення, електронна адреса або прізвище"
+Items,Елементи
+"To apply changes you should fill in required ""%1"" field","Щоб застосувати зміни, потрібно заповнити поле &quot;%1&quot;"
+"Please, add order items to the RMA (set 'Qty to Return')","Будь ласка, додайте елементи замовлення в RMA (встановіть &quot;Qty to Return&quot;)"
+"Please, set correct order items Quantity to return","Будь ласка, встановіть правильні позиції замовлення, щоб повернутись"
+"RMA was successfully created","RMA успішно створено"
+"Shipping is confirmed. Thank you!","Доставка підтверджена. Дякую!"
+"Your message was successfully added","Ваше повідомлення успішно додано"
+"Allowed extensions:","Дозволені розширення:"
+"Maximum size:","Максимальний розмір:"
+"-- Please Select --","-- Виберіть будь ласка --"
+" at %1 (%2)","на %1 (%2)"
+"Mark as unresolved","Позначити як невирішене"
+"Mark as resolved","Позначити як вирішено"
+"not set","не встановлено"
+Pattern,Візерунок
+"Attribute Value","Значення атрибута"
+Default,"За замовчуванням"
+Integer,"Ціле число"
+Price,Ціна
+"Strip Tags","Теги для смуги"
+"Primary Attributes","Основні атрибути"
+"Stock Attributes","Атрибути акцій"
+"Prices & Taxes","Ціни та податки"
+Images,Зображення
+"Custom Attributes","Спеціальні атрибути"
+Mapping,Картографування
+Category,Категорія
+"Amasty Meta Tags","Амасти метатегів"
+"Others Attributes","Інші атрибути"
+Text,Текст
+"Multi-line text","Багаторядковий текст"
+Date,Дата
+Checkbox,Прапорець
+"Drop-down list","Випадаючий список"
+Reason,Причина
+Condition,Стан
+Resolution,"Роздільна здатність"
+"RMA #","RMA #"
+"Order #","Замовлення №"
+"Customer Email","Електронна пошта клієнта"
+"Customer Name","Ім&#39;я клієнта"
+Owner,Власник
+"Last Replier","Остання папка"
+Status,Статус
+Store,Магазин
+"Created At","Створено в"
+"Last Activity","Остання активність"
+"View link","Переглянути посилання"
+"New RMA has been created","Новий RMA був створений"
+"RMA has been changed","RMA було змінено"
+"New reply from customer","Новий відповідь від клієнта"
+"New reply from staff","Нова відповідь від співробітників"
+"-- Default Address --","- Адреса за замовчуванням -"
+"Update the Product","Оновіть продукт"
+"Conditions Combination","Умови комбінації"
+"RMA Attribute","Атрибути RMA"
+"Last 7-days Clicks","Останні 7-денні клаци"
+"Last 7-days Orders","Останні 7-денні замовлення"
+"Last 7-days Revenue","Останні 7-денний дохід"
+"Last 7-days Conversation Rate (%)","Остання 7-денна швидкість розмови (%)"
+"Attribute Set","Набір атрибутів"
+Quantity,Кількість
+"Product Type","Тип продукту"
+"Base Image","Базовий образ"
+Thumbnail,Ескіз
+"Small Image","Маленьке зображення"
+"Base Image Size (bytes)","Розмір базису зображення (байт)"
+"Thumbnail Size (bytes)","Розмір ескізу (байтів)"
+"Small Image Size (bytes)","Малий розмір зображення (байт)"
+"PHP Condition","Стан PHP"
+"Open Chooser","Відкрити Chooser"
+"Last message body","Останнє тіло повідомлення"
+"Updated At","Оновлено At"
+"Status (before change)","Статус (перед зміною)"
+"Owner (before change)","Власник (перед зміною)"
+"Last Reply By","Останнє повідомлення від"
+"Hours since Created","Години з моменту створення"
+"Hours since Updated","Години з моменту оновлення"
+"Hours since Last reply","Години з останньої відповіді"
+"Items have reason","Елементи мають причину"
+"Items have condition","Елементи мають стан"
+"Items have resolution","Елементи мають роздільну здатність"
+"%1 (before change)","%1 (до зміни)"
+Customer,Замовник
+Staff,Персонал
+"- Disable these emails -","- Вимкнути ці електронні листи -"
+Yes,Так
+No,Немає
+Save,Зберегти
+"Save & Continue Edit","Зберегти та продовжити редагування"
+"Save & Close","Зберегти та закрити"
+Edit,Редагувати
+Delete,Видалити
+"Delete ""${ $.$data.name }""","Видалити ""${ $.$data.name }"""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Ви впевнені, що не зможете видалити запис "${ $.$data.name }"?"
+"Are you sure you want to do this?","Ви впевнені, що хочете це зробити?"
+"Convert To Ticket","Конвертувати в квиток"
+"View order #${ $.$data.order_id }","Переглянути замовлення #${ $.$data.order_id }"
+"View exchange order %1","Переглянути порядок обміну %1"
+"RMA: Report by Attribute","RMA: Звіт за атрибутом"
+"RMA: Report by Status","RMA: звіт за статусом"
+"RMA: Report by Product","RMA: звіт за продуктом"
+"RMA: Report by Reasons","RMA: Звіт по причинах"
+"Cannot delete return address with id %1","Неможливо видалити адресу повернення з ідентифікатором %1"
+"Cannot delete item with id %1","Неможливо видалити елемент з id %1"
+"Cannot delete condition with id %1","Неможливо видалити умову з ідентифікатором %1"
+"Cannot delete field with id %1","Неможливо видалити поле з ідентифікатором %1"
+"Cannot delete message with id %1","Неможливо видалити повідомлення з ідентифікатором %1"
+"Cannot delete history with id %1","Неможливо видалити історію з ідентифікатором %1"
+"Cannot delete Quick Response with id %1","Неможливо видалити швидкий відгук за ідентифікатором %1"
+"Cannot delete reason with id %1","Неможливо видалити причину за ідентифікатором %1"
+"Cannot delete resolution with id %1","Неможливо видалити роздільну здатність з ідентифікатором %1"
+"Cannot delete rma with id %1","Неможливо видалити rma з ідентифікатором %1"
+"Cannot delete rule with id %1","Неможливо видалити правило з ідентифікатором %1"
+"Cannot delete status with id %1","Неможливо видалити статус з ідентифікатором %1"
+"Please, enter a message","Будь ласка, введіть повідомлення"
+"Product Name","Назва продукту"
+SKU,SKU
+Qty,Кол
+"This was a gift, please do not notify purchaser","Це був подарунок, будь ласка, не повідомляйте покупця"
+"Enter your contact information","Введіть свою контактну інформацію"
+"First Name",Ім&#39;я
+"Last Name",Прізвище
+Email,"Електронна пошта"
+Telephone,Телефон
+"To request a new RMA or check the status of current RMA, please, fill the form:","Щоб замовити нове RMA або перевірити стан поточного RMA, будь ласка, заповніть форму:"
+"* Required Fields","* Обов&#39;язкові поля"
+"Order Information","Інформація про замовлення"
+"Email or Last Name","Електронна пошта або Прізвище"
+Next,Далі
+RMA,РМА
+Actions,Дії
+"View Return","Переглянути повернення"
+"There are no Returns","Немає повернень"
+"Items %1 to %2 of %3 total","Елементи %1 до %2 %3 всього"
+"%1 Item(s)","__1 елементи (ів)"
+Show,Шоу
+"per page","на сторінку"
+"View as","Переглянути як"
+"Sort by","Сортувати за"
+"Set Ascending Direction","Встановити висхідне напрямок"
+"Set Descending Direction","Встановити в порядку спадання"
+"Please, select an order","Будь ласка, виберіть замовлення"
+Order,Замовлення
+"-- Select an Order --","- Виберіть замовлення -"
+"You have no completed orders to request RMA or your orders were placed more than %1 days ago. Please, contact customer service.","У вас немає завершених замовлень, щоб подати запит на RMA, або ваші замовлення було розміщено більше %1 днів тому. Будь ласка, зверніться до служби підтримки клієнтів."
+"Submit Request","Надіслати запит"
+"Please, select RMA items which you would like to return.","Будь ласка, виберіть елементи RMA, які ви хотіли б повернути."
+"Additional Information","Додаткова інформація"
+"Attach files","Приєднати файли"
+"Request Information","Запит інформації"
+"Email Address","Адреса електронної пошти"
+"Order Shipping Address","Замовити доставку адреси"
+"Items in this order","Елементи в цьому порядку"
+"There are no items for this product that can be returned.","Немає товару для цього продукту, який можна повернути."
+"Another RMA for this product: %1","Інший RMA для цього продукту: %1"
+"This product can not be returned due to RMA Policy","Цей продукт не може бути повернутий через політику RMA"
+"This is a non-returnable item per our return policy.","Це є непотрібним елементом за нашою політикою повернення."
+"Quantity to return","Кількість повернутись"
+"-- Select a Reason --","- Виберіть причину -"
+"-- Select a Condition --","- Виберіть умова -"
+"-- Select a Resolution --","- Виберіть роздільну здатність -"
+"I agree","Я згоден"
+"Date: %1","Дата: %1"
+"Original order: #%1","Оригінальний замовлення: #%1"
+"Return Address","Зворотня адреса"
+"Customer Information","Інформація споживача"
+"RMA History","Історія RMA"
+"RMA Items","Елементи RMA"
+Weight,Вага
+"Print RMA Packing Slip","Роздрукуйте упаковку RMA"
+"Print RMA Shipping Label","Надрукувати мітку доставки RMA"
+"Confirm Shipping","Підтвердити доставку"
+"(This was a gift)","(Це був подарунок)"
+"Date Requested","Дата запитувана"
+"Contact Information","Контактна інформація"
+"Items RMA Requested for","Елементи RMA, що вимагаються"
+QTY,QTY
+"Add Message","Додайте повідомлення"
+Submit,Відправити
+%name,"% ім&#39;я"
+"The quantity is incorrect.","Кількість неправильна."
+"New Return for Offline Order","Нове повернення для замовлення в автономному режимі"
+" at %1","в %1"
+Select,Виберіть
+"If you do not have account on this store please fill the form below.","Якщо у вас немає облікового запису в цьому магазині, будь ласка, заповніть форму нижче."
+"-- Create Offline Order --","- Створити офлайн-замовлення -"
+"Returned Item","Повернутий товар"
+"Remove Item","Видалити елемент"
+"Order or Receipt #","Замовлення або квитанція #"
+"Add Item","Додати елемент"
+"Add at least one item to this RMA","Додайте щонайменше один елемент до цієї RMA"
