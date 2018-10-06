@@ -812,177 +812,145 @@ select:focus, input:focus {
 }
 
 	//ICuracao-Address-information tab With LESS styles
-// .customer-account-edit{
-//   .page-main{
-//     .form-edit-account{
-//       padding:0 20px;
-//       @media all and (max-width:767px){
-//         padding:10px;
-//       }
-//       .fieldset{
-//         margin-bottom:25px;
-// 				legend.legend{
-// 					color:@content-text;
-// 					padding-top:20px;
-// 					border-bottom: 1px solid @border-color;
-// 		      @media all and (max-width:767px){
-// 		        padding-top:10px;
-// 		      }
-//           span {
-//             color: @content-text !important;
-//             font-size: 16px;
-//             font-family: 'iCuracao-Regular';
-//             @media all and(max-width: 767px){
-//               font-size: 15px !important;
-//             }
-//           }
-//           .field {
-//             label {
-//               span {
-//                 font-weight: 500;
-//                 font-family: 'iCuracao-Regular' !important;
-//                 text-transform: capitalize;
-//               }
-//             }
-//           }
-// 				}
-//         input {
-//   				border-radius: 3px;
-//   			}
-//       }
-//     }
-//
-// 		.actions-toolbar{
-// 			border-top: 1px solid @border-color;
-// 			@media only screen and (min-width: 768px){
-// 			     padding:20px 20px 20px 0 !important;
-// 			}
-//       .primary{
-//         button{
-//           float: left !important;
-//           min-width: 150px;
-//           padding: 10px 15px !important;
-//           @media all and (max-width: 767px) {
-//             width: 100%;
-//           }
-//           &:hover {
-//             border-color: darken(@theme-color, 5%);
-//           }
-//           span {
-//             font-family: 'iCuracao-Regular';
-//             font-weight: 500;
-//           }
-//         }
-//       }
-// 		}
-//   }
-// }
-// .customer-address-form{
-//   .form-address-edit{
-//     padding: 10px;
-//     @media all and (min-width:768px){
-//       padding:10px 20px;
-//     }
-//     input{
-// 			border-radius: 5px;
-// 		}
-//     .actions-toolbar .action.primary,
-//     .box-tocart .action.instant-purchase {
-//         padding: 8px 17px;
-//     }
-//     .fieldset{
-//       width: 100%;
-//       margin-bottom: 20px;
-//       legend.legend {
-//         span {
-//           font-size: 16px !important;
-//         }
-//       }
-//       .field {
-//         width: 48%;
-//         @media all and (max-width:767px){
-//           width:100%;
-//         }
-//         label {
-//           span {
-//             font-family: 'iCuracao-Regular';
-//             font-weight: 500;
-//           }
-//         }
-//         &.field-name-firstname,&.company,&.city,&.zip,&.billing {
-//           float: left;
-//         }
-//         &.field-name-lastname,&.telephone,&.region,&.country,&.shipping {
-//           float: right;
-//         }
-//         &.street {
-//           width:100%;
-//           float: left;
-//           clear: both;
-//           .control {
-//             #street_1 {
-//               width: 48%;
-//               float: left;
-//               @media all and (max-width:767px){
-//                 width:100%;
-//                 margin-bottom: 15px;
-//               }
-//             }
-//             .nested {
-//               float: right;
-//               width: 48%;
-//               @media all and (max-width:767px){
-//                 width:100%;
-//               }
-//               .field.additional {
-//                 margin-top: 0;
-//                 width:100%;
-//               }
-//             }
-//           }
-//         }
-//       }
-//       .legend{
-//         span{
-//            color: @content-text !important;
-//            font-size: 16px;
-//            font-family: 'iCuracao-Regular';
-//         }
-//       }
-//     }
-//     .actions-toolbar {
-//       padding-left: 0 !important;
-//       &:after{
-//         clear: both;
-//         display: table;
-//         content:'';
-//       }
-//       .primary {
-//         float: left !important;
-//         @media all and(max-width:767px){
-//           width:100%;
-//         }
-//         button.submit {
-//           padding: 7px 15px !important;
-//           min-width: 150px;
-//           @media all and(max-width:767px){
-//             min-width: auto;
-//             width:100%;
-//           }
-//           span {
-//             font-family: 'iCuracao-Regular';
-//             font-weight: 500;
-//           }
-//         }
-//       }
-//     }
-//     .fieldset{
-//       .choice{
-//         width: 100% !important;
-//       }
-//     }
-//   }
-// }
+.customer-account-edit{
+  .page-main{
+    .form-edit-account{
+      padding:10px 20px;
+      @media all and (max-width:767px){
+        padding:10px;
+      }
+      .fieldset{
+        margin-bottom:25px;
+				.legend{
+					color:@theme-color;
+					padding-top:20px;
+					border-bottom: 1px solid @border-color;
+		      @media all and (max-width:767px){
+		        padding-top:10px;
+		      }
+				}
+        input {
+  				border-radius: 3px;
+  			}
+      }
+    }
+
+		.actions-toolbar{
+			border-top: 1px solid @border-color;
+			@media only screen and (min-width: 768px){
+			padding:20px 20px 20px 0 !important;
+			}
+      .primary{
+        button{
+          float: left !important;
+          min-width: 150px;
+          padding: 10px 15px;
+          @media all and (max-width: 767px) {
+            width: 100%;
+          }
+          span {
+            font-family: 'iCuracao-Regular';
+            font-weight: 500;
+          }
+        }
+      }
+		}
+  }
+}
+.customer-address-form{
+  .form-address-edit{
+    padding: 10px;
+    @media all and (min-width:768px){
+      padding:10px 20px;
+    }
+    input{
+			border-radius: 5px;
+		}
+    .actions-toolbar .action.primary,
+    .box-tocart .action.instant-purchase {
+        padding: 8px 17px;
+    }
+    .fieldset{
+      width: 100%;
+      .field {
+        width: 48%;
+        @media all and (max-width:767px){
+          width:100%;
+        }
+        &.field-name-firstname,&.company,&.city,&.zip,&.billing {
+          float: left;
+        }
+        &.field-name-lastname,&.telephone,&.region,&.country,&.shipping {
+          float: right;
+        }
+        &.street {
+          width:100%;
+          float: left;
+          clear: both;
+          .control {
+            #street_1 {
+              width: 48%;
+              float: left;
+              @media all and (max-width:767px){
+                width:100%;
+                margin-bottom: 15px;
+              }
+            }
+            .nested {
+              float: right;
+              width: 48%;
+              @media all and (max-width:767px){
+                width:100%;
+              }
+              .field.additional {
+                margin-top: 0;
+                width:100%;
+              }
+            }
+          }
+        }
+      }
+      .legend{
+        span{
+           color: @content-text !important;
+           font-size: 16px;
+           font-family: 'iCuracao-Regular';
+        }
+      }
+    }
+    .actions-toolbar {
+      padding-left: 0 !important;
+      &::after{
+        clear: both;
+        display: table;
+        content:'';
+      }
+      .primary {
+        float: left !important;
+        @media all and(max-width:767px){
+          width:100%;
+        }
+        button.submit {
+          padding: 7px 15px !important;
+          min-width: 150px;
+          @media all and(max-width:767px){
+            min-width: auto;
+            width:100%;
+          }
+          span {
+            font-family: 'iCuracao-Regular';
+            font-weight: 500;
+          }
+        }
+      }
+    }
+    .fieldset{
+      .choice{
+        width: 100% !important;
+      }
+    }
+  }
+}
 //ICuracao-My orders tab With LESS styles
 
 .table-wrapper{
