@@ -2642,7 +2642,10 @@ select:focus, input:focus {
     .columns {
       .column.main {
           .rma-view{
-            padding: 0 20px !important;
+            padding: 20px 20px 0 20px !important;
+            @media all and (max-width: 767px) {
+              padding: 15px 15px 0 15px !important;
+            }
             .block {
               margin-bottom: 25px !important;
               .block-content{
