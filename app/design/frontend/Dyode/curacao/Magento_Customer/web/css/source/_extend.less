@@ -802,18 +802,29 @@ select:focus, input:focus {
       }
     }
 
-		// .actions-toolbar{
-		// 	border-top: 1px solid @border-color;
-		// 	@media only screen and (min-width: 768px){
-		// 	padding:20px 20px 20px 0 !important;
-		// 	}
-    //   .primary{
-    //     button{
-    //       float: left !important;
-    //       min-width: 100px;
-    //     }
-    //   }
-		// }
+		.actions-toolbar{
+			border-top: 1px solid @border-color;
+			@media only screen and (min-width: 768px){
+			padding:20px 20px 20px 0 !important;
+			}
+      .primary{
+        button{
+          float: left !important;
+          min-width: 150px;
+          padding: 7px 15px;
+          @media all and (max-width: 767px) {
+            width: 100%;
+          }
+          &:hover {
+            border-color: darken(@theme-color, 5%;)
+          }
+          span {
+            font-family: 'iCuracao-Regular';
+            font-weight: 500;
+          }
+        }
+      }
+		}
   }
 }
 .customer-address-form{
@@ -825,10 +836,10 @@ select:focus, input:focus {
     input{
 			border-radius: 5px;
 		}
-    .actions-toolbar .action.primary,
-    .box-tocart .action.instant-purchase {
-        padding: 8px 17px;
-    }
+    // .actions-toolbar .action.primary,
+    // .box-tocart .action.instant-purchase {
+    //     padding: 8px 17px;
+    // }
     .fieldset{
       width: 100%;
       .field {
@@ -1602,6 +1613,9 @@ select:focus, input:focus {
     .page-main {
       .columns{
         .column{
+          @media all and (max-width: 767px) {
+            padding-bottom: 40px;
+          }
           form{
             fieldset{
               .choice{
@@ -1609,12 +1623,15 @@ select:focus, input:focus {
               }
             }
             .actions-toolbar {
-              padding-left: 0;
+              padding-left: 0 !important;
               .primary {
                 float: left;
                 button.save {
                   padding: 7px 15px;
                   min-width: 150px;
+                  @media all and (max-width: 767px) {
+
+                  }
                   &:hover {
                     background-color: darken(@theme-color, 5%);
                     border-color: darken(@theme-color, 5%);
