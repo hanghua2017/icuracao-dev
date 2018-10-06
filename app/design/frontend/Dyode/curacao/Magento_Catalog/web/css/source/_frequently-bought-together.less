@@ -10,7 +10,7 @@
   clear: both;
   width: 100%;
   float: left;
-  border-top: 1px solid @content-light-grey;
+  border-top: 1px solid #d4d4d4;
   @media all and (max-width: 901px) {
     border-top: none;
   }
@@ -20,11 +20,16 @@
     font-family: 'iCuracao-Regular';
     font-size: 24px;
     @media all and (max-width: 901px) {
-      border-top: 1px solid @content-light-grey;
-      border-bottom: 1px solid @content-light-grey;
+      border-top: 1px solid #d4d4d4;
+      border-bottom: 1px solid #d4d4d4;
       margin: 0;
       font-size: 18px;
       padding: 15px 0;
+    }
+    @media all and (max-width: 767px)
+    {
+      text-align: left;
+      text-indent: 20px;
     }
   }
   .frequently-product-block {
@@ -155,6 +160,9 @@
                 text-align: left;
                 font-weight: 500;
                 font-family: 'iCuracao-Medium';
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
                 @media all and (max-width: 599px) {
                   font-size: 13px;
                 }
@@ -190,12 +198,15 @@
                 }
                 label {
                   font-weight: 600;
+                  float: left;
                 }
                 .off-price {
                   color:#81b800;
-                  float: right;
                   font-size: 15px;
-                  font-family: 'iCuracao-Regular';
+                  font-family: 'iCuracao-light';
+                  float: left;
+                  margin-left: 20px;
+                  margin-top: 4px;
                   @media all and (max-width: 991px) {
                     font-size: 14px;
                   }
@@ -258,12 +269,13 @@
     }
     .frequently-bought-adon-sum-block{
       @media all and (min-width: 991px) {
-        border-top: 1px solid @content-light-grey;
+        border-top: 1px solid #d4d4d4;
       }
       .frequently-bought-adon-sum {
         margin: 0 auto;
         width: 100% !important;
         padding: 20px 0 !important;
+        padding-bottom: 35px !important;
         @media all and (min-width: 991px) {
           width: 80% !important;
           padding-top: 0;
@@ -271,6 +283,10 @@
         .price-adons {
           display: flex;
           position: relative;
+          @media all and (max-width: 767px)
+          {
+            display: block;
+          }
           @media all and (max-width: 478px) {
             display: contents;
             position: static;
@@ -279,18 +295,22 @@
             display: inline-flex;
             width: 75%;
             float: left;
+            @media all and (max-width: 767px)
+            {
+              width: 100%;
+            }
             @media all and (max-width: 478px) {
               width: 100%;
               float: none;
               padding-bottom: 20px;
               padding-top: 20px;
-              margin-bottom: 20px;
               border-top: 1px solid @content-light-grey;
               border-bottom: 1px solid @content-light-grey;
+              margin-bottom: 10px;
             }
             .price-block  {
               width: auto;
-              padding: 0 100px;
+              padding: 0 80px;
               text-align: left;
               @media all and (max-width: 1280px) {
                 padding: 0 80px;
@@ -299,69 +319,44 @@
                 padding: 0 50px;
               }
               @media all and (max-width: 990px) {
-                padding: 0 45px;
+                padding: 0 27px;
               }
               @media all and (max-width: 767px) {
-                padding: 0 35px;
+                padding: 0 9%;
               }
-              @media all and (max-width: 699px) {
-                padding: 0 25px;
+              @media all and (max-width: 630px) {
+                padding: 0 7%;
               }
-              @media all and (max-width: 599px) {
-                padding: 0 15px;
+              @media all and (max-width: 496px) {
+                padding: 0 6%;
               }
-              @media all and (max-width: 540px) and (min-width: 479px) {
-                padding: 0 9px;
+              @media all and (max-width: 360px) {
+                padding: 0 4%;
               }
-              @media all and (max-width: 478px) {
-                padding: 0 28px;
-              }
-              @media all and (max-width: 420px) {
-                padding: 0 23px;
-              }
-              @media all and (max-width: 380px) {
-                padding: 0 20px;
-              }
-              @media all and (max-width: 345px) {
-                padding: 0 10px;
-              }
+
               label {
                 color: @content-light-grey;
-                font-size: 13px;
+                font-size: 16px;
                 font-family: 'iCuracao-Light';
-                @media all and (max-width: 767px) {
-                  font-size: 11px;
-                }
-                @media all and (max-width: 478px) {
-                  font-size: 12px;
-                }
-                @media all and (max-width: 380px) {
-                  font-size: 11px;
+                @media all and (max-width:478px)
+                {
+                  font-size: 14px;
                 }
               }
               .price {
                 color: #333;
                 font-size:24px;
-                font-weight: 500;
+                font-weight: 600;
                 margin-bottom: 0;
                 font-family: 'iCuracao-Medium';
-                margin-top: 15px;
-                @media all and (max-width: 990px) {
+                margin-top: 8px;
+                @media all and (max-width:478px)
+                {
+                  font-size: 18px;
+                }
+                @media all and (max-width:360px)
+                {
                   font-size: 16px;
-                  margin-top: 15px;
-                }
-                @media all and (max-width: 767px) {
-                  font-size: 15px;
-                }
-                @media all and (max-width: 599px) and (min-width: 479px) {
-                  font-size: 14px;
-                }
-                @media all and (max-width: 478px) {
-                  font-size: 16px;
-                  margin-top: 5px;
-                }
-                @media all and (max-width: 380px) {
-                  font-size: 10px;
                 }
               }
             }
@@ -385,64 +380,90 @@
               }
             }
           }
-          .add-bundle-btn {
-            position: absolute;
-            right: 0;
-            top: 13px;
-            @media all and (max-width: 990px) {
-              right: 20px;
-              top: 0;
-            }
-            @media all and (max-width: 478px) {
-              position: static;
-              clear: both;
-              padding: 0 10px;
-            }
-            button {
-              background-color: @btn-orange;
-              border: 1px solid @btn-orange;
-              color: #fff;
-              width: 100%;
-              border-radius: 0;
-              padding: 12px 15px;
-              text-transform: uppercase;
-              box-shadow: none;
-              font-size: 14px;
-              position: relative;
-              top: -5px;
-              font-family: 'iCuracao-Regular';
-              @media all and (max-width: 477px) {
+          form
+          {
+            margin-top: 30px;
+            float: left;
+            width: 100%;
+            .action.add-bundle-btn {
+              position: absolute;
+              right: 0;
+              top: 10px;
+              @media all and (max-width: 990px) {
+                right: 20px;
+                top: 0;
+              }
+              @media all and (max-width: 767px) {
+                position: static;
+                right: 0;
+                width: 90%;
+                margin: 0 auto;
+                margin-bottom: 35px;
+              }
+              @media all and (max-width: 478px) {
                 position: static;
                 clear: both;
+                padding: 0;
+                margin-top: 20;
+                margin-bottom: 10px;
+                width: 95%;
               }
-              @media all and (max-width: 990px) {
-                top: 0;
-                font-size: 14px;
-              }
-              @media all and (max-width: 767px) and (min-width: 600px) {
-                font-size: 13px;
-              }
-              @media all and (max-width: 599px) and (min-width: 479px) {
-                font-size: 12px;
-                padding: 9px;
-                top: 5px;
-              }
-              &:active {
+              button.add-bundle-btn {
+                background-color: @btn-orange;
+                border: 1px solid @btn-orange;
+                color: #fff;
+                width: 100%;
+                border-radius: 2px;
+                padding: 12px 38px;
+                text-transform: uppercase;
                 box-shadow: none;
-              }
-              span {
+                font-size: 14px;
                 position: relative;
                 top: -5px;
+                font-family: 'iCuracao-Regular';
+                @media all and (max-width: 477px) {
+                  position: static;
+                  clear: both;
+                }
+                @media all and (max-width: 990px) {
+                  top: 0;
+                  font-size: 14px;
+                }
+                @media all and (max-width: 767px) {
+                  right: 0;
+                  margin-bottom:0px;
+                }
+                @media all and (max-width: 767px) and (min-width: 600px) {
+                  font-size: 13px;
+                }
+                @media all and (max-width: 599px) and (min-width: 479px) {
+                  font-size: 12px;
+                  padding: 9px;
+                  top: 5px;
+                }
+                @media all and (max-width: 478px) {
+                  width:100% !important;
+                  margin-bottom: 0;
+                }
+                &:active {
+                  box-shadow: none;
+                }
+
                 img {
                   position: relative;
-                  top: 5px;
-                  @media all and (max-width: 599px) and (min-width:479px) {
-                    width: 30px;
-                  }
+                  top: 1px;
+                  width: 30px;
+                }
+                span {
+                  position: relative;
+                  top: -5px;
+                  text-transform: capitalize;
+
                 }
               }
             }
           }
+
         }
       }
     }

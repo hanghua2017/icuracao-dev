@@ -10,7 +10,7 @@
   .add-to-cart-block,.update-cart-block {
     width: 100%;
     clear: both;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     @media all and (min-width: 768px) {
     float: left;
     }
@@ -20,7 +20,7 @@
     .actions {
       display: inline-block;
       float: left;
-      margin-right: 20px;
+      margin-right: 15px;
       min-width:200px;
       @media all and (max-width: 767px) {
         width: 100%;
@@ -31,28 +31,35 @@
         color: #fff;
         width: 100%;
         border-radius: 3px;
-        padding: 10px 15px;
+        padding: 10px 60px;
         // text-transform: uppercase;
         margin-bottom: 0;
         box-shadow: none;
         span {
           position: relative;
-          top: -3px;
+          top: -2px;
           font-size: 14px;
           font-family: 'iCuracao-Regular';
         }
         img {
           position: relative;
           top: 3px;
+          width: 28px;
         }
       }
     }
     .shipping-pickup-details {
       display: inline-block;
+
+      @media all and (max-width: 767px)
+      {
+        margin-top: 20px;
+      }
       p {
         font-size: 14px;
         margin: 5px 0;
         &.shipping {
+          margin-top: 0;
           color: #81b800;;
           font-family: 'iCuracao-Regular';
         }
@@ -109,39 +116,49 @@
         }
       }
       .control {
-        margin-top: 20px;
+        margin-top: 15px;
         @media all and (max-width: 467px) {
           text-align: center;
         }
-        .choice {
-          display: inline-block;
-          margin-right: 10px;
-          margin-top: 0;
-          display: inline-flex;
-          width: auto;
-          //Media query for align the  mount option with same width
-          @media all and (max-width: 1001px) and (min-width: 902px) {
-            min-width: 240px;
-            &:nth-child(1) {
-              margin-bottom: 10px;
-            }
-            input[type=radio]+label {
-              padding: 15px;
-            }
+        .options-list
+        {
+          @media all and (max-width:478px)
+          {
+            text-align: left;
           }
-          @media all and (max-width: 467px) {
-            min-width: 240px;
-            &:nth-child(1) {
-              margin-bottom: 10px;
+          .choice {
+            display: inline-block;
+            margin-right: 10px;
+            margin-top: 0;
+            display: inline-flex;
+            width: auto;
+            //Media query for align the  mount option with same width
+            @media all and (max-width: 1001px) and (min-width: 902px) {
+              min-width: 240px;
+              &:nth-child(1) {
+                margin-bottom: 10px;
+              }
+              input[type=radio]+label {
+                padding: 15px;
+              }
+            }
+            @media all and (max-width: 467px) {
+              min-width: 240px;
+
+              &:nth-child(1) {
+                margin-bottom: 10px;
+              }
             }
           }
         }
+
         input[type=radio] {
           display: none;
         }
         input[type=radio]+label {
           padding: 15px;
           border: 1px solid #ddd;
+          margin-right: 10px;
           @media all and (max-width: 767px) {
             font-size: 14px;
           }
@@ -153,6 +170,16 @@
           }
           &:before{
           content: none;
+          }
+          .price-notice
+          {
+            .price-container
+            {
+              span
+              {
+                font-weight: 600;
+              }
+            }
           }
         }
         input[type=radio]+label:hover {
@@ -285,6 +312,7 @@
     @media all and (min-width: 991px) {
       width: 40% !important;
       margin: 15rem auto;
+      margin-top: 10rem;
     }
     .modal-header{
       background-color:  @popup-header !important;
@@ -537,8 +565,15 @@
               opacity: 0;
               cursor: pointer;
             }
+            a
+            {
+              &.warranty-box
+              {
+                color: @link-blue;
+              }
+            }
             a:visited, .alink:visited {
-              color: @link-blue;
+              color: @link-blue !important;
               text-decoration: none;
             }
           }

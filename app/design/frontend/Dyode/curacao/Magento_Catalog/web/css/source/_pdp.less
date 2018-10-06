@@ -156,6 +156,11 @@
             }
 
             .item.title {
+                  border-top: 3px solid #ffffff;
+                  &:hover
+                  {
+                    background: transparent !important;
+                  }
               &.active {
                 border-top: 3px solid @theme-color;
 
@@ -174,6 +179,7 @@
                 letter-spacing: 1px;
                 font-weight: normal;
                 font-family: 'iCuracao-Medium';
+                font-weight: 600;
                 @media all and (max-width: 767px) {
                   padding-left: 20px;
                   padding-right: 20px;
@@ -196,6 +202,14 @@
               @media all and (max-width: 767px) {
                 margin-top: 0;
                 border-bottom: 1px solid @desc-border;
+              }
+              button.action
+              {
+                background: #97d70b;
+                border-radius: 3px;
+                border: none;
+                color: white;
+                font-weight: 600;
               }
 
               .table-wrapper {
@@ -221,6 +235,10 @@
 
                 .review-legend {
                   font-size: small;
+                  strong
+                  {
+                    margin-top: 8px;
+                  }
                 }
               }
 
@@ -278,9 +296,9 @@
           clear: both;
           float: left;
           width: 100%;
-          -webkit-box-shadow: 0 0 7px 1px rgba(30,30,30,0.1);
-          -moz-box-shadow: 0 0 7px 1px rgba(30,30,30,0.1);
-          box-shadow: 0 0 7px 1px rgba(30,30,30,0.1);
+          -webkit-box-shadow:  0 0 13px 2px rgba(30, 30, 30, 0.1);
+          -moz-box-shadow:  0 0 13px 2px rgba(30, 30, 30, 0.1);
+          box-shadow:  0 0 13px 2px rgba(30, 30, 30, 0.1);
           margin-bottom: 30px;
           @media all and (max-width: 901px) {
             display: -webkit-flex;
@@ -292,21 +310,21 @@
           }
           //styling for product information section - right side //
           .product-info-main {
-            width: 55%;
+            width: 60% !important;
             padding: 25px;
-            border-left: 1px solid @content-light-grey;
+            border-left: 1px solid #d4d4d4;
             @media all and (min-width: 991px) {
-              padding: 40px 25px;
+              padding: 40px 30px;
               min-height: 705px;
             }
             @media all and (max-width: 1339px) {
-              width: 52%;
+              width: 52% !important;
             }
             @media all and (max-width: 949px) {
-              width: 50%;
+              width: 50% !important
             }
             @media all and (max-width: 901px) {
-              width: 100%;
+              width: 100% !important;
               padding-left: 0;
               padding-right: 0;
               border-left: none;
@@ -351,11 +369,12 @@
             .product-info-price {
               display: inline-block;
               clear: both;
-              border-top: 1px solid @content-light-grey;
-              border-bottom: 1px solid @content-light-grey;
+              border-top: 1px solid #d4d4d4;
+              border-bottom: 1px solid #d4d4d4;
               float: left;
-              padding: 15px 0;
               margin: 0;
+              padding-bottom: 35px;
+              padding-top: 25px;
               @media all and (max-width: 990px) {
                 padding: 10px 0;
               }
@@ -427,7 +446,7 @@
                   }
                   //Styling for special price
                   &.special-price {
-                    margin-right: 20px;
+                    margin-right: 12px;
                     @media all and (max-width: 476px) {
                       margin-right: 15px;
                     }
@@ -598,7 +617,7 @@
                       label {
                         font-size: 16px;
                         color: @content-light-grey;
-                        margin-right: 20px;
+                        margin-right: 12px;
                         @media all and (max-width: 991px) {
                           font-size: 14px;
                         }
@@ -615,6 +634,12 @@
                         display: inline-block;
                         min-width: 50px;
                         height: 40px;
+                        .qty
+                        {
+                          width: 60px;
+                          height: 40px;
+                          text-align: center;
+                        }
                       }
                     }
                   }
@@ -656,7 +681,7 @@
           //Styling for product image section - left side //
           .product {
             &.media {
-              width: 45%;
+              width: 40%;
               padding: 50px 20px;
               margin-bottom: 0;
               @media all and (min-width: 901px) {

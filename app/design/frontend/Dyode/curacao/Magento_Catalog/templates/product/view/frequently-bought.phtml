@@ -39,7 +39,7 @@ $product = $block->getProduct();
                           <img class="prod-img" src="<?= $viewModel->getProductImageUrl($product) ?>"/>
                           </div>
                             <div class="price-details">
-                                <label class="name"><?= $block->escapeHtml($product->getName()) ?></label>
+                                <div class="name"><?= $block->escapeHtml($product->getName()) ?></div>
 
                                 <?php if ($viewModel->productHasRating($product)): ?>
                                     <?php $rating = $viewModel->productRatingSummary($product) ?>
@@ -84,7 +84,7 @@ $product = $block->getProduct();
                                          src="<?= $viewModel->getProductImageUrl($fbtProduct) ?>" />
                                        </div>
                                     <div class="price-details">
-                                        <label class="name"><?= $block->escapeHtml($fbtProduct->getName()) ?></label>
+                                        <div class="name"><?= $block->escapeHtml($fbtProduct->getName()) ?></div>
 
                                         <?php if ($viewModel->productHasRating($fbtProduct)): ?>
                                             <?php $rating = $viewModel->productRatingSummary($fbtProduct) ?>
