@@ -811,12 +811,9 @@ select:focus, input:focus {
         button{
           float: left !important;
           min-width: 150px;
-          padding: 7px 15px;
+          padding: 10px 15px;
           @media all and (max-width: 767px) {
             width: 100%;
-          }
-          &:hover {
-            border-color: darken(@theme-color, 5%;)
           }
           span {
             font-family: 'iCuracao-Regular';
@@ -890,7 +887,7 @@ select:focus, input:focus {
     }
     .actions-toolbar {
       padding-left: 0 !important;
-      &:after{
+      &::after{
         clear: both;
         display: table;
         content:'';
