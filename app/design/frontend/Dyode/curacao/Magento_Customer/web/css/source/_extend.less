@@ -2670,12 +2670,37 @@ select:focus, input:focus {
                   .block {
                     .block-content {
                       padding: 0 !important;
+                      .rma-message.customer {
+                        .rma-message-text {
+                          br {
+                            display: none;
+                          }
+                        }
+                      }
                       form {
+                        .fieldset {
+                          .field {
+                            label {
+                              font-family: 'iCuracao-Regular';
+                              font-weight: 500;
+                            }
+                          }
+                        }
                         .actions-toolbar {
-                          padding-left: 0 !important;
+                          padding: 0 !important;
                           .primary {
+                            float: left;
                             button {
-
+                              background-color: @theme-color-dark;
+                              border-color: @theme-color-dark;
+                              padding: 10px 15px;
+                              span {
+                                font-family: 'iCuracao-Regular';
+                                font-weight: 500;
+                              }
+                              &:hover {
+                                background-color: darken(@theme-color-dark, 5%);
+                              }
                             }
                           }
                         }
