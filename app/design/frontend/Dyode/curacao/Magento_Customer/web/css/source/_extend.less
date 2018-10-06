@@ -1959,6 +1959,8 @@ select:focus, input:focus {
         background-color: #ffffff;
         padding: 20px 0;
         padding-top: 40px;
+        padding-bottom: 50px;
+        margin-bottom: 10px;
         @media all and (max-width: 599px) {
           max-width: 100%;
           width: 100%;
@@ -2635,6 +2637,70 @@ select:focus, input:focus {
                           .primary {
                             button {
 
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+      }
+    }
+  }
+}
+/*styling for rma request form ends here*/
+.rma-rma-view {
+  .page-main {
+    .columns {
+      .column.main {
+          .rma-view{
+            padding: 0 20px !important;
+            .block {
+              margin-bottom: 25px !important;
+              .block-content{
+                padding: 0 !important;
+                .table-wrapper {
+                  margin-left: 0;
+                  margin-right: 0;
+                }
+                .box {
+                  .block {
+                    .block-content {
+                      padding: 0 !important;
+                      .rma-message.customer {
+                        .rma-message-text {
+                          br {
+                            display: none;
+                          }
+                        }
+                      }
+                      form {
+                        .fieldset {
+                          .field {
+                            label {
+                              font-family: 'iCuracao-Regular';
+                              font-weight: 500;
+                            }
+                          }
+                        }
+                        .actions-toolbar {
+                          padding: 0 !important;
+                          .primary {
+                            float: left;
+                            button {
+                              background-color: @theme-color-dark;
+                              border-color: @theme-color-dark;
+                              padding: 10px 15px;
+                              span {
+                                font-family: 'iCuracao-Regular';
+                                font-weight: 500;
+                              }
+                              &:hover {
+                                background-color: darken(@theme-color-dark, 5%);
+                              }
                             }
                           }
                         }
