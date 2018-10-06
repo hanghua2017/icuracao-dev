@@ -6,18 +6,20 @@ input, select {
 }
 .checkout-cart-index{
   .columns .column.main {
-     @media all and (max-width: 991px) {
-      padding-bottom: 0 !important;
+     @media all and (max-width: 767px) {
+      padding-bottom: 10px !important;
      }
 }
   .page-wrapper {
     .page-main {
-      max-width: 1500px; //Removable max
+      max-width: 1280px;
       .message.success {
         margin: 0;
-        -webkit-box-shadow: 0px 5px 10px 0px rgba(27, 32, 42, 0.1);
-        -moz-box-shadow: 0px 5px 10px 0px rgba(27, 32, 42, 0.1);
-        box-shadow: 0px 5px 10px 0px rgba(27, 32, 42, 0.1);
+        @media all and (min-width: 991px) {
+          -webkit-box-shadow: 0px 5px 10px 0px rgba(27, 32, 42, 0.1);
+          -moz-box-shadow: 0px 5px 10px 0px rgba(27, 32, 42, 0.1);
+          box-shadow: 0px 5px 10px 0px rgba(27, 32, 42, 0.1);
+        }
       }
       /*page title with bag item count and checkout button*/
       .page-title-wrapper {
@@ -36,9 +38,9 @@ input, select {
         .page-title {
           float: left;
           margin-bottom: 0;
-          font-family: 'iCuracao-Regular';
+          font-family: 'iCuracao-Medium';
           font-size: 16px;
-          font-weight: 600;
+          font-weight: 500;
           line-height: 38px;
           @media all and (max-width: 767px) {
             font-size: 14px;
@@ -48,10 +50,10 @@ input, select {
           }
         }
         span.bag-qty {
-          font-family: 'iCuracao-Regular';
+          font-family: 'iCuracao-Medium';
           font-size: 16px;
-          font-weight: 600;
-          padding-left: 3px;
+          font-weight: 500;
+          padding-left: 5px;
           line-height: 38px;
           @media all and (max-width: 767px) {
             font-size: 14px;
@@ -131,9 +133,10 @@ input, select {
                       line-height: 18px;
                       color: @content-light-grey;
                       background-color: #fff;
-                      font-family: "iCuracao-Regular";
+                      font-family: "iCuracao-Medium";
+                      font-weight: 500;
                       @media all and (min-width: 991px) {
-                        font-size: 14px;
+                        font-size: 13px;
                       }
                       &.col {
 
@@ -164,12 +167,17 @@ input, select {
                     padding-bottom: 10px;
                     td {
                       width: 18%;
-                      @media all and (max-width: 1199px) {
-
+                      @media all and (min-width: 768px) {
+                        border-left: 1px solid @table-border;
                       }
                       @media all and (min-width: 768px) {
                         padding-left: 0;
                         padding-right: 0;
+                      }
+                      &:first-child{
+
+                          border-left:none;
+
                       }
                       /*Styling expect first td*/
                       @media all and (max-width: 767px) {
@@ -177,6 +185,7 @@ input, select {
                           position: relative;
                           left: 160px;
                           width: 28%;
+                          min-width: 28%;
                           margin-bottom: 15px;
                         }
                         &.qty {
@@ -199,6 +208,7 @@ input, select {
                       @media all and (max-width: 650px) {
                         &.price, &.subtotal {
                           width: 25%;
+                          min-width: 25%;
                         }
                       }
                       @media all and (max-width: 599px) {
@@ -209,6 +219,7 @@ input, select {
                         }
                         &.price, &.subtotal {
                           width: 27%;
+                          min-width: 27%;
                         }
                         &.qty {
                           width: 100px;
@@ -217,6 +228,7 @@ input, select {
                       @media all and (max-width: 530px) {
                         &.price, &.subtotal {
                           width: 25%;
+                          min-width: 25%;
                         }
                         &.qty {
                           width: 90px;
@@ -227,18 +239,19 @@ input, select {
                         &:not(.item) {
                           left: 15px;
                           width: 34%;
+                          min-width: 34%;
                           margin-top: 10px;
                         }
                         &.qty {
                           width: 100px;
                         }
                       }
-                      @media all and (max-width: 420px) {
+                      @media all and (max-width: 430px) {
                         &:not(.item) {
                           width: auto;
                           left: 0;
-                          padding-left: 4%;
-                          padding-right: 4%;
+                          padding-left: 3%;
+                          padding-right: 8%;
                         }
                         &.qty {
                           padding-left: 14px;
@@ -248,7 +261,7 @@ input, select {
                       @media all and (max-width: 345px) {
                         &:not(.item) {
                           padding-left: 3%;
-                          padding-right: 3%;
+                          padding-right: 5%;
                         }
                         &.subtotal {
                           padding-right: 0;
@@ -308,11 +321,11 @@ input, select {
                                 width: 80% !important;
                             }
                             overflow: hidden;
-                            height: 40px;
                             text-overflow: ellipsis;
                             a {
                               font-family: 'iCuracao-Medium';
                               font-size: 16px;
+                              font-weight: 500;
                               letter-spacing: 0.5px;
                               color: @content-dark-grey;
                               @media all and (max-width: 768px) {
@@ -396,7 +409,7 @@ input, select {
                             display: none;
                           }
                           .action-edit
-                          {
+                          { display: none;
                             position: static;
                             margin: 0;
                             color: @content-dark-grey;
@@ -417,12 +430,14 @@ input, select {
                         font-family: 'iCuracao-Regular';
                         .price {
                           font-size: 16px;
+                          font-family: 'iCuracao-Medium';
+                          font-weight: 500;
                           color: @content-dark-grey;
                           @media all and (max-width: 991px) {
                             font-size: 14px;
                           }
                           @media all and (max-width: 478px){
-                            font-size: 13px;
+                            font-size:13px;
                           }
                         }
                         .input-text.qty {
@@ -459,6 +474,7 @@ input, select {
                           color: @content-dark-grey;
                           font-family: 'iCuracao-Medium';
                           font-size: 14px;
+                          font-weight: 500;
                           @media all and (max-width: 767px) {
                             top: -15px;
                           }
@@ -474,6 +490,8 @@ input, select {
                             .price {
                               color: @theme-color;
                               font-size: 13px;
+                              font-family: 'iCuracao-Medium';
+                              font-weight: 500;
                               @media all and (max-width: 478px) {
                                 font-size: 12px;
                               }
@@ -482,9 +500,9 @@ input, select {
                         }
                       }
                       .price-excluding-tax, .field.qty {
-                        @media all and (min-width: 768px) {
-                            border-left: 1px solid @table-border;
-                        }
+                        // @media all and (min-width: 768px) {
+                        //     border-left: 1px solid @table-border;
+                        // }
                       }
                       .price-excluding-tax {
                         padding: 20px 0 55px;
@@ -539,6 +557,7 @@ input, select {
                   .continue, button.checkout {
                     color: white;
                     font-family: 'iCuracao-Medium';
+                    font-weight: 500;
                     font-size: 14px;
                     letter-spacing: 0.5px;
                     @media all and (max-width: 767px) {
@@ -555,13 +574,14 @@ input, select {
                     float: left;
                     background-color: #81b800;
                     border-radius: 3px;
-                    padding: 8px 20px 8px 5px;
+                    padding: 8px 30px 8px 23px;
                     text-align: center;
                     &:hover {
                       text-decoration: none;
                     }
                     @media all and (max-width: 767px) {
                       padding: 10px 0;
+                      margin-bottom: 0;
                       float: none;
 
                     }
@@ -595,15 +615,17 @@ input, select {
                 padding: 5px 0 10px 0;
                 margin: 0;
               }
-              @media all and (min-width: 767px) {
+              @media all and (min-width: 768px) {
                 width: 100%;
-                padding: 0px 20px 0 20px;
+                padding: 10px 20px 10px 20px;
+                float: none;
+                clear: both;
               }
               p {
-                font-size: 12px;
+                font-size: 14px;
                 color: @content-light-grey;
                 font-family: 'iCuracao-Regular';
-                @media all and (max-width: 768px) {
+                @media all and (max-width: 767px) {
                   font-size: 11px;
                 }
                 b {
@@ -671,6 +693,7 @@ input, select {
           background-repeat: no-repeat;
           background-size: 20px;
           font-family: 'iCuracao-Medium';
+          font-weight: 500;
           font-size: 14px;
           letter-spacing: 0.5px;
         }

@@ -56,6 +56,7 @@ select:focus, input:focus {
     .message.info.empty {
       font-family: 'iCuracao-Regular';
       font-size: 13px;
+      font-weight: 500;
     }
   }
 
@@ -72,6 +73,8 @@ select:focus, input:focus {
           &.block-collapsible-nav{
   					border: none;
             font-family: "iCuracao-Regular";
+            font-weight: 500;
+            padding-bottom: 0;
             @media only screen and (min-width: 768px){
               -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
     					-moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
@@ -83,7 +86,7 @@ select:focus, input:focus {
             @media all and (max-width: 991px) {
               padding: 20px 15px;
             }
-            @media only screen and (max-width: 767px){
+            @media all and (max-width: 767px){
               font-size: 15px !important;
               padding: 20px 0 0 !important;
   					}
@@ -111,6 +114,7 @@ select:focus, input:focus {
             {
               background:@white;
               color: @content-text;
+              padding-bottom: 0;
               @media only screen and (max-width: 767px){
                   border-bottom: 1px solid #f2f2f2;
               }
@@ -131,6 +135,7 @@ select:focus, input:focus {
   									border: none;
   								}
                   &.current > strong {
+                    font-weight: 500 !important;
                     @media all and (max-width: 767px) {
                       padding: 15px 16px;
                     }
@@ -143,7 +148,7 @@ select:focus, input:focus {
 										border: none;
 										color: @active-blue-color !important;
 										font-size: 14px;
-										font-weight: 500;
+										font-weight: 500 !important;
 										padding: 15px;
                     @media only screen and (max-width: 767px){
                       border-left:4px solid @theme-color;
@@ -159,6 +164,7 @@ select:focus, input:focus {
   									color: @footer-text;
   									padding: 15px;
   									border-color: transparent !important;
+                    font-weight: 500;
   									@media only screen and (min-width: 768px){
   										font-size: 14px;
   									}
@@ -203,6 +209,7 @@ select:focus, input:focus {
               .box-title {
                 span {
                   font-family: "iCuracao-Medium";
+                  font-weight: 500;
                 }
               }
             }
@@ -320,6 +327,7 @@ select:focus, input:focus {
       .block-collapsible-nav {
         background-color: @white;
         strong{
+          font-weight: 500 !important;
           @media only screen and (max-width: 767px){
            font-size: 22px;
          }
@@ -349,9 +357,6 @@ select:focus, input:focus {
           }
 					.page-title-wrapper{
 
-						.page-title{
-
-						}
             .order-date{
               margin: 0px 0 18px 3px !important;
             }
@@ -500,7 +505,8 @@ select:focus, input:focus {
               a, .action.view {
                 span {
                   font-size: 13px !important;
-                  font-family: "iCuracao-Medium";
+                  font-family: "iCuracao-Regular";
+                  font-weight: 500;
                 }
               }
             }
@@ -517,7 +523,11 @@ select:focus, input:focus {
             			border-color: @theme-color;
                   border-radius: 3px;
                   margin: 0 auto;
-                    padding: 15px;
+                  padding: 10px 15px;
+                  min-width: 150px;
+                    &:hover {
+                      background: darken(@theme-color, 10%);
+                    }
             		span{
               		font-size:16px;
               		color:@white;
@@ -529,11 +539,18 @@ select:focus, input:focus {
               display: block;
               button{
                 background: @theme-color;
+                border-color: @theme-color;
                 border: none;
                 border-radius: 3px;
-                padding: 15px;
+                padding: 10px 15px;
+                min-width: 150px;
+                &:hover {
+                  background: darken(@theme-color, 10%);
+                }
                 span{
                   color: @white;
+                  font-family: 'iCuracao-Regular';
+
                 }
               }
             }
@@ -656,6 +673,7 @@ select:focus, input:focus {
                 text-transform: capitalize;
                 font-size: 16px;
                 color: #000;
+                margin-bottom: 15px;
               }
               .credit-card {
                 width: 70%;
@@ -677,75 +695,262 @@ select:focus, input:focus {
       }
     }
   }
-}
 
-	//ICuracao-Address-information tab With LESS styles
-	.customer-account-edit{
-	  .page-main{
-	    .form-edit-account{
-	      padding:10px 20px;
-	      @media all and (max-width:767px){
-	        padding:10px;
-	      }
-	      .fieldset{
-	        margin-bottom:25px;
-					.legend{
-						color:@theme-color;
-						padding-top:20px;
-						border-bottom: 1px solid @border-color;
-			      @media all and (max-width:767px){
-			        padding-top:10px;
-			      }
-					}
-          input {
-    				border-radius: 3px;
-    			}
-	      }
-	    }
-
-			.actions-toolbar{
-				border-top: 1px solid @border-color;
-				@media only screen and (min-width: 768px){
-				padding:20px 20px 20px 0 !important;
-				}
-        .primary{
-          button{
-            float: left !important;
-            min-width: 100px;
+  &.rma-rma-order {
+    .page-main {
+      .columns {
+        .column.main {
+          .page-title-wrapper {
+            position: relative;
+            padding: 25px 20px 15px;
+            @media all and (max-width: 768px) {
+              padding: 15px !important;
+            }
+            .order-actions-toolbar {
+              position: absolute;
+              top: 35px;
+              right: 0;
+            }
+            .page-title {
+              margin-right: 5px !important;
+              @media all and (max-width: 768px) {
+                display: contents;
+              }
+            }
+            span.order-status {
+              border: none;
+              text-transform: capitalize;
+              color: #cccccc;
+              font-size: 16px !important;
+              font-style: italic;
+              @media all and (max-width: 768px) {
+                font-size: 14px !important;
+                margin-top: 8px;
+              }
+            }
+            .order-date {
+              margin-bottom: 0 !important;
+              padding-top: 10px;
+              @media all and (max-width: 768px) {
+                loat: left;
+                width: 100%;
+                padding-top: 0;
+              }
+            }
+            .order-actions-toolbar {
+              .actions {
+                .action.print {
+                  color: @active-blue-color;
+                  span {
+                    text-transform: uppercase;
+                    font-family: 'iCuracao-Regular';
+                    font-weight: 500;
+                  }
+                }
+              }
+            }
           }
-        }
-			}
-	  }
-	}
-  .customer-address-form{
-    .form-address-edit{
-      padding: 10px;
-      @media all and (min-width:768px){
-        padding:10px 20px;
-      }
-      input{
-				border-radius: 5px;
-			}
-      .actions-toolbar .action.primary,
-      .box-tocart .action.instant-purchase {
-          padding: 8px 17px;
-      }
-      .fieldset{
-        .legend{
-          span{
-             color: @content-text !important;
-             font-size: 16px;
-             font-family: 'iCuracao-Regular';
+          .items.order-links {
+            margin-top: 15px;
+            margin-bottom: 15px;
+            @media all and (max-width: 768px) {
+              padding: 0 15px;
+            }
+            .nav.item {
+              a {
+                color: #666;
+                border: 1px solid @border-color;
+                &:hover {
+                  color: @theme-color;
+                }
+              }
+              strong {border: 1px solid @border-color;
+                font-family: "iCuracao-Regular";
+              }
+            }
           }
-        }
-      }
-      .fieldset{
-        .choice{
-          width: 100% !important;
+          .order-details-items {
+            padding: 0;
+            margin: 0 20px;
+            border: 1px solid @border-color;
+            @media all and (max-width: 768px) {
+              margin: 0 15px;
+            }
+            .table-wrapper {
+              .table-wrapper {
+                table {
+                  thead {
+                    tr {
+                      th {
+                        border-bottom: 1px solid @border-color;
+                      }
+                    }
+                  }
+                  tbody {
+                    tr {
+                      td {
+                        a {
+                          font-family: 'iCuracao-Regular';
+                          color: @active-blue-color;
+                          text-transform: uppercase;
+                          font-weight: 500;
+                          &:hover {
+                            color: @theme-color;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
   }
+}
+
+	//ICuracao-Address-information tab With LESS styles
+.customer-account-edit{
+  .page-main{
+    .form-edit-account{
+      padding:10px 20px;
+      @media all and (max-width:767px){
+        padding:10px;
+      }
+      .fieldset{
+        margin-bottom:25px;
+				.legend{
+					color:@theme-color;
+					padding-top:20px;
+					border-bottom: 1px solid @border-color;
+		      @media all and (max-width:767px){
+		        padding-top:10px;
+		      }
+				}
+        input {
+  				border-radius: 3px;
+  			}
+      }
+    }
+
+		.actions-toolbar{
+			border-top: 1px solid @border-color;
+			@media only screen and (min-width: 768px){
+			padding:20px 20px 20px 0 !important;
+			}
+      .primary{
+        button{
+          float: left !important;
+          min-width: 150px;
+          padding: 10px 15px;
+          @media all and (max-width: 767px) {
+            width: 100%;
+          }
+          span {
+            font-family: 'iCuracao-Regular';
+            font-weight: 500;
+          }
+        }
+      }
+		}
+  }
+}
+.customer-address-form{
+  .form-address-edit{
+    padding: 10px;
+    @media all and (min-width:768px){
+      padding:10px 20px;
+    }
+    input{
+			border-radius: 5px;
+		}
+    .actions-toolbar .action.primary,
+    .box-tocart .action.instant-purchase {
+        padding: 8px 17px;
+    }
+    .fieldset{
+      width: 100%;
+      .field {
+        width: 48%;
+        @media all and (max-width:767px){
+          width:100%;
+        }
+        &.field-name-firstname,&.company,&.city,&.zip,&.billing {
+          float: left;
+        }
+        &.field-name-lastname,&.telephone,&.region,&.country,&.shipping {
+          float: right;
+        }
+        &.street {
+          width:100%;
+          float: left;
+          clear: both;
+          .control {
+            #street_1 {
+              width: 48%;
+              float: left;
+              @media all and (max-width:767px){
+                width:100%;
+                margin-bottom: 15px;
+              }
+            }
+            .nested {
+              float: right;
+              width: 48%;
+              @media all and (max-width:767px){
+                width:100%;
+              }
+              .field.additional {
+                margin-top: 0;
+                width:100%;
+              }
+            }
+          }
+        }
+      }
+      .legend{
+        span{
+           color: @content-text !important;
+           font-size: 16px;
+           font-family: 'iCuracao-Regular';
+        }
+      }
+    }
+    .actions-toolbar {
+      padding-left: 0 !important;
+      &::after{
+        clear: both;
+        display: table;
+        content:'';
+      }
+      .primary {
+        float: left !important;
+        @media all and(max-width:767px){
+          width:100%;
+        }
+        button.submit {
+          padding: 7px 15px !important;
+          min-width: 150px;
+          @media all and(max-width:767px){
+            min-width: auto;
+            width:100%;
+          }
+          span {
+            font-family: 'iCuracao-Regular';
+            font-weight: 500;
+          }
+        }
+      }
+    }
+    .fieldset{
+      .choice{
+        width: 100% !important;
+      }
+    }
+  }
+}
 //ICuracao-My orders tab With LESS styles
 
 .table-wrapper{
@@ -941,8 +1146,7 @@ select:focus, input:focus {
     }
     .main{
       .block-order-details-view {
-        .block-title{
-        }
+
         .block-content {
           padding: 0;
           border-bottom: 1px solid #f2f2f2;
@@ -1234,9 +1438,7 @@ select:focus, input:focus {
       }
       .block-addresses-default,.block-addresses-list{
         .block-title{
-          @media all and(max-width: 767px){
-            margin-bottom: 0;
-          }
+          margin-bottom: 0 !important;
         }
       }
       .actions-toolbar{
@@ -1252,7 +1454,7 @@ select:focus, input:focus {
             }
             span {
               font-size: 14px !important;
-              font-family: 'iCuracao-Medium';
+              font-family: 'iCuracao-Regular';
               color: @active-blue-color !important;
             }
           }
@@ -1261,8 +1463,7 @@ select:focus, input:focus {
     }
   }
 }
-
-.newsletter-manage-index,.vault-cards-listaction,.customer-account-edit,.magento-rma-returns-history,
+.newsletter-manage-index,.vault-cards-listaction,.magento-rma-returns-history,
 .customer-account-index,.sales-order-history,.sales-order-view,.magento-rma-returns-create,.customer-address-form{
   .columns{
     .sidebar-main{
@@ -1355,7 +1556,7 @@ select:focus, input:focus {
     }
   }
 }
-.newsletter-manage-index,.vault-cards-listaction,.customer-account-edit,.magento-rma-returns-history,
+.newsletter-manage-index,.vault-cards-listaction,.magento-rma-returns-history,
 .customer-address-index,.magento-rma-returns-create,.magento-rma-returns-view,.sales-order-view,.sales-order-invoice,
 .sales-order-shipment,.customer-account-index,.sales-order-history,.customer-address-form{
   .columns{
@@ -1400,7 +1601,8 @@ select:focus, input:focus {
     }
   }
 }
-.customer-address-form,.customer-account-edit,.newsletter-manage-index{
+
+.customer-address-form, .customer-account-edit,.newsletter-manage-index{
   .columns{
     .column{
       form{
@@ -1436,12 +1638,33 @@ select:focus, input:focus {
 }
 
 .newsletter-manage-index{
-  .columns{
-    .column{
-      form{
-        fieldset{
-          .choice{
-            width: 100% !important;
+  .page-wrapper{
+    .page-main {
+      .columns{
+        .column{
+          @media all and (max-width: 767px) {
+            padding-bottom: 40px;
+          }
+          form{
+            fieldset{
+              .choice{
+                width: 100% !important;
+              }
+            }
+            .actions-toolbar {
+              padding-left: 0 !important;
+              .primary {
+                float: left;
+                button.save {
+                  padding: 10px 15px;
+                  min-width: 150px;
+                  &:hover {
+                    background-color: darken(@theme-color, 5%);
+                    border-color: darken(@theme-color, 5%);
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -1470,6 +1693,7 @@ select:focus, input:focus {
         }
       }
       .order-date{
+        margin: 0 !important;
         @media only screen and (min-width: 991px){
               display: none;
         }
@@ -1671,12 +1895,12 @@ select:focus, input:focus {
         .primary {
           button.primary {
             float: left;
-            padding: 7px 15px;
+            padding: 10px 15px;
             border-radius: 3px;
             min-width: 100px;
-            background-color: @theme-color-dark;
+            background-color: @theme-color;
             &:hover {
-              background-color: darken(@theme-color-dark, 10%);
+              background-color: darken(@theme-color, 5%);
             }
             span {
               font-family: 'iCuracao-Regular';
@@ -1735,6 +1959,8 @@ select:focus, input:focus {
         background-color: #ffffff;
         padding: 20px 0;
         padding-top: 40px;
+        padding-bottom: 50px;
+        margin-bottom: 10px;
         @media all and (max-width: 599px) {
           max-width: 100%;
           width: 100%;
@@ -1884,8 +2110,7 @@ select:focus, input:focus {
                 margin:0;
                 &:hover
                 {
-                  background-color:@theme-color-dark;
-                  border-color: @theme-color-dark;
+                  background-color:darken(@theme-color, 10%);
                 }
                 span {
                     font-size: 16px;
@@ -2368,7 +2593,8 @@ select:focus, input:focus {
               button{
                 width: 100%;
                 margin-top: 30px;
-                padding: 15px;
+                padding: 10px 15px;
+                min-width: 150px;
                 min-height: 50px;
                 font-size: 17px;
                 font-family: 'iCuracao-Medium';
@@ -2387,3 +2613,105 @@ select:focus, input:focus {
   }
 }
 /*styling for rma request form ends here*/
+.rma-rma-view {
+  .page-main {
+    .columns {
+      .column.main {
+          .rma-view{
+            padding: 0 20px !important;
+            .block {
+              margin-bottom: 25px !important;
+              .block-content{
+                padding: 0 !important;
+                .table-wrapper {
+                  margin-left: 0;
+                  margin-right: 0;
+                }
+                .box {
+                  .block {
+                    .block-content {
+                      padding: 0 !important;
+                      form {
+                        .actions-toolbar {
+                          padding-left: 0 !important;
+                          .primary {
+                            button {
+
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+      }
+    }
+  }
+}
+/*styling for rma request form ends here*/
+.rma-rma-view {
+  .page-main {
+    .columns {
+      .column.main {
+          .rma-view{
+            padding: 0 20px !important;
+            .block {
+              margin-bottom: 25px !important;
+              .block-content{
+                padding: 0 !important;
+                .table-wrapper {
+                  margin-left: 0;
+                  margin-right: 0;
+                }
+                .box {
+                  .block {
+                    .block-content {
+                      padding: 0 !important;
+                      .rma-message.customer {
+                        .rma-message-text {
+                          br {
+                            display: none;
+                          }
+                        }
+                      }
+                      form {
+                        .fieldset {
+                          .field {
+                            label {
+                              font-family: 'iCuracao-Regular';
+                              font-weight: 500;
+                            }
+                          }
+                        }
+                        .actions-toolbar {
+                          padding: 0 !important;
+                          .primary {
+                            float: left;
+                            button {
+                              background-color: @theme-color-dark;
+                              border-color: @theme-color-dark;
+                              padding: 10px 15px;
+                              span {
+                                font-family: 'iCuracao-Regular';
+                                font-weight: 500;
+                              }
+                              &:hover {
+                                background-color: darken(@theme-color-dark, 5%);
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+      }
+    }
+  }
+}
