@@ -3304,6 +3304,9 @@ print {
   speak: none;
   text-align: center;
 }
+.ves-megamenu .navigation .nav-item.dynamic-active.no-subcategory > a:after{
+  content:'';
+}
 
 .ves-megamenu .navigation .nav-item .dynamic-content .mobile-accessories-container .item-content .item-content1 .mega-col-level-2{
       padding: 10px 0 0 0;
