@@ -19,7 +19,9 @@
 define([
     'jquery',
     'mage/translate',
-    'Magento_Ui/js/modal/modal'
+    'Magento_Ui/js/modal/modal',
+    'Magento_Catalog/product/view/validation',
+    'mage/mage'
 ], function ($, $t) {
     'use strict';
 
@@ -105,16 +107,36 @@ define([
     function initializeWarrantyAddToCartModal() {
         var addToCartModal = $('#addtocartModal'),
             addToCartButton = $('#product-addtocart-button'),
-            redirectToCartHiddenLink = $('#warranty-go-to-cart-link')[0];
+            needToRedirectInput = $('#addtocart_modal_need_to_redirect'),
+            messageBlock = addToCartModal.find('.message'),
+            modalCheckboxes = addToCartModal.find('input[type="checkbox"]');
 
         /**
          * Warranty modal Add, Skip button action.
          * Both buttons will perform addtocart action and then redirect to the cart page.
          */
         var addToCartButtonClick = function (event) {
+            var button = $(event.target);
+
+            if ($(event.target).prop('tagName').toLowerCase() !== 'button') {
+                button = $(event.target).closest('button');
+            }
+
+            if (button.hasClass('add-warranty-btn')) {
+                if (!modalCheckboxes.is(':checked')) {
+                    messageBlock.html(
+                        '<div class="error">' + $t('Please select any of the options available') + '</div>'
+                    );
+
+                    return false;
+                }
+            }
+
+            messageBlock.html('');
+            needToRedirectInput.val('1');
             addToCartButton.trigger('submit');
-            redirectToCartHiddenLink.click();
-            addToCartModal.modal('closeModal')
+            addToCartModal.modal('closeModal');
+
             return true;
         };
 
@@ -202,6 +224,7 @@ define([
             warrantyOptions.click(this.checkboxClickHandler.bind(this));
             addToCartButton.click(this.addToCartButtonClickHandler.bind(this));
             addToCartModalCheckboxes.click(this.checkboxModalClickHandler.bind(this));
+            $(document).on('ajax:addToCart', this.ajaxAddToCartSuccess.bind(this));
         },
 
         /**
@@ -214,7 +237,7 @@ define([
             event.preventDefault();
             event.stopImmediatePropagation();
 
-            this.updateModalContent($(event.target).data('warranty-id'))
+            this.updateModalContent($(event.target).data('warranty-id'));
 
             $(this.options.warrantyModal).modal('openModal');
 
@@ -272,12 +295,30 @@ define([
             }
 
             var addToCartModal = $(this.options.warrantyAddToCartModal),
-                addToCartModalCheckboxes = addToCartModal.find(this.options.checkBoxInputs);
+                addToCartModalCheckboxes = addToCartModal.find(this.options.checkBoxInputs),
+                messageBlock = addToCartModal.find('.message');
 
             addToCartModalCheckboxes.attr('checked', false);
+            messageBlock.html('');
             addToCartModal.modal('openModal');
 
             return true;
+        },
+
+        /**
+         * Listen to ajax add-to-cart success action.
+         * If this action is fired, then that means the validations are completed and the produt is added to the
+         * cart. So we are checking here whether we want to redirect the user to the cart page or not. We want
+         * to redirect the user, if the product is added via warranty-addtocart-modal.
+         */
+        ajaxAddToCartSuccess: function () {
+            var needToRedirectInput = $('#addtocart_modal_need_to_redirect'),
+                goToCartHiddenLink = $('#warranty-go-to-cart-link')[0];
+
+            if (needToRedirectInput.val() == 1) {
+                needToRedirectInput.val('0');
+                goToCartHiddenLink.click();
+            }
         },
 
         /**

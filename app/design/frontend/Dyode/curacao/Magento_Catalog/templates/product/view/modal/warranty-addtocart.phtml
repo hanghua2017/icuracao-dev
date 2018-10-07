@@ -20,7 +20,7 @@ $product = $block->getProduct();
     <div class="modal-content">
         <div class="apple-content">
             <div class="product-details">
-
+                <div class="message"><!-- shows any error messages --></div>
                 <div class="top-section">
                   <div class="modal-head">
                     <h1><span><?= __($product->getName()); ?></span></h1>
@@ -43,6 +43,7 @@ $product = $block->getProduct();
                         <?= __('Go to Cart'); ?>
                     </a>
                 </div>
+                <input type="hidden" id="addtocart_modal_need_to_redirect" name="need-to-redirect" value="0" />
             </div>
         </div>
     </div>

@@ -48,6 +48,9 @@ class AddWarrantyToCart implements ObserverInterface
         $quote = $this->cart->getQuote();
         $parentQuoteItem = $quote->getItemByProduct($product);
         $warrantyQuoteItem = $parentQuoteItem->getWarrantyChildItem();
-        $warrantyQuoteItem->setWarrantyParentItemId((int)$parentQuoteItem->getItemId())->save();
+
+        if ($warrantyQuoteItem) {
+            $warrantyQuoteItem->setWarrantyParentItemId((int)$parentQuoteItem->getItemId())->save();
+        }
     }
 }

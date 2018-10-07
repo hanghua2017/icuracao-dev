@@ -68,12 +68,12 @@ class AddWarrantyToCartPlugin
         //if warranty parameter is present, then this is an add-to-cart action from PDP
         if ($parentQuoteItem->getProduct()->getTypeId() == 'virtual'
             || !$warrantyParam || !is_array($warrantyParam) || count($warrantyParam) === 0) {
-            return $this;
+            return $parentQuoteItem;
         }
 
         $this->addWarrantyIntoCart($warrantyParam);
 
-        return $this;
+        return $parentQuoteItem;
     }
 
     /**
@@ -97,9 +97,6 @@ class AddWarrantyToCartPlugin
                 return $this;
             }
 
-            /**
-             * @var $warrantyItem \Dyode\Catalog\Plugin\AddWarrantyToCartPlugin
-             */
             $warrantyQty = $this->request->getParam('qty') ? (int)$this->request->getParam('qty') : 1;
             $parentProductId = $this->request->getParam('product', false);
             $warrantyProduct = $this->_getProduct((int)$warrantyId);
