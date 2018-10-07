@@ -659,6 +659,7 @@ select:focus, input:focus {
 		}
 	}
 
+  /*Curacao and other payment cards*/
   &.vault-cards-listaction {
     .page-wrapper {
       .page-main {
@@ -799,6 +800,184 @@ select:focus, input:focus {
                           }
                         }
                       }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /*styling for rma request form ends here*/
+  &.rma-rma-view {
+    .page-main {
+      .columns {
+        .column.main {
+          .rma-view{
+            padding: 20px 20px 0 20px !important;
+            @media all and (max-width: 767px) {
+              padding: 15px 15px 0 15px !important;
+            }
+            .block {
+              margin-bottom: 25px !important;
+              .block-content{
+                padding: 0 !important;
+                .table-wrapper {
+                  margin-left: 0;
+                  margin-right: 0;
+                }
+                .box {
+                  .block {
+                    .block-content {
+                      padding: 0 !important;
+                      .rma-message.customer {
+                        .rma-message-text {
+                          br {
+                            display: none;
+                          }
+                        }
+                      }
+                      form {
+                        .fieldset {
+                          .field {
+                            label {
+                              font-family: 'iCuracao-Regular';
+                              font-weight: 500;
+                            }
+                          }
+                        }
+                        .actions-toolbar {
+                          padding: 0 !important;
+                          .primary {
+                            float: left;
+                            button {
+                              background-color: @theme-color-dark;
+                              border-color: @theme-color-dark;
+                              padding: 10px 15px;
+                              span {
+                                font-family: 'iCuracao-Regular';
+                                font-weight: 500;
+                              }
+                              &:hover {
+                                background-color: darken(@theme-color-dark, 5%);
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /*Sales invoice*/
+  &.sales-order-invoice, &.sales-order-shipment {
+    .page-wrapper {
+      .page-main {
+        .columns {
+          .column {
+            .page-title-wrapper {
+              line-height: 0.5;
+              @media all and (max-width: 767px) {
+                padding: 35px 20px 15px;
+              }
+              h1.page-title {
+                @media all and (max-width: 767px) {
+                  display: inline-block !important;
+                }
+              }
+              .order-status {
+                margin-top: 15px;
+                @media all and (max-width: 767px) {
+                  margin-top: 10px;
+                  margin-bottom: 0;
+                }
+              }
+              .order-date {
+                margin-bottom: 0 !important;
+                font-size: 14px;
+                @media all and (max-width: 767px) {
+                  padding-top: 8px;
+                }
+              }
+              .order-actions-toolbar {
+                float: right;
+                position: relative;
+                top: -10px;
+                @media all and (max-width: 767px) {
+                  top: -15px;
+                }
+                .actions {
+                  display: inline-flex;
+                  a {
+                    span {
+                      font-family: 'iCuracao-Regular';
+                      font-weight: 500;
+                    }
+                  }
+                  .action {
+                    margin-right: 25px;
+                    &.print {
+                      float: none;
+                    }
+                    &:last-child {
+                      margin-right: 0;
+                    }
+                  }
+                }
+              }
+            }
+            .order-details-items.invoice {
+              padding: 15px 20px;
+              @media all and (max-width: 767px) {
+                padding: 15px;
+              }
+              .actions-toolbar {
+                padding: 0;
+                .print {
+                  span {
+                    font-family: 'iCuracao-Regular';
+
+                  }
+                }
+              }
+              .table-wrapper.invoice {
+                .table-order-items.invoice {
+                  thead {
+                    tr > th {
+                      border-bottom: none;
+                    }
+                  }
+                  tbody {
+                    tr {
+                      td.sku, td.qty {
+                        font-family: 'iCuracao-Regular';
+                        font-weight: 500;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            .block-order-details-view {
+              padding: 0 20px;
+              @media all and(max-width: 767px){
+                padding: 0 15px !important;
+              }
+              .block-content{
+                .box {
+                  .box-content {
+                    address {
+                      letter-spacing: 0.8px;
                     }
                   }
                 }
@@ -1092,6 +1271,26 @@ select:focus, input:focus {
 .sales-order-view,.sales-order-invoice,.sales-order-shipment{
   .columns{
     .column{
+      .order-details-items{
+        padding: 15px;
+        &.shipments {
+          .actions-toolbar {
+            .actions-toolbar {
+              a.track {
+                margin-right: 1px;
+              }
+            }
+          }
+          .order-title {
+            strong {
+              font-family: "iCuracao-Medium";
+            }
+            a.print {
+              margin-right: 15px;
+            }
+          }
+        }
+      }
       .page-title-wrapper{
         .page-title{
           margin-right: 0;
@@ -1573,30 +1772,6 @@ select:focus, input:focus {
       .order-details-items,.block-order-details-view,.block-addresses-default,.block-addresses-list,.actions-toolbar,
       .customer-address-form{
           font-family: "iCuracao-Regular";
-      }
-    }
-  }
-}
-.sales-order-shipment,.sales-order-invoice{
-.column{
-    .order-details-items{
-      padding: 15px;
-      &.shipments {
-        .actions-toolbar {
-          .actions-toolbar {
-            a.track {
-              margin-right: 1px;
-            }
-          }
-        }
-        .order-title {
-          strong {
-            font-family: "iCuracao-Medium";
-          }
-          a.print {
-            margin-right: 15px;
-          }
-        }
       }
     }
   }
@@ -2446,6 +2621,9 @@ select:focus, input:focus {
   .page-main{
     .columns{
       .column{
+        .page-title-wrapper {
+
+        }
         .action{
           &.primary{
             background:@theme-color;
@@ -2456,6 +2634,27 @@ select:focus, input:focus {
             @media all and (max-width:767px){
               margin: 15px 15px 0 0;
             }
+          }
+        }
+        button.request-rma.primary {
+          background: @orange-button;
+          border: 1px solid @orange-button;
+          padding: 10px 15px;
+          margin-top: 25px;
+          float: left;
+          margin-left: 25px;
+          @media all and (max-width: 767px) {
+            margin-left: 20px;
+          }
+          @media all and (max-width: 599px) {
+            margin-left: 15px;
+          }
+          &:hover {
+            background: darken(@orange-button, 5%);
+          }
+          span {
+            font-weight: 500;
+            font-family: 'iCuracao-Medium';
           }
         }
       }
@@ -2608,109 +2807,6 @@ select:focus, input:focus {
             }
           }
         }
-      }
-    }
-  }
-}
-/*styling for rma request form ends here*/
-.rma-rma-view {
-  .page-main {
-    .columns {
-      .column.main {
-          .rma-view{
-            padding: 0 20px !important;
-            .block {
-              margin-bottom: 25px !important;
-              .block-content{
-                padding: 0 !important;
-                .table-wrapper {
-                  margin-left: 0;
-                  margin-right: 0;
-                }
-                .box {
-                  .block {
-                    .block-content {
-                      padding: 0 !important;
-                      form {
-                        .actions-toolbar {
-                          padding-left: 0 !important;
-                          .primary {
-                            button {
-
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-      }
-    }
-  }
-}
-/*styling for rma request form ends here*/
-.rma-rma-view {
-  .page-main {
-    .columns {
-      .column.main {
-          .rma-view{
-            padding: 0 20px !important;
-            .block {
-              margin-bottom: 25px !important;
-              .block-content{
-                padding: 0 !important;
-                .table-wrapper {
-                  margin-left: 0;
-                  margin-right: 0;
-                }
-                .box {
-                  .block {
-                    .block-content {
-                      padding: 0 !important;
-                      .rma-message.customer {
-                        .rma-message-text {
-                          br {
-                            display: none;
-                          }
-                        }
-                      }
-                      form {
-                        .fieldset {
-                          .field {
-                            label {
-                              font-family: 'iCuracao-Regular';
-                              font-weight: 500;
-                            }
-                          }
-                        }
-                        .actions-toolbar {
-                          padding: 0 !important;
-                          .primary {
-                            float: left;
-                            button {
-                              background-color: @theme-color-dark;
-                              border-color: @theme-color-dark;
-                              padding: 10px 15px;
-                              span {
-                                font-family: 'iCuracao-Regular';
-                                font-weight: 500;
-                              }
-                              &:hover {
-                                background-color: darken(@theme-color-dark, 5%);
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
       }
     }
   }
