@@ -22,7 +22,16 @@ class ConfigProvider implements ConfigProviderInterface
    protected $_canApply;
    protected $_linked;
 
-   public function __construct(\Magento\Framework\Pricing\Helper\Data $priceHelper,\Magento\Customer\Model\Session $customerSession,\Magento\Checkout\Model\Cart $cart, \Dyode\ARWebservice\Helper\Data $helper,\Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface, LayoutInterface $layout, $blockId)
+
+   public function __construct(
+        \Magento\Framework\Pricing\Helper\Data $priceHelper,
+        \Magento\Customer\Model\Session $customerSession,
+        \Magento\Checkout\Model\Cart $cart,
+        \Dyode\ARWebservice\Helper\Data $helper,
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
+        LayoutInterface $layout,
+        $blockId
+    )
    {
        $this->_customerSession = $customerSession;
        $this->_layout = $layout;
@@ -76,13 +85,15 @@ class ConfigProvider implements ConfigProviderInterface
         $customerId = $this->_customerSession->getCustomerId();
         if($customerId){
             $customer = $this->_customerRepositoryInterface->getById($customerId);
-            $curaAccId = $customer->getCuracaocustid();
-            if($curaAccId){
-                $this->_linked = true;
-                return $curaAccId;
-            } else {
-                $this->_linked = false;
-                return false;
+            if(method_exists($customer,'getCuracaocustid')) {
+                $curaAccId = $customer->getCuracaocustid();
+                if($curaAccId){
+                    $this->_linked = true;
+                    return $curaAccId;
+                } else {
+                    $this->_linked = false;
+                    return false;
+                }
             }
             
         }
