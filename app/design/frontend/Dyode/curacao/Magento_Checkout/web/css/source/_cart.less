@@ -6,13 +6,13 @@ input, select {
 }
 .checkout-cart-index{
   .columns .column.main {
-     // @media all and (max-width: 991px) {
-     //  padding-bottom: 0 !important;
-     // }
+     @media all and (max-width: 767px) {
+      padding-bottom: 10px !important;
+     }
 }
   .page-wrapper {
     .page-main {
-      max-width: 1500px; //Removable max
+      max-width: 1280px;
       .message.success {
         margin: 0;
         @media all and (min-width: 991px) {
@@ -38,9 +38,9 @@ input, select {
         .page-title {
           float: left;
           margin-bottom: 0;
-          font-family: 'iCuracao-Regular';
+          font-family: 'iCuracao-Medium';
           font-size: 16px;
-          font-weight: 600;
+          font-weight: 500;
           line-height: 38px;
           @media all and (max-width: 767px) {
             font-size: 14px;
@@ -50,10 +50,10 @@ input, select {
           }
         }
         span.bag-qty {
-          font-family: 'iCuracao-Regular';
+          font-family: 'iCuracao-Medium';
           font-size: 16px;
-          font-weight: 600;
-          padding-left: 3px;
+          font-weight: 500;
+          padding-left: 5px;
           line-height: 38px;
           @media all and (max-width: 767px) {
             font-size: 14px;
@@ -133,9 +133,10 @@ input, select {
                       line-height: 18px;
                       color: @content-light-grey;
                       background-color: #fff;
-                      font-family: "iCuracao-Regular";
+                      font-family: "iCuracao-Medium";
+                      font-weight: 500;
                       @media all and (min-width: 991px) {
-                        font-size: 14px;
+                        font-size: 13px;
                       }
                       &.col {
 
@@ -184,6 +185,7 @@ input, select {
                           position: relative;
                           left: 160px;
                           width: 28%;
+                          min-width: 28%;
                           margin-bottom: 15px;
                         }
                         &.qty {
@@ -206,6 +208,7 @@ input, select {
                       @media all and (max-width: 650px) {
                         &.price, &.subtotal {
                           width: 25%;
+                          min-width: 25%;
                         }
                       }
                       @media all and (max-width: 599px) {
@@ -216,6 +219,7 @@ input, select {
                         }
                         &.price, &.subtotal {
                           width: 27%;
+                          min-width: 27%;
                         }
                         &.qty {
                           width: 100px;
@@ -224,6 +228,7 @@ input, select {
                       @media all and (max-width: 530px) {
                         &.price, &.subtotal {
                           width: 25%;
+                          min-width: 25%;
                         }
                         &.qty {
                           width: 90px;
@@ -234,18 +239,19 @@ input, select {
                         &:not(.item) {
                           left: 15px;
                           width: 34%;
+                          min-width: 34%;
                           margin-top: 10px;
                         }
                         &.qty {
                           width: 100px;
                         }
                       }
-                      @media all and (max-width: 420px) {
+                      @media all and (max-width: 430px) {
                         &:not(.item) {
                           width: auto;
                           left: 0;
-                          padding-left: 4%;
-                          padding-right: 4%;
+                          padding-left: 3%;
+                          padding-right: 8%;
                         }
                         &.qty {
                           padding-left: 14px;
@@ -255,7 +261,7 @@ input, select {
                       @media all and (max-width: 345px) {
                         &:not(.item) {
                           padding-left: 3%;
-                          padding-right: 3%;
+                          padding-right: 5%;
                         }
                         &.subtotal {
                           padding-right: 0;
@@ -315,10 +321,9 @@ input, select {
                                 width: 80% !important;
                             }
                             overflow: hidden;
-                            height: 40px;
                             text-overflow: ellipsis;
                             a {
-                              font-family: 'iCuracao-Regular';
+                              font-family: 'iCuracao-Medium';
                               font-size: 16px;
                               font-weight: 500;
                               letter-spacing: 0.5px;
@@ -425,12 +430,14 @@ input, select {
                         font-family: 'iCuracao-Regular';
                         .price {
                           font-size: 16px;
+                          font-family: 'iCuracao-Medium';
+                          font-weight: 500;
                           color: @content-dark-grey;
                           @media all and (max-width: 991px) {
                             font-size: 14px;
                           }
                           @media all and (max-width: 478px){
-                            font-size: 13px;
+                            font-size:13px;
                           }
                         }
                         .input-text.qty {
@@ -465,7 +472,7 @@ input, select {
                           top: -45px;
                           margin: 0;
                           color: @content-dark-grey;
-                          font-family: 'iCuracao-Regular';
+                          font-family: 'iCuracao-Medium';
                           font-size: 14px;
                           font-weight: 500;
                           @media all and (max-width: 767px) {
@@ -483,6 +490,8 @@ input, select {
                             .price {
                               color: @theme-color;
                               font-size: 13px;
+                              font-family: 'iCuracao-Medium';
+                              font-weight: 500;
                               @media all and (max-width: 478px) {
                                 font-size: 12px;
                               }
@@ -547,7 +556,7 @@ input, select {
                   /*common styling button*/
                   .continue, button.checkout {
                     color: white;
-                    font-family: 'iCuracao-Regular';
+                    font-family: 'iCuracao-Medium';
                     font-weight: 500;
                     font-size: 14px;
                     letter-spacing: 0.5px;
@@ -572,6 +581,7 @@ input, select {
                     }
                     @media all and (max-width: 767px) {
                       padding: 10px 0;
+                      margin-bottom: 0;
                       float: none;
 
                     }
@@ -612,7 +622,7 @@ input, select {
                 clear: both;
               }
               p {
-                font-size: 12px;
+                font-size: 14px;
                 color: @content-light-grey;
                 font-family: 'iCuracao-Regular';
                 @media all and (max-width: 767px) {
@@ -682,7 +692,7 @@ input, select {
           padding-right: 35px;
           background-repeat: no-repeat;
           background-size: 20px;
-          font-family: 'iCuracao-Regular';
+          font-family: 'iCuracao-Medium';
           font-weight: 500;
           font-size: 14px;
           letter-spacing: 0.5px;

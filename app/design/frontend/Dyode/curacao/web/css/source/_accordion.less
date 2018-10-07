@@ -118,12 +118,12 @@
          div.accordion-panel.show-accordion{
            max-height: 1920px;
            padding-bottom: 20px!important;
-           padding-left: 15px;
+           padding-left: 20px;
            @media all and(max-width: 767px){
                  padding-bottom: 20px;
            }
            @media all and (max-width: 420px) {
-             padding-left: 15px;
+             padding-left: 10px;
            }
          }
       }
@@ -171,7 +171,7 @@
            padding-right: 0;
          }
          @media all and(max-width: 425px){
-           padding: 0 9px;
+           padding: 0 15px;
            padding-right: 0;
          }
          .left{
@@ -180,7 +180,7 @@
              display: unset;
            }
            ul{
-             margin: 20px 20px 20px 0;
+             margin: 5px 20px 20px 0;
              // list-style-type: unset;
              @media all and(max-width: 425px){
                margin-top: 0px;
@@ -228,10 +228,11 @@
          color: @black;
          .inline{
            display:inline-flex;
+           margin-top: 10px;
            p{
              background: @curacao-green;
              margin: 0;
-             padding: 15px;
+             padding: 8px 20px;
              color: @white!important;
              @media all and(max-width: 767px){
                    padding:10px;
@@ -249,7 +250,7 @@
          ul{
            color: @curacao-green !important;
            line-height: 24px !important;
-           margin: 3px 0 15px;
+           margin: 10px 0 15px;
            padding-left: 17px;
            // list-style-type: unset;
            @media all and(max-width: 767px){
@@ -290,4 +291,35 @@
       }
     }
   }
+}
+.beat-container {
+  .accordion-panel
+    {
+    .show-accordion {
+      padding-left: 20px!important;
+
+      @media all and(max-width: 425px){
+        padding-left: 20px!important;
+      }
+
+      @media all and(max-width: 767px){
+        padding-left: 20px!important;
+      }
+    }
+    }
+}
+.beat-container {
+  .accordion-container .accordion-content .accordion-item .accordion-panel ul{
+          padding-left: 15px!important;
+
+        @media all and(max-width: 425px){
+          padding-left: 25px!important;
+        }
+  }
+  .card-img {
+    max-width: 400px;
+  }
+}
+.beat-inner-ul {
+  padding: 0 !important;
 }
