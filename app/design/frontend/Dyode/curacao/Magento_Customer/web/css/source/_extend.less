@@ -2446,6 +2446,9 @@ select:focus, input:focus {
   .page-main{
     .columns{
       .column{
+        .page-title-wrapper {
+
+        }
         .action{
           &.primary{
             background:@theme-color;
@@ -2456,6 +2459,27 @@ select:focus, input:focus {
             @media all and (max-width:767px){
               margin: 15px 15px 0 0;
             }
+          }
+        }
+        button.request-rma.primary {
+          background: @orange-button;
+          border: 1px solid @orange-button;
+          padding: 10px 15px;
+          margin-top: 25px;
+          float: left;
+          margin-left: 25px;
+          @media all and (max-width: 767px) {
+            margin-left: 20px;
+          }
+          @media all and (max-width: 599px) {
+            margin-left: 15px;
+          }
+          &:hover {
+            background: darken(@orange-button, 5%);
+          }
+          span {
+            font-weight: 500;
+            font-family: 'iCuracao-Medium';
           }
         }
       }
@@ -2618,7 +2642,10 @@ select:focus, input:focus {
     .columns {
       .column.main {
           .rma-view{
-            padding: 0 20px !important;
+            padding: 20px 20px 0 20px !important;
+            @media all and (max-width: 767px) {
+              padding: 15px 15px 0 15px !important;
+            }
             .block {
               margin-bottom: 25px !important;
               .block-content{
