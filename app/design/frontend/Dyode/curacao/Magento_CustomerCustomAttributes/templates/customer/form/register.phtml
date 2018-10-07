@@ -26,9 +26,8 @@
     <input type="hidden" name="success_url" value="<?= /* @escapeNotVerified */ $block->getSuccessUrl() ?>"/>
     <input type="hidden" name="error_url" value="<?= /* @escapeNotVerified */ $block->getErrorUrl() ?>"/>
     <div class="check checking-box">
-      <label class="checking-box-label">
-        <label  class="label">Do you have a Curacao Account?</label>
-        <input type="checkbox" name="account-check" id="account-check" value="account-checkbox" /><span class="checkmark"></span></label>
+      <div class="checking-box-label">
+        <input type="checkbox" name="account-check" id="account-check" value="account-checkbox" /><label class="label" for="account-check">Do you have a Curacao Account?</label></div>
       </div>
       <?php $customerAttributes = $block->getChildBlock('customer_form_user_attributes');?>
       <?php if ($customerAttributes): ?>
@@ -94,12 +93,11 @@
         <?= $block->getChildHtml('form_additional_info') ?>
     </fieldset>
     <?php if ($block->isNewsletterEnabled()): ?>
-    <div class="field choice checking-box">
-      <label class="checking-box-label">
-        <label for="is_subscribed" class="label"><span><?= /* @escapeNotVerified */ __('Sign Up for Newsletter') ?></span></label>
+    <div class="field checking-box">
+      <div class="checking-box-label">
         <input type="checkbox" name="is_subscribed" title="<?= /* @escapeNotVerified */ __('Sign Up for Newsletter') ?>" value="1" id="is_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox"/>
-        <span class="checkmark"></span>
-      </label>
+        <label for="is_subscribed" class="label"><span><?= /* @escapeNotVerified */ __('Sign Up for Newsletter') ?></span></label>
+      </div>
 
     </div>
         <?php /* Extensions placeholder */ ?>
@@ -114,7 +112,7 @@
         </div>
     </div>
     <div class="sign-in-section">
-      <span>Already have an account? <a href="#" class="signIn-link">Sign in!</a></span>
+      <span>Already have an account? <a href="<?= $block->escapeUrl($block->getUrl('customer/account/login')); ?>" class="signIn-link">Sign in!</a></span>
     </div>
 </form>
 <script type="text/x-magento-init">
