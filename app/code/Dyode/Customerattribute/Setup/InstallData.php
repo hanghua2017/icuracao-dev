@@ -25,25 +25,28 @@ class InstallData implements InstallDataInterface
 		$eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
 		$eavSetup->addAttribute(
 			\Magento\Customer\Model\Customer::ENTITY,
-			'phone_number',
+			'contact_number',
 			[
 				'type'         => 'int',
-				'label'        => 'Phone Number',
+				'label'        => 'Contact Number',
 				'input'        => 'number',
 				'required'     => false,
 				'visible'      => true,
 				'user_defined' => true,
 				'position'     => 999,
 				'system'       => 0,
+				'is_used_in_grid' => true,
+				'is_visible_in_grid' => true,
+				'is_filterable_in_grid' => true,
+				'is_searchable_in_grid' => true,
 			]
 		);
-		$customAttribute = $this->eavConfig->getAttribute(Customer::ENTITY, 'phone_number');
+		$customAttribute = $this->eavConfig->getAttribute(Customer::ENTITY, 'contact_number');
 
 		// more used_in_forms ['adminhtml_checkout','adminhtml_customer','adminhtml_customer_address','customer_account_edit','customer_address_edit','customer_register_address']
 		$customAttribute->setData(
 			'used_in_forms',
-			['adminhtml_customer']
-
+			['adminhtml_customer','customer_account_edit', 'customer_account_create']
 		);
 		$customAttribute->save();
 	}
