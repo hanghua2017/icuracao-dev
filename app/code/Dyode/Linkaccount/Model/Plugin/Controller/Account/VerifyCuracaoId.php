@@ -132,7 +132,7 @@ class VerifyCuracaoId
                     $this->coreSession->setPass($password);  
                     $this->coreSession->setFname($fName);  
                     $this->coreSession->setLastname($lName);  
-                    $this->coreSesion->setPath("linkaccount/verify/success"); 
+                    $this->coreSession->setPath("linkaccount/verify/success");
 
                     $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
                         /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
