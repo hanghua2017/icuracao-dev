@@ -193,12 +193,15 @@ define([
          * Bind warranty link click and warranty checkbox click
          */
         addEventHooks: function () {
-            $(this.element).find(this.options.warrantyLinks).click(this.warrantyLinkClickHandler.bind(this));
-            $(this.element).find(this.options.checkBoxInputs).click(this.checkboxClickHandler.bind(this));
-            $(this.options.addToCartButton).click(this.addToCartButtonClickHandler.bind(this));
-            $(this.options.warrantyAddToCartModal)
-                .find(this.options.checkBoxInputs)
-                .click(this.checkboxModalClickHandler.bind(this));
+            var warrantyLinks = $(this.element).find(this.options.warrantyLinks),
+                warrantyOptions = $(this.element).find(this.options.checkBoxInputs),
+                addToCartButton = $(this.options.addToCartButton),
+                addToCartModalCheckboxes = $(this.options.warrantyAddToCartModal).find(this.options.checkBoxInputs);
+
+            warrantyLinks.click(this.warrantyLinkClickHandler.bind(this));
+            warrantyOptions.click(this.checkboxClickHandler.bind(this));
+            addToCartButton.click(this.addToCartButtonClickHandler.bind(this));
+            addToCartModalCheckboxes.click(this.checkboxModalClickHandler.bind(this));
         },
 
         /**
@@ -236,8 +239,8 @@ define([
          */
         checkboxModalClickHandler: function (event) {
             var targetCheckbox = event.target,
-                chekboxName = $(targetCheckbox).attr('name'),
-                warrantyCheckbox = 'input[name="' + chekboxName + '"]';
+                checkboxName = $(targetCheckbox).attr('name'),
+                warrantyCheckbox = 'input[name="' + checkboxName + '"]';
 
             if (targetCheckbox.checked) {
                 $(this.options.warrantyAddToCartModal)
@@ -245,7 +248,10 @@ define([
                     .not(targetCheckbox)
                     .attr('checked', false);
 
-                $(this.element).find(warrantyCheckbox).trigger('click');
+                var warrantyOption = $(this.element).find(warrantyCheckbox);
+
+                warrantyOption.attr('checked', true);
+                $(this.element).find(this.options.checkBoxInputs).not(warrantyOption).attr('checked', false);
             }
         },
 
@@ -265,7 +271,11 @@ define([
                 return true;
             }
 
-            $(this.options.warrantyAddToCartModal).modal('openModal');
+            var addToCartModal = $(this.options.warrantyAddToCartModal),
+                addToCartModalCheckboxes = addToCartModal.find(this.options.checkBoxInputs);
+
+            addToCartModalCheckboxes.attr('checked', false);
+            addToCartModal.modal('openModal');
 
             return true;
         },
