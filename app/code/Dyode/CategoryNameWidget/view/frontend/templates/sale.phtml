@@ -9,6 +9,9 @@ use Magento\Framework\App\Action\Action;
 
 ?>
 <?php
+//  view model
+$emiBlock = $block->getLayout()->getBlock('emi_block');
+$emiViewModel = $emiBlock->getViewModel();
 $_productCollection = $block->getProductCollection();
 $_helper = $block->helper();
 $viewMode = 'grid';
@@ -50,7 +53,19 @@ $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIE
                           </a>
                       </strong>
                       <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
-                      <?= /* @escapeNotVerified */ $block->getProductPrice($_product) ?>
+                      <?php $price               =$_product->getPrice();
+                            $product_specialprice=$_product->getSpecialPrice();
+                            echo "$".number_format($price,2);
+                            if($product_specialprice !=0)
+                            {
+                            echo "$".number_format($product_specialprice,2);
+                            }?>
+                        <?php if($emiViewModel != NULL) {?>
+                               <?php $emi = $emiViewModel->monthlyEmi($_product->getFinalPrice());?>
+                        <?php }?>
+                      <?php if($emi!=0):?>
+                        <p class="subtext"><?php echo "or as low as ";?><span class="amount"><?php echo"$". "".$emi." "."/month";?></span></p>
+                      <?php endif?>
                       <?= $block->getProductDetailsHtml($_product) ?>
 
                       <div class="product-item-inner">
