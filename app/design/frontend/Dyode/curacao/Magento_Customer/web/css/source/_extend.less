@@ -25,6 +25,8 @@ select:focus, input:focus {
 @border-color:#f2f2f2;
 @background-white: #fcfcfc;
 @badge-orange: #ff4200;
+@black:#000000;
+@form-label:#929292;
 
 
 //ICuracao-Account border color
@@ -54,6 +56,7 @@ select:focus, input:focus {
     .message.info.empty {
       font-family: 'iCuracao-Regular';
       font-size: 13px;
+      font-weight: 500;
     }
   }
 
@@ -70,6 +73,8 @@ select:focus, input:focus {
           &.block-collapsible-nav{
   					border: none;
             font-family: "iCuracao-Regular";
+            font-weight: 500;
+            padding-bottom: 0;
             @media only screen and (min-width: 768px){
               -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
     					-moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
@@ -81,7 +86,7 @@ select:focus, input:focus {
             @media all and (max-width: 991px) {
               padding: 20px 15px;
             }
-            @media only screen and (max-width: 767px){
+            @media all and (max-width: 767px){
               font-size: 15px !important;
               padding: 20px 0 0 !important;
   					}
@@ -109,6 +114,7 @@ select:focus, input:focus {
             {
               background:@white;
               color: @content-text;
+              padding-bottom: 0;
               @media only screen and (max-width: 767px){
                   border-bottom: 1px solid #f2f2f2;
               }
@@ -129,6 +135,7 @@ select:focus, input:focus {
   									border: none;
   								}
                   &.current > strong {
+                    font-weight: 500 !important;
                     @media all and (max-width: 767px) {
                       padding: 15px 16px;
                     }
@@ -141,7 +148,7 @@ select:focus, input:focus {
 										border: none;
 										color: @active-blue-color !important;
 										font-size: 14px;
-										font-weight: 600;
+										font-weight: 500 !important;
 										padding: 15px;
                     @media only screen and (max-width: 767px){
                       border-left:4px solid @theme-color;
@@ -157,6 +164,7 @@ select:focus, input:focus {
   									color: @footer-text;
   									padding: 15px;
   									border-color: transparent !important;
+                    font-weight: 500;
   									@media only screen and (min-width: 768px){
   										font-size: 14px;
   									}
@@ -201,6 +209,7 @@ select:focus, input:focus {
               .box-title {
                 span {
                   font-family: "iCuracao-Medium";
+                  font-weight: 500;
                 }
               }
             }
@@ -318,6 +327,7 @@ select:focus, input:focus {
       .block-collapsible-nav {
         background-color: @white;
         strong{
+          font-weight: 500 !important;
           @media only screen and (max-width: 767px){
            font-size: 22px;
          }
@@ -347,9 +357,6 @@ select:focus, input:focus {
           }
 					.page-title-wrapper{
 
-						.page-title{
-
-						}
             .order-date{
               margin: 0px 0 18px 3px !important;
             }
@@ -498,7 +505,8 @@ select:focus, input:focus {
               a, .action.view {
                 span {
                   font-size: 13px !important;
-                  font-family: "iCuracao-Medium";
+                  font-family: "iCuracao-Regular";
+                  font-weight: 500;
                 }
               }
             }
@@ -513,9 +521,13 @@ select:focus, input:focus {
           			button{
             			background: @theme-color;
             			border-color: @theme-color;
-                  border-radius: 5px;
+                  border-radius: 3px;
                   margin: 0 auto;
-                    padding: 15px;
+                  padding: 10px 15px;
+                  min-width: 150px;
+                    &:hover {
+                      background: darken(@theme-color, 10%);
+                    }
             		span{
               		font-size:16px;
               		color:@white;
@@ -527,11 +539,18 @@ select:focus, input:focus {
               display: block;
               button{
                 background: @theme-color;
+                border-color: @theme-color;
                 border: none;
-                border-radius: 5px;
-                padding: 15px;
+                border-radius: 3px;
+                padding: 10px 15px;
+                min-width: 150px;
+                &:hover {
+                  background: darken(@theme-color, 10%);
+                }
                 span{
                   color: @white;
+                  font-family: 'iCuracao-Regular';
+
                 }
               }
             }
@@ -654,6 +673,7 @@ select:focus, input:focus {
                 text-transform: capitalize;
                 font-size: 16px;
                 color: #000;
+                margin-bottom: 15px;
               }
               .credit-card {
                 width: 70%;
@@ -675,75 +695,262 @@ select:focus, input:focus {
       }
     }
   }
-}
 
-	//ICuracao-Address-information tab With LESS styles
-	.customer-account-edit{
-	  .page-main{
-	    .form-edit-account{
-	      padding:10px 20px;
-	      @media all and (max-width:767px){
-	        padding:10px;
-	      }
-	      .fieldset{
-	        margin-bottom:25px;
-					.legend{
-						color:@theme-color;
-						padding-top:20px;
-						border-bottom: 1px solid @border-color;
-			      @media all and (max-width:767px){
-			        padding-top:10px;
-			      }
-					}
-          input {
-    				border-radius: 3px;
-    			}
-	      }
-	    }
-
-			.actions-toolbar{
-				border-top: 1px solid @border-color;
-				@media only screen and (min-width: 768px){
-				padding:20px 20px 20px 0 !important;
-				}
-        .primary{
-          button{
-            float: left !important;
-            min-width: 100px;
+  &.rma-rma-order {
+    .page-main {
+      .columns {
+        .column.main {
+          .page-title-wrapper {
+            position: relative;
+            padding: 25px 20px 15px;
+            @media all and (max-width: 768px) {
+              padding: 15px !important;
+            }
+            .order-actions-toolbar {
+              position: absolute;
+              top: 35px;
+              right: 0;
+            }
+            .page-title {
+              margin-right: 5px !important;
+              @media all and (max-width: 768px) {
+                display: contents;
+              }
+            }
+            span.order-status {
+              border: none;
+              text-transform: capitalize;
+              color: #cccccc;
+              font-size: 16px !important;
+              font-style: italic;
+              @media all and (max-width: 768px) {
+                font-size: 14px !important;
+                margin-top: 8px;
+              }
+            }
+            .order-date {
+              margin-bottom: 0 !important;
+              padding-top: 10px;
+              @media all and (max-width: 768px) {
+                loat: left;
+                width: 100%;
+                padding-top: 0;
+              }
+            }
+            .order-actions-toolbar {
+              .actions {
+                .action.print {
+                  color: @active-blue-color;
+                  span {
+                    text-transform: uppercase;
+                    font-family: 'iCuracao-Regular';
+                    font-weight: 500;
+                  }
+                }
+              }
+            }
           }
-        }
-			}
-	  }
-	}
-  .customer-address-form{
-    .form-address-edit{
-      padding: 10px;
-      @media all and (min-width:768px){
-        padding:10px 20px;
-      }
-      input{
-				border-radius: 5px;
-			}
-      .actions-toolbar .action.primary,
-      .box-tocart .action.instant-purchase {
-          padding: 8px 17px;
-      }
-      .fieldset{
-        .legend{
-          span{
-             color: @content-text !important;
-             font-size: 16px;
-             font-family: 'iCuracao-Regular';
+          .items.order-links {
+            margin-top: 15px;
+            margin-bottom: 15px;
+            @media all and (max-width: 768px) {
+              padding: 0 15px;
+            }
+            .nav.item {
+              a {
+                color: #666;
+                border: 1px solid @border-color;
+                &:hover {
+                  color: @theme-color;
+                }
+              }
+              strong {border: 1px solid @border-color;
+                font-family: "iCuracao-Regular";
+              }
+            }
           }
-        }
-      }
-      .fieldset{
-        .choice{
-          width: 100% !important;
+          .order-details-items {
+            padding: 0;
+            margin: 0 20px;
+            border: 1px solid @border-color;
+            @media all and (max-width: 768px) {
+              margin: 0 15px;
+            }
+            .table-wrapper {
+              .table-wrapper {
+                table {
+                  thead {
+                    tr {
+                      th {
+                        border-bottom: 1px solid @border-color;
+                      }
+                    }
+                  }
+                  tbody {
+                    tr {
+                      td {
+                        a {
+                          font-family: 'iCuracao-Regular';
+                          color: @active-blue-color;
+                          text-transform: uppercase;
+                          font-weight: 500;
+                          &:hover {
+                            color: @theme-color;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
   }
+}
+
+	//ICuracao-Address-information tab With LESS styles
+.customer-account-edit{
+  .page-main{
+    .form-edit-account{
+      padding:10px 20px;
+      @media all and (max-width:767px){
+        padding:10px;
+      }
+      .fieldset{
+        margin-bottom:25px;
+				.legend{
+					color:@theme-color;
+					padding-top:20px;
+					border-bottom: 1px solid @border-color;
+		      @media all and (max-width:767px){
+		        padding-top:10px;
+		      }
+				}
+        input {
+  				border-radius: 3px;
+  			}
+      }
+    }
+
+		.actions-toolbar{
+			border-top: 1px solid @border-color;
+			@media only screen and (min-width: 768px){
+			padding:20px 20px 20px 0 !important;
+			}
+      .primary{
+        button{
+          float: left !important;
+          min-width: 150px;
+          padding: 10px 15px;
+          @media all and (max-width: 767px) {
+            width: 100%;
+          }
+          span {
+            font-family: 'iCuracao-Regular';
+            font-weight: 500;
+          }
+        }
+      }
+		}
+  }
+}
+.customer-address-form{
+  .form-address-edit{
+    padding: 10px;
+    @media all and (min-width:768px){
+      padding:10px 20px;
+    }
+    input{
+			border-radius: 5px;
+		}
+    .actions-toolbar .action.primary,
+    .box-tocart .action.instant-purchase {
+        padding: 8px 17px;
+    }
+    .fieldset{
+      width: 100%;
+      .field {
+        width: 48%;
+        @media all and (max-width:767px){
+          width:100%;
+        }
+        &.field-name-firstname,&.company,&.city,&.zip,&.billing {
+          float: left;
+        }
+        &.field-name-lastname,&.telephone,&.region,&.country,&.shipping {
+          float: right;
+        }
+        &.street {
+          width:100%;
+          float: left;
+          clear: both;
+          .control {
+            #street_1 {
+              width: 48%;
+              float: left;
+              @media all and (max-width:767px){
+                width:100%;
+                margin-bottom: 15px;
+              }
+            }
+            .nested {
+              float: right;
+              width: 48%;
+              @media all and (max-width:767px){
+                width:100%;
+              }
+              .field.additional {
+                margin-top: 0;
+                width:100%;
+              }
+            }
+          }
+        }
+      }
+      .legend{
+        span{
+           color: @content-text !important;
+           font-size: 16px;
+           font-family: 'iCuracao-Regular';
+        }
+      }
+    }
+    .actions-toolbar {
+      padding-left: 0 !important;
+      &::after{
+        clear: both;
+        display: table;
+        content:'';
+      }
+      .primary {
+        float: left !important;
+        @media all and(max-width:767px){
+          width:100%;
+        }
+        button.submit {
+          padding: 7px 15px !important;
+          min-width: 150px;
+          @media all and(max-width:767px){
+            min-width: auto;
+            width:100%;
+          }
+          span {
+            font-family: 'iCuracao-Regular';
+            font-weight: 500;
+          }
+        }
+      }
+    }
+    .fieldset{
+      .choice{
+        width: 100% !important;
+      }
+    }
+  }
+}
 //ICuracao-My orders tab With LESS styles
 
 .table-wrapper{
@@ -821,11 +1028,16 @@ select:focus, input:focus {
     }
   }
   .order-products-toolbar{
-    margin: 15px;
-    padding-bottom: 20px;
+    margin: 20px;
+    padding: 20px 0;
+    @media all and (max-width: 767px) {
+      padding: 15px 0;
+      margin: 15px;
+    }
     .limiter{
-      select {
+      select#limiter {
         background-color: #fff;
+        margin-right: 0;
       }
       .limiter-text{
         display: none;
@@ -934,8 +1146,7 @@ select:focus, input:focus {
     }
     .main{
       .block-order-details-view {
-        .block-title{
-        }
+
         .block-content {
           padding: 0;
           border-bottom: 1px solid #f2f2f2;
@@ -1227,9 +1438,7 @@ select:focus, input:focus {
       }
       .block-addresses-default,.block-addresses-list{
         .block-title{
-          @media all and(max-width: 767px){
-            margin-bottom: 0;
-          }
+          margin-bottom: 0 !important;
         }
       }
       .actions-toolbar{
@@ -1245,7 +1454,7 @@ select:focus, input:focus {
             }
             span {
               font-size: 14px !important;
-              font-family: 'iCuracao-Medium';
+              font-family: 'iCuracao-Regular';
               color: @active-blue-color !important;
             }
           }
@@ -1254,8 +1463,7 @@ select:focus, input:focus {
     }
   }
 }
-
-.newsletter-manage-index,.vault-cards-listaction,.customer-account-edit,.magento-rma-returns-history,
+.newsletter-manage-index,.vault-cards-listaction,.magento-rma-returns-history,
 .customer-account-index,.sales-order-history,.sales-order-view,.magento-rma-returns-create,.customer-address-form{
   .columns{
     .sidebar-main{
@@ -1348,7 +1556,7 @@ select:focus, input:focus {
     }
   }
 }
-.newsletter-manage-index,.vault-cards-listaction,.customer-account-edit,.magento-rma-returns-history,
+.newsletter-manage-index,.vault-cards-listaction,.magento-rma-returns-history,
 .customer-address-index,.magento-rma-returns-create,.magento-rma-returns-view,.sales-order-view,.sales-order-invoice,
 .sales-order-shipment,.customer-account-index,.sales-order-history,.customer-address-form{
   .columns{
@@ -1393,7 +1601,8 @@ select:focus, input:focus {
     }
   }
 }
-.customer-address-form,.customer-account-edit,.newsletter-manage-index{
+
+.customer-address-form, .customer-account-edit,.newsletter-manage-index{
   .columns{
     .column{
       form{
@@ -1429,12 +1638,33 @@ select:focus, input:focus {
 }
 
 .newsletter-manage-index{
-  .columns{
-    .column{
-      form{
-        fieldset{
-          .choice{
-            width: 100% !important;
+  .page-wrapper{
+    .page-main {
+      .columns{
+        .column{
+          @media all and (max-width: 767px) {
+            padding-bottom: 40px;
+          }
+          form{
+            fieldset{
+              .choice{
+                width: 100% !important;
+              }
+            }
+            .actions-toolbar {
+              padding-left: 0 !important;
+              .primary {
+                float: left;
+                button.save {
+                  padding: 10px 15px;
+                  min-width: 150px;
+                  &:hover {
+                    background-color: darken(@theme-color, 5%);
+                    border-color: darken(@theme-color, 5%);
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -1463,6 +1693,7 @@ select:focus, input:focus {
         }
       }
       .order-date{
+        margin: 0 !important;
         @media only screen and (min-width: 991px){
               display: none;
         }
@@ -1642,12 +1873,12 @@ select:focus, input:focus {
         }
       }
     }
-    .order-products-toolbar {
-      padding: 10px 0;
-      @media only screen and (min-width: 768px){
-        padding: 20px;
-      }
-    }
+    // .order-products-toolbar {
+    //   padding: 10px 0;
+    //   @media only screen and (min-width: 768px){
+    //     padding: 20px;
+    //   }
+    // }
     .toolbar{
       select {
           background-color: @white;
@@ -1658,6 +1889,25 @@ select:focus, input:focus {
       padding: 10px;
       @media all and (min-width:768px){
         padding:10px 20px;
+      }
+      .actions-toolbar {
+        padding-left: 0;
+        .primary {
+          button.primary {
+            float: left;
+            padding: 10px 15px;
+            border-radius: 3px;
+            min-width: 100px;
+            background-color: @theme-color;
+            &:hover {
+              background-color: darken(@theme-color, 5%);
+            }
+            span {
+              font-family: 'iCuracao-Regular';
+
+            }
+          }
+        }
       }
     }
     .block-wishlist{
@@ -1679,7 +1929,7 @@ select:focus, input:focus {
   .page-wrapper {
     #maincontent {
       background-image: url(../images/login-background.png);
-      background-color: #f4f4f4;
+      background-color: white;
       max-width: none;
       width: 100%;
       padding: 0;
@@ -1705,9 +1955,12 @@ select:focus, input:focus {
         max-width: 485px;
         margin: 50px auto;
         width: 487px;
-        box-shadow: 0px 3px 13px rgba(27,32,42,0.1);
+        box-shadow: 0px 4px 20px rgba(27, 32, 42, 0.12);
         background-color: #ffffff;
         padding: 20px 0;
+        padding-top: 40px;
+        padding-bottom: 50px;
+        margin-bottom: 10px;
         @media all and (max-width: 599px) {
           max-width: 100%;
           width: 100%;
@@ -1851,10 +2104,14 @@ select:focus, input:focus {
               button.submit {
                 width: 100%;
                 height: 44px;
-                border-radius: 5px;
+                border-radius: 3px;
                 background-color: @theme-color;
                 border-color: @theme-color;
                 margin:0;
+                &:hover
+                {
+                  background-color:darken(@theme-color, 10%);
+                }
                 span {
                     font-size: 16px;
                     color: white;
@@ -1900,20 +2157,587 @@ select:focus, input:focus {
         .field {
           button.captcha-reload {
             padding: 7px 10px;
-            border-radius: 5px;
-            background-color: @theme-color;
-            border-color: @theme-color;
+            border-radius: 2px;
+            background-color: #f0efef;
+            border-color: #f0efef;
             margin-top: 20px;
             margin-right: 0;
             box-shadow: none;
+            &:hover
+            {
+              background-color: #e8e7e7;
+            }
             span {
               font-size: 12px;
-              color: white;
+              color: #888888;
               font-family: "iCuracao-Light";
               letter-spacing: 1px;
             }
           }
         }
+      }
+    }
+  }
+}
+/*styling for rma form begins here*/
+.rma-new-step2 {
+  .curacao-file-upload{
+    max-width: 500px;
+    .file-upload{
+      display:block;
+      text-align:center;
+    }
+    .file-upload .file-select{
+      display:block;
+      border: 1px solid #b4b4b4!important;
+      border-radius: 5px!important;
+      cursor:pointer;
+      height:40px;
+      line-height:40px;
+      text-align:left;
+      background:#FFFFFF;
+      overflow:hidden;
+      position:relative;
+    }
+    .file-upload .file-select .file-select-button{
+      font-size: 14px;
+      font-family: 'iCuracao-Regular';
+      background-color: #888888;
+      font-weight: 500;
+      color: white;padding:0 10px;
+      display:inline-block;
+      height:40px;
+      width: 100px;
+      float: left;
+      line-height:40px;
+    }
+    .file-upload .file-select .file-select-name{
+      line-height:40px;
+      width: 165px;
+      display:inline-block;
+      padding:0 10px;
+      color: #8a8888;
+      font-size: 14px;
+      font-family: "iCuracao-Regular";
+    }
+    .file-upload .file-select:hover{
+      border-color:#888888;
+      transition:all .2s ease-in-out;
+      -moz-transition:all .2s ease-in-out;
+      -webkit-transition:all .2s ease-in-out;
+      -o-transition:all .2s ease-in-out;
+    }
+    .file-upload .file-select:hover .file-select-button{
+      background:#888888;
+      color:#FFFFFF;
+      transition:all .2s ease-in-out;
+      -moz-transition:all .2s ease-in-out;
+      -webkit-transition:all .2s ease-in-out;
+      -o-transition:all .2s ease-in-out;
+    }
+    .file-upload.active .file-select{
+      border-color:#888888;
+      transition:all .2s ease-in-out;
+      -moz-transition:all .2s ease-in-out;
+      -webkit-transition:all .2s ease-in-out;
+      -o-transition:all .2s ease-in-out;
+    }
+    .file-upload.active .file-select .file-select-button{
+      background:#888888;
+      color:#FFFFFF;
+      transition:all .2s ease-in-out;
+      -moz-transition:all .2s ease-in-out;
+      -webkit-transition:all .2s ease-in-out;
+      -o-transition:all .2s ease-in-out;
+    }
+    .file-upload .file-select input[type=file]{
+      z-index:100;
+      cursor:pointer;
+      position:absolute;
+      height:100%;
+      width:100%;
+      top:0;
+      left:0;
+      opacity:0;
+      filter:alpha(opacity=0);
+    }
+    .file-upload .file-select.file-select-disabled{
+      opacity:0.65;
+    }
+    .file-upload .file-select.file-select-disabled:hover{
+      cursor:default;
+      display:block;
+      border: 2px solid #dce4ec;
+      color: #888888;
+      cursor:pointer;
+      height:40px;
+      line-height:40px;
+      margin-top:5px;
+      text-align:left;
+      background:#FFFFFF;
+      overflow:hidden;
+      position:relative;
+    }
+    .file-upload .file-select.file-select-disabled:hover .file-select-button{
+      background:#dce4ec;
+      color:#666666;
+      padding:0 10px;
+      display:inline-block;
+      height:40px;
+      line-height:40px;
+    }
+    .file-upload .file-select.file-select-disabled:hover .file-select-name{
+      line-height:40px;
+      display:inline-block;
+      padding:0 10px;
+    }
+  }
+  select {
+    font-family: 'iCuracao-Light';
+    width: 100%;
+    background: #fff;
+    color: #8a8888;
+    -webkit-appearance: none;
+    background-image: url(../../images/arrow.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    padding-top: 4px;
+    font-size: 14px;
+  }
+  .input {
+    font-family: 'iCuracao-Light';
+    font-size: 14px;
+    background: #fff;
+    color: #8a8888;
+  }
+  .fieldset > .field {
+    margin: 0 0 10px;
+  }
+  .block {
+    margin-bottom: 0;
+    padding: 0px 25px!important;
+  }
+  button {
+    float: left!important;
+    margin: 0 25px!important;
+  }
+  .actions-toolbar{
+    .primary{
+      float: left;
+      button{
+        margin: 0 auto!important;
+      }
+    }
+    @media all and (max-width:767px){
+      padding: 0 25px 20px !important;
+    }
+  }
+  .custom-select {
+    position: relative;
+    width: 100%;
+    select {
+      display: none; /*hide original SELECT element:*/
+    }
+    .select-selected {
+      background-color: white;
+      border:none!important;
+    }
+    .select-selected:after {
+      position: absolute;
+      content: "";
+      top: 14px;
+      right: 10px;
+      width: 0;
+      height: 0;
+      border: 6px solid transparent;
+      border-color: #8a8888 transparent transparent transparent;
+    }
+    /*point the arrow upwards when the select box is open (active):*/
+    .select-selected.select-arrow-active:after {
+      border-color: transparent transparent #8a8888 transparent;
+      top: 7px;
+    }
+    /*style the items (options), including the selected item:*/
+    .select-items div,.select-selected {
+      font-family: 'iCuracao-Light';
+      color: #8a8888;
+      font-size: 16px;
+      padding: 5px 16px;
+      border: 1px solid transparent;
+      border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+      cursor: pointer;
+    }
+    /*style items (options):*/
+    .select-items {
+      position: absolute;
+      border: 1px solid #bbbbbb;
+      border-radius: 2px;
+      background-color: white;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 99;
+    }
+    /*hide the items when the select box is closed:*/
+    .select-hide{
+      display: none;
+    }
+    .select-items div:hover{
+      background-color: rgba(183, 183, 183, 0.7);
+      color: 666666!important;
+    }
+    .same-as-selected{
+      background-color: #dedede!important;
+      color: #666666!important;
+    }
+  }
+  .rma-checkbox{
+    cursor: pointer;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .rma-item-checkbox + label:before {
+    content: '';
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: text-top;
+    width: 20px;
+    height: 20px;
+    background: white;
+    -webkit-box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
+    border: 1px solid #3857f3;
+    @media all and (max-width: 767px) {
+      width: 17px;
+      height: 17px;
+    }
+  }
+  .rma-item-checkbox:checked + label:before {
+    background-color: #3857f3;
+    background-image: url(../images/frequent-select.png);
+    @media all and (max-width: 767px) {
+      width: 17px;
+      height: 17px;
+      background-size: contain;
+    }
+  }
+  .rma-one-item {
+    padding: 25px;
+    .item-description {
+      width: 20%;
+      .image {
+        float: none;
+        margin: 0 35px;
+        width: 100%;
+      }
+      b{
+        display: block;
+        margin: 5px 35px;
+      }
+    }
+  }
+}
+/*styling for rma form ends here*/
+/*styling for rma-list starts here*/
+.rma-rma-list{
+  .page-main{
+    .columns{
+      .column{
+        .page-title-wrapper {
+
+        }
+        .action{
+          &.primary{
+            background:@theme-color;
+            border:1px solid @theme-color;
+            font-family: "iCuracao-Medium";
+            font-weight:normal;
+            margin:25px 15px 0 0;
+            @media all and (max-width:767px){
+              margin: 15px 15px 0 0;
+            }
+          }
+        }
+        button.request-rma.primary {
+          background: @orange-button;
+          border: 1px solid @orange-button;
+          padding: 10px 15px;
+          margin-top: 25px;
+          float: left;
+          margin-left: 25px;
+          @media all and (max-width: 767px) {
+            margin-left: 20px;
+          }
+          @media all and (max-width: 599px) {
+            margin-left: 15px;
+          }
+          &:hover {
+            background: darken(@orange-button, 5%);
+          }
+          span {
+            font-weight: 500;
+            font-family: 'iCuracao-Medium';
+          }
+        }
+      }
+    }
+  }
+}
+/*styling for rma-list ends here*/
+/*styling for rma request form starts here*/
+.rma-guest-new {
+  .page-main{
+    background: url("../../images/Order-returns-BG.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    .columns{
+      padding: 60px 0;
+      @media all and (max-width: 767px){
+        padding: 0;
+      }
+      .column.main{
+        width: 800px;
+        margin:  0 auto;
+        background-color: @white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
+        margin-top: 0 !important;
+        padding:0 !important;
+        @media all and(max-width: 991px){
+          width: 600px;
+        }
+        @media all and (max-width: 767px){
+          width: 100%;
+          box-shadow:none;
+        }
+        .page-title-wrapper{
+          text-align: center;
+          margin: 0;
+          padding-top: 60px;
+          @media all and (max-width: 767px){
+           padding-top: 45px;
+          }
+          @media all and (max-width: 425px){
+           padding-top: 30px;
+          }
+          h1{
+            font-size: 28px;
+            color: @black;
+            text-transform: capitalize;
+            font-family: 'iCuracao-Light' !important;
+            @media all and(max-width: 767px){
+              font-size: 24px;
+            }
+          }
+        }
+          //styling for form
+        .form{
+          max-width: 500px;
+          min-width: auto;
+          width:100%;
+          margin: 0 auto;
+          @media all and (max-width: 767px){
+            max-width: calc(80% + 30px);
+          }
+          .fieldset{
+            padding: 35px 0 70px 0;
+            @media all and (max-width: 767px){
+              padding: 45px 0;
+            }
+            @media all and (max-width: 425px){
+             padding: 30px 0;
+            }
+            legend{
+              font-family: 'iCuracao-Light';
+              text-transform: capitalize;
+              margin-bottom: 10px;
+              font-size: 20px;
+              color: @black;
+              font-weight: normal;
+              border: none;
+              padding: 0;
+              @media all and (max-width: 425px){
+                font-size: 18px;
+              }
+            }
+            .field{
+              margin:0;
+              input{
+                font-family: 'iCuracao-Light';
+                padding: 14px 20px;
+                min-height: 50px;
+                border: 1px solid @form-label;
+                border-radius: 5px 5px 0 0px;
+                &::placeholder{
+                  font-size:16px;
+                  text-transform: capitalize;
+                  color: #8a8888;
+                  font-weight: lighter;
+                }
+                ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                  font-size:16px;
+                  text-transform: capitalize;
+                  color: #8a8888;
+                  font-weight: lighter;
+                  }
+                  ::-moz-placeholder { /* Firefox 19+ */
+                    font-size:16px;
+                    text-transform: capitalize;
+                    color: #8a8888;
+                    font-weight: lighter;
+                  }
+                  :-ms-input-placeholder { /* IE 10+ */
+                    font-size:16px;
+                    text-transform: capitalize;
+                    color: #8a8888;
+                    font-weight: lighter;
+                  }
+                  :-moz-placeholder { /* Firefox 18- */
+                    font-size:16px;
+                    text-transform: capitalize;
+                    color: #8a8888;
+                    font-weight: lighter;
+                  }
+              }
+              &.email{
+                input{
+                  border-top: none;
+                  border-radius: 0 0 5px 5px;
+                }
+              }
+            }
+          }
+          //Styling for button
+          .actions-toolbar{
+            .primary{
+              float: none;
+              display: block;
+              button{
+                width: 100%;
+                margin-top: 30px;
+                padding: 10px 15px;
+                min-width: 150px;
+                min-height: 50px;
+                font-size: 17px;
+                font-family: 'iCuracao-Medium';
+                background: @theme-color-dark;
+                border:1px solid @theme-color-dark;
+                font-weight: normal;
+                @media all and (max-width: 768px){
+                  max-width: 600px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/*styling for rma request form ends here*/
+.rma-rma-view {
+  .page-main {
+    .columns {
+      .column.main {
+          .rma-view{
+            padding: 20px 20px 0 20px !important;
+            @media all and (max-width: 767px) {
+              padding: 15px 15px 0 15px !important;
+            }
+            .block {
+              margin-bottom: 25px !important;
+              .block-content{
+                padding: 0 !important;
+                .table-wrapper {
+                  margin-left: 0;
+                  margin-right: 0;
+                }
+                .box {
+                  .block {
+                    .block-content {
+                      padding: 0 !important;
+                      form {
+                        .actions-toolbar {
+                          padding-left: 0 !important;
+                          .primary {
+                            button {
+
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+      }
+    }
+  }
+}
+/*styling for rma request form ends here*/
+.rma-rma-view {
+  .page-main {
+    .columns {
+      .column.main {
+          .rma-view{
+            padding: 0 20px !important;
+            .block {
+              margin-bottom: 25px !important;
+              .block-content{
+                padding: 0 !important;
+                .table-wrapper {
+                  margin-left: 0;
+                  margin-right: 0;
+                }
+                .box {
+                  .block {
+                    .block-content {
+                      padding: 0 !important;
+                      .rma-message.customer {
+                        .rma-message-text {
+                          br {
+                            display: none;
+                          }
+                        }
+                      }
+                      form {
+                        .fieldset {
+                          .field {
+                            label {
+                              font-family: 'iCuracao-Regular';
+                              font-weight: 500;
+                            }
+                          }
+                        }
+                        .actions-toolbar {
+                          padding: 0 !important;
+                          .primary {
+                            float: left;
+                            button {
+                              background-color: @theme-color-dark;
+                              border-color: @theme-color-dark;
+                              padding: 10px 15px;
+                              span {
+                                font-family: 'iCuracao-Regular';
+                                font-weight: 500;
+                              }
+                              &:hover {
+                                background-color: darken(@theme-color-dark, 5%);
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
       }
     }
   }

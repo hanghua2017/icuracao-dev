@@ -134,7 +134,7 @@ body{
 }
 .ves-megamenu .dynamic-items {
   padding: 0;
-  width: 35%;
+  width: 40%;
 }
 .ves-megamenu .level0 ul {
   margin: 0;
@@ -694,7 +694,7 @@ body{
     margin-right: 15px;
   }
   .ves-megamenu .navigation .nav-item .dynamic-content {
-    width: 65%;
+    width: 60%;
     padding-right: 0;
   }
   .ves-megamenu .navigation .nav-item .dynamic-content > .nav-item {
@@ -1809,8 +1809,8 @@ body{
 }
 
 .ves-megamenu .dynamic-items {
-    padding: 10px;
-    width:35%;
+    padding: 15px;
+    width:40%;
     background: #f9f9f9;
 }
 
@@ -2311,6 +2311,9 @@ print {
         border-width: 0 0 0 3px;
         color: #333
     }
+    .ves-megamenu .level0 .submenu .nav-item>a{
+      padding: 0 10px;
+    }
     .navigation .level0 .submenu .submenu {
         top: 0 !important;
         left: 100% !important
@@ -2410,6 +2413,12 @@ print {
         zoom: 1;
         margin: 0 20px 0 0;
         position: relative
+    }
+    .ves-megamenu .navigation .level0.link-with-border a span{
+      line-height: 30px;
+      padding: 0 17px;
+      border: 1px solid #fff;
+      font-family: "iCuracao-Medium";
     }
     .ves-megamenu .navigation .level0 > a {
         font-family: "iCuracao-Regular";
@@ -2804,8 +2813,8 @@ print {
         margin-right: 15px
     }
     .ves-megamenu .navigation .nav-item .dynamic-content {
-        padding:10px;
-        width:65%;
+        padding:15px;
+        width:60%;
         background:#fff;
     }
     .ves-megamenu .navigation .nav-item .dynamic-content>.nav-item {
@@ -3282,8 +3291,8 @@ print {
 }
 .ves-megamenu .navigation .nav-item.dynamic-active > a:after{
   position:absolute;
-  right:-12px;
-  top:2px;
+  right:-10px;
+  top:0px;
   content:'\e619';
   font-size:12px;
   font-family: 'luma-icons';
@@ -3302,7 +3311,7 @@ print {
 }
 
 .ves-megamenu .navigation .nav-item .dynamic-content .mobile-accessories-container .item-content .item-content1 .mega-col-level-2:first-child{
-  width:65%;
+  width:60%;
 }
 
 .ves-megamenu .navigation .nav-desktop-hamburger .nav-item.hamburger-border-link{
@@ -3368,7 +3377,7 @@ print {
   }
   .nav-sections-item-content > .store-view-container{
     position: absolute;
-    top:81px;
+    top:79px;
     right:20px;
   }
   .nav-sections-item-content > .store-view-container ul{
@@ -3377,7 +3386,7 @@ print {
   }
   .nav-sections-item-content > .store-view-container ul li{
     display: inline-block;
-    padding:14px 10px;
+    padding:15px 10px;
     margin-bottom: 0;
   }
   .nav-sections-item-content > .store-view-container ul li.language-switcher{

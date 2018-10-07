@@ -1,0 +1,204 @@
+"Request RMA","Request RMA"
+"My Returns","My Returns"
+Grid,Grid
+List,List
+All,All
+"Create RMA","Create RMA"
+"Request New Return","Request New Return"
+"Max file size: %1Mb","Max file size: %1Mb"
+"New Return for Offline Order","New Return for Offline Order"
+"New Return for Order #%1","New Return for Order #%1"
+"RMA #%1","RMA #%1"
+"RMA #%1 - %2","RMA #%1 - %2"
+"Wrong Order #, Email or Last Name","Wrong Order #, Email or Last Name"
+Items,Items
+"To apply changes you should fill in required ""%1"" field","To apply changes you should fill in required ""%1"" field"
+"Please, add order items to the RMA (set 'Qty to Return')","Please, add order items to the RMA (set 'Qty to Return')"
+"Please, set correct order items Quantity to return","Please, set correct order items Quantity to return"
+"RMA was successfully created","RMA was successfully created"
+"Shipping is confirmed. Thank you!","Shipping is confirmed. Thank you!"
+"Your message was successfully added","Your message was successfully added"
+"Allowed extensions:","Allowed extensions:"
+"Maximum size:","Maximum size:"
+"-- Please Select --","-- Please Select --"
+" at %1 (%2)"," at %1 (%2)"
+" at %1"," at %1"
+"Mark as unresolved","Mark as unresolved"
+"Mark as resolved","Mark as resolved"
+"not set","not set"
+Pattern,Pattern
+"Attribute Value","Attribute Value"
+Default,Default
+Integer,Integer
+Price,Price
+"Strip Tags","Strip Tags"
+"Primary Attributes","Primary Attributes"
+"Stock Attributes","Stock Attributes"
+"Prices & Taxes","Prices & Taxes"
+Images,Images
+"Custom Attributes","Custom Attributes"
+Mapping,Mapping
+Category,Category
+"Amasty Meta Tags","Amasty Meta Tags"
+"Others Attributes","Others Attributes"
+Text,Text
+"Multi-line text","Multi-line text"
+Date,Date
+Checkbox,Checkbox
+"Drop-down list","Drop-down list"
+Reason,Reason
+Condition,Condition
+Resolution,Resolution
+"RMA #","RMA #"
+"Order #","Order #"
+"Customer Email","Customer Email"
+"Customer Name","Customer Name"
+Owner,Owner
+"Last Replier","Last Replier"
+Status,Status
+Store,Store
+"Created At","Created At"
+"Last Activity","Last Activity"
+"View link","View link"
+"New RMA has been created","New RMA has been created"
+"RMA has been changed","RMA has been changed"
+"New reply from customer","New reply from customer"
+"New reply from staff","New reply from staff"
+"-- Default Address --","-- Default Address --"
+"Update the Product","Update the Product"
+"Conditions Combination","Conditions Combination"
+"RMA Attribute","RMA Attribute"
+"Last 7-days Clicks","Last 7-days Clicks"
+"Last 7-days Orders","Last 7-days Orders"
+"Last 7-days Revenue","Last 7-days Revenue"
+"Last 7-days Conversation Rate (%)","Last 7-days Conversation Rate (%)"
+"Attribute Set","Attribute Set"
+Quantity,Quantity
+"Product Type","Product Type"
+"Base Image","Base Image"
+Thumbnail,Thumbnail
+"Small Image","Small Image"
+"Base Image Size (bytes)","Base Image Size (bytes)"
+"Thumbnail Size (bytes)","Thumbnail Size (bytes)"
+"Small Image Size (bytes)","Small Image Size (bytes)"
+"PHP Condition","PHP Condition"
+"Open Chooser","Open Chooser"
+"Last message body","Last message body"
+"Updated At","Updated At"
+"Status (before change)","Status (before change)"
+"Owner (before change)","Owner (before change)"
+"Last Reply By","Last Reply By"
+"Hours since Created","Hours since Created"
+"Hours since Updated","Hours since Updated"
+"Hours since Last reply","Hours since Last reply"
+"Items have reason","Items have reason"
+"Items have condition","Items have condition"
+"Items have resolution","Items have resolution"
+"%1 (before change)","%1 (before change)"
+Customer,Customer
+Staff,Staff
+"- Disable these emails -","- Disable these emails -"
+Yes,Yes
+No,No
+Save,Save
+"Save & Continue Edit","Save & Continue Edit"
+"Save & Close","Save & Close"
+Edit,Edit
+Delete,Delete
+"Delete ""${ $.$data.name }""","Delete ""${ $.$data.name }"""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Are you sure you wan't to delete a ""${ $.$data.name }"" record?"
+"Are you sure you want to do this?","Are you sure you want to do this?"
+"Convert To Ticket","Convert To Ticket"
+"View order #${ $.$data.order_id }","View order #${ $.$data.order_id }"
+"View exchange order %1","View exchange order %1"
+Select,Select
+"RMA: Report by Attribute","RMA: Report by Attribute"
+"RMA: Report by Status","RMA: Report by Status"
+"RMA: Report by Product","RMA: Report by Product"
+"RMA: Report by Reasons","RMA: Report by Reasons"
+"Cannot delete return address with id %1","Cannot delete return address with id %1"
+"Cannot delete item with id %1","Cannot delete item with id %1"
+"Cannot delete condition with id %1","Cannot delete condition with id %1"
+"Cannot delete field with id %1","Cannot delete field with id %1"
+"Cannot delete message with id %1","Cannot delete message with id %1"
+"Cannot delete history with id %1","Cannot delete history with id %1"
+"Cannot delete Quick Response with id %1","Cannot delete Quick Response with id %1"
+"Cannot delete reason with id %1","Cannot delete reason with id %1"
+"Cannot delete resolution with id %1","Cannot delete resolution with id %1"
+"Cannot delete rma with id %1","Cannot delete rma with id %1"
+"Cannot delete rule with id %1","Cannot delete rule with id %1"
+"Cannot delete status with id %1","Cannot delete status with id %1"
+"Please, enter a message","Please, enter a message"
+"Product Name","Product Name"
+SKU,SKU
+Qty,Qty
+"This was a gift, please do not notify purchaser","This was a gift, please do not notify purchaser"
+"Enter your contact information","Enter your contact information"
+"First Name","First Name"
+"Last Name","Last Name"
+Email,Email
+Telephone,Telephone
+"To request a new RMA or check the status of current RMA, please, fill the form:","To request a new RMA or check the status of current RMA, please, fill the form:"
+"* Required Fields","* Required Fields"
+"Order Information","Order Information"
+"Email or Last Name","Email or Last Name"
+Next,Next
+"If you do not have account on this store please fill the form below.","If you do not have account on this store please fill the form below."
+RMA,RMA
+Actions,Actions
+"View Return","View Return"
+"There are no Returns","There are no Returns"
+"Items %1 to %2 of %3 total","Items %1 to %2 of %3 total"
+"%1 Item(s)","%1 Item(s)"
+Show,Show
+"per page","per page"
+"View as","View as"
+"Sort by","Sort by"
+"Set Ascending Direction","Set Ascending Direction"
+"Set Descending Direction","Set Descending Direction"
+"Submit Request","Submit Request"
+"Please, select RMA items which you would like to return.","Please, select RMA items which you would like to return."
+"Please, select an order","Please, select an order"
+Order,Order
+"-- Select an Order --","-- Select an Order --"
+"-- Create Offline Order --","-- Create Offline Order --"
+"You have no completed orders to request RMA or your orders were placed more than %1 days ago. Please, contact customer service.","You have no completed orders to request RMA or your orders were placed more than %1 days ago. Please, contact customer service."
+"Additional Information","Additional Information"
+"Attach files","Attach files"
+"Request Information","Request Information"
+"Email Address","Email Address"
+"Order Shipping Address","Order Shipping Address"
+"Items in this order","Items in this order"
+"There are no items for this product that can be returned.","There are no items for this product that can be returned."
+"Another RMA for this product: %1","Another RMA for this product: %1"
+"This product can not be returned due to RMA Policy","This product can not be returned due to RMA Policy"
+"This is a non-returnable item per our return policy.","This is a non-returnable item per our return policy."
+"Quantity to return","Quantity to return"
+"-- Select a Reason --","-- Select a Reason --"
+"-- Select a Condition --","-- Select a Condition --"
+"-- Select a Resolution --","-- Select a Resolution --"
+"Returned Item","Returned Item"
+"Remove Item","Remove Item"
+"Order or Receipt #","Order or Receipt #"
+"I agree","I agree"
+"Date: %1","Date: %1"
+"Original order: #%1","Original order: #%1"
+"Return Address","Return Address"
+"Customer Information","Customer Information"
+"RMA History","RMA History"
+"RMA Items","RMA Items"
+Weight,Weight
+"Print RMA Packing Slip","Print RMA Packing Slip"
+"Print RMA Shipping Label","Print RMA Shipping Label"
+"Confirm Shipping","Confirm Shipping"
+"(This was a gift)","(This was a gift)"
+"Date Requested","Date Requested"
+"Contact Information","Contact Information"
+"Items RMA Requested for","Items RMA Requested for"
+QTY,QTY
+"Add Message","Add Message"
+Submit,Submit
+%name,%name
+"Add Item","Add Item"
+"Add at least one item to this RMA","Add at least one item to this RMA"
+"The quantity is incorrect.","The quantity is incorrect."

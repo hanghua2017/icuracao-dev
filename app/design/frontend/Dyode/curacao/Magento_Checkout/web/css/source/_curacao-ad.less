@@ -1,78 +1,54 @@
-@theme-color:#97d700;
-.curacao-ad {
-      max-width: 1500px;
-      width: 100%;
-      margin: 0 auto;
-      .apply-credit-ad {
-        padding: 15px;
-        .desktop-view, .mobile-view {
-          .apply-card {
-            background: @theme-color;
-            box-shadow: none;
-            color: #fff;
-            font-size: 16px;
-            padding: 12px 30px;
-            letter-spacing: 0.7px;
-            border-radius: 3px;
-            text-decoration: none;
-            @media all and (max-width: 991px) {
-              padding: 10px 20px;
-              font-size: 14px;
-            }
-          }
-        }
-        .desktop-view {
-          position: relative;
-          clear: both;
-          width: 100%;
-          float: left;
-          padding: 15px 0;
+.page-main{
+  /*Credit card ad*/
+  .curacao-ad {
+    max-width: 1500px;
+    width: 100%;
+    margin: 20px auto;
+    margin-bottom: 0;
+    @media all and (min-width: 768px) {
+        margin: 40px auto;
+    }
+    .apply-credit-ad {
+      @media all and (max-width: 767px) {
+        padding: 15px 15px 0 15px;
+      }
+      .desktop-view {
+        position: relative;
+        clear: both;
+        width: 100%;
+        float: left;
+        padding: 15px 0;
+        @media all and (min-width: 991px) {
           -webkit-box-shadow: 0px 0px 10px 1px rgba(27,32,42,0.1);
           -moz-box-shadow: 0px 0px 10px 1px rgba(27,32,42,0.1);
           box-shadow: 0px 0px 10px 1px rgba(27,32,42,0.1);
-          @media all and (max-width: 768px) {
-            display: none;
-          }
-          .apply-card {
-            float: right;
-            position: absolute;
-            top: 45px;
-            right: 20px;
-            @media all and (max-width: 768px) {
-              right: 0;
-            }
-          }
-          img {
-            width: auto;
-            float: left;
-            padding-left: 20px;
-            @media all and (max-width: 991px) {
-              width: 82%;
-            }
-            @media all and (max-width: 768px) {
-              padding-left: 0;
-            }
-          }
         }
-        .mobile-view {
-          text-align: center;
-          margin-bottom: 15px;
-          .apply-card {
-            float: none;
-            padding: 7px 40px;
-            @media all and (max-width: 420px) {
-              padding: 7px 0;
-              width: 100%;
-              display: block;
-            }
-          }
-          img {
-            width: 100%;
-            margin-bottom: 10px;
-          }
-          @media all and (min-width: 768px) {
-            display: none;
+        @media all and (max-width: 767px) {
+          display: none;
+        }
+        img {
+          // width: auto;
+          // padding-left: 20px;
+          @media all and (max-width: 767px) {
+            padding-left: 0;
           }
         }
       }
+      .mobile-view {
+        text-align: center;
+        @media all and (min-width: 991px) {
+          margin-bottom:15px;
+          -webkit-box-shadow: 0px 0px 10px 1px rgba(27,32,42,0.1);
+          -moz-box-shadow: 0px 0px 10px 1px rgba(27,32,42,0.1);
+          box-shadow: 0px 0px 10px 1px rgba(27,32,42,0.1);
+        }
+        img {
+          width: 100%;
+        }
+        @media all and (min-width: 768px) {
+          display: none;
+        }
+      }
     }
+  }
+}

@@ -1,0 +1,62 @@
+<!--
+/**
+ * @package   Dyode
+ * @author    kavitha@dyode.com
+ * Date       02/10/2018
+ */
+-->
+<div id="shipping-method-product-listing" data-bind="foreach: getProductItems()">
+    <div class="shipping-method-product-item">
+        <h2>
+            <span data-bind="i18n: 'Order Details '"></span>(<span data-bind="text: $index() + 1"></span>)
+        </h2>
+
+        <div>
+            <div class="shipping-method-product-image">
+                <img data-bind="attr: {'src': product_image_url}, src: product_image_url" />
+            </div>
+            <div class="shipping-method-product-details">
+                <h4 data-bind="text: product_name"></h4>
+                <h5 data-bind="text:product_price"></h5>
+                <h6 data-bind="text: product_qty"></h6>
+            </div>
+        </div>
+
+        <div>
+            <p class="field note" data-bind="visible: (shipping_methods().length <= 0)">
+                <!-- ko text: $t('Sorry, no quotes are available for this order at this time')-->
+                <!-- /ko -->
+            </p>
+
+            <fieldset class="fieldset rate" data-bind="visible: (shipping_methods().length > 0)">
+                <dl class="items methods" data-bind="foreach: shippingRateGroups">
+                    <dd class="item-options" data-bind="foreach: { data:$parent.getRatesForGroup($data), as: 'method' }">
+                        <div data-bind="css: {'field choice item': available, 'message error': !available} ">
+                            <!-- ko ifnot: (available) -->
+                                <div data-bind="text: error_message"></div>
+                            <!-- /ko -->
+
+                            <!-- ko if: (available) -->
+                            <input type="radio" class="radio" data-bind="
+                                        click: $parents[1].updateShippingTotals.bind($parents[1]),
+                                        checked: $parents[1].selectedShippingMethod,
+                                        attr: {
+                                                value: carrier_code + '_' + method_code,
+                                                id: 's_method_' + carrier_code + '_' + method_code+'_'+$parents[1].item_id,
+                                                name:'ko_unique'+'_'+$parents[1].item_id
+                                                }
+                                        " />
+                            <label class="label" data-bind="attr: {for: 's_method_' + carrier_code + '_' + method_code+'_'+$parents[1].item_id}">
+                                <!-- ko text: $data.method_title -->
+                                <!-- /ko -->
+                                <each args="element.getRegion('price')" render="" />
+                            </label>
+                            <!-- /ko -->
+                        </div>
+                    </dd>
+                </dl>
+            </fieldset>
+        </div>
+        <div data-bind="visible: (freight == 1)"></div>
+    </div>
+</div>
