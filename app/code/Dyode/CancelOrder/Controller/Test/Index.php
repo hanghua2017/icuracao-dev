@@ -1,7 +1,10 @@
 <?php
 /**
- * @package   Dyode
- * @author    Sooraj Sathyan
+ * Dyode
+ *
+ * @category  Dyode
+ * @package   Dyode_ArInvoice
+ * @author    Sooraj Sathyan (soorajcs.mec@gmail.com)
  */
 namespace Dyode\CancelOrder\Controller\Test;
 

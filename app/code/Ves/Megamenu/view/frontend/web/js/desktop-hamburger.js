@@ -1,29 +1,36 @@
 /*!
  * Hamburger Menu For Desktop
 */
-require([
-			'jquery',
-	], function($) {
-    (function() {
-      var sidebar         = document.getElementById('sidebar');
-      var sidebarOverlay  = document.getElementsByClassName('sidebar-overlay')[0];
-      var container       = document.getElementsByClassName('container')[0];
-      var sidebarBtnClose = document.getElementById('sidebarBtnClose');
-      var sidebarBtnOpen  = document.getElementById('sidebarBtnOpen');
+require(['jquery'], function ($) {
 
-      var openSidebar = function() {
-        sidebarOverlay.style.left = '0';
-        sidebar.style.left = '0';
-      }
+    //perform this operation only after DOM Loaded.
+    $(function () {
+        var sidebar = document.getElementById('sidebar'),
+            sidebarOverlay = document.getElementsByClassName('sidebar-overlay')[0],
+            sidebarBtnClose = document.getElementById('sidebarBtnClose'),
+            sidebarBtnOpen = document.getElementById('sidebarBtnOpen'),
 
-      var closeSidebar = function(e) {
-        e.cancelBubble = true;
-        sidebarOverlay.style.left = '-100%';
-        sidebar.style.left = '-250px';
-      }
+            openSidebar = function () {
+                sidebarOverlay.style.left = '0';
+                sidebar.style.left = '0';
+            },
 
-      sidebarOverlay.addEventListener('click', closeSidebar);
-      sidebarBtnClose.addEventListener('click', closeSidebar);
-      sidebarBtnOpen.addEventListener('click', openSidebar);
-    })()
+            closeSidebar = function (e) {
+                e.cancelBubble = true;
+                sidebarOverlay.style.left = '-100%';
+                sidebar.style.left = '-250px';
+            };
+
+        if (sidebarOverlay) {
+            sidebarOverlay.addEventListener('click', closeSidebar);
+        }
+
+        if (sidebarBtnClose) {
+            sidebarBtnClose.addEventListener('click', closeSidebar);
+        }
+
+        if (sidebarBtnOpen) {
+            sidebarBtnOpen.addEventListener('click', openSidebar);
+        }
+    });
 });

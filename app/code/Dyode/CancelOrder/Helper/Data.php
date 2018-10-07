@@ -1,10 +1,10 @@
 <?php
 /**
- * Cancel Order Helper
+ * Dyode
  *
  * @category  Dyode
- * @package   Dyode_CancelOrder
- * @author    Sooraj Sathyan
+ * @package   Dyode_ArInvoice
+ * @author    Sooraj Sathyan (soorajcs.mec@gmail.com)
  */
 namespace Dyode\CancelOrder\Helper;
 

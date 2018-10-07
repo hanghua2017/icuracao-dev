@@ -1,0 +1,22 @@
+{
+    "name": "dyode/module-checkout-address-step",
+    "description": "",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "email": "rajeev.ktomy@dyode.com",
+            "name": "Rajeev K Tomy"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Dyode\\CheckoutAddressStep\\": ""
+        }
+    }
+}

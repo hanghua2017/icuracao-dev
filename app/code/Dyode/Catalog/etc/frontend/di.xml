@@ -15,4 +15,7 @@
     <preference for="Magento\Catalog\Pricing\Render\FinalPriceBox" type="Dyode\Catalog\Preference\Catalog\Pricing\Render\FinalPriceBox"/>
     <preference for="Magento\ConfigurableProduct\Pricing\Render\FinalPriceBox" type="Dyode\Catalog\Preference\ConfigurableProduct\Pricing\Render\FinalPriceBox"/>
     <preference for="Magento\Catalog\Block\Product\View\Options\Type\Select" type="Dyode\Catalog\Block\Product\View\Options\Type\SelectPreference" />
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="addWarrantyToCartPlugin" type="Dyode\Catalog\Plugin\AddWarrantyToCartPlugin" sortOrder="1" />
+    </type>
 </config>

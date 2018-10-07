@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package   Dyode
+ * @author    kavitha@dyode.component
+ * Date       06/08/2018
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="storeloc" frontName="storeloc">
+            <module name="Dyode_CheckoutDeliveryMethod" />
+        </route>
+    </router>
+</config>
