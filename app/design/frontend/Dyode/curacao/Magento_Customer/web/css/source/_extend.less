@@ -777,6 +777,21 @@ select:focus, input:focus {
             @media all and (max-width: 768px) {
               margin: 0 15px;
             }
+            .order-title {
+              button {
+                background-color: @orange-button;
+                border-color: @orange-button;
+                margin-top: 15px;
+                &:hover {
+                  background-color: darken(@orange-button, 5%);
+                }
+                span {
+                  font-family: 'iCuracao-Regular';
+                  font-weight: 500;
+                  color: #fff;
+                }
+              }
+            }
             .table-wrapper {
               .table-wrapper {
                 table {
@@ -922,6 +937,7 @@ select:focus, input:focus {
                     span {
                       font-family: 'iCuracao-Regular';
                       font-weight: 500;
+                      text-transform: uppercase;
                     }
                   }
                   .action {
@@ -936,32 +952,45 @@ select:focus, input:focus {
                 }
               }
             }
-            .order-details-items.invoice {
+            .order-details-items {
               padding: 15px 20px;
               @media all and (max-width: 767px) {
                 padding: 15px;
               }
-              .actions-toolbar {
-                padding: 0;
-                .print {
-                  span {
-                    font-family: 'iCuracao-Regular';
-
-                  }
+              &.invoice, &.shipments {
+                padding: 15px 20px;
+                @media all and (max-width: 767px) {
+                  padding: 15px;
                 }
-              }
-              .table-wrapper.invoice {
-                .table-order-items.invoice {
-                  thead {
-                    tr > th {
-                      border-bottom: none;
+                .actions-toolbar, .order-title {
+                  padding: 0;
+                  a .action.track, .action.print  {
+                    span {
+                      font-family: 'iCuracao-Regular';
+                      margin-right: 25px;
                     }
                   }
-                  tbody {
-                    tr {
-                      td.sku, td.qty {
-                        font-family: 'iCuracao-Regular';
-                        font-weight: 500;
+                }
+                dl.order-tracking {
+                  border-bottom: none;
+                }
+                .table-wrapper {
+                  &.invoice, &.order-items-shipment {
+                    .table-order-items {
+                      &.invoice, &.shipment {
+                        thead {
+                          tr > th {
+                            border-bottom: none;
+                          }
+                        }
+                        tbody {
+                          tr {
+                            td.sku, td.qty {
+                              font-family: 'iCuracao-Regular';
+                              font-weight: 500;
+                            }
+                          }
+                        }
                       }
                     }
                   }
