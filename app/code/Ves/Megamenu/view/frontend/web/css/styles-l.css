@@ -2768,6 +2768,11 @@ print {
     .ves-megamenu .navigation .nav-item.subhover>.submenu>.submenu-inner {
         padding: 0
     }
+    .ves-megamenu .navigation .nav-item.subhover>.submenu>.submenu-inner .content-wrapper .item-content .dorgin-items{
+      display: -webkit-flex;
+      display: flex;
+      align-items: stretch;
+    }
     .ves-megamenu .navigation .nav-item.submenu-right>.submenu {
         right: 0 !important;
         left: auto !important
