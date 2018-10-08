@@ -48,11 +48,10 @@ define([
                 storePickup: false
             };
 
-            _.each(quoteItemData, function (quoteItem) {
+            _.each(quoteItemData, function (quoteItem) {                
                 var deliveryInfo = _.findWhere(deliveryDataProvider.getDeliveryData(), {
                     quoteItemId: parseInt(quoteItem.item_id)
                 });
-
                 if (!deliveryInfo) {
                     return checked;
                 }
@@ -60,7 +59,7 @@ define([
                 if (deliveryInfo.deliveryType == 'ship_to_home') {
                     checked.shipToHome = 'ship_to_home';
                 } else {
-                    checked.storePickup = 'store_pickup';
+                    checked.storePickup = 'store_pickup';                   
                 }
             });
 
@@ -216,12 +215,18 @@ define([
                             deliveryType: radioInputValue
                         }
                     );
-
+                  
                 //update delivery option observable array.
                 if (deliveryInfo) {
-                    var newDeliveryData = _.extend(deliveryData, [deliveryInfo]);
+                    // var newDeliveryData = _.extend(deliveryData, [deliveryInfo]);
+                    var rejected = _.reject(deliveryData,function(quoteItem) {
+
+                        return quoteItem.quoteItemId === deliveryInfo.quoteItemId;
+                    });
+                    var newDeliveryData = _.union(rejected, [deliveryInfo])
+                    console.log("New Delivery Data"+ JSON.stringify(newDeliveryData));
                     deliveryDataProvider.deliveryData(newDeliveryData);
-                }
+                }             
             },
 
             /**

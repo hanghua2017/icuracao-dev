@@ -22,6 +22,7 @@
 		<service class="Dyode\DeliveryMethod\Api\DeliveryMethodManagementInterface" method="updateDeliveryMethodOnQuote"/>
 			<resources>
 				<resource ref="Magento_Cart::manage"/>
+                <resource ref="anonymous"/>
 			</resources>
 	</route>
 </routes>

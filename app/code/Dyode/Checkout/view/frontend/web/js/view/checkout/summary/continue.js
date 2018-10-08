@@ -12,7 +12,8 @@ define([
     'Magento_Checkout/js/model/step-navigator',
     'Magento_Checkout/js/model/error-processor',
     'Magento_Checkout/js/model/full-screen-loader',
-    'Dyode_CheckoutDeliveryMethod/js/data/delivery-data-provider'
+    'Dyode_CheckoutDeliveryMethod/js/data/delivery-data-provider',
+    'jquery'
 ], function (
     Component,
     storage,
@@ -20,10 +21,11 @@ define([
     stepNavigator,
     errorProcessor,
     fullScreenLoader,
-    deliveryDataProvider
+    deliveryDataProvider,
+    $
 ) {
     'use strict';
-
+    var quoteItemData = window.checkoutConfig.quoteItemData;
     /**
      * Sidbar Continue Button Component
      */
@@ -36,7 +38,7 @@ define([
          * Proceeds to the next step
          */
         navigateToNextStep: function () {
-            console.log(this);
+                     
             this.performAjaxUpdates();
             stepNavigator.next();
         },
@@ -59,24 +61,50 @@ define([
          * @returns {*}
          */
         saveDeliveryOptions: function () {
+            // Better error handling # TODO Quote item id repeats
             var payload = deliveryDataProvider.getDeliveryData(),
-                deliverySaveUrl = Url.build('/delivery-option/384837483jjhdfh838/save');
-
+                cartId = quoteItemData[0].quote_id;
+                
+            console.log(payload);
+            console.log("Cart id "+ cartId);
             fullScreenLoader.startLoader();
+            
+            $.ajax({
+                url: Url.build('storeloc/storelocator/setstores'),
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    quoteItemsData: JSON.stringify(payload),
+                    quoteId: cartId
+                },
 
-            return storage.post(
-                deliverySaveUrl,
-                JSON.stringify(payload)
-            ).done(
-                function (response) {
+                /**
+                 * Success
+                 * @param {JSON} response
+                 */
+                success: function (response) {
                     fullScreenLoader.stopLoader();
-                }
-            ).fail(
-                function (response) {
-                    errorProcessor.process(response);
+           
+
+                    
+                },
+
+                /**
+                 * Some bad thing happend in Ajax request
+                 */
+                error: function () {
                     fullScreenLoader.stopLoader();
+                    console.log('Error')
+                },
+
+                /**
+                 * Ajax request complete
+                 */
+                complete: function () {
+                    fullScreenLoader.stopLoader();
+                    console.log('Completed');
                 }
-            );
+            });
 
         }
     });
