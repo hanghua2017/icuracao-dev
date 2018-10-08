@@ -335,6 +335,12 @@ define([
                 this.selectStore(model, event);
             },
 
+            /**
+             * Update delivery information based on the quote Item
+             *
+             * @param {String|Integer} quoteItemId
+             * @param {Object} updateDeliveryInfo
+             */
             updateDeliveryInfo: function (quoteItemId, updateDeliveryInfo) {
 
                 //prepare new data against the quoteItem provided
