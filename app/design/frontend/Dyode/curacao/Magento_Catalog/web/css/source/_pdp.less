@@ -22,6 +22,9 @@
   @media all and (min-width: 991px) {
     font-size: 18px;
   }
+  @media all and (max-width: 476px) {
+    font-size: 14px;
+  }
 }
 
 .price-font {
@@ -184,6 +187,10 @@
                   padding-left: 20px;
                   padding-right: 20px;
                 }
+                @media all and (max-width: 467px) {
+                  padding-left: 10px;
+                  padding-right: 10px;
+                }
                 &:after{
                  right: 15px;
                 }
@@ -206,6 +213,9 @@
                 padding: 20px;
                 margin-top: 0;
                 border-bottom: 1px solid @desc-border;
+              }
+              @media all and (max-width: 467px) {
+                padding: 10px;
               }
               button.action
               {
@@ -298,6 +308,9 @@
                       }
                       .review-content{
                         margin-bottom: 15px;
+                      }
+                      .review-details{
+                        color: #c7c7c7;
                       }
                     }
                   }
@@ -636,15 +649,15 @@
                   .fieldset {
                     .field.qty {
                       label {
-                        font-size: 16px;
-                        color: @content-light-grey;
+                        font-size: 18px;
+                        color: #838282;
                         margin-right: 20px;
                         @media all and (max-width: 991px) {
-                          font-size: 14px;
+                          font-size: 16px;
                           margin-right: 23px;
                         }
                         @media all and (max-width: 476px) {
-                          font-size: 13px;
+                          font-size: 14px;
                           margin-right: 24px;
                         }
 
