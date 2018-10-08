@@ -10,4 +10,6 @@
       <!-- API for setting delivery type -->
       <preference for="Dyode\CheckoutDeliveryMethod\Api\DeliveryMethodManagementInterface" type="Dyode\CheckoutDeliveryMethod\Model\DeliveryMethodManagement"/>
       <preference for="Dyode\CheckoutDeliveryMethod\Api\DeliveryMethodInformationInterface" type="Dyode\CheckoutDeliveryMethod\Model\DeliveryMethodInformation"/>
+      <preference for="Dyode\CheckoutDeliveryMethod\Api\GuestShippingInfoInterface" type="Dyode\CheckoutDeliveryMethod\Model\GuestShippingInfoProcessor" />
+  
 </config>

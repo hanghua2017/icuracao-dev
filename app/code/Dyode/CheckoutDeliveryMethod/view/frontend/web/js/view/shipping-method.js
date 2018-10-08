@@ -17,6 +17,7 @@ define([
     'Magento_Checkout/js/model/shipping-service', // Shipping service
     'Magento_Checkout/js/checkout-data', //checkoutData
     'Magento_Checkout/js/model/shipping-save-processor',
+    'Magento_Tax/js/view/checkout/shipping_method/price',
     './shipping-data-provider',
     './shipping-info-save-processor'
 
@@ -31,6 +32,7 @@ define([
     shippingService, // Shipping Service
     checkoutData,
     checkoutShippingSaveProcessor,
+    shippingPrice,
     shippingInfoDataProvider,
     customShippingInfoSaveProcessor
 ) {
@@ -56,7 +58,8 @@ define([
             isLogedIn: customer.isLoggedIn(),
             getItems: ko.observableArray(quote.getItems()),
             getTotals: quote.getTotals(),
-
+            shippingTotals:ko.observableArray([]),
+            
             /**
              * Fires when a shipping method option is selected against a quote item
              * in the shipping step.
@@ -64,7 +67,7 @@ define([
              * KnockoutJS: "this" here in getProductItems::foreach context
              */
             selectedShippingMethod: function (model) {
-
+                console.log("select shipping",model);
                 //collect shipping info based on the shipping method selection
                 var shippingInfo = shippingInfoDataProvider.shippingInfo(),
                     quoteTotalEntry = _.findWhere(shippingInfo, {quoteItemId: this.item_id});
@@ -80,7 +83,7 @@ define([
                     //updating shippingInfo with the updatedShippingInfo
                     _.extend(
                         _.findWhere(shippingInfo, {quoteItemId: this.item_id}),
-                        updatedTotalEntry
+                        updatedShippingInfo
                     );
 
                     //Finally updating global shippingInfo ko observableArray
