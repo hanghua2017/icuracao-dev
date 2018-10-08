@@ -703,13 +703,15 @@ select:focus, input:focus {
         .column.main {
           .page-title-wrapper {
             position: relative;
-            padding: 25px 20px;
+            padding: 25px 20px 15px;
             @media all and (max-width: 768px) {
               padding: 15px !important;
             }
-            &::after {
-              clear: none;
-            }
+            .order-actions-toolbar {
+	              position: absolute;
+	              top: 35px;
+	              right: 0;
+	           }
             .page-title {
               margin-right: 5px !important;
               @media all and (max-width: 768px) {
@@ -737,30 +739,11 @@ select:focus, input:focus {
               }
             }
             .order-actions-toolbar {
-              float: right;
-              position: relative;
-              top: -20px;
-              @media all and (max-width: 767px) {
-                top: -15px;
-              }
               .actions {
-                margin-bottom: 0;
-                display: inline-flex;
-                a {
-                  span {
-                    font-family: 'iCuracao-Regular';
-                    font-weight: 500;
-                    text-transform: uppercase;
-                  }
-                }
-                .action {
-                  margin-right: 25px;
-                  &.print {
-                    float: none;
-                  }
-                  &:last-child {
-                    margin-right: 0;
-                  }
+                span {
+                  text-transform: uppercase;
+                  font-family: 'iCuracao-Regular';
+                  font-weight: 500;
                 }
               }
             }
@@ -1700,10 +1683,12 @@ select:focus, input:focus {
             border-radius: 0 !important;
             float: left !important;
             padding: 0 !important;
-            text-align: left;
+            @media all and(max-width: 767px){
+              text-align: left;
+            }
             span {
               font-size: 14px !important;
-              font-family: 'iCuracao-Regular' !important;
+              font-family: 'iCuracao-Regular';
               color: @active-blue-color !important;
             }
           }
@@ -2690,9 +2675,9 @@ select:focus, input:focus {
           background: @orange-button;
           border: 1px solid @orange-button;
           padding: 10px 15px;
-          margin-top: 20px;
+          margin-top: 25px;
           float: left;
-          margin-left: 20px;
+          margin-left: 25px;
           @media all and (max-width: 767px) {
             margin-left: 20px;
           }
