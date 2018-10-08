@@ -48,10 +48,11 @@ define([
                 storePickup: false
             };
 
-            _.each(quoteItemData, function (quoteItem) {                
+            _.each(quoteItemData, function (quoteItem) {
                 var deliveryInfo = _.findWhere(deliveryDataProvider.getDeliveryData(), {
                     quoteItemId: parseInt(quoteItem.item_id)
                 });
+
                 if (!deliveryInfo) {
                     return checked;
                 }
@@ -59,7 +60,7 @@ define([
                 if (deliveryInfo.deliveryType == 'ship_to_home') {
                     checked.shipToHome = 'ship_to_home';
                 } else {
-                    checked.storePickup = 'store_pickup';                   
+                    checked.storePickup = 'store_pickup';
                 }
             });
 
@@ -170,7 +171,8 @@ define([
                         //function associated
                         collectStores: self.selectLocation,
                         selectStore: self.selectProductStore,
-                        transformStoreModalHeading: self.transformStoreModalHeading
+                        transformStoreModalHeading: self.transformStoreModalHeading,
+                        updateDeliveryInfo: self.updateDeliveryInfo
                     });
                 });
 
@@ -205,28 +207,9 @@ define([
                 model.showZipForm(showZipForm);
                 model.showStoreSelectedSection(showStoreSelected);
 
-                //prepare new deliveryInfo based on the selection
-                var deliveryData = deliveryDataProvider.getDeliveryData(),
-                    deliveryInfo = _.extend(
-                        _.findWhere(deliveryData, {
-                            quoteItemId: parseInt(model.quoteItemId)
-                        }),
-                        {
-                            deliveryType: radioInputValue
-                        }
-                    );
-                  
-                //update delivery option observable array.
-                if (deliveryInfo) {
-                    // var newDeliveryData = _.extend(deliveryData, [deliveryInfo]);
-                    var rejected = _.reject(deliveryData,function(quoteItem) {
-
-                        return quoteItem.quoteItemId === deliveryInfo.quoteItemId;
-                    });
-                    var newDeliveryData = _.union(rejected, [deliveryInfo])
-                    console.log("New Delivery Data"+ JSON.stringify(newDeliveryData));
-                    deliveryDataProvider.deliveryData(newDeliveryData);
-                }             
+                this.updateDeliveryInfo(model.quoteItemId, {
+                    deliveryType: radioInputValue
+                });
             },
 
             /**
@@ -332,6 +315,14 @@ define([
 
                 //Finally, closing the modal.
                 $('#' + this.storePickupModalId).modal('closeModal');
+
+                /**
+                 * Here "this" context is: quoteItemList::foreach
+                 * Updating delivery info with store picked.
+                 */
+                this.updateDeliveryInfo(this.quoteItemId, {
+                    storeId: parseInt(model.id)
+                });
             },
 
             /**
@@ -342,6 +333,29 @@ define([
             changeStore: function (model, event) {
                 //here "this" has component context
                 this.selectStore(model, event);
+            },
+
+            updateDeliveryInfo: function (quoteItemId, updateDeliveryInfo) {
+
+                //prepare new data against the quoteItem provided
+                var deliveryData = deliveryDataProvider.getDeliveryData(),
+                    deliveryInfo = _.extend(
+                        _.findWhere(deliveryData, {
+                            quoteItemId: parseInt(quoteItemId)
+                        }),
+                        updateDeliveryInfo
+                    );
+
+                //update delivery option observable array.
+                if (deliveryInfo) {
+                    var rejected = _.reject(deliveryData, function (quoteItem) {
+                            return quoteItem.quoteItemId == deliveryInfo.quoteItemId;
+                        }),
+
+                        newDeliveryData = _.union(rejected, [deliveryInfo]);
+
+                    deliveryDataProvider.deliveryData(newDeliveryData);
+                }
             },
 
             /**
@@ -381,7 +395,7 @@ define([
                     fullScreenLoader.startLoader();
 
                     $.ajax({
-                        url: Url.build('/storeloc/storelocator/getstores'),
+                        url: Url.build('/delivery-step/storelocator/getstores'),
                         type: 'POST',
                         dataType: 'json',
                         data: {

@@ -6,8 +6,8 @@
  * @copyright Copyright © Dyode
  */
 define([
+    'jquery',
     'uiComponent',
-    'mage/storage',
     'mage/url',
     'Magento_Checkout/js/model/step-navigator',
     'Magento_Checkout/js/model/error-processor',
@@ -15,16 +15,16 @@ define([
     'Dyode_CheckoutDeliveryMethod/js/data/delivery-data-provider',
     'jquery'
 ], function (
+    $,
     Component,
-    storage,
     Url,
     stepNavigator,
     errorProcessor,
     fullScreenLoader,
-    deliveryDataProvider,
-    $
+    deliveryDataProvider
 ) {
     'use strict';
+
     var quoteItemData = window.checkoutConfig.quoteItemData;
     /**
      * Sidbar Continue Button Component
@@ -38,7 +38,7 @@ define([
          * Proceeds to the next step
          */
         navigateToNextStep: function () {
-                     
+
             this.performAjaxUpdates();
             stepNavigator.next();
         },
@@ -58,19 +58,16 @@ define([
 
         /**
          * Save delivery options against the quote when user proceed from delivery step -> address step
-         * @returns {*}
          */
         saveDeliveryOptions: function () {
             // Better error handling # TODO Quote item id repeats
             var payload = deliveryDataProvider.getDeliveryData(),
                 cartId = quoteItemData[0].quote_id;
-                
-            console.log(payload);
-            console.log("Cart id "+ cartId);
+
             fullScreenLoader.startLoader();
-            
+
             $.ajax({
-                url: Url.build('storeloc/storelocator/setstores'),
+                url: Url.build('delivery-step/deliveryMethods/save'),
                 type: 'POST',
                 dataType: 'json',
                 data: {
@@ -84,9 +81,6 @@ define([
                  */
                 success: function (response) {
                     fullScreenLoader.stopLoader();
-           
-
-                    
                 },
 
                 /**
