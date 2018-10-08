@@ -1923,60 +1923,66 @@ select:focus, input:focus {
 }
 .sales-order-view{
   .page-main{
-    .page-title-wrapper{
-      .page-title{
-        margin-left:-2px;
-        margin-right: 0;
-        float: left;
+    .page-title-wrapper {
+      padding: 15px 20px;
+      @media all and (max-width: 768px) {
+        padding: 15px !important;
       }
-      .order-status{
+      &::after {
+        clear: none;
+      }
+      .page-title {
+        margin-right: 5px !important;
+        @media all and (max-width: 768px) {
+          display: contents;
+        }
+      }
+      span.order-status {
         border: none;
         text-transform: capitalize;
         color: #cccccc;
+        font-size: 16px !important;
         font-style: italic;
-        @media only screen and (min-width: 991px){
-          font-size: 20px !important;
-          float: left;
-        }
-        @media all and (max-width:767px){
-          margin:10px 0;
+        @media all and (max-width: 768px) {
+          font-size: 14px !important;
+          margin-top: 8px;
         }
       }
-      .order-date{
-        margin: 0 !important;
-        @media only screen and (min-width: 991px){
-              display: none;
-        }
-      }
-      .actions-toolbar{
-        padding-right: 0 !important;
-
-        @media all and (max-width:767px){
-        padding: 0px !important;
-        }
-      }
-      .order-actions-toolbar{
+      .order-date {
         margin-bottom: 0 !important;
-        padding: 0 !important;
-        @media only screen and (min-width: 991px){
-            float: right;
+        padding-top: 10px;
+        @media all and (max-width: 768px) {
+          loat: left;
+          width: 100%;
+          padding-top: 0;
         }
-        .actions{
-          @media only screen and (min-width: 991px){
-            display: inline-block;
-          }
-          .action{
-            margin-right: 0;
-
-            @media only screen and (min-width: 991px){
-                  padding: 0 10px;
+      }
+      .order-actions-toolbar {
+        float: right;
+        position: relative;
+        top: -20px;
+        @media all and (max-width: 767px) {
+          top: -15px;
+        }
+        .actions {
+          margin-bottom: 0;
+          display: inline-flex;
+          a {
+            color: @active-blue-color;
+            span {
+              text-transform: uppercase;
+              font-family: 'iCuracao-Regular';
+              font-weight: 500;
             }
           }
-          .order{
-            @media only screen and (min-width: 991px){
-                border-right: 2px solid #ccc;
+          .action {
+            margin-right: 25px;
+            &.print {
+              float: none;
             }
-
+            &:last-child {
+              margin-right: 0;
+            }
           }
         }
       }
@@ -2731,6 +2737,18 @@ select:focus, input:focus {
           span {
             font-weight: 500;
             font-family: 'iCuracao-Medium';
+          }
+        }
+        .table-wrapper{
+          @media all and (max-width: 767px){
+            padding: 0 15px;
+          }
+        }
+        .table-wrapper table > tbody > tr > td,.table-wrapper table > tbody > tr > th{
+          @media all and (max-width:639px){
+            &:before{
+              font-weight:normal;
+            }
           }
         }
       }
