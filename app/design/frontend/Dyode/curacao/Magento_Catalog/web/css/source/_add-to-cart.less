@@ -76,6 +76,23 @@
       }
     }
 }
+  //styling for size configurable field
+  .field.configurable.required{
+    //border:1px solid;
+    label{
+      display: inline-block;
+      font-size: 16px;
+      color: #aeaeae;
+      font-weight: normal;
+    }
+    .control{
+      display: inline-block;
+      select{
+        max-width: 180px;
+
+      }
+    }
+  }
   //product spec MOUNTING OPTIONS above the add to cart buttons
   .mount-option {
     .spec {
@@ -173,12 +190,21 @@
           }
           .price-notice
           {
+            font-size: 0;
             .price-container
             {
+              font-size: 14px;
               span
               {
                 font-weight: 600;
               }
+
+            }
+            &:before
+            {
+              content: ':';
+              font-size: 14px;
+              margin-right: 4px;
             }
           }
         }
@@ -340,6 +366,9 @@
         @media all and (max-width: 767px) {
         width: 40px;
         }
+        &:before{
+         margin-top: 6px;
+        }
       }
       .action-close:hover,
       .action-close:focus,.action-close:hover,
@@ -375,8 +404,12 @@
         float: none;
         .modal-head{
           float: left;
+          width: 75%;
           h1{
             margin-bottom: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow:ellipsis;
             span{
               font-size: 24px;
               font-family: 'iCuracao-Medium';
@@ -401,11 +434,11 @@
           }
         }
         .modal-img{
-          width: 13%;
-          @media all and (max-width: 990px) {
-            width: 17%;
-          }
+          width: 15%;
           float: right;
+          @media all and (max-width: 990px) {
+            width: 15%;
+          }
         }
       }
       .waranty-details{

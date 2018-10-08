@@ -283,11 +283,22 @@
                   display: none !important;
                 }
               }
-              // .review-add {
-              //   // .block-content {
-              //   //   padding: 20px;
-              //   // }
-              // }
+              //product user review styling
+              #product-review-container{
+                .block-content{
+                  ol.review-items{
+                    li.review-item{
+                          padding: 30px 0 15px;
+                      .review-title{
+                        margin: 0 0 15px;
+                      }
+                      .review-content{
+                        margin-bottom: 15px;
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -300,6 +311,10 @@
           -moz-box-shadow:  0 0 13px 2px rgba(30, 30, 30, 0.1);
           box-shadow:  0 0 13px 2px rgba(30, 30, 30, 0.1);
           margin-bottom: 30px;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          flex-wrap: wrap;
           @media all and (max-width: 901px) {
             display: -webkit-flex;
             display: -ms-flexbox;
@@ -312,16 +327,11 @@
           .product-info-main {
             width: 60% !important;
             padding: 25px;
-            border-left: 1px solid #d4d4d4;
+            order: 2;
+          //  border-left: 1px solid #d4d4d4;
             @media all and (min-width: 991px) {
               padding: 40px 30px;
-              min-height: 705px;
-            }
-            @media all and (max-width: 1339px) {
-              width: 52% !important;
-            }
-            @media all and (max-width: 949px) {
-              width: 50% !important
+            //  min-height: 705px;
             }
             @media all and (max-width: 901px) {
               width: 100% !important;
@@ -333,6 +343,7 @@
             //Product name
             .page-title-wrapper {
               float: left;
+              width: 80%;
               @media all and (max-width: 901px) {
                 padding-left: 20px;
                 padding-right: 20px;
@@ -340,6 +351,9 @@
               @media all and (max-width: 478px) {
                 padding-left: 10px;
                 padding-right: 10px;
+              }
+              @media all and (max-width: 360px) {
+                 width: 75%;
               }
 
               .page-title {
@@ -355,7 +369,7 @@
             //Price beat link iconext-decoration: line-through;
             .price-beat-link {
               float: right;
-              margin-top: -5px;
+              margin-top: 10px;
               margin-bottom: 10px;
               @media all and (max-width:901px) {
                 padding-right: 20px;
@@ -617,12 +631,14 @@
                       label {
                         font-size: 16px;
                         color: @content-light-grey;
-                        margin-right: 12px;
+                        margin-right: 20px;
                         @media all and (max-width: 991px) {
                           font-size: 14px;
+                          margin-right: 23px;
                         }
                         @media all and (max-width: 476px) {
                           font-size: 13px;
+                          margin-right: 24px;
                         }
 
                         span {
@@ -684,8 +700,9 @@
               width: 40%;
               padding: 50px 20px;
               margin-bottom: 0;
+              border-right: 1px solid #d4d4d4;
               @media all and (min-width: 901px) {
-                min-height: 700px;
+              //  min-height: 700px;
               }
               @media all and (max-width: 901px) {
                 -ms-flex-order: -1;
@@ -693,6 +710,7 @@
                 order: -1;
                 width: 100%;
                 padding: 20px 0;
+                border-right:none;
               }
 
               .gallery-placeholder {
