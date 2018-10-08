@@ -702,15 +702,12 @@ select:focus, input:focus {
       .columns {
         .column.main {
           .page-title-wrapper {
-            position: relative;
-            padding: 25px 20px 15px;
+            padding: 25px 20px;
             @media all and (max-width: 768px) {
               padding: 15px !important;
             }
-            .order-actions-toolbar {
-              position: absolute;
-              top: 35px;
-              right: 0;
+            &::after {
+              clear: none;
             }
             .page-title {
               margin-right: 5px !important;
@@ -739,13 +736,30 @@ select:focus, input:focus {
               }
             }
             .order-actions-toolbar {
+              float: right;
+              position: relative;
+              top: -20px;
+              @media all and (max-width: 767px) {
+                top: -15px;
+              }
               .actions {
-                .action.print {
+                margin-bottom: 0;
+                display: inline-flex;
+                a {
                   color: @active-blue-color;
                   span {
                     text-transform: uppercase;
                     font-family: 'iCuracao-Regular';
                     font-weight: 500;
+                  }
+                }
+                .action {
+                  margin-right: 25px;
+                  &.print {
+                    float: none;
+                  }
+                  &:last-child {
+                    margin-right: 0;
                   }
                 }
               }
@@ -1686,12 +1700,10 @@ select:focus, input:focus {
             border-radius: 0 !important;
             float: left !important;
             padding: 0 !important;
-            @media all and(max-width: 767px){
-              text-align: left;
-            }
+            text-align: left;
             span {
               font-size: 14px !important;
-              font-family: 'iCuracao-Regular';
+              font-family: 'iCuracao-Regular' !important;
               color: @active-blue-color !important;
             }
           }
@@ -2660,7 +2672,7 @@ select:focus, input:focus {
     .columns{
       .column{
         .page-title-wrapper {
-
+          width: 100%;
         }
         .action{
           &.primary{
@@ -2678,9 +2690,9 @@ select:focus, input:focus {
           background: @orange-button;
           border: 1px solid @orange-button;
           padding: 10px 15px;
-          margin-top: 25px;
+          margin-top: 20px;
           float: left;
-          margin-left: 25px;
+          margin-left: 20px;
           @media all and (max-width: 767px) {
             margin-left: 20px;
           }
