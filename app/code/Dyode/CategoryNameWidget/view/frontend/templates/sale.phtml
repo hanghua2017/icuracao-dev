@@ -55,11 +55,8 @@ $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIE
                       <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
                       <?php $price               =$_product->getPrice();
                             $product_specialprice=$_product->getSpecialPrice();
-                            echo "$".number_format($price,2);
-                            if($product_specialprice !=0)
-                            {
-                            echo "$".number_format($product_specialprice,2);
-                            }?>
+                            ?>
+                            <p class="price"><span class="original-price <?php echo $_product->getSpecialPrice() ? 'has-special-price' : '' ?>"><?php echo "$".number_format($price,2);?></span><span class="discount-price"><?php if($product_specialprice!=NULL){echo "$";echo number_format( $product_specialprice,2);}?></span></p>
                         <?php if($emiViewModel != NULL) {?>
                                <?php $emi = $emiViewModel->monthlyEmi($_product->getFinalPrice());?>
                         <?php }?>
