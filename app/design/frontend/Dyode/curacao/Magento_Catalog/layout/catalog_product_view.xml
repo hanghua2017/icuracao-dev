@@ -15,7 +15,7 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 
     <body>
-
+       <block class="Magento\Catalog\Block\Product\View" name="cnet" template="Magento_Catalog::cnet.phtml" before="-"/>
         <referenceContainer name="content">
             <container name="product.info-block" htmlTag="div" htmlClass="product-info-block" before="-">
                 <referenceContainer name="product.info.main">
