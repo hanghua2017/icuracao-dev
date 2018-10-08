@@ -12,7 +12,22 @@
 -->
 
 <li id="step_code" data-bind="fadeVisible: visible">
-    <div class="step-title" data-bind="i18n: 'Lorem Ipsum'" data-role="title"></div>
+
+    <!-- Address Top User Info Section -->
+    <div class="step-top-heading">
+        <h2 class="top-title" data-bind="i18n: 'Billing Address | Shipping Address'"></h2>
+        <p class="top-details">
+            <!-- ko i18n: 'Please enter shipping address if you have opted for "ship to Home".' --><!-- /ko -->
+            <!-- ko i18n: 'Enter billing address to process the invoice in case of both "Ship to home" or "Store Pickup".' -->
+            <!-- /ko -->
+        </p>
+    </div>
+
+    <div class="step-title" data-bind="i18n: 'Add a new ship address'" data-role="title"></div>
+    <div class="step-note">
+        <!-- ko i18n: 'Be sure to click "Save this address" when done' -->
+        <!-- /ko -->
+    </div>
     <div id="checkout-step-title" class="step-content" data-role="content">
 
         <each if="!quoteIsVirtual" args="getRegion('customer-email')" render=""/>

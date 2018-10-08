@@ -90,7 +90,7 @@ define([
                 stepNavigator.registerStep(
                     'address-step',
                     'address',
-                    $t('Lorem Ipsum'),
+                    $t('Shipping and Billing'),
                     this.visible, _.bind(this.navigate, this),
                     8
                 );
