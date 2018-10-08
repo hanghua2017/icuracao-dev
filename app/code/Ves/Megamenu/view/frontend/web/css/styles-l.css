@@ -2768,6 +2768,11 @@ print {
     .ves-megamenu .navigation .nav-item.subhover>.submenu>.submenu-inner {
         padding: 0
     }
+    .ves-megamenu .navigation .nav-item.subhover>.submenu>.submenu-inner .content-wrapper .item-content .dorgin-items{
+      display: -webkit-flex;
+      display: flex;
+      align-items: stretch;
+    }
     .ves-megamenu .navigation .nav-item.submenu-right>.submenu {
         right: 0 !important;
         left: auto !important
@@ -3303,6 +3308,9 @@ print {
   overflow: hidden;
   speak: none;
   text-align: center;
+}
+.ves-megamenu .navigation .nav-item.dynamic-active.no-subcategory > a:after{
+  content:'';
 }
 
 .ves-megamenu .navigation .nav-item .dynamic-content .mobile-accessories-container .item-content .item-content1 .mega-col-level-2{
