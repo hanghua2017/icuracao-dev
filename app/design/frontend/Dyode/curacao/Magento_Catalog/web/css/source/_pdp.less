@@ -184,6 +184,9 @@
                   padding-left: 20px;
                   padding-right: 20px;
                 }
+                &:after{
+                 right: 15px;
+                }
               }
 
               &:first-child {
@@ -200,6 +203,7 @@
               padding: 15px;
               font-family: 'iCuracao-Regular';
               @media all and (max-width: 767px) {
+                padding: 20px;
                 margin-top: 0;
                 border-bottom: 1px solid @desc-border;
               }
@@ -322,6 +326,9 @@
             -webkit-flex-direction: column;
             -ms-flex-direction: column;
             flex-direction: column;
+          }
+          @media all and (max-width: 767px) {
+            margin-top: 30px;
           }
           //styling for product information section - right side //
           .product-info-main {
