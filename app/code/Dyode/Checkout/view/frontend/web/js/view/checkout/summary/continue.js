@@ -5,6 +5,9 @@
  * @author  Kavitha <kavitha@dyode.com>
  * @copyright Copyright © Dyode
  */
+
+'use strict';
+
 define([
     'jquery',
     'uiComponent',
@@ -13,7 +16,7 @@ define([
     'Magento_Checkout/js/model/error-processor',
     'Magento_Checkout/js/model/full-screen-loader',
     'Dyode_CheckoutDeliveryMethod/js/data/delivery-data-provider',
-    'jquery'
+    'Dyode_CheckoutAddressStep/js/model/estimate-shipping-processor'
 ], function (
     $,
     Component,
@@ -21,14 +24,15 @@ define([
     stepNavigator,
     errorProcessor,
     fullScreenLoader,
-    deliveryDataProvider
+    deliveryDataProvider,
+    shippingEstimateProcessor
 ) {
-    'use strict';
-
     var quoteItemData = window.checkoutConfig.quoteItemData;
+
     /**
-     * Sidbar Continue Button Component
+     * Sidebar Continue Button Component
      */
+
     return Component.extend({
         defaults: {
             template: 'Dyode_Checkout/checkout/summary/continue'
@@ -38,7 +42,6 @@ define([
          * Proceeds to the next step
          */
         navigateToNextStep: function () {
-
             this.performAjaxUpdates();
             stepNavigator.next();
         },
@@ -54,10 +57,15 @@ define([
             if (activeStep.code === 'deliverySelection') {
                 this.saveDeliveryOptions();
             }
+
+            if (activeStep.code === 'address-step') {
+                shippingEstimateProcessor.estimateShippingMethods();
+            }
         },
 
         /**
          * Save delivery options against the quote when user proceed from delivery step -> address step
+         * @todo This needs to be done through a save processor.
          */
         saveDeliveryOptions: function () {
             // Better error handling # TODO Quote item id repeats
@@ -88,7 +96,7 @@ define([
                  */
                 error: function () {
                     fullScreenLoader.stopLoader();
-                    console.log('Error')
+                    console.log('Error');
                 },
 
                 /**

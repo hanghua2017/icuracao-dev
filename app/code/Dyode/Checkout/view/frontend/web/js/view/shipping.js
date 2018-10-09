@@ -1,13 +1,14 @@
-/** 
+/**
  * Dyode_Checkout Module
  *
  * Extending Magento_Checkout shipping core js file
  *
- * @package   Dyode
  * @module    Dyode_Checkout
  * @author    Mathew Joseph <mathew.joseph@dyode.com>
  * @copyright Copyright © Dyode
-*/
+ */
+
+'use strict';
 
 define([
     'jquery',
@@ -57,10 +58,6 @@ define([
     registry,
     $t
 ) {
-    'use strict';
-
-    var popUp = null;
-
     return Component.extend({
         defaults: {
             template: 'Dyode_Checkout/shipping',
@@ -81,10 +78,7 @@ define([
          * @return {exports}
          */
         initialize: function () {
-            console.log("Shipping.js overrided")
-            var self = this,
-                hasNewAddress,
-                fieldsetName = 'checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset';
+            var self = this;
 
             this._super();
 
@@ -97,37 +91,9 @@ define([
                     10
                 );
             }
-            checkoutDataResolver.resolveShippingAddress();
-
-            hasNewAddress = addressList.some(function (address) {
-                return address.getType() == 'new-customer-address'; //eslint-disable-line eqeqeq
-            });
-
-            this.isNewAddressAdded(hasNewAddress);
-
-            this.isFormPopUpVisible.subscribe(function (value) {
-                if (value) {
-                    self.getPopUp().openModal();
-                }
-            });
 
             quote.shippingMethod.subscribe(function () {
                 self.errorValidationMessage(false);
-            });
-
-            registry.async('checkoutProvider')(function (checkoutProvider) {
-                var shippingAddressData = checkoutData.getShippingAddressFromData();
-
-                if (shippingAddressData) {
-                    checkoutProvider.set(
-                        'shippingAddress',
-                        $.extend(true, {}, checkoutProvider.get('shippingAddress'), shippingAddressData)
-                    );
-                }
-                checkoutProvider.on('shippingAddress', function (shippingAddrsData) {
-                    checkoutData.setShippingAddressFromData(shippingAddrsData);
-                });
-                shippingRatesValidator.initFields(fieldsetName);
             });
 
             return this;
@@ -140,91 +106,6 @@ define([
          */
         navigate: function (step) {
             step && step.isVisible(true);
-        },
-
-        /**
-         * @return {*}
-         */
-        getPopUp: function () {
-            var self = this,
-                buttons;
-
-            if (!popUp) {
-                buttons = this.popUpForm.options.buttons;
-                this.popUpForm.options.buttons = [
-                    {
-                        text: buttons.save.text ? buttons.save.text : $t('Save Address'),
-                        class: buttons.save.class ? buttons.save.class : 'action primary action-save-address',
-                        click: self.saveNewAddress.bind(self)
-                    },
-                    {
-                        text: buttons.cancel.text ? buttons.cancel.text : $t('Cancel'),
-                        class: buttons.cancel.class ? buttons.cancel.class : 'action secondary action-hide-popup',
-
-                        /** @inheritdoc */
-                        click: this.onClosePopUp.bind(this)
-                    }
-                ];
-
-                /** @inheritdoc */
-                this.popUpForm.options.closed = function () {
-                    self.isFormPopUpVisible(false);
-                };
-
-                this.popUpForm.options.modalCloseBtnHandler = this.onClosePopUp.bind(this);
-                this.popUpForm.options.keyEventHandlers = {
-                    escapeKey: this.onClosePopUp.bind(this)
-                };
-
-                /** @inheritdoc */
-                this.popUpForm.options.opened = function () {
-                    // Store temporary address for revert action in case when user click cancel action
-                    self.temporaryAddress = $.extend(true, {}, checkoutData.getShippingAddressFromData());
-                };
-                popUp = modal(this.popUpForm.options, $(this.popUpForm.element));
-            }
-
-            return popUp;
-        },
-
-        /**
-         * Revert address and close modal.
-         */
-        onClosePopUp: function () {
-            checkoutData.setShippingAddressFromData($.extend(true, {}, this.temporaryAddress));
-            this.getPopUp().closeModal();
-        },
-
-        /**
-         * Show address form popup
-         */
-        showFormPopUp: function () {
-            this.isFormPopUpVisible(true);
-        },
-
-        /**
-         * Save new shipping address
-         */
-        saveNewAddress: function () {
-            var addressData,
-                newShippingAddress;
-
-            this.source.set('params.invalid', false);
-            this.triggerShippingDataValidateEvent();
-
-            if (!this.source.get('params.invalid')) {
-                addressData = this.source.get('shippingAddress');
-                // if user clicked the checkbox, its value is true or false. Need to convert.
-                addressData['save_in_address_book'] = this.saveInAddressBook ? 1 : 0;
-
-                // New address must be selected as a shipping address
-                newShippingAddress = createShippingAddress(addressData);
-                selectShippingAddress(newShippingAddress);
-                checkoutData.setSelectedShippingAddress(newShippingAddress.getKey());
-                checkoutData.setNewCustomerShippingAddress($.extend(true, {}, addressData));
-                this.getPopUp().closeModal();
-                this.isNewAddressAdded(true);
-            }
         },
 
         /**

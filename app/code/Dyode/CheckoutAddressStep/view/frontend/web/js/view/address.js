@@ -8,6 +8,8 @@
  * @copyright Copyright © Dyode
  */
 
+'use strict';
+
 define([
     'jquery',
     'underscore',
@@ -56,7 +58,6 @@ define([
     registry,
     $t
 ) {
-    'use strict';
 
     var popUp = null;
 
@@ -82,7 +83,7 @@ define([
         initialize: function () {
             var self = this,
                 hasNewAddress,
-                fieldsetName = 'checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset';
+                fieldsetName = 'checkout.steps.address-step.shippingAddress.shipping-address-fieldset';
 
             this._super();
 
