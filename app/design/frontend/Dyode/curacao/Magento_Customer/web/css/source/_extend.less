@@ -123,6 +123,7 @@ select:focus, input:focus {
               &.active {
                 @media all and (max-width: 767px) {
                   padding-top: 0;
+                  padding-bottom: 10px;
                   border-bottom: 1px solid #f2f2f2;
                   -webkit-box-shadow: 0px 4px 10px -5px rgba(0,0,0,0.06);
                   -moz-box-shadow: 0px 4px 10px -5px rgba(0,0,0,0.06);
@@ -160,7 +161,7 @@ select:focus, input:focus {
                       padding: 15px 10px;
                     }
                     @media all and (max-width: 767px) {
-                      font-size: 14px !important;
+                      font-size: 15px !important;
                       padding:15px 20px;
                     }
                     @media all and (max-width:479px){
@@ -335,7 +336,8 @@ select:focus, input:focus {
         strong{
           font-weight: 500 !important;
           @media only screen and (max-width: 767px){
-           font-size: 22px;
+           // font-size: 22px;
+           font-size: 15px !important;
          }
         }
         .content{
@@ -399,12 +401,12 @@ select:focus, input:focus {
               strong{
                 font-family: "iCuracao-Medium";
                 padding: 12px 35px 13px 35px !important;
+                @media only screen and (max-width: 767px){
+    							padding: 12px 20px 13px 20px !important;
+    						}
               }
             }
           }
-
-
-
 					.block-content{
 						padding: 10px 0;
 						@media only screen and (min-width: 768px){
@@ -1069,7 +1071,7 @@ select:focus, input:focus {
     .form-edit-account{
       padding:10px 20px;
       @media all and (max-width:767px){
-        padding:10px;
+        padding:14px;
       }
       .fieldset{
         margin-bottom:25px;
@@ -1739,7 +1741,7 @@ select:focus, input:focus {
 }
 .newsletter-manage-index,.vault-cards-listaction,.magento-rma-returns-history,
 .customer-account-index,.sales-order-history,.sales-order-view,.magento-rma-returns-create,.customer-address-form,.customer-account-edit,
-.review-customer-index,.rma-rma-list{
+.review-customer-index,.rma-rma-list, .rma-rma-order{
   .columns{
     .sidebar-main{
       .block-collapsible-nav{
