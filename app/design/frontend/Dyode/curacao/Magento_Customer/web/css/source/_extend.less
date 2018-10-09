@@ -727,7 +727,7 @@ select:focus, input:focus {
           .page-title-wrapper {
             padding: 15px 20px;
             @media all and (max-width: 768px) {
-              padding: 15px !important;
+              padding: 40px 15px 15px 15px !important;
             }
             &::after {
               clear: none;
@@ -1719,6 +1719,11 @@ select:focus, input:focus {
         .block-addresses-default,.block-addresses-list{
           .block-title{
             margin-bottom: 0 !important;
+          }
+        }
+        .block-addresses-list{
+          @media all and (max-width: 767px){
+              padding-bottom: 0 !important;
           }
         }
         .actions-toolbar{
@@ -2732,7 +2737,7 @@ select:focus, input:focus {
           background: @orange-button;
           border: 1px solid @orange-button;
           padding: 10px 15px;
-          margin-top: 20px;
+          margin-top: 10px;
           float: left;
           margin-left: 20px;
           @media all and (max-width: 767px) {
