@@ -49,83 +49,67 @@
      </div>
 
    <script>
-
-
    require([
    			'jquery',
    	], function($) {
        /*js for fixed header starts here*/
        if ($(window).width() > 768) {
-
          //javascript for large screens here
          $(window).scroll(sticky_relocate);
-
          sticky_relocate();
-
          function sticky_relocate() {
            var window_top = $(window).scrollTop();//Get the current vertical position of the scroll bar
-           var div_top = $('#sticky-anchor').offset().top;//Get the top posiiton of the sticky anchor
+           var div_top = $('.discount-sale-sale-saleproducts #sticky-anchor').offset().top;//Get the top posiiton of the sticky anchor
            if (window_top > div_top) {
              //make the category list sticky when the sticky anchor is scrolled to position
-             $('#sticky').addClass('stick');
+             $('.discount-sale-sale-saleproducts #sticky').addClass('stick');
            } else {
              //make the category list static when the sticky anchor is scrolled out to position
-             $('#sticky').removeClass('stick');
+             $('.discount-sale-sale-saleproducts #sticky').removeClass('stick');
            }
            // Remove sticky for category list when the footer is reached
-           var top_of_element = $(".page-footer").offset().top;
-           var bottom_of_element = $(".page-footer").offset().top + $(".page-footer").outerHeight();
+           var top_of_element = $(".discount-sale-sale-saleproducts .page-footer").offset().top;
+           var bottom_of_element = $(".discount-sale-sale-saleproducts .page-footer").offset().top + $(".discount-sale-sale-saleproducts .page-footer").outerHeight();
            var bottom_of_screen = $(window).scrollTop() + window.innerHeight;
            var top_of_screen = $(window).scrollTop();
            if ((bottom_of_screen > top_of_element) && (top_of_screen < bottom_of_element)) {
              //when the footer is in view make the category list static
-             $('#sticky').addClass('stick02');
+             $('.discount-sale-sale-saleproducts #sticky').addClass('stick02');
            }
            else {
              //when the footer is out of view make the category list sticky
-             $('#sticky').removeClass('stick02');
+             $('.discount-sale-sale-saleproducts #sticky').removeClass('stick02');
            }
          }
        }
        else {
          //javascript for small screens here
-
          var SETTINGS = {
            navBarTravelling: false,
            navBarTravelDirection: "",
            navBarTravelDistance: 150
          }
-
          var colours = {
            0: "#81b800"
-
          }
-
          document.documentElement.classList.remove("no-js");
          document.documentElement.classList.add("js");
-
          // Out advancer buttons
          var pnAdvancerLeft = document.getElementById("pnAdvancerLeft");
          var pnAdvancerRight = document.getElementById("pnAdvancerRight");
          // the indicator
          var pnIndicator = document.getElementById("pnIndicator");
-
          var pnProductNav = document.getElementById("pnProductNav");
          var pnProductNavContents = document.getElementById("pnProductNavContents");
-
          pnProductNav.setAttribute("data-overflowing", determineOverflow(pnProductNavContents, pnProductNav));
-
          // Set the indicator
          moveIndicator(pnProductNav.querySelector("[aria-selected=\"true\"]"), colours[0]);
-
          // Handle the scroll of the horizontal container
          var last_known_scroll_position = 0;
          var ticking = false;
-
          function doSomething(scroll_pos) {
            pnProductNav.setAttribute("data-overflowing", determineOverflow(pnProductNavContents, pnProductNav));
          }
-
          pnProductNav.addEventListener("scroll", function () {
            last_known_scroll_position = window.scrollY;
            if (!ticking) {
@@ -136,8 +120,6 @@
            }
            ticking = true;
          });
-
-
          pnAdvancerLeft.addEventListener("click", function () {
            // If in the middle of a move return
            if (SETTINGS.navBarTravelling === true) {
@@ -163,7 +145,6 @@
            // Now update the attribute in the DOM
            pnProductNav.setAttribute("data-overflowing", determineOverflow(pnProductNavContents, pnProductNav));
          });
-
          pnAdvancerRight.addEventListener("click", function () {
            // If in the middle of a move return
            if (SETTINGS.navBarTravelling === true) {
@@ -192,7 +173,6 @@
            // Now update the attribute in the DOM
            pnProductNav.setAttribute("data-overflowing", determineOverflow(pnProductNavContents, pnProductNav));
          });
-
          pnProductNavContents.addEventListener(
            "transitionend",
            function () {
@@ -213,7 +193,6 @@
            },
            false
          );
-
          // Handle setting the currently active link
          pnProductNavContents.addEventListener("click", function (e) {
            var links = [].slice.call(document.querySelectorAll(".pn-ProductNav_Link"));
@@ -224,7 +203,6 @@
            // Pass the clicked item and it's colour to the move indicator function
            moveIndicator(e.target, colours[links.indexOf(e.target)]);
          });
-
          // var count = 0;
          function moveIndicator(item, color) {
            var textPosition = item.getBoundingClientRect();
@@ -234,12 +212,10 @@
            pnIndicator.style.transform = "translateX(" + (distance + scroll) + "px) scaleX(" + textPosition.width * 0.01 + ")";
            // count = count += 100;
            // pnIndicator.style.transform = "translateX(" + count + "px)";
-
            if (color) {
              pnIndicator.style.backgroundColor = color;
            }
          }
-
          function determineOverflow(content, container) {
            var containerMetrics = container.getBoundingClientRect();
            var containerMetricsRight = Math.floor(containerMetrics.right);
@@ -257,7 +233,6 @@
              return "none";
            }
          }
-
          /**
           * @fileoverview dragscroll - scroll area by dragging
           * @version 0.0.8
@@ -265,8 +240,6 @@
           * @license MIT, see https://github.com/asvd/dragscroll
           * @copyright 2015 asvd <heliosframework@gmail.com>
           */
-
-
          (function (root, factory) {
            if (typeof define === 'function' && define.amd) {
              define(['exports'], factory);
@@ -285,7 +258,6 @@
            var addEventListener = 'add' + EventListener;
            var removeEventListener = 'remove' + EventListener;
            var newScrollX, newScrollY;
-
            var dragged = [];
            var reset = function (i, el) {
              for (i = 0; i < dragged.length;) {
@@ -295,7 +267,6 @@
                _window[removeEventListener](mouseup, el.mu, 0);
                _window[removeEventListener](mousemove, el.mm, 0);
              }
-
              // cloning into array since HTMLCollection is updated dynamically
              dragged = [].slice.call(_document.getElementsByClassName('dragscroll'));
              for (i = 0; i < dragged.length;) {
@@ -311,16 +282,13 @@
                        pushed = 1;
                        lastClientX = e.clientX;
                        lastClientY = e.clientY;
-
                        e.preventDefault();
                      }
                    }, 0
                  );
-
                  _window[addEventListener](
                    mouseup, cont.mu = function () {pushed = 0;}, 0
                  );
-
                  _window[addEventListener](
                    mousemove,
                    cont.mm = function (e) {
@@ -344,12 +312,8 @@
            } else {
              _window[addEventListener]('load', reset, 0);
            }
-
            exports.reset = reset;
          }));
        }
    });
-
-
-
    </script>
