@@ -22,6 +22,9 @@
   @media all and (min-width: 991px) {
     font-size: 18px;
   }
+  @media all and (max-width: 476px) {
+    font-size: 14px;
+  }
 }
 
 .price-font {
@@ -156,6 +159,11 @@
             }
 
             .item.title {
+                  border-top: 3px solid #ffffff;
+                  &:hover
+                  {
+                    background: transparent !important;
+                  }
               &.active {
                 border-top: 3px solid @theme-color;
 
@@ -174,9 +182,17 @@
                 letter-spacing: 1px;
                 font-weight: normal;
                 font-family: 'iCuracao-Medium';
+                font-weight: 600;
                 @media all and (max-width: 767px) {
                   padding-left: 20px;
                   padding-right: 20px;
+                }
+                @media all and (max-width: 467px) {
+                  padding-left: 10px;
+                  padding-right: 10px;
+                }
+                &:after{
+                 right: 15px;
                 }
               }
 
@@ -194,8 +210,20 @@
               padding: 15px;
               font-family: 'iCuracao-Regular';
               @media all and (max-width: 767px) {
+                padding: 20px;
                 margin-top: 0;
                 border-bottom: 1px solid @desc-border;
+              }
+              @media all and (max-width: 467px) {
+                padding: 10px;
+              }
+              button.action
+              {
+                background: #97d70b;
+                border-radius: 3px;
+                border: none;
+                color: white;
+                font-weight: 600;
               }
 
               .table-wrapper {
@@ -221,6 +249,10 @@
 
                 .review-legend {
                   font-size: small;
+                  strong
+                  {
+                    margin-top: 8px;
+                  }
                 }
               }
 
@@ -265,11 +297,25 @@
                   display: none !important;
                 }
               }
-              // .review-add {
-              //   // .block-content {
-              //   //   padding: 20px;
-              //   // }
-              // }
+              //product user review styling
+              #product-review-container{
+                .block-content{
+                  ol.review-items{
+                    li.review-item{
+                          padding: 30px 0 15px;
+                      .review-title{
+                        margin: 0 0 15px;
+                      }
+                      .review-content{
+                        margin-bottom: 15px;
+                      }
+                      .review-details{
+                        color: #c7c7c7;
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -278,10 +324,14 @@
           clear: both;
           float: left;
           width: 100%;
-          -webkit-box-shadow: 0 0 7px 1px rgba(30,30,30,0.1);
-          -moz-box-shadow: 0 0 7px 1px rgba(30,30,30,0.1);
-          box-shadow: 0 0 7px 1px rgba(30,30,30,0.1);
+          -webkit-box-shadow:  0 0 13px 2px rgba(30, 30, 30, 0.1);
+          -moz-box-shadow:  0 0 13px 2px rgba(30, 30, 30, 0.1);
+          box-shadow:  0 0 13px 2px rgba(30, 30, 30, 0.1);
           margin-bottom: 30px;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          flex-wrap: wrap;
           @media all and (max-width: 901px) {
             display: -webkit-flex;
             display: -ms-flexbox;
@@ -290,23 +340,21 @@
             -ms-flex-direction: column;
             flex-direction: column;
           }
+          @media all and (max-width: 767px) {
+            margin-top: 30px;
+          }
           //styling for product information section - right side //
           .product-info-main {
-            width: 55%;
+            width: 60% !important;
             padding: 25px;
-            border-left: 1px solid @content-light-grey;
+            order: 2;
+          //  border-left: 1px solid #d4d4d4;
             @media all and (min-width: 991px) {
-              padding: 40px 25px;
-              min-height: 705px;
-            }
-            @media all and (max-width: 1339px) {
-              width: 52%;
-            }
-            @media all and (max-width: 949px) {
-              width: 50%;
+              padding: 40px 30px;
+            //  min-height: 705px;
             }
             @media all and (max-width: 901px) {
-              width: 100%;
+              width: 100% !important;
               padding-left: 0;
               padding-right: 0;
               border-left: none;
@@ -315,6 +363,7 @@
             //Product name
             .page-title-wrapper {
               float: left;
+              width: 80%;
               @media all and (max-width: 901px) {
                 padding-left: 20px;
                 padding-right: 20px;
@@ -322,6 +371,9 @@
               @media all and (max-width: 478px) {
                 padding-left: 10px;
                 padding-right: 10px;
+              }
+              @media all and (max-width: 360px) {
+                 width: 75%;
               }
 
               .page-title {
@@ -337,7 +389,7 @@
             //Price beat link iconext-decoration: line-through;
             .price-beat-link {
               float: right;
-              margin-top: -5px;
+              margin-top: 10px;
               margin-bottom: 10px;
               @media all and (max-width:901px) {
                 padding-right: 20px;
@@ -351,11 +403,12 @@
             .product-info-price {
               display: inline-block;
               clear: both;
-              border-top: 1px solid @content-light-grey;
-              border-bottom: 1px solid @content-light-grey;
+              border-top: 1px solid #d4d4d4;
+              border-bottom: 1px solid #d4d4d4;
               float: left;
-              padding: 15px 0;
               margin: 0;
+              padding-bottom: 35px;
+              padding-top: 25px;
               @media all and (max-width: 990px) {
                 padding: 10px 0;
               }
@@ -427,7 +480,7 @@
                   }
                   //Styling for special price
                   &.special-price {
-                    margin-right: 20px;
+                    margin-right: 12px;
                     @media all and (max-width: 476px) {
                       margin-right: 15px;
                     }
@@ -596,14 +649,16 @@
                   .fieldset {
                     .field.qty {
                       label {
-                        font-size: 16px;
-                        color: @content-light-grey;
+                        font-size: 18px;
+                        color: #838282;
                         margin-right: 20px;
                         @media all and (max-width: 991px) {
-                          font-size: 14px;
+                          font-size: 16px;
+                          margin-right: 23px;
                         }
                         @media all and (max-width: 476px) {
-                          font-size: 13px;
+                          font-size: 14px;
+                          margin-right: 24px;
                         }
 
                         span {
@@ -615,6 +670,12 @@
                         display: inline-block;
                         min-width: 50px;
                         height: 40px;
+                        .qty
+                        {
+                          width: 60px;
+                          height: 40px;
+                          text-align: center;
+                        }
                       }
                     }
                   }
@@ -656,11 +717,12 @@
           //Styling for product image section - left side //
           .product {
             &.media {
-              width: 45%;
+              width: 40%;
               padding: 50px 20px;
               margin-bottom: 0;
+              border-right: 1px solid #d4d4d4;
               @media all and (min-width: 901px) {
-                min-height: 700px;
+              //  min-height: 700px;
               }
               @media all and (max-width: 901px) {
                 -ms-flex-order: -1;
@@ -668,6 +730,7 @@
                 order: -1;
                 width: 100%;
                 padding: 20px 0;
+                border-right:none;
               }
 
               .gallery-placeholder {

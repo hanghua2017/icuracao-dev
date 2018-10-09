@@ -236,14 +236,17 @@ input, select {
                       }
                       /*To regain the default styling*/
                       @media all and (max-width: 479px) {
-                        &:not(.item) {
+                        &:not(.item), &:not(.price) {
                           left: 15px;
                           width: 34%;
-                          min-width: 34%;
+                          min-width: 22%;
                           margin-top: 10px;
                         }
                         &.qty {
                           width: 100px;
+                        }
+                        &.price{
+                          min-width: 35%;
                         }
                       }
                       @media all and (max-width: 430px) {
@@ -251,7 +254,7 @@ input, select {
                           width: auto;
                           left: 0;
                           padding-left: 3%;
-                          padding-right: 8%;
+                          padding-right: 5%;
                         }
                         &.qty {
                           padding-left: 14px;
@@ -260,8 +263,8 @@ input, select {
                       }
                       @media all and (max-width: 345px) {
                         &:not(.item) {
-                          padding-left: 3%;
-                          padding-right: 5%;
+                          padding-left: 2%;
+                          padding-right: 2%;
                         }
                         &.subtotal {
                           padding-right: 0;
@@ -477,6 +480,7 @@ input, select {
                           font-weight: 500;
                           @media all and (max-width: 767px) {
                             top: -15px;
+                            font-size: 13px;
                           }
                           @media all and (max-width: 599px) and (min-width: 479px) {
                             display: grid;
@@ -627,6 +631,12 @@ input, select {
                 font-family: 'iCuracao-Regular';
                 @media all and (max-width: 767px) {
                   font-size: 11px;
+                }
+                @media all and (max-width: 360px) {
+                  font-size: 10px;
+                }
+                @media all and (max-width: 335px) {
+                  font-size: 9px;
                 }
                 b {
                   color: @content-dark-grey;
