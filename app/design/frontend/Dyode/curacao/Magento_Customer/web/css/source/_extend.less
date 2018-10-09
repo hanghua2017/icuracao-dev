@@ -1685,66 +1685,69 @@ select:focus, input:focus {
   }
 }
 .customer-address-index{
-  .columns{
-    .sidebar-main{
-      .block-collapsible-nav{
-        @media all and(max-width: 767px){
-          top:5px !important;
-          padding-left: 20px !important;
-        }
-        @media all and (max-width: 599px) {
-          padding-left: 15px !important;
-        }
-        .block-collapsible-nav-title{
+  .page-main{
+    .columns{
+      .sidebar-main{
+        .block-collapsible-nav{
           @media all and(max-width: 767px){
-            padding-left:0 !important;
+            top:5px !important;
+            padding-left: 20px !important;
           }
-        }
-      }
-    }
-    .column{
-      .page-title-wrapper{
-        @media all and(max-width: 767px){
-          @media all and(max-width: 767px){
-              padding-top: 35px !important;
+          @media all and (max-width: 599px) {
+            padding-left: 15px !important;
           }
-        }
-      }
-      .block{
-        @media only screen and (min-width: 768px){
-        margin-bottom: 0px;
-        }
-      }
-      .block-addresses-default,.block-addresses-list{
-        .block-title{
-          margin-bottom: 0 !important;
-        }
-      }
-      .actions-toolbar{
-        @media all and (max-width: 767px){
-            padding-top: 0 !important;
-        }
-        .primary{
-          button{
-            background: transparent !important;
-            border: none !important;
-            border-radius: 0 !important;
-            @media all and(min-width: 768px){
-                float: left !important;
+          .block-collapsible-nav-title{
+            @media all and(max-width: 767px){
+              padding-left:0 !important;
             }
-            padding: 0 !important;
-            text-align: left;
-            span {
-              font-size: 14px !important;
-              font-family: 'iCuracao-Medium' !important;
-              color: @active-blue-color !important;
-              font-weight: 500 !important;
+          }
+        }
+      }
+      .column{
+        .page-title-wrapper{
+          @media all and(max-width: 767px){
+            @media all and(max-width: 767px){
+                padding-top: 35px !important;
+            }
+          }
+        }
+        .block{
+          @media only screen and (min-width: 768px){
+          margin-bottom: 0px;
+          }
+        }
+        .block-addresses-default,.block-addresses-list{
+          .block-title{
+            margin-bottom: 0 !important;
+          }
+        }
+        .actions-toolbar{
+          @media all and (max-width: 767px){
+              padding-top: 0 !important;
+          }
+          .primary{
+            button{
+              background: transparent !important;
+              border: none !important;
+              border-radius: 0 !important;
+              @media all and(min-width: 768px){
+                  float: left !important;
+              }
+              padding: 0 !important;
+              text-align: left;
+              span {
+                font-size: 14px !important;
+                font-family: 'iCuracao-Medium' !important;
+                color: @active-blue-color !important;
+                font-weight: 500 !important;
+              }
             }
           }
         }
       }
     }
   }
+
 }
 .newsletter-manage-index,.vault-cards-listaction,.magento-rma-returns-history,
 .customer-account-index,.sales-order-history,.sales-order-view,.magento-rma-returns-create,.customer-address-form,.customer-account-edit,
