@@ -1,8 +1,7 @@
 <?php
 
 /**
- * Copyright 2015 Magento. All rights reserved.
- * See COPYING.txt for license details.
+ * Copyright 2018 Magento. All rights reserved.
  */
 
 namespace Dyode\ArOrderCancel\Model;
@@ -11,9 +10,16 @@ use Dyode\ArOrderCancel\Api\OrderInterface;
 
 /**
  * Defines the implementaiton class of the order cancellation.
+ * Class Order
+ * @category Dyode
+ * @package  Dyode_ArOrderCancel
+ * @author   Nithin
  */
 class Order implements OrderInterface
 {
+    /**
+    * constructor function 
+    */
     public function __construct(
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Magento\Sales\Api\Data\OrderInterface $order,
@@ -51,21 +57,25 @@ class Order implements OrderInterface
      $order = $this->order->loadByIncrementId($orderId);  
      
      try {
+            //load order details
             $order = $this->order->loadByIncrementId($orderId);
 
             if(!$order->getId()){
-                throw new \Exception('Order not found');
+                throw new \Exception('Order not found'); //order not found
             }
             $orderStatus = $order->getStatus();
 
+            //checks whether the order is already closed
             if($orderStatus == 'closed'){
                 throw new \Exception('Order is already closed');
             }
 
+            //checks whether the order is already canceled
             if($orderStatus == 'canceled'){
                 throw new \Exception('Order is already canceled');
             }
 
+            //unholds an order 
             if($order->canUnhold()) {
                 $order->unhold()->save();
             }
@@ -73,10 +83,12 @@ class Order implements OrderInterface
             if($wholeOrder){
                 if($order->canCancel()){
                     $order->cancel();
+                    //add order history
                     $history = $order->addStatusHistoryComment($comment);
                     $history->setIsCustomerNotified(true); // for backwards compatibility
                     $order->save();
                 } else{
+                    //get all invoices
                     $invoices = $order->getInvoiceCollection();
                     foreach ($invoices as $invoice) {
                         $invoiceincrementid = $invoice->getIncrementId();
@@ -91,12 +103,14 @@ class Order implements OrderInterface
                     $order->save();
                 }
             } else {
+                //get a specific order item
                 $item = $this->getItemId($order, $sku);
                 if($item){
                     if($order->canCancel()){
                         $orderItems = $order->getAllItems();        
                         foreach ($orderItems as $value) {
                            if($value['sku']==$sku){
+                                //quantity validation
                                 if($value['qty_ordered']>=$quantity){
                                     $value->setQtyCanceled($quantity);
                                     $value->save(); 
@@ -105,11 +119,14 @@ class Order implements OrderInterface
                                 }   
                             }
                         }
+                        //add order history
                         $history = $order->addStatusHistoryComment($comment);
                         $history->setIsCustomerNotified(true); // for backwards compatibility
                         $order->save();
                     }else{
+                        //cancel invoiced items
                         $this->cancelInvoicedItem($order, $sku, $quantity, $refundShipping, $comment);
+                        //add order history
                         $history = $order->addStatusHistoryComment($comment);
                         $history->setIsCustomerNotified(true); // for backwards compatibility
                         $order->save();
@@ -118,14 +135,28 @@ class Order implements OrderInterface
                     throw new \Exception('Order item not found');
                 }   
             }
-            return true;
-        
-        } catch (\Exception $ex) {
-            throw $ex;
+        } catch (\Exception $ex) {}
+
+        if(!empty($ex)){
+            $returnData['INFO'] = 'Order items have been cancelled';
+            $returnData['OK'] = true;
+        } else {
+            $returnData['ERROR'] = $ex->getMessage();
+            $returnData['OK'] = false;
         }
+        //return api response
+        return json_encode($returnData);
     }
 
-
+    /**
+     * Cancel invoiced item
+     *
+     * @param string $order 
+     * @param string $sku 
+     * @param string $qty
+     * @param string $refundShipping 
+     * @param string $comment       
+     */
     public function cancelInvoicedItem($order, $sku, $qty, $refundShipping, $comment){
         $invoices = $order->getInvoiceCollection();
         foreach ($invoices as $invoice) {
@@ -155,11 +186,18 @@ class Order implements OrderInterface
         // Don't set invoice if you want to do offline refund
         $creditmemo->setInvoice($invoiceobj);
         $this->creditmemoService->refund($creditmemo); 
+        //add order history
         $history = $order->addStatusHistoryComment($comment);
         $history->setIsCustomerNotified(true); // for backwards compatibility
         $order->save();
     }
 
+    /**
+     * get Id of the order item
+     *
+     * @param string $order 
+     * @param string $sku 
+     */
     public function getItemId($order, $sku){
         $orderItems = $order->getAllItems();        
         foreach ($orderItems as $value){
