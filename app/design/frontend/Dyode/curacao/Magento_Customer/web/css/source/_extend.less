@@ -1705,7 +1705,9 @@ select:focus, input:focus {
     .column{
       .page-title-wrapper{
         @media all and(max-width: 767px){
-            padding-top: 35px !important;
+          @media all and(max-width: 767px){
+              padding-top: 35px !important;
+          }
         }
       }
       .block{
@@ -1719,12 +1721,17 @@ select:focus, input:focus {
         }
       }
       .actions-toolbar{
+        @media all and(max-width: 767px){
+            padding-top: 0 !important;
+        }
         .primary{
           button{
             background: transparent !important;
             border: none !important;
             border-radius: 0 !important;
-            float: left !important;
+            @media all and(min-width: 768px){
+                float: left !important;
+            }
             padding: 0 !important;
             text-align: left;
             span {
