@@ -6,6 +6,7 @@
 @icon-color: #666;
 @icon-hover-color: #303030;
 @theme-color:#97d700;
+@active-blue-color:#4048d1;
 .category-name-widget.top-section {
   position: relative;
   overflow: hidden;
@@ -135,6 +136,7 @@
       position: absolute;
       bottom: 0;
       top: auto;
+      transition: all 0.2s;
     }
 
   .banner-block {
@@ -471,6 +473,14 @@
       }
       @media all and(min-width: 900px) {
         margin-right: 30px;
+      }
+      .pn-ProductNav_Contents{
+        .pn-ProductNav_Link{
+          &.active{
+            font-family: "iCuracao-Medium";
+            color:@active-blue-color;
+          }
+        }
       }
     }
 /*styling for the plp section on the sale page starts here*/
