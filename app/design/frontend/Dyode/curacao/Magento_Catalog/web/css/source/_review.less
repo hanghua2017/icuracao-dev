@@ -5,42 +5,75 @@
 * @author  Sangeetha D <sangeetha.d@dyode.com>
 * PARTIAL - COMMON STYLING REVIEWS RATING PRODUCT
 ****************************************************************/
-.catalog-product-view{
-.product-reviews-summary {
-  margin-top: 10px;
-  float: none;
-  @media all and (max-width: 901px) {
-    padding-left: 0;
-    padding-right: 0;
-    margin: 0;
-  }
-  .rating-summary{
-    margin-right: 10px;
-    .rating{
-      background: @box-orange;
-      color: @white;
-      padding: 0 3px;
-      &:after {
-        content: "";
-        background-image: url(../images/star.png);
-        background-repeat: no-repeat;
-        display: inline-block;
-        height: 10px;
-        margin: 4px;
-        overflow: hidden;
-        width: 10px;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        vertical-align: top;
-        text-align: center;
+.catalog-product-view {
+  .product-reviews-summary {
+    margin-top: 10px;
+    float: none;
+    @media all and (max-width: 901px) {
+      padding-left: 0;
+      padding-right: 0;
+      margin: 0;
+    }
+
+    .rating-summary {
+      margin-right: 10px;
+
+      .rating {
+        background: @box-orange;
+        color: @white;
+        padding: 0 3px;
+
+        &:after {
+          content: "";
+          background-image: url("../images/star.png");
+          //  background-image: url(../images/arrow_BW_left.png);
+          background-repeat: no-repeat;
+          display: inline-block;
+          height: 10px;
+          margin: 4px 0 4px 4px;
+          overflow: hidden;
+          width: 10px;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          vertical-align: top;
+          text-align: center;
+        }
+      }
+    }
+
+    .reviews-actions {
+      a {
+        color: @content-light-grey;
+        text-decoration: none;
       }
     }
   }
-  .reviews-actions{
-    a{
-      color: @content-light-grey;
-      text-decoration: none;
+  //product user review styling
+  #product-review-container {
+    .block-content {
+      ol.review-items {
+        li.review-item {
+          padding: 30px 0 15px;
+
+          .review-title {
+            margin: 0 0 15px;
+          }
+
+          .review-content {
+            margin-bottom: 15px;
+            @media all and (min-width:640px) {
+              margin-left: 190px;
+            }
+          }
+
+          .review-details {
+            color: #c7c7c7;
+            @media all and (min-width:640px) {
+              margin-left: 190px;
+            }
+          }
+        }
+      }
     }
   }
-}
 }

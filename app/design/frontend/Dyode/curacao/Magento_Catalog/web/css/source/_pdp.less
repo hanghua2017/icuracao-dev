@@ -159,11 +159,12 @@
             }
 
             .item.title {
-                  border-top: 3px solid #ffffff;
-                  &:hover
-                  {
-                    background: transparent !important;
-                  }
+              border-top: 3px solid #ffffff;
+
+              &:hover {
+                background: transparent !important;
+              }
+
               &.active {
                 border-top: 3px solid @theme-color;
 
@@ -191,8 +192,9 @@
                   padding-left: 10px;
                   padding-right: 10px;
                 }
-                &:after{
-                 right: 15px;
+
+                &:after {
+                  right: 15px;
                 }
               }
 
@@ -217,8 +219,8 @@
               @media all and (max-width: 467px) {
                 padding: 10px;
               }
-              button.action
-              {
+
+              button.action {
                 background: #97d70b;
                 border-radius: 3px;
                 border: none;
@@ -249,9 +251,30 @@
 
                 .review-legend {
                   font-size: small;
-                  strong
-                  {
+
+                  strong {
                     margin-top: 8px;
+                  }
+                }
+
+                fieldset.review-field-ratings {}
+
+                .control {
+                  .nested {
+                    .review-field-rating {
+                      label {}
+
+                      .review-control-vote {
+                        margin-bottom: 35px;
+
+                        &:before {
+                          font-size: 20px;
+                          height: 25px;
+                          letter-spacing: 10px;
+                          line-height: 14px;
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -297,25 +320,6 @@
                   display: none !important;
                 }
               }
-              //product user review styling
-              #product-review-container{
-                .block-content{
-                  ol.review-items{
-                    li.review-item{
-                          padding: 30px 0 15px;
-                      .review-title{
-                        margin: 0 0 15px;
-                      }
-                      .review-content{
-                        margin-bottom: 15px;
-                      }
-                      .review-details{
-                        color: #c7c7c7;
-                      }
-                    }
-                  }
-                }
-              }
             }
           }
         }
@@ -324,9 +328,9 @@
           clear: both;
           float: left;
           width: 100%;
-          -webkit-box-shadow:  0 0 13px 2px rgba(30, 30, 30, 0.1);
-          -moz-box-shadow:  0 0 13px 2px rgba(30, 30, 30, 0.1);
-          box-shadow:  0 0 13px 2px rgba(30, 30, 30, 0.1);
+          -webkit-box-shadow: 0 0 13px 2px rgba(30, 30, 30, 0.1);
+          -moz-box-shadow: 0 0 13px 2px rgba(30, 30, 30, 0.1);
+          box-shadow: 0 0 13px 2px rgba(30, 30, 30, 0.1);
           margin-bottom: 30px;
           display: -webkit-flex;
           display: -ms-flexbox;
@@ -348,10 +352,8 @@
             width: 60% !important;
             padding: 25px;
             order: 2;
-          //  border-left: 1px solid #d4d4d4;
             @media all and (min-width: 991px) {
               padding: 40px 30px;
-            //  min-height: 705px;
             }
             @media all and (max-width: 901px) {
               width: 100% !important;
@@ -373,7 +375,7 @@
                 padding-right: 10px;
               }
               @media all and (max-width: 360px) {
-                 width: 75%;
+                width: 75%;
               }
 
               .page-title {
@@ -442,7 +444,6 @@
 
                 .price-container > span {
                   display: inline-block;
-                  // margin: 0 10px 0 0px;
                 }
                 //Styling for product price section
                 span {
@@ -670,8 +671,8 @@
                         display: inline-block;
                         min-width: 50px;
                         height: 40px;
-                        .qty
-                        {
+
+                        .qty {
                           width: 60px;
                           height: 40px;
                           text-align: center;
@@ -721,16 +722,13 @@
               padding: 50px 20px;
               margin-bottom: 0;
               border-right: 1px solid #d4d4d4;
-              @media all and (min-width: 901px) {
-              //  min-height: 700px;
-              }
               @media all and (max-width: 901px) {
                 -ms-flex-order: -1;
                 -webkit-order: -1;
                 order: -1;
                 width: 100%;
                 padding: 20px 0;
-                border-right:none;
+                border-right: none;
               }
 
               .gallery-placeholder {
@@ -750,9 +748,6 @@
                         .fotorama__img {
                           @media all and (min-width: 991px) and (max-width: 1024px) {
                             max-width: 100%;
-                          }
-                          @media all and (max-width: 990px) and (min-width: 768px) {
-                            //max-width: 4%;
                           }
                         }
                       }
@@ -781,8 +776,6 @@
                               .fotorama__dot {
                                 background-color: @content-light-grey;
                                 border-color: @content-light-grey;
-                                // @content-light-grey: #aeaeae;
-                                // @content-dark-grey: #5c5c5c;
                               }
                             }
 
@@ -798,10 +791,6 @@
                     }
                   }
                 }
-              }
-              .magnifier-preview{
-                //width: 70% !important;
-              //  height:70% !important;
               }
             }
           }
