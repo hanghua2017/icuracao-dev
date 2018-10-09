@@ -1,0 +1,103 @@
+<?php
+/**
+ * Dyode_curacao theme.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package   Dyode
+ * @module    Dyode_curacao
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * @var $block     \Magento\Framework\View\Element\Template
+ * @var $viewModel \Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\StoreAvailability
+ */
+$viewModel = $block->getViewModel();
+$shippingDaysLabel = $viewModel->shippingDaysLabel();
+?>
+<div class="shipping-pickup-details">
+    <p class="shipping">
+        <strong><?= __("FREE Shipping") ?>: </strong><?= __($shippingDaysLabel); ?>
+    </p>
+    <?php if ($viewModel->canShowNearestStore()): ?>
+
+    <?php
+    $nearestStore = $viewModel->nearestStore();
+    $productAvailableStores = $viewModel->availableStores()->getItems();
+    $imageHelper = $viewModel->storeLocationImgHelper();
+    $customerZipCode = $viewModel->customerZipCode();
+    ?>
+
+
+    <p class="pickup-option"><?= __("Want it today?") ?>
+        <a href="#" id="pickup-location"><?= __("Pick it up at") ?> <?= __($nearestStore->getName()) ?></a>
+    </p>
+</div>
+
+<div id="store-availability-check" class="check-store">
+    <a href="#"><?= __("Check Store Availability") ?></a>
+</div>
+
+<div id="store-availability-modal" style="display:none;">
+    <div id="dialog-message">
+
+        <div class="modal-body-content">
+            <div class="store-zipcode-outer">
+                <label><?= $customerZipCode ?></label>
+            </div>
+            <h4><?= __("Available Stores") ?><span class="store-count">(<?= count($productAvailableStores) ?>)</span>
+            </h4>
+            <div class="avail-store-outer">
+
+                <?php foreach ($productAvailableStores as $miles => $store): ?>
+                    <?php $storeAddress = $viewModel->storeAddress($store); ?>
+                    <div class="avail-store-item">
+                        <div class="avail-store-image">
+                            <img src="<?= $block->escapeUrl($imageHelper->getImagePath($store->getImage())) ?>"
+                                 alt="<?= __($store->getTitle()) ?>"
+                            />
+                            <p class="store-distance"><?= $miles ?><?= __("mi") ?></p>
+                        </div>
+                        <div class="avail-store-details">
+                            <ul>
+                                <?php foreach ($storeAddress as $addressLine): ?>
+                                    <li class="store-location"><?= __($addressLine) ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+</div>
+
+<script type="text/javascript">
+    require([
+        'jquery',
+        'mage/translate',
+        'Magento_Ui/js/modal/modal',
+    ], function ($, $t) {
+        'use strict';
+        var storeAvailabilityModal = $('#store-availability-modal');
+
+        storeAvailabilityModal.modal({
+            title: $t('Showing available stores'),
+            modalClass: 'store-availability-modal',
+        });
+
+        $(function () {
+            $('#store-availability-check a').click(function (event) {
+                event.preventDefault();
+                storeAvailabilityModal.modal('openModal');
+            });
+        });
+
+    });
+</script>

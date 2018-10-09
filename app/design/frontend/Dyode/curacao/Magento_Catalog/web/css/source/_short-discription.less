@@ -1,0 +1,90 @@
+/************************************************************
+* @package Dyode
+* @module  Dyode_curacao
+* @theme  Curacao
+* @author  Sangeetha D <sangeetha.d@dyode.com>
+* PARTIAL - Short product details on product info block
+****************************************************************/
+.catalog-product-view{
+  .product-info-block{
+    .product-info-main{
+      .product.attribute {
+        clear: both;
+        @media all and (max-width: 901px) {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+        @media all and (max-width: 467px) {
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+        .value {
+            max-height: 145px;
+            overflow: hidden;
+            margin-bottom: 0;
+            @media all and (max-width: 991px) {
+            max-height: 130px;
+            }
+            p {
+              line-height: 24px;
+              font-family: 'iCuracao-Regular';
+            }
+            ul {
+              padding-left: 22px;
+              margin-bottom: 0;
+              li{
+                font-family: 'iCuracao-Regular';
+                font-size: 12px;
+                margin-bottom: 5px;
+                color: @black;
+                position: relative;
+                @media all and (min-width: 991px) {
+                  font-size: 14px;
+                }
+                &::before {
+                  content: "•";
+                  color: #aeaeae;
+                  font-size: 22px;
+                  display: inline-block;
+                  width: 1em;
+                  height: 6px;
+                  margin-left: -1em;
+                  position: absolute;
+                  top: -5px;
+                  left: 0;
+                }
+
+                span{
+                display: inline-block;; /* Fallback for non-webkit */
+                display: -webkit-inline-box;
+                max-height: 40px; /* Fallback for non-webkit */
+                margin: 0 auto;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                @media all and (max-width: 991px) {
+                  max-height: 35px;
+                }
+              }
+            }
+          }
+        }
+          a.redirect-view-details, a.redirect-view-details:hover{
+            color: @link-blue;
+            font-family: 'iCuracao-Regular';
+            text-decoration: underline;
+            display: none;
+            &::after{
+              content: "\e622";
+              color: #4046d1;
+              font-family: 'luma-icons';
+              display: inline-block;
+              font-size: 12px;
+            }
+          }
+
+      }
+    }
+  }
+}

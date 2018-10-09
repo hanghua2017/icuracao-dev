@@ -1,0 +1,42 @@
+/************************************************************
+* @package Dyode
+* @module  Dyode_curacao
+* @theme  Curacao
+* @author  Sangeetha D <sangeetha.d@dyode.com>
+* PARTIAL - COMMON STYLING RECENTLY VIEWED
+****************************************************************/
+.catalog-product-view{
+  .block-viewed-products-grid{
+    margin: 35px 0;
+    @media all and (max-width:768px){
+      margin: 15px 0;
+    }
+    .slider-title{
+      text-align: center;
+      .widget-title {
+          font-family: 'iCuracao-Regular';
+          font-size: 18px;
+          font-weight: normal;
+          display: inline-block;
+          color:@black;
+          width: auto;
+          margin: 0;
+          padding-bottom: 10px;
+          border-bottom: 3px solid @underline;
+          @media screen and (max-width: 400px) {
+              font-size: 14px;
+          }
+        }
+    }
+    .owl-nav{
+      button.disabled{
+        pointer-events: auto;
+        .custom-prev,.custom-next{
+          &:hover{
+                background-color: #f3f3f3;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+<?php
+/**
+ * Dyode_curacao theme.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package Dyode
+ * @module  Dyode_curacao
+ * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+
+// @codingStandardsIgnoreFile
+?>
+
+<?php
+/**
+ * @var $block \Magento\Catalog\Block\Product\View
+ * @var $viewModel \Dyode\Core\ViewModel\Emi
+ */
+$viewModel = $block->getViewModel();
+$emi = $viewModel->monthlyEmi($block->getProduct()->getFinalPrice());
+$helper = $viewModel->helper();
+$applyNowLink = $viewModel->applyNowLink();
+?>
+
+<div class="credit-card-emi <?= ($emi <= 0) ? 'no-display' : ''?>">
+    <div class="credit-card-desc">
+        <img src="<?php echo $this->getViewFileUrl('images/price-tag.png'); ?>" />
+        <?= __('Or as low as ') ?>
+        <span class="emi-amount">
+        <?= $helper->formatPrice($emi, true, 0); ?>/ <?= __('month'); ?>
+    </span>
+    </div>
+    <?php if($applyNowLink): ?>
+    <div class="credti-card-apply">
+        <a href="<?= $block->escapeUrl($applyNowLink) ?>" class="credit-link"><?= __('Apply Now'); ?></a>
+    </div>
+    <?php endif; ?>
+</div>

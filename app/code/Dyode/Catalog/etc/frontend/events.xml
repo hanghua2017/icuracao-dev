@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Dyode_Catalog Magento2 Module.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package Dyode
+ * @module  Dyode_Catalog
+ * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_cart_add_product_complete">
+        <observer name="addWarrantyToCart" instance="Dyode\Catalog\Observer\AddWarrantyToCart"/>
+    </event>
+    <event name="checkout_cart_update_items_before">
+        <observer name="lockWarrantyUpdateInCart" instance="Dyode\Catalog\Observer\LockWarrantyUpdateInCart"/>
+    </event>
+    <event name="checkout_cart_save_before">
+        <observer name="updateWarrantyInCart" instance="Dyode\Catalog\Observer\UpdateWarrantyInCart"/>
+    </event>
+    <event name="sales_quote_remove_item">
+        <observer name="removeWarrantyFromCart" instance="Dyode\Catalog\Observer\RemoveWarrantyFromCart"/>
+    </event>
+</config>

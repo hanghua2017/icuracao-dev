@@ -1,0 +1,409 @@
+@box-shadow-color:rgba(0, 0, 0, 0.1);
+@underline: #81b800;
+@textColor:#333333;
+@gray-text:rgba(51,51,51,255);
+@orange-off: #ff4200;
+.cms-page-view{
+	.breadcrumbs{
+		display: none !important;
+	}
+	.page-main{
+		.column{
+			margin-top: 30px;
+			padding-bottom: 0;
+			@media (max-width: 767px){
+				margin-top: 0;
+				padding-top: 15px;
+			}
+		}
+	.gateway-banner-container{
+		margin:0 0 15px;
+		.banner-block{
+			margin:0;
+		}
+	}
+	.slider-title, .block-title{
+		text-align: center;
+		margin: 0 0 20px 0;
+		.widget-title, strong {
+			font-size: 18px;
+			font-weight: normal;
+			display: inline-block;
+			width: auto;
+			margin: 0;
+			font-family: "iCuracao-regular";
+			padding-bottom: 10px;
+			border-bottom: 3px solid @underline;
+			@media screen and (max-width: 400px) {
+					font-size: 14px;
+			}
+		}
+	}
+	.slider-title{
+		margin: 15px 0 20px 0;
+	}
+	.product-slider-carousel, .product-slider-new-arrivals{
+		box-shadow: 0 0px 10px @box-shadow-color;
+		margin: 15px 0 30px 0;
+		.owl-stage-outer{
+			margin-left: 4px;
+			.owl-stage {
+				position: relative;
+				display: -webkit-flex;
+				display: flex;
+				align-items: stretch;
+			}
+		}
+		.owl-nav {
+			.custom-prev,
+			.custom-next {
+				background-color: #f3f3f3;
+				width: 30px;
+				height: 90px;
+				transition: all 0.2s;
+				&:hover{
+					@media all and (min-width:1025px){
+						background-color:#ddd;
+						transition: all 0.2s;
+					}
+				}
+				@media screen and (max-width: 480px) {
+					height: 60px;
+				}
+			}
+			.left {
+				background-image: url(../images/left-arr.png);
+				width: 100%;
+				height: 100%;
+				background-repeat: no-repeat;
+				background-position: center;
+				@media screen and (max-width: 480px) {
+					background-size: 50%;
+				}
+			}
+			.right {
+				background-image: url(../images/right-arr.png);
+				width: 100%;
+				height: 100%;
+				background-repeat: no-repeat;
+				background-position: center;
+				@media screen and (max-width: 480px) {
+						background-size: 50%;
+				}
+			}
+			.owl-prev,
+			.owl-next {
+				position: absolute;
+				top: 35%;
+				outline: none;
+				@media screen and (max-width: 480px) {
+					top: 38%;
+				}
+			}
+			.owl-next {
+				right: 0;
+			}
+		}
+		.item {
+			padding: 20px 10px;
+			display: inline-block;
+			border-right: 1px solid #ebebeb;
+			width: 100%;
+			height: 100%;
+			min-height:320px;
+			box-sizing: border-box;
+			a {
+				color: @textColor;
+				text-decoration: none;
+				overflow: hidden;
+				span.discount-flag {
+					position: absolute;
+					left: 0;
+					top: 10px;
+					border: 1px solid @orange-off;
+					background-color: @orange-off;
+					z-index: 9;
+					color: #fff;
+					padding: 5px;
+					font-size: 14px;
+					@media all and (max-width:767px){
+						left:20px;
+						top:20px;
+					}
+					@media all and (max-width:479px){
+						font-size:12px;
+						left:10px;
+						top:10px;
+					}
+				}
+				.productimage-container{
+					overflow: hidden;
+					display: block;
+					padding: 10px 0;
+					margin-top:20px;
+					img {
+						max-width: 150px;
+						width: 100%;
+						vertical-align: middle;
+						-moz-transition: all 0.3s;
+						-webkit-transition: all 0.3s;
+						transition: all 0.3s;
+						margin:0 auto;
+						&:hover {
+							-moz-transform: scale(1.1);
+							-webkit-transform: scale(1.1);
+							transform: scale(1.1);
+							transition: all 0.2s;
+							@media all and (max-width:1024px){
+								-moz-transform: scale(1);
+								-webkit-transform: scale(1);
+								transform: scale(1);
+								transition: all 0.2s;
+							}
+						}
+					}
+				}
+				h3 {
+					font-size: 17px;
+    			font-weight: normal;
+    			font-family: "iCuracao-Medium";
+			    text-align: center;
+			    width: 200px;
+			    color: #000;
+			    margin: 15px auto;
+			    white-space: nowrap;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+					@media screen and (max-width: 768px) {
+						font-size: 12px;
+					}
+					@media screen and (max-width: 480px) {
+						width: 125px;
+					}
+					@media screen and (max-width: 400px) {
+						width: 200px;
+					}
+				}
+				p.price {
+					text-align: center;
+					margin-bottom: 15px;
+					.original-price {
+						color: black;
+						font-size: 18px;
+						@media screen and (max-width: 768px) {
+							font-size: 12px;
+						}
+					}
+					.discount-price {
+						color: black;
+						font-size: 18px;
+						@media screen and (max-width: 768px) {
+							font-size: 14px;
+						}
+					}
+				}
+				p.subtext {
+					font-family: "iCuracao-Medium";
+					font-size: 16px;
+					text-align: center;
+					font-weight: normal;
+					color:#000;
+					span.amount {
+						color: #81b800;
+					}
+					@media screen and (max-width: 768px) {
+						font-size: 12px;
+					}
+				}
+			}
+			&.no-discount {
+				a {
+					span.discount-flag {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+	.block-compare .block-title, .block-reorder .block-title, .widget .block-title, .block-wishlist .block-title {
+		margin: 0 0 20px 0;
+	}
+	.breadcrumbs{
+		.items{
+			.item{
+				width: auto;
+				border-right:none;
+			}
+		}
+	}
+	.brand-widget{
+		.single-item {
+			margin: 0 !important;
+			padding: 20px 0;
+		}
+				 .owl-carousel{
+					 .single-item {
+						 a {
+							 img{
+								 max-width: 150px;
+								 margin: 0 auto;
+							 }
+					 }
+					 }
+				 }
+				 .owl-prev,
+				 .owl-next {
+						 position: absolute;
+						 top: 50% !important;
+						 transform: translateY(-50%);
+						 outline: none;
+				 }
+	}
+	.block.widget .pager {
+		display: none;
+	}
+	.product-items {
+		margin-left: 0 !important;
+		.product-item {
+			list-style: none;
+			width:100% !important;
+			padding-left: 0 !important;
+			margin-bottom: 0;
+			.product-image-container{
+				width:100% !important;
+				.product-image-wrapper{
+					padding-bottom: 0% !important;
+					height:auto;
+					margin-top:20px;
+					.product-image-photo {
+						position: static;
+						max-width: 150px;
+						transition: all 0.2s;
+						margin: 0px auto;
+						width: 100%;
+						vertical-align: middle;
+						&:hover {
+							-moz-transform: scale(1.1);
+							-webkit-transform: scale(1.1);
+							transform: scale(1.1);
+							transition: all 0.2s;
+							@media all and (max-width:1024px){
+								-moz-transform: scale(1);
+								-webkit-transform: scale(1);
+								transform: scale(1);
+								transition: all 0.2s;
+							}
+						}
+					}
+				}
+				@media all and (max-width:990px){
+					width:100% !important;
+				}
+			}
+			.product-item-info{
+				width:100% !important;
+				margin: 0 auto;
+				padding:0px;
+				width:auto;
+				&:hover,&:active {
+					box-shadow: none;
+					border:none;
+					background:transparent;
+					margin:0 auto;
+					padding:0px;
+					position: static;
+				}
+				.price-off {
+					position: absolute;
+					left: 0;
+					top: 10px;
+					border: 1px solid @orange-off;
+					background-color: @orange-off;
+					z-index: 9;
+					color: #fff;
+					padding: 7px;
+					font-size: 14px;
+					@media all and (max-width:767px){
+						left:20px;
+						top:20px;
+					}
+					@media all and (max-width:479px){
+						font-size:12px;
+						left:0px;
+						top:10px;
+					}
+				}
+				.product-item-details{
+					.product-item-name{
+						font-size: 17px;
+				    font-weight: normal;
+				    font-family: "iCuracao-Medium";
+				    text-align: center;
+				    width: 200px;
+				    color: #000;
+				    margin: 15px auto;
+				    white-space: nowrap;
+				    overflow: hidden;
+				    text-overflow: ellipsis;
+						@media screen and (max-width: 768px) {
+							font-size: 12px;
+						}
+						@media screen and (max-width: 480px) {
+							width: 125px;
+						}
+						@media screen and (max-width: 400px) {
+							width: 200px;
+						}
+						a{
+							color:#000;
+						}
+					}
+					p.subtext {
+						font-family: "iCuracao-Medium";
+						font-size: 16px;
+						text-align: center;
+						font-weight: normal;
+						color:#000;
+						span.amount {
+							color: #81b800;
+						}
+						@media screen and (max-width: 768px) {
+							font-size: 12px;
+						}
+					}
+					.price-box{
+						text-align: center;
+						margin-bottom: 15px;
+						.price-label,.price-discount {
+							display: none;
+						}
+						.price{
+							color: black;
+							font-size: 18px;
+							font-weight:400;
+							@media screen and (max-width: 768px) {
+								font-size: 14px;
+							}
+						}
+						.old-price{
+							margin-right: 5px;
+							.price{
+								color: #888888;
+								text-decoration: line-through;
+								margin-right: 15px;
+								font-size: 16px;
+								@media screen and (max-width: 768px) {
+									font-size: 12px;
+								}
+							}
+						}
+					}
+					.product-item-actions{
+						display:none;
+					}
+				}
+			}
+		}
+	}
+}
+}

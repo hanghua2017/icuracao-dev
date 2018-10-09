@@ -1,0 +1,204 @@
+"Request RMA","Запрос RMA"
+"My Returns","Мои возвращения"
+Grid,Сетка
+List,Список
+All,Все
+"Create RMA","Создать RMA"
+"Request New Return","Запросить новое возвращение"
+"Max file size: %1Mb","Максимальный размер файла: %1Mb"
+"New Return for Order #%1","Новое возвращение для заказа №%1"
+"RMA #%1","RMA #%1"
+"RMA #%1 - %2","RMA #%1 - %2"
+"Wrong Order #, Email or Last Name","Неверный номер заказа, адрес электронной почты или фамилия"
+Items,Предметы
+"To apply changes you should fill in required ""%1"" field","Чтобы применить изменения, вы должны заполнить требуемое поле «%1»"
+"Please, add order items to the RMA (set 'Qty to Return')","Пожалуйста, добавьте элементы заказа в RMA (установите «Qty to Return»)"
+"Please, set correct order items Quantity to return","Пожалуйста, установите правильные элементы заказа. Количество, которое нужно вернуть."
+"RMA was successfully created","RMA была успешно создана"
+"Shipping is confirmed. Thank you!","Доставка подтверждена. Спасибо!"
+"Your message was successfully added","Ваше сообщение успешно добавлено"
+"Allowed extensions:","Разрешенные расширения:"
+"Maximum size:","Максимальный размер:"
+"-- Please Select --","-- Пожалуйста выберите --"
+" at %1 (%2)","в 12__)"
+"Mark as unresolved","Отметить как неразрешенный"
+"Mark as resolved","Отметить как разрешенный"
+"not set","не задано"
+Pattern,Шаблон
+"Attribute Value","Значение атрибута"
+Default,"По умолчанию"
+Integer,"Целое число"
+Price,Цена
+"Strip Tags",Гастрономия
+"Primary Attributes","Первичные атрибуты"
+"Stock Attributes","Атрибуты запаса"
+"Prices & Taxes","Цены и налоги"
+Images,Изображений
+"Custom Attributes","Пользовательские атрибуты"
+Mapping,Картографирование
+Category,Категория
+"Amasty Meta Tags",Амасти-метатеги
+"Others Attributes","Другие атрибуты"
+Text,Текст
+"Multi-line text","Многострочный текст"
+Date,Дата
+Checkbox,Флажок
+"Drop-down list","Выпадающий список"
+Reason,Причина
+Condition,Состояние
+Resolution,Разрешение
+"RMA #","RMA #"
+"Order #","Порядок #"
+"Customer Email","Электронная почта клиента"
+"Customer Name","Имя Клиента"
+Owner,Владелец
+"Last Replier","Последняя папка"
+Status,"Положение дел"
+Store,Хранить
+"Created At","Создан в"
+"Last Activity","Последняя активность"
+"View link","Просмотреть ссылку"
+"New RMA has been created","Создано новое RMA"
+"RMA has been changed","RMA изменен"
+"New reply from customer","Новый ответ от клиента"
+"New reply from staff","Новый ответ от персонала"
+"-- Default Address --","-- Адрес по умолчанию --"
+"Update the Product","Обновление продукта"
+"Conditions Combination","Комбинация условий"
+"RMA Attribute","Атрибуты RMA"
+"Last 7-days Clicks","Последние 7 дней кликов"
+"Last 7-days Orders","Последние 7-дневные заказы"
+"Last 7-days Revenue","Последние 7 дней Доход"
+"Last 7-days Conversation Rate (%)","Последняя 7-дневная скорость разговора (%)"
+"Attribute Set","Набор атрибутов"
+Quantity,Количество
+"Product Type","Тип продукта"
+"Base Image","Базовый образ"
+Thumbnail,Thumbnail
+"Small Image","Маленькое изображение"
+"Base Image Size (bytes)","Размер базового изображения (байты)"
+"Thumbnail Size (bytes)","Размер миниатюр (байт)"
+"Small Image Size (bytes)","Маленький размер изображения (байты)"
+"PHP Condition","Состояние PHP"
+"Open Chooser","Открыть Chooser"
+"Last message body","Последнее сообщение"
+"Updated At","Обновлено на"
+"Status (before change)","Статус (до изменения)"
+"Owner (before change)","Владелец (до изменения)"
+"Last Reply By","Последний ответ от"
+"Hours since Created","Часы с момента создания"
+"Hours since Updated","Часы с момента обновления"
+"Hours since Last reply","Часы с момента последнего ответа"
+"Items have reason","У предметов есть причина"
+"Items have condition","Элементы имеют условие"
+"Items have resolution","Элементы имеют разрешение"
+"%1 (before change)","%1 (до изменения)"
+Customer,Клиент
+Staff,Сотрудники
+"- Disable these emails -","- Отключить эти письма -"
+Yes,Да
+No,Нет
+Save,Сохранить
+"Save & Continue Edit","Сохранить и продолжить редактирование"
+"Save & Close","Сохранить и закрыть"
+Edit,Редактировать
+Delete,Удалить
+"Delete ""${ $.$data.name }""","Удалить "${ $.$data.name }""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Вы уверены, что хотите удалить запись "${ $.$data.name }"?"
+"Are you sure you want to do this?","Вы уверены, что хотите это сделать?"
+"Convert To Ticket","Конвертировать в билет"
+"View order #${ $.$data.order_id }","Просмотреть порядок #${ $.$data.order_id }"
+"View exchange order %1","Просмотреть обменный пункт %1"
+"RMA: Report by Attribute","RMA: отчет по атрибуту"
+"RMA: Report by Status","RMA: отчет по статусу"
+"RMA: Report by Product","RMA: отчет по продукту"
+"RMA: Report by Reasons","RMA: Отчет по причинам"
+"Cannot delete return address with id %1","Не удается удалить обратный адрес с идентификатором %1"
+"Cannot delete item with id %1","Не удается удалить элемент с идентификатором %1"
+"Cannot delete condition with id %1","Не удается удалить условие с идентификатором %1"
+"Cannot delete field with id %1","Не удается удалить поле с идентификатором %1"
+"Cannot delete message with id %1","Не удается удалить сообщение с идентификатором %1"
+"Cannot delete history with id %1","Не удается удалить историю с идентификатором %1"
+"Cannot delete Quick Response with id %1","Не удается удалить Quick Response с идентификатором %1"
+"Cannot delete reason with id %1","Невозможно удалить причину с id %1"
+"Cannot delete resolution with id %1","Невозможно удалить разрешение с идентификатором %1"
+"Cannot delete rma with id %1","Не удается удалить rma с идентификатором %1"
+"Cannot delete rule with id %1","Не удается удалить правило с идентификатором %1"
+"Cannot delete status with id %1","Не удается удалить статус с идентификатором %1"
+"Please, enter a message","Пожалуйста, введите сообщение"
+"Product Name","Наименование товара"
+SKU,SKU
+Qty,Кол-во
+"This was a gift, please do not notify purchaser","Это был подарок, пожалуйста, не сообщайте покупателю"
+"Enter your contact information","Введите ваши контактные данные"
+"First Name",Имя
+"Last Name",Фамилия
+Email,"Эл. адрес"
+Telephone,Телефон
+"To request a new RMA or check the status of current RMA, please, fill the form:","Чтобы запросить новый RMA или проверить статус текущего RMA, заполните форму:"
+"* Required Fields","* Обязательные поля"
+"Order Information","Запросить информацию"
+"Email or Last Name","Электронная почта или фамилия"
+Next,Следующий
+RMA,РМА
+Actions,Действия
+"View Return","Просмотр возврата"
+"There are no Returns","Нет возвратов"
+"Items %1 to %2 of %3 total","Элементы %1 до %2 %3 всего"
+"%1 Item(s)","%1 Предмет (ы)"
+Show,Показать
+"per page","за страницу"
+"View as","Посмотреть, как"
+"Sort by","Сортировать по"
+"Set Ascending Direction","Установить восходящее направление"
+"Set Descending Direction","Установить нисходящее направление"
+"Please, select an order","Пожалуйста, выберите заказ"
+Order,Порядок
+"-- Select an Order --","- Выберите заказ -"
+"You have no completed orders to request RMA or your orders were placed more than %1 days ago. Please, contact customer service.","У вас нет завершенных заказов на запрос RMA, или ваши заказы были размещены больше, чем %1 дней назад. Обратитесь в службу поддержки."
+"Submit Request","Отправить запрос"
+"Please, select RMA items which you would like to return.","Выберите элементы RMA, которые вы хотите вернуть."
+"Additional Information","Дополнительная информация"
+"Attach files","Прикрепить файлы"
+"Request Information","Запрашивать информацию"
+"Email Address","Адрес электронной почты"
+"Order Shipping Address","Адрес доставки заказа"
+"Items in this order","Элементы в этом порядке"
+"There are no items for this product that can be returned.","Для этого продукта нет товаров, которые могут быть возвращены."
+"Another RMA for this product: %1","Другой RMA для этого продукта: %1"
+"This product can not be returned due to RMA Policy","Этот продукт нельзя вернуть из-за политики RMA"
+"This is a non-returnable item per our return policy.","Это невозвратный элемент в нашей политике возврата."
+"Quantity to return","Количество для возврата"
+"-- Select a Reason --","- Выберите причину -"
+"-- Select a Condition --","- Выберите условие -"
+"-- Select a Resolution --","- Выберите разрешение -"
+"I agree",Согласен
+"Date: %1","Дата: %1"
+"Original order: #%1","Оригинальный заказ: #%1"
+"Return Address","Обратный адрес"
+"Customer Information","Информация для покупателей"
+"RMA History","История RMA"
+"RMA Items","Элементы RMA"
+Weight,Вес
+"Print RMA Packing Slip","Печать RMA Packing Slip"
+"Print RMA Shipping Label","Печать метки доставки RMA"
+"Confirm Shipping","Подтвердить доставку"
+"(This was a gift)","(Это был подарок)"
+"Date Requested","Запрошенная дата"
+"Contact Information","Контактная информация"
+"Items RMA Requested for","Элементы RMA, запрошенные для"
+QTY,КОЛ
+"Add Message","Добавить сообщение"
+Submit,Отправить
+%name,%имя
+"The quantity is incorrect.","Количество неверно."
+"New Return for Offline Order","Новое возвращение для автономного заказа"
+" at %1","на %1"
+Select,Выбрать
+"If you do not have account on this store please fill the form below.","Если у вас нет учетной записи в этом магазине, заполните форму ниже."
+"-- Create Offline Order --","- Создать автономный заказ -"
+"Returned Item","Возвращаемый товар"
+"Remove Item","Убрать предмет"
+"Order or Receipt #","Порядок или получение #"
+"Add Item","Добавить элемент"
+"Add at least one item to this RMA","Добавьте по крайней мере один элемент в этот RMA"

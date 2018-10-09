@@ -1,0 +1,184 @@
+@import "_typography";
+@import "_order&returns";
+@import "_accordion";
+@import "_privacy-policy";
+@import "_order-tracking";
+@import "_return-policy";
+@import "_instore";
+@import "_faq";
+@import "_contact";
+@import "_beat";
+@import "_var";
+//Common styling for all CMS pages
+body{
+  margin: 0;
+}
+input,select,button{outline: none;}
+
+.cms-contact-us,.cms-privacy-policy,.cms-return-policy,.cms-faq,.cms-order-tracking,.cms-order-and-returns,.cms-instore-pickup,
+.cms-shipping-information,.cms-terms-and-conditions,.cms-interest-beat-form,.cms-price-beat-form,.cms-price-beat,
+.cms-interest-beat{
+  main{
+    background: url("../../images/Order-returns-BG.png");
+    background-size: 100%;
+    .column,.main{
+      padding-bottom: 0 !important;
+    }
+  }
+  .page-main{
+        max-width: none !important;
+        padding: 0 !important;
+        .column{
+          margin-top: 0 !important;
+          padding-top:0 !important;
+        }
+  }
+}
+.cms-price-beat,.cms-interest-beat,.cms-store-pickup{
+    .page-main{
+        background: @white !important;
+  }
+}
+  .cms-container{
+//common styles for form pages
+    padding: 50px 0;
+
+    @media all and(max-width: 767px){
+        padding:0;
+    }
+    .inner-container{
+      .cms-content{
+        .cms-heading{
+          font-size: 28px;
+          color: @black;
+          text-transform: capitalize;
+          font-family: 'iCuracao-Light' !important;
+          @media all and(max-width: 767px){
+            font-size: 24px;
+          }
+        }
+        button{
+          font-family: 'iCuracao-Light' !important;
+          background-color: @curacao-green;
+          border-radius: 4px;
+          color: @white;
+          border: none;
+          box-shadow: none;
+          cursor: pointer;
+        }
+        input,textarea{
+          border:none;
+          width: 100%;
+          outline: none;
+          font-family: 'iCuracao-Light' !important;
+          &::placeholder{
+            font-size:15px;
+            font-family: 'iCuracao-Light' !important;
+            @media all and (max-width: 425px){
+              font-size: 13px;
+            }
+          }
+        }
+      }
+    }
+//common styles for accordion containing pages
+    .inner-cms-container{
+      .cms-content{
+        max-width: 1090px;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
+
+        @media all and(max-width: 1250px){
+          max-width: 860px;
+        }
+        @media all and (max-width: 991px){
+          max-width: 655px;
+        }
+        @media all and(max-width: 767px) {
+          max-width: 800px;
+          margin: 0;
+        }
+        @media all and(max-width: 425px) {
+          padding: 25px 0;
+        }
+        .cms-heading{
+          text-align: left;
+          margin: 0;
+          padding-bottom: 30px;
+          font-family: 'iCuracao-Light' !important;
+          @media all and(max-width: 425px) {
+            padding-bottom:25px;
+            padding-left: 20px;
+          }
+        }
+      }
+    }
+
+    h2 {
+      font-family: 'iCuracao-Light'!important;
+      font-size: 20px!important;
+      color: black!important;
+    }
+  }
+.custom-select {
+  position: relative;
+  width: 100%;
+select {
+  display: none; /*hide original SELECT element:*/
+}
+.select-selected {
+  background-color: white;
+  border:none!important;
+}
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #8a8888 transparent transparent transparent;
+}
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #8a8888 transparent;
+  top: 7px;
+}
+/*style the items (options), including the selected item:*/
+.select-items div,.select-selected {
+  font-family: 'iCuracao-Light';
+  color: #8a8888;
+  font-size: 16px;
+  padding: 5px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  padding-left: 0;
+}
+/*style items (options):*/
+.select-items {
+  position: absolute;
+  border: 1px solid #bbbbbb;
+  border-radius: 2px;
+  background-color: white;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none;
+}
+.select-items div:hover {
+  background-color: rgba(183, 183, 183, 0.7);
+  color: 666666!important;
+}
+.same-as-selected {
+  background-color: #dedede!important;
+  color: #666666!important;
+}
+}

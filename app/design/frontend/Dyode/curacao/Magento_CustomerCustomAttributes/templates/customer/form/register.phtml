@@ -1,0 +1,152 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Create account form template
+ *
+ * @var $block \Magento\Customer\Block\Form\Register
+ */
+?>
+<?= $block->getChildHtml('form_fields_before') ?>
+<?php /* Extensions placeholder */ ?>
+<?= $block->getChildHtml('customer.form.register.extra') ?>
+<form class="form create account form-create-account" action="<?= /* @escapeNotVerified */ $block->getPostActionUrl() ?>" method="post" id="form-validate" enctype="multipart/form-data" autocomplete="off">
+  <?= /* @noEscape */ $block->getChildHtml('form_fields_before_in_form') ?>
+  <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
+  <fieldset class="fieldset create info">
+    <legend class="legend"><span><?= /* @escapeNotVerified */ __('Signup with Curacao') ?></span></legend><br>
+    <!-- <legend class="legend sub-heading"><span><?= /* @escapeNotVerified */ __('Sign in Using One of your accounts') ?></span></legend><br> -->
+    <input type="hidden" name="success_url" value="<?= /* @escapeNotVerified */ $block->getSuccessUrl() ?>"/>
+    <input type="hidden" name="error_url" value="<?= /* @escapeNotVerified */ $block->getErrorUrl() ?>"/>
+    <div class="check checking-box">
+      <div class="checking-box-label">
+        <input type="checkbox" name="account-check" id="account-check" value="account-checkbox" /><label class="label" for="account-check">Do you have a Curacao Account?</label></div>
+      </div>
+      <?php $customerAttributes = $block->getChildBlock('customer_form_user_attributes');?>
+      <?php if ($customerAttributes): ?>
+      <?php $customerAttributes->setEntityType('customer')->setShowContainer(false);?>
+      <?php $block->restoreSessionData($customerAttributes->getMetadataForm());?>
+      <?= $customerAttributes->toHtml() ?>
+      <?php endif;?>
+      <?= $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
+          <?php $_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
+        <?php if ($_dob->isEnabled()): ?>
+          <?= $_dob->setDate($block->getFormData()->getDob())->toHtml() ?>
+        <?php endif ?>
+          <?php $_taxvat = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Taxvat') ?>
+        <?php if ($_taxvat->isEnabled()): ?>
+          <?= $_taxvat->setTaxvat($block->getFormData()->getTaxvat())->toHtml() ?>
+        <?php endif ?>
+        <?php $_gender = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Gender') ?>
+        <?php if ($_gender->isEnabled()): ?>
+          <?= $_gender->setGender($block->getFormData()->getGender())->toHtml() ?>
+        <?php endif ?>
+    </fieldset>
+    <fieldset class="fieldset create account" data-hasrequired="<?= /* @escapeNotVerified */ __('* Required Fields') ?>">
+      <!-- <legend class="legend"><span><?= /* @escapeNotVerified */ __('Sign-in Information') ?></span></legend><br> -->
+      <div class="field required">
+        <label for="email_address" class="label"><span><?= /* @escapeNotVerified */ __('Email') ?></span></label>
+        <div class="control">
+          <input type="email" name="email" placeholder="email" id="email_address" autocomplete="email" value="<?= $block->escapeHtml($block->getFormData()->getEmail()) ?>" title="<?= /* @escapeNotVerified */ __('Email') ?>" class="input-text" data-validate="{required:true, 'validate-email':true}"/>
+        </div>
+        </div>
+        <div class="field telephone required">
+          <label for="telephone" class="label"><span><?= /* @escapeNotVerified */ __('Mobile Number') ?></span></label>
+          <div class="control">
+            <input type="text" name="telephone" placeholder="mobile number" id="telephone" value="<?= $block->escapeHtml($block->getFormData()->getTelephone()) ?>" title="<?= /* @escapeNotVerified */ __('Phone Number') ?>" class="input-text <?= /* @escapeNotVerified */ $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('telephone') ?>"/>
+          </div>
+        </div>
+        <div class="field password required">
+            <label for="password" class="label"><span><?= /* @escapeNotVerified */ __('Password') ?></span></label>
+            <div class="control">
+                <input type="password" name="password" id="password"
+                       title="<?= /* @escapeNotVerified */ __('Password') ?>"
+                       class="input-text"
+                       placeholder="password"
+                       data-password-min-length="<?= $block->escapeHtml($block->getMinimumPasswordLength()) ?>"
+                       data-password-min-character-sets="<?= $block->escapeHtml($block->getRequiredCharacterClassesNumber()) ?>"
+                       data-validate="{required:true, 'validate-customer-password':true}"
+                       autocomplete="off">
+                <div id="password-strength-meter-container" data-role="password-strength-meter" aria-live="polite">
+                    <div id="password-strength-meter" class="password-strength-meter">
+                        <?= /* @escapeNotVerified */ __('Password Strength') ?>:
+                        <span id="password-strength-meter-label" data-role="password-strength-meter-label">
+                            <?= /* @escapeNotVerified */ __('No Password') ?>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field confirmation required">
+            <label for="password-confirmation" class="label"><span><?= /* @escapeNotVerified */ __('Confirm Password') ?></span></label>
+            <div class="control">
+                <input type="password" placeholder="confirm password" name="password_confirmation" title="<?= /* @escapeNotVerified */ __('Confirm Password') ?>" id="password-confirmation" class="input-text" data-validate="{required:true, equalTo:'#password'}"/>
+            </div>
+        </div>
+        <?= $block->getChildHtml('form_additional_info') ?>
+    </fieldset>
+    <?php if ($block->isNewsletterEnabled()): ?>
+    <div class="field checking-box">
+      <div class="checking-box-label">
+        <input type="checkbox" name="is_subscribed" title="<?= /* @escapeNotVerified */ __('Sign Up for Newsletter') ?>" value="1" id="is_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox"/>
+        <label for="is_subscribed" class="label"><span><?= /* @escapeNotVerified */ __('Sign Up for Newsletter') ?></span></label>
+      </div>
+
+    </div>
+        <?php /* Extensions placeholder */ ?>
+        <?= $block->getChildHtml('customer.form.register.newsletter') ?>
+    <?php endif ?>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action submit primary" title="<?= /* @escapeNotVerified */ __('Create') ?>"><span><?= /* @escapeNotVerified */ __('Create') ?></span></button>
+        </div>
+        <div class="secondary">
+            <a class="action back" href="<?= $block->escapeUrl($block->getBackUrl()) ?>"><span><?= /* @escapeNotVerified */ __('Back') ?></span></a>
+        </div>
+    </div>
+    <div class="sign-in-section">
+      <span>Already have an account? <a href="<?= $block->escapeUrl($block->getUrl('customer/account/login')); ?>" class="signIn-link">Sign in!</a></span>
+    </div>
+</form>
+<script type="text/x-magento-init">
+    {
+        <?php if ($block->getShowAddressFields()): ?>
+        "#country": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?= /* @escapeNotVerified */ ($block->getConfig("general/region/display_all") ? "true" : "false") ?>,
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "postcodeId": "#zip",
+                "form": "#form-validate",
+                "regionJson": <?= /* @escapeNotVerified */ $this->helper(\Magento\Directory\Helper\Data::class)->getRegionJson() ?>,
+                "defaultRegion": "<?= /* @escapeNotVerified */ $block->getFormData()->getRegionId() ?>",
+                "countriesWithOptionalZip": <?= /* @escapeNotVerified */ $this->helper(\Magento\Directory\Helper\Data::class)->getCountriesWithOptionalZip(true) ?>
+            }
+        },
+        <?php endif; ?>
+        "*": {
+            "Magento_CustomerCustomAttributes/validation": {
+                "ignore": <?= (int) ($_dob->isEnabled() || $customerAttributes->hasUserDefinedAttributes()) ?>,
+                "hasUserDefinedAttributes": <?= (int) $customerAttributes->hasUserDefinedAttributes() ?>,
+                "isDobEnabled": <?= (int) $_dob->isEnabled() ?>,
+                "disableAutoComplete": true,
+                "mixins": [
+                    "Magento_CustomerCustomAttributes/error-placement",
+                    "Magento_CustomerCustomAttributes/validation-ignore"
+                ]
+            }
+        },
+        ".field.password": {
+            "passwordStrengthIndicator": {
+                "formSelector": "form.form-create-account"
+            }
+        }
+    }
+</script>

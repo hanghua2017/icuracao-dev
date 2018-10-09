@@ -1,0 +1,174 @@
+<form id="pricebeat" class="form" action="<?= $block->getUrl('pricebeat/user/post',['_secure' => $this->getRequest()->isSecure()]); ?>" method="post" enctype="multipart/form-data">
+    <fieldset class="fieldset">
+        <p class="title"><span><?php /* @escapeNotVerified */ echo __('Price Beat') ?></span></p>
+        <p class="title-desc"><span><?php /* @escapeNotVerified */ echo __("We'll Beat any Competitor's Prices") ?></span></p>
+        <div class="field required firstName-box">
+            <div class="control">
+                <input type="text" id="first_name" name="first_name" placeholder="First Name" class="input-text"/>
+            </div>
+        </div>
+        <div class="field required lastName-box">
+            <div class="control">
+                <input type="text" id="last_name" name="last_name" placeholder="Last Name" class="input-text"/>
+            </div>
+        </div>
+        <div class="field required email-box">
+            <div class="control">
+                <input type="email" id="email" name="email" placeholder="Email" class="input-text"/>
+            </div>
+        </div>
+        <div class="field required phoneNum-box">
+            <div class="control">
+                <input type="number" id="phonenumber" name="phonenumber" placeholder="Phone Number" class="input-text"/>
+            </div>
+        </div>
+        <div class="field required accNum-box">
+            <div class="control">
+                <input type="number" id="account_number" name="account_number" placeholder="Account Number" class="input-text"/>
+            </div>
+        </div>
+        <div class="field required invoiceNum-box">
+            <div class="control">
+                <input type="number" id="invoice_number" name="invoice_number" placeholder="Invoice/Order Number" class="input-text"/>
+            </div>
+        </div>
+
+        <p class="prod-info"><span><?php /* @escapeNotVerified */ echo __('Please provide us with the product information with one of the following options') ?></span></p>
+
+        <div class="control competitor-link">
+            <input type="url" id="product_url" name="product_url" placeholder="Competitor's product link" class="input-text"/>
+        </div>
+
+        <div class="or-block">
+          <p class="line"></p>
+          <p class="or-text">OR</p>
+        </div>
+
+        <label for="productimage" class="label"><span><?php /* @escapeNotVerified */ echo __("Competitor's product image or screenshot") ?></span></label>
+        <div class="curacao-file-upload">
+          <div class="file-upload">
+            <div class="file-select">
+              <div class="file-select-button" id="fileName">Choose File</div>
+              <div class="file-select-name" id="noFile">No file chosen</div>
+              <input type="file" name="upload_file" id="chooseFile">
+            </div>
+          </div>
+        </div>
+
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button  id="pricebeat-btn" class="action submit primary" title="<?php /* @escapeNotVerified */ echo __('Submit') ?>">
+                    <span><?php /* @escapeNotVerified */ echo __('Submit') ?></span>
+                </button>
+            </div>
+        </div>
+
+    </fieldset>
+
+</form>
+
+<div class="beat-banner price-beat-banner">
+   <div class="beat-logo">
+     <img src="<?php echo $this->getViewFileUrl('images/pricebeat_logo.png'); ?>" alt="Price Beat Logo">
+   </div>
+   <div class="beat-banner-content">
+     <h3>Pay lowest price everytime you shop!</h3>
+     <p>Never worry again about getting the best deal. Curacao’s PRICE
+        BEAT GUARANTEE ensures that you are always going to get the best
+        deal on any item soldin our store or online, even after you’ve
+        already made your purchase.</p>
+      <p>Curacao strives to ensure that we have competitive pricing
+        on all items every day, But on occassion a competitor may
+        offer the same item for less. with Curacao’s PRICE BEAT GURANTEE,
+        We will not only match the competitors price, but we will BEAT it!
+        This is our Promise.</p>
+   </div>
+ </div>
+
+
+
+<script type="text/javascript">
+
+require([
+  'jquery'
+], function($) {$(function() {
+    console.log('Pricebeat js is called');
+    $('#pricebeat-btn').on('click', function(e) {
+      e.preventDefault();
+      var productlink    = $('#product_url').val();
+      var product_image  = $('input[name=upload_file]').val();
+      var first_name     = $('#first_name').val();
+      var last_name      =$('#last_name').val();
+      var email          =$('#email').val();
+      var phonenumber    =$('#phonenumber').val();
+      var account_number =$('#account_number').val();
+      var invoice_number =$('#invoice_number').val();
+      var numericExpression = /^w.+@[a-zA-Z_-]+?.[a-zA-Z]{2,3}$/;
+      $(".error").remove();
+      if(first_name== ""){
+        console.log('firstname is empty');
+        $('#first_name').after('<span class="error">First name is required</span>');
+      }
+      if(last_name== ""){
+        console.log('lastname is empty');
+        $('#last_name').after('<span class="error">Last name is required</span>');
+      }
+      if(email== ""){
+        console.log('email is empty');
+        $('#email').after('<span class="error">Email-id is required</span>');
+      }
+      if (email.match(numericExpression)){
+         console.log('email is valid');
+         $('#email').after('<span class="error">Email-id valid</span>');
+       }
+        else{
+       console.log('email is invalid');
+       $('#email').after('<span class="error">Email-id invalid</span>');
+          }
+        if(phonenumber== ""){
+        console.log('phonenumber is empty');
+        $('#phonenumber').after('<span class="error">Phone number is required</span>');
+      }
+      if(account_number== ""){
+        console.log('account_number is empty');
+        $('#account_number').after('<span class="error">Account number is required</span>');
+      }
+      if(invoice_number== ""){
+        console.log('invoice_number is empty');
+        $('#invoice_number').after('<span class="error">Invoice number is required</span>');
+      }
+      console.log(productlink+" "+product_image);
+      if (productlink == "" && product_image == "") {
+        console.log('file and url not uploaded');
+        $('#product_url').after('<span class="error">Product Link or Product Image is required</span>');
+      } else {
+        console.log('hello from else');
+        $('#pricebeat').submit();
+      }
+
+    });
+  });
+});
+
+</script>
+
+<script>
+require([
+  'jquery'
+], function($) {$(function() {
+
+$('#chooseFile').bind('change', function () {
+  var filename = $("#chooseFile").val();
+  if (/^\s*$/.test(filename)) {
+    $(".file-upload").removeClass('active');
+    $("#noFile").text("No file chosen...");
+  }
+  else {
+    $(".file-upload").addClass('active');
+    $("#noFile").text(filename.replace("C:\\fakepath\\", ""));
+  }
+});
+
+});
+});
+</script>

@@ -1,0 +1,506 @@
+@import "_var";
+/*styling of price-beat-cms-page starts here*/
+.cms-container{
+  .desktop-display{
+    display:block;
+    @media all and (max-width:767px){
+      display: none;
+    }
+  }
+  .mobile-display{
+    display:none;
+    @media all and (max-width:767px){
+      display: block;
+    }
+  }
+//common styling for price beat page
+  &.cms-price-beat-container{
+    background:@white;
+    padding-top: 0;
+    a{
+      color: @curacao-green !important;
+      font-weight: 14px;
+      text-decoration: underline !important;
+    }
+  }
+  //common styling for interest beat page
+  &.cms-interest-beat-container{
+    background:@white;
+    padding-top: 0;
+    a{
+      color: @curacao-red !important;
+      font-weight: 14px;
+      text-decoration: underline !important;
+    }
+    .beat-inner-container{
+      .cms-content{
+        .price-guarantee-container{
+          .content-heading{
+            h2{
+              border-bottom: 3px solid @curacao-red !important;
+            }
+          }
+          .price-guarantee-content{
+            p{
+              @media all and(max-width: 375px){
+                font-size: 14px;
+              }
+              span{
+                color:@curacao-red !important;
+              }
+            }
+          }
+        }
+        .accordion-container{
+          .accordion-content{
+            .accordion-item{
+              .accordion-title{
+                &.active{
+                  color:@curacao-red !important;
+                }
+                &.active:after {
+                  color:@curacao-red !important;
+                }
+              }
+              .accordion-panel{
+                ul{
+                  li{
+                      color:@curacao-red !important;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .cms-banner{
+    width:100%;
+    img{
+      width:100%;
+    }
+  }
+  .beat-container{
+    max-width:1200px;
+    margin:0 auto;
+    .cms-content{
+      .content-heading{
+        text-align: center;
+        padding-top: 15px;
+        h2{
+            font-family: 'iCuracao-Medium';
+            font-size: 18px;
+            font-weight: normal;
+            display: inline-block;
+            width: auto;
+            margin: 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid @curacao-green;
+        }
+      }
+      .interest-heading{
+        h2{
+          font-family: 'iCuracao-Medium';
+          border-bottom: 3px solid @curacao-red !important;
+        }
+      }
+      .cms-button{
+        margin:15px 0;
+        text-align: center;
+        button{
+          background: @curacao-green;
+          color: @white;
+          font-size: 16px;
+          padding: 12px 25px;
+          font-weight: bold;
+          box-shadow: none;
+          border: none;
+          border-radius: 4px;
+        }
+      }
+      .how-it-works-container{
+        margin-top:20px;
+
+        @media all and (max-width:767px){
+          margin-top:0;
+        }
+
+        .content-row{
+          display: flex;
+          justify-content: space-around;
+          margin:20px 0;
+          @media all and (max-width:767px){
+            flex-direction:column;
+            margin-bottom: 0;
+          }
+          .content-item{
+            font-family: 'iCuracao-Regular';
+            width: 33.33%;
+            margin-right: 40px;
+            box-sizing: border-box;
+            border-radius: 15px;
+            box-shadow: 1px 2px 5px 4px #e6e6e6;
+            &:last-child{
+              margin-right:0;
+            }
+            @media all and (max-width:767px){
+              width:100%;
+              box-shadow:none;
+              border-radius:0;
+              margin:0;
+            }
+//styles for how it works heading and content for interest beat and price beat pages
+            .how-it-works-heading{
+              img{
+                width:100%;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                @media all and (max-width:767px){
+                  border-radius:0;
+                }
+              }
+            }
+            .how-it-works-content-container{
+              .how-it-works-content{
+                font-family: 'iCuracao-Regular';
+                padding: 20px;
+                padding-bottom:0;
+                &:last-child{
+                  padding-bottom: 20px;
+                }
+                h4{
+                  font-size: 16px;
+                  font-weight: 500;
+                  color: #595959;
+                  margin-top:0;
+                  margin-bottom:15px;
+                  text-transform: uppercase;
+                }
+                p{
+                  font-size:14px;
+                  font-weight:normal;
+                  color: #585858;
+                  margin-top:0;
+                  margin-bottom:15px;
+                }
+              }
+            }
+          }
+        }
+      }
+      .price-guarantee-container{
+        .content-heading{
+          font-family: 'iCuracao-Regular';
+          @media all and (max-width:767px){
+            width: 180px;
+            margin: 0 auto;
+          }
+        }
+        .price-guarantee-content{
+          margin:20px 0;
+          margin-bottom: 30px;
+          font-family: 'iCuracao-Regular';
+          p{
+            font-family: 'iCuracao-Regular';
+            font-size:16px;
+            color: @text-gray;
+            margin-top:0;
+            margin-bottom:15px;
+            @media all and(max-width: 375px){
+              font-size: 14px;
+            }
+            span{
+              text-transform: uppercase;
+              color:@curacao-green;
+              font-weight: 500;
+            }
+          }
+        }
+        .alt-content{
+          span{
+            color:@curacao-red !important;
+          }
+        }
+      }
+    }
+  }
+}
+.cms-wrap{
+  margin:8px;
+}
+/*styling of price-beat-cms-page and interest-beat-cms-page ends here*/
+
+/*styling of price-beat-form and interest-beat-form starts here*/
+
+.cms-container.cms-form-container{
+  background: url("../../images/cms-container-bg.png");
+  padding: 60px 0;
+  @media all and (max-width: 767px){
+    padding: 0;
+  }
+  .inner-container{
+    width: 600px;
+    margin:  0 auto;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
+    @media all and (max-width: 767px){
+      width: 100%;
+      box-shadow:none;
+    }
+    .cms-content{
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 60px 0 70px 0;
+      @media all and (max-width: 767px){
+       max-width: 80%;
+       margin: 0 auto;
+       padding: 45px 0;
+      }
+      @media all and (max-width: 425px){
+       padding: 30px 0;
+      }
+      .cms-heading{
+        text-align: center;
+        h1{
+          font-size:28px;
+          font-weight:300;
+          margin:0;
+        }
+        h5{
+          font-family: 'iCuracao-Light';
+          font-size:16px;
+          font-weight:300;
+          margin:0;
+          margin-top:10px;
+        }
+      }
+//styling for interest and price beat forms
+      .form-details{
+            padding-top: 35px;
+            @media all and (max-width: 767px){
+              padding-top: 30px;
+            }
+        .form{
+          border: 1px solid @faq-border-color;
+          border-radius: 4px;
+          max-width: 500px;
+          width: 100%;
+          @media all and(max-width: 767px){
+            max-width: 600px;
+          }
+            input{
+              padding: 14px 20px;
+              border-bottom: 1px solid @faq-border-color;
+              border-radius: 5px 5px 0 0px;
+              box-sizing: border-box;
+              min-height: 50px;
+              &::placeholder{
+                font-size:14px;
+                text-transform: capitalize;
+                color: @text-light-gray;
+                font-weight: lighter;
+                @media all and (max-width: 425px){
+                  font-size: 14px;
+                }
+              }
+            }
+            input:last-child{
+              border: none;
+              border-radius: 0 0 5px 5px;
+            }
+        }
+        .competitor-details{
+          h2{
+            font-family: 'iCuracao-Medium';
+            width:75%;
+            font-size: 16px;
+            text-align: center;
+            color:@text-light-gray;
+            margin: 40px auto;
+            @media all and (max-width:767px){
+              width:90%;
+            }
+          }
+          input{
+            font-family: 'iCuracao-Light' !important;
+            padding: 14px 20px;
+            border: 1px solid @faq-border-color;
+            width: 100%;
+            outline: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+            min-height: 50px;
+            &::placeholder{
+              font-size:14px;
+              text-transform: capitalize;
+              color: @text-light-gray;
+              font-weight: lighter;
+              @media all and (max-width: 425px){
+                font-size: 14px;
+              }
+            }
+          }
+//styles for OR divider
+          .or-spacer {
+            margin-top: 50px;
+            margin-bottom: 30px;
+            position:relative;
+            @media all and (max-width:767px)
+            {
+              width:100%;
+            }
+            .mask {
+              overflow:hidden;
+              height:20px;
+              &:after {
+                content:'';
+                display:block;
+                margin:-25px auto 0;
+                width:100%;
+                height:25px;
+                box-shadow:0 0 1px black;
+              }
+            }
+            span {
+              width:30px;
+              height:30px;
+              position:absolute;
+              bottom:100%;
+              left:50%;
+              margin-bottom:-15px;
+              margin-left:-15px;
+              border-radius:100%;
+              background:white;
+            }
+            span i {
+              position:absolute;
+              top:0px;
+              bottom:0px;
+              left:0px;
+              right:0px;
+              border-radius:100%;
+              border:1px solid #aaa;
+              text-align:center;
+              line-height:30px;
+              font-style:normal;
+              font-weight:600;
+              color:#999;
+              text-transform:uppercase;
+              font-size:12px;
+            }
+          }
+//styles for upload file input
+          .screenshot-file{
+            .heading-label{
+              font-size:14px;
+              color:@text-light-gray;
+            }
+            .upload-btn-wrapper {
+              position: relative;
+              overflow: hidden;
+              display: inline-block;
+              width:100%;
+              border:1px solid @faq-border-color;
+              border-radius: 5px;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              color:@text-light-gray;
+              margin-top:10px;
+              .btn {
+                font-family: 'iCuracao-Light';
+                color:@white;
+                background-color: @text-light-gray;
+                padding: 14px 20px;
+                border-radius: 5px 0 0 5px;
+                margin:0;
+                width:130px;
+                font-size: 14px;
+                @media all and(max-width: 425px){
+                  width: 95px;
+                  padding: 14px 0px;
+                }
+              }
+              label{
+                font-family: 'iCuracao-Light';
+                font-size:14px;
+                color:@text-light-gray;
+                margin-left:10px;
+                @media all and(max-width: 425px){
+                  margin-left:4px;
+                }
+              }
+              input[type=file] {
+                font-size: 100px;
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                opacity: 0;
+                padding: 0;
+                border: none;
+                border-radius: 0;
+              }
+            }
+          }
+        }
+        button{
+          width: 100%;
+          margin-top: 30px;
+          padding: 15px;
+        }
+      }
+    }
+//styling for price and interest beat banners
+    .beat-banner{
+      padding:50px 20px;
+      padding-bottom: 30px;
+      text-align: center;
+      &.price-beat-banner{
+        background:url("../../images/price-beat-form-bg.png");
+        background-size: 100% 100%;
+      }
+      &.interest-beat-banner{
+        background:url("../../images/interest-beat-form-bg.png");
+        background-size: 100% 100%;
+      }
+      .beat-banner-content{
+        h3{
+          font-size: 24px;
+          font-weight:700;
+          color:@white;
+          margin: 40px 0;
+        }
+        p{
+          font-size: 15px;
+          color:@white;
+          margin: 20px 0;
+        }
+      }
+    }
+  }
+}
+
+.cms-price-beat-container,.cms-interest-beat-container {
+    .cms-banner {
+      img {
+          padding: 30px 30px 0;
+
+          @media all and(max-width: 767px) {
+            padding: 18px 10px 0;
+          }
+
+          @media all and(max-width: 425px){
+            margin-left:0px;
+            padding: 13px 5px 0;
+          }
+      }
+    }
+
+    .accordion-content {
+      border-bottom: 1px solid #c0c0c0;
+    }
+}
+
+
+/*styling of price-beat-form and interest-beat-form ends here*/

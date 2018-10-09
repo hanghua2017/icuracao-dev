@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Dyode_Catalog Magento2 Module.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package Dyode
+ * @module  Dyode_Catalog
+ * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Catalog\Pricing\Render\FinalPriceBox" type="Dyode\Catalog\Preference\Catalog\Pricing\Render\FinalPriceBox"/>
+    <preference for="Magento\ConfigurableProduct\Pricing\Render\FinalPriceBox" type="Dyode\Catalog\Preference\ConfigurableProduct\Pricing\Render\FinalPriceBox"/>
+    <preference for="Magento\Catalog\Block\Product\View\Options\Type\Select" type="Dyode\Catalog\Block\Product\View\Options\Type\SelectPreference" />
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="addWarrantyToCartPlugin" type="Dyode\Catalog\Plugin\AddWarrantyToCartPlugin" sortOrder="1" />
+    </type>
+</config>
