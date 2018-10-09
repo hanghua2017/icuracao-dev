@@ -783,17 +783,22 @@
 
 						.block-products-list {
 							margin-bottom: 0;
-						}
-
-						.banner-block {
-							&.subsidiaries-banners{
-								@media all and (min-width:769px){
-									border-top:1px solid @white-shade;
-								}
-							}
-							.onethird-subsidiaries {
-								@media all and (min-width:769px){
-									border-top:1px solid @white-shade;
+							.content{
+								.banner-block {
+									margin:0 0 30px 0;
+									@media all and (max-width:767px){
+										margin:0 0 20px 0;
+									}
+									&.subsidiaries-banners{
+										@media all and (min-width:769px){
+											border-top:1px solid @white-shade;
+										}
+									}
+									.onethird-subsidiaries {
+										@media all and (min-width:769px){
+											border-top:1px solid @white-shade;
+										}
+									}
 								}
 							}
 						}
@@ -842,10 +847,10 @@
 
 					.banner-block-container000000 {
 						.banner-block {
-							// margin:0 0 30px 0;
-							// @media all and (max-width:767px){
-							// 	margin:0 0 20px 0;
-							// }
+							margin:0 0 30px 0;
+							@media all and (max-width:767px){
+								margin:0 0 20px 0;
+							}
 
 							.block {
 								overflow: hidden;
