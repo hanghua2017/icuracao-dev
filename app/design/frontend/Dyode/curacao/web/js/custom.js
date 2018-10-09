@@ -16,6 +16,12 @@ require(['jquery'], function ($) {
                 pageMain.removeClass(ms);
             }
         });
+        /*js for fixed header ends here*/
+
+        /*js for making the link active on Sale Page starts here*/
+        var category_link = document.querySelector('a[href="'+document.URL+'"]');
+        $('a[href="'+document.URL+'"]').addClass('active');
+        /*js for making the link active on Sale Page ends here*/
+
+      });
     });
-		/*js for fixed header ends here*/
-});
