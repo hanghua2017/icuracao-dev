@@ -52,6 +52,15 @@
         <!-- Inline address form -->
         <render if="isFormInline" args="shippingFormTemplate"/>
 
+        <!-- Shipping Address Save Button -->
+        <div class="shipping-address-action">
+            <button class="action action-update save-address">
+                <span data-bind="i18n: 'Save this address'"></span>
+            </button>
+        </div>
+
+        <hr>
+
         <!-- Inline Billing address form -->
         <!-- ko foreach: getRegion('billing-address') -->
             <!-- ko template: getTemplate() --><!-- /ko -->

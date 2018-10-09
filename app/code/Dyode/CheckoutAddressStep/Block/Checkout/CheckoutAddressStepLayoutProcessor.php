@@ -99,6 +99,11 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
         $jsLayout["components"]["checkout"]["children"]["steps"]["children"]["address-step"]["children"]
         ["shippingAddress"]["children"] = $shippingAddressChildren;
 
+        //remove "company" field from the shipping address
+        unset($jsLayout["components"]["checkout"]["children"]["steps"]["children"]["address-step"]["children"]
+            ["shippingAddress"]["children"]["shipping-address-fieldset"]["children"]["company"]
+        );
+
         return $jsLayout;
     }
 
@@ -127,24 +132,17 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
 
     public function addBillingAddressIntoAddressStep(array $jsLayout)
     {
-        $jsLayout['components']['checkout']['children']['steps']['children']['address-step']
-        ['children']['shippingAddress']['children']['shipping-address-fieldset']['children']
-        ['street']['children'][0]['placeholder'] = __('Street Address');
-        $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']
-        ['children']['shippingAddress']['children']['shipping-address-fieldset']['children']
-        ['street']['children'][1]['placeholder'] = __('Street line 2');
+        $jsLayout = $this->updateShippingAddressPlaceHolders($jsLayout);
 
         $elements = $this->getAddressAttributes();
+
+        //remove "company" field from the billing address
+        unset($elements["company"]);
 
         $jsLayout['components']['checkout']['children']['steps']['children']['address-step']['children']
         ['shippingAddress']['children']['billing-address'] = $this->getCustomBillingAddressComponent($elements);
 
-        $jsLayout['components']['checkout']['children']['steps']['children']['address-step']['children']
-        ['shippingAddress']['children']['billing-address']['children']['form-fields']['children']
-        ['street']['children'][0]['placeholder'] = __('Street Address');
-        $jsLayout['components']['checkout']['children']['steps']['children']['address-step']['children']
-        ['shippingAddress']['children']['billing-address']['children']['form-fields']['children']
-        ['street']['children'][1]['placeholder'] = __('Street line 2');
+        $jsLayout = $this->updateBillingAddressPlaceHolders($jsLayout);
 
         return $jsLayout;
     }
@@ -163,6 +161,9 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
             'provider'        => 'checkoutProvider',
             'deps'            => ['checkoutProvider'],
             'dataScopePrefix' => 'billingAddress',
+            'config'          => [
+                'template' => 'Dyode_CheckoutAddressStep/billing-address',
+            ],
             'children'        => [
                 'form-fields' => [
                     'component'   => 'uiComponent',
@@ -268,5 +269,57 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
             }
         }
         return $elements;
+    }
+
+    /**
+     * Change place holders of shipping address form fields
+     *
+     * @param array $jsLayout
+     * @return array $jsLayout
+     */
+    protected function updateShippingAddressPlaceHolders(array $jsLayout)
+    {
+        //street 1
+        $jsLayout['components']['checkout']['children']['steps']['children']['address-step']
+        ['children']['shippingAddress']['children']['shipping-address-fieldset']['children']
+        ['street']['children'][0]['placeholder'] = __('Street Address, P.O Box, Company name');
+
+        //street 2
+        $jsLayout['components']['checkout']['children']['steps']['children']['address-step']
+        ['children']['shippingAddress']['children']['shipping-address-fieldset']['children']
+        ['street']['children'][1]['placeholder'] = __('Apartment, Suit, Building');
+
+        //telephone
+        $jsLayout["components"]["checkout"]["children"]["steps"]["children"]["address-step"]["children"]
+        ["shippingAddress"]["children"]["shipping-address-fieldset"]["children"]
+        ["telephone"]['placeholder'] = __('(123) 456 7890');
+
+        return $jsLayout;
+    }
+
+    /**
+     * Change placeholders of billing address form fields
+     *
+     * @param array $jsLayout
+     * @return array $jsLayout
+     */
+    protected function updateBillingAddressPlaceHolders(array $jsLayout)
+    {
+        //street 1
+        $jsLayout['components']['checkout']['children']['steps']['children']['address-step']['children']
+        ['shippingAddress']['children']['billing-address']['children']['form-fields']['children']
+        ['street']['children'][0]['placeholder'] = __('Street Address, P.O Box, Company name');
+
+        //street 2
+        $jsLayout['components']['checkout']['children']['steps']['children']['address-step']['children']
+        ['shippingAddress']['children']['billing-address']['children']['form-fields']['children']
+        ['street']['children'][1]['placeholder'] = __('Apartment, Suit, Building');
+
+        //telephone
+        $jsLayout['components']['checkout']['children']['steps']['children']['address-step']['children']
+        ['shippingAddress']['children']['billing-address']['children']['form-fields']['children']
+        ['telephone']['placeholder'] = __('(123) 456 7890');
+
+        return $jsLayout;
     }
 }
