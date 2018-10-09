@@ -19,6 +19,7 @@
 .price-label-font {
   font-size: 16px;
   font-family: 'iCuracao-Regular';
+  font-weight: 500;
   @media all and (min-width: 991px) {
     font-size: 18px;
   }
@@ -30,7 +31,7 @@
 .price-font {
   font-size: 14px !important;
   font-family: 'iCuracao-Medium';
-  font-weight: normal;
+  font-weight: 500;
   @media all and (min-width: 991px) {
     font-size: 16px !important;
   }
@@ -39,7 +40,7 @@
 .special-price-font {
   font-size: 20px;
   font-family: 'iCuracao-Medium';
-  font-weight: normal;
+  font-weight: 500;
   @media all and (min-width: 991px) {
     font-size: 22px;
   }
@@ -57,6 +58,7 @@
   font-size: 12px;
   color: @black;
   font-family: 'iCuracao-Regular';
+  font-weight: 500;
   @media all and (min-width: 991px) {
     font-size: 14px;
   }
@@ -67,7 +69,10 @@
   padding-top: 15px;
   display: inline-block;
   clear: both;
+  font-weight: 600;
   .credit-card-desc-font();
+  font-family: 'iCuracao-Medium';
+  font-weight: 500;
   @media all and (max-width: 901px) {
     padding: 10px 0 0 20px;
   }
@@ -82,6 +87,7 @@
     margin-right: 5px;
     font-size: 16px;
     font-family: 'iCuracao-Regular';
+    font-weight: 500;
     @media all and (max-width: 991px) {
       font-size: 14px;
       margin-bottom: 10px;
@@ -106,6 +112,7 @@
     padding: 0 20px;
     font-size: 16px;
     font-family: 'iCuracao-Regular';
+    font-weight: 500;
 
     &:hover {
       text-decoration: underline;
@@ -183,7 +190,7 @@
                 letter-spacing: 1px;
                 font-weight: normal;
                 font-family: 'iCuracao-Medium';
-                font-weight: 600;
+                font-weight: 500;
                 @media all and (max-width: 767px) {
                   padding-left: 20px;
                   padding-right: 20px;
@@ -211,6 +218,7 @@
               border-top: 1px solid @desc-border;
               padding: 15px;
               font-family: 'iCuracao-Regular';
+              font-weight: 500;
               @media all and (max-width: 767px) {
                 padding: 20px;
                 margin-top: 0;
@@ -257,7 +265,9 @@
                   }
                 }
 
-                fieldset.review-field-ratings {}
+                fieldset.review-field-ratings >.label {
+                  font-size: 16px;
+                }
 
                 .control {
                   .nested {
@@ -272,6 +282,14 @@
                           height: 25px;
                           letter-spacing: 10px;
                           line-height: 14px;
+                        }
+                        label{
+                          &:before {
+                            font-size: 20px;
+                            height: 25px;
+                            letter-spacing: 10px;
+                            line-height: 14px;
+                          }
                         }
                       }
                     }
@@ -299,6 +317,7 @@
                       h3 {
                         margin-top: 0;
                         font-family: 'iCuracao-Regular';
+                        font-weight: 500;
                         @media all and (max-width: 767px) {
                           font-size: 16px;
                         }
@@ -311,6 +330,7 @@
                         margin-bottom: 0;
                         padding-left: 20px;
                         font-family: 'iCuracao-Regular';
+                        font-weight: 500;
                       }
                     }
                   }
@@ -382,7 +402,11 @@
                 font-size: 24px;
                 margin-bottom: 8px;
                 font-family: 'iCuracao-Regular';
+                font-weight: 500;
                 color: @black;
+                @-moz-document url-prefix() {
+                  color: red;
+                }
                 @media all and (max-width: 991px) {
                   font-size: 20px;
                 }
@@ -505,6 +529,7 @@
                         font-size: @org-price;
                         color: @content-label-grey;
                         font-family: 'iCuracao-Medium';
+                        font-weight: 500;
                         margin-right: 10px;
                         font-weight: normal;
                         @media all and (min-width: 768px) {
@@ -517,7 +542,10 @@
                           color: #282828;
                           font-size: @mrp-price;
                           font-family: 'iCuracao-Medium';
-                          font-weight: normal;
+                          font-weight: 500;
+                          @media all and (max-width: 991px) {
+                            font-size: 22px;
+                          }
 
                           .credit-card-emi {
                             .credit-card-desc {
@@ -526,11 +554,11 @@
 
                               .emi-amount {
                                 color: @green-color-pdp;
-                                font-weight: normal;
                                 font-size: 18px;
                                 display: inline-block;
                                 clear: both;
                                 font-family: 'iCuracao-Regular';
+                                font-weight: 500;
                                 @media all and (max-width: 991px) {
                                   font-size: 16px;
                                 }
@@ -541,14 +569,11 @@
                           .credti-card-apply {
                             display: inline-block;
                             clear: both;
+                            font-weight: 500;
 
                             a {
                               color: @link-blue;
                             }
-                          }
-                          font-family: 'iCuracao-Medium';
-                          @media all and (max-width: 991px) {
-                            font-size: 22px;
                           }
                         }
                       }
@@ -562,7 +587,7 @@
 
                       .emi-amount {
                         color: @green-color-pdp;
-                        font-weight: normal;
+                        font-weight: 500;
                         font-size: 18px;
                         font-family: 'iCuracao-Regular';
                         @media all and (max-width: 991px) {
@@ -594,7 +619,7 @@
                 .emi-amount {
                   .price {
                     color: #81b800;
-                    font-weight: normal;
+                      font-weight: 500;
                     font-size: 18px;
                     margin-right: 5px;
                     font-family: 'iCuracao-Regular';
@@ -698,7 +723,7 @@
                 border: 1px solid @content-light-grey;
                 color: @link-blue;
                 font-size: 14px;
-                font-weight: normal;
+                font-weight: 500;
                 font-family: 'iCuracao-Medium';
                 padding: 5px 30px;
                 text-transform: uppercase;
