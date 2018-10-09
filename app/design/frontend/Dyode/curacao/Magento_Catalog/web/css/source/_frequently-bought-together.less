@@ -5,54 +5,73 @@
 * @author  Sangeetha D <sangeetha.d@dyode.com>
 * PARTIAL - COMMON STYLING Frequently bought items section
 ****************************************************************/
-.catalog-product-view{
-.frequently-bought-items {
-  clear: both;
-  width: 100%;
-  float: left;
-  border-top: 1px solid @content-light-grey;
-  @media all and (max-width: 901px) {
-    border-top: none;
-  }
-  h3 {
-    text-align: center;
-    margin-top: 40px;
-    font-family: 'iCuracao-Regular';
-    font-size: 24px;
+* {
+  //  border: 1px solid;
+}
+
+.catalog-product-view {
+  .frequently-bought-items {
+    clear: both;
+    width: 100%;
+    float: left;
+    border-top: 1px solid #d4d4d4;
+    order: 3;
     @media all and (max-width: 901px) {
-      border-top: 1px solid @content-light-grey;
-      border-bottom: 1px solid @content-light-grey;
-      margin: 0;
-      font-size: 18px;
-      padding: 15px 0;
-    }
-  }
-  .frequently-product-block {
-    display: flex;
-    width: 70%;
-    margin: 0 auto;
-    margin-top: 45px;
-    @media all and (max-width: 1260px) {
-      width: 80%;
-    }
-    @media all and (max-width: 990px) {
-      width: 100%;
-      margin-top: 20px;
-    }
-    .plus-item{
-      position: relative;
-      .include-item {
-        padding: 5px;
-        img {
-          position: absolute;
-          top: 50%;
-          right: 5px;
-          transform: translateY(-50%);
-        }
-        }
+      border-top: none;
     }
 
+    h3 {
+      text-align: center;
+      margin-top: 40px;
+      font-family: 'iCuracao-Regular';
+      font-size: 24px;
+
+      @media all and (max-width: 901px) {
+        border-top: 1px solid #d4d4d4;
+        border-bottom: 1px solid #d4d4d4;
+        margin: 0;
+        font-size: 18px;
+        padding: 15px 0;
+      }
+      @media all and (max-width: 767px) {
+        text-align: left;
+        text-indent: 15px;
+      }
     }
+
+    .frequently-product-block {
+      display: flex;
+      width: 70%;
+      margin: 45px auto 0;
+      padding: 0 20px;
+      @media all and (max-width: 1260px) {
+        width: 80%;
+      }
+      @media all and (max-width: 990px) {
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      .plus-item {
+        position: relative;
+
+        .include-item {
+          padding: 5px;
+
+          img {
+            position: absolute;
+            top: 50%;
+            right: 5px;
+            transform: translateY(-50%);
+            @media all and (max-width: 478px) {
+              position: static;
+              transform: none;
+            }
+          }
+        }
+      }
+    }
+
     .frequent-item-list {
       padding-left: 0;
       width: 100%;
@@ -60,25 +79,27 @@
       margin-bottom: 0;
       @media all and (max-width: 478px) {
         display: initial;
-        padding-left: 15px;
-        width: 95%;
+        //  padding-left: 15px;
+        //  width: 95%;
       }
+
       li {
         list-style: none;
         width: 30%;
         @media all and (max-width: 478px) {
           width: 100%;
         }
+
         &.plus-item {
           width: auto;
           padding: 5px;
           @media all and (max-width: 478px) {
-            padding: 7px 0;
+            padding: 10px 0 0;
             clear: both;
-            float: left;
             width: 100%;
             text-align: center;
           }
+
           .include-item {
             img {
               @media all and (max-width: 767px) {
@@ -94,24 +115,27 @@
             }
           }
         }
+
         .product {
           width: 100%;
           @media all and (max-width: 478px) {
             clear: both;
             float: left;
+            text-align: center;
           }
+
           &.frequent-item {
             position: relative;
             top: -21px;
             @media all and (max-width: 478px) {
               .prod-details {
                 img {
-                  float: left;
                   margin-right: 10px;
                 }
               }
             }
           }
+
           .prod-details {
             width: 70%;
             margin: 0 auto;
@@ -119,15 +143,16 @@
               width: 80%;
             }
             @media all and (max-width: 767px) {
-              width: 90%;
+              width: 100%;
             }
-            @media all and (max-width: 478px) {
-              width: 95%;
-              display: inline-block;
-            }
-            .img-wrapper{
+
+            .img-wrapper {
               min-height: 175px;
+              @media all and (max-width: 478px) {
+                min-height: auto;
+              }
             }
+
             .prod-img {
               width: 150px;
               margin-top: 22px;
@@ -144,17 +169,22 @@
                 width: 120px;
               }
             }
+
             .price-details {
               @media all and (max-width: 478px) {
-                float: right;
-                margin-top: 40px;
+                margin-top: 20px;
               }
+
               .name {
                 font-size: 14px;
                 color: rgba(51, 51, 51, 255);
                 text-align: left;
                 font-weight: 500;
                 font-family: 'iCuracao-Medium';
+
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
                 @media all and (max-width: 599px) {
                   font-size: 13px;
                 }
@@ -163,16 +193,19 @@
                 }
                 @media all and (max-width: 478px) {
                   font-size: 14px;
+                  text-align: center;
                 }
                 @media all and (max-width: 375px) {
                   font-size: 12px;
                 }
               }
+
               .price {
                 margin-top: 10px;
                 color: rgba(51, 51, 51, 255);
                 font-size: 18px;
                 font-family: 'iCuracao-Regular';
+                font-weight: 500;
                 @media all and (max-width: 991px) {
                   font-size: 16px;
                 }
@@ -184,18 +217,22 @@
                 }
                 @media all and (max-width: 478px) {
                   font-size: 16px;
+                  overflow: hidden;
                 }
                 @media all and (max-width: 375px) {
                   font-size: 14px;
                 }
+
                 label {
                   font-weight: 600;
                 }
+
                 .off-price {
-                  color:#81b800;
-                  float: right;
+                  color: #81b800;
                   font-size: 15px;
-                  font-family: 'iCuracao-Regular';
+                  font-family: 'iCuracao-light';
+                  margin-left: 20px;
+                  margin-top: 4px;
                   @media all and (max-width: 991px) {
                     font-size: 14px;
                   }
@@ -223,11 +260,13 @@
           position: absolute;
           opacity: 0;
         }
+
         .frequent-checkbox + label {
           position: relative;
           cursor: pointer;
           padding: 0;
         }
+
         .frequent-checkbox + label:before {
           content: '';
           margin-right: 10px;
@@ -237,17 +276,18 @@
           height: 20px;
           background: white;
           -webkit-box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
-          -moz-box-shadow:    inset 0 2px 5px rgba(0, 0, 0, 0.25);
-          box-shadow:         inset 0 2px 5px rgba(0, 0, 0, 0.25);
+          -moz-box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
+          box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
           border: 1px solid #3857f3;
           @media all and (max-width: 767px) {
             width: 17px;
             height: 17px;
           }
         }
+
         .frequent-checkbox:checked + label:before {
           background-color: #3857f3;
-          background-image: url(../images/frequent-select.png);
+          background-image: url("../images/frequent-select.png");
           @media all and (max-width: 767px) {
             width: 17px;
             height: 17px;
@@ -256,41 +296,40 @@
         }
       }
     }
-    .frequently-bought-adon-sum-block{
-      @media all and (min-width: 991px) {
-        border-top: 1px solid @content-light-grey;
-      }
+
+    .frequently-bought-adon-sum-block {
+      border-top: 1px solid #d4d4d4;
+
       .frequently-bought-adon-sum {
         margin: 0 auto;
-        width: 100% !important;
-        padding: 20px 0 !important;
+        padding: 20px 0 30px !important;
         @media all and (min-width: 991px) {
-          width: 80% !important;
           padding-top: 0;
         }
+        @media all and (max-width: 767px) {
+          padding: 20px 0 0 !important;
+        }
+
         .price-adons {
           display: flex;
-          position: relative;
-          @media all and (max-width: 478px) {
-            display: contents;
-            position: static;
+          @media all and (max-width: 767px) {
+            flex-direction: column;
           }
+
           .price-sum {
-            display: inline-flex;
-            width: 75%;
-            float: left;
-            @media all and (max-width: 478px) {
-              width: 100%;
-              float: none;
-              padding-bottom: 20px;
-              padding-top: 20px;
-              margin-bottom: 20px;
-              border-top: 1px solid @content-light-grey;
-              border-bottom: 1px solid @content-light-grey;
+            display: flex;
+            justify-content: flex-end;
+            flex-basis: 65%;
+            @media all and (max-width: 991px) {
+              justify-content: space-between;
             }
-            .price-block  {
+            @media all and (max-width: 767px) {
+              padding: 0 15px;
+            }
+
+            .price-block {
               width: auto;
-              padding: 0 100px;
+              padding: 0 80px;
               text-align: left;
               @media all and (max-width: 1280px) {
                 padding: 0 80px;
@@ -299,76 +338,42 @@
                 padding: 0 50px;
               }
               @media all and (max-width: 990px) {
-                padding: 0 45px;
+                padding: 0 27px;
               }
               @media all and (max-width: 767px) {
-                padding: 0 35px;
+                padding: 0;
               }
-              @media all and (max-width: 699px) {
-                padding: 0 25px;
-              }
-              @media all and (max-width: 599px) {
-                padding: 0 15px;
-              }
-              @media all and (max-width: 540px) and (min-width: 479px) {
-                padding: 0 9px;
-              }
-              @media all and (max-width: 478px) {
-                padding: 0 28px;
-              }
-              @media all and (max-width: 420px) {
-                padding: 0 23px;
-              }
-              @media all and (max-width: 380px) {
-                padding: 0 20px;
-              }
-              @media all and (max-width: 345px) {
-                padding: 0 10px;
-              }
+
               label {
                 color: @content-light-grey;
-                font-size: 13px;
+                font-size: 16px;
                 font-family: 'iCuracao-Light';
-                @media all and (max-width: 767px) {
-                  font-size: 11px;
-                }
-                @media all and (max-width: 478px) {
-                  font-size: 12px;
-                }
-                @media all and (max-width: 380px) {
-                  font-size: 11px;
-                }
-              }
-              .price {
-                color: #333;
-                font-size:24px;
-                font-weight: 500;
-                margin-bottom: 0;
-                font-family: 'iCuracao-Medium';
-                margin-top: 15px;
-                @media all and (max-width: 990px) {
-                  font-size: 16px;
-                  margin-top: 15px;
-                }
-                @media all and (max-width: 767px) {
-                  font-size: 15px;
-                }
-                @media all and (max-width: 599px) and (min-width: 479px) {
+
+                @media all and (max-width:478px) {
                   font-size: 14px;
                 }
-                @media all and (max-width: 478px) {
-                  font-size: 16px;
-                  margin-top: 5px;
+              }
+
+              .price {
+                color: #333;
+                font-size: 24px;
+                font-weight: 600;
+                margin-bottom: 0;
+                font-family: 'iCuracao-Medium';
+                margin-top: 8px;
+                @media all and (max-width:478px) {
+                  font-size: 18px;
                 }
-                @media all and (max-width: 380px) {
-                  font-size: 10px;
+                @media all and (max-width:360px) {
+                  font-size: 16px;
                 }
               }
             }
+
             .symbol {
               padding: 5px;
               font-size: 25px;
-              color: @content-dark-grey;
+              color: black;
               font-weight: bold;
               position: relative;
               top: 25px;
@@ -385,61 +390,68 @@
               }
             }
           }
-          .add-bundle-btn {
-            position: absolute;
-            right: 0;
-            top: 13px;
-            @media all and (max-width: 990px) {
-              right: 20px;
-              top: 0;
+
+          form {
+            flex-basis: 40%;
+            padding-top: 6px;
+            @media all and (max-width: 767px) {
+              padding-top: 0;
+              margin-top: 20px;
+              border-top: 1px solid #d4d4d4;
             }
-            @media all and (max-width: 478px) {
-              position: static;
-              clear: both;
-              padding: 0 10px;
-            }
-            button {
-              background-color: @btn-orange;
-              border: 1px solid @btn-orange;
-              color: #fff;
-              width: 100%;
-              border-radius: 0;
-              padding: 12px 15px;
-              text-transform: uppercase;
-              box-shadow: none;
-              font-size: 14px;
-              position: relative;
-              top: -5px;
-              font-family: 'iCuracao-Regular';
-              @media all and (max-width: 477px) {
-                position: static;
-                clear: both;
+
+            .action.add-bundle-btn {
+              margin-left: 15px;
+              @media all and (max-width: 1024px) {
+                text-align: center;
+                margin-left: 0;
               }
-              @media all and (max-width: 990px) {
-                top: 0;
-                font-size: 14px;
+              @media all and (max-width: 870px) {
+                text-align: left;
               }
-              @media all and (max-width: 767px) and (min-width: 600px) {
-                font-size: 13px;
+              @media all and (max-width: 767px) {
+                padding: 15px;
               }
-              @media all and (max-width: 599px) and (min-width: 479px) {
-                font-size: 12px;
-                padding: 9px;
-                top: 5px;
-              }
-              &:active {
+              @media all and (max-width: 478px) {}
+
+              button.add-bundle-btn {
+                background-color: @btn-orange;
+                border: 1px solid @btn-orange;
+                color: #fff;
+                width: 250px;
+                border-radius: 2px;
+                padding: 12px 38px;
+                text-transform: uppercase;
                 box-shadow: none;
-              }
-              span {
-                position: relative;
-                top: -5px;
+                font-size: 14px;
+                text-align: center;
+                font-family: 'iCuracao-Regular';
+
+                @media all and (max-width: 767px) {
+                  width: 100%;
+                }
+
+                &:active {
+                  box-shadow: none;
+                }
+                &:hover {
+                  background-color: #d7470f;
+                  border: 1px solid #d7470f;
+                  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.12);
+                }
+
                 img {
                   position: relative;
-                  top: 5px;
-                  @media all and (max-width: 599px) and (min-width:479px) {
-                    width: 30px;
-                  }
+                  top: 1px;
+                  width: 30px;
                 }
+
+                span {
+                  position: relative;
+                  top: -5px;
+                  text-transform: capitalize;
+                }
+
               }
             }
           }

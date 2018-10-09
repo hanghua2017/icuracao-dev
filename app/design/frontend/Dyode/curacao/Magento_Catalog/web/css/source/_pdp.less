@@ -19,15 +19,19 @@
 .price-label-font {
   font-size: 16px;
   font-family: 'iCuracao-Regular';
+  font-weight: 500;
   @media all and (min-width: 991px) {
     font-size: 18px;
+  }
+  @media all and (max-width: 476px) {
+    font-size: 14px;
   }
 }
 
 .price-font {
   font-size: 14px !important;
   font-family: 'iCuracao-Medium';
-  font-weight: normal;
+  font-weight: 500;
   @media all and (min-width: 991px) {
     font-size: 16px !important;
   }
@@ -36,7 +40,7 @@
 .special-price-font {
   font-size: 20px;
   font-family: 'iCuracao-Medium';
-  font-weight: normal;
+  font-weight: 500;
   @media all and (min-width: 991px) {
     font-size: 22px;
   }
@@ -54,6 +58,7 @@
   font-size: 12px;
   color: @black;
   font-family: 'iCuracao-Regular';
+  font-weight: 500;
   @media all and (min-width: 991px) {
     font-size: 14px;
   }
@@ -64,7 +69,10 @@
   padding-top: 15px;
   display: inline-block;
   clear: both;
+  font-weight: 600;
   .credit-card-desc-font();
+  font-family: 'iCuracao-Medium';
+  font-weight: 500;
   @media all and (max-width: 901px) {
     padding: 10px 0 0 20px;
   }
@@ -79,6 +87,7 @@
     margin-right: 5px;
     font-size: 16px;
     font-family: 'iCuracao-Regular';
+    font-weight: 500;
     @media all and (max-width: 991px) {
       font-size: 14px;
       margin-bottom: 10px;
@@ -103,6 +112,7 @@
     padding: 0 20px;
     font-size: 16px;
     font-family: 'iCuracao-Regular';
+    font-weight: 500;
 
     &:hover {
       text-decoration: underline;
@@ -156,6 +166,12 @@
             }
 
             .item.title {
+              border-top: 3px solid #ffffff;
+
+              &:hover {
+                background: transparent !important;
+              }
+
               &.active {
                 border-top: 3px solid @theme-color;
 
@@ -174,9 +190,18 @@
                 letter-spacing: 1px;
                 font-weight: normal;
                 font-family: 'iCuracao-Medium';
+                font-weight: 500;
                 @media all and (max-width: 767px) {
                   padding-left: 20px;
                   padding-right: 20px;
+                }
+                @media all and (max-width: 467px) {
+                  padding-left: 10px;
+                  padding-right: 10px;
+                }
+
+                &:after {
+                  right: 15px;
                 }
               }
 
@@ -193,9 +218,22 @@
               border-top: 1px solid @desc-border;
               padding: 15px;
               font-family: 'iCuracao-Regular';
+              font-weight: 500;
               @media all and (max-width: 767px) {
+                padding: 20px;
                 margin-top: 0;
                 border-bottom: 1px solid @desc-border;
+              }
+              @media all and (max-width: 467px) {
+                padding: 10px;
+              }
+
+              button.action {
+                background: #97d70b;
+                border-radius: 3px;
+                border: none;
+                color: white;
+                font-weight: 600;
               }
 
               .table-wrapper {
@@ -221,6 +259,41 @@
 
                 .review-legend {
                   font-size: small;
+
+                  strong {
+                    margin-top: 8px;
+                  }
+                }
+
+                fieldset.review-field-ratings >.label {
+                  font-size: 16px;
+                }
+
+                .control {
+                  .nested {
+                    .review-field-rating {
+                      label {}
+
+                      .review-control-vote {
+                        margin-bottom: 35px;
+
+                        &:before {
+                          font-size: 20px;
+                          height: 25px;
+                          letter-spacing: 10px;
+                          line-height: 14px;
+                        }
+                        label{
+                          &:before {
+                            font-size: 20px;
+                            height: 25px;
+                            letter-spacing: 10px;
+                            line-height: 14px;
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
 
@@ -244,6 +317,7 @@
                       h3 {
                         margin-top: 0;
                         font-family: 'iCuracao-Regular';
+                        font-weight: 500;
                         @media all and (max-width: 767px) {
                           font-size: 16px;
                         }
@@ -256,6 +330,7 @@
                         margin-bottom: 0;
                         padding-left: 20px;
                         font-family: 'iCuracao-Regular';
+                        font-weight: 500;
                       }
                     }
                   }
@@ -265,11 +340,6 @@
                   display: none !important;
                 }
               }
-              // .review-add {
-              //   // .block-content {
-              //   //   padding: 20px;
-              //   // }
-              // }
             }
           }
         }
@@ -278,10 +348,14 @@
           clear: both;
           float: left;
           width: 100%;
-          -webkit-box-shadow: 0 0 7px 1px rgba(30,30,30,0.1);
-          -moz-box-shadow: 0 0 7px 1px rgba(30,30,30,0.1);
-          box-shadow: 0 0 7px 1px rgba(30,30,30,0.1);
+          -webkit-box-shadow: 0 0 13px 2px rgba(30, 30, 30, 0.1);
+          -moz-box-shadow: 0 0 13px 2px rgba(30, 30, 30, 0.1);
+          box-shadow: 0 0 13px 2px rgba(30, 30, 30, 0.1);
           margin-bottom: 30px;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          flex-wrap: wrap;
           @media all and (max-width: 901px) {
             display: -webkit-flex;
             display: -ms-flexbox;
@@ -290,23 +364,19 @@
             -ms-flex-direction: column;
             flex-direction: column;
           }
+          @media all and (max-width: 767px) {
+            margin-top: 30px;
+          }
           //styling for product information section - right side //
           .product-info-main {
-            width: 55%;
+            width: 60% !important;
             padding: 25px;
-            border-left: 1px solid @content-light-grey;
+            order: 2;
             @media all and (min-width: 991px) {
-              padding: 40px 25px;
-              min-height: 705px;
-            }
-            @media all and (max-width: 1339px) {
-              width: 52%;
-            }
-            @media all and (max-width: 949px) {
-              width: 50%;
+              padding: 40px 30px;
             }
             @media all and (max-width: 901px) {
-              width: 100%;
+              width: 100% !important;
               padding-left: 0;
               padding-right: 0;
               border-left: none;
@@ -315,6 +385,7 @@
             //Product name
             .page-title-wrapper {
               float: left;
+              width: 80%;
               @media all and (max-width: 901px) {
                 padding-left: 20px;
                 padding-right: 20px;
@@ -323,12 +394,19 @@
                 padding-left: 10px;
                 padding-right: 10px;
               }
+              @media all and (max-width: 360px) {
+                width: 75%;
+              }
 
               .page-title {
                 font-size: 24px;
                 margin-bottom: 8px;
                 font-family: 'iCuracao-Regular';
+                font-weight: 500;
                 color: @black;
+                @-moz-document url-prefix() {
+                  color: red;
+                }
                 @media all and (max-width: 991px) {
                   font-size: 20px;
                 }
@@ -337,7 +415,7 @@
             //Price beat link iconext-decoration: line-through;
             .price-beat-link {
               float: right;
-              margin-top: -5px;
+              margin-top: 10px;
               margin-bottom: 10px;
               @media all and (max-width:901px) {
                 padding-right: 20px;
@@ -351,11 +429,12 @@
             .product-info-price {
               display: inline-block;
               clear: both;
-              border-top: 1px solid @content-light-grey;
-              border-bottom: 1px solid @content-light-grey;
+              border-top: 1px solid #d4d4d4;
+              border-bottom: 1px solid #d4d4d4;
               float: left;
-              padding: 15px 0;
               margin: 0;
+              padding-bottom: 35px;
+              padding-top: 25px;
               @media all and (max-width: 990px) {
                 padding: 10px 0;
               }
@@ -389,7 +468,6 @@
 
                 .price-container > span {
                   display: inline-block;
-                  // margin: 0 10px 0 0px;
                 }
                 //Styling for product price section
                 span {
@@ -427,7 +505,7 @@
                   }
                   //Styling for special price
                   &.special-price {
-                    margin-right: 20px;
+                    margin-right: 12px;
                     @media all and (max-width: 476px) {
                       margin-right: 15px;
                     }
@@ -451,6 +529,7 @@
                         font-size: @org-price;
                         color: @content-label-grey;
                         font-family: 'iCuracao-Medium';
+                        font-weight: 500;
                         margin-right: 10px;
                         font-weight: normal;
                         @media all and (min-width: 768px) {
@@ -463,7 +542,10 @@
                           color: #282828;
                           font-size: @mrp-price;
                           font-family: 'iCuracao-Medium';
-                          font-weight: normal;
+                          font-weight: 500;
+                          @media all and (max-width: 991px) {
+                            font-size: 22px;
+                          }
 
                           .credit-card-emi {
                             .credit-card-desc {
@@ -472,11 +554,11 @@
 
                               .emi-amount {
                                 color: @green-color-pdp;
-                                font-weight: normal;
                                 font-size: 18px;
                                 display: inline-block;
                                 clear: both;
                                 font-family: 'iCuracao-Regular';
+                                font-weight: 500;
                                 @media all and (max-width: 991px) {
                                   font-size: 16px;
                                 }
@@ -487,14 +569,11 @@
                           .credti-card-apply {
                             display: inline-block;
                             clear: both;
+                            font-weight: 500;
 
                             a {
                               color: @link-blue;
                             }
-                          }
-                          font-family: 'iCuracao-Medium';
-                          @media all and (max-width: 991px) {
-                            font-size: 22px;
                           }
                         }
                       }
@@ -508,7 +587,7 @@
 
                       .emi-amount {
                         color: @green-color-pdp;
-                        font-weight: normal;
+                        font-weight: 500;
                         font-size: 18px;
                         font-family: 'iCuracao-Regular';
                         @media all and (max-width: 991px) {
@@ -540,7 +619,7 @@
                 .emi-amount {
                   .price {
                     color: #81b800;
-                    font-weight: normal;
+                      font-weight: 500;
                     font-size: 18px;
                     margin-right: 5px;
                     font-family: 'iCuracao-Regular';
@@ -596,14 +675,16 @@
                   .fieldset {
                     .field.qty {
                       label {
-                        font-size: 16px;
-                        color: @content-light-grey;
+                        font-size: 18px;
+                        color: #838282;
                         margin-right: 20px;
                         @media all and (max-width: 991px) {
-                          font-size: 14px;
+                          font-size: 16px;
+                          margin-right: 23px;
                         }
                         @media all and (max-width: 476px) {
-                          font-size: 13px;
+                          font-size: 14px;
+                          margin-right: 24px;
                         }
 
                         span {
@@ -615,6 +696,12 @@
                         display: inline-block;
                         min-width: 50px;
                         height: 40px;
+
+                        .qty {
+                          width: 60px;
+                          height: 40px;
+                          text-align: center;
+                        }
                       }
                     }
                   }
@@ -636,7 +723,7 @@
                 border: 1px solid @content-light-grey;
                 color: @link-blue;
                 font-size: 14px;
-                font-weight: normal;
+                font-weight: 500;
                 font-family: 'iCuracao-Medium';
                 padding: 5px 30px;
                 text-transform: uppercase;
@@ -656,18 +743,17 @@
           //Styling for product image section - left side //
           .product {
             &.media {
-              width: 45%;
+              width: 40%;
               padding: 50px 20px;
               margin-bottom: 0;
-              @media all and (min-width: 901px) {
-                min-height: 700px;
-              }
+              border-right: 1px solid #d4d4d4;
               @media all and (max-width: 901px) {
                 -ms-flex-order: -1;
                 -webkit-order: -1;
                 order: -1;
                 width: 100%;
                 padding: 20px 0;
+                border-right: none;
               }
 
               .gallery-placeholder {
@@ -687,9 +773,6 @@
                         .fotorama__img {
                           @media all and (min-width: 991px) and (max-width: 1024px) {
                             max-width: 100%;
-                          }
-                          @media all and (max-width: 990px) and (min-width: 768px) {
-                            //max-width: 4%;
                           }
                         }
                       }
@@ -718,8 +801,6 @@
                               .fotorama__dot {
                                 background-color: @content-light-grey;
                                 border-color: @content-light-grey;
-                                // @content-light-grey: #aeaeae;
-                                // @content-dark-grey: #5c5c5c;
                               }
                             }
 
@@ -735,10 +816,6 @@
                     }
                   }
                 }
-              }
-              .magnifier-preview{
-                //width: 70% !important;
-              //  height:70% !important;
               }
             }
           }
