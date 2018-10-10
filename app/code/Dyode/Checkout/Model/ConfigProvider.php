@@ -21,6 +21,7 @@ class ConfigProvider implements ConfigProviderInterface
    protected $_priceHelper;
    protected $_canApply;
    protected $_linked;
+   protected $_cmsBlock;
 
 
    public function __construct(
@@ -39,7 +40,14 @@ class ConfigProvider implements ConfigProviderInterface
        $this->_customerRepositoryInterface = $customerRepositoryInterface;
        $this->_cart = $cart;
        $this->_priceHelper = $priceHelper;
+       $this->_cmsBlock = $this->constructBlock($blockId);
    }
+
+    public function constructBlock($blockId){
+        $block = $this->_layout->createBlock('Magento\Cms\Block\Block')
+            ->setBlockId($blockId)->toHtml();
+        return $block;
+    }
 
    public function getConfig()
    {
@@ -47,6 +55,7 @@ class ConfigProvider implements ConfigProviderInterface
       $configArr['limit']       =   $this->getLimit();
       $configArr['total']       =   $this->getDownPayment();
       $configArr['linked']      =   $this->_linked;
+      $configArr['cms_block']   =   $this->_cmsBlock;
       return $configArr;
    }
 
