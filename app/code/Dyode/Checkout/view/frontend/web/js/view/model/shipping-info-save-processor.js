@@ -1,7 +1,11 @@
 /**
- * @package   Dyode
- * @author    kavitha@dyode.com
- * Date       06/09/2018
+ * Dyode_Checkout Module
+ *
+ * Extending Magento_Checkout shipping core js file
+ *
+ * @module    Dyode_Checkout
+ * @author    Mathew Joseph <mathew.joseph@dyode.com>
+ * @copyright Copyright © Dyode
  */
 
 /**
@@ -9,11 +13,14 @@
  * button in shipping step. Magento uses default processor to do this.
  * We are adding this processor in order to fire a custom api call instead
  * of Magento's default api call.
- * 
+ *
  * Why we need a custom api call? This is because, all the shipping calculations
  * are here based on quote item based instead of the quote. So basically we need
  * multi-shipping inside onpage-checkout!!!
  */
+
+'use strict';
+
 define([
     'ko',
     'Magento_Checkout/js/model/quote',
@@ -24,7 +31,7 @@ define([
     'Magento_Checkout/js/model/full-screen-loader',
     'Magento_Checkout/js/action/select-billing-address',
     'Magento_Checkout/js/model/shipping-save-processor/payload-extender',
-    './shipping-data-provider',
+    'Dyode_Checkout/js/view/model/shipping-data-provider',
     'Magento_Checkout/js/model/url-builder',
     'Magento_Customer/js/model/customer'
 ], function (
@@ -41,13 +48,11 @@ define([
     urlBuilder,
     customer
 ) {
-        'use strict';
-
         return {
 
             /**
              * Save shipping information.
-             * 
+             *
              * shipping_carrier_info is an additional payload we are adding in order
              * to hold quote item based shipping information.
              */
@@ -67,7 +72,7 @@ define([
                         shipping_carrier_code: null, //keeping this for legacy
                         shipping_carrier_info: shippingData
                     }
-                }
+                };
 
                 payloadExtender(payload);
 
@@ -101,7 +106,7 @@ define([
                 var requestInfo = {
                     url: '/carts/mine/custom-shipping-info',
                     params: {}
-                }
+                };
 
                 if (!customer.isLoggedIn()) {
                     requestInfo = {
@@ -109,11 +114,11 @@ define([
                         params: {
                             cartId: quote.getQuoteId()
                         }
-                    }
+                    };
                 }
 
                 return urlBuilder.createUrl(requestInfo.url, requestInfo.params);
-            },
+            }
 
         };
     });

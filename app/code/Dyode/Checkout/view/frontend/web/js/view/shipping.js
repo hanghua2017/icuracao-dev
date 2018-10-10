@@ -153,12 +153,6 @@ define([
                 emailValidationResult = customer.isLoggedIn(),
                 field;
 
-            if (!quote.shippingMethod()) {
-                this.errorValidationMessage($t('Please specify a shipping method.'));
-
-                return false;
-            }
-
             if (!customer.isLoggedIn()) {
                 $(loginFormSelector).validation();
                 emailValidationResult = Boolean($(loginFormSelector + ' input[name=username]').valid());

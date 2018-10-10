@@ -1,20 +1,21 @@
 /**
- * Dyode_CheckoutDeliveryMethod Magento2 Module.
+ * Dyode_Checkout Module
  *
- * Add a new checkout step in checkout
+ * Extending Magento_Checkout shipping core js file
  *
- * @module    Dyode_CheckoutDeliveryMethod
+ * @module    Dyode_Checkout
+ * @author    Mathew Joseph <mathew.joseph@dyode.com>
  * @copyright Copyright © Dyode
- * @author Rajeev K Tomy <rajeev.ktomy@dyode.com>
  */
+
+'use strict';
 
 /**
   * This holds shipping method information over each quote items in a quote.
   */
 define(['ko'], function (ko) {
-    'use strict';
 
     return {
         shippingInfo: ko.observableArray([])
-    }
+    };
 });
