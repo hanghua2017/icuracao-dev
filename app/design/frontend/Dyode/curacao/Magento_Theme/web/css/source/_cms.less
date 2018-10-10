@@ -3,6 +3,8 @@
 @textColor:#333333;
 @gray-text:rgba(51,51,51,255);
 @orange-off: #ff4200;
+@box-orange: #f26722;
+@content-light-grey: #c3c3c3;
 .cms-page-view{
 	.breadcrumbs{
 		display: none !important;
@@ -215,6 +217,45 @@
 						font-size: 12px;
 					}
 				}
+				.product-reviews-summary {
+					display: none;
+				  margin-top: 10px;
+				  float: none;
+					text-align: center;
+				  @media all and (max-width: 901px) {
+				    padding-left: 0;
+				    padding-right: 0;
+				    margin: 0;
+				  }
+				  .rating-summary{
+				    margin-right: 10px;
+				    .rating{
+				      background: @box-orange;
+				      color: @white;
+				      padding: 0 3px;
+				      &:after {
+				        content: "";
+				        background-image: url(../images/star.png);
+				        background-repeat: no-repeat;
+				        display: inline-block;
+				        height: 10px;
+				        margin: 4px;
+				        overflow: hidden;
+				        width: 10px;
+				        -webkit-font-smoothing: antialiased;
+				        -moz-osx-font-smoothing: grayscale;
+				        vertical-align: top;
+				        text-align: center;
+				      }
+				    }
+				  }
+				  .reviews-actions{
+				    a{
+				      color: @content-light-grey;
+				      text-decoration: none;
+				    }
+				  }
+				}
 			}
 			&.no-discount {
 				a {
@@ -370,6 +411,45 @@
 						@media screen and (max-width: 768px) {
 							font-size: 12px;
 						}
+					}
+					.product-reviews-summary {
+						display: none;
+						text-align: center;
+					  margin-top: 10px;
+					  float: none;
+					  @media all and (max-width: 901px) {
+					    padding-left: 0;
+					    padding-right: 0;
+					    margin: 0;
+					  }
+					  .rating-summary{
+					    margin-right: 10px;
+					    .rating{
+					      background: @box-orange;
+					      color: @white;
+					      padding: 0 3px;
+					      &:after {
+					        content: "";
+					        background-image: url(../images/star.png);
+					        background-repeat: no-repeat;
+					        display: inline-block;
+					        height: 10px;
+					        margin: 4px;
+					        overflow: hidden;
+					        width: 10px;
+					        -webkit-font-smoothing: antialiased;
+					        -moz-osx-font-smoothing: grayscale;
+					        vertical-align: top;
+					        text-align: center;
+					      }
+					    }
+					  }
+					  .reviews-actions{
+					    a{
+					      color: @content-light-grey;
+					      text-decoration: none;
+					    }
+					  }
 					}
 					.price-box{
 						text-align: center;
