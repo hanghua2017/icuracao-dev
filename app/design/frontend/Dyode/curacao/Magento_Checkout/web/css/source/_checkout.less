@@ -754,6 +754,7 @@ input[type="radio"] {
          .methods-shipping{
            position: relative;
            padding-bottom: 60px;
+           border-bottom: none;
            @media all and (max-width:767px){
              padding-bottom: 30px;
            }
@@ -817,6 +818,156 @@ input[type="radio"] {
                     }
                   }
                 }
+              }
+            }
+            #shipping-method-product-listing
+            {
+              .shipping-method-product-item
+              {
+                clear: both;
+                float: left;
+                width: 100%;
+                margin-bottom: 10px;
+                h2
+                {
+                  font-size: 18px;
+                  font-family: "iCuracao-medium";
+                  margin-bottom: 25px;
+                }
+                .quote-item-details
+                {
+                  @media all and (max-width: 767px)
+                  {
+                    display: flex;
+                  }
+                  .shipping-method-product-image
+                  {
+                    float: left;
+                    width: 80px;
+                    @media all and (max-width: 767px)
+                    {
+                      width: 75px;
+                    }
+                    img
+                    {
+                      width: 100%;
+                    }
+                  }
+                  .shipping-method-product-details
+                  {
+                    float: left;
+                    margin-left: 25px;
+                    @media all and (max-width: 767px)
+                    {
+                      width: calc(100% - 25px);
+                      margin-left: 10px;
+                    }
+                    h4
+                    {
+                      @media all and (max-width: 767px)
+                      {
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                      }
+                    }
+                    h5
+                    {
+                      margin: 10px 0px;
+                      font-size: 14px;
+                      color: @curacao-red-text;
+                    }
+                    h6
+                    {
+                      font-size: 12px;
+                    }
+                  }
+                }
+                .delivery-details
+                {
+                  clear: both;
+                  margin-top: 20px;
+                  float: left;
+                  width: 100%;
+                  .shipping-methods
+                  {
+                    .title
+                    {
+                      font-size: 14px;
+                      font-family: "iCuracao-Medium";
+                      margin-bottom: 10px;
+                    }
+                    .method-list
+                    {
+                      .method-item
+                      {
+                        margin-bottom: 8px;
+                        .label
+                        {
+                          &::before
+                          {
+                            margin-right: 5px;
+                          }
+                          span
+                          {
+                            padding-right: 3px;
+                          }
+                          .price
+                          {
+                            color: @curacao-red-text;
+                            font-family: "iCuracao-Medium";
+
+                          }
+                          .delivery-msg
+                          {
+                            color: @dark-green-color-1;
+                            font-style: italic;
+                          }
+                        }
+                      }
+                    }
+
+                  }
+                  .store-selected
+                  {
+                    .store-headding
+                    {
+                      font-size: 14px;
+                      font-family: "iCuracao-Medium";
+                      margin-bottom: 10px;
+                    }
+                    .store-info
+                    {
+                      font-family: "iCuracao-Medium";
+                      li
+                      {
+                        margin-bottom: 3px;
+                        color: @curacao-gray-text;
+                        &.store-name
+                        {
+                          color: #333;
+                        }
+                      }
+                    }
+                  }
+                  .change-method
+                  {
+                    background: @dark-green-color-1;
+                    color: white;
+                    border: none;
+                    padding: 8px;
+                    margin-top: 10px;
+                    &:hover
+                    {
+                      background: @dark-green-color-2;
+                    }
+                  }
+                }
+              }
+              hr
+              {
+                float: left;
+                width: 100%;
               }
             }
           }
