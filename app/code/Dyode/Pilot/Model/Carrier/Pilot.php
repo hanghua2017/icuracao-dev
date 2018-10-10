@@ -166,4 +166,13 @@ class Pilot extends \Magento\Shipping\Model\Carrier\AbstractCarrier implements
         
         return $pilotBest['TotalQuote'];
     }
+
+    /**
+     * Return Carrier Code
+     *
+     * @return string
+     */
+    public function getCode() {
+        return $this->_code;
+    }
 }
