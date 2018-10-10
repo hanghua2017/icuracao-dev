@@ -89,4 +89,13 @@ class AdsMomentum extends \Magento\Shipping\Model\Carrier\AbstractCarrier implem
     {
         return ['flatrate' => $this->getConfigData('name')];
     }
+    
+    /**
+     * Return Carrier Code
+     *
+     * @return string
+     */
+    public function getCode() {
+        return $this->_code;
+    }
 }
