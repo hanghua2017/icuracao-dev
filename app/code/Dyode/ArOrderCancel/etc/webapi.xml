@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright 2018 Dyode. All rights reserved.
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../app/code/Magento/Webapi/etc/webapi.xsd">
+    <route url="/V1/order/cancel" method="POST">
+        <service class="Dyode\ArOrderCancel\Api\OrderInterface" method="cancelOrder"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+</routes>

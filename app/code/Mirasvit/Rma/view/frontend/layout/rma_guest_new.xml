@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
+        <move element="page.main.title" destination="content" before="rma.rma.new"/>
         <referenceContainer name="content">
             <block name="rma.rma.new" class="Mirasvit\Rma\Block\Rma\Guest\NewGuest" template="rma/guest/new.phtml"  cacheable="false"/>
         </referenceContainer>

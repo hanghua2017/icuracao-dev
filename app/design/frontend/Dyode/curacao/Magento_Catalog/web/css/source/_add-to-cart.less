@@ -6,65 +6,119 @@
 * PARTIAL - COMMON STYLING FOR ADD TO CART, WARRANTY PLAN, WARRANTY PLAN - ADD TO CART POP UP*
 ****************************************************************/
 //Add to cart box
-.catalog-product-view{
-  .add-to-cart-block {
+
+.catalog-product-view {
+  .add-to-cart-block,
+  .update-cart-block {
     width: 100%;
     clear: both;
+    margin-bottom: 20px;
     @media all and (min-width: 768px) {
-    float: left;
+      float: left;
     }
     @media all and (max-width: 767px) {
-    text-align: center;
+      text-align: center;
     }
-    margin-bottom: 15px;
+
     .actions {
       display: inline-block;
       float: left;
-      margin-right: 20px;
-      min-width:200px;
+      margin-right: 15px;
+      min-width: 200px;
       @media all and (max-width: 767px) {
         width: 100%;
       }
-      #product-addtocart-button {
+
+      #product-addtocart-button,
+      #product-updatecart-button {
         background-color: @btn-orange;
         border-color: @btn-orange;
         color: #fff;
         width: 100%;
-        border-radius: 0;
-        padding: 10px 15px;
+        border-radius: 3px;
+        padding: 10px 60px;
         // text-transform: uppercase;
         margin-bottom: 0;
         box-shadow: none;
+
         span {
           position: relative;
-          top: -3px;
-          font-size: 18px;
+          top: -2px;
+          font-size: 14px;
           font-family: 'iCuracao-Regular';
+          font-weight: 600;
         }
+
         img {
           position: relative;
           top: 3px;
+          width: 28px;
+        }
+
+        &:hover {
+          background-color: #d7470f;
+          border: 1px solid #d7470f;
+          box-shadow: 0 4px 6px 0 rgba(0,0,0,0.12);
         }
       }
     }
+
     .shipping-pickup-details {
       display: inline-block;
+      @media all and (max-width: 767px) {
+        margin-top: 20px;
+      }
+
       p {
         font-size: 14px;
         margin: 5px 0;
+
         &.shipping {
-          color: @darkgreen-color;
+          margin-top: 0;
+          color: #81b800;
           font-family: 'iCuracao-Regular';
+              font-weight: 500;
         }
+
         &.pickup-option {
-          a {
+          font-family: 'iCuracao-Medium';
+              font-weight: 500;
+
+          span {
             color: @link-blue;
             font-family: 'iCuracao-Regular';
+                font-weight: 500;
+
             &:hover {
               text-decoration: none;
             }
           }
         }
+      }
+    }
+  }
+  //styling for size configurable field
+  .field.configurable.required {
+    //border:1px solid;
+    overflow: hidden;
+
+    label {
+      float: left;
+      font-size: 16px;
+      color: #838282;
+      font-weight: normal;
+
+      &:after {
+        content: none;
+      }
+    }
+
+    .control {
+      float: left;
+      margin-left: 20px;
+
+      select {
+        max-width: 180px;
       }
     }
   }
@@ -75,71 +129,91 @@
       @media all and (max-width: 991px) {
         margin-bottom: 15px;
       }
+
       .control {
         display: inline-block;
+
         label {
           font-size: 16px;
           clear: both;
           width: 100%;
           color: #333;
           font-family: 'iCuracao-Regular';
+              font-weight: 500;
           @media all and (max-width: 467px) {
             font-size: 15px;
           }
         }
       }
+
       &.color {
         .label {
           position: relative;
           top: -20px;
         }
       }
+
       .label {
-        font-size: 16px;
-        color: @content-light-grey;
+        font-size: 18px;
+        color: #838282;
         margin-right: 20px;
         font-weight: 500;
         font-family: 'iCuracao-Regular';
         @media all and (max-width: 991px) {
-          font-size: 14px;
+          font-size: 16px;
         }
         @media all and (max-width: 476px) {
-          font-size: 13px;
+          font-size: 14px;
         }
       }
+
       .control {
-        margin-top: 20px;
+        margin-top: 15px;
         @media all and (max-width: 467px) {
           text-align: center;
         }
-        .choice {
-          display: inline-block;
-          margin-right: 10px;
-          margin-top: 0;
-          display: inline-flex;
-          //Media query for align the  mount option with same width
-          @media all and (max-width: 1001px) and (min-width: 902px) {
-            min-width: 240px;
-            &:nth-child(1) {
-              margin-bottom: 10px;
-            }
-            input[type=radio]+label {
-              padding: 15px;
-            }
+
+        .options-list {
+          @media all and (max-width:478px) {
+            text-align: left;
           }
-          @media all and (max-width: 467px) {
-            min-width: 240px;
-            &:nth-child(1) {
-              margin-bottom: 10px;
+
+          .choice {
+            display: inline-block;
+            margin-right: 10px;
+            margin-top: 0;
+            display: inline-flex;
+            width: auto;
+            //Media query for align the  mount option with same width
+            @media all and (max-width: 1001px) and (min-width: 902px) {
+              min-width: 240px;
+
+              &:nth-child(1) {
+                margin-bottom: 10px;
+              }
+
+              input[type=radio]+label {
+                padding: 15px;
+              }
+            }
+            @media all and (max-width: 467px) {
+              min-width: 240px;
+
+              &:nth-child(1) {
+                margin-bottom: 10px;
+              }
             }
           }
         }
+
         input[type=radio] {
           display: none;
         }
+
         input[type=radio]+label {
           padding: 15px;
           border: 1px solid #ddd;
+          margin-right: 10px;
           @media all and (max-width: 767px) {
             font-size: 14px;
           }
@@ -149,52 +223,84 @@
           @media all and (max-width: 467px) {
             font-size: 13px;
           }
+
+          &:before {
+            content: none;
+          }
+
+          .price-notice {
+            font-size: 0;
+
+            .price-container {
+              font-size: 14px;
+
+              span {
+                font-weight: 600;
+              }
+            }
+
+            &:before {
+              content: ':';
+              font-size: 14px;
+              margin-right: 4px;
+            }
+          }
         }
+
         input[type=radio]+label:hover {
           border: 1px solid @link-blue;
         }
+
         input[type=radio]:checked+label {
           border: 1px solid @link-blue;
         }
       }
+
       &.options-list {
         margin-bottom: 30px;
       }
     }
   }
   //End Product spec above the add to cart buttons
-
   //product spec WARRANTY PLAN above the add to cart buttons
-  .warranty-option{
+  .warranty-option {
     .head-label {
       font-size: 16px;
       color: @color-orange;
       font-family: 'iCuracao-Regular';
+          font-weight: 500;
       @media all and (max-width: 467px) {
         font-size: 15px;
       }
     }
-    .control{
+
+    .control {
       margin: 20px 0;
-      .options-list{
-        .choice{
-          .label{
+
+      .options-list {
+        .choice {
+          .label {
             vertical-align: unset !important;
-            .detail{
+
+            .detail {
               color: @link-blue;
             }
-            .price-notice{
+
+            .price-notice {
               color: #333 !important;
             }
           }
         }
       }
+
       .checking-box {
         position: relative;
         margin: 20px auto;
-        label{
+
+        label {
           display: inline;
         }
+
         .checking-box-label {
           display: block;
           position: relative;
@@ -255,7 +361,7 @@
           .checkmark {
             &:after {
               left: 3px;
-              top: 0px;
+              top: 0;
               width: 4px;
               height: 7px;
               border: solid @theme-color;
@@ -274,302 +380,420 @@
     }
   }
   //End product spec WARRANTY PLAN above the add to cart buttons
-
   // Common styling for warranty popup and addtocart popup
-  .modal-inner-wrap{
+  .modal-inner-wrap {
     @media all and (min-width: 991px) {
       width: 40% !important;
-      margin: 15rem auto;
+      margin: 10rem auto 15rem;
     }
-    .modal-header{
-      background-color:  @popup-header !important;
+
+    .modal-header {
+      background-color: @popup-header !important;
       padding: 5px 0;
       overflow: hidden;
       color: @black;
       border-bottom: 1px solid @content-light-grey;
-      .modal-title{
+
+      .modal-title {
         font-size: 16px;
         font-family: 'iCuracao-Regular';
         font-weight: 600;
-        padding-top: 10px;
         border-bottom: none !important;
+        padding: 10px 5px;
         @media all and (min-width: 768px) {
           padding-left: 3rem;
           padding-right: 3rem;
         }
       }
       /* The Close Button */
-      .action-close{
+      .action-close {
         color: #aaaaaa;
         font-size: 28px;
         font-weight: bold;
+        width: 70px;
+        @media all and (max-width: 767px) {
+          width: 50px;
+        }
+
+        &:before {
+          margin-top: 6px;
+        }
       }
+
+      .action-close:focus,
+      .action-close:focus,
       .action-close:hover,
-      .action-close:focus,.action-close:hover,
-      .action-close:focus {
+      .action-close:hover {
         color: #000;
         text-decoration: none;
         cursor: pointer;
       }
     }
-    .modal-content{
-    .modal{
-    .modal-content{
-      padding-left: 0 !important;
-      padding-right: 0 !important;
-    }
-    .product-details{
-      padding: 20px 0 20px 0;
-      width: 100%;
-      box-sizing: border-box;
-      @media all and (max-width: 767px) {
-        padding: 10px 5px;
-      }
-      .top-section{
-        clear: both;
-        float: none;
-        .modal-head{
-          float: left;
-          h1{
-            margin-bottom: 10px;
-            span{
-              font-size: 24px;
-              font-family: 'iCuracao-Medium';
-              margin-bottom: 8px;
-              @media all and (max-width: 600px) {
-                font-size: 22px;
-              }
-              @media all and (max-width: 400px) {
-                font-size: 16px;
+
+    .modal-content {
+      .modal {
+        .modal-content {
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+        }
+
+        .product-details {
+          padding: 0 0 20px;
+          margin-top: 20px;
+          width: 100%;
+          box-sizing: border-box;
+          max-height: 400px;
+          overflow: auto;
+          @media all and (max-width: 767px) {
+            padding: 10px 5px;
+            max-height: 300px;
+          }
+
+          .message {
+            .error {
+              font-size: 1.3rem;
+              position: relative;
+              color: #6f4400;
+              background: #fdf0d5;
+              margin: 0 0 10px;
+              padding: 12px 20px 12px 45px;
+
+              &::before {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                font-size: 24px;
+                line-height: 24px;
+                color: #c07600;
+                content: '\e602';
+                font-family: 'luma-icons';
+                margin: -12px 0 0;
+                vertical-align: middle;
+                display: inline-block;
+                font-weight: normal;
+                overflow: hidden;
+                speak: none;
+                left: 10px;
+                top: 21px;
+                width: 30px;
+                position: absolute;
+                text-align: center;
               }
             }
           }
-          p.modal-details{
-            color:@content-light-grey;
-            font-size: 14px;
-            @media all and (max-width: 600px) {
-              font-size: 14px;
+
+          .top-section {
+            clear: both;
+            float: none;
+            position: relative;
+
+            .modal-head {
+              float: left;
+              width: 75%;
+
+              h1 {
+                margin-bottom: 10px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+                span {
+                  font-size: 24px;
+                  font-family: 'iCuracao-Medium';
+                  font-weight: 500;
+                  margin-bottom: 8px;
+                  @media all and (max-width: 600px) {
+                    font-size: 22px;
+                  }
+                  @media all and (max-width: 400px) {
+                    font-size: 16px;
+                  }
+                }
+              }
+
+              p.modal-details {
+                color: @content-light-grey;
+                font-size: 14px;
+                @media all and (max-width: 600px) {
+                  font-size: 14px;
+                }
+                @media all and (max-width: 400px) {
+                  font-size: 12px;
+                }
+              }
             }
-            @media all and (max-width: 400px) {
+
+            .modal-img {
+              width: 15%;
+              float: right;
+              position: absolute;
+              right: 0;
+              @media all and (max-width: 990px) {
+                width: 15%;
+              }
+            }
+          }
+
+          .waranty-details {
+            clear: both;
+            float: none;
+
+            p.price {
+              color: @red-color;
+              font-size: 18px;
+              font-weight: 500;
+              letter-spacing: 0.3px;
+              font-family: 'iCuracao-Regular';
+              @media all and (max-width: 600px) {
+                font-size: 16px;
+              }
+
+              span {
+                font-size: 24px;
+                @media all and (max-width: 600px) {
+                  font-size: 22px;
+                }
+              }
+            }
+
+            ul {
+              list-style: none;
+              margin: 0;
+              padding: 0;
+              margin-bottom: 10px;
+
+              li {
+                margin-bottom: 0;
+                font-family: 'iCuracao-Regular';
+                font-weight: 500;
+              }
+
+              li::before {
+                content: "•";
+                font-size: 20px;
+                margin-right: 10px;
+                color: @button-greybg;
+                @media all and (max-width: 600px) {
+                  font-size: 16px;
+                }
+              }
+            }
+
+            a.learn-more-link {
+              color: @link-blue;
+              font-size: 14px;
+              font-family: 'iCuracao-Regular';
+              font-weight: 500;
+              text-decoration: underline;
+            }
+          }
+        }
+
+        .product-details::-webkit-scrollbar {
+          width: 8px;
+        }
+        /* Track */
+        .product-details::-webkit-scrollbar-track {
+          box-shadow: inset 0 0 8px #ebebeb;
+          background: #ebebeb;
+          border-radius: 10px;
+        }
+        /* Handle */
+        .product-details::-webkit-scrollbar-thumb {
+          background: #d0d0d0;
+          border-radius: 10px;
+        }
+        /* Handle on hover */
+        .product-details::-webkit-scrollbar-thumb:hover {
+          background: #d0d0d0;
+        }
+
+        .warranty-plan {
+          label.warranty-box {
+            @media all and (max-width: 600px) {
               font-size: 12px;
             }
           }
         }
-        .modal-img{
-          width: 13%;
-          @media all and (max-width: 990px) {
-            width: 17%;
-          }
-          float: right;
-        }
-      }
-      .waranty-details{
-        clear: both;
-        float: none;
-        p.price{
-          color: @red-color;
-          font-size: 18px;
-          font-weight: 500;
-          letter-spacing: 0.3px;
-          font-family: 'iCuracao-Regular';
-          @media all and (max-width: 600px) {
-            font-size: 16px;
-          }
-          span{
-            font-size:24px;
-            @media all and (max-width: 600px) {
-              font-size: 22px;
-            }
-          }
-        }
-        ul{
-          list-style: none;
-          margin:0;
-          padding: 0;
-          margin-bottom: 10px;
-          li{
-            margin-bottom: 0;
-            font-family: 'iCuracao-Regular';
-          }
-          li::before {
-            content: "•";
-            font-size: 20px;
-            margin-right: 10px;
-            color:@button-greybg;
-            @media all and (max-width: 600px) {
-              font-size: 16px;
-            }
-          }
-        }
-        a.learn-more-link{
-          color:@link-blue;
-          font-size: 14px;
-          font-family: 'iCuracao-Regular';
-          text-decoration: underline;
-        }
       }
     }
-    .warranty-plan{
-      label.warranty-box{
+
+    .modal-footer {
+      margin-top: auto;
+      padding-bottom: 2rem;
+      padding-top: 1rem;
+    }
+
+    button {
+      box-shadow: none;
+      border-radius: 0;
+      width: 130px;
+      color: white;
+      text-transform: uppercase;
+      font-size: 16px;
+      border-radius: 4px;
+      padding: 10px;
+      font-family: "iCuracao-Regular";
+      font-weight: 500;
+
+      &.add-warranty-btn {
+        background-color: @green-color-pdp;
+        margin-right: 30px;
         @media all and (max-width: 600px) {
-          font-size: 12px;
+          margin-right: 15px;
+        }
+      }
+
+      &.skip-warranty-btn {
+        background-color: @button-greybg;
+      }
+      @media all and (max-width: 600px) {
+        width: 100px;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .modal-popup .modal-content,
+  .modal-popup .modal-footer,
+  .modal-popup .modal-header {
+    @media all and (max-width: 767px) {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+  //Warranty block
+  .warranty-plan {
+    margin: 0;
+    padding-bottom: 20px;
+    clear: both;
+    float: left;
+    width: 100%;
+    margin-top: 25px; 
+
+    h3 {
+      color: @color-orange;
+      font-size: 16px;
+      margin: 0;
+      padding-bottom: 20px;
+      font-family: 'iCuracao-Regular';
+      font-weight: 500;
+      @media all and (max-width: 991px) {
+        font-size: 14px;
+      }
+    }
+
+    .warranty-select {
+      font-size: 14px;
+      line-height: 18px;
+
+      .js-warranty-select {
+        /* Warranty select green */
+        .warranty-box {
+          display: block;
+          position: relative;
+          padding-left: 25px;
+          margin-bottom: 12px;
+          cursor: pointer;
+          font-size: 14px;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          font-family: 'iCuracao-Regular';
+          font-weight: 500;
+          @media all and (max-width: 991px) {
+            font-size: 14px;
+          }
+          @media all and (max-width: 476px) {
+            font-size: 13px;
+          }
+          /* Hide the browser's default checkbox */
+          input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+          }
+
+          a {
+            &.warranty-box {
+              color: @link-blue;
+            }
+          }
+
+          .alink:visited,
+          a:visited {
+            color: @link-blue !important;
+            text-decoration: none;
+          }
+        }
+        /* On mouse-over, add a grey background color */
+        .warranty-box:hover input ~ .checkmark {
+          background-color: #eee;
+        }
+        /* Create a custom checkbox */
+        .checkmark {
+          position: absolute;
+          top: 2px;
+          left: 0;
+          height: 14px;
+          width: 14px;
+          background-color: white;
+          border: 1px solid rgb(166, 166, 166);
+          border-radius: 2px;
+          //  box-shadow: inset 0 2px 5px rgba(0,0,0,0.25);
+          margin-right: 0.5em;
+          /* Create the checkmark/indicator (hidden when not checked) */
+          &:after {
+            content: "";
+            position: absolute;
+            display: none;
+          }
+          @media all and (max-width: 467px) {
+            height: 13px;
+            width: 13px;
+            top: 1px;
+          }
+        }
+        /* When the checkbox is checked, add a blue background */
+        .warranty-box input:checked ~ .checkmark {
+          //  background-color: #eee;
+        }
+        /* Show the checkmark when checked */
+        .warranty-box input:checked ~ .checkmark:after {
+          display: block;
+        }
+        /* Style the checkmark/indicator */
+        .warranty-box {
+          .checkmark {
+            &:after {
+              left: 3px;
+              top: 0;
+              width: 3px;
+              height: 7px;
+              border: solid #84b90a;
+              border-width: 0 3px 3px 0;
+              -webkit-transform: rotate(40deg);
+              -ms-transform: rotate(40deg);
+              transform: rotate(40deg);
+            }
           }
         }
       }
     }
   }
-  button{
-    box-shadow: none;
-    border-radius: 0;
-    width: 150px;
-    color: white;
-    text-transform: uppercase;
-    font-size: 16px;
-    border-radius: 4px;
-    padding: 15px;
-    &.add-warranty-btn{
-      background-color: @green-color;
-      margin-right: 30px;
-      @media all and (max-width: 600px) {
-        margin-right: 15px;
-      }
-    }
-    &.skip-warranty-btn{
-      background-color: @button-greybg;
-    }
-    @media all and (max-width: 600px) {
-      width: 100px;
-      font-size: 14px;
-    }
-    }
-    }
-    .modal-popup .modal-header, .modal-popup .modal-content, .modal-popup .modal-footer {
-      @media all and (max-width: 767px) {
-        padding-left: 1rem;
-        padding-right: 1rem;
-      }
-    }
-    //Warranty block
-    .warranty-plan {
-      margin: 0;
-      padding-bottom: 20px;
-      clear: both;
-      float: left;
-      width: 100%;
-      h3 {
-        color: @color-orange;
-        font-size: 16px;
-        margin: 0;
-        padding-bottom: 20px;
-        font-family: 'iCuracao-Regular';
-        @media all and (max-width: 991px) {
-          font-size: 14px;
-        }
-      }
-      .warranty-select {
-        font-size: 14px;
-        line-height: 18px;
-        .js-warranty-select {
-          /* Warranty select green */
-          .warranty-box {
-            display: block;
-            position: relative;
-            padding-left: 25px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            font-size: 14px;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            font-family: 'iCuracao-Regular';
-            @media all and (max-width: 991px) {
-              font-size: 14px;
-            }
-            @media all and (max-width: 476px) {
-              font-size: 13px;
-            }
-            /* Hide the browser's default checkbox */
-            input {
-              position: absolute;
-              opacity: 0;
-              cursor: pointer;
-            }
-            a:visited, .alink:visited {
-              color: @link-blue;
-              text-decoration: none;
-            }
-          }
-          /* On mouse-over, add a grey background color */
-          .warranty-box:hover input ~ .checkmark {
-            background-color: #eee;
-          }
-          /* Create a custom checkbox */
-          .checkmark {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 15px;
-            width: 15px;
-            background-color: white;
-            border: 1px solid rgb(166, 166, 166);
-            border-radius: 4px;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.25);
-            margin-right: 0.5em;
-            /* Create the checkmark/indicator (hidden when not checked) */
-            &:after {
-              content: "";
-              position: absolute;
-              display: none;
-            }
-            @media all and (max-width: 467px) {
-              height: 13px;
-              width: 13px;
-              top: 1px;
-            }
-          }
-          /* When the checkbox is checked, add a blue background */
-          .warranty-box input:checked ~ .checkmark {
-            background-color: #eee;
-          }
-          /* Show the checkmark when checked */
-          .warranty-box input:checked ~ .checkmark:after {
-            display: block;
-          }
-          /* Style the checkmark/indicator */
-        .warranty-box {
-        .checkmark {
-        &:after {
-          left: 4px;
-          top: 2px;
-          width: 4px;
-          height: 7px;
-          border: solid green;
-          border-width: 0 3px 3px 0;
-          -webkit-transform: rotate(40deg);
-          -ms-transform: rotate(40deg);
-          transform: rotate(40deg);
-          @media all and (max-width: 467px) {
-            left: 3px;
-            top: 1px;
-          }
-        }
-      }
-    }
-    }
-    }
-    }
-    .modal-cart{
-      a, a:visited{
-        color: #333333;
-        text-decoration: none;
-        pointer-events: none;
-        cursor: default;
-      }
-      .reviews-actions{
-        display: none;
-      }
-    }
-  // End Common styling for warranty popup and addtocart popup
 
+  .modal-cart {
+    a,
+    a:visited {
+      color: #333333;
+      text-decoration: none;
+      pointer-events: none;
+      cursor: default;
+    }
+
+    .reviews-actions {
+      display: none;
+    }
+  }
+  // End Common styling for warranty popup and addtocart popup
 }

@@ -475,6 +475,12 @@ class Order extends \Magento\Sales\Model\Order
                 // Getting the Current Admin User
                 $user = $this->getCurrentUser();
 
+                if (empty($response)) {
+                    $logger->info("Order Id : " . $order->getIncrementId());
+                    $logger->info("Order Item Id : " . $orderItem->getId());
+                    $logger->info("API Response not Found.");
+                    throw new Exception("API Response not Found", 1);
+                }
                 if ($response->OK == true) {
                     $logger->info("Item Cancelled");
                     # Send Notification to Customer
@@ -487,7 +493,9 @@ class Order extends \Magento\Sales\Model\Order
                     );     // Add Comment to Order History
                     $order->save();    // Save the Changes in Order Status & History
                 } else {
-                    $logger->info($response->INFO . " Order Id: " . $order->getIncrementId());
+                    $logger->info("Order Id : " . $order->getIncrementId());
+                    $logger->info("Order Item Id : " . $orderItem->getId());
+                    $logger->info($response->INFO);
                     throw new \Exception($response->INFO);
                 }
             /**
