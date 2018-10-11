@@ -7,8 +7,15 @@
  * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
  * @copyright Copyright © Dyode
  */
-define(function () {
-    'use strict';
+
+'use strict';
+
+
+define([
+    'jquery',
+    'uiRegistry',
+    'Magento_Checkout/js/checkout-data'
+], function ($, registry, checkoutData) {
 
     /**
      * Mixin for Magento_Checkout/js/view/billing-address
@@ -28,6 +35,20 @@ define(function () {
             this.isAddressFormVisible(false);
             this.isAddressSameAsShipping(true);
             this.isAddressDetailsVisible(true);
+
+            registry.async('checkoutProvider')(function (checkoutProvider) {
+                var billingAddressData = checkoutData.getBillingAddressFromData();
+
+                if (billingAddressData) {
+                    checkoutProvider.set(
+                        'billingAddress',
+                        $.extend(true, {}, checkoutProvider.get('billingAddress'), billingAddressData)
+                    );
+                }
+                checkoutProvider.on('billingAddress', function (billingAddrsData) {
+                    checkoutData.setBillingAddressFromData(billingAddrsData);
+                });
+            });
         },
 
         /**

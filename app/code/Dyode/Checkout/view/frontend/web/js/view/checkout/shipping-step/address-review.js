@@ -70,7 +70,7 @@ define([
          * Billing Related variables
          */
         hasBillAddressStreetLine1 = ko.computed(function () {
-            if (!shippingAddress().street || !shippingAddress().street[0]) {
+            if (!billingAddress().street || !billingAddress().street[0]) {
                 return false;
             }
 
@@ -79,14 +79,14 @@ define([
 
         billAddressStreetLine1 = ko.computed(function () {
             if (hasBillAddressStreetLine1()) {
-                return shippingAddress().street[0];
+                return billingAddress().street[0];
             }
 
             return '';
         }),
 
         hasBillAddressStreetLine2 = ko.computed(function () {
-            if (!shippingAddress().street || !shippingAddress().street[1]) {
+            if (!billingAddress().street || !billingAddress().street[1]) {
                 return false;
             }
 
@@ -95,7 +95,7 @@ define([
 
         billAddressStreetLine2 = ko.computed(function () {
             if (hasBillAddressStreetLine1()) {
-                return shippingAddress().street[1];
+                return billingAddress().street[1];
             }
 
             return '';
@@ -162,18 +162,18 @@ define([
         billAddressStreetLine2: billAddressStreetLine2,
 
         billAddressFullName: ko.computed(function () {
-            return shippingAddress().firstname + ' ' + shippingAddress().lastname;
+            return billingAddress().firstname + ' ' + billingAddress().lastname;
         }),
 
         billAddressCity: ko.computed(function () {
-            return shippingAddress().city;
+            return billingAddress().city;
         }),
 
         billAddressRegion: ko.computed(function () {
             if (addressRegionOptions) {
                 var selectedRegion = _.findWhere(addressRegionOptions, {
-                    value: shippingAddress().region_id,
-                    country_id: shippingAddress().country_id
+                    value: billingAddress().region_id,
+                    country_id: billingAddress().country_id
                 });
 
                 if (selectedRegion) {
@@ -187,7 +187,7 @@ define([
         billAddressCountry: ko.computed(function () {
             if (addressCountryOptions) {
                 var selectedCountry = _.findWhere(addressCountryOptions, {
-                    value: shippingAddress().country_id
+                    value: billingAddress().country_id
                 });
 
                 if (selectedCountry) {
@@ -199,7 +199,7 @@ define([
         }),
 
         billAddressPhone: ko.computed(function () {
-            return shippingAddress().telephone;
+            return billingAddress().telephone;
         }),
     });
 });

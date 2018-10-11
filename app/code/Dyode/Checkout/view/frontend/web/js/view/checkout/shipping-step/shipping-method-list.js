@@ -249,8 +249,6 @@ define([
         },
 
         collectShippingRates: function (model) {
-            console.log('collectShippingRates');
-            console.log(model, this);
             _.each(this.shippingRates, function (rate) {
                 if (model.item_id == rate.quote_item_id) {
                     return rate.data;
