@@ -11,7 +11,7 @@
 <?php if ($detailedInfoGroup = $block->getGroupChildNames('detailed_info', 'getChildHtml')):?>
     <div class="product info detailed" id="details-section">
         <?php $layout = $block->getLayout(); ?>
-        <div class="product data items" data-mage-init='{"tabs":{"openedState":"active"}}'>
+        <div class="product data items" data-mage-init='{"tabs":{"openedState":"active","collapsible": true,"multipleCollapsible": true}}'>
             <?php foreach ($detailedInfoGroup as $name):?>
                 <?php
                     $html = $layout->renderElement($name);
