@@ -10,6 +10,7 @@ use Magento\Framework\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\UrlFactory;
+use Magento\Customer\Model\CustomerFactory;
 
 class Index extends Action
 {
@@ -35,6 +36,10 @@ class Index extends Action
     /** @var \Magento\Framework\UrlFactory */
     protected $urlModel;
 
+     /**
+     * @var \Magento\Customer\Model\CustomerFactory
+     */
+    protected $customerFactory;
 
     /**
      * Constructor
@@ -61,7 +66,8 @@ class Index extends Action
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
         \Magento\Customer\Model\ResourceModel\CustomerFactory $customerResourceFactory,
         \Magento\Checkout\Model\Session $checkoutSession,
-        UrlFactory $urlFactory
+        UrlFactory $urlFactory,
+        CustomerFactory $customerFactory
     ) {
         
         $this->_resultFactory = $resultFactory;
@@ -79,6 +85,7 @@ class Index extends Action
         $this->_quote = $quote;
         $this->quoteRepository = $quoteRepository;
         $this->_checkoutSession = $checkoutSession;
+        $this->customerFactory = $customerFactory;
         parent::__construct($context);
     }
 
@@ -148,7 +155,7 @@ class Index extends Action
                 $lName = $this->_coreSession->getLastname();
                 $path = $this->_coreSession->getPath();
                 // Instantiate object (this is the most important part)
-                $customer = $this->_customerResourceFactory->create();
+                $customer = $this->customerFactory->create();
                 $customer->setWebsiteId($websiteId);
                 // Preparing data for new customer
                 $customer->setEmail($custEmail);
