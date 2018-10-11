@@ -19,21 +19,14 @@ define([
     'Dyode_CheckoutAddressStep/js/data/address-data-provider'
 ], function (ko, _, Component, registry, checkoutData, addressDataProvider) {
 
-    /**
-     * Collecting country options and region options from the shipping address field-set component.
-     * @todo this section can be improved by bringing both country and region list directly to the component.
-     */
-    var shippingAddressFieldset = 'checkout.steps.address-step.shippingAddress.shipping-address-fieldset',
-        addressFiledsetComponent = registry.get(shippingAddressFieldset),
-        addressCountryOptions = addressFiledsetComponent.source.dictionaries.country_id,
-        addressRegionOptions = addressFiledsetComponent.source.dictionaries.region_id;
-
-    addressDataProvider.shippingAddress.su
-
     return Component.extend({
         defaults: {
             template: 'Dyode_Checkout/shipping-step/address-review'
         },
+        shippingAddressFieldset: 'checkout.steps.address-step.shippingAddress.shipping-address-fieldset',
+        countryOptions: {},
+        regionOptions: {},
+
         hasShippingAddress: ko.observable(false),
         hasShipAddressStreetLine1: ko.observable(false),
         hasShipAddressStreetLine2: ko.observable(false),
@@ -68,8 +61,20 @@ define([
         initialize: function () {
             this._super();
 
+            /**
+             * Collecting country options and region options from the shipping address field-set component.
+             * @todo this section can be improved by bringing both country and region list directly to the component.
+             */
+            var addressFiledsetComponent = registry.get(this.shippingAddressFieldset);
+
+            if (addressFiledsetComponent) {
+                this.countryOptions = addressFiledsetComponent.source.dictionaries.country_id;
+                this.regionOptions = addressFiledsetComponent.source.dictionaries.region_id;
+            }
+
             this.subscribeShippingAddress();
             this.subscribeBillingAddress();
+
             return this;
         },
 
@@ -175,9 +180,14 @@ define([
             });
         },
 
+        /**
+         * Collect region label from the dictionary
+         * @param {Object} address
+         * @returns {String|Null}
+         */
         addressRegionLabel: function (address) {
-            if (addressRegionOptions) {
-                var selectedRegion = _.findWhere(addressRegionOptions, {
+            if (this.regionOptions) {
+                var selectedRegion = _.findWhere(this.regionOptions, {
                     value: address.region_id,
                     country_id: address.country_id
                 });
@@ -190,9 +200,14 @@ define([
             return null;
         },
 
+        /**
+         * Collect country label from the dictionary
+         * @param {Object} address
+         * @returns {String|Null}
+         */
         addressCountryLabel: function (address) {
-            if (addressCountryOptions) {
-                var selectedCountry = _.findWhere(addressCountryOptions, {
+            if (this.countryOptions) {
+                var selectedCountry = _.findWhere(this.countryOptions, {
                     value: address.country_id
                 });
 
