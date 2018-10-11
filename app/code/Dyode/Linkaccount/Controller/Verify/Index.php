@@ -9,6 +9,7 @@ use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\UrlFactory;
 
 class Index extends Action
 {
@@ -30,6 +31,11 @@ class Index extends Action
      * @var \Magento\Quote\Api\CartRepositoryInterface
      */
     protected $quoteRepository;
+
+    /** @var \Magento\Framework\UrlFactory */
+    protected $urlModel;
+
+
     /**
      * Constructor
      *
@@ -54,9 +60,10 @@ class Index extends Action
         \Magento\Quote\Model\Quote $quote,
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
         \Magento\Customer\Model\ResourceModel\CustomerFactory $customerResourceFactory,
-        \Magento\Checkout\Model\Session $checkoutSession
+        \Magento\Checkout\Model\Session $checkoutSession,
+        UrlFactory $urlFactory
     ) {
-        parent::__construct($context);
+        
         $this->_resultFactory = $resultFactory;
         $this->_resultPageFactory = $resultPageFactory;
         $this->_customerSession = $customerSession;
@@ -68,10 +75,11 @@ class Index extends Action
         $this->_customerRepositoryInterface = $customerRepositoryInterface;
         $this->_customerResourceFactory = $customerResourceFactory;
         $this->_addressFactory = $addressFactory;
-
+        $this->urlModel = $urlFactory->create(); 
         $this->_quote = $quote;
         $this->quoteRepository = $quoteRepository;
         $this->_checkoutSession = $checkoutSession;
+        parent::__construct($context);
     }
 
     /**
@@ -136,11 +144,11 @@ class Index extends Action
                $customer->setCustomAttribute('curacaocustid', $curacaoCustId);
                $this->_customerRepositoryInterface->save($customer);
              } else {
-                $fName = $this->coreSession->getFname();                   
-                $lName = $this->coreSession->getLastname();
+                $fName = $this->_coreSession->getFname();                   
+                $lName = $this->_coreSession->getLastname();
                 $path = $this->_coreSession->getPath();
                 // Instantiate object (this is the most important part)
-                $customer = $this->customerFactory->create();
+                $customer = $this->_customerResourceFactory->create();
                 $customer->setWebsiteId($websiteId);
                 // Preparing data for new customer
                 $customer->setEmail($custEmail);
