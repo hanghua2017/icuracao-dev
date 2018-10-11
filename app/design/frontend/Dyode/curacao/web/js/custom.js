@@ -23,5 +23,8 @@ require(['jquery'], function ($) {
         $('a[href="'+document.URL+'"]').addClass('active');
         /*js for making the link active on Sale Page ends here*/
       });
-
+      //on click of pagination load plp page from top
+        $( document ).ajaxStop(function() {
+          $(this).scrollTop(0);
+        });
     });
