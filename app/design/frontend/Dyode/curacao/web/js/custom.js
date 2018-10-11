@@ -22,6 +22,6 @@ require(['jquery'], function ($) {
         var category_link = document.querySelector('a[href="'+document.URL+'"]');
         $('a[href="'+document.URL+'"]').addClass('active');
         /*js for making the link active on Sale Page ends here*/
-
       });
+
     });
