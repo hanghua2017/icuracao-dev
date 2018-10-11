@@ -96,7 +96,6 @@ define([
                  */
                 error: function () {
                     fullScreenLoader.stopLoader();
-                    console.log('Error');
                 },
 
                 /**
@@ -104,7 +103,6 @@ define([
                  */
                 complete: function () {
                     fullScreenLoader.stopLoader();
-                    console.log('Completed');
                 }
             });
 
