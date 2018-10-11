@@ -10,13 +10,14 @@
 @border-color:#f2f2f2;
 @background-white: #fcfcfc;
 @field-border: #b4b4b4;
+@button-green:#7dac0f;
 
 .customer-account-create {
   .page-wrapper {
     background-color: #fff;
     #maincontent {
       background-image: url("../images/login-background.png");
-      background-color: #f4f4f4;
+      background-color: white;
       max-width: none;
       padding: 0;
       @media all and (max-width: 599px) {
@@ -44,6 +45,7 @@
         .column.main {
            max-width: 485px;
            margin: 50px auto;
+           margin-bottom: 10px;
            width: 487px;
            box-shadow: 0px 3px 13px rgba(27,32,42,0.1);
            background-color: #ffffff;
@@ -57,10 +59,10 @@
 
 
         form.form-create-account {
-          min-width: auto;
+          min-width: 75%;
           width: 75%;
           margin: 0 auto;
-          padding-top: 30px;
+          padding-top: 40px;
           background-color: #fff;
           @media all and (max-width: 599px) and (min-width: 468px) {
             width: 65%;
@@ -78,6 +80,7 @@
               text-align: center;
               color: @heading-text;
               padding-bottom: 0;
+              margin-bottom: 30px;
 
               span {
                 font-size: 28px;
@@ -198,115 +201,102 @@
 
           .checking-box {
             position: relative;
-
+            margin-top: 25px;
             margin: 20px auto;
             text-align: center;
+            &.check{
+              margin: 0 0 15px 0 !important;
+            }
 
             label {
               display: inline;
             }
-
-            .checking-box-label {
-              display: block;
-              position: relative;
-              padding-left: 20px;
-              margin-bottom: 12px;
+            input[type="checkbox"] {
+              padding: 0;
+              height: initial;
+              width: initial;
+              margin-bottom: 0;
+              display: none;
               cursor: pointer;
+            }
+
+            label {
+              position: relative;
+              cursor: pointer;
+              transition: all 0.2s;
+              font-family: 'iCuracao-Regular';
               font-size: 13px;
-              line-height: 16px;
-              color: rgb(102,102,102);
-              font-family: "iCuracao-Light";
-              -webkit-user-select: none;
-              -moz-user-select: none;
-              -ms-user-select: none;
-              user-select: none;
-              @media all and (max-width: 991px) {
-                font-size: 14px;
+              color:#666;
+
+              span {
+                color: @icon-color;
+                transition: all 0.2s;
               }
-              @media all and (max-width: 476px) {
-                font-size: 13px;
-              }
-              /* Hide the browser's default checkbox */
-              input {
-                position: absolute;
-                opacity: 0;
+
+              &:before {
+                content: '';
+                -webkit-appearance: none;
+                background-color: transparent;
+                background-color: white;
+                border: 1px solid #666666;
+                border-radius: 0;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0 -15px 10px -12px rgba(0, 0, 0, 0.05);
+                padding: 6px;
+                display: inline-block;
+                position: relative;
+                vertical-align: middle;
                 cursor: pointer;
-                height: auto;
+                margin-right: 15px;
+                margin-top: -2px;
+                transition: all 0.2s;
               }
             }
-            /* On mouse-over, add a grey background color */
-            .checking-box-label:hover input ~ .checkmark {
-              background-color: #eee;
-            }
-            /* Create a custom checkbox */
-            .checkmark {
-              position: absolute;
-              top: 0;
-              left: 0;
-              height: 13px;
-              width: 13px;
-              background-color: white;
-              border: 1px solid rgb(166, 166, 166);
-              border-radius: 4px;
-              box-shadow: inset 0 2px 5px rgba(0,0,0,0.25);
-              margin-right: 0.5em;
-              /* Create the checkmark/indicator (hidden when not checked) */
-              &:after {
-                content: "";
-                position: absolute;
-                display: none;
-              }
-              @media all and (max-width: 467px) {
-                height: 13px;
-                width: 13px;
-                top: 1px;
-              }
-            }
-            /* When the checkbox is checked, add a blue background */
-            .checking-box-label input:checked ~ .checkmark {
-              background-color: #eee;
-            }
-            /* Show the checkmark when checked */
-            .checking-box-label input:checked ~ .checkmark:after {
-              display: block;
-            }
-            /* Style the checkmark/indicator */
-            .checking-box-label {
-              .checkmark {
+
+            input[type="checkbox"]:checked {
+              +label {
+
+                &:before {
+                  transition: all 0.2s;
+                }
+
                 &:after {
-                  left: 3px;
-                  top: 0px;
-                  width: 4px;
-                  height: 7px;
-                  border: solid green;
-                  border-width: 0 3px 3px 0;
-                  -webkit-transform: rotate(40deg);
-                  -ms-transform: rotate(40deg);
-                  transform: rotate(40deg);
-                  @media all and (max-width: 467px) {
-                    left: 3px;
-                    top: 1px;
-                  }
+                  content: '';
+                  display: block;
+                  position: absolute;
+                  top: 2px;
+                  left: 6px;
+                  width: 3px;
+                  height: 8px;
+                  border: 1.5px solid @orange-off;
+                  border-width: 0 1.5px 1.5px 0;
+                  transform: rotate(45deg);
+                  transition: all 0.2s;
                 }
               }
             }
           }
 
           .actions-toolbar {
-            margin-bottom: 15px;
+            margin-bottom: 0;
+            height: 60px;
             .primary {
               width: 100%;
 
               button {
-                background-color: @theme-color;
-                border: 1px solid @theme-color;
+                background-color: @button-green;
+                border: 1px solid @button-green;
                 width: 100%;
                 height: 44px;
-                border-radius: 5px;
-                font-size: 20px;
+                border-radius: 3px;
+                font-size: 16px;
                 margin-right: 0;
+                &:hover
+                {
+                  background-color:@theme-color-dark;
+                  border-color: @theme-color-dark;
+                }
                 span {
-                  font-size: 19px;
+                  font-size: 16px;
                   color: white;
                   font-family: "iCuracao-Light";
                   letter-spacing: 1px;
@@ -347,7 +337,7 @@
   .page-wrapper {
     #maincontent {
       background-image: url(../images/login-background.png);
-      background-color: #f4f4f4;
+      background-color: white;
       max-width: none;
       padding: 0;
       .page-title-wrapper {

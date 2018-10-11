@@ -1,3 +1,4 @@
+@button-green:#7dac0f;
 .customer-account-login {
   .page-wrapper {
     background-color: #fff;
@@ -6,7 +7,7 @@
     #maincontent {
       background-image: url("../images/login-background.png");
       max-width: 100%;
-      background-color: #f4f4f4;
+      background-color: white;
       padding: 0;
       @media all and (max-width: 599px) {
         background-image: none;
@@ -23,6 +24,7 @@
           margin: 0;
         }
         .column.main {
+          padding-bottom: 0;
           @media all and (max-width: 768px) {
             padding-top: 30px;
           }
@@ -33,8 +35,9 @@
           .login-container {
             max-width: 485px;
             margin: 50px auto;
+            margin-bottom: 10px;
             width: 487px;
-            box-shadow: 0px 3px 13px rgba(27,32,42,0.1);
+            box-shadow: 0px 4px 20px rgba(27, 32, 42, 0.12);
             background-color: #ffffff;
             @media all and (max-width: 599px) {
               max-width: 100%;
@@ -198,7 +201,7 @@
                             text-align: center;
                           }
                           &:hover {
-                            text-decoration: none;
+                            text-decoration: underline;
                           }
                         }
                         .sign-up {
@@ -217,7 +220,7 @@
                           a.primary {
                             font-size: 12px;
                             padding: 0;
-                            color: @active-blue-color;
+                            color: #4048d1;
                             margin: 0;
                             float: right;
                             background: none;
@@ -225,6 +228,10 @@
                             font-weight: 500;
                             font-family: "iCuracao-Regular";
                             width: auto;
+                            &:hover
+                            {
+                              text-decoration: underline;
+                            }
                           }
                         }
                       }
@@ -234,13 +241,18 @@
                         button.login {
                           width: 100%;
                           height: 44px;
-                          border-radius: 5px;
-                          background-color: @theme-color;
-                          border-color: @theme-color;
+                          border-radius: 3px;
+                          background-color: @button-green;
+                          border-color: @button-green;
                           margin-top: 20px;
                           margin-right: 0;
+                          &:hover
+                          {
+                            background-color:@theme-color-dark;
+                            border-color: @theme-color-dark;
+                          }
                           span {
-                              font-size: 19px;
+                              font-size: 16px;
                               color: white;
                               font-family: "iCuracao-Light";
                               letter-spacing: 1px;
@@ -279,6 +291,7 @@
             background-image: url('../images/curacao-card-background.png');
             background-repeat: no-repeat;
             border-radius: 0 0 4px 4px;
+            background-position-x: -3px;
             @media all and (max-width: 768px) and (min-width: 467px) {
               background-size: cover;
             }
@@ -312,11 +325,11 @@
                 height: 42px;
                 border-radius: 3px;
                 background-color: #f9f9f9;
-                font-size: 16px;
+                font-size: 12px;
                 color: rgb(51,51,51);
-                font-family: "iCuracao-Regular";
+                font-family: "iCuracao-light";
                 font-weight: bold;
-                padding: 10px 30px;
+                padding: 14px 40px;
                 &:hover {
                   text-decoration: none;
                 }

@@ -21,7 +21,6 @@ input,select,button{outline: none;}
   main{
     background: url("../../images/Order-returns-BG.png");
     background-size: 100%;
-    background-repeat: no-repeat;
     .column,.main{
       padding-bottom: 0 !important;
     }
@@ -84,12 +83,12 @@ input,select,button{outline: none;}
     }
 //common styles for accordion containing pages
     .inner-cms-container{
-      background-color: white;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
       .cms-content{
         max-width: 1090px;
         margin: 0 auto;
-        padding: 30px 0;
+        padding: 30px;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
 
         @media all and(max-width: 1250px){
           max-width: 860px;
@@ -98,8 +97,8 @@ input,select,button{outline: none;}
           max-width: 655px;
         }
         @media all and(max-width: 767px) {
-          max-width: 767px;
-          margin: 0 15px
+          max-width: 800px;
+          margin: 0;
         }
         @media all and(max-width: 425px) {
           padding: 25px 0;
@@ -111,6 +110,7 @@ input,select,button{outline: none;}
           font-family: 'iCuracao-Light' !important;
           @media all and(max-width: 425px) {
             padding-bottom:25px;
+            padding-left: 20px;
           }
         }
       }
@@ -156,6 +156,7 @@ select {
   border: 1px solid transparent;
   border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
   cursor: pointer;
+  padding-left: 0;
 }
 /*style items (options):*/
 .select-items {

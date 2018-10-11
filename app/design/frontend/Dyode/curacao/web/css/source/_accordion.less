@@ -65,7 +65,7 @@
       }
 //Styling for drop-down panel in accordion
       .accordion-panel {
-        padding: 0 18px;
+        padding: 0 20px;
         display: none;
         img{
           width:100%;
@@ -118,8 +118,12 @@
          div.accordion-panel.show-accordion{
            max-height: 1920px;
            padding-bottom: 20px!important;
+           padding-left: 20px;
            @media all and(max-width: 767px){
                  padding-bottom: 20px;
+           }
+           @media all and (max-width: 420px) {
+             padding-left: 10px;
            }
          }
       }
@@ -134,7 +138,7 @@
     }
    .accordion-item{
      .alt-accordion{
-       padding: 25px 45px 25px 20px;
+       padding: 25px 45px 15px 20px;
        text-align: left;
        font-size: 16px;
        color: #333333;
@@ -161,22 +165,25 @@
 
      .alt-panel{
        .panel-content{
-         padding: 0 25px;
+         padding: 0;
          @media all and(max-width: 767px){
            padding: 0 15px;
            padding-right: 0;
          }
          @media all and(max-width: 425px){
-           padding: 0 9px;
+           padding: 0 15px;
            padding-right: 0;
          }
          .left{
            display: flex;
+           @media all and(max-width: 425px){
+             display: unset;
+           }
            ul{
-             margin: 20px 20px 20px 0;
+             margin: 5px 20px 20px 0;
              // list-style-type: unset;
              @media all and(max-width: 425px){
-               margin-top: 5px;
+               margin-top: 0px;
                line-height: 1.5;
              }
              li{
@@ -207,6 +214,7 @@
          line-height: 24px;
          a{
            color: @curacao-green;
+           word-break: break-all;
          }
          span{
            font-weight: 500;
@@ -221,10 +229,11 @@
          color: @black;
          .inline{
            display:inline-flex;
+           margin-top: 10px;
            p{
              background: @curacao-green;
              margin: 0;
-             padding: 15px;
+             padding: 8px 20px;
              color: @white!important;
              @media all and(max-width: 767px){
                    padding:10px;
@@ -242,8 +251,8 @@
          ul{
            color: @curacao-green !important;
            line-height: 24px !important;
-           margin: 16px;
-           padding-left: 23px;
+           margin: 10px 0 15px;
+           padding-left: 17px;
            // list-style-type: unset;
            @media all and(max-width: 767px){
                  padding: 0 15px;
@@ -283,4 +292,47 @@
       }
     }
   }
+}
+.beat-container {
+  .accordion-panel
+    {
+    .show-accordion {
+      padding-left: 20px!important;
+
+      @media all and(max-width: 425px){
+        padding-left: 20px!important;
+      }
+
+      @media all and(max-width: 767px){
+        padding-left: 20px!important;
+      }
+    }
+    }
+}
+.beat-container {
+  .accordion-container .accordion-content .accordion-item .accordion-panel ul{
+          padding-left: 15px!important;
+
+        @media all and(max-width: 425px){
+          padding-left: 25px!important;
+        }
+  }
+  .card-img {
+    max-width: 400px;
+  }
+}
+.beat-inner-ul {
+  padding: 0 !important;
+}
+
+
+
+
+.cms-price-beat-container {
+
+ div.accordion-panel.show-accordion {
+   @media all and(max-width: 420px) {
+     padding-left: 20px !important;
+   }
+ }
 }

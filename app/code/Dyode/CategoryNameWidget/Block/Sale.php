@@ -100,5 +100,6 @@ class Sale extends  \Magento\Framework\View\Element\Template
                  ->setAttributes($attributes)
                  ->create();
          }
+      
 
 }
