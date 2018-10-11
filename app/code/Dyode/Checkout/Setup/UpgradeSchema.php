@@ -97,4 +97,5 @@ class UpgradeSchema implements UpgradeSchemaInterface
             'comment'  => 'Shipping Cost'
           ]
       );
+    }
 }
