@@ -91,7 +91,7 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
         ["shipping-step"]["children"]["shippingAddress"]["children"];
 
         foreach (array_keys($shippingAddressChildren) as $childrenName) {
-            if (!in_array($childrenName, $this->shippingStepChildrenNames())) {
+            if (!in_array($childrenName, $this->addressStepChildrenNames())) {
                 unset($shippingAddressChildren[$childrenName]);
             }
         }
@@ -119,7 +119,7 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
         ["shipping-step"]["children"]["shippingAddress"]["children"];
 
         foreach (array_keys($shippingAddressChildren) as $childrenName) {
-            if (in_array($childrenName, $this->shippingStepChildrenNames())) {
+            if (in_array($childrenName, $this->addressStepChildrenNames())) {
                 unset($shippingAddressChildren[$childrenName]);
             }
         }
@@ -229,7 +229,7 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
      *
      * @return array
      */
-    protected function shippingStepChildrenNames()
+    protected function addressStepChildrenNames()
     {
         return [
             'customer-email',
