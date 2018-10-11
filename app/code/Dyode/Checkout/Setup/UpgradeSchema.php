@@ -25,6 +25,10 @@ class UpgradeSchema implements UpgradeSchemaInterface
             $this->upgradeSchemaTwoZeroOne($installer);
         }
 
+        if (version_compare($context->getVersion(), '2.0.3', '<')) {
+            $this->upgradeSchemaTwoZeroThree($installer);
+        }
+
         $installer->endSetup();
     }
 
@@ -75,23 +79,23 @@ class UpgradeSchema implements UpgradeSchemaInterface
                 'comment' => 'credit used',
             ]
           );
-
-      /*
-        $columns = [
-            'shipping_details'   => [
-                'type'     => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-                'comment'  => 'Shipping details',
-            ],
-        ];
-        $orderTable = $installer->getTable('sales_order_item');
-        $connection = $installer->getConnection();
-        foreach ($columns as $name => $definition) {
-            $connection->addColumn($orderTable, $name, $definition);
-        }
-        $quoteTable = $installer->getTable('quote_item');
-        $connection = $installer->getConnection();
-        foreach ($columns as $name => $definition) {
-            $connection->addColumn($quoteTable, $name, $definition);
-        }*/
+    }
+    /*
+    * Schema for 2.0.3
+    *
+    * @param \Magento\Framework\Setup\SchemaSetupInterface $installer
+    */
+    public function upgradeSchemaTwoZeroThree(SchemaSetupInterface $installer)
+    {
+      $connection = $installer->getConnection();
+      // Updating the 'quote_item' table.
+      $connection->addColumn(
+          $installer->getTable('quote_item'),
+          'shipping_cost',
+          [
+            'type'     => \Magento\Framework\DB\Ddl\Table::TYPE_DECIMAL,
+            'comment'  => 'Shipping Cost'
+          ]
+      );
     }
 }
