@@ -137,7 +137,7 @@ class Order implements OrderInterface
             }
         } catch (\Exception $ex) {}
 
-        if(!empty($ex)){
+        if(empty($ex)){
             $returnData['INFO'] = 'Order items have been cancelled';
             $returnData['OK'] = true;
         } else {
