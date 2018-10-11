@@ -19,136 +19,167 @@ define([
     'Dyode_CheckoutAddressStep/js/data/address-data-provider'
 ], function (ko, _, Component, registry, checkoutData, addressDataProvider) {
 
-    var shippingAddress = addressDataProvider.shippingAddress,
-        billingAddress = addressDataProvider.billingAddress,
-
-        /**
-         * Collecting country options and region options from the shipping address field-set component.
-         * @todo this section can be improved by bringing both country and region list directly to the component.
-         */
-        shippingAddressFieldset = 'checkout.steps.address-step.shippingAddress.shipping-address-fieldset',
+    /**
+     * Collecting country options and region options from the shipping address field-set component.
+     * @todo this section can be improved by bringing both country and region list directly to the component.
+     */
+    var shippingAddressFieldset = 'checkout.steps.address-step.shippingAddress.shipping-address-fieldset',
         addressFiledsetComponent = registry.get(shippingAddressFieldset),
         addressCountryOptions = addressFiledsetComponent.source.dictionaries.country_id,
         addressRegionOptions = addressFiledsetComponent.source.dictionaries.region_id;
+
+    addressDataProvider.shippingAddress.su
 
     return Component.extend({
         defaults: {
             template: 'Dyode_Checkout/shipping-step/address-review'
         },
-        shippingAddress: shippingAddress,
-        hasShipAddressStreetLine1: ko.computed(function () {
-            if (!shippingAddress().street || !shippingAddress().street[0]) {
-                return false;
-            }
+        hasShippingAddress: ko.observable(false),
+        hasShipAddressStreetLine1: ko.observable(false),
+        hasShipAddressStreetLine2: ko.observable(false),
+        hasShippingAddressRegion: ko.observable(false),
+        hasShippingAddressCountry: ko.observable(false),
 
-            return true;
-        }),
-        shipAddressStreetLine1: ko.computed(function () {
-            if (!shippingAddress().street || !shippingAddress().street[0]) {
-                return null;
-            }
+        shipAddressStreetLine1: ko.observable(null),
+        shipAddressStreetLine2: ko.observable(null),
+        shipAddressFullName: ko.observable(null),
+        shipAddressCity: ko.observable(null),
+        shipAddressRegion: ko.observable(null),
+        shipAddressCountry: ko.observable(null),
+        shipAddressPhone: ko.observable(null),
 
-            return shippingAddress().street[0];
-        }),
-        hasShipAddressStreetLine2: ko.computed(function () {
-            if (!shippingAddress().street || !shippingAddress().street[1]) {
-                return false;
-            }
+        hasBillingAddress: ko.observable(false),
+        hasBillAddressStreetLine1: ko.observable(false),
+        hasBillAddressStreetLine2: ko.observable(false),
+        hasBillingAddressRegion: ko.observable(false),
+        hasBillingAddressCountry: ko.observable(false),
 
-            return true;
-        }),
-        shipAddressStreetLine2: ko.computed(function () {
-            if (!shippingAddress().street || !shippingAddress().street[1]) {
-                return null;
-            }
-
-            return shippingAddress().street[1];
-        }),
-        shipAddressFullName: ko.computed(function () {
-            return shippingAddress().firstname + ' ' + shippingAddress().lastname;
-        }),
-        shipAddressCity: ko.computed(function () {
-            return shippingAddress().city;
-        }),
-        shipAddressRegion: ko.computed(function () {
-            if (addressRegionOptions) {
-                var selectedRegion = _.findWhere(addressRegionOptions, {
-                    value: shippingAddress().region_id,
-                    country_id: shippingAddress().country_id
-                });
-
-                if (selectedRegion) {
-                    return selectedRegion.label;
-                }
-            }
-
-            return null;
-        }),
-        shipAddressCountry: ko.computed(function () {
-            if (addressCountryOptions) {
-                var selectedCountry = _.findWhere(addressCountryOptions, {
-                    value: shippingAddress().country_id
-                });
-
-                if (selectedCountry) {
-                    return selectedCountry.label;
-                }
-            }
-
-            return null;
-        }),
-
-        shipAddressPhone: ko.computed(function () {
-            return shippingAddress().telephone;
-        }),
+        billAddressFullName: ko.observable(null),
+        billAddressCity: ko.observable(null),
+        billAddressPhone: ko.observable(null),
+        billAddressStreetLine1: ko.observable(null),
+        billAddressStreetLine2: ko.observable(null),
+        billAddressRegion: ko.observable(null),
+        billAddressCountry: ko.observable(null),
 
         /**
-         * Billing adderss related component properties.
+         * @inheritdoc
          */
-        billingAddress: billingAddress,
-        hasBillAddressStreetLine1: ko.computed(function () {
-            if (!billingAddress().street || !billingAddress().street[0]) {
-                return false;
-            }
+        initialize: function () {
+            this._super();
 
-            return true;
-        }),
-        billAddressStreetLine1: ko.computed(function () {
-            if (!billingAddress().street || !billingAddress().street[0]) {
-                return null;
-            }
+            this.subscribeShippingAddress();
+            this.subscribeBillingAddress();
+            return this;
+        },
 
-            return billingAddress().street[0];
-        }),
-        hasBillAddressStreetLine2: ko.computed(function () {
-            if (!billingAddress().street || !billingAddress().street[1]) {
-                return false;
-            }
+        /**
+         * Subscribe to shipping address change
+         */
+        subscribeShippingAddress: function () {
+            var self = this;
 
-            return true;
-        }),
+            addressDataProvider.shippingAddress.subscribe(function (shippingAddress) {
+                if (!shippingAddress) {
+                    shippingAddress = {};
+                }
 
-        billAddressStreetLine2: ko.computed(function () {
-            if (!billingAddress().street || !billingAddress().street[1]) {
-                return null;
-            }
+                self.hasShippingAddress(shippingAddress.firstname);
+                self.shipAddressFullName(shippingAddress.firstname + ' ' + shippingAddress.lastname);
+                self.shipAddressCity(shippingAddress.city);
+                self.shipAddressPhone(shippingAddress.telephone);
 
-            return billingAddress().street[1];
-        }),
+                if (shippingAddress.street && shippingAddress.street[0]) {
+                    self.hasShipAddressStreetLine1(true);
+                    self.shipAddressStreetLine1(shippingAddress.street[0]);
+                } else {
+                    self.hasShipAddressStreetLine1(false);
+                    self.shipAddressStreetLine1(null);
+                }
 
-        billAddressFullName: ko.computed(function () {
-            return billingAddress().firstname + ' ' + billingAddress().lastname;
-        }),
+                if (shippingAddress.street && shippingAddress.street[1]) {
+                    self.hasShipAddressStreetLine2(true);
+                    self.shipAddressStreetLine2(shippingAddress.street[1]);
+                } else {
+                    self.hasShipAddressStreetLine2(false);
+                    self.shipAddressStreetLine1(null);
+                }
 
-        billAddressCity: ko.computed(function () {
-            return billingAddress().city;
-        }),
+                if (shippingAddress.region_id) {
+                    self.hasShippingAddressRegion(true);
+                    self.shipAddressRegion(self.addressRegionLabel(shippingAddress));
+                } else {
+                    self.hasShippingAddressRegion(false);
+                    self.shipAddressRegion(null);
+                }
 
-        billAddressRegion: ko.computed(function () {
+                if (shippingAddress.country_id) {
+                    self.hasShippingAddressCountry(true);
+                    self.shipAddressCountry(self.addressCountryLabel(shippingAddress));
+                } else {
+                    self.hasShippingAddressCountry(false);
+                    self.shipAddressCountry(null);
+                }
+
+            });
+        },
+
+        /**
+         * Subscribe to billing address change
+         */
+        subscribeBillingAddress: function () {
+            var self = this;
+
+            addressDataProvider.billingAddress.subscribe(function (billingAddress) {
+                if (!billingAddress) {
+                    billingAddress = {};
+                }
+
+                self.hasBillingAddress(billingAddress.firstname);
+                self.billAddressFullName(billingAddress.firstname + ' ' + billingAddress.lastname);
+                self.billAddressCity(billingAddress.city);
+                self.billAddressPhone(billingAddress.telephone);
+
+                if (billingAddress.street && billingAddress.street[0]) {
+                    self.hasBillAddressStreetLine1(true);
+                    self.billAddressStreetLine1(billingAddress.street[0]);
+                } else {
+                    self.hasBillAddressStreetLine1(false);
+                    self.billAddressStreetLine1(null);
+                }
+
+                if (billingAddress.street && billingAddress.street[1]) {
+                    self.hasBillAddressStreetLine2(true);
+                    self.billAddressStreetLine2(billingAddress.street[1]);
+                } else {
+                    self.hasBillAddressStreetLine2(false);
+                    self.billAddressStreetLine1(null);
+                }
+
+                if (billingAddress.region_id) {
+                    self.hasBillingAddressRegion(true);
+                    self.billAddressRegion(self.addressRegionLabel(billingAddress));
+                } else {
+                    self.hasBillingAddressRegion(false);
+                    self.billAddressRegion(null);
+                }
+
+                if (billingAddress.country_id) {
+                    self.hasBillingAddressCountry(true);
+                    self.billAddressCountry(self.addressCountryLabel(billingAddress));
+                } else {
+                    self.hasBillingAddressCountry(false);
+                    self.billAddressCountry(null);
+                }
+
+            });
+        },
+
+        addressRegionLabel: function (address) {
             if (addressRegionOptions) {
                 var selectedRegion = _.findWhere(addressRegionOptions, {
-                    value: billingAddress().region_id,
-                    country_id: billingAddress().country_id
+                    value: address.region_id,
+                    country_id: address.country_id
                 });
 
                 if (selectedRegion) {
@@ -157,12 +188,12 @@ define([
             }
 
             return null;
-        }),
+        },
 
-        billAddressCountry: ko.computed(function () {
+        addressCountryLabel: function (address) {
             if (addressCountryOptions) {
                 var selectedCountry = _.findWhere(addressCountryOptions, {
-                    value: billingAddress().country_id
+                    value: address.country_id
                 });
 
                 if (selectedCountry) {
@@ -171,10 +202,7 @@ define([
             }
 
             return null;
-        }),
+        }
 
-        billAddressPhone: ko.computed(function () {
-            return billingAddress().telephone;
-        })
     });
 });
