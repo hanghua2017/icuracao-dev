@@ -36,10 +36,35 @@ define([
 
         return {
 
-            estimateShippingMethods: function () {
-                var serviceUrl, payload, address;
+            /**
+             * Magento by default estimate shipping methods whenever the zipcode in the shipping address changes.
+             * For this, Magento uses rate processors. We can register any number of processors. Here we registered
+             * a custom processor (i.e, this component) whenever Magento process "new-customer-address" type address.
+             * This way we will avoid Magento's default estimation processing.
+             *
+             * @param {Object} address
+             */
+            getRates: function (address) {
+                this.estimateShippingMethods(address);
+            },
 
-                address = checkoutData.getShippingAddressFromData();
+            /**
+             * Estimate shipping methods based on the zip code.
+             *
+             * If "address" parameter is present, then it is getRates() call.
+             *
+             * @param {Object} address
+             */
+            estimateShippingMethods: function (address) {
+                var serviceUrl, payload;
+
+                if (!address) {
+                    address = checkoutData.getShippingAddressFromData();
+                } else {
+                    //updating address review data provider, to update the address-review section
+                    addressDataProvider.shippingAddress(address || {});
+                    addressDataProvider.billingAddress(checkoutData.getBillingAddressFromData() || {});
+                }
 
                 //updating address review data provider, to update the address-review section
                 addressDataProvider.shippingAddress(address);
