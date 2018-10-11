@@ -45,7 +45,7 @@ define([
              * @param {Object} address
              */
             getRates: function (address) {
-                this.estimateShippingMethods(address);
+                this.estimateShippingMethods(address, true);
             },
 
             /**
@@ -55,12 +55,18 @@ define([
              *
              * @param {Object} address
              */
-            estimateShippingMethods: function (address) {
+            estimateShippingMethods: function (address, isRate) {
                 var serviceUrl, payload;
 
                 if (!address) {
                     address = checkoutData.getShippingAddressFromData();
-                } else {
+                }
+
+                if (!address.postcode) {
+                    return this;
+                }
+
+                if (!isRate) {
                     //updating address review data provider, to update the address-review section
                     addressDataProvider.shippingAddress(address || {});
                     addressDataProvider.billingAddress(checkoutData.getBillingAddressFromData() || {});

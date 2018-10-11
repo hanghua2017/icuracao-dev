@@ -29,96 +29,47 @@ define([
         shippingAddressFieldset = 'checkout.steps.address-step.shippingAddress.shipping-address-fieldset',
         addressFiledsetComponent = registry.get(shippingAddressFieldset),
         addressCountryOptions = addressFiledsetComponent.source.dictionaries.country_id,
-        addressRegionOptions = addressFiledsetComponent.source.dictionaries.region_id,
+        addressRegionOptions = addressFiledsetComponent.source.dictionaries.region_id;
 
-        /**
-         * Shipping address related variables
-         */
-        hasShipAddressStreetLine1 = ko.computed(function () {
+    return Component.extend({
+        defaults: {
+            template: 'Dyode_Checkout/shipping-step/address-review'
+        },
+        shippingAddress: shippingAddress,
+        hasShipAddressStreetLine1: ko.computed(function () {
             if (!shippingAddress().street || !shippingAddress().street[0]) {
                 return false;
             }
 
             return true;
         }),
-
-        shipAddressStreetLine1 = ko.computed(function () {
-            if (hasShipAddressStreetLine1()) {
-                return shippingAddress().street[0];
+        shipAddressStreetLine1: ko.computed(function () {
+            if (!shippingAddress().street || !shippingAddress().street[0]) {
+                return null;
             }
 
-            return '';
+            return shippingAddress().street[0];
         }),
-
-        hasShipAddressStreetLine2 = ko.computed(function () {
+        hasShipAddressStreetLine2: ko.computed(function () {
             if (!shippingAddress().street || !shippingAddress().street[1]) {
                 return false;
             }
 
             return true;
         }),
-
-        shipAddressStreetLine2 = ko.computed(function () {
-            if (hasShipAddressStreetLine1()) {
-                return shippingAddress().street[1];
+        shipAddressStreetLine2: ko.computed(function () {
+            if (!shippingAddress().street || !shippingAddress().street[1]) {
+                return null;
             }
 
-            return '';
+            return shippingAddress().street[1];
         }),
-
-        /**
-         * Billing Related variables
-         */
-        hasBillAddressStreetLine1 = ko.computed(function () {
-            if (!billingAddress().street || !billingAddress().street[0]) {
-                return false;
-            }
-
-            return true;
-        }),
-
-        billAddressStreetLine1 = ko.computed(function () {
-            if (hasBillAddressStreetLine1()) {
-                return billingAddress().street[0];
-            }
-
-            return '';
-        }),
-
-        hasBillAddressStreetLine2 = ko.computed(function () {
-            if (!billingAddress().street || !billingAddress().street[1]) {
-                return false;
-            }
-
-            return true;
-        }),
-
-        billAddressStreetLine2 = ko.computed(function () {
-            if (hasBillAddressStreetLine1()) {
-                return billingAddress().street[1];
-            }
-
-            return '';
-        });
-
-    return Component.extend({
-        defaults: {
-            template: 'Dyode_Checkout/shipping-step/address-review'
-        },
-        hasShippingAddress: shippingAddress() ? true : false,
-        hasShipAddressStreetLine1: hasShipAddressStreetLine1,
-        shipAddressStreetLine1: shipAddressStreetLine1,
-        hasShipAddressStreetLine2: hasShipAddressStreetLine2,
-        shipAddressStreetLine2: shipAddressStreetLine2,
-
         shipAddressFullName: ko.computed(function () {
             return shippingAddress().firstname + ' ' + shippingAddress().lastname;
         }),
-
         shipAddressCity: ko.computed(function () {
             return shippingAddress().city;
         }),
-
         shipAddressRegion: ko.computed(function () {
             if (addressRegionOptions) {
                 var selectedRegion = _.findWhere(addressRegionOptions, {
@@ -133,7 +84,6 @@ define([
 
             return null;
         }),
-
         shipAddressCountry: ko.computed(function () {
             if (addressCountryOptions) {
                 var selectedCountry = _.findWhere(addressCountryOptions, {
@@ -155,11 +105,36 @@ define([
         /**
          * Billing adderss related component properties.
          */
-        hasBillingAddress: billingAddress() ? true : false,
-        hasBillAddressStreetLine1: hasBillAddressStreetLine1,
-        billAddressStreetLine1: billAddressStreetLine1,
-        hasBillAddressStreetLine2: hasBillAddressStreetLine2,
-        billAddressStreetLine2: billAddressStreetLine2,
+        billingAddress: billingAddress,
+        hasBillAddressStreetLine1: ko.computed(function () {
+            if (!billingAddress().street || !billingAddress().street[0]) {
+                return false;
+            }
+
+            return true;
+        }),
+        billAddressStreetLine1: ko.computed(function () {
+            if (!billingAddress().street || !billingAddress().street[0]) {
+                return null;
+            }
+
+            return billingAddress().street[0];
+        }),
+        hasBillAddressStreetLine2: ko.computed(function () {
+            if (!billingAddress().street || !billingAddress().street[1]) {
+                return false;
+            }
+
+            return true;
+        }),
+
+        billAddressStreetLine2: ko.computed(function () {
+            if (!billingAddress().street || !billingAddress().street[1]) {
+                return null;
+            }
+
+            return billingAddress().street[1];
+        }),
 
         billAddressFullName: ko.computed(function () {
             return billingAddress().firstname + ' ' + billingAddress().lastname;
@@ -200,6 +175,6 @@ define([
 
         billAddressPhone: ko.computed(function () {
             return billingAddress().telephone;
-        }),
+        })
     });
 });

@@ -14,7 +14,7 @@
 <div class="address-review">
 
     <!-- Shipping Address Review -->
-    <div class="address-block shipping-address" data-bind="visible: hasShippingAddress">
+    <div class="address-block shipping-address" data-bind="visible: shippingAddress().firstname">
         <ul class="address-list">
             <li class="address-item"><h2 class="address-type" data-bind="i18n: 'Shipping address'"></h2></li>
             <li class="address-item">
@@ -39,10 +39,11 @@
                 <span data-bind="i18n: 'Phone'"></span>: <!-- ko text: shipAddressPhone() --><!-- /ko -->
             </li>
         </ul>
+        <button class="change ship-address-change"><span data-bind="i18n: 'Change'"></span></button>
     </div>
 
     <!-- Billing Address Review -->
-    <div class="address-block billing-address" data-bind="visible: hasBillingAddress">
+    <div class="address-block billing-address" data-bind="visible: billingAddress().firstname">
         <ul class="address-list">
             <li class="address-item"><h2 class="address-type" data-bind="i18n: 'Billing address'"></h2></li>
             <li class="address-item">
@@ -67,5 +68,6 @@
                 <span data-bind="i18n: 'Phone'"></span>: <!-- ko text: billAddressPhone() --><!-- /ko -->
             </li>
         </ul>
+        <button class="change bill-address-change"><span data-bind="i18n: 'Change'"></span></button>
     </div>
 </div>
