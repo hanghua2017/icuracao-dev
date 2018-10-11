@@ -24,6 +24,7 @@ define([
     'Magento_Checkout/js/model/shipping-save-processor',
     'Magento_Tax/js/view/checkout/shipping_method/price',
     'Dyode_Checkout/js/view/model/shipping-data-provider',
+    'Magento_Checkout/js/model/step-navigator',
     'Dyode_Checkout/js/view/model/shipping-info-save-processor'
 
 ], function (
@@ -40,6 +41,7 @@ define([
     checkoutShippingSaveProcessor,
     shippingPrice,
     shippingInfoDataProvider,
+    stepNavigator,
     customShippingInfoSaveProcessor
 ) {
 
@@ -268,6 +270,13 @@ define([
             checkoutData.setSelectedShippingRate(methodData['carrier_code'] + '_' + methodData['method_code']);
 
             return true;
+        },
+        
+        /**
+         * Change shipping method for quote items
+         */
+        changeShippingMethod:  function() {
+            stepNavigator.navigateTo('deliverySelection');
         },
 
         /**

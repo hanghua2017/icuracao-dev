@@ -62,7 +62,7 @@
                         <!-- /ko -->
                     </li>
                 </ul>
-                <button class="change-method"><span data-bind="i18n: 'Change shipping method'"></span></button>
+                <button type="button" class="change-method" data-bind="click: $parent.changeShippingMethod"><span data-bind="i18n: 'Change shipping method'"></span></button>
             </div>
 
             <div class="store-selected" data-bind="visible: isQuotesAvailable() && isStorePickup()">
@@ -72,7 +72,7 @@
                     <li class="address-line address-line-1" data-bind="text: storePicked().addressLine1"></li>
                     <li class="address-line address-line-2" data-bind="text: storePicked().addressLine2"></li>
                 </ul>
-                <button class="change-method"><span data-bind="i18n: 'Change shipping method'"></span></button>
+                <button type="button" class="change-method" data-bind="click: $parent.changeShippingMethod"><span data-bind="i18n: 'Change shipping method'"></span></button>
             </div>
 
         </div>

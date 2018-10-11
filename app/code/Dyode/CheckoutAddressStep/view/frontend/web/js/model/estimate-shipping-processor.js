@@ -19,9 +19,19 @@ define([
         'Magento_Checkout/js/model/url-builder',
         'Magento_Checkout/js/model/shipping-service',
         'Magento_Checkout/js/model/shipping-rate-registry',
-        'Magento_Checkout/js/model/error-processor'
+        'Magento_Checkout/js/model/error-processor',
+        'Dyode_CheckoutAddressStep/js/data/address-data-provider'
     ], function (
-    utils, storage, customer, quote, checkoutData, urlBuilder, shippingService, rateRegistry, errorProcessor
+    utils,
+    storage,
+    customer,
+    quote,
+    checkoutData,
+    urlBuilder,
+    shippingService,
+    rateRegistry,
+    errorProcessor,
+    addressDataProvider
     ) {
 
         return {
@@ -30,6 +40,11 @@ define([
                 var serviceUrl, payload, address;
 
                 address = checkoutData.getShippingAddressFromData();
+
+                //updating address review data provider, to update the address-review section
+                addressDataProvider.shippingAddress(address);
+                addressDataProvider.billingAddress(checkoutData.getBillingAddressFromData());
+
                 shippingService.isLoading(true);
                 serviceUrl = this.estimateShippingMethodsUrl(quote);
                 payload = JSON.stringify({
