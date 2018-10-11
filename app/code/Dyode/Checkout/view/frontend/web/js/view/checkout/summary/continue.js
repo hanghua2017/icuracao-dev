@@ -64,6 +64,17 @@ define([
         },
 
         /**
+         * Check if current step is payment step
+         */
+        isPayment: function () {
+            var activeStepIndex = stepNavigator.getActiveItemIndex(),
+                steps = stepNavigator.steps(),
+                activeStep = steps[activeStepIndex];
+            
+            return activeStep.code === 'payment';
+        },
+
+        /**
          * Save delivery options against the quote when user proceed from delivery step -> address step
          * @todo This needs to be done through a save processor.
          */
