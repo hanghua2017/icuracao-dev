@@ -3334,6 +3334,11 @@ print {
   .navigation .level0 .submenu a{
     font-family: "iCuracao-Regular";
   }
+  .navigation .level0 .submenu .active>a {
+      border:none;
+      background:transparent;
+      color:black;
+  }
   .navigation .level0 .submenu a:hover, .navigation .level0 .submenu a.ui-state-focus{
     background:#ffffff !important;
     color:#575757 !important;
