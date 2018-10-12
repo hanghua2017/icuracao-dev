@@ -12,6 +12,7 @@
 
 define([
         'jquery',
+        'underscore',
         'mageUtils',
         'mage/storage',
         'Magento_Customer/js/model/customer',
@@ -23,9 +24,11 @@ define([
         'Magento_Checkout/js/model/error-processor',
         'Magento_Checkout/js/action/select-billing-address',
         'Magento_Checkout/js/action/create-billing-address',
-        'Dyode_CheckoutAddressStep/js/data/address-data-provider'
+        'Dyode_CheckoutAddressStep/js/data/address-data-provider',
+        'Dyode_Checkout/js/view/model/shipping-data-provider'
     ], function (
         $,
+        _,
         utils,
         storage,
         customer,
@@ -37,7 +40,8 @@ define([
         errorProcessor,
         selectBillingAddressAction,
         createBillingAddress,
-        addressDataProvider
+        addressDataProvider,
+        shippingDataProvider
     ) {
 
         return {
@@ -61,7 +65,9 @@ define([
              * @return {Deferred}
              */
             estimateShippingMethods: function (address) {
-                var serviceUrl, payload;
+                var serviceUrl,
+                    payload,
+                    self = this;
 
                 if (!address || !address.postcode) {
                     return $.Deferred();
@@ -91,6 +97,7 @@ define([
                 return storage.post(
                     serviceUrl, payload, false
                 ).done(function (result) {
+                    self.setShippingInfo(result);
                     shippingService.setShippingRates(result);
                 }).fail(function (response) {
                     shippingService.setShippingRates([]);
@@ -144,6 +151,42 @@ define([
              */
             getCheckoutMethod: function () {
                 return customer.isLoggedIn() ? 'customer' : 'guest';
+            },
+
+            /**
+             * Initialize shipping information.
+             *
+             * Against each quote item, first shipping method will be added as the selected shipping method (if the
+             * shipping type is: "ship_to_home"). For shipping type: "store_pickup", just save the store code
+             * and store id.
+             *
+             * @param {Array} shippingInfo
+             */
+            setShippingInfo: function (shippingInfo) {
+                var info = [];
+
+                _.each(shippingInfo, function (quoteItem) {
+                    info[quoteItem.quote_item_id] = {
+                        quote_item_id: quoteItem.quote_item_id,
+                        shipping_type: quoteItem.delivery_option,
+                        shipping_data: []
+                    };
+
+                    if (quoteItem.delivery_option === 'store_pickup') {
+                        info[quoteItem.quote_item_id]['shipping_data']['code'] = quoteItem.store_info.code;
+                        info[quoteItem.quote_item_id]['shipping_data']['id'] = quoteItem.store_info.id;
+                    }
+
+                    if (quoteItem.delivery_option === 'ship_to_home' && quoteItem.delivery_methods[0]) {
+                        var firstShipMethod = quoteItem.delivery_methods[0];
+
+                        info[quoteItem.quote_item_id]['shipping_data']['carrier_code'] = firstShipMethod.carrier_code;
+                        info[quoteItem.quote_item_id]['shipping_data']['method_code'] = firstShipMethod.method_code;
+                        info[quoteItem.quote_item_id]['shipping_data']['amount'] = firstShipMethod.amount;
+                    }
+                });
+
+                shippingDataProvider.shippingInfo(info);
             }
         };
     }
