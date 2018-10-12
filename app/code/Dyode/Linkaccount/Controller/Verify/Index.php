@@ -102,7 +102,7 @@ class Index extends Action
             $this->_coreSession->start();
             $downPayment = 0;
             $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
-            $websiteId = $this->_storeManager->getStore()->getWebsiteId();;
+            $websiteId = $this->_storeManager->getStore()->getWebsiteId();
             $curacaoCustId = $this->_coreSession->getCurAcc();
             $custEmail  = $this->_coreSession->getCustEmail();
             $customerInfo  = $this->_coreSession->getCustomerInfo();
@@ -131,7 +131,9 @@ class Index extends Action
             }
             $postData = array(
                 'cust_id' => $curacaoCustId,
-                'amount' => $amount
+                'amount' => $amount,
+                'ssn'=>$ssnLast,
+                'zip'=> $zipCode
             );
 
             //Verify Credit Account Infm
