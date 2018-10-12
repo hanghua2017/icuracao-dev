@@ -54,13 +54,16 @@
           </div>
             <h3><?php echo $product->getName();?></h3>
 
-              <p class="price"><span class="original-price <?php echo $product->getSpecialPrice() ? 'has-special-price' : '' ?>"><?php echo "$".number_format($_price,2);?></span><span class="discount-price"><?php if($_finalPrice!=NULL){echo "$";echo number_format(  $_finalPrice,2);}?></span></p>
+              <p class="price"><span class="original-price <?php echo $product->getSpecialPrice() ? 'has-special-price' : '' ?>"><?php echo "$".number_format($_price,2);?></span>
+              <?php if($_finalPrice!=NULL):?>
+                <span class="discount-price"><?php if($_finalPrice!=NULL){echo "$";echo number_format(  $_finalPrice,2);}?></span></p>
+              <?php endif; ?>
               <?php if($emiViewModel != NULL) {?>
                  <?php $emi = $emiViewModel->monthlyEmi($product->getFinalPrice());?>
               <?php }?>
 
               <?php if($emi!=0):?>
-<p class="subtext"><?php echo "or as low as ";?><span class="amount"><?php echo"$". "".$emi.""."/month";?></span></p>
+<p class="subtext"><?php echo __('Or as low as');?><span class="amount emi-amount"><?php echo"$". "".$emi.""."/month";?></span></p>
 <?php endif?>
           </a>
       </div>
