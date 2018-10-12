@@ -3,7 +3,7 @@
 namespace Dyode\CheckoutAddressStep;
 
 use Dyode\CheckoutAddressStep\Api\ShippingInformationManagementInterface;
-use Magento\Quote\Api\CartApiRepositoryInterface;
+use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Api\Data\CartExtensionFactory;
 use Magento\Quote\Model\ShippingAssignmentFactory;
 use Magento\Quote\Model\Quote\Item;
@@ -39,7 +39,7 @@ class ShippingInformationManagement implements ShippingInformationManagementInte
      * @param \Magento\Quote\Model\ShippingAssignmentFactory $shippingAssignmentFactory
      */
     public function __construct(
-        CartApiRepositoryInterface $quoteRepository,
+        CartRepositoryInterface $quoteRepository,
         CartExtensionFactory $cartExtensionFactory,
         ShippingAssignmentFactory $shippingAssignmentFactory,
         Item $quoteItem   

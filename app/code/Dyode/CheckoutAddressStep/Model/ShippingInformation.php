@@ -13,8 +13,10 @@
 namespace Dyode\CheckoutAddressStep\Model;
 
 use Dyode\CheckoutAddressStep\Api\Data\ShippingInformationInterface;
+use Magento\Framework\Model\AbstractExtensibleModel;
 
-class ShippingInformation implements ShippingInformationInterface{
+
+class ShippingInformation extends AbstractExtensibleModel implements ShippingInformationInterface{
 
     /**
      * {@inheritdoc}
