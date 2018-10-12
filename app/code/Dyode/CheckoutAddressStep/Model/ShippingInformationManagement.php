@@ -9,7 +9,7 @@ use Magento\Quote\Model\ShippingAssignmentFactory;
 use Magento\Quote\Model\Quote\Item;
 use Magento\Checkout\Api\Data\PaymentDetailsInterface;
 
-class ShippingInformationManagement extends ShippingInformationManagementInterface{
+class ShippingInformationManagement implements ShippingInformationManagementInterface{
 
     /**
     * @var \Magento\Quote\Api\CartRepositoryInterface
