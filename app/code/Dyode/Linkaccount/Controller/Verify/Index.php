@@ -9,6 +9,8 @@ use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\UrlFactory;
+use Magento\Customer\Model\CustomerFactory;
 
 class Index extends Action
 {
@@ -30,6 +32,15 @@ class Index extends Action
      * @var \Magento\Quote\Api\CartRepositoryInterface
      */
     protected $quoteRepository;
+
+    /** @var \Magento\Framework\UrlFactory */
+    protected $urlModel;
+
+     /**
+     * @var \Magento\Customer\Model\CustomerFactory
+     */
+    protected $customerFactory;
+
     /**
      * Constructor
      *
@@ -54,9 +65,11 @@ class Index extends Action
         \Magento\Quote\Model\Quote $quote,
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
         \Magento\Customer\Model\ResourceModel\CustomerFactory $customerResourceFactory,
-        \Magento\Checkout\Model\Session $checkoutSession
+        \Magento\Checkout\Model\Session $checkoutSession,
+        UrlFactory $urlFactory,
+        CustomerFactory $customerFactory
     ) {
-        parent::__construct($context);
+        
         $this->_resultFactory = $resultFactory;
         $this->_resultPageFactory = $resultPageFactory;
         $this->_customerSession = $customerSession;
@@ -68,10 +81,12 @@ class Index extends Action
         $this->_customerRepositoryInterface = $customerRepositoryInterface;
         $this->_customerResourceFactory = $customerResourceFactory;
         $this->_addressFactory = $addressFactory;
-
+        $this->urlModel = $urlFactory->create(); 
         $this->_quote = $quote;
         $this->quoteRepository = $quoteRepository;
         $this->_checkoutSession = $checkoutSession;
+        $this->customerFactory = $customerFactory;
+        parent::__construct($context);
     }
 
     /**
@@ -87,7 +102,7 @@ class Index extends Action
             $this->_coreSession->start();
             $downPayment = 0;
             $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
-            $websiteId = $this->_storeManager->getStore()->getWebsiteId();;
+            $websiteId = $this->_storeManager->getStore()->getWebsiteId();
             $curacaoCustId = $this->_coreSession->getCurAcc();
             $custEmail  = $this->_coreSession->getCustEmail();
             $customerInfo  = $this->_coreSession->getCustomerInfo();
@@ -116,7 +131,9 @@ class Index extends Action
             }
             $postData = array(
                 'cust_id' => $curacaoCustId,
-                'amount' => $amount
+                'amount' => $amount,
+                'ssn'=>$ssnLast,
+                'zip'=> $zipCode
             );
 
             //Verify Credit Account Infm
@@ -136,8 +153,8 @@ class Index extends Action
                $customer->setCustomAttribute('curacaocustid', $curacaoCustId);
                $this->_customerRepositoryInterface->save($customer);
              } else {
-                $fName = $this->coreSession->getFname();                   
-                $lName = $this->coreSession->getLastname();
+                $fName = $this->_coreSession->getFname();                   
+                $lName = $this->_coreSession->getLastname();
                 $path = $this->_coreSession->getPath();
                 // Instantiate object (this is the most important part)
                 $customer = $this->customerFactory->create();

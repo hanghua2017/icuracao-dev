@@ -14,8 +14,9 @@
 define([
     'jquery',
     'uiRegistry',
-    'Magento_Checkout/js/checkout-data'
-], function ($, registry, checkoutData) {
+    'Magento_Checkout/js/checkout-data',
+    'Dyode_CheckoutAddressStep/js/data/address-data-provider'
+], function ($, registry, checkoutData, addressDatProvider) {
 
     /**
      * Mixin for Magento_Checkout/js/view/billing-address
@@ -33,8 +34,12 @@ define([
         initialize: function () {
             this._super();
             this.isAddressFormVisible(false);
-            this.isAddressSameAsShipping(true);
+            this.isAddressSameAsShipping(addressDatProvider.isBillingSameAsShipping());
             this.isAddressDetailsVisible(true);
+
+            this.isAddressSameAsShipping.subscribe(function (newStatus) {
+                addressDatProvider.isBillingSameAsShipping(newStatus);
+            });
 
             registry.async('checkoutProvider')(function (checkoutProvider) {
                 var billingAddressData = checkoutData.getBillingAddressFromData();
