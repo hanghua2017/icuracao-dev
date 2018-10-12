@@ -21,9 +21,6 @@ use Magento\Checkout\Model\Session;
 class DeliveryConfigProvider implements ConfigProviderInterface
 {
 
-    const DELIVERY_OPTION_SHIP_TO_HOME = 'ship_to_home';
-    const DELIVERY_OPTION_STORE_PICKUP = 'store_pickup';
-
     /**
      * @var \Magento\Checkout\Model\Session
      */
@@ -50,7 +47,8 @@ class DeliveryConfigProvider implements ConfigProviderInterface
         foreach ($this->getQuote()->getItems() as $quoteItem) {
             $config['deliveryOptions'][] = [
                 'quoteItemId'  => (int)$quoteItem->getItemId(),
-                'deliveryType' => self::DELIVERY_OPTION_SHIP_TO_HOME,
+                'deliveryType' => DeliveryMethod::DELIVERY_OPTION_SHIP_TO_HOME_CODE,
+                'storeId'      => false,
             ];
         }
 

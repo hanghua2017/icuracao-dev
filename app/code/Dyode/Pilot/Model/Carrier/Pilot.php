@@ -5,6 +5,8 @@ namespace Dyode\Pilot\Model\Carrier;
 
 use Magento\Quote\Model\Quote\Address\RateRequest;
 use Magento\Shipping\Model\Rate\Result;
+use SoapClient;
+use SoapVar;
 
 class Pilot extends \Magento\Shipping\Model\Carrier\AbstractCarrier implements
     \Magento\Shipping\Model\Carrier\CarrierInterface
@@ -104,7 +106,7 @@ class Pilot extends \Magento\Shipping\Model\Carrier\AbstractCarrier implements
      */
 
     
-    public function getPilotRatesSoap($fromZip = '90015', $toZip = '12345', $weight = 1, $width = 10, $height = 10, $length = 10){
+    public function getPilotRatesSoap($fromZip = '90001', $toZip = '12345', $weight = 1, $width = 10, $height = 10, $length = 10){
         
         $client = new SoapClient("http://ws.pilotdelivers.com/tms2.1/tms/PilotServiceRequest.asmx?wsdl");
         
@@ -163,5 +165,14 @@ class Pilot extends \Magento\Shipping\Model\Carrier\AbstractCarrier implements
         }
         
         return $pilotBest['TotalQuote'];
+    }
+
+    /**
+     * Return Carrier Code
+     *
+     * @return string
+     */
+    public function getCode() {
+        return $this->_code;
     }
 }

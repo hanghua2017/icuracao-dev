@@ -1,0 +1,73 @@
+<!--
+/**
+ * Dyode_Checkout Magento 2 module
+ *
+ * Extending Magento_Checkout
+ *
+ * @package Dyode
+ * @module  Dyode_Chekout
+ * @author  Rajeev <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+
+<div class="address-review">
+
+    <!-- Shipping Address Review -->
+    <div class="address-block shipping-address" data-bind="visible: hasShippingAddress">
+        <ul class="address-list">
+            <li class="address-item"><h2 class="address-type" data-bind="i18n: 'Shipping address'"></h2></li>
+            <li class="address-item">
+                <h3 class="customer-name" data-bind="text: shipAddressFullName"></h3>
+            </li>
+            <li class="address-item" data-bind="if: hasShipAddressStreetLine1">
+                <!-- ko text: shipAddressStreetLine1 --><!-- /ko -->
+            </li>
+            <li class="address-item" data-bind="if: hasShipAddressStreetLine2">
+                <!-- ko text: shipAddressStreetLine2 --><!-- /ko -->
+            </li>
+            <li class="address-item" data-bind="if: shipAddressCity">
+                <!-- ko text: shipAddressCity --><!-- /ko -->
+            </li>
+            <li class="address-item" data-bind="if: hasShippingAddressRegion">
+                <!-- ko text: shipAddressRegion --><!-- /ko -->
+            </li>
+            <li class="address-item" data-bind="if: hasShippingAddressCountry">
+                <!-- ko text: shipAddressCountry --><!-- /ko -->
+            </li>
+            <li class="address-item" data-bind="if: shipAddressPhone">
+                <span data-bind="i18n: 'Phone'"></span>: <!-- ko text: shipAddressPhone --><!-- /ko -->
+            </li>
+        </ul>
+        <button class="change ship-address-change"><span data-bind="i18n: 'Change'"></span></button>
+    </div>
+
+    <!-- Billing Address Review -->
+    <div class="address-block billing-address" data-bind="visible: hasBillingAddress">
+        <ul class="address-list">
+            <li class="address-item"><h2 class="address-type" data-bind="i18n: 'Billing address'"></h2></li>
+            <li class="address-item">
+                <h3 class="customer-name" data-bind="text: billAddressFullName"></h3>
+            </li>
+            <li class="address-item" data-bind="if: hasBillAddressStreetLine1">
+                <!-- ko text: billAddressStreetLine1 --><!-- /ko -->
+            </li>
+            <li class="address-item" data-bind="if: hasBillAddressStreetLine2">
+                <!-- ko text: billAddressStreetLine2 --><!-- /ko -->
+            </li>
+            <li class="address-item" data-bind="if: billAddressCity">
+                <!-- ko text: billAddressCity --><!-- /ko -->
+            </li>
+            <li class="address-item" data-bind="if: hasBillingAddressRegion">
+                <!-- ko text: billAddressRegion --><!-- /ko -->
+            </li>
+            <li class="address-item" data-bind="if: hasBillingAddressCountry">
+                <!-- ko text: billAddressCountry --><!-- /ko -->
+            </li>
+            <li class="address-item" data-bind="if: billAddressPhone">
+                <span data-bind="i18n: 'Phone'"></span>: <!-- ko text: billAddressPhone --><!-- /ko -->
+            </li>
+        </ul>
+        <button class="change bill-address-change"><span data-bind="i18n: 'Change'"></span></button>
+    </div>
+</div>
