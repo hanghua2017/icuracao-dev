@@ -26,6 +26,7 @@ require(['jquery'], function ($) {
       });
       //on click of pagination load plp page from top
         $( document ).ajaxStop(function() {
+          if ($("body").hasClass('catalogsearch-result-index'))
           $(this).scrollTop(0);
         });
     });
