@@ -12,19 +12,23 @@ define([
     'jquery',
     'uiComponent',
     'mage/url',
+    'Magento_Checkout/js/model/quote',
     'Magento_Checkout/js/model/step-navigator',
     'Magento_Checkout/js/model/error-processor',
     'Magento_Checkout/js/model/full-screen-loader',
     'Dyode_CheckoutDeliveryMethod/js/data/delivery-data-provider',
+    'Dyode_CheckoutAddressStep/js/model/address-validator',
     'Dyode_CheckoutAddressStep/js/model/estimate-shipping-processor'
 ], function (
     $,
     Component,
     Url,
+    quote,
     stepNavigator,
     errorProcessor,
     fullScreenLoader,
     deliveryDataProvider,
+    addressValidator,
     shippingEstimateProcessor
 ) {
     var quoteItemData = window.checkoutConfig.quoteItemData;
@@ -42,8 +46,11 @@ define([
          * Proceeds to the next step
          */
         navigateToNextStep: function () {
-            this.performAjaxUpdates();
-            stepNavigator.next();
+            this.performAjaxUpdates().done(
+                function () {
+                    stepNavigator.next();
+                }
+            );
         },
 
         /**
@@ -55,12 +62,16 @@ define([
                 activeStep = steps[activeStepIndex];
 
             if (activeStep.code === 'deliverySelection') {
-                this.saveDeliveryOptions();
+                return this.saveDeliveryOptions();
             }
 
             if (activeStep.code === 'address-step') {
-                shippingEstimateProcessor.estimateShippingMethods();
+                if (addressValidator.validateAddresses()) {
+                    return shippingEstimateProcessor.estimateShippingMethods(quote.shippingAddress());
+                }
             }
+
+            return $.Deferred();
         },
 
         /**
@@ -70,7 +81,7 @@ define([
             var activeStepIndex = stepNavigator.getActiveItemIndex(),
                 steps = stepNavigator.steps(),
                 activeStep = steps[activeStepIndex];
-            
+
             return activeStep.code === 'payment';
         },
 
@@ -85,7 +96,7 @@ define([
 
             fullScreenLoader.startLoader();
 
-            $.ajax({
+            return $.ajax({
                 url: Url.build('delivery-step/deliveryMethods/save'),
                 type: 'POST',
                 dataType: 'json',
