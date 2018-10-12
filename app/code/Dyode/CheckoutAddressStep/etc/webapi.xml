@@ -20,4 +20,16 @@
             <resource ref="anonymous" />
         </resources>
     </route>
+
+    <!-- Managing My shipping information -->
+    <route url="/V1/carts/mine/custom-shipping-information" method="POST">
+        <service class="Dyode\CheckoutAddressStep\Api\ShippingInformationManagementInterface" method="saveAddressInformation"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+
 </routes>

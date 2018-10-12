@@ -56,8 +56,9 @@
 
               <p class="price"><span class="original-price <?php echo $product->getSpecialPrice() ? 'has-special-price' : '' ?>"><?php echo "$".number_format($_price,2);?></span>
               <?php if($_finalPrice!=NULL):?>
-                <span class="discount-price"><?php if($_finalPrice!=NULL){echo "$";echo number_format(  $_finalPrice,2);}?></span></p>
-              <?php endif; ?>
+                <span class="discount-price"><?php if($_finalPrice!=NULL){echo "$";echo number_format(  $_finalPrice,2);}?></span>
+                <?php endif; ?>
+              </p>
               <?php if($emiViewModel != NULL) {?>
                  <?php $emi = $emiViewModel->monthlyEmi($product->getFinalPrice());?>
               <?php }?>
