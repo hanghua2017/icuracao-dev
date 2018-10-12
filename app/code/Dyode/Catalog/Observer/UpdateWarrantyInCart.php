@@ -95,10 +95,11 @@ class UpdateWarrantyInCart implements ObserverInterface
         foreach ($this->warrantyRelation as $warrantyItemId => $parentItemId) {
             $parentQuoteItem = $this->cart->getQuote()->getItemById($parentItemId);
             $warrantyQuoteItem = $this->cart->getQuote()->getItemById($warrantyItemId);
-
-            if ($parentQuoteItem->getQty() != $warrantyQuoteItem->getQty()) {
-                $this->itemsToUpdate[$warrantyItemId] = $parentQuoteItem->getQty();
-            }
+          
+                if( ($parentQuoteItem != null && $warrantyQuoteItem != null) && ($parentQuoteItem->getQty() != $warrantyQuoteItem->getQty())) {
+                    $this->itemsToUpdate[$warrantyItemId] = $parentQuoteItem->getQty();
+                }
+            
         }
 
         if (count($this->itemsToUpdate) > 0) {

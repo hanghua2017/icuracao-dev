@@ -21,7 +21,9 @@ define([
         'Magento_Checkout/js/model/shipping-service',
         'Magento_Checkout/js/model/shipping-rate-registry',
         'Magento_Checkout/js/model/error-processor',
-        'Magento_Checkout/js/action/select-billing-address'
+        'Magento_Checkout/js/action/select-billing-address',
+        'Magento_Checkout/js/action/create-billing-address',
+        'Dyode_CheckoutAddressStep/js/data/address-data-provider'
     ], function (
         $,
         utils,
@@ -33,7 +35,9 @@ define([
         shippingService,
         rateRegistry,
         errorProcessor,
-        selectBillingAddressAction
+        selectBillingAddressAction,
+        createBillingAddress,
+        addressDataProvider
     ) {
 
         return {
@@ -63,8 +67,17 @@ define([
                     return $.Deferred();
                 }
 
-                if (!quote.billingAddress()) {
+                /**
+                 * We are updating "addressDataProvider" either with quote.shippingAddress or with checkoutData
+                 * billing data in order to show billing address in the address-review section in the third tab.
+                 */
+                if (addressDataProvider.isBillingSameAsShipping()) {
                     selectBillingAddressAction(quote.shippingAddress());
+                    addressDataProvider.billingAddress(quote.shippingAddress());
+                } else {
+                    var newBillingAddress = createBillingAddress(checkoutData.getBillingAddressFromData());
+
+                    addressDataProvider.billingAddress(newBillingAddress);
                 }
 
                 shippingService.isLoading(true);
