@@ -12,7 +12,7 @@
 
 define(['ko'], function (ko) {
     return {
-        shippingAddress: ko.observable({}),
-        billingAddress: ko.observable({})
+        billingAddress: ko.observable({}),
+        isBillingSameAsShipping: ko.observable(true)
     };
 });

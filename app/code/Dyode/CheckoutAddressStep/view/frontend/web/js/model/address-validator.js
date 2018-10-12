@@ -10,21 +10,39 @@
 
 'use strict';
 
-define(['uiRegistry'], function (registry) {
+define([
+    'uiRegistry',
+    'Dyode_CheckoutAddressStep/js/data/address-data-provider'
+], function (registry, addressDataProvider) {
 
     return {
         addressStepShippingComponentName: 'checkout.steps.address-step.shippingAddress',
+        addressStepBillingComponentName: 'checkout.steps.address-step.shippingAddress.billing-address',
         shippingAddressComponent: null,
+        billingAddressComponent: null,
 
         /**
          * Collecting shipping-step address components to perform their validation.
+         *
+         * @returns {exports}
          */
         initialize: function () {
-            var shippingComponent = registry.get(this.addressStepShippingComponentName);
+            if (this.billingAddressComponent && this.shippingAddressComponent) {
+                return this;
+            }
+
+            var shippingComponent = registry.get(this.addressStepShippingComponentName),
+                billingComponent = registry.get(this.addressStepBillingComponentName);
 
             if (shippingComponent) {
                 this.shippingAddressComponent = shippingComponent;
             }
+
+            if (billingComponent) {
+                this.billingAddressComponent = billingComponent;
+            }
+
+            return this;
         },
 
         /**
@@ -46,7 +64,30 @@ define(['uiRegistry'], function (registry) {
          * @returns {Boolean}
          */
         isBillingAddressValid: function () {
-            return true;
+            if (!this.billingAddressComponent) {
+                return false;
+            }
+
+            if (addressDataProvider.isBillingSameAsShipping()) {
+                return true;
+            }
+
+            var $this = this.billingAddressComponent;
+
+            $this.source.set('params.invalid', false);
+            $this.source.trigger($this.dataScopePrefix + '.data.validate');
+
+            if ($this.source.get($this.dataScopePrefix + '.custom_attributes')) {
+                $this.source.trigger($this.dataScopePrefix + '.custom_attributes.data.validate');
+            }
+
+            if (!$this.source.get('params.invalid')) {
+                return true;
+            }
+
+            $this.focusInvalid();
+
+            return false;
         },
 
         /**
