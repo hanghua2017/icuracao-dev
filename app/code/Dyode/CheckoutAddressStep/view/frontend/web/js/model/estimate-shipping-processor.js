@@ -11,6 +11,7 @@
 'use strict';
 
 define([
+        'jquery',
         'mageUtils',
         'mage/storage',
         'Magento_Customer/js/model/customer',
@@ -20,18 +21,19 @@ define([
         'Magento_Checkout/js/model/shipping-service',
         'Magento_Checkout/js/model/shipping-rate-registry',
         'Magento_Checkout/js/model/error-processor',
-        'Dyode_CheckoutAddressStep/js/data/address-data-provider'
+        'Magento_Checkout/js/action/select-billing-address'
     ], function (
-    utils,
-    storage,
-    customer,
-    quote,
-    checkoutData,
-    urlBuilder,
-    shippingService,
-    rateRegistry,
-    errorProcessor,
-    addressDataProvider
+        $,
+        utils,
+        storage,
+        customer,
+        quote,
+        checkoutData,
+        urlBuilder,
+        shippingService,
+        rateRegistry,
+        errorProcessor,
+        selectBillingAddressAction
     ) {
 
         return {
@@ -45,46 +47,35 @@ define([
              * @param {Object} address
              */
             getRates: function (address) {
-                this.estimateShippingMethods(address, true);
+                this.estimateShippingMethods(address);
             },
 
             /**
              * Estimate shipping methods based on the zip code.
              *
-             * If "address" parameter is present, then it is getRates() call.
-             *
              * @param {Object} address
+             * @return {Deferred}
              */
-            estimateShippingMethods: function (address, isRate) {
+            estimateShippingMethods: function (address) {
                 var serviceUrl, payload;
 
-                if (!address) {
-                    address = checkoutData.getShippingAddressFromData();
+                if (!address || !address.postcode) {
+                    return $.Deferred();
                 }
 
-                if (!address.postcode) {
-                    return this;
+                if (!quote.billingAddress()) {
+                    selectBillingAddressAction(quote.shippingAddress());
                 }
-
-                if (!isRate) {
-                    //updating address review data provider, to update the address-review section
-                    addressDataProvider.shippingAddress(address || {});
-                    addressDataProvider.billingAddress(checkoutData.getBillingAddressFromData() || {});
-                }
-
-                //updating address review data provider, to update the address-review section
-                addressDataProvider.shippingAddress(address);
-                addressDataProvider.billingAddress(checkoutData.getBillingAddressFromData());
 
                 shippingService.isLoading(true);
-                serviceUrl = this.estimateShippingMethodsUrl(quote);
+                serviceUrl = this.estimateShippingMethodsUrl();
                 payload = JSON.stringify({
                     address: {
                         zip_code: address.postcode
                     }
                 });
 
-                storage.post(
+                return storage.post(
                     serviceUrl, payload, false
                 ).done(function (result) {
                     shippingService.setShippingRates(result);
@@ -99,7 +90,7 @@ define([
             /**
              * @return {*}
              */
-            estimateShippingMethodsUrl: function (quote) {
+            estimateShippingMethodsUrl: function () {
                 var params = this.getCheckoutMethod() == 'guest' ? //eslint-disable-line eqeqeq
                     {
                         quoteId: quote.getQuoteId()

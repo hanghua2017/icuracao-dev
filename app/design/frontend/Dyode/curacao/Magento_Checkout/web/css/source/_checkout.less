@@ -71,13 +71,70 @@ input[type="radio"] {
 /*styling for the custom radio button on shipping method section ends here*/
 //Checkout page 1 with form
 .checkout-index-index{
+  .nav-toggle
+  {
+    display: none !important;
+  }
+  .page-wrapper
+  {
+    .page-header
+    {
+      position: static !important;
+      @media all and (max-width: 767px)
+      {
+        height: 90px;
+      }
+      @media all and (max-width: 479px)
+      {
+        height: 75px;
+      }
+
+      .header.content
+      {
+        padding: 30px !important;
+        .logo
+        {
+          margin:0 !important;
+        }
+        .block-search,.minicart-wrapper
+        {
+          display: none !important;
+          @media all and (max-width: 767px)
+          {
+            display: none !important;
+          }
+        }
+        .customer-signin
+        {
+          position: absolute !important;
+          right: 0 !important;
+          margin-top: 0 !important;
+          margin-right: 30px !important;
+        }
+      }
+      .header-message
+      {
+        display:none !important
+      }
+    }
+    .page-footer
+    {
+      .custom-footer-links,.subscribe-block
+      {
+        display: none;
+      }
+    }
+  }
+
+
   .page-main
   {
-    margin-top: 70px;
+    margin-top: 0 !important;
     @media all and (max-width: 767px)
     {
-      margin-top: 157px !important;
+      margin-top: 20px !important;
     }
+
   }
   .sections{
     .nav-sections {
@@ -114,6 +171,57 @@ input[type="radio"] {
           }
         }
       }
+      .apply-credit-ad {
+        .desktop-view, .mobile-view {
+          .apply-card {
+            background: @theme-color;
+            box-shadow: none;
+            color: #fff;
+            font-family: 'iCuracao-Medium';
+            font-size: 16px;
+            padding: 12px 30px;
+            letter-spacing: 0.7px;
+            border-radius: 3px;
+            text-decoration: none;
+            @media all and (max-width: 991px) {
+              padding: 10px 20px;
+              font-size: 14px;
+            }
+          }
+        }
+        .desktop-view {
+          position: relative;
+          clear: both;
+          width: 100%;
+          float: left;
+          padding: 15px 0;
+          -webkit-box-shadow: 0px 0px 10px 1px rgba(27,32,42,0.1);
+          -moz-box-shadow: 0px 0px 10px 1px rgba(27,32,42,0.1);
+          box-shadow: 0px 0px 10px 1px rgba(27,32,42,0.1);
+          margin: 0;
+          @media all and (max-width: 767px) {
+            display: none;
+          }
+          img {
+            width: auto;
+            float: left;
+            @media all and (max-width: 767px) {
+              padding-left: 0;
+            }
+          }
+        }
+        .mobile-view {
+          text-align: center;
+          box-shadow: 1px 3px 13px rgba(0, 0, 0, 0.1);
+          img {
+            width: 100%;
+          }
+          @media all and (min-width: 767px) {
+            display: none;
+
+          }
+        }
+      }
       .opc-sidebar{
         @media only screen and (min-width: 768px){
           width:33.333%;
@@ -125,9 +233,10 @@ input[type="radio"] {
       }
       /*styling for the Checkout progress bar starts here*/
       .opc-progress-bar{
-        margin:0;
+        margin: 30px auto 0;
+        max-width: 1000px;
         height:100px;
-        margin-top:30px;
+        margin-bottom: 40px;
         li{
             @media only screen and (min-width: 768px){
               width: 24%;
@@ -159,7 +268,10 @@ input[type="radio"] {
         font-weight: 300 !important;
         font-size:14px;
         @media only screen and (min-width: 768px){
-          padding-top: 38px;
+          padding-top: 39px;
+        }
+        @media only screen and (max-width: 880px){
+          font-size:14px;
         }
       }
       .opc-progress-bar-item._active > span {
@@ -170,25 +282,39 @@ input[type="radio"] {
      .opc-progress-bar-item > span:after {
        border-color: @white;
        color: @light-gray-border;
-       line-height: 60px;
-       font-size: 30px;
+       line-height: 52px;
+       font-size: 22px;
        margin-left: -14px;
         @media only screen and (min-width: 768px){
           left: 93%;
           top: 20px;
-          width: 60px;
-          height: 60px;
+          width: 50px;
+          height: 50px;
           z-index: 1;
+        }
+        @media only screen and (max-width: 880px){
+          top: 30px;
+          width: 35px;
+          height: 35px;
+          line-height: 37px;
+          font-size: 18px;
         }
       }
       .opc-progress-bar-item > span:before {
         @media only screen and (min-width: 768px){
           border: 6px solid #e5e5e5 !important;
-          width: 60px !important;
-          height: 60px !important;
+          width: 50px !important;
+          height: 50px !important;
           top: 15px !important;
           left: 93% !important;
           z-index: 1 !important;
+        }
+        @media only screen and (max-width: 880px){
+          width: 35px !important;
+          height: 35px !important;
+          top: 25px !important;
+          line-height: 39px;
+          font-size: 20px;
         }
       }
       .opc-progress-bar-item._active > span:before{
@@ -256,6 +382,7 @@ input[type="radio"] {
     /*styling for the Checkout progress bar ends here*/
     /*styling for the Checkout order summary section starts here*/
       .opc-sidebar{
+        margin: 0;
         box-sizing: border-box;
         padding:15px;
         @media only screen and (min-width: 768px){
@@ -395,6 +522,9 @@ input[type="radio"] {
             @media all and (max-width: 639px){
               margin:0 0 10px;
             }
+            @media all and (max-width: 479px){
+              font-size: 16px;
+            }
           }
           form
           {
@@ -464,6 +594,9 @@ input[type="radio"] {
                 }
               }
             }
+          }
+          .table-totals + .table-wrapper {
+            display: none;
           }
         }
         .action-button{
@@ -725,6 +858,7 @@ input[type="radio"] {
         @media all and (min-width:991px){
           padding-right:20px;
           width:70%;
+          margin: 0;
         }
         @media all and (max-width:767px){
           border-bottom: 5px solid #e8e8e8;
@@ -733,6 +867,7 @@ input[type="radio"] {
         #checkoutSteps
         {
           padding-bottom: 10px;
+          overflow: auto;
         }
         #checkout-step-shipping{
           .mandatory{
@@ -755,6 +890,9 @@ input[type="radio"] {
            position: relative;
            padding-bottom: 60px;
            border-bottom: none;
+           clear: both;
+          float: left;
+          width: 100%;
            @media all and (max-width:767px){
              padding-bottom: 30px;
            }
@@ -833,6 +971,10 @@ input[type="radio"] {
                   font-size: 18px;
                   font-family: "iCuracao-medium";
                   margin-bottom: 25px;
+                  @media all and (max-width: 479px)
+                  {
+                    font-size: 16px;
+                  }
                 }
                 .quote-item-details
                 {
@@ -843,11 +985,7 @@ input[type="radio"] {
                   .shipping-method-product-image
                   {
                     float: left;
-                    width: 80px;
-                    @media all and (max-width: 767px)
-                    {
-                      width: 75px;
-                    }
+                    width: 65px;
                     img
                     {
                       width: 100%;
@@ -972,6 +1110,7 @@ input[type="radio"] {
             }
           }
           /*styling for the order details section on shipping page starts here*/
+
           #onepage-checkout-shipping-method-additional-load{
             #shipping-method-product-listing{
               .shipping-method-product-item{
@@ -1028,6 +1167,77 @@ input[type="radio"] {
             }
           }
           /*styling for the order details section on shipping page ends here*/
+        }
+
+        .checkout-shipping-method
+        {
+          .address-review
+          {
+            float: left;
+            width: 100%;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eeeeee;
+            padding-bottom: 20px;
+            .address-block
+            {
+              float: left;
+              width: 50%;
+              .address-list
+              {
+                .address-item
+                {
+                  color: @dark-gray-text;
+                  margin-bottom: 5px;
+                  .address-type
+                  {
+                    font-size: 20px;
+                    font-family: "iCuracao-Medium";
+                    color: #333;
+                    @media all and (max-width: 767px)
+                    {
+                      font-size: 18px;
+                    }
+                    @media all and (max-width: 479px)
+                    {
+                      font-size: 16px;
+                    }
+                  }
+                  .customer-name
+                  {
+                    font-weight: 500;
+                    color: #333;
+                    text-transform: capitalize;
+                    @media all and (max-width: 767px)
+                    {
+                      display:block;
+                      font-size: 16px;
+                    }
+                    @media all and (max-width: 479px)
+                    {
+                      display:block;
+                      font-size: 14px;
+                    }
+                  }
+
+                }
+
+              }
+
+              .ship-address-change
+              {
+                padding: 8px;
+                width: 90px;
+                background: @dark-green-color-1;
+                border: none;
+                text-align: center;
+                color: white;
+                &:hover
+                {
+                  background: @dark-green-color-2;
+                }
+              }
+            }
+          }
         }
         .form-shipping-address, .form-login,.billing-address-form{
           .label{
@@ -1088,6 +1298,7 @@ input[type="radio"] {
                 width: 170px;
                 background: @dark-green-color-1;
                 border: none;
+                text-align: center;
                 &:hover
                 {
                   background: @dark-green-color-2;
@@ -1284,23 +1495,22 @@ input[type="radio"] {
           -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
           box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
         }
-        #step_code
+
+        .step-top-heading
         {
-          .step-top-heading
+          border-bottom: 1px solid #cccccc;
+          padding-bottom: 20px;
+          margin-bottom: 30px;
+          .top-title
           {
-            border-bottom: 1px solid #cccccc;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-            .top-title
-            {
-              font-size: 22px;
-            }
-            .top-details
-            {
-              margin-top: 10px;
-            }
+            font-size: 22px;
+          }
+          .top-details
+          {
+            margin-top: 10px;
           }
         }
+
         .primary button {
           margin: 0 auto;
        width: 200px;
@@ -1314,6 +1524,9 @@ input[type="radio"] {
           margin-bottom: 10px;
           @media all and (max-width:767px){
             font-size:18px;
+          }
+          @media all and (max-width:767px){
+            font-size:16px;
           }
         }
         .step-note
