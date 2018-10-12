@@ -16,17 +16,8 @@ define([
     'uiComponent',
     'uiRegistry',
     'Magento_Checkout/js/model/quote',
-    'Magento_Checkout/js/model/step-navigator'
-], 
-function 
-(
-    ko,
-    _, 
-    Component, 
-    registry, 
-    quote,
-    stepNavigator
-) {
+    'Dyode_CheckoutAddressStep/js/data/address-data-provider'
+], function (ko, _, Component, registry, quote, addressDataProvider) {
 
     return Component.extend({
         defaults: {
@@ -144,7 +135,7 @@ function
         subscribeBillingAddress: function () {
             var self = this;
 
-            quote.billingAddress.subscribe(function (billingAddress) {
+            addressDataProvider.billingAddress.subscribe(function (billingAddress) {
                 if (!billingAddress) {
                     billingAddress = {};
                 }
@@ -229,10 +220,10 @@ function
         },
 
         /**
-         * Go to address step 
+         * Go to address step
          */
         goToAddressStep: function () {
-            stepNavigator.navigateTo("address-step");
+            stepNavigator.navigateTo('address-step');
         }
 
     });
