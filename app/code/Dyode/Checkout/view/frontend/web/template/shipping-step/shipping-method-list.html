@@ -1,0 +1,81 @@
+<!--
+/**
+ * Dyode_Checkout Magento 2 module
+ *
+ * Extending Magento_Checkout
+ *
+ * @module  Dyode_Chekout
+ * @author  Rajeev <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<div id="shipping-method-product-listing" data-bind="foreach: getProductItems()">
+    <div class="shipping-method-product-item">
+        <h2>
+            <span data-bind="i18n: 'Order Details '"></span>(<span data-bind="text: $index() + 1"></span>)
+        </h2>
+
+        <div class="quote-item-details">
+            <div class="shipping-method-product-image">
+                <img data-bind="attr: {'src': productImgUrl}"/>
+            </div>
+            <div class="shipping-method-product-details">
+                <h4 data-bind="text: productName"></h4>
+                <h5 data-bind="text:productPrice"></h5>
+                <h6>
+                    <span class="label" data-bind="i18n: 'Quantity:'"></span>
+                    <span class="value" data-bind="text: productQty"></span>
+                </h6>
+            </div>
+        </div>
+
+        <div class="delivery-details">
+            <div class="no-quotes-error" data-bind="visible: !isQuotesAvailable()">
+                <!-- ko i18n: 'Sorry, no quotes are available for this order at this time' --><!-- /ko -->
+            </div>
+
+            <div class="shipping-methods" data-bind="visible: isQuotesAvailable() && !isStorePickup()">
+                <h3 class="title" data-bind="i18n: 'Select delivery option'"></h3>
+                <ul class="method-list" data-bind="foreach: shippingMethods()">
+                    <li class="method-item">
+
+                        <!-- ko ifnot: (available) -->
+                        <div data-bind="text: error_message"></div>
+                        <!-- /ko -->
+
+                        <!-- ko if: (available) -->
+                        <input type="radio"
+                               class="radio"
+                               data-bind="click: updateShippingTotals,
+                                    checked: isMethodChecked,
+                                    attr: {
+                                        value: methodValue,
+                                        id: methodId,
+                                        name: methodName
+                                    }"
+                        />
+                        <label class="label" data-bind="attr: {for: methodId}">
+                            <span class="title"><!-- ko text: $data.method_title --><!-- /ko --></span>|
+                            <span class="price"><!-- ko text: $data.methodPrice --><!-- /ko --></span>|
+                            <span class="delivery-msg"><!-- ko text: $data.expectedDeliveryMsg --><!-- /ko --></span>
+                        </label>
+                        <!-- /ko -->
+                    </li>
+                </ul>
+                <button type="button" class="change-method" data-bind="click: $parent.changeShippingMethod"><span data-bind="i18n: 'Change shipping method'"></span></button>
+            </div>
+
+            <div class="store-selected" data-bind="visible: isQuotesAvailable() && isStorePickup()">
+                <h3 class="store-headding" data-bind="i18n: 'Selected store for pickup'"></h3>
+                <ul class="store-info">
+                    <li class="store-name"><strong data-bind="i18n: storePicked().name"></strong></li>
+                    <li class="address-line address-line-1" data-bind="text: storePicked().addressLine1"></li>
+                    <li class="address-line address-line-2" data-bind="text: storePicked().addressLine2"></li>
+                </ul>
+                <button type="button" class="change-method" data-bind="click: $parent.changeShippingMethod"><span data-bind="i18n: 'Change shipping method'"></span></button>
+            </div>
+
+        </div>
+    </div>
+    <hr>
+</div>

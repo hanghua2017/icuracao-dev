@@ -123,6 +123,7 @@ select:focus, input:focus {
               &.active {
                 @media all and (max-width: 767px) {
                   padding-top: 0;
+                  padding-bottom: 10px;
                   border-bottom: 1px solid #f2f2f2;
                   -webkit-box-shadow: 0px 4px 10px -5px rgba(0,0,0,0.06);
                   -moz-box-shadow: 0px 4px 10px -5px rgba(0,0,0,0.06);
@@ -160,7 +161,7 @@ select:focus, input:focus {
                       padding: 15px 10px;
                     }
                     @media all and (max-width: 767px) {
-                      font-size: 14px !important;
+                      font-size: 15px !important;
                       padding:15px 20px;
                     }
                     @media all and (max-width:479px){
@@ -335,7 +336,8 @@ select:focus, input:focus {
         strong{
           font-weight: 500 !important;
           @media only screen and (max-width: 767px){
-           font-size: 22px;
+           // font-size: 22px;
+           font-size: 15px !important;
          }
         }
         .content{
@@ -399,12 +401,12 @@ select:focus, input:focus {
               strong{
                 font-family: "iCuracao-Medium";
                 padding: 12px 35px 13px 35px !important;
+                @media only screen and (max-width: 767px){
+    							padding: 12px 20px 13px 20px !important;
+    						}
               }
             }
           }
-
-
-
 					.block-content{
 						padding: 10px 0;
 						@media only screen and (min-width: 768px){
@@ -725,7 +727,7 @@ select:focus, input:focus {
           .page-title-wrapper {
             padding: 15px 20px;
             @media all and (max-width: 768px) {
-              padding: 15px !important;
+              padding: 40px 15px 15px 15px !important;
             }
             &::after {
               clear: none;
@@ -1069,7 +1071,7 @@ select:focus, input:focus {
     .form-edit-account{
       padding:10px 20px;
       @media all and (max-width:767px){
-        padding:10px;
+        padding:14px;
       }
       .fieldset{
         margin-bottom:25px;
@@ -1683,62 +1685,78 @@ select:focus, input:focus {
   }
 }
 .customer-address-index{
-  .columns{
-    .sidebar-main{
-      .block-collapsible-nav{
-        @media all and(max-width: 767px){
-          top:5px !important;
-          padding-left: 20px !important;
-        }
-        @media all and (max-width: 599px) {
-          padding-left: 15px !important;
-        }
-        .block-collapsible-nav-title{
+  .page-main{
+    .columns{
+      .sidebar-main{
+        .block-collapsible-nav{
           @media all and(max-width: 767px){
-            padding-left:0 !important;
+            top:5px !important;
+            padding-left: 20px !important;
+          }
+          @media all and (max-width: 599px) {
+            padding-left: 15px !important;
+          }
+          .block-collapsible-nav-title{
+            @media all and(max-width: 767px){
+              padding-left:0 !important;
+            }
           }
         }
       }
-    }
-    .column{
-      .page-title-wrapper{
-        @media all and(max-width: 767px){
-            padding-top: 35px !important;
+      .column{
+        .page-title-wrapper{
+          @media all and(max-width: 767px){
+            @media all and(max-width: 767px){
+                padding-top: 35px !important;
+            }
+          }
         }
-      }
-      .block{
-        @media only screen and (min-width: 768px){
-        margin-bottom: 0px;
+        .block{
+          @media only screen and (min-width: 768px){
+          margin-bottom: 0px;
+          }
         }
-      }
-      .block-addresses-default,.block-addresses-list{
-        .block-title{
-          margin-bottom: 0 !important;
+        .block-addresses-default,.block-addresses-list{
+          .block-title{
+            margin-bottom: 0 !important;
+          }
         }
-      }
-      .actions-toolbar{
-        .primary{
-          button{
-            background: transparent !important;
-            border: none !important;
-            border-radius: 0 !important;
-            float: left !important;
-            padding: 0 !important;
-            text-align: left;
-            span {
-              font-size: 14px !important;
-              font-family: 'iCuracao-Regular' !important;
-              color: @active-blue-color !important;
+        .block-addresses-list{
+          @media all and (max-width: 767px){
+              padding-bottom: 0 !important;
+          }
+        }
+        .actions-toolbar{
+          @media all and (max-width: 767px){
+              padding-top: 0 !important;
+          }
+          .primary{
+            button{
+              background: transparent !important;
+              border: none !important;
+              border-radius: 0 !important;
+              @media all and(min-width: 768px){
+                  float: left !important;
+              }
+              padding: 0 !important;
+              text-align: left;
+              span {
+                font-size: 14px !important;
+                font-family: 'iCuracao-Medium' !important;
+                color: @active-blue-color !important;
+                font-weight: 500 !important;
+              }
             }
           }
         }
       }
     }
   }
+
 }
 .newsletter-manage-index,.vault-cards-listaction,.magento-rma-returns-history,
 .customer-account-index,.sales-order-history,.sales-order-view,.magento-rma-returns-create,.customer-address-form,.customer-account-edit,
-.review-customer-index,.rma-rma-list{
+.review-customer-index,.rma-rma-list, .rma-rma-order, .customer-address-index{
   .columns{
     .sidebar-main{
       .block-collapsible-nav{
@@ -2104,7 +2122,7 @@ select:focus, input:focus {
   .page-main{
     .choice{
       input[type="checkbox"] {
-          margin: 0px 5px 0 0;
+          margin: -1px 5px 0 0;
           vertical-align: middle;
       }
       .label{
@@ -2132,12 +2150,6 @@ select:focus, input:focus {
         }
       }
     }
-    // .order-products-toolbar {
-    //   padding: 10px 0;
-    //   @media only screen and (min-width: 768px){
-    //     padding: 20px;
-    //   }
-    // }
     .toolbar{
       select {
           background-color: @white;
@@ -2725,7 +2737,7 @@ select:focus, input:focus {
           background: @orange-button;
           border: 1px solid @orange-button;
           padding: 10px 15px;
-          margin-top: 20px;
+          margin-top: 10px;
           float: left;
           margin-left: 20px;
           @media all and (max-width: 767px) {

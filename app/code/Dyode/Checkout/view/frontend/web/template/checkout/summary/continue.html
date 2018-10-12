@@ -1,3 +1,4 @@
+<!-- ko if: !isPayment()-->
 <form data-bind="submit: navigateToNextStep" novalidate="novalidate">
     <div class="actions-toolbar">
         <div class="primary">
@@ -7,3 +8,15 @@
         </div>
     </div>
 </form>
+<!-- /ko -->
+<!-- ko if: isPayment()-->
+<form data-bind="submit: navigateToNextStep" novalidate="novalidate">
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button data-role="opc-continue" type="submit" class="button action continue primary">
+                <span><!-- ko i18n: 'Place Order'--><!-- /ko --></span>
+            </button>
+        </div>
+    </div>
+</form>
+<!-- /ko -->

@@ -8,6 +8,8 @@
 @white: #ffffff;
 @black: #000;
 @white-shade:#efefef;
+@box-orange: #f26722;
+@content-light-grey: #c3c3c3;
 
 .block.category.event,
 .breadcrumbs,
@@ -185,6 +187,8 @@
 								height: 100%;
 								object-fit: cover;
 
+
+
 								&.desk-banner {
 									display: block;
 								}
@@ -218,6 +222,18 @@
 								margin:0 0 20px 0;
 							}
 
+							.wrapper {
+								max-width: 385px;
+								margin: 0 auto;
+								width: 100%;
+								@media all and (max-width:850px){
+									display: flex;
+								}
+								@media all and (max-width:599px){
+									display: block;
+								}
+							}
+
 							.left-block,
 							.right-block {
 								width: 50%;
@@ -225,21 +241,16 @@
 								box-shadow: 0 0 10px @box-shadow-color;
 								padding: 10px;
 								box-sizing: border-box;
-								@media all and (max-width:480px){
+								@media all and (max-width:599px){
 									flex-direction: column;
 								}
 
 								.image {
-									width: 50%;
 									text-align: right;
 									margin-right: 15px;
-									@media all and (max-width:1200px){
-										width:43%;
-									}
-									@media screen and (max-width: 890px) {
-										width: 30%;
-									}
-									@media all and (max-width:480px){
+									display: inline-block;
+									float: left;
+									@media all and (max-width:599px){
 										margin-right:10px;
 									}
 
@@ -248,13 +259,13 @@
 										width: 100%;
 										height: 100%;
 										object-fit: cover;
-										@media screen and (max-width: 991px) {
-											//
+										@media screen and (max-width: 840px) {
+											max-width: 80px;
 										}
 										@media screen and (max-width: 767px) {
 											max-width: 80px;
 										}
-										@media screen and (max-width: 480px) {
+										@media screen and (max-width: 599px) {
 											max-width: 75px;
 											height: auto;
 										}
@@ -264,7 +275,7 @@
 										margin-right: 5px;
 										width: 100px;
 									}
-									@media screen and (max-width: 480px) {
+									@media screen and (max-width: 599px) {
 										width: 100%;
 										margin-right: 0;
 										text-align: center;
@@ -272,26 +283,26 @@
 								}
 
 								.details {
-									width: 50%;
 									margin-top:8px;
+									display: inline-block;
+									float: left;
 									@media all and (max-width:1200px){
-										width:57%;
+
 									}
 									@media screen and (max-width: 991px) {
 										margin-top:4px;
 									}
 									@media screen and (max-width: 890px) {
-										width: 70%;
 										margin-top:10px;
 									}
 									@media screen and (max-width: 767px) {
-										width: 85%;
+
 										margin-top:6px;
 									}
 									@media screen and (max-width: 639px) {
 										margin-top:0px;
 									}
-									@media all and (max-width:480px){
+									@media all and (max-width:599px){
 										width:100%;
 										text-align: center;
 									}
@@ -309,7 +320,7 @@
 										@media screen and (max-width: 767px) {
 											font-size: 17px;
 										}
-										@media screen and (max-width: 480px) {
+										@media screen and (max-width: 599px) {
 											font-size: 14px;
 										}
 									}
@@ -328,7 +339,7 @@
 											font-size: 12px;
 											margin-bottom: 3px;
 										}
-										@media screen and (max-width: 480px) {
+										@media screen and (max-width: 599px) {
 											font-size: 12px;
 										}
 									}
@@ -346,7 +357,7 @@
 										@media screen and (max-width: 767px) {
 											font-size: 11px;
 										}
-										@media screen and (max-width: 480px) {
+										@media screen and (max-width: 599px) {
 											font-size: 11px;
 										}
 									}
@@ -387,8 +398,8 @@
 								margin: 0 0 15px 0;
 							}
 							.widget-title {
-								font-family: 'iCuracao-Regular';
-								font-size: 16px;
+								font-family: 'iCuracao-Light';
+								font-size: 18px;
 								font-weight: normal;
 								display: inline-block;
 								color: @black;
@@ -589,6 +600,45 @@
 										font-size: 14px;
 									}
 								}
+								.product-reviews-summary {
+									display: none;
+									text-align: center;
+								  margin-top: 10px;
+								  float: none;
+								  @media all and (max-width: 901px) {
+								    padding-left: 0;
+								    padding-right: 0;
+								    margin: 0;
+								  }
+								  .rating-summary{
+								    margin-right: 10px;
+								    .rating{
+								      background: @box-orange;
+								      color: @white;
+								      padding: 0 3px;
+								      &:after {
+								        content: "";
+								        background-image: url(../images/star.png);
+								        background-repeat: no-repeat;
+								        display: inline-block;
+								        height: 10px;
+								        margin: 4px;
+								        overflow: hidden;
+								        width: 10px;
+								        -webkit-font-smoothing: antialiased;
+								        -moz-osx-font-smoothing: grayscale;
+								        vertical-align: top;
+								        text-align: center;
+								      }
+								    }
+								  }
+								  .reviews-actions{
+								    a{
+								      color: @content-light-grey;
+								      text-decoration: none;
+								    }
+								  }
+								}
 
 								&:hover {
 									img {
@@ -734,6 +784,45 @@
 												font-size: 14px;
 											}
 										}
+										.product-reviews-summary {
+											display: none;
+											text-align: center;
+										  margin-top: 10px;
+										  float: none;
+										  @media all and (max-width: 901px) {
+										    padding-left: 0;
+										    padding-right: 0;
+										    margin: 0;
+										  }
+										  .rating-summary{
+										    margin-right: 10px;
+										    .rating{
+										      background: @box-orange;
+										      color: @white;
+										      padding: 0 3px;
+										      &:after {
+										        content: "";
+										        background-image: url(../images/star.png);
+										        background-repeat: no-repeat;
+										        display: inline-block;
+										        height: 10px;
+										        margin: 4px;
+										        overflow: hidden;
+										        width: 10px;
+										        -webkit-font-smoothing: antialiased;
+										        -moz-osx-font-smoothing: grayscale;
+										        vertical-align: top;
+										        text-align: center;
+										      }
+										    }
+										  }
+										  .reviews-actions{
+										    a{
+										      color: @content-light-grey;
+										      text-decoration: none;
+										    }
+										  }
+										}
 
 										.price-box {
 											text-align: center;
@@ -783,17 +872,22 @@
 
 						.block-products-list {
 							margin-bottom: 0;
-						}
-
-						.banner-block {
-							&.subsidiaries-banners{
-								@media all and (min-width:769px){
-									border-top:1px solid @white-shade;
-								}
-							}
-							.onethird-subsidiaries {
-								@media all and (min-width:769px){
-									border-top:1px solid @white-shade;
+							.content{
+								.banner-block {
+									margin:0 0 30px 0;
+									@media all and (max-width:767px){
+										margin:0 0 20px 0;
+									}
+									&.subsidiaries-banners{
+										@media all and (min-width:769px){
+											border-top:1px solid @white-shade;
+										}
+									}
+									.onethird-subsidiaries {
+										@media all and (min-width:769px){
+											border-top:1px solid @white-shade;
+										}
+									}
 								}
 							}
 						}
@@ -842,10 +936,10 @@
 
 					.banner-block-container000000 {
 						.banner-block {
-							// margin:0 0 30px 0;
-							// @media all and (max-width:767px){
-							// 	margin:0 0 20px 0;
-							// }
+							margin:0 0 30px 0;
+							@media all and (max-width:767px){
+								margin:0 0 20px 0;
+							}
 
 							.block {
 								overflow: hidden;
@@ -938,6 +1032,8 @@
 				padding-bottom: 30px;
 				background: @white;
 				border-top:1px solid #efefef;
+				-webkit-box-shadow: 0px 5px 5px -2px #d4d4d4;
+				box-shadow: 0px 5px 5px -2px #d4d4d4;
 				@media all and (max-width:1024px){
 					margin:0 -15px 15px;
 				}

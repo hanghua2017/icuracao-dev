@@ -8,11 +8,15 @@
  * @copyright Copyright © Dyode
  */
 
+'use strict';
+
 define([
     'jquery',
-    'underscore',
-    'Magento_Ui/js/form/form',
     'ko',
+    'underscore',
+    'uiComponent',
+    'uiRegistry',
+    'mage/translate',
     'Magento_Customer/js/model/customer',
     'Magento_Customer/js/model/address-list',
     'Magento_Checkout/js/model/address-converter',
@@ -29,14 +33,15 @@ define([
     'Magento_Ui/js/modal/modal',
     'Magento_Checkout/js/model/checkout-data-resolver',
     'Magento_Checkout/js/checkout-data',
-    'uiRegistry',
-    'mage/translate',
-    'Magento_Checkout/js/model/shipping-rate-service'
+    'Magento_Checkout/js/model/shipping-rate-service',
+    'Dyode_CheckoutAddressStep/js/model/estimate-shipping-processor'
 ], function (
     $,
+    ko,
     _,
     Component,
-    ko,
+    registry,
+    $t,
     customer,
     addressList,
     addressConverter,
@@ -53,12 +58,17 @@ define([
     modal,
     checkoutDataResolver,
     checkoutData,
-    registry,
-    $t
+    shippingRateService,
+    shippingRateProcessor
 ) {
-    'use strict';
 
     var popUp = null;
+
+    /**
+     * Registering a rate processor in order to avoid Magento's default rate processing for the new-address zip code
+     * update.
+     */
+    shippingRateService.registerProcessor('new-customer-address', shippingRateProcessor);
 
     return Component.extend({
         defaults: {
@@ -82,7 +92,7 @@ define([
         initialize: function () {
             var self = this,
                 hasNewAddress,
-                fieldsetName = 'checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset';
+                fieldsetName = 'checkout.steps.address-step.shippingAddress.shipping-address-fieldset';
 
             this._super();
 
@@ -90,7 +100,7 @@ define([
                 stepNavigator.registerStep(
                     'address-step',
                     'address',
-                    $t('Lorem Ipsum'),
+                    $t('Shipping and Billing'),
                     this.visible, _.bind(this.navigate, this),
                     8
                 );
@@ -197,6 +207,70 @@ define([
          */
         showFormPopUp: function () {
             this.isFormPopUpVisible(true);
+        },
+
+        /**
+         * @return {Boolean}
+         */
+        validateShippingInformation: function () {
+            var shippingAddress,
+                addressData,
+                loginFormSelector = 'form[data-role=email-with-possible-login]',
+                emailValidationResult = customer.isLoggedIn(),
+                field;
+
+            if (!customer.isLoggedIn()) {
+                $(loginFormSelector).validation();
+                emailValidationResult = Boolean($(loginFormSelector + ' input[name=username]').valid());
+            }
+
+            if (this.isFormInline) {
+                this.source.set('params.invalid', false);
+                this.triggerShippingDataValidateEvent();
+
+                if (emailValidationResult &&
+                    this.source.get('params.invalid') ||
+                    !quote.shippingMethod()['method_code'] ||
+                    !quote.shippingMethod()['carrier_code']
+                ) {
+                    this.focusInvalid();
+
+                    return false;
+                }
+
+                shippingAddress = quote.shippingAddress();
+                addressData = addressConverter.formAddressDataToQuoteAddress(
+                    this.source.get('shippingAddress')
+                );
+
+                //Copy form data to quote shipping address object
+                for (field in addressData) {
+                    if (addressData.hasOwnProperty(field) &&  //eslint-disable-line max-depth
+                        shippingAddress.hasOwnProperty(field) &&
+                        typeof addressData[field] != 'function' &&
+                        _.isEqual(shippingAddress[field], addressData[field])
+                    ) {
+                        shippingAddress[field] = addressData[field];
+                    } else if (typeof addressData[field] != 'function' &&
+                        !_.isEqual(shippingAddress[field], addressData[field])) {
+                        shippingAddress = addressData;
+                        break;
+                    }
+                }
+
+                if (customer.isLoggedIn()) {
+                    shippingAddress['save_in_address_book'] = 1;
+                }
+                selectShippingAddress(shippingAddress);
+            }
+
+            if (!emailValidationResult) {
+                $(loginFormSelector + ' input[name=username]').focus();
+
+                return false;
+            }
+
+            return true;
         },
 
         /**
