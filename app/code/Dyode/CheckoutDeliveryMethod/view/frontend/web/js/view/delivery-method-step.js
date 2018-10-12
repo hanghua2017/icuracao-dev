@@ -140,8 +140,8 @@ define([
 
                         //product related data
                         productId: quoteItem.product_id,
-                        productName: quoteItem.product.name,
-                        productPrice: priceUtils.formatPrice(quoteItem.price),
+                        productName: self.htmlDecode(quoteItem.product.name),
+                        productPrice: priceUtils.formatPrice(quoteItem.price,quote.getPriceFormat()),
                         productImageUrl: quoteItem.thumbnail,
 
                         //forms related data
@@ -282,7 +282,7 @@ define([
              * @param {Event} event
              */
             selectProductStore: function (model, event) {
-
+                
                 //keep selected store data in an array so that we can use it in next steps.
                 var form = $(event.target).closest('form'),
                     storeData = {},
@@ -333,6 +333,15 @@ define([
             changeStore: function (model, event) {
                 //here "this" has component context
                 this.selectStore(model, event);
+            },
+
+            htmlDecode: function(htmlStr)
+            {
+                var parser = new DOMParser;
+                htmlStr = htmlStr.replace('&Reg;', '&reg;');
+                var dom = parser.parseFromString( htmlStr,
+                    'text/html');
+                return dom.body.textContent;
             },
 
             /**
