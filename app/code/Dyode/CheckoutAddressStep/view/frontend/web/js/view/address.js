@@ -14,7 +14,7 @@ define([
     'jquery',
     'ko',
     'underscore',
-    'uiComponent',
+    'Magento_Ui/js/form/form',
     'uiRegistry',
     'mage/translate',
     'Magento_Customer/js/model/customer',
@@ -228,10 +228,7 @@ define([
                 this.source.set('params.invalid', false);
                 this.triggerShippingDataValidateEvent();
 
-                if (emailValidationResult &&
-                    this.source.get('params.invalid') ||
-                    !quote.shippingMethod()['method_code'] ||
-                    !quote.shippingMethod()['carrier_code']
+                if (emailValidationResult && this.source.get('params.invalid')
                 ) {
                     this.focusInvalid();
 
