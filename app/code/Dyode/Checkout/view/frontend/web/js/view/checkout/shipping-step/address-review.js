@@ -15,9 +15,18 @@ define([
     'underscore',
     'uiComponent',
     'uiRegistry',
-    'Magento_Checkout/js/checkout-data',
-    'Dyode_CheckoutAddressStep/js/data/address-data-provider'
-], function (ko, _, Component, registry, checkoutData, addressDataProvider) {
+    'Magento_Checkout/js/model/quote',
+    'Magento_Checkout/js/model/step-navigator'
+], 
+function 
+(
+    ko,
+    _, 
+    Component, 
+    registry, 
+    quote,
+    stepNavigator
+) {
 
     return Component.extend({
         defaults: {
@@ -84,7 +93,7 @@ define([
         subscribeShippingAddress: function () {
             var self = this;
 
-            addressDataProvider.shippingAddress.subscribe(function (shippingAddress) {
+            quote.shippingAddress.subscribe(function (shippingAddress) {
                 if (!shippingAddress) {
                     shippingAddress = {};
                 }
@@ -135,7 +144,7 @@ define([
         subscribeBillingAddress: function () {
             var self = this;
 
-            addressDataProvider.billingAddress.subscribe(function (billingAddress) {
+            quote.billingAddress.subscribe(function (billingAddress) {
                 if (!billingAddress) {
                     billingAddress = {};
                 }
@@ -217,6 +226,13 @@ define([
             }
 
             return null;
+        },
+
+        /**
+         * Go to address step 
+         */
+        goToAddressStep: function () {
+            stepNavigator.navigateTo("address-step");
         }
 
     });
