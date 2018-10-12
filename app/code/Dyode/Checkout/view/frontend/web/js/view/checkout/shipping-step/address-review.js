@@ -15,8 +15,18 @@ define([
     'underscore',
     'uiComponent',
     'uiRegistry',
-    'Magento_Checkout/js/model/quote'
-], function (ko, _, Component, registry, quote) {
+    'Magento_Checkout/js/model/quote',
+    'Magento_Checkout/js/model/step-navigator'
+], 
+function 
+(
+    ko,
+    _, 
+    Component, 
+    registry, 
+    quote,
+    stepNavigator
+) {
 
     return Component.extend({
         defaults: {
@@ -216,6 +226,13 @@ define([
             }
 
             return null;
+        },
+
+        /**
+         * Go to address step 
+         */
+        goToAddressStep: function () {
+            stepNavigator.navigateTo("address-step");
         }
 
     });

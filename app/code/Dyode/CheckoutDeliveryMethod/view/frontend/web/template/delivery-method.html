@@ -111,8 +111,8 @@
                             </div>
                             <div class="right">
                                 <div class="title" data-bind="text: currentSelectedStore().title"></div>
-                                <div class="address" data-bind="text: currentSelectedStore().streetCity"></div>
-                                <div class="pincode" data-bind="text: currentSelectedStore().zipCode"></div>
+                                <div class="address" data-bind="text: currentSelectedStore().street"></div>
+                                <div class="cityAbbrZip" data-bind="text: currentSelectedStore().cityAbbrZip"></div>
                             </div>
                             <div class="change-store-sec">
                                 <button type="button" class="action" data-bind="event:{click:$parent.changeStore.bind($parent)}">

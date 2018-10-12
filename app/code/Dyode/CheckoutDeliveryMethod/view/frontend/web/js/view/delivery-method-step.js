@@ -297,8 +297,8 @@ define([
                         if (storeItem.id == storeData.storeId) {
                             selectedStoreInfo.title = storeItem.name;
                             selectedStoreInfo.image = storeItem.image;
-                            selectedStoreInfo.streetCity = storeItem.address.street + storeItem.address.city;
-                            selectedStoreInfo.zipCode = storeItem.address.zip;
+                            selectedStoreInfo.street = storeItem.address.street;
+                            selectedStoreInfo.cityAbbrZip = storeItem.address.city+", "+storeItem.address.region_code+" "+storeItem.address.zip;
                         }
 
                     });
