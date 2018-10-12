@@ -27,4 +27,27 @@ require(['jquery'], function ($) {
         $( document ).ajaxStop(function() {
           $(this).scrollTop(0);
         });
+
+        // start price format js - adding superscript
+        $('.price').each(function () {
+            var $this = $(this),
+                $val = $this.text(),
+                dec_pos = $val.indexOf('.');
+            $this.html($val.substring(0, dec_pos) + '.<sup>' + $val.substring(dec_pos + 1) + '</sup>');
+        });
+
+        $('.original-price').each(function () {
+            var $this = $(this),
+                $val = $this.text(),
+                dec_pos = $val.indexOf('.');
+            $this.html($val.substring(0, dec_pos) + '.<sup>' + $val.substring(dec_pos + 1) + '</sup>');
+        });
+
+        $('.discount-price').each(function () {
+            var $this = $(this),
+                $val = $this.text(),
+                dec_pos = $val.indexOf('.');
+            $this.html($val.substring(0, dec_pos) + '.<sup>' + $val.substring(dec_pos + 1) + '</sup>');
+        });
+        // end price format js - adding superscript
     });
