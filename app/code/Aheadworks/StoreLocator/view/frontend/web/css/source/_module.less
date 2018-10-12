@@ -13,7 +13,49 @@
 @popup-header:#d9d8d8;
 @button-greybg:#787878;
 @red-color:#c50606;
+@black:#000;
+.breadcrumbs-font {
+  color: @black;
+  font-family: 'iCuracao-Light';
+  font-size: 12px;
+  text-transform: capitalize;
+  @media all and (min-width: 991px) {
+    font-size: 14px;
+  }
+}
 .aw-store-locator-index-index {
+  .breadcrumbs {
+    margin-bottom: 0;
+    .items {
+      .item {
+        margin: 15px 0 10px 0;
+        @media all and (min-width: 991px) {
+          margin: 30px 0 20px 0;
+        }
+        a {
+          .breadcrumbs-font();
+          &:active,
+          &:hover,
+          &:visited {
+            color: @black;
+            text-decoration: none;
+          }
+        }
+        strong {
+          .breadcrumbs-font();
+        }
+        &:after {
+          .breadcrumbs-font();
+          content: '/';
+        }
+        &:last-child {
+          &:after {
+            content: '';
+          }
+        }
+      }
+    }
+  }
   .page-wrapper {
     .page-main {
       max-width: 1500px; //Removable max

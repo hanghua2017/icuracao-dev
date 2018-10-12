@@ -32,7 +32,7 @@ $schema = ($block->getZone() == 'item_view') ? true : false;
   <div class="prod-price special-price-block">
     <span class="old-price">
         <?php /* @escapeNotVerified */ echo $block->renderAmount($priceModel->getAmount(), [
-            'display_label'     => __('Price: '),
+            'display_label'     => __('Price:'),
             'price_id'          => $block->getPriceId('old-price-' . $idSuffix),
             'price_type'        => 'oldPrice',
             'include_container' => true,

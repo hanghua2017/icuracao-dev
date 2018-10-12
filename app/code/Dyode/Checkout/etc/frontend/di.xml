@@ -19,7 +19,7 @@
     </type>
     <type name="Dyode\Checkout\Model\ConfigProvider">
        <arguments>
-           <argument name="blockId" xsi:type="string">curacao_checkout_block</argument>
+           <argument name="blockId" xsi:type="string">icuracao_credit_card_ad</argument>
        </arguments>
     </type>
 </config>
