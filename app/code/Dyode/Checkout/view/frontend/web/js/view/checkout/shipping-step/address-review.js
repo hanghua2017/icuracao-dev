@@ -16,8 +16,9 @@ define([
     'uiComponent',
     'uiRegistry',
     'Magento_Checkout/js/model/quote',
+    'Magento_Checkout/js/model/step-navigator',
     'Dyode_CheckoutAddressStep/js/data/address-data-provider'
-], function (ko, _, Component, registry, quote, addressDataProvider) {
+], function (ko, _, Component, registry, quote, stepNavigator, addressDataProvider) {
 
     return Component.extend({
         defaults: {
