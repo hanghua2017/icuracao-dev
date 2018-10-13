@@ -166,27 +166,30 @@ define([
                 var info = [];
 
                 _.each(shippingInfo, function (quoteItem) {
-                    info[quoteItem.quote_item_id] = {
+
+                    var infoLength = info.push({
                         quote_item_id: quoteItem.quote_item_id,
                         shipping_type: quoteItem.delivery_option,
-                        shipping_data: []
-                    };
+                        shipping_data: {}
+                    });
 
                     if (quoteItem.delivery_option === 'store_pickup') {
-                        info[quoteItem.quote_item_id]['shipping_data']['code'] = quoteItem.store_info.code;
-                        info[quoteItem.quote_item_id]['shipping_data']['id'] = quoteItem.store_info.id;
+                        info[infoLength - 1]['shipping_data']['code'] = quoteItem.store_info.code;
+                        info[infoLength - 1]['shipping_data']['id'] = quoteItem.store_info.id;
                     }
 
                     if (quoteItem.delivery_option === 'ship_to_home' && quoteItem.delivery_methods[0]) {
                         var firstShipMethod = quoteItem.delivery_methods[0];
 
-                        info[quoteItem.quote_item_id]['shipping_data']['carrier_code'] = firstShipMethod.carrier_code;
-                        info[quoteItem.quote_item_id]['shipping_data']['method_code'] = firstShipMethod.method_code;
-                        info[quoteItem.quote_item_id]['shipping_data']['amount'] = firstShipMethod.amount;
+                        info[infoLength - 1]['shipping_data']['carrier_code'] = firstShipMethod.carrier_code;
+                        info[infoLength - 1]['shipping_data']['method_code'] = firstShipMethod.method_code;
+                        info[infoLength - 1]['shipping_data']['amount'] = firstShipMethod.amount;
                     }
                 });
 
-                shippingDataProvider.shippingInfo(info);
+                if (info.length) {
+                    shippingDataProvider.shippingInfo(info);
+                }
             }
         };
     }
