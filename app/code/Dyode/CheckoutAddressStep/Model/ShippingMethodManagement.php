@@ -28,30 +28,42 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     const DEFAULT_SHIPPING_RATE = 10.24;
     const STORE_LOCATION_CODE = 'store_location_code';
 
+    /**
+     * Zipcodes of all inventory locations of Curacao
+     */
+    private $_allLocationsZipcodes = [
+        '01' => 90015,
+        '09' => 91402,
+        '16' => 90280,
+        '22' => 90255,
+        '29' => 92408,
+        '33' => 90280,
+        '35' => 92708,
+        '38' => 91710,
+        '51' => 92801,
+        '40' => 85033,
+        '57' => 85713,
+        '64' => 89107,
+    ];
 
     /**
-    * Zipcodes of all inventory locations of Curacao
-    */
-    private $_allLocationsZipcodes = array('01' => 90015, '09' => 91402, '16' => 90280, '22' => 90255, '29' => 92408, '33' => 90280, '35' => 92708, '38' => 91710, '51' => 92801, '40' => 85033, '57' => 85713, '64' => 89107);
-    
-    /**
-    * \Magento\Framework\App\ResourceConnection
-    */
+     * \Magento\Framework\App\ResourceConnection
+     */
     protected $_resourceConnection;
 
     /**
      * @var \Dyode\ArInvoice\Helper\Data
-    */
+     */
     protected $_distHelper;
 
     /**
      * @var \Dyode\StoreLocator\Model\GeoCoordinateRepository
-    */
+     */
     protected $_locationRepo;
 
     /**
      * @var \Dyode\Pilot\Model\Carrier\Pilot
-    */
+     */
     protected $_pilot;
 
     /**
@@ -80,16 +92,14 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
      */
     protected $_shippingConfig;
     /**
-    * @var \Magento\Framework\App\Config\ScopeConfigInterface
-    */
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     */
     protected $_scopeConfig;
-
 
     /**
      * ShippingMethodManagement constructor.
      *
      * @param CartRepositoryInterface $quoteRepository
-     * @param \Magento\Checkout\Model\Session $checkoutSession
      * @param ProductRepository $productRepository
      * @param LocationFactory $locationFactory
      * @param \Dyode\ArInvoice\Helper\Data $distHelper
@@ -98,15 +108,14 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
      * @param \Dyode\StoreLocator\Model\GeoCoordinateRepository $locationRepo
      * @param \Dyode\Checkout\Helper\Data $checkoutHelper
      * @param \Magento\Framework\App\ResourceConnection $resourceConnection
-     * @param \Magento\Shipping\Model\Config $shippingConfig 
+     * @param \Magento\Shipping\Model\Config $shippingConfig
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      */
     public function __construct
     (
         CartRepositoryInterface $quoteRepository,
-        \Magento\Checkout\Model\Session $checkoutSession,
         ProductRepository $productRepository,
-        LocationFactory $locationFactory,  
+        LocationFactory $locationFactory,
         \Dyode\ArInvoice\Helper\Data $distHelper,
         \Dyode\Pilot\Model\Carrier\Pilot $pilot,
         \Dyode\AdsMomentum\Model\Carrier\AdsMomentum $momentum,
@@ -114,20 +123,18 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         \Dyode\Checkout\Helper\Data $checkoutHelper,
         \Magento\Framework\App\ResourceConnection $resourceConnection,
         \Magento\Shipping\Model\Config $shippingConfig,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig  
-    )
-    {
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+    ) {
         $this->quoteRepository = $quoteRepository;
-        $this->_checkoutSession = $checkoutSession;  
         $this->_productRepository = $productRepository;
         $this->_locationFactory = $locationFactory;
-        $this->_distHelper = $distHelper;   
+        $this->_distHelper = $distHelper;
         $this->_locationRepo = $locationRepo;
         $this->_pilot = $pilot;
         $this->_momentum = $momentum;
         $this->_checkoutHelper = $checkoutHelper;
         $this->_resourceConnection = $resourceConnection;
-        $this->_shippingConfig=$shippingConfig;
+        $this->_shippingConfig = $shippingConfig;
         $this->_scopeConfig = $scopeConfig;
     }
 
@@ -150,6 +157,8 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
      * @param \Magento\Quote\Model\Quote $quote
      * @param $address
      * @return array
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     private function collectShippingInfo(Quote $quote, $address)
     {
@@ -160,20 +169,20 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         $quoteItems = $quote->getAllItems();
         // Check if quoteitems available
         if (!empty($quoteItems)) {
-            foreach($quoteItems as $quoteItem) {
+            foreach ($quoteItems as $quoteItem) {
                 # Get the delivery type and  quote item id and decide corresponding logic
                 $quoteItemId = $quoteItem->getItemId();
                 $deliveryType = $quoteItem->getDeliveryType();
                 # store shipping/store location details to correponding quote item id
-                if ($deliveryType == self::DELIVERY_OPTION_SHIP_TO_HOME_ID) {                    
-                    $shippingInfo[$quoteItemId] = $this->getShippingMethods($quoteItem, $zipcode);    
-                }
-                else if ($deliveryType == self::DELIVERY_OPTION_STORE_PICKUP_ID) {
-                    $storeId = $quoteItem->getPickupLocation();                    
-                    $shippingInfo[$quoteItemId] = $this->getPickupStoreDetails($storeId, $quoteItemId);
-                } 
-                else {
-                    echo "ERROR";
+                if ($deliveryType == self::DELIVERY_OPTION_SHIP_TO_HOME_ID) {
+                    $shippingInfo[$quoteItemId] = $this->getShippingMethods($quoteItem, $zipcode);
+                } else {
+                    if ($deliveryType == self::DELIVERY_OPTION_STORE_PICKUP_ID) {
+                        $storeId = $quoteItem->getPickupLocation();
+                        $shippingInfo[$quoteItemId] = $this->getPickupStoreDetails($storeId, $quoteItemId);
+                    } else {
+                        echo "ERROR";
+                    }
                 }
             }
             # Return shipping method details in JSON format
@@ -182,24 +191,20 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     }
 
     /**
-     * Get shipping methods according to the isfreight attribute and Distance 
+     * Get shipping methods according to the isfreight attribute and Distance
      *
-     * @param \Magento\Quote\Model\Quote\Item $quoteItem
-     * @param integer $zipcode
+     * @param $quoteItem
+     * @param $zipcode
      * @return array
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    private function getShippingMethods($quoteItem, $zipcode) 
-    {   
+    private function getShippingMethods($quoteItem, $zipcode)
+    {
         // Default Shipment Config
         $rate = self::DEFAULT_SHIPPING_RATE;
-        $carrierCode = 'ups';
-        $carrierMethodCode = 'ups';
-        $carrierTitle = 'UPS';
-        $carrierName = 'Ground';
-
         // Get shipping carrier details
         $shippingConfig = $this->getCarriersConfig();
-        
         // Get Latitude and Longitude of selected Address
         $shipCoordinates = $this->_locationRepo->getById($zipcode);
         $shipLat = $shipCoordinates->getLat();
@@ -210,14 +215,15 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         $productId = $quoteItem->getProductId();
         // Load product information using product id 
         $product = $this->getProductById($productId);
-        
+
         // Check if product is Freight item if so use ADS momentum or Pilot
         if ($product->getIsfreight()) {
+
             /**
-             * Find distance between destination and all store locations 
+             * Find distance between destination and all store locations
              * and see if its less than 80 km for any of them.
              */
-            if ( $this->isDomestic($shipLat, $shipLong) ) {
+            if ($this->isDomestic($shipLat, $shipLong)) {
                 $productWeight = $product->getWeight();
                 // ADS Momentum
                 $adsCarrierDetails = $shippingConfig[$this->_momentum->getCode()];
@@ -225,16 +231,12 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
                 $carrierMethodCode = $this->_momentum->getCode();
                 $carrierTitle = $adsCarrierDetails['title'];
                 $carrierName = $adsCarrierDetails['name'];
-                
-                
+
                 // Check if momentum and calculate rate
                 if ($this->_checkoutHelper->checkMomentum($zipcode) && $productWeight) {
                     $rate = $this->_checkoutHelper->setQuoteItemPrice($productWeight);
                 }
-
-
-            }
-            else {
+            } else {
                 // Pilot
                 $pilotDetails = $shippingConfig[$this->_pilot->getCode()];
                 // Prepare shipment data
@@ -242,44 +244,37 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
                 $carrierMethodCode = $this->_momentum->getCode();
                 $carrierTitle = $pilotDetails['title'];
                 $carrierName = $pilotDetails['name'];
-                $rate = $this->_pilot->getPilotRatesSoap('90001',$zipcode);
+                $rate = $this->_pilot->getPilotRatesSoap('90001', $zipcode);
             }
-
-            
-        }
-        else {
+        } else {
             // Item is not freight so use USPS and UPS 
-            
+
             $carrierCode = 'usps';
             $carrierMethodCode = 'usps';
             $carrierTitle = 'UPS';
             $carrierName = 'Priority';
             $rate = self::DEFAULT_SHIPPING_RATE;
-            
         }
 
-         
-         
-        return  [
-                        'quote_item_id' => $quoteItemId,
-                        'delivery_option' => self::DELIVERY_OPTION_SHIP_TO_HOME,
-                        'delivery_methods' => [
-                            [
-                                'quote_item_id' => $quoteItemId,
-                                "carrier_code" => $carrierCode,
-                                "method_code" => $carrierMethodCode,
-                                "carrier_title" =>  $carrierTitle,
-                                "method_title" => $carrierName,
-                                "amount" => $rate,
-                                "base_amount" => $rate,
-                                "available" => true,
-                                "error_message" => "",
-                                "price_excl_tax" => 5,
-                                "price_incl_tax" => 5,
-                            ]
-                        ]
-                ];
-                
+        return [
+            'quote_item_id'    => $quoteItemId,
+            'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
+            'delivery_methods' => [
+                [
+                    'quote_item_id'  => $quoteItemId,
+                    "carrier_code"   => $carrierCode,
+                    "method_code"    => $carrierMethodCode,
+                    "carrier_title"  => $carrierTitle,
+                    "method_title"   => $carrierName,
+                    "amount"         => $rate,
+                    "base_amount"    => $rate,
+                    "available"      => true,
+                    "error_message"  => "",
+                    "price_excl_tax" => 5,
+                    "price_incl_tax" => 5,
+                ],
+            ],
+        ];
     }
 
     /**
@@ -288,17 +283,18 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
      * @param integer $store_location_id
      * @return array
      */
-    private function getPickupStoreDetails($store_location_id, $quoteItemId) {
+    private function getPickupStoreDetails($store_location_id, $quoteItemId)
+    {
         $location = $this->_locationFactory->create();
         // Get corresponding location Data
         $locationData = $location->load($store_location_id, self::STORE_LOCATION_CODE)->getData();
         // Return location details as json
-        
+
         return [
-            'delivery_option' => 'store_pickup',
-            'quote_item_id' => $quoteItemId,
+            'delivery_option'  => 'store_pickup',
+            'quote_item_id'    => $quoteItemId,
             'delivery_methods' => [],
-            'store_info' => [
+            'store_info'       => [
                 'id'      => $locationData['location_id'],
                 'code'    => $locationData['store_location_code'],
                 'name'    => $locationData['title'],
@@ -307,12 +303,11 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
                     'street' => $locationData['street'],
                     'city'   => $locationData['city'],
                     'zip'    => $locationData['zip'],
-                    'phone'  => $locationData['phone']
-                ]
-            ]
+                    'phone'  => $locationData['phone'],
+                ],
+            ],
         ];
     }
-
 
     /**
      * Check if distance to customer address is less than 80 for any store location
@@ -321,10 +316,9 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
      * @param float $shippingZipCodeLng
      * @return boolean
      */
-    private function isDomestic($shippingZipCodeLat, $shippingZipCodeLng) 
+    private function isDomestic($shippingZipCodeLat, $shippingZipCodeLng)
     {
-        foreach ($this->_allLocationsZipcodes as $locationCode => $zipCode)
-        {
+        foreach ($this->_allLocationsZipcodes as $locationCode => $zipCode) {
             $query = "SELECT * FROM `locations` WHERE `zip` = $zipCode ";
             $resourceConnection = $this->_resourceConnection->getConnection();
             $result = $resourceConnection->fetchAll($query);
@@ -334,7 +328,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
                 $distance = $this->_distHelper->getDistance(
                     $shippingZipCodeLat, $shippingZipCodeLng, $storeZipCodeLat, $storeZipCodeLng
                 );
-                
+
                 if (round($distance) <= 80) {
                     return true;
                 }
@@ -343,12 +337,11 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     }
 
     /**
-     * Undocumented function
-     *
      * @param string $store
      * @return array
      */
-    private function getCarriersConfig($store = null) {
+    private function getCarriersConfig($store = null)
+    {
         return $this->_scopeConfig->getValue(
             'carriers', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store
         );
@@ -357,8 +350,9 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     /**
      * Get product details from product id.
      *
-     * @param integer $id
-     * @return Magento\Catalog\Model\ProductRepository
+     * @param $id
+     * @return \Magento\Catalog\Api\Data\ProductInterface|mixed
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     private function getProductById($id)
     {

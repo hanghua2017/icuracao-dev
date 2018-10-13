@@ -45,9 +45,7 @@ define([
     customShippingInfoSaveProcessor
 ) {
 
-    var imageData = window.checkoutConfig.imageData,
-        quoteItemData = window.checkoutConfig.quoteItemData;
-
+    var quoteItemData = window.checkoutConfig.quoteItemData;
 
     /**
      * Here we are registering custom processor in order to deal
@@ -61,7 +59,6 @@ define([
         defaults: {
             template: 'Dyode_Checkout/shipping-step/shipping-method-list'
         },
-        imageData: imageData,
         quoteItemData: quoteItemData,
         isLogedIn: customer.isLoggedIn(),
         getItems: ko.observableArray(quote.getItems()),
@@ -69,7 +66,6 @@ define([
         shippingTotals: ko.observableArray([]),
         shippingRates: shippingService.getShippingRates(),
         shippingOptions: ko.observableArray([]),
-        getRatesForGroup: ko.observableArray([]),
 
         /**
          * @override
@@ -103,44 +99,19 @@ define([
         /**
          * Fires when a shipping method option is selected against a quote item
          * in the shipping step.
-         *
-         * KnockoutJS: "this" here in getProductItems::foreach context
          */
         selectedShippingMethod: function (model) {
-            //collect shipping info based on the shipping method selection
-            var shippingInfo = shippingInfoDataProvider.shippingInfo(),
-                quoteTotalEntry = _.findWhere(shippingInfo, {
-                    quoteItemId: this.item_id
-                });
-
-            if (quoteTotalEntry) {
-
-                //updating existing entry with new shipping selection data
-                var updatedShippingInfo = _.extend(quoteTotalEntry, {
+            var parentComponent = this.parent,
+                quoteItemId = model.quote_item_id,
+                shippingInfo = {
                     carrier_code: model.carrier_code,
-                    method_code: model.method_code
-                });
+                    method_code: model.method_code,
+                    amount: model.amount
+                };
 
-                //updating shippingInfo with the updatedShippingInfo
-                _.extend(
-                    _.findWhere(shippingInfo, {
-                        quoteItemId: this.item_id
-                    }),
-                    updatedShippingInfo
-                );
+            parentComponent.updateShippingInfo(quoteItemId, shippingInfo);
 
-                //Finally updating global shippingInfo ko observableArray
-                shippingInfoDataProvider.shippingInfo(shippingInfo);
-
-            } else {
-
-                //Adding a new entry into shippingInfo ko observableArray
-                shippingInfoDataProvider.shippingInfo.push({
-                    quoteItemId: this.item_id,
-                    carrier_code: model.carrier_code,
-                    method_code: model.method_code
-                });
-            }
+            return true;
         },
 
         /**
@@ -153,137 +124,142 @@ define([
                 shippingOptions = self.shippingOptions();
 
             _.each(quoteItemData, function (quoteItem) {
-                var quoteItemId = parseInt(quoteItem.item_id);
+                var quoteItemId = parseInt(quoteItem.item_id),
+                    shippingOption = shippingOptions[quoteItemId],
+                    isQuotesAvailable = !!shippingOption,
+                    isStorePickup = !!shippingOption && shippingOption.deliveryOption === 'store_pickup',
+                    firstShippingMethod = shippingOption ? _.first(shippingOption.data) : false,
+                    carrierCode = firstShippingMethod ? firstShippingMethod.carrier_code : '',
+                    methodCode = firstShippingMethod ? firstShippingMethod.method_code : '',
+                    activeMethod = firstShippingMethod ? carrierCode + '_' + methodCode : false,
+                    shippingMethods = self.prepareShippingMethods(quoteItemId, shippingOption, activeMethod) || [],
+                    storePicked = self.prepareStorePicked(shippingOption);
 
                 productItems.push({
+                    parent: self,
                     quoteItemId: quoteItemId,
                     productName: quoteItem.name,
                     productPrice: priceUtils.formatPrice(quoteItem.price, quote.getPriceFormat()),
                     productQty: quoteItem.qty,
                     productImgUrl: quoteItem.thumbnail,
-                    freight: quoteItem.product.isfreight,
+                    isQuotesAvailable: ko.observable(isQuotesAvailable),
+                    canShowShipMethods: ko.observable(isQuotesAvailable && !isStorePickup),
+                    canShowStorePicked: ko.observable(isQuotesAvailable && isStorePickup),
+                    isStorePickup: ko.observable(isStorePickup),
+                    activeShippingMethod: activeMethod,
+                    shippingMethods: shippingMethods,
+                    storePicked: storePicked,
 
-                    shippingRateCollection: self.collectShippingRates,
-                    getRatesForGroup: self.getRatesForGroup,
-
-                    //Function bindings
-                    updateShippingTotals: self.selectedShippingMethod,
-                    //isQuotesAvailable: ko.observable(false),
-
-                    isQuotesAvailable: ko.computed(function () {
-                        if (shippingOptions[quoteItemId]) {
-                            return true;
-                        }
-
-                        return false;
-                    }),
-
-                    isStorePickup: ko.computed(function () {
-                        var shippingOption = shippingOptions[quoteItemId];
-
-                        if (shippingOption && shippingOption.deliveryOption === 'store_pickup') {
-                            return true;
-                        }
-
-                        return false;
-                    }),
-
-                    shippingMethods: ko.computed(function () {
-                        var shippingOption = shippingOptions[quoteItemId],
-                            methods = [],
-                            checked = true;
-
-                        if (!shippingOption || shippingOption.deliveryOption !== 'ship_to_home') {
-                            return methods;
-                        }
-
-                        _.each(shippingOption.data, function (shippingMethod) {
-                            var carrierMethodCodes = shippingMethod.carrier_code + '_' + shippingMethod.method_code;
-
-                            methods.push(_.extend(shippingMethod, {
-                                updateShippingTotals: self.updateShippingTotals.call(self, shippingMethod, quoteItem),
-                                isMethodChecked: checked ? carrierMethodCodes : false,
-                                methodValue: carrierMethodCodes,
-                                methodId: 'method_' + carrierMethodCodes + '_' + quoteItemId,
-                                methodName: 'ship_method_' + quoteItemId,
-                                methodPrice: priceUtils.formatPrice(shippingMethod.amount, quote.getPriceFormat()),
-                                expectedDeliveryMsg: $t('3-5 business days')
-                            }));
-
-                            if (checked) { //make the first shipping method selected by default
-                                checked = false;
-                            }
-                        });
-
-                        return methods;
-                    }),
-
-
-                    storePicked: ko.computed(function () {
-                        var shippingOption = shippingOptions[quoteItemId],
-                            store = {};
-
-                        if (!shippingOption || shippingOption.deliveryOption !== 'store_pickup') {
-                            return store;
-                        }
-
-                        store = shippingOption.data;
-
-                        return {
-                            name: store.name,
-                            id: store.id,
-                            code: store.code,
-                            zip: store.address.zip,
-                            addressLine1: $t(store.address.street),
-                            addressLine2: $t(store.address.city) + ', ' + store.address.zip
-                        };
-                    })
+                    //function bindings
+                    updateShippingInfo: self.selectedShippingMethod
                 });
-
             });
 
-            return productItems.length !== 0 ? productItems : null;
-        },
-
-        updateShippingTotals: function (shippingMethod, quoteItem) {
-        },
-
-        collectShippingRates: function (model) {
-            _.each(this.shippingRates, function (rate) {
-                if (model.item_id == rate.quote_item_id) {
-                    return rate.data;
-                }
-            });
-
-            return [];
+            return productItems;
         },
 
         /**
-         * Set shipping method.
-         * @param {String} methodData
-         * @returns bool
+         * Prepare shipping methods based on the quote item.
+         *
+         * @param {String|Integer} quoteItemId
+         * @param {Object} shippingMethodCollection
+         * @param {String} activeMethod
+         * @returns {Array}
          */
-        selectShippingMethod: function (methodData) {
-            selectShippingMethodAction(methodData);
-            checkoutData.setSelectedShippingRate(methodData['carrier_code'] + '_' + methodData['method_code']);
+        prepareShippingMethods: function (quoteItemId, shippingMethodCollection, activeMethod) {
+            var methods = [],
+                carrierMethodCode;
 
-            return true;
+            if (!shippingMethodCollection || shippingMethodCollection.deliveryOption !== 'ship_to_home') {
+                return methods;
+            }
+
+            _.each(shippingMethodCollection.data, function (shippingMethod) {
+                carrierMethodCode = shippingMethod.carrier_code + '_' + shippingMethod.method_code;
+
+                methods.push(_.extend(shippingMethod, {
+                    methodValue: carrierMethodCode,
+                    methodId: 'method_' + carrierMethodCode + '_' + quoteItemId,
+                    methodName: 'ship_method_' + quoteItemId,
+                    methodPrice: priceUtils.formatPrice(shippingMethod.amount, quote.getPriceFormat()),
+                    expectedDeliveryMsg: $t('3-5 business days')
+                }));
+            });
+
+            return methods;
         },
-        
+
+        /**
+         * Store selected against the quote Item in the delivery step.
+         *
+         * @param {Object} shippingOption
+         * @returns {Object}
+         */
+        prepareStorePicked: function (shippingOption) {
+            var store = {};
+
+            if (!shippingOption || shippingOption.deliveryOption !== 'store_pickup') {
+                return store;
+            }
+
+            store = shippingOption.data;
+
+            return {
+                name: store.name,
+                id: store.id,
+                code: store.code,
+                zip: store.address.zip,
+                addressLine1: $t(store.address.street),
+                addressLine2: $t(store.address.city) + ', ' + store.address.zip
+            };
+        },
+
+        /**
+         * Update shipping info data based on the shipping option selection
+         *
+         * @param {String|Integer} quoteItemId - Quote item of which shipping data need to be updated
+         * @param {Object} updateData - New shipping info.
+         */
+        updateShippingInfo: function (quoteItemId, updateData) {
+
+            //collect shipping info based on the shipping method selection
+            var shippingInfo = shippingInfoDataProvider.shippingInfo(),
+                shippingInfoEntry = _.findWhere(shippingInfo, {
+                    quote_item_id: quoteItemId
+                });
+
+            if (shippingInfoEntry) {
+
+                //updating existing entry with new shipping selection data
+                shippingInfoEntry.shipping_data = updateData;
+
+                //updating shippingInfo with the updatedShippingInfo
+                _.extend(
+                    _.findWhere(shippingInfo, {
+                        quote_item_id: quoteItemId
+                    }),
+                    shippingInfoEntry
+                );
+
+                //Finally updating global shippingInfo ko observableArray
+                shippingInfoDataProvider.shippingInfo(shippingInfo);
+
+            } else {
+
+                //Adding a new entry into shippingInfo ko observableArray
+                shippingInfoDataProvider.shippingInfo.push({
+                    quote_item_id: quoteItemId,
+                    shipping_type: 'ship_to_home',
+                    shipping_data: updateData
+                });
+            }
+        },
+
         /**
          * Change shipping method for quote items
          */
-        changeShippingMethod:  function() {
+        changeShippingMethod: function () {
             stepNavigator.navigateTo('deliverySelection');
-        },
-
-        /**
-         * Format shipping price.
-         * @returns {String}
-         */
-        getFormattedPrice: function (price) {
-            return priceUtils.formatPrice(price, quote.getPriceFormat());
         }
-
     });
 });
