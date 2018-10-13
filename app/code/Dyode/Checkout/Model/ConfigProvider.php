@@ -21,8 +21,18 @@ class ConfigProvider implements ConfigProviderInterface
    protected $_priceHelper;
    protected $_canApply;
    protected $_linked;
+   protected $_cmsBlock;
 
-   public function __construct(\Magento\Framework\Pricing\Helper\Data $priceHelper,\Magento\Customer\Model\Session $customerSession,\Magento\Checkout\Model\Cart $cart, \Dyode\ARWebservice\Helper\Data $helper,\Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface, LayoutInterface $layout, $blockId)
+
+   public function __construct(
+        \Magento\Framework\Pricing\Helper\Data $priceHelper,
+        \Magento\Customer\Model\Session $customerSession,
+        \Magento\Checkout\Model\Cart $cart,
+        \Dyode\ARWebservice\Helper\Data $helper,
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
+        LayoutInterface $layout,
+        $blockId
+    )
    {
        $this->_customerSession = $customerSession;
        $this->_layout = $layout;
@@ -30,7 +40,14 @@ class ConfigProvider implements ConfigProviderInterface
        $this->_customerRepositoryInterface = $customerRepositoryInterface;
        $this->_cart = $cart;
        $this->_priceHelper = $priceHelper;
+       $this->_cmsBlock = $this->constructBlock($blockId);
    }
+
+    public function constructBlock($blockId){
+        $block = $this->_layout->createBlock('Magento\Cms\Block\Block')
+            ->setBlockId($blockId)->toHtml();
+        return $block;
+    }
 
    public function getConfig()
    {
@@ -38,6 +55,7 @@ class ConfigProvider implements ConfigProviderInterface
       $configArr['limit']       =   $this->getLimit();
       $configArr['total']       =   $this->getDownPayment();
       $configArr['linked']      =   $this->_linked;
+      $configArr['cms_block']   =   $this->_cmsBlock;
       return $configArr;
    }
 
@@ -76,13 +94,15 @@ class ConfigProvider implements ConfigProviderInterface
         $customerId = $this->_customerSession->getCustomerId();
         if($customerId){
             $customer = $this->_customerRepositoryInterface->getById($customerId);
-            $curaAccId = $customer->getCuracaocustid();
-            if($curaAccId){
-                $this->_linked = true;
-                return $curaAccId;
-            } else {
-                $this->_linked = false;
-                return false;
+            if(method_exists($customer,'getCuracaocustid')) {
+                $curaAccId = $customer->getCuracaocustid();
+                if($curaAccId){
+                    $this->_linked = true;
+                    return $curaAccId;
+                } else {
+                    $this->_linked = false;
+                    return false;
+                }
             }
             
         }
