@@ -17,13 +17,4 @@
             <parameter name="zipcode" force="true">%zipcode%</parameter>
         </data>
     </route>
- 
-
-      <!-- Managing shipping guest information -->
-    <route url="/V1/guest-carts/:cartId/custom-shipping-info" method="POST">
-        <service class="Magento\Checkout\Api\GuestShippingInfoInterface" method="saveAddressInformation"/>
-        <resources>
-            <resource ref="anonymous" />
-        </resources>
-    </route>
 </routes>

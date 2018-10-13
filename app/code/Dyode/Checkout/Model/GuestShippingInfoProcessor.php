@@ -1,8 +1,26 @@
 <?php
+/**
+ * Dyode_Checkout Module
+ *
+ * Extending Magento_Checkout core module.
+ *
+ * @pakcage   Dyode
+ * @module    Dyode_Checkout
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+namespace Dyode\Checkout\Model;
 
-namespace Dyode\CheckoutDeliveryMethod\Model;
+use Dyode\Checkout\Api\GuestShippingInfoInterface;
+use Dyode\Checkout\Api\Data\ShippingInformationInterface;
 
-class GuestShippingInfoProcessor implements \Dyode\CheckoutDeliveryMethod\Api\GuestShippingInfoInterface
+/**
+ * Guest ShippingInfo Processor
+ *
+ * This will update the shipping carrier information against each quote item.
+ * It also performs Magento's default shipping info saving action.
+ */
+class GuestShippingInfoProcessor implements GuestShippingInfoInterface
 {
     /**
      * @var \Magento\Quote\Model\QuoteIdMaskFactory
@@ -32,10 +50,8 @@ class GuestShippingInfoProcessor implements \Dyode\CheckoutDeliveryMethod\Api\Gu
      */
     public function saveAddressInformation(
         $cartId,
-        \Dyode\CheckoutDeliveryMethod\Api\Data\ShippingInformationInterface $addressInformation
+        ShippingInformationInterface $addressInformation
     ) {
-        echo get_class($addressInformation);exit();
-        
         /** @var $quoteIdMask \Magento\Quote\Model\QuoteIdMask */
         $quoteIdMask = $this->quoteIdMaskFactory->create()->load($cartId, 'masked_id');
         return $this->shippingInformationManagement->saveAddressInformation(

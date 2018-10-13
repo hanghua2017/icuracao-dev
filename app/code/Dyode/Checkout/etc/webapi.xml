@@ -27,4 +27,10 @@
             <parameter name="cartId" force="true">%cart_id%</parameter>
         </data>
     </route>
+    <route url="/V1/guest-carts/:cartId/custom-shipping-info" method="POST">
+        <service class="Dyode\Checkout\Api\GuestShippingInfoInterface" method="saveAddressInformation"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
 </routes>
