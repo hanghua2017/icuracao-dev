@@ -20,12 +20,15 @@
       .columns {
         max-width: 1500px;
         margin: 40px auto;
+        @media all and (max-width: 767px) {
+          margin: 40px auto 0;
+        }
         @media all and (max-width: 599px) {
           margin: 0;
         }
         .column.main {
           padding-bottom: 0;
-          @media all and (max-width: 768px) {
+          @media all and (max-width: 767px) {
             padding-top: 30px;
           }
           @media all and (max-width: 599px) {
@@ -34,11 +37,13 @@
           }
           .login-container {
             max-width: 485px;
-            margin: 50px auto;
-            margin-bottom: 10px;
+            margin: 50px auto 10px;
             width: 487px;
             box-shadow: 0px 4px 20px rgba(27, 32, 42, 0.12);
             background-color: #ffffff;
+            @media all and (max-width: 767px) {
+                margin: 20px auto 50px;
+            }
             @media all and (max-width: 599px) {
               max-width: 100%;
               width: 100%;
@@ -69,7 +74,7 @@
                   font-size: 28px;
                   line-height: 24px;
                   color: rgb(0,0,0);
-                  font-family: "iCuracao-Light";
+                  font-family: "iCuracao-Regular";
                   font-weight: 500;
                   @media all and (max-width: 599px) {
                     font-size: 24px;
@@ -146,6 +151,7 @@
                           width: 100%;
                           input {
                             font-family: "iCuracao-Regular";
+                            font-weight: 500;
                             background-color: transparent;
                             border: 0;
                             padding: 5px 9px;
@@ -194,6 +200,7 @@
                           font-size: 12px;
                           color: @badge-orange;
                           font-family: "iCuracao-Regular";
+                          font-weight: 500;
                           margin: 0;
                           width: auto;
                           @media all and (max-width: 478px) {
@@ -209,6 +216,7 @@
                           font-size: 12px;
                           color: rgb(102,102,102);
                           font-family: "iCuracao-Regular";
+                          font-weight: 500;
                           @media all and (max-width: 478px) {
                             width: 100%;
                             text-align: center;
@@ -254,7 +262,8 @@
                           span {
                               font-size: 16px;
                               color: white;
-                              font-family: "iCuracao-Light";
+                              font-family: "iCuracao-Regular";
+                              font-weight: 500;
                               letter-spacing: 1px;
                           }
                         }
@@ -270,7 +279,7 @@
                 padding-top: 30px;
                 .card-images {
                   img {
-                    @media all and (max-width: 768px) {
+                    @media all and (max-width: 767px) {
                       width: 35%;
                     }
                   }
