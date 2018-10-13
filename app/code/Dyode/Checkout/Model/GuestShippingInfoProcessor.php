@@ -13,6 +13,7 @@ namespace Dyode\Checkout\Model;
 
 use Dyode\Checkout\Api\GuestShippingInfoInterface;
 use Dyode\Checkout\Api\Data\ShippingInformationInterface;
+use Magento\Checkout\Api\Data\PaymentDetailsInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 
 /**
@@ -33,10 +34,19 @@ class GuestShippingInfoProcessor implements GuestShippingInfoInterface
      */
     protected $shippingInformationManagement;
 
+    /**
+     * @var \Magento\Quote\Api\PaymentMethodManagementInterface
+     */
     protected $paymentMethodManagement;
 
+    /**
+     * @var \Magento\Checkout\Model\PaymentDetailsFactory
+     */
     protected $paymentDetailsFactory;
 
+    /**
+     * @var \Magento\Quote\Api\CartTotalRepositoryInterface
+     */
     protected $cartTotalsRepository;
 
     /**
@@ -73,6 +83,7 @@ class GuestShippingInfoProcessor implements GuestShippingInfoInterface
         $quoteIdMask = $this->quoteIdMaskFactory->create()->load($cartId, 'masked_id');
 
         try {
+            $this->saveQuoteItemShippingInfo($quoteIdMask->getQuoteId(), $addressInformation);
             $this->shippingInformationManagement->saveAddressInformation(
                 $quoteIdMask->getQuoteId(),
                 $addressInformation
@@ -86,6 +97,7 @@ class GuestShippingInfoProcessor implements GuestShippingInfoInterface
             $paymentDetails = $this->paymentDetailsFactory->create();
             $paymentDetails->setPaymentMethods($this->paymentMethodManagement->getList($quoteIdMask->getQuoteId()));
             $paymentDetails->setTotals($this->cartTotalsRepository->get($quoteIdMask->getQuoteId()));
+            $this->updateShippingTotal($paymentDetails);
             return $paymentDetails;
         }
 
@@ -93,6 +105,28 @@ class GuestShippingInfoProcessor implements GuestShippingInfoInterface
         $paymentDetails = $this->paymentDetailsFactory->create();
         $paymentDetails->setPaymentMethods($this->paymentMethodManagement->getList($quoteIdMask->getQuoteId()));
         $paymentDetails->setTotals($this->cartTotalsRepository->get($quoteIdMask->getQuoteId()));
+        $this->updateShippingTotal($paymentDetails);
+        return $paymentDetails;
+    }
+
+    /**
+     * @param string|int $cartId
+     * @param \Dyode\Checkout\Api\Data\ShippingInformationInterface $addressInformation
+     */
+    public function saveQuoteItemShippingInfo($cartId, ShippingInformationInterface $addressInformation)
+    {
+        //here is the saving of shipping info in the quote item.
+    }
+
+    /**
+     * @param \Magento\Checkout\Api\Data\PaymentDetailsInterface $paymentDetails
+     * @param \Dyode\Checkout\Api\Data\ShippingInformationInterface $addressInformation
+     * @return \Magento\Checkout\Api\Data\PaymentDetailsInterface
+     */
+    protected function updateShippingTotal(
+        PaymentDetailsInterface $paymentDetails,
+        ShippingInformationInterface $addressInformation
+    ) {
         return $paymentDetails;
     }
 }
