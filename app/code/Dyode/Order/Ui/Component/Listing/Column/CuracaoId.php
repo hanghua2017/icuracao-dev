@@ -52,9 +52,11 @@ class CuracaoId extends Column
           foreach ($dataSource['data']['items'] as & $item) {
               $order  = $this->_orderRepository->get($item["entity_id"]);
               //get customer object
-              $customer = $this->customerRepositoryInterface->get($order->getCustomerEmail(), $websiteId = null);
-              if($customer){
-                $item[$this->getData('name')] = $customer->getCuracaocustid();
+              if(!$order->getCustomerIsGuest()){
+                $customer = $this->customerRepositoryInterface->get($order->getCustomerEmail(), $websiteId = null);
+                if($customer){
+                  $item[$this->getData('name')] = $customer->getCuracaocustid();
+                }
               }
           }
       }
