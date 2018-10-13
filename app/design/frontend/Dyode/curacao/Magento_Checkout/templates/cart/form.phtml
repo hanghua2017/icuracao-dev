@@ -57,7 +57,7 @@
             ?>
             <div class="cart grand-total">
                 <strong>
-                    <?= $block->escapeHtml('Subtotal') ?>: <?= /* @escapeNotVerified */ $_checkoutHelper->formatPrice($_addressTotal->getValue()) ?>
+                    <?= $block->escapeHtml('Estimated Total') ?>: <?= /* @escapeNotVerified */ $_checkoutHelper->formatPrice($_addressTotal->getValue()) ?>
                 </strong>
             </div>
         <?php endif; ?>

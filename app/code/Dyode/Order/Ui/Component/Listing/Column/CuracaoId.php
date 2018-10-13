@@ -53,9 +53,13 @@ class CuracaoId extends Column
               $order  = $this->_orderRepository->get($item["entity_id"]);
               //get customer object
               if(!$order->getCustomerIsGuest()){
-                $customer = $this->customerRepositoryInterface->get($order->getCustomerEmail(), $websiteId = null);
+                $customer = $this->customerRepositoryInterface->getById($order->getCustomerId(), $websiteId = null);
                 if($customer){
-                  $item[$this->getData('name')] = $customer->getCuracaocustid();
+                  $curacaoId = $customer->getCustomAttribute('curacaocustid');
+                  if($curacaoId!=NULL){
+                    $item[$this->getData('name')] = $customer->getCustomAttribute('curacaocustid');
+                  }
+                   $item[$this->getData('name')] = 'null';
                 }
               }
           }

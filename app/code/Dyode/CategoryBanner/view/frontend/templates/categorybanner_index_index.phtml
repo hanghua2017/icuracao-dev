@@ -13,24 +13,21 @@ $bannerUrl = $_category->getCategorybannerlink();
 	    	<?php if($bannerUrl):?>
 	    	    <a href="<?php echo $baseUrl.$bannerUrl; ?>">
 	        <?php endif;?>
-	    		    <img src="<?php echo $mediaUrl; ?>/catalog/category/<?php echo $bannerDesktopImg;?>">
-	    	<?php if($bannerUrl):?>	    		
+	    		    <img src="<?php echo $mediaUrl; ?>catalog/category<?php echo $bannerDesktopImg;?>">
+	    	<?php if($bannerUrl):?>
 	    	    </a>
-	        <?php endif;?>	    	
+	        <?php endif;?>
 	    </div>
-	<?php endif;?>     
+	<?php endif;?>
     <?php if($bannerMobileImg) :?>
         <div class="catgeorybanner-mobile">
 	    	<?php if($bannerUrl):?>
 	    	    <a href="<?php echo $baseUrl.$bannerUrl; ?>">
 	        <?php endif;?>
-	    		    <img src="<?php echo $mediaUrl; ?>/catalog/category/<?php echo $bannerMobileImg;?>">
-	    	<?php if($bannerUrl):?>	    		
+	    		    <img src="<?php echo $mediaUrl; ?>catalog/category<?php echo $bannerMobileImg;?>">
+	    	<?php if($bannerUrl):?>
 	    	    </a>
-	        <?php endif;?>	
+	        <?php endif;?>
         </div>
-    <?php endif;?>    
+    <?php endif;?>
 </div>
-
-
-
