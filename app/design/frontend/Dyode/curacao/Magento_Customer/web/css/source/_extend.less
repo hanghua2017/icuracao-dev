@@ -316,7 +316,7 @@ select:focus, input:focus {
       .block-collapsible-nav .title:after {
         color: @active-blue-color !important;
         @media only screen and (max-width: 767px){
-          margin: -5px 0 0 0;
+          margin: -10px 0 0 0;
         }
       }
       .abs-visually-hidden-desktop, .modes-label,
@@ -2121,12 +2121,78 @@ select:focus, input:focus {
 .account{
   .page-main{
     .choice{
-      input[type="checkbox"] {
-          margin: -1px 5px 0 0;
-          vertical-align: middle;
+      // input[type="checkbox"] {
+      //     margin: -1px 5px 0 0;
+      //     vertical-align: middle;
+      // }
+      // .label{
+      //   vertical-align: middle;
+      // }
+      label {
+        display: inline;
       }
-      .label{
-        vertical-align: middle;
+      input[type="checkbox"] {
+        padding: 0;
+        height: initial;
+        width: initial;
+        margin-bottom: 0;
+        display: none;
+        cursor: pointer;
+      }
+
+      label {
+        position: relative;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: 'iCuracao-Regular';
+        font-size: 13px;
+        color:#666;
+
+        span {
+          color: @icon-color;
+          transition: all 0.2s;
+        }
+
+        &:before {
+          content: '';
+          -webkit-appearance: none;
+          background-color: transparent;
+          background-color: white;
+          border: 1px solid #666666;
+          border-radius: 3px;
+          box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.26), inset 0 -15px 10px -12px rgba(0, 0, 0, 0.05);
+          padding: 7px;
+          display: inline-block;
+          position: relative;
+          vertical-align: middle;
+          cursor: pointer;
+          margin-right: 15px;
+          margin-top: -2px;
+          transition: all 0.2s;
+        }
+      }
+
+      input[type="checkbox"]:checked {
+        +label {
+
+          &:before {
+            transition: all 0.2s;
+          }
+
+          &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 2px;
+            left: 6px;
+            width: 3px;
+            height: 8px;
+            border: 1.5px solid @orange-off;
+            border-width: 0 1.5px 1.5px 0;
+            transform: rotate(45deg);
+            transition: all 0.2s;
+          }
+        }
       }
     }
     .block-addresses-list{
@@ -2190,6 +2256,10 @@ select:focus, input:focus {
       @media only screen and (max-width: 767px){
         margin-bottom: 0;
       }
+    }
+    .block-new-products {
+      margin-bottom: 30px!important;
+      margin-top: 10px!important;
     }
 
   }

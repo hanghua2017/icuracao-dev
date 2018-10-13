@@ -17,7 +17,7 @@ $_monthlyEmi = $_emiViewModel->monthlyEmi();
 
 <?php if ($_emiViewModel->hasEmi()): ?>
     <p class="credit-desc">
-        <?= __('Or as low as') ?>
+        <?= __('Or as low as ') ?>
         <span class="emi-amount">
             <?= /* @escapeNotVerified */ $_checkoutHelper->formatPrice($_monthlyEmi) ?>/<?= __('mo') ?>
         </span>
