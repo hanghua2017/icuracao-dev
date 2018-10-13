@@ -30,13 +30,13 @@
         </div>
 
         <div class="delivery-details">
-            <div class="no-quotes-error" data-bind="visible: !isQuotesAvailable()">
+            <div class="no-quotes-error" data-bind="visible: !isQuotesAvailable">
                 <!-- ko i18n: 'Sorry, no quotes are available for this order at this time' --><!-- /ko -->
             </div>
 
-            <div class="shipping-methods" data-bind="visible: isQuotesAvailable() && !isStorePickup()">
+            <div class="shipping-methods" data-bind="visible: canShowShipMethods">
                 <h3 class="title" data-bind="i18n: 'Select delivery option'"></h3>
-                <ul class="method-list" data-bind="foreach: shippingMethods()">
+                <ul class="method-list" data-bind="foreach: shippingMethods">
                     <li class="method-item">
 
                         <!-- ko ifnot: (available) -->
@@ -46,13 +46,10 @@
                         <!-- ko if: (available) -->
                         <input type="radio"
                                class="radio"
-                               data-bind="click: updateShippingTotals,
-                                    checked: isMethodChecked,
-                                    attr: {
-                                        value: methodValue,
-                                        id: methodId,
-                                        name: methodName
-                                    }"
+                               data-bind="attr: {name: methodName,id: methodId, value: methodValue},
+                                    click: $parent.updateShippingInfo.bind($parent),
+                                    checked: $parent.activeShippingMethod"
+
                         />
                         <label class="label" data-bind="attr: {for: methodId}">
                             <span class="title"><!-- ko text: $data.method_title --><!-- /ko --></span>|
@@ -65,12 +62,12 @@
                 <button type="button" class="change-method" data-bind="click: $parent.changeShippingMethod"><span data-bind="i18n: 'Change shipping method'"></span></button>
             </div>
 
-            <div class="store-selected" data-bind="visible: isQuotesAvailable() && isStorePickup()">
+            <div class="store-selected" data-bind="visible: canShowStorePicked">
                 <h3 class="store-headding" data-bind="i18n: 'Selected store for pickup'"></h3>
                 <ul class="store-info">
-                    <li class="store-name"><strong data-bind="i18n: storePicked().name"></strong></li>
-                    <li class="address-line address-line-1" data-bind="text: storePicked().addressLine1"></li>
-                    <li class="address-line address-line-2" data-bind="text: storePicked().addressLine2"></li>
+                    <li class="store-name"><strong data-bind="i18n: storePicked.name"></strong></li>
+                    <li class="address-line address-line-1" data-bind="text: storePicked.addressLine1"></li>
+                    <li class="address-line address-line-2" data-bind="text: storePicked.addressLine2"></li>
                 </ul>
                 <button type="button" class="change-method" data-bind="click: $parent.changeShippingMethod"><span data-bind="i18n: 'Change shipping method'"></span></button>
             </div>

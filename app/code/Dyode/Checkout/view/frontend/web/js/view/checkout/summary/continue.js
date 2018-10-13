@@ -18,7 +18,8 @@ define([
     'Magento_Checkout/js/model/full-screen-loader',
     'Dyode_CheckoutDeliveryMethod/js/data/delivery-data-provider',
     'Dyode_CheckoutAddressStep/js/model/address-validator',
-    'Dyode_CheckoutAddressStep/js/model/estimate-shipping-processor'
+    'Dyode_CheckoutAddressStep/js/model/estimate-shipping-processor',
+    'Dyode_Checkout/js/view/model/shipping-info-save-processor'
 ], function (
     $,
     Component,
@@ -29,7 +30,8 @@ define([
     fullScreenLoader,
     deliveryDataProvider,
     addressValidator,
-    shippingEstimateProcessor
+    shippingEstimateProcessor,
+    shippingSaveProcessor
 ) {
     var quoteItemData = window.checkoutConfig.quoteItemData;
 
@@ -69,6 +71,10 @@ define([
                 if (addressValidator.validateAddresses()) {
                     return shippingEstimateProcessor.estimateShippingMethods(quote.shippingAddress());
                 }
+            }
+
+            if (activeStep.code === 'shipping') {
+                return shippingSaveProcessor.saveShippingInformation();
             }
 
             return $.Deferred();
