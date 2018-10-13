@@ -27,7 +27,7 @@ $applyNowLink = $viewModel->applyNowLink();
 <div class="credit-card-emi <?= ($emi <= 0) ? 'no-display' : ''?>">
     <div class="credit-card-desc">
         <img src="<?php echo $this->getViewFileUrl('images/price-tag.png'); ?>" />
-        <?= __('Or as low as') ?>
+        <?= __('Or as low as&nbsp;') ?>
         <span class="emi-amount">
         <?= $helper->formatPrice($emi, true, 0); ?>/ <?= __('month'); ?>
     </span>
