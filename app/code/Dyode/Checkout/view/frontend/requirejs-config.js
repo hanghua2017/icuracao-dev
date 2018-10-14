@@ -12,6 +12,9 @@ var config = {
         mixins: {
             'Magento_Tax/js/view/checkout/summary/shipping': {
                 'Dyode_Checkout/js/mixin/summary-shipping-mixin': true
+            },
+            'Magento_Checkout/js/view/shipping': {
+                'Dyode_Checkout/js/mixin/shipping-mixin': true
             }
         }
     }

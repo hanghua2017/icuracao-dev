@@ -54,7 +54,7 @@
       <div class="field required">
         <label for="email_address" class="label"><span><?= /* @escapeNotVerified */ __('Email') ?></span></label>
         <div class="control">
-          <input type="email" name="email" placeholder="email" id="email_address" autocomplete="email" value="<?= $block->escapeHtml($block->getFormData()->getEmail()) ?>" title="<?= /* @escapeNotVerified */ __('Email') ?>" class="input-text" data-validate="{required:true, 'validate-email':true}"/>
+          <input type="email" name="email" placeholder="<?php echo  __('email') ?>" id="email_address" autocomplete="email" value="<?= $block->escapeHtml($block->getFormData()->getEmail()) ?>" title="<?= /* @escapeNotVerified */ __('Email') ?>" class="input-text" data-validate="{required:true, 'validate-email':true}"/>
         </div>
         </div>
         <div class="field telephone required">
