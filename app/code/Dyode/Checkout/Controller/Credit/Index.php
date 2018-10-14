@@ -74,7 +74,10 @@ class Index extends Action {
             $this->_coreSession->setCurAcc($accountNumber);
             $this->_coreSession->setCustEmail($customerEmail);
             $this->_coreSession->setCustomerInfo($accountInfo);
-            $this->_coreSession->setPass('test@123');
+            $this->_coreSession->setFirstname($accountInfo->F_NAME);
+            $this->_coreSession->setLastname($accountInfo->L_NAME);
+            $pass = $accountInfo->L_NAME.$accountInfo->ZIP;
+            $this->_coreSession->setPass($pass);
             $this->_coreSession->setPrevpage('checkout');
 
             if($accountInfo !== false){              
