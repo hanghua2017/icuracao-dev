@@ -140,8 +140,8 @@ define([
 
                         //product related data
                         productId: quoteItem.product_id,
-                        productName: quoteItem.product.name,
-                        productPrice: priceUtils.formatPrice(quoteItem.price),
+                        productName: self.htmlDecode(quoteItem.product.name),
+                        productPrice: priceUtils.formatPrice(quoteItem.price,quote.getPriceFormat()),
                         productImageUrl: quoteItem.thumbnail,
 
                         //forms related data
@@ -171,7 +171,8 @@ define([
                         //function associated
                         collectStores: self.selectLocation,
                         selectStore: self.selectProductStore,
-                        transformStoreModalHeading: self.transformStoreModalHeading
+                        transformStoreModalHeading: self.transformStoreModalHeading,
+                        updateDeliveryInfo: self.updateDeliveryInfo
                     });
                 });
 
@@ -206,22 +207,9 @@ define([
                 model.showZipForm(showZipForm);
                 model.showStoreSelectedSection(showStoreSelected);
 
-                //prepare new deliveryInfo based on the selection
-                var deliveryData = deliveryDataProvider.getDeliveryData(),
-                    deliveryInfo = _.extend(
-                        _.findWhere(deliveryData, {
-                            quoteItemId: parseInt(model.quoteItemId)
-                        }),
-                        {
-                            deliveryType: radioInputValue
-                        }
-                    );
-
-                //update delivery option observable array.
-                if (deliveryInfo) {
-                    var newDeliveryData = _.extend(deliveryData, [deliveryInfo]);
-                    deliveryDataProvider.deliveryData(newDeliveryData);
-                }
+                this.updateDeliveryInfo(model.quoteItemId, {
+                    deliveryType: radioInputValue
+                });
             },
 
             /**
@@ -294,7 +282,7 @@ define([
              * @param {Event} event
              */
             selectProductStore: function (model, event) {
-
+                
                 //keep selected store data in an array so that we can use it in next steps.
                 var form = $(event.target).closest('form'),
                     storeData = {},
@@ -309,8 +297,8 @@ define([
                         if (storeItem.id == storeData.storeId) {
                             selectedStoreInfo.title = storeItem.name;
                             selectedStoreInfo.image = storeItem.image;
-                            selectedStoreInfo.streetCity = storeItem.address.street + storeItem.address.city;
-                            selectedStoreInfo.zipCode = storeItem.address.zip;
+                            selectedStoreInfo.street = storeItem.address.street;
+                            selectedStoreInfo.cityAbbrZip = storeItem.address.city+", "+storeItem.address.region_code+" "+storeItem.address.zip;
                         }
 
                     });
@@ -327,6 +315,14 @@ define([
 
                 //Finally, closing the modal.
                 $('#' + this.storePickupModalId).modal('closeModal');
+
+                /**
+                 * Here "this" context is: quoteItemList::foreach
+                 * Updating delivery info with store picked.
+                 */
+                this.updateDeliveryInfo(this.quoteItemId, {
+                    storeId: parseInt(model.id)
+                });
             },
 
             /**
@@ -337,6 +333,44 @@ define([
             changeStore: function (model, event) {
                 //here "this" has component context
                 this.selectStore(model, event);
+            },
+
+            htmlDecode: function(htmlStr)
+            {
+                var parser = new DOMParser;
+                htmlStr = htmlStr.replace('&Reg;', '&reg;');
+                var dom = parser.parseFromString( htmlStr,
+                    'text/html');
+                return dom.body.textContent;
+            },
+
+            /**
+             * Update delivery information based on the quote Item
+             *
+             * @param {String|Integer} quoteItemId
+             * @param {Object} updateDeliveryInfo
+             */
+            updateDeliveryInfo: function (quoteItemId, updateDeliveryInfo) {
+
+                //prepare new data against the quoteItem provided
+                var deliveryData = deliveryDataProvider.getDeliveryData(),
+                    deliveryInfo = _.extend(
+                        _.findWhere(deliveryData, {
+                            quoteItemId: parseInt(quoteItemId)
+                        }),
+                        updateDeliveryInfo
+                    );
+
+                //update delivery option observable array.
+                if (deliveryInfo) {
+                    var rejected = _.reject(deliveryData, function (quoteItem) {
+                            return quoteItem.quoteItemId == deliveryInfo.quoteItemId;
+                        }),
+
+                        newDeliveryData = _.union(rejected, [deliveryInfo]);
+
+                    deliveryDataProvider.deliveryData(newDeliveryData);
+                }
             },
 
             /**
@@ -376,7 +410,7 @@ define([
                     fullScreenLoader.startLoader();
 
                     $.ajax({
-                        url: Url.build('/storeloc/storelocator/getstores'),
+                        url: Url.build('/delivery-step/storelocator/getstores'),
                         type: 'POST',
                         dataType: 'json',
                         data: {

@@ -18,41 +18,40 @@ class UpgradeSchema implements UpgradeSchemaInterface
 {
     public function upgrade(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
-      $installer = $setup;
+        $installer = $setup;
+        $installer->startSetup();
 
-      $installer->startSetup();
-      $columns = [
-          'delivery_type' => [
-              'type' => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-              'nullable' => true,
-              'default' => '0',
-              'comment'=>'type of delivery'
-          ],
-          'pickup_location_address' => [
-              'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-              'nullable' => true,
-              'comment'=>'address of delivery'
-          ],
-          'pickup_location' => [
-              'type' => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-              'nullable' => true,
-              'comment'=>'location id'
-           ]
-      ];
-      if (version_compare($context->getVersion(), "2.0.1", "<")) {
-      //Your upgrade script
-      }
-      if (version_compare($context->getVersion(), '2.0.2', '<')) {
-        // $installer->getConnection()->addColumn(
-        //       $installer->getTable('sales_order_item'),
-        //       $columns
-        //   );
-          $orderTable =   $installer->getTable('sales_order_item');
-          $connection = $installer->getConnection();
-          foreach ($columns as $name => $definition) {
-              $connection->addColumn($orderTable, $name, $definition);
-          }
-      }
-      $installer->endSetup();
+        if (version_compare($context->getVersion(), '2.0.2', '<')) {
+            $this->upgradeSchemaTwoZeroTwo($installer);
+        }
+
+        $installer->endSetup();
+    }
+
+    /**
+     * Schema for 2.0.2
+     *
+     * @param \Magento\Framework\Setup\SchemaSetupInterface $installer
+     */
+    public function upgradeSchemaTwoZeroTwo(SchemaSetupInterface $installer)
+    {
+        $columns = [
+            'delivery_type'   => [
+                'type'     => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                'nullable' => true,
+                'default'  => '0',
+                'comment'  => 'type of delivery',
+            ],
+            'pickup_location' => [
+                'type'     => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                'nullable' => true,
+                'comment'  => 'location id',
+            ],
+        ];
+        $orderTable = $installer->getTable('sales_order_item');
+        $connection = $installer->getConnection();
+        foreach ($columns as $name => $definition) {
+            $connection->addColumn($orderTable, $name, $definition);
+        }
     }
 }

@@ -8,7 +8,6 @@
 
 namespace Dyode\Catalog\Observer;
 
-
 use Magento\Checkout\Model\Session;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
@@ -59,17 +58,13 @@ class LockWarrantyUpdateInCart implements ObserverInterface
     {
         $this->info = $observer->getInfo();
         $this->cart = $observer->getCart();
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $logger = $objectManager->get("Psr\Log\LoggerInterface");
-        $logger->info("cart Info". json_encode($this->info));
-        $logger->info("cart Info". json_encode($this->cart));
 
         if ($this->hasWarrantyQuoteItem()) {
             if ($this->checkWarrantyLockingNeeded()) {
                 $this->applyWarrantyUpdateLock();
             }
         }
-        
+
         return $this;
     }
 
@@ -79,16 +74,15 @@ class LockWarrantyUpdateInCart implements ObserverInterface
     public function hasWarrantyQuoteItem()
     {
         foreach ($this->cart->getItems() as $quoteItem) {
-                     
             if ($quoteItem->getWarrantyParentItemId()) {
-                $this->quoteRelations[(int)$quoteItem->getWarrantyParentItemId()] = $quoteItem->getItemId() ;
+                $this->quoteRelations[(int)$quoteItem->getWarrantyParentItemId()] = $quoteItem->getItemId();
             }
         }
-      
+
         if (count($this->quoteRelations) > 0) {
             return true;
         }
-        
+
         return false;
     }
 
@@ -97,12 +91,7 @@ class LockWarrantyUpdateInCart implements ObserverInterface
      */
     public function checkWarrantyLockingNeeded()
     {
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $logger = $objectManager->get("Psr\Log\LoggerInterface");
-        $logger->info("checkWarrantyLockingNeeded ++++". json_encode($this->quoteRelations));
-        
         foreach ($this->quoteRelations as $parentQuoteId => $warrantyQuoteId) {
-
             $requestWarrantyQty = $this->collectInfoQtyById($warrantyQuoteId);
 
             if (!$requestWarrantyQty) {
@@ -116,7 +105,6 @@ class LockWarrantyUpdateInCart implements ObserverInterface
             }
         }
 
-       
         if (count($this->lockIds) > 0) {
             return true;
         }
@@ -130,7 +118,7 @@ class LockWarrantyUpdateInCart implements ObserverInterface
     public function applyWarrantyUpdateLock()
     {
         $existingLockIds = $this->checkoutSession->getLockedWarrantyIds() ?
-            $this->checkoutSession->getLockedWarrantyIds(): [];
+            $this->checkoutSession->getLockedWarrantyIds() : [];
 
         $this->checkoutSession->setLockedWarrantyIds(array_unique(array_merge($existingLockIds, $this->lockIds)));
         return $this;
@@ -143,7 +131,6 @@ class LockWarrantyUpdateInCart implements ObserverInterface
     protected function collectInfoQtyById($quoteItemId)
     {
         foreach ($this->info->getData() as $itemId => $itemInfo) {
-
             if ($itemId != $quoteItemId) {
                 continue;
             }

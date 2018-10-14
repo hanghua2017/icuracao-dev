@@ -147,6 +147,7 @@ class Getstores extends Action
                     'title'  => $store->getTitle(),
                     'street' => $store->getStreet(),
                     'city'   => $store->getCity(),
+                    'region_code' => $store->getRegionId(),
                     'zip'    => $store->getZip(),
                     'phone'  => $store->getPhone(),
                 ],

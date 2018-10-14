@@ -1,0 +1,40 @@
+<!--
+/**
+ * Dyode_CheckoutAddressStep Magento2 Module.
+ *
+ * Adding new checkout step in the one page checkout.
+ *
+ * @package   Dyode
+ * @module    Dyode_CheckoutAddressStep
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+
+/**
+ * Removed billing-address details section
+ */
+-->
+<div class="checkout-billing-address">
+
+    <div class="billing-address-same-as-shipping-block field choice" data-bind="visible: canUseShippingAddress()">
+        <input type="checkbox" name="billing-address-same-as-shipping"
+               data-bind="checked: isAddressSameAsShipping, click: useShippingAddress, attr: {id: 'billing-address-same-as-shipping-' + getCode($parent)}"/>
+        <label data-bind="attr: {for: 'billing-address-same-as-shipping-' + getCode($parent)}"><span
+                data-bind="i18n: 'My billing and shipping address are the same'"></span></label>
+    </div>
+
+    <fieldset class="fieldset" data-bind="visible: !isAddressDetailsVisible()">
+        <!-- ko template: 'Magento_Checkout/billing-address/form' --><!-- /ko -->
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button class="action action-update" type="button" data-bind="click: updateAddress">
+                    <span data-bind="i18n: 'Save this address'"></span>
+                </button>
+                <button class="action action-cancel" type="button" data-bind="click: cancelAddressEdit">
+                    <span data-bind="i18n: 'Cancel'"></span>
+                </button>
+            </div>
+        </div>
+    </fieldset>
+
+</div>

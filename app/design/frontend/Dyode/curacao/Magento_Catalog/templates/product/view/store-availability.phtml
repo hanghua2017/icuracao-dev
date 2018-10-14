@@ -22,7 +22,7 @@ $shippingDaysLabel = $viewModel->shippingDaysLabel();
 ?>
 <div class="shipping-pickup-details">
     <p class="shipping">
-        <strong><?= __("Free Shipping") ?>: </strong><?= __($shippingDaysLabel); ?>
+        <strong><?= __("FREE Shipping") ?>: </strong><?= __($shippingDaysLabel); ?>
     </p>
     <?php if ($viewModel->canShowNearestStore()): ?>
 
@@ -35,7 +35,7 @@ $shippingDaysLabel = $viewModel->shippingDaysLabel();
 
 
     <p class="pickup-option"><?= __("Want it today?") ?>
-        <a href="#" id="pickup-location"><?= __("Pick it up at") ?> <?= __($nearestStore->getName()) ?></a>
+        <span id="pickup-location"><?= __("Pick it up at") ?> <?= __($nearestStore->getName()) ?></span>
     </p>
 </div>
 

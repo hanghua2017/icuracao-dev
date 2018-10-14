@@ -7,7 +7,7 @@
           </div>
 <!--description for success message-->
           <div class="success-description">
-            <p>Thank you<br /><span>your curacao card has been linked</span></p>
+            <p><?php echo __('Thank you');?><br /><span><?php echo __('your curacao card has been linked');?></span></p>
           </div>
 <!--image for curacao card-->
           <div class="card-image">
@@ -22,7 +22,9 @@
           </div>
 <!--Button to continue shopping-->
           <div class="button">
-            <button type="submit" name="button"><?php echo __('Continue Shopping');?></button>
+            <a href="/">
+              <button type="submit" name="button"><?php echo __('Continue Shopping');?></button>
+            </a>          
           </div>
         </div>
       </div>

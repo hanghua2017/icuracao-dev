@@ -2,11 +2,11 @@
   <ul>
     <!-- Store Switcher Start -->
     <?php if ($block->getStoreCode() == 'default') : ?>
-      <li class="language-switcher"><a href="?___store=default"><img src="<?php echo $block->getViewFileUrl('images/lang-icon-white.png'); ?>" alt="lang-icon" />ESPANOL</a></li>
+      <li class="language-switcher"><a href="?___store=es"><img src="<?php echo $block->getViewFileUrl('images/lang-icon-white.png'); ?>" alt="lang-icon" />ESPANOL</a></li>
     <?php else: ?>
-      <li class="language-switcher"><a href="?___store=es"><img src="<?php echo $block->getViewFileUrl('images/lang-icon-white.png'); ?>" alt="lang-icon" />ENGLISH</a></li>
+      <li class="language-switcher"><a href="?___store=default"><img src="<?php echo $block->getViewFileUrl('images/lang-icon-white.png'); ?>" alt="lang-icon" />ENGLISH</a></li>
     <?php endif; ?>
     <!-- Store Switcher End -->
-    <li class="stores"><a href="#">Our Stores</a></li>
+    <li class="stores"><a href="/store-locator"><?php echo __('Our Stores'); ?></a></li>
   </ul>
 </div>
