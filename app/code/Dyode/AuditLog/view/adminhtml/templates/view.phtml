@@ -1,0 +1,51 @@
+<?php $auditLogDetails = $block->getAuditLogDetails();?>
+    <div>
+        <div style="margin-left: 5%; margin-top: 3%">
+            <?php $questionCount = 1;
+            foreach($auditLogDetails as $detail):
+                ?>
+                <div class="wrap-survey-response">
+                    <label>
+                        <p>
+                            <b>
+                                Module Name :
+                            </b>
+                            <?php echo $detail['module_name']?>
+                        </p>
+                    </label>
+                    <p>
+                        <b>
+                            User Id :
+                        </b>
+                        <?php echo $detail['user_id']?>
+                    </p>
+                    <p>
+                        <b>
+                            Action :
+                        </b>
+                        <?php echo $detail['action']?>
+                    </p>
+                    <p>
+                        <b>
+                            Description :
+                        </b>
+                        <?php echo $detail['description']?>
+                    </p>
+                    <p>
+                        <b>
+                            User IP :
+                        </b>
+                        <?php echo $detail['client_ip']?>
+                    </p>
+                    <p>
+                        <b>
+                            Created At :
+                        </b>
+                        <?php echo $detail['created_at']?>
+                    </p>
+                    <br>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+<?php

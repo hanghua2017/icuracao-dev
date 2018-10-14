@@ -71,7 +71,7 @@ $suffix = $block->showSuffix();
 
             <div class="control">
                 <input type="text" id="<?= $block->escapeHtmlAttr($block->getFieldId('firstname')) ?>"
-                       placeholder="first name"
+                       placeholder="<?= __('First Name') ?>first name"
                        name="<?= $block->escapeHtmlAttr($block->getFieldName('firstname')) ?>"
                        value="<?= $block->escapeHtmlAttr($block->getObject()->getFirstname()) ?>"
                        title="<?= $block->escapeHtmlAttr($block->getStoreLabel('firstname')) ?>"
@@ -101,7 +101,7 @@ $suffix = $block->showSuffix();
 
             <div class="control">
                 <input type="text" id="<?= $block->escapeHtmlAttr($block->getFieldId('lastname')) ?>"
-                       placeholder="last name"
+                       placeholder="<?= __('Last Name') ?>"
                        name="<?= $block->escapeHtmlAttr($block->getFieldName('lastname')) ?>"
                        value="<?= $block->escapeHtmlAttr($block->getObject()->getLastname()) ?>"
                        title="<?= $block->escapeHtmlAttr($block->getStoreLabel('lastname')) ?>"

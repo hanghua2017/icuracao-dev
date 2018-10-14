@@ -35,9 +35,11 @@ $product = $block->getProduct();
                 <li>
                     <div class="product slected-item">
                         <div class="prod-details">
-                            <img class="prod-img" src="<?= $viewModel->getProductImageUrl($product) ?>"/>
+                          <div class="img-wrapper">
+                          <img class="prod-img" src="<?= $viewModel->getProductImageUrl($product) ?>"/>
+                          </div>
                             <div class="price-details">
-                                <label class="name"><?= $block->escapeHtml($product->getName()) ?></label>
+                                <div class="name"><?= $block->escapeHtml($product->getName()) ?></div>
 
                                 <?php if ($viewModel->productHasRating($product)): ?>
                                     <?php $rating = $viewModel->productRatingSummary($product) ?>
@@ -77,10 +79,12 @@ $product = $block->getProduct();
                         <label for="frequent-checkbox-<?= $fbtProduct->getId(); ?>">
                             <div class="product frequent-item">
                                 <div class="prod-details">
+                                      <div class="img-wrapper">
                                     <img class="prod-img"
                                          src="<?= $viewModel->getProductImageUrl($fbtProduct) ?>" />
+                                       </div>
                                     <div class="price-details">
-                                        <label class="name"><?= $block->escapeHtml($fbtProduct->getName()) ?></label>
+                                        <div class="name"><?= $block->escapeHtml($fbtProduct->getName()) ?></div>
 
                                         <?php if ($viewModel->productHasRating($fbtProduct)): ?>
                                             <?php $rating = $viewModel->productRatingSummary($fbtProduct) ?>
@@ -117,7 +121,7 @@ $product = $block->getProduct();
                     <label class="symbol">+</label>
                     <div class="price-block unselected">
                         <label>
-                            <span class="addon-count"><?= count($fbtProducts) ?></span> <?= __("Add=ons") ?>
+                            <span class="addon-count"><?= count($fbtProducts) ?></span> <?= __("Add-ons") ?>
                         </label>
                         <p class="price add-on-total"><?= $viewModel->getAddonPriceTotal($product, true) ?></p>
                     </div>
@@ -135,7 +139,7 @@ $product = $block->getProduct();
                     <div class="action add-bundle-btn">
                         <button class="add-bundle-btn action tocart" title="<?= __("Add Bundle to Cart") ?>">
                             <img src="<?php echo $this->getViewFileUrl('images/cart-button.png'); ?>" />
-                          <span><?= __("Add Bundle to Cart") ?></span>
+                          <span><?= __("Add Items to Cart") ?></span>
                         </button>
                     </div>
                 </form>

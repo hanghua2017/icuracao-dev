@@ -62,6 +62,11 @@ class Fbt implements ArgumentInterface
     protected $priceHelper;
 
     /**
+     * @var [\Magento\Catalog\Model\Product]
+     */
+    protected $fbtProducts;
+
+    /**
      * Fbt constructor.
      *
      * @param \Magento\Catalog\Api\ProductRepositoryInterface     $productRepository
@@ -129,19 +134,23 @@ class Fbt implements ArgumentInterface
      */
     public function fbtProducts(Product $product)
     {
-        $fbtProductSkus = [];
-        foreach ($this->productLinkRepository->getList($product) as $linkItem) {
-            if ($linkItem->getLinkType() === Link::LINK_CODE) {
-                $fbtProductSkus[] = $linkItem->getLinkedProductSku();
+        if (!$this->fbtProducts) {
+            $fbtProductSkus = [];
+            foreach ($this->productLinkRepository->getList($product) as $linkItem) {
+                if ($linkItem->getLinkType() === Link::LINK_CODE) {
+                    $fbtProductSkus[] = $linkItem->getLinkedProductSku();
+                }
             }
+
+            $fbtProducts = [];
+            foreach ($fbtProductSkus as $sku) {
+                $fbtProducts[] = $this->productRepository->get($sku);
+            }
+
+            $this->fbtProducts = $fbtProducts;
         }
 
-        $fbtProducts = [];
-        foreach ($fbtProductSkus as $sku) {
-            $fbtProducts[] = $this->productRepository->get($sku);
-        }
-
-        return $fbtProducts;
+        return $this->fbtProducts;
     }
 
     /**

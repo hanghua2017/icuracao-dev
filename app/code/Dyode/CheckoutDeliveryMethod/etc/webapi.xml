@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package   Dyode
+ * @author    kavitha@dyode.com
+ * Date       06/09/2018
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/storepickup/storelocation" method="POST">
+        <service class="Dyode\CheckoutDeliveryMethod\Api\StorePickupInterface" method="selection"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="zipcode" force="true">%zipcode%</parameter>
+        </data>
+    </route>
+</routes>

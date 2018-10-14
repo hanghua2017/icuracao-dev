@@ -83,7 +83,7 @@ endforeach;
                    <?php $emi = $emiViewModel->monthlyEmi($_item->getFinalPrice());?>
                 <?php  }?>
 								<?php if($emi!=0):?>
-	                <p class="subtext"><?php echo "or as low as";?><span class="amount"><?php echo"$". " ".$emi." "."/month";?></span></p>
+	                <p class="subtext"><?php echo __('Or as low as&nbsp;');?><span class="amount emi-amount"><?php echo"$". "".$emi."";?><?php echo __("/month"); ?></span></p>
                	<?php endif?>
 								<?php if ($rating): ?>
 									<?php echo $block->getReviewsSummaryHtml($_item, $rating) ?>
@@ -151,6 +151,6 @@ endforeach;
             </div>
 			<?php echo $block->getPagerHtml() ?>
         </div>
-			</div>
 			<?php endif;?>
+			</div>
 <?php endif;?>

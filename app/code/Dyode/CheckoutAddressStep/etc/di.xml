@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Dyode_CheckoutAddressStep Magento2 Module.
+ *
+ * Adding new checkout step in the one page checkout.
+ *
+ * @package   Dyode
+ * @module    Dyode_CheckoutAddressStep
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Dyode\CheckoutAddressStep\Api\GuestShipmentEstimationInterface"
+                type="Dyode\CheckoutAddressStep\Model\GuestCart\GuestShippingMethodManagement" />
+    <preference for="Dyode\CheckoutAddressStep\Api\Data\AddressInterface"
+                type="Dyode\CheckoutAddressStep\Model\Quote\Address" />
+    <preference for="Dyode\CheckoutAddressStep\Api\ShipmentEstimationInterface"
+                type="Dyode\CheckoutAddressStep\Model\ShippingMethodManagement" />
+</config>

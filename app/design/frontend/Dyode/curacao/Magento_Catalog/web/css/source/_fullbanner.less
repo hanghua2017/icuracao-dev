@@ -10,11 +10,12 @@
 @textColor:#333333;
 @commonPadding:15px;
 @commonwidgetPadding:30px;
+.catalog-product-view{
 //Styling for Banners
     .banner-block {
-        margin-bottom: @commonwidgetPadding;
+        margin-bottom: 0;
         @media all and(max-width: 768px){
-          margin-bottom: @commonPadding;
+          margin-bottom:0;
         }
         .banner-item {
             a {
@@ -41,9 +42,9 @@
         .banner-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: @commonPadding;
+            margin-bottom: 0;
             @media all and(max-width: 425px){
-              margin-bottom: 8px;
+               margin-bottom: 0; 
             }
             &.full {
                 .banner-item {
@@ -171,3 +172,4 @@
             }
         }
     }
+}

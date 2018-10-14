@@ -1,4 +1,13 @@
 <?xml version="1.0"?>
+<!--
+/**
+ * Dyode_Checkout Module
+ * Extends Magento_Checkout core module.
+ *
+ * @package   Dyode
+ * @author    kavitha@dyode.component
+ */
+-->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <type name="Magento\Checkout\Model\CompositeConfigProvider">
@@ -10,10 +19,7 @@
     </type>
     <type name="Dyode\Checkout\Model\ConfigProvider">
        <arguments>
-           <argument name="blockId" xsi:type="string">curacao_checkout_block</argument>
+           <argument name="blockId" xsi:type="string">icuracao_credit_card_ad</argument>
        </arguments>
-    </type>
-    <type name="Magento\Checkout\Model\DefaultConfigProvider">
-        <plugin name="Dyode_Checkout_Default_Config_Plugin" type="Dyode\Checkout\Plugin\DefaultConfigProvider" sortOrder="10" disabled="false" />
     </type>
 </config>

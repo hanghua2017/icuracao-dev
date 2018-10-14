@@ -1,12 +1,11 @@
 <?php
 /**
- * ArInoice Helper
+ * Dyode
  *
  * @category  Dyode
  * @package   Dyode_ArInvoice
- * @author    Sooraj Sathyan
+ * @author    Sooraj Sathyan (soorajcs.mec@gmail.com)
  */
-
 namespace Dyode\ArInvoice\Helper;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
@@ -22,14 +21,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     private $_domesticLocation = '06';
 
     /**
-     * Order Items
-     */
-    private $_orderItems;
-
-    /**
-     * @var \Magento\Framework\Json\Helper\Data
-     */
-    protected $jsonHelper;
+     * @var \Magento\Sales\Model\OrderRepository
+     **/
+    protected $_orderRepository;
 
     /**
      * @var \Magento\Catalog\Model\ProductRepository
@@ -37,32 +31,35 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     protected $_productRepository;
 
     /**
-     * @var \Magento\Sales\Model\OrderRepository
-     **/
-    protected $_orderRepository;
-
-    /**
      * \Magento\Framework\App\ResourceConnection
      */
     protected $_resourceConnection;
 
     /**
+     * @var \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface
+     */
+    protected $_customerRepositoryInterface;
+
+    /**
      * Constructor
      *
      * @param \Magento\Sales\Model\OrderRepository $orderRepository
-     * @param \Magento\Framework\Json\Helper\Data $jsonHelper
      * @param \Magento\Catalog\Model\ProductRepository $productRepository
+     * @param \Magento\Framework\App\ResourceConnection $resourceConnection
+     * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface
      */
     public function __construct(
         \Magento\Sales\Model\OrderRepository $orderRepository,
-        \Magento\Framework\Json\Helper\Data $jsonHelper,
         \Magento\Catalog\Model\ProductRepository $productRepository,
-        \Magento\Framework\App\ResourceConnection $resourceConnection
+        \Magento\Framework\App\ResourceConnection $resourceConnection,
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
+        \Dyode\ARWebservice\Helper\Data $arWebServiceHelper
     ) {
         $this->_orderRepository = $orderRepository;
-        $this->jsonHelper = $jsonHelper;
         $this->_productRepository = $productRepository;
         $this->_resourceConnection = $resourceConnection;
+        $this->_customerRepositoryInterface = $customerRepositoryInterface;
+        $this->arWebServiceHelper = $arWebServiceHelper;
     }
 
     /**
@@ -73,6 +70,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         /**
          * Init Curl
          */
+        $baseUrl = $this->arWebServiceHelper->getApiUrl();
+        $url = $baseUrl . $url;
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -82,7 +82,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
          * Set Content Header
          */
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'X-Api-Key: TEST-WNNxLUjBxA78J7s',
+            'X-Api-Key: ' . $this->arWebServiceHelper->getApiKey(),
             'Content-Type: application/json',
             )
         );
@@ -97,7 +97,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         /**
          * Initialize Rest Api Connection
          */
-        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/CreateRevEstimate";
+        $url = "CreateRevEstimate";
         $ch = $this->initRestApiConnect($url);
         /**
          * Set Post Data
@@ -127,7 +127,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         /**
          * Initialize Rest Api Connection
          */
-        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/webDownpayment";
+        $url = "webDownpayment";
         $ch = $this->initRestApiConnect($url);
         /**
          * Set Post Data
@@ -157,7 +157,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         /**
          * Initialize Rest Api Connection
          */
-        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/SupplyInvoice";
+        $url = "SupplyInvoice";
         $ch = $this->initRestApiConnect($url);
         /**
          * Set Post Data
@@ -177,8 +177,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function validateAccountNumber($accountNumber)
     {
-        // dummy content
-        // $accountNumber = "52041";
         if (strlen($accountNumber) == 7) {
             return $accountNumberFormatted = substr_replace($accountNumber, "-", 3, 0);
         } elseif (strlen($accountNumber) < 7) {
@@ -199,7 +197,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         /**
          * Initialize Rest Api Connection
          */
-        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/InventoryLevel?item_id=$itemId&locations=$locations";
+        $url = "InventoryLevel?item_id=$itemId&locations=$locations";
         $ch = $this->initRestApiConnect($url);
         /**
          * Set Post Data
@@ -214,14 +212,17 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * getSetItems() returns a encoded json of items quantity in each location
+     * Get Set Items using API -> GetSetItems
+     *
+     * @return Array
      */
     public function getSetItems($itemId)
     {
-        $ch = curl_init("https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/getSetItems?item_id=$itemId");
+        $url = $this->arWebServiceHelper->getApiUrl() . "getSetItems?item_id=$itemId";
+        $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "X-Api-Key: TEST-WNNxLUjBxA78J7s"));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "X-Api-Key: " . $this->arWebServiceHelper->getApiKey()));
 
         $result = curl_exec($ch);
         curl_close($ch);
@@ -238,7 +239,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         /**
          * Initialize Rest Api Connection
          */
-        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/AppleCareListWarranties";
+        $url = "AppleCareListWarranties";
         $ch = $this->initRestApiConnect($url);
         /**
          * Set Post Data
@@ -250,7 +251,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $response = curl_exec($ch);
         curl_close($ch);
         return json_decode($response);
-        // return $response;
     }
 
     /**
@@ -263,7 +263,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         /**
          * Initialize Rest Api Connection
          */
-        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/AppleCareSetWarranty";
+        $url = "AppleCareSetWarranty";
         $ch = $this->initRestApiConnect($url);
         /**
          * Set Post Data
@@ -276,11 +276,12 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $response = curl_exec($ch);
         curl_close($ch);
         return json_decode($response);
-        // return $response;
     }
 
     /**
      * Load product by Product Id
+     * 
+     * @return Object
      */
     private function getProductById($id)
     {
@@ -289,6 +290,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
     /**
      * Load product by SKU
+     * 
+     * @return Object
      */
     private function getProductBySku($sku)
     {
@@ -305,6 +308,14 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->_orderRepository->get($orderId);
     }
 
+    public function getProductInventory($productId)
+    {
+        $resourceConnection = $this->_resourceConnection->getConnection();
+        $query = "SELECT `finalinventory` FROM `location_inventory` WHERE `productid` = $productId";
+        $result = $resourceConnection->fetchAll($query);
+        return $result;
+    }
+
     /**
      * Assign a inventory location to order items
      *
@@ -312,61 +323,68 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function assignInventoryLocation($item)
     {
-        # Sample Data
-        $shippingRate = "international";
-        $set = "Y";
-
-        # Setting Up values
+        /**
+         * Get item id
+         */
         $itemId = $item->getItemId();
-        $itemSku = $item->getSku();
+        /**
+         * Get item qty ordered
+         */
         $itemQty = $item->getQtyOrdered();
+        /**
+         * Get item qty invoiced
+         */
         $itemQtyInvoiced = $item->getQtyInvoiced();
+        /**
+         * Get item Product Id
+         */
         $productId = $item->getProductId();
-
         /**
          * Get Product Info by Sku
          */
         $product = $this->getProductById($productId);
         /**
+         * Get item Sku
+         */
+        $itemSku = $product->getSku();
+        /**
          * Get Product Vendor Id
          */
-        $vendorId = $product->getVendorId();
+        $vendorId = $product->getData('vendorid');
         /**
-         * Getting the Inventory Level from Product Attribute
+         * Get Product IsSet Value
          */
-        if (!empty($product->getInventoryLevel())) {
-            # code...
-            $inventoryLevel = explode(", ", $product->getInventoryLevel());
-            $inventoryLocations =  array();
-            foreach ($inventoryLevel as $value) {
-                # code...
-                $inventoryLocations[explode(":", $value)[0]] = explode(":", $value)[1];
-            }
-            unset($inventoryLevel);
-        } else {
-            # code...
-            throw new Exception("Product Inventory Level Not Found", 1);
+        $set = $product->getData('set');
+        /**
+         * Get Product Shipping Type
+         */
+        $shippingRate = $product->getData('shiptype');
+        /**
+         * Getting the Inventory Level from location_inventory table
+         */
+        $result = $this->getProductInventory($productId);
+        if (empty($result[0]['finalinventory'])) {
+            throw new \Exception("Product Inventory Level Not Found", 1);
         }
+        $inventoryLocations = json_decode($result[0]['finalinventory']);
+
         if ($vendorId != '2139') {  # If the vendor is not Curacao
             return '33';
-        } else { # If the vendor is Curacao
+        } else {    # If the vendor is Curacao
             # Get Order Details
             $order = $this->getOrderInfo($item->getOrderId());
             # Get Delivery Method
-            $storePickup = strtolower(trim($order->getShippingMethod())) == 'storepickup' ? True : False;   # incomplete...
+            $storePickup = $item->getData('delivery_type');
+
             if ($storePickup == True) { # If the Delivery Type is Store Pickup
-                # incomplete...
-                $storeLocationCode = $item->getPickupLocation();
+                $storeLocationCode = $item->getData('store_location');
                 return $storeLocationCode;
             } else { # If the Delivery Type is Shipping
-                $shippingRate = $product->getShippingRate();
+                $shippingRate = $product->getData('shiptype');
                 $shippingZipCode = $order->getShippingAddress()->getPostCode();
+
                 if ($shippingRate == "Domestic") {
-                    # dummy values...
-                    $itemSku = '32A-061-101946';
-                    $shippingZipCode = 35801;
                     if (array_key_exists($this->_domesticLocation, $inventoryLocations)) {
-                        # code...
                         $domesticItemInventory = $inventoryLocations[$this->_domesticLocation];
                         $storeLocationCode = $this->getDomesticInventoryLocation($itemSku, $itemQty, $shippingZipCode, $domesticItemInventory);
                     } else {
@@ -375,88 +393,60 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                     }
                     return $storeLocationCode;
                 } else {
-                    $set = $product->getIsSet();
+                    $set = $product->getData('set');
                     if ($set == 'Yes') {
-                        $itemSku = "17D-868-DSCW610PAK1";
                         $setItems = json_decode($this->getSetItems($itemSku));
-                        // echo $itemSku;
-                        echo "<pre>";
-
-                        // $magentoSkuArray = array('Test', 'Test2');
-                        // $pendingArray = $this->getPendingEstimate($value);
-                        // $pending = $pendingArray[0]['pending'];
-                        $pending = 5;
-
-                        echo "</pre>";
+                        $pendingArray = $this->getPendingEstimate($itemSku);
+                        if (count($pendingArray) > 0) {
+                            $pendingValue = $pendingArray[0]['pending'];
+                        } else {
+                            $pendingValue = 0;
+                        }
                         $availableInventory = array();
-                        // die();
+
                         if ($setItems->OK) {
-                            # code...
                             $itemsArray = array();
                             $setItemsQty = array();
                             $pending = array();
                             foreach ($setItems->LIST as $setItem) {
-                                # code...
-                                // $itemsArray = $setItem->ITEM_ID;
                                 array_push($itemsArray, $setItem->ITEM_ID);
                                 $setItemsQty[$setItem->ITEM_ID] = $setItem->QTY;
-                                $pending[$setItem->ITEM_ID] = 5 * $setItemsQty[$setItem->ITEM_ID];
-                                echo "<pre>";
-                                $setItem->ITEM_ID = 'Test';
-                                // $magentoSkuArray = array('Test', 'Test2', 'Bundle1-Test-Test2');
-                                // $pendingArray = $this->getPendingEstimate($setItem->ITEM_ID);
-                                // // $pending[$pendingArray[0]['pending']);
-                                // $pending[$setItem->ITEM_ID] = $pendingArray[0]['pending'];
-                                $setItemProduct = $this->getProductBySku('Test');
-                                if (!empty($setItemProduct->getInventoryLevel())) {
-                                    # code...
-                                    $setItemInventoryLevel = explode(", ", $setItemProduct->getInventoryLevel());
-                                    $setItemInventoryLocations =  array();
-                                    foreach ($setItemInventoryLevel as $value) {
-                                        # code...
-                                        $stockAvailable = (int)explode(":", $value)[1] - $pending[$setItem->ITEM_ID];
-                                        $stockOrdered = $itemQty * $setItemsQty[$setItem->ITEM_ID];
-                                        if (empty($availableInventory[explode(":", $value)[0]])) {
-                                            # code...
-                                            $availableInventory[explode(":", $value)[0]] = array();
-                                        }
-                                        if ($stockAvailable > $stockOrdered) {
-                                            # code...
-                                            array_push($availableInventory[explode(":", $value)[0]], $setItem->ITEM_ID);
-                                        }
-                                    }
-                                    unset($setItemInventoryLevel);
-                                } else {
-                                    # code...
+                                $pending[$setItem->ITEM_ID] = $pendingValue * $setItemsQty[$setItem->ITEM_ID];
+
+                                $setItemProduct = $this->getProductBySku($setItem->ITEM_ID);
+
+                                $resultSetItem = $this->getProductInventory($productId);
+                                if (empty($resultSetItem[0]['finalinventory'])) {
                                     throw new Exception("Product Inventory Level Not Found", 1);
                                 }
-                                print_r($setItemInventoryLocations);
+                                $setItemInventoryLevel = json_decode($resultSetItem[0]['finalinventory']);    
+
+                                foreach ($setItemInventoryLevel as $key => $value) {
+                                    $stockAvailable = $value - $pending[$setItem->ITEM_ID];
+                                    $stockOrdered = $itemQty * $setItemsQty[$setItem->ITEM_ID];
+                                    if (empty($availableInventory[$key])) {
+                                        $availableInventory[$key] = array();
+                                    }
+                                    if ($stockAvailable > $stockOrdered) {
+                                        array_push($availableInventory[$key], $setItem->ITEM_ID);
+                                    }
+                                }
                             }
                         } else {
-                            # code...
                             throw new Exception("Set Items Not Found", 1);
                         }
-                        // print_r($itemsArray);
                         $setLocationFound = 0;
                         foreach ($availableInventory as $locations => $items) {
-                            # code...
                             if (count($itemsArray) ==  count($items)) {
-                                # code...
                                 $setLocationFound = 1;
                                 return $locations;
                             }
                         }
-                        // print_r($availableInventory);
-                        // print_r($setItemsQty);
-                        // echo "</pre>";
-                        // die();
                         if ($setLocationFound == 1) {
-                            # code...
                             # Send Out of Stock Notification
                             return 01;
                         }
                     } else {
-                        # code...
                         return "k";
                     }
                 }
@@ -486,10 +476,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getPendingEstimate($itemSku)
     {
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
-        $connection = $resource->getConnection();
-
+        $connection = $this->_resourceConnection->getConnection();
         # Sql Query which takes the pending sku details of order processing
         $sql = "SELECT it.sku, SUM(it.qty_ordered - it.qty_invoiced) as pending
             FROM sales_order_item it
@@ -506,11 +493,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             GROUP BY it.sku";
 
         $result = $connection->fetchAll($sql);
-        if (count($result) > 0) {
-            return $result;
-        } else {
-            return 0;
-        }
+        return $result;
     }
 
     /**
@@ -521,7 +504,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function getDomesticInventoryLocation($productSku, $qtyOrdered, $shippingZipCode, $domesticItemInventory)
     {
         if ($domesticItemInventory >= $qtyOrdered) {
-            # code...
             $resourceConnection = $this->_resourceConnection->getConnection();
             $query = "SELECT * FROM `locations` WHERE `zip` = $shippingZipCode";
             $result = $resourceConnection->fetchAll($query);
@@ -545,7 +527,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             }
             return $storeLocationCode = 33;
         } else {
-            # code...
             # Send the Out of Stock Notification
             return $storeLocationCode = 01;
         }
@@ -556,136 +537,60 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      *
      * @return Array
      */
-    public function getGroupedLocation($order,$orderItems)
+    public function getGroupedLocation($order, $orderItems)
     {
         $groupedLocationFound = 0;
         $availableLocations = array();
         $groupedLocation = array();
-        // $availableLocationsInv = array();
-        // echo count($orderItems);
-        // die();
+
         foreach ($orderItems as $itemId => $productInfo) {
-            # code...
             $product = $this->getProductById($productInfo['ProductId']);
-            $inventoryLevel = explode(", ",$product->getInventoryLevel());
-            // $availableLocationsInv[$itemId] = array();
-            $locations = array();
-            foreach ($inventoryLevel as $inventoryLoc) {
-                # code...
-                if (empty($availableLocations[explode(":", $inventoryLoc)[0]])) {
-                    # code...
-                    $availableLocations[explode(":", $inventoryLoc)[0]] = array();
+            $resultSetItem = $this->getProductInventory($productInfo['ProductId']);
+            if (empty($resultSetItem[0]['finalinventory'])) {
+                throw new Exception("Product Inventory Level Not Found", 1);
+            }
+
+            $inventoryLevel = json_decode($resultSetItem[0]['finalinventory']);
+
+            foreach ($inventoryLevel as $key => $value) {
+                // Array Initializing
+                if (empty($availableLocations[$key])) {
+                    $availableLocations[$key] = array();
                 }
-                if (explode(":", $inventoryLoc)[1] > $productInfo['ItemQty']) {
-                    # code...
-                    array_push($availableLocations[explode(":", $inventoryLoc)[0]], $itemId);
-                    // array_push($locations, explode(":", $inventoryLoc)[0]);
+                if ($value > $productInfo['ItemQty']) {
+                    array_push($availableLocations[$key], $itemId);
                 }
             }
-            // $availableLocationsInv[$itemId] = $locations;
         }
 
-        // echo "<pre>";
-        // print_r($availableLocations);
-        // echo "</pre>";
-        // die();
         foreach ($availableLocations as $location => $items) {
-            # code...
             if (count($items) == count($orderItems)) {
-                # code...
                 foreach ($items as $itemId) {
-                    # code...
                     $groupedItemsLocation[$itemId] = $location;
                 }
-                // echo "<pre>";
-                // print_r($groupedItemsLocation);
-                // echo "</pre>";
                 $groupedLocationFound = 1;
-                // break;
                 return $groupedItemsLocation;
             }
         }
-        # dummy values...
-        // $orderItems = array(
-        //     '133' => array(
-        //         'ProductId' => 5,
-        //         'ItemQty' => 1.0000
-        //     ),
-        //     '134' => array(
-        //         'ProductId' => 4,
-        //         'ItemQty' => 1.0000
-        //     ),
-        //     '135' => array(
-        //         'ProductId' => 3,
-        //         'ItemQty' => 1.0000
-        //     ),
-        //     '136' => array(
-        //         'ProductId' => 2,
-        //         'ItemQty' => 1.0000
-        //     ),
-        //     '137' => array(
-        //         'ProductId' => 1,
-        //         'ItemQty' => 1.0000
-        //     )
-        // );
-        // $groupedLocationFound = 0;
 
-        // $availableLocations = array(
-        //     '01' => array(
-        //         133,
-        //         136,
-        //         137
-        //     ),
-        //     '09' => array(
-        //         133,
-        //         134,
-        //         136,
-        //         137
-        //     ),
-        //     '16' => array(
-        //         133,
-        //         134,
-        //         137
-        //     ),
-        //     '21' => array(
-        //         134,
-        //         135,
-        //         136
-        //     )
-        // );
-        // echo "<pre>";
-        // print_r($orderItems);
-        // print_r($groupedLocationFound);
-        // print_r($availableLocations);
-        // echo "</pre>";
-        // die();
-        // $orderItems =
         if ($groupedLocationFound != 1) {
-            # code...
             $previous = array();
             foreach ($orderItems as $itemId => $productInfo) {
-                #code...
                 if (isset($previous)) {
-                    # code...
                     $foundInPrevious = 0;
                     foreach ($previous as $location) {
-                        # code...
                         if (in_array($itemId, $availableLocations[$location])) {
-                            # code...
                             $groupedItemsLocation[$itemId] = $location;
                             $foundInPrevious = 1;
                             break;
                         }
                     }
                     if ($foundInPrevious == 1) {
-                        # code...
                         continue;
                     }
                 }
                 foreach ($availableLocations as $location => $value) {
-                    # code...
                     if (in_array($itemId, $availableLocations[$location])) {
-                        # code...
                         $groupedItemsLocation[$itemId] = $location;
                         array_push($previous, $location);
                         break;
@@ -693,30 +598,92 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 }
             }
         }
-        // echo "<pre>";
         ksort($groupedItemsLocation);
-        // print_r($groupedItemsLocation);
-        // echo "</pre>";
-        // $availableLocationsInv = array();
-        // foreach ($availableLocations as $location => $items) {
-        //     # code...
-        //     foreach ($items as $key => $itemId) {
-        //         # code...
-        //         if (empty($availableLocationsInv[$itemId])) {
-        //             # code...
-        //             $availableLocationsInv[$itemId] = array();
-        //         }
-        //         // $availableLocationsInv[$itemId] = $location;
-        //         array_push($availableLocationsInv[$itemId], $location);
-        //     }
-        // }
-        // echo "<pre>";
-        // print_r($availableLocationsInv);
-        // echo "</pre>";
-        // echo "<pre>";
-        // print_r($groupedItemsLocation);
-        // echo "</pre>";
-        // die();
+
         return $groupedItemsLocation;
+    }
+
+    /**
+     * Link Apple Care Warranty
+     *
+     * @return Void
+     */
+    public function linkAppleCare($order)
+    {
+        $writer = new \Zend\Log\Writer\Stream(BP . "/var/log/linkapplecare.log");
+		$logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+
+        $appleItems = array();
+        $itemsArray = array();
+        $toLinkItems = array();
+        $firstName = $order->getCustomerFirstName();
+        $lastName = $order->getCustomerLastName();
+        $email = $order->getCustomerEmail();
+        $telephone = $order->getBillingAddress()->getTelephone();
+        $customerId = $order->getCustomerId();
+        $customer = $this->_customerRepositoryInterface->getById($customerId);
+        $accountNumber = $customer->getCustomAttribute("curacaocustid")->getValue();
+        $invoiceNumber = $order->getData('estimatenumber');
+        if (empty($invoiceNumber)) {
+			$logger->info("Order Id : " . $order->getIncrementId());
+			$logger->info("Invoice Number Not found ");
+			throw new Exception("Invoice Number Not found ");
+		}
+        foreach ($order->getAllItems() as $orderItem) {
+            $product = $this->_productRepository->getById($orderItem->getProductId()); 
+            $brand = $product->getResource()->getAttribute('tv_brand')->getFrontend()->getValue($product);
+            if ($brand != 'Apple') {
+                array_push($appleItems, $orderItem);
+                $itemsArray[$orderItem->getId()] = $product->getSku();
+            }
+        }
+        if (count($appleItems) > 1) {
+            foreach ($appleItems as $appleItem) {
+                if ($appleItem->getProductType() != 'virtual') {
+                    if ($appleItem->getData('warranty_parent_id')) {
+                        $productToLink = $itemsArray[$appleItem->getData('warranty_parent_id')];
+                        $warrantyToLink = $appleItem->getSku();
+                        array_push($toLinkItems, array($productToLink, $warrantyToLink));
+                    }
+                }
+            }
+        }
+
+        // Setting up input values
+        $inputArray = array(
+            "invoice" => (string)$invoiceNumber,
+            "cust_id" => $accountNumber,
+            "f_name" => $firstName,
+            "l_name" => $lastName,
+            "email" => $email,
+            "cell_no" => $telephone,
+        );
+        $inputArray["items"] = $toLinkItems;
+
+        # Dummy Values
+        // $inputArray = array(
+        //     "invoice" => "ZEP5903",
+        //     "cust_id" => "53208833",
+        //     "f_name" => "TED",
+        //     "l_name" => "JOHN",
+        //     "email" => "someone@somesite.tld",
+        //     "cell_no" => "(999)999-9999",
+        //     "items" => array(
+        //         array("23H-N05-MC544LL/A","23Y-417-S5094LL/A")
+        //         )
+        // );
+        $response = $this->appleCareSetWarranty($inputArray);
+
+        if (empty($response)) {
+			$logger->info("Order Id : " . $order->getIncrementId());
+			$logger->info("API Response not Found.");
+			throw new Exception("API Response not Found", 1);
+		}
+		if ($response->OK != true) {
+			$logger->info("Order Id : " . $order->getIncrementId());
+			$logger->info($response->INFO);
+            throw new \Exception($response->INFO);
+        }
     }
 }

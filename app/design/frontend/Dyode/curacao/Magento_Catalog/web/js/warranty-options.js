@@ -1,7 +1,6 @@
 /**
  * Dyode_curacao theme.
  *
- * @package Dyode
  * @module  Dyode_curacao
  * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
  * @copyright Copyright © Dyode
@@ -21,6 +20,8 @@ define([
     'jquery',
     'mage/translate',
     'Magento_Ui/js/modal/modal',
+    'Magento_Catalog/product/view/validation',
+    'mage/mage'
 ], function ($, $t) {
     'use strict';
 
@@ -44,12 +45,12 @@ define([
          * For the "Skip" button, just close the modal without doing any action.
          *
          * @param {Event} event
-         * @returns {boolean}
+         * @returns {Boolean}
          */
-        const warrantyDetailsButtonClick = function (event) {
+        var warrantyDetailsButtonClick = function (event) {
             event.preventDefault();
 
-            var button = false;
+            var button = $(event.target);
 
             //we need to know the button clicked on modal is the "Add" button
             if ($(event.target).prop('tagName').toLowerCase() !== 'button') {
@@ -57,7 +58,7 @@ define([
             }
 
             //if the button is add button, then select the warranty option checkbox
-            if (button !== false && button.hasClass('add-warranty-btn')) {
+            if (button.length === 1 && button.hasClass('add-warranty-btn')) {
                 var checkboxInpId = '#' + warrantyModal.find('input[name="warranty"]').val();
 
                 if ($(checkboxInpId).length === 1) {
@@ -66,6 +67,7 @@ define([
             }
 
             warrantyModal.modal('closeModal');
+
             return false;
         };
 
@@ -80,17 +82,17 @@ define([
                     text: 'Add',
                     class: 'add-warranty-btn',
                     attr: {},
-                    click: warrantyDetailsButtonClick,
+                    click: warrantyDetailsButtonClick
                 },
                 {
                     text: 'Skip',
                     class: 'skip-warranty-btn',
                     attr: {},
-                    click: warrantyDetailsButtonClick,
-                },
-            ],
+                    click: warrantyDetailsButtonClick
+                }
+            ]
         });
-    };
+    }
 
 
     /**
@@ -105,16 +107,35 @@ define([
     function initializeWarrantyAddToCartModal() {
         var addToCartModal = $('#addtocartModal'),
             addToCartButton = $('#product-addtocart-button'),
-            redirectToCartHiddenLink = $('#warranty-go-to-cart-link')[0];
+            needToRedirectInput = $('#addtocart_modal_need_to_redirect'),
+            messageBlock = addToCartModal.find('.message'),
+            modalCheckboxes = addToCartModal.find('input[type="checkbox"]');
 
         /**
          * Warranty modal Add, Skip button action.
          * Both buttons will perform addtocart action and then redirect to the cart page.
          */
-        const addToCartButtonClick = function (event) {
+        var addToCartButtonClick = function (event) {
+            var button = $(event.target);
+
+            if ($(event.target).prop('tagName').toLowerCase() !== 'button') {
+                button = $(event.target).closest('button');
+            }
+
+            if (button.hasClass('add-warranty-btn')) {
+                if (!modalCheckboxes.is(':checked')) {
+                    messageBlock.html(
+                        '<div class="error">' + $t('Please select any of the options available') + '</div>'
+                    );
+
+                    return false;
+                }
+            }
+
+            messageBlock.html('');
             addToCartButton.trigger('submit');
-            redirectToCartHiddenLink.click();
-            addToCartModal.modal('closeModal')
+            addToCartModal.modal('closeModal');
+
             return true;
         };
 
@@ -122,24 +143,24 @@ define([
          * Warranty modal initialization
          */
         addToCartModal.modal({
-            title: $t("Add to your order"),
+            title: $t('Add to your order'),
             modalClass: 'warranty-addtocart-popup',
             buttons: [
                 {
                     text: 'Add',
                     class: 'add-warranty-btn',
                     attr: {},
-                    click: addToCartButtonClick,
+                    click: addToCartButtonClick
                 },
                 {
                     text: 'Skip',
                     class: 'skip-warranty-btn',
                     attr: {},
-                    click: addToCartButtonClick,
-                },
-            ],
+                    click: addToCartButtonClick
+                }
+            ]
         });
-    };
+    }
 
     /**
      ////////////////////////////////////////////////////////////////////
@@ -178,12 +199,12 @@ define([
             warrantyModalCmsSection: '.top-section',
             warrantyModalInput: 'input[name="warranty"]',
             addToCartButton: '#product-addtocart-button',
-            warrantyAddToCartModal: '#addtocartModal',
+            warrantyAddToCartModal: '#addtocartModal'
         },
 
         /**
          * Register warranty option events.
-         * @inheritDoc
+         * @inheritdoc
          */
         _create: function () {
             this.addEventHooks();
@@ -193,27 +214,31 @@ define([
          * Bind warranty link click and warranty checkbox click
          */
         addEventHooks: function () {
-            $(this.element).find(this.options.warrantyLinks).click(this.warrantyLinkClickHandler.bind(this));
-            $(this.element).find(this.options.checkBoxInputs).click(this.checkboxClickHandler.bind(this));
-            $(this.options.addToCartButton).click(this.addToCartButtonClickHandler.bind(this));
-            $(this.options.warrantyAddToCartModal)
-                .find(this.options.checkBoxInputs)
-                .click(this.checkboxModalClickHandler.bind(this));
+            var warrantyLinks = $(this.element).find(this.options.warrantyLinks),
+                warrantyOptions = $(this.element).find(this.options.checkBoxInputs),
+                addToCartButton = $(this.options.addToCartButton),
+                addToCartModalCheckboxes = $(this.options.warrantyAddToCartModal).find(this.options.checkBoxInputs);
+
+            warrantyLinks.click(this.warrantyLinkClickHandler.bind(this));
+            warrantyOptions.click(this.checkboxClickHandler.bind(this));
+            addToCartButton.click(this.addToCartButtonClickHandler.bind(this));
+            addToCartModalCheckboxes.click(this.checkboxModalClickHandler.bind(this));
         },
 
         /**
          * Handle warranty link click
          * A modal will be shown with the details of the warranty.
          * @param {Event} event
-         * @returns {boolean}
+         * @returns {Boolean}
          */
         warrantyLinkClickHandler: function (event) {
             event.preventDefault();
             event.stopImmediatePropagation();
 
-            this.updateModalContent($(event.target).data('warranty-id'))
+            this.updateModalContent($(event.target).data('warranty-id'));
 
             $(this.options.warrantyModal).modal('openModal');
+
             return true;
         },
 
@@ -235,8 +260,8 @@ define([
          */
         checkboxModalClickHandler: function (event) {
             var targetCheckbox = event.target,
-                chekboxName = $(targetCheckbox).attr('name'),
-                warrantyCheckbox = 'input[name="' + chekboxName + '"]';
+                checkboxName = $(targetCheckbox).attr('name'),
+                warrantyCheckbox = 'input[name="' + checkboxName + '"]';
 
             if (targetCheckbox.checked) {
                 $(this.options.warrantyAddToCartModal)
@@ -244,7 +269,10 @@ define([
                     .not(targetCheckbox)
                     .attr('checked', false);
 
-                $(this.element).find(warrantyCheckbox).trigger('click');
+                var warrantyOption = $(this.element).find(warrantyCheckbox);
+
+                warrantyOption.attr('checked', true);
+                $(this.element).find(this.options.checkBoxInputs).not(warrantyOption).attr('checked', false);
             }
         },
 
@@ -260,10 +288,17 @@ define([
             //skip warranty popup if any of the warranty options selected.
             if (warrantyInputs.length === 0 || warrantyInputs.is(':checked')) {
                 $(this.options.addToCartButton).trigger('submit');
+
                 return true;
             }
 
-            $(this.options.warrantyAddToCartModal).modal('openModal');
+            var addToCartModal = $(this.options.warrantyAddToCartModal),
+                addToCartModalCheckboxes = addToCartModal.find(this.options.checkBoxInputs),
+                messageBlock = addToCartModal.find('.message');
+
+            addToCartModalCheckboxes.attr('checked', false);
+            messageBlock.html('');
+            addToCartModal.modal('openModal');
 
             return true;
         },
@@ -286,7 +321,7 @@ define([
                     warrantyModal.find(this.options.warrantyModalDescription).html(warranty.description);
                 }
             }
-        },
+        }
     });
 
     return $.dyode.warranty;

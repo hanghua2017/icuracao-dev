@@ -24,20 +24,20 @@
                 <div class="field email required">
                     <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
                     <div class="control">
-                        <input name="login[username]" placeholder="Enter your Email ID" value="<?= $block->escapeHtmlAttr($block->getUsername()) ?>" <?php if ($block->isAutocompleteDisabled()): ?> autocomplete="off"<?php endif; ?> id="email" type="email" class="input-text" title="<?= $block->escapeHtmlAttr(__('Email')) ?>" data-validate="{required:true, 'validate-email':true}">
+                        <input name="login[username]" placeholder="<?= __('Enter your Email ID') ?>" value="<?= $block->escapeHtmlAttr($block->getUsername()) ?>" <?php if ($block->isAutocompleteDisabled()): ?> autocomplete="off"<?php endif; ?> id="email" type="email" class="input-text" title="<?= $block->escapeHtmlAttr(__('Email')) ?>" data-validate="{required:true, 'validate-email':true}">
                     </div>
                 </div>
                 <div class="field password required">
                     <label for="pass" class="label"><span><?= $block->escapeHtml(__('Password')) ?></span></label>
                     <div class="control">
-                        <input name="login[password]" placeholder="Password" type="password" <?php if ($block->isAutocompleteDisabled()): ?> autocomplete="off"<?php endif; ?> class="input-text" id="pass" title="<?= $block->escapeHtmlAttr(__('Password')) ?>" data-validate="{required:true}">
+                        <input name="login[password]" placeholder="<?= __('Password') ?>" type="password" <?php if ($block->isAutocompleteDisabled()): ?> autocomplete="off"<?php endif; ?> class="input-text" id="pass" title="<?= $block->escapeHtmlAttr(__('Password')) ?>" data-validate="{required:true}">
                     </div>
                 </div>
                 <?= $block->getChildHtml('form_additional_info') ?>
                 <div class="actions-toolbar">
                     <div class="secondary">
-                      <a class="action remind forget-password" href="<?= $block->escapeUrl($block->getForgotPasswordUrl()) ?>"><span><?= $block->escapeHtml(__('Forgot Your Password?')) ?></span></a>
-                      <p class="sign-up">New in Curacao? &nbsp;<a href="<?= $block->escapeUrl($block->getUrl('customer/account/create')); ?>" class="action create primary"><span><?= $block->escapeHtml(__('Create an Account')) ?></span></a></p>
+                      <a class="action remind forget-password" href="<?= $block->escapeUrl($block->getForgotPasswordUrl()) ?>"><span><?= $block->escapeHtml(__('Forgot Password?')) ?></span></a>
+                      <p class="sign-up"><?= $block->escapeHtml(__('New in Curacao?')) ?> &nbsp;<a href="<?= $block->escapeUrl($block->getUrl('customer/account/create')); ?>" class="action create primary"><span><?= $block->escapeHtml(__('Sign up here')) ?></span></a></p>
                     </div>
                     <div class="primary"><button type="submit" class="action login primary" name="send" id="send2"><span><?= $block->escapeHtml(__('Login')) ?></span></button></div>
 
@@ -48,7 +48,7 @@
     <!-- Card logo and card images -->
     <div class="curacao-card">
       <div class="card-images">
-        <img src="<?php echo $this->getViewFileUrl('images/curacaoCreditLogo.png'); ?>" class="credit-card-logo" alt="credit-card" />
+        <img src="<?php echo $this->getViewFileUrl('images/curacaoCredit-login.png'); ?>" class="credit-card-logo" alt="credit-card" />
         <img src="<?php echo $this->getViewFileUrl('images/curaco_card.png'); ?>" class="credit-card" alt="credit-card" />
       </div>
     </div>
@@ -56,7 +56,7 @@
 <!-- Card apply block -->
 <div class="curacao-card-apply">
   <div class="content">
-    <p>Get instant  Curacao Credit approval</p>
+    <p><?= __('Get instant  Curacao Credit approval') ?></p>
   </div>
   <div class="apply-now-button">
     <a href="" class="apply-now">Apply Now</a>

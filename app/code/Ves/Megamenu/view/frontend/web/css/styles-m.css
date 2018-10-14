@@ -568,10 +568,16 @@ body{
     font-family: "iCuracao-Regular";
     font-size:14px;
   }
+  .navigation .level0 .submenu .active>a {
+      border:none;
+      background:transparent;
+      color:black;
+  }
 }
 @media all and (max-width:479px){
   .nav-sections{
     left:calc(-80%);
     width: calc(80%) !important;
+    transition: all 0.3s;
   }
 }

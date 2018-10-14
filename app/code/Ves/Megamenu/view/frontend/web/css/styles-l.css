@@ -134,7 +134,7 @@ body{
 }
 .ves-megamenu .dynamic-items {
   padding: 0;
-  width: 20%;
+  width: 40%;
 }
 .ves-megamenu .level0 ul {
   margin: 0;
@@ -694,7 +694,7 @@ body{
     margin-right: 15px;
   }
   .ves-megamenu .navigation .nav-item .dynamic-content {
-    width: 80%;
+    width: 60%;
     padding-right: 0;
   }
   .ves-megamenu .navigation .nav-item .dynamic-content > .nav-item {
@@ -1809,8 +1809,8 @@ body{
 }
 
 .ves-megamenu .dynamic-items {
-    padding: 10px;
-    width:25%;
+    padding: 15px;
+    width:40%;
     background: #f9f9f9;
 }
 
@@ -2301,15 +2301,17 @@ print {
     .navigation .level0 .submenu a:hover,
     .navigation .level0 .submenu a.ui-state-focus {
         font-family: "iCuracao-Regular";
-        background: #f9f9f9;
+        background: transparent;
         color: #000;
         text-decoration: none
     }
     .navigation .level0 .submenu .active>a {
-        border-color: #ff5501;
-        border-style: solid;
-        border-width: 0 0 0 3px;
-        color: #333
+        border:none;
+        background:transparent;
+        color:black;
+    }
+    .ves-megamenu .level0 .submenu .nav-item>a{
+      padding: 0 10px;
     }
     .navigation .level0 .submenu .submenu {
         top: 0 !important;
@@ -2402,8 +2404,7 @@ print {
         margin-bottom: 0;
     }
     .ves-megamenu .navigation>ul {
-        padding: 0;
-        padding-left:50px !important;
+        padding:0 180px 0 50px !important;
     }
     .ves-megamenu .navigation .level0 {
         display: inline-block;
@@ -2411,6 +2412,12 @@ print {
         zoom: 1;
         margin: 0 20px 0 0;
         position: relative
+    }
+    .ves-megamenu .navigation .level0.link-with-border a span{
+      line-height: 30px;
+      padding: 0 17px;
+      border: 1px solid #fff;
+      font-family: "iCuracao-Medium";
     }
     .ves-megamenu .navigation .level0 > a {
         font-family: "iCuracao-Regular";
@@ -2449,6 +2456,12 @@ print {
     .ves-megamenu .navigation .level0.current>a {
         background-color: #84b90a !important;
         color: #fff;
+        transition: all 0.2s;
+        text-shadow: 0px 0px 0px #fff;
+    }
+    .ves-megamenu .navigation .level0.current>a:hover{
+      text-shadow: 0px 0px 2px #fff;
+      transition: all 0.2s;
     }
     .ves-megamenu .navigation .level0 .submenu {
         font-size: inherit
@@ -2754,6 +2767,11 @@ print {
     .ves-megamenu .navigation .nav-item.subhover>.submenu>.submenu-inner {
         padding: 0
     }
+    .ves-megamenu .navigation .nav-item.subhover>.submenu>.submenu-inner .content-wrapper .item-content .dorgin-items{
+      display: -webkit-flex;
+      display: flex;
+      align-items: stretch;
+    }
     .ves-megamenu .navigation .nav-item.submenu-right>.submenu {
         right: 0 !important;
         left: auto !important
@@ -2799,8 +2817,8 @@ print {
         margin-right: 15px
     }
     .ves-megamenu .navigation .nav-item .dynamic-content {
-        padding:10px;
-        width:75%;
+        padding:15px;
+        width:60%;
         background:#fff;
     }
     .ves-megamenu .navigation .nav-item .dynamic-content>.nav-item {
@@ -3277,8 +3295,8 @@ print {
 }
 .ves-megamenu .navigation .nav-item.dynamic-active > a:after{
   position:absolute;
-  right:-12px;
-  top:2px;
+  right:-10px;
+  top:0px;
   content:'\e619';
   font-size:12px;
   font-family: 'luma-icons';
@@ -3290,6 +3308,9 @@ print {
   speak: none;
   text-align: center;
 }
+.ves-megamenu .navigation .nav-item.dynamic-active.no-subcategory > a:after{
+  content:'';
+}
 
 .ves-megamenu .navigation .nav-item .dynamic-content .mobile-accessories-container .item-content .item-content1 .mega-col-level-2{
       padding: 10px 0 0 0;
@@ -3297,7 +3318,7 @@ print {
 }
 
 .ves-megamenu .navigation .nav-item .dynamic-content .mobile-accessories-container .item-content .item-content1 .mega-col-level-2:first-child{
-  width:65%;
+  width:60%;
 }
 
 .ves-megamenu .navigation .nav-desktop-hamburger .nav-item.hamburger-border-link{
@@ -3312,6 +3333,11 @@ print {
 @media all and (max-width:1024px){
   .navigation .level0 .submenu a{
     font-family: "iCuracao-Regular";
+  }
+  .navigation .level0 .submenu .active>a {
+      border:none;
+      background:transparent;
+      color:black;
   }
   .navigation .level0 .submenu a:hover, .navigation .level0 .submenu a.ui-state-focus{
     background:#ffffff !important;
@@ -3363,7 +3389,7 @@ print {
   }
   .nav-sections-item-content > .store-view-container{
     position: absolute;
-    top:81px;
+    top:79px;
     right:20px;
   }
   .nav-sections-item-content > .store-view-container ul{
@@ -3372,7 +3398,7 @@ print {
   }
   .nav-sections-item-content > .store-view-container ul li{
     display: inline-block;
-    padding:14px 10px;
+    padding:15px 10px;
     margin-bottom: 0;
   }
   .nav-sections-item-content > .store-view-container ul li.language-switcher{
@@ -3383,10 +3409,14 @@ print {
     font-family: "iCuracao-Regular";
     font-size:14px;
     color:#fff;
+    text-shadow:0 0 0 #fff;
     text-decoration: none;
+    transition: all 0.2s;
   }
   .nav-sections-item-content > .store-view-container ul li a:hover{
     text-decoration: none;
+    text-shadow:0 0 2px #fff;
+    transition: all 0.2s;
   }
   .nav-sections-item-content > .store-view-container ul li a img{
     width:15px;

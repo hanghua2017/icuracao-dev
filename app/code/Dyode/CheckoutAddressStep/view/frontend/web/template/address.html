@@ -1,0 +1,78 @@
+<!--
+/**
+ * Dyode_CheckoutAddressStep Magento2 Module.
+ *
+ * Adding new checkout step in the one page checkout.
+ *
+ * @package   Dyode
+ * @module    Dyode_CheckoutAddressStep
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+
+<li id="address-step" data-bind="fadeVisible: visible">
+
+    <!-- Address Top User Info Section -->
+    <div class="step-top-heading">
+        <h2 class="top-title" data-bind="i18n: 'Billing Address | Shipping Address'"></h2>
+        <p class="top-details">
+            <!-- ko i18n: 'Please enter shipping address if you have opted for "ship to Home".' --><!-- /ko -->
+            <!-- ko i18n: 'Enter billing address to process the invoice in case of both "Ship to home" or "Store Pickup".' -->
+            <!-- /ko -->
+        </p>
+    </div>
+
+    <div class="step-title" data-bind="i18n: 'Add a new ship address'" data-role="title"></div>
+    <div class="step-note">
+        <!-- ko i18n: 'Be sure to click "Save this address" when done' -->
+        <!-- /ko -->
+    </div>
+    <div id="checkout-step-title" class="step-content" data-role="content">
+
+        <each if="!quoteIsVirtual" args="getRegion('customer-email')" render=""/>
+        <each args="getRegion('address-list')" render=""/>
+        <if args="isCustomerLoggedIn() && isThereMoreThanTwoAddresses">
+            <button class="shipping-address-view-all" data-bind="click: viewAllAddresses()"><span data-bind="text: viewButtonState"></span></button>
+        </if>
+        <each args="getRegion('address-list-additional-addresses')" render=""/>
+
+        
+
+        <each args="getRegion('before-form')" render=""/>
+        
+        <!-- Inline address form -->
+        <render if="isFormInline" args="shippingFormTemplate" />
+        <!-- Add new address accordion -->
+        <if args="isCustomerLoggedIn() && !isFormInline">
+                <div data-bind="mageInit: {'accordion':{'openedState': 'active', 'collapsible': true, 'active': [1,4], 'multipleCollapsible': true}} ">
+                        <div data-role="collapsible"  >
+                            <div data-role="title">Add New Shipping Address</div>
+                            <div data-role="content">
+                                    <div class="step-note">
+                                            <!-- ko i18n: 'Be sure to click "Save this address" when done' -->
+                                            <!-- /ko -->
+                                    </div>
+                                    <!-- Shiping Address Form -->
+                                    <render args="shippingFormTemplate" />
+                                    <!-- Shipping Address Save Button -->
+                                    <div class="shipping-address-action">
+                                        <button class="action action-update save-address" data-bind="click: saveNewAddress">
+                                            <span data-bind="i18n: 'Save this address'"></span>
+                                        </button>
+                                    </div>                          
+                            </div>
+                        </div>
+                </div>
+        </if>
+
+        
+
+        <hr>
+
+        <!-- Inline Billing address form -->
+        <!-- ko foreach: getRegion('billing-address') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+</li>

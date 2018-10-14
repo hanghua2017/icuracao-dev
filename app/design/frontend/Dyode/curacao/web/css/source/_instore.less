@@ -3,7 +3,7 @@
 .cms-container{
   .inner-cms-banner{
     position: relative;
-    max-width: 1150px;
+    max-width: 1090px;
     margin: 0 auto;
     margin-bottom: 30px;
     @media all and(max-width: 1250px){
@@ -12,8 +12,8 @@
     @media all and (max-width: 991px){
       max-width: 700px;
     }
-    @media all and(max-width: 768px) {
-      max-width: 768px;
+    @media all and(max-width: 767px) {
+      max-width: 767px;
       margin: 25px 15px 0 15px;
     }
     img{
@@ -21,14 +21,15 @@
     }
     .large {
         display: block;
-        @media all and(max-width: 768px) {
+        @media all and(max-width: 767px) {
             display: none;
         }
     }
     .small {
         display: none;
-        @media all and(max-width: 768px) {
+        @media all and(max-width: 767px) {
             display: block;
+            padding-top: 15px;
         }
     }
 //Styles for text in banner
@@ -40,10 +41,11 @@
       left: 0px;
       font-size: 29px;
       text-transform: uppercase;
-      font-family: 'iCuracao-Light';
+      font-family: "iCuracao-Regular"!important;
       padding: 20px 34px 20px 60px;
+      box-shadow: -1.5px 0px 3px gainsboro;
       color: @curacao-green;
-      @media all and(max-width: 768px){
+      @media all and(max-width: 767px){
       padding: 15px 65px 15px 15px;
       }
       @media all and(max-width: 575px){
@@ -60,7 +62,13 @@
         font-weight: bold;
       }
       p:nth-child(2){
-            font-weight: lighter;
+          font-family: 'iCuracao-Light' !important;
+          margin-top: -10px;
+          font-weight: lighter;
+
+          @media all and(max-width: 425px){
+            margin-top: -3px;
+          }
       }
     }
   }

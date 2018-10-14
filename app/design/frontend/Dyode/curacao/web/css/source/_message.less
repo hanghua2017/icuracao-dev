@@ -1,0 +1,146 @@
+//styling for all type of messages
+
+.message.error,
+.message.info,
+.message.notice,
+.message.success,
+.message.warning {
+  background: white;
+  border-radius: 3px;
+  border: 1px solid #ebebeb;
+  //box-shadow: 0 0 12px 0px @box-shadow-color;
+}
+@theme-color: #82b800;
+
+.cms-no-route {
+  .page-wrapper {
+    .page-main {
+      max-width: 1500px;
+      margin-top: 60px;
+      margin-bottom: 40px;
+      @media all and (max-width: 1024px) {
+        padding: 30px;
+      }
+      @media all and (max-width: 768px) {
+        max-width: 379px;
+        margin: 0 auto;
+      }
+      h1.page-title{
+       @media all and (max-width: 768px) {
+         text-align: center;
+       }
+      }
+    }
+  }
+}
+//404 block
+
+.content-404-page {
+  width: 100%;
+  clear: both;
+  float: left;
+
+  .block {
+    width: 48%;
+    float: left;
+    @media all and (max-width: 768px) {
+      width: 100%;
+    }
+
+    &.image-block {
+      margin: 45px 0 45px 30px;
+      @media all and (max-width: 991px) {
+        margin: 25px 0;
+      }
+
+      img {
+        padding-left: 50px;
+        @media all and (max-width: 1099px) {
+          padding-left: 30px;
+        }
+        @media all and (max-width: 991px) {
+          padding-left: 0;
+        }
+      }
+    }
+
+    &.content-block {
+      .content {
+        @media all and (max-width: 599px) {
+          text-align: center;
+        }
+
+        p.title {
+          font-family: 'iCuracao-Medium';
+          color: #d6d6d6;
+          font-size: 20em;
+          line-height: 1;
+          @media all and (max-width: 1099px) {
+            font-size: 18em;
+          }
+          @media all and (max-width: 991px) {
+            font-size: 15em;
+          }
+          @media all and (max-width: 768px) {
+            font-size: 14em;
+            text-align: center;
+          }
+          @media all and (max-width: 420px) {
+            font-size: 11em;
+          }
+        }
+
+        h2 {
+          font-family: 'iCuracao-Medium';
+          color: #d6d6d6;
+          font-size: 22px;
+          margin-top: 0;
+          margin-bottom: 10px;
+          text-align: left;
+          @media all and (max-width: 991px) {
+            font-size: 18px;
+          }
+          @media all and (max-width: 599px) {
+            font-size: 16px;
+          }
+
+          &.not-found {
+            color: #000;
+            margin-bottom: 45px;
+            @media all and (max-width: 599px) {
+              margin-bottom: 25px;
+            }
+          }
+        }
+
+        p {
+          font-family: 'iCuracao-Medium';
+          font-size: 18px;
+          font-weight: bold;
+          letter-spacing: 1px;
+          color: #000;
+          text-align: left;
+        }
+
+        a {
+          .go-home {
+            color: #fff;
+            background-color: @theme-color;
+            border-radius: 3px;
+            padding: 12px 20px;
+            width: 175px;
+            box-shadow: none;
+            text-transform: capitalize;
+            @media all and (max-width: 768px) {
+              width: 100%;
+            }
+          }
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}
