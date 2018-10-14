@@ -55,7 +55,7 @@ if ($customerSession->isLoggedIn()) {
     </li>
   <?php else: ?>
     <li class="customer-signin">
-      <span class="hello-text">Hello,</span>
+      <span class="hello-text"><?php echo __('Hello'); ?>,</span>
           <div class="account-wrapper">
                     <a href="<?php echo $block->getUrl();?>customer/account/login/">
                     <span><?php echo __('Sign in')?></span>
