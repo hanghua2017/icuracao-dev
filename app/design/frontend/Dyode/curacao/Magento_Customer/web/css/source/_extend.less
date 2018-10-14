@@ -53,13 +53,16 @@ select:focus, input:focus {
     .main {
       margin-bottom: 0px;
     }
+    .message.info, .message.error, .message.warning, .message.notice, .message.success{
+      float:none;
+      clear: both;
+    }
     .message.info.empty {
       font-family: 'iCuracao-Regular';
       font-size: 13px;
       font-weight: 500;
     }
   }
-
 	.page-wrapper{
 		.page-main{
       padding-left: 0;
@@ -1120,16 +1123,14 @@ select:focus, input:focus {
     input{
 			border-radius: 5px;
 		}
-    // .actions-toolbar .action.primary,
-    // .box-tocart .action.instant-purchase {
-    //     padding: 8px 17px;
-    // }
     .fieldset{
       width: 100%;
       .field {
         width: 48%;
+        margin: 0 0 0;
         @media all and (max-width:767px){
           width:100%;
+          margin: 0 0 20px;
         }
         label{
           font-weight: normal;
@@ -1139,13 +1140,22 @@ select:focus, input:focus {
         }
         &.field-name-lastname,&.telephone,&.region,&.country,&.shipping {
           float: right;
+
+        }
+        &.billing{
+          margin: 0 0 20px;
+        }
+        &.field-name-firstname,&.company,&.city,&.zip,&.street ,&.field-name-lastname,&.telephone,&.region,&.country{
+          @media all and (min-width:768px){
+            min-height:93px;
+          }
         }
         &.street {
           width:100%;
           float: left;
           clear: both;
           .control {
-            #street_1 {
+            #street_left {
               width: 48%;
               float: left;
               @media all and (max-width:767px){
