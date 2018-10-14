@@ -27,7 +27,7 @@
     <input type="hidden" name="error_url" value="<?= /* @escapeNotVerified */ $block->getErrorUrl() ?>"/>
     <div class="check checking-box">
       <div class="checking-box-label">
-        <input type="checkbox" name="account-check" id="account-check" value="account-checkbox" /><label class="label" for="account-check">Do you have a Curacao Account?</label></div>
+        <input type="checkbox" name="account-check" id="account-check" value="account-checkbox" /><label class="label" for="account-check"><?= __('Do you have a Curacao Account?') ?></label></div>
       </div>
       <?php $customerAttributes = $block->getChildBlock('customer_form_user_attributes');?>
       <?php if ($customerAttributes): ?>
