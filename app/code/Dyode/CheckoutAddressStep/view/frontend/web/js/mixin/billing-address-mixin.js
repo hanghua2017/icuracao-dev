@@ -15,8 +15,9 @@ define([
     'jquery',
     'uiRegistry',
     'Magento_Checkout/js/checkout-data',
-    'Dyode_CheckoutAddressStep/js/data/address-data-provider'
-], function ($, registry, checkoutData, addressDatProvider) {
+    'Dyode_CheckoutAddressStep/js/data/address-data-provider',
+    'Magento_Customer/js/model/customer'
+], function ($, registry, checkoutData, addressDatProvider,customer) {
 
     /**
      * Mixin for Magento_Checkout/js/view/billing-address
@@ -27,6 +28,7 @@ define([
      */
     var mixin = {
 
+        isCustomerLoggedIn: customer.isLoggedIn,
         /**
          * Make billing form initially invisible.
          * By default, billing address = shipping address.
@@ -36,7 +38,7 @@ define([
             this.isAddressFormVisible(false);
             this.isAddressSameAsShipping(addressDatProvider.isBillingSameAsShipping());
             this.isAddressDetailsVisible(true);
-
+            
             this.isAddressSameAsShipping.subscribe(function (newStatus) {
                 addressDatProvider.isBillingSameAsShipping(newStatus);
             });
@@ -56,6 +58,7 @@ define([
             });
         },
 
+        
         /**
          * Showing billing form when untick the billing checkbox.
          *

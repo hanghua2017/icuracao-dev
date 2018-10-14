@@ -32,32 +32,41 @@
 
         <each if="!quoteIsVirtual" args="getRegion('customer-email')" render=""/>
         <each args="getRegion('address-list')" render=""/>
+        <if args="isCustomerLoggedIn">
+            <button class="shipping-address-view-all" data-bind="click: viewAllAddresses()"><span data-bind="text: viewButtonState"></span></button>
+        </if>
         <each args="getRegion('address-list-additional-addresses')" render=""/>
 
-        <!-- Address form pop up -->
-        <if args="!isFormInline">
-            <button type="button"
-                    class="action action-show-popup"
-                    click="showFormPopUp"
-                    visible="!isNewAddressAdded()">
-                <span translate="'New Address'"/>
-            </button>
-            <div id="opc-new-shipping-address"
-                 visible="isFormPopUpVisible()"
-                 render="shippingFormTemplate"/>
-        </if>
+        
 
         <each args="getRegion('before-form')" render=""/>
-
+        
         <!-- Inline address form -->
-        <render if="isFormInline" args="shippingFormTemplate"/>
+        <render if="isFormInline" args="shippingFormTemplate" />
+        <!-- Add new address accordion -->
+        <if args="isCustomerLoggedIn && !isFormInline">
+                <div data-bind="mageInit: {'accordion':{'openedState': 'active', 'collapsible': true, 'active': [1,4], 'multipleCollapsible': true}} ">
+                        <div data-role="collapsible"  >
+                            <div data-role="title">Add New Shipping Address</div>
+                            <div data-role="content">
+                                    <div class="step-note">
+                                            <!-- ko i18n: 'Be sure to click "Save this address" when done' -->
+                                            <!-- /ko -->
+                                    </div>
+                                    <!-- Shiping Address Form -->
+                                    <render args="shippingFormTemplate" />
+                                    <!-- Shipping Address Save Button -->
+                                    <div class="shipping-address-action">
+                                        <button class="action action-update save-address" data-bind="click: saveNewAddress">
+                                            <span data-bind="i18n: 'Save this address'"></span>
+                                        </button>
+                                    </div>                          
+                            </div>
+                        </div>
+                </div>
+        </if>
 
-        <!-- Shipping Address Save Button -->
-        <div class="shipping-address-action">
-            <button class="action action-update save-address">
-                <span data-bind="i18n: 'Save this address'"></span>
-            </button>
-        </div>
+        
 
         <hr>
 
