@@ -4,12 +4,12 @@
         <legend class="legend"><span><?= __('Order Information') ?></span></legend><br>
         <div class="field required">
           <div class="control">
-              <input type='text' name="order_increment_id" id='order_increment_id' placeholder="<?= __('Order ID') ?>" value="<?= $block->stripTags($block->getOrderIncrementId())?>" class="input-text required-entry" data-validate="{required:true}" autocomplete="off" aria-required="true"/>
+              <input type='text' name="order_increment_id" id='order_increment_id' placeholder="<?php echo __('Order ID') ?>" value="<?= $block->stripTags($block->getOrderIncrementId())?>" class="input-text required-entry" data-validate="{required:true}" autocomplete="off" aria-required="true"/>
           </div>
         </div>
         <div class="field required email">
           <div class="control">
-              <input type='text' name="email" id='email' placeholder="<?= __('Email Address') ?>" value="<?= $block->stripTags($block->getEmail())?>"  class="input-text required-entry" data-validate="{required:true}" autocomplete="off" aria-required="true"/>
+              <input type='text' name="email" id='email' placeholder="<?php echo __('Email Address'); ?>" value="<?= $block->stripTags($block->getEmail())?>"  class="input-text required-entry" data-validate="{required:true}" autocomplete="off" aria-required="true"/>
           </div>
         </div>
         <div class="actions-toolbar">
