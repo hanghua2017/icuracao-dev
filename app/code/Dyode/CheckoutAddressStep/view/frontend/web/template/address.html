@@ -32,7 +32,7 @@
 
         <each if="!quoteIsVirtual" args="getRegion('customer-email')" render=""/>
         <each args="getRegion('address-list')" render=""/>
-        <if args="isCustomerLoggedIn">
+        <if args="isCustomerLoggedIn() && isThereMoreThanTwoAddresses()">
             <button class="shipping-address-view-all" data-bind="click: viewAllAddresses()"><span data-bind="text: viewButtonState"></span></button>
         </if>
         <each args="getRegion('address-list-additional-addresses')" render=""/>
@@ -44,7 +44,7 @@
         <!-- Inline address form -->
         <render if="isFormInline" args="shippingFormTemplate" />
         <!-- Add new address accordion -->
-        <if args="isCustomerLoggedIn && !isFormInline">
+        <if args="isCustomerLoggedIn() && !isFormInline">
                 <div data-bind="mageInit: {'accordion':{'openedState': 'active', 'collapsible': true, 'active': [1,4], 'multipleCollapsible': true}} ">
                         <div data-role="collapsible"  >
                             <div data-role="title">Add New Shipping Address</div>

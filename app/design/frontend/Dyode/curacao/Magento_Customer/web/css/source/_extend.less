@@ -2156,19 +2156,18 @@ select:focus, input:focus {
         &:before {
           content: '';
           -webkit-appearance: none;
-          background-color: transparent;
-          background-color: white;
-          border: 1px solid #666666;
-          border-radius: 3px;
-          box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.26), inset 0 -15px 10px -12px rgba(0, 0, 0, 0.05);
-          padding: 7px;
           display: inline-block;
+          background-color: white;
+          border: 1px solid #a6a6a6;
+          border-radius: 2px;
+          height: 12px;
+          width: 12px;
           position: relative;
-          vertical-align: middle;
+          top: 2px;
+          left: 0;
+          margin-right: 10px;
           cursor: pointer;
-          margin-right: 15px;
-          margin-top: -2px;
-          transition: all 0.2s;
+
         }
       }
 
@@ -2181,16 +2180,16 @@ select:focus, input:focus {
 
           &:after {
             content: '';
-            display: block;
             position: absolute;
-            top: 2px;
-            left: 6px;
-            width: 3px;
-            height: 8px;
-            border: 1.5px solid @orange-off;
-            border-width: 0 1.5px 1.5px 0;
-            transform: rotate(45deg);
-            transition: all 0.2s;
+            left: 4px;
+            top: 1px;
+            width: 4px;
+            height: 7px;
+            border: solid #84b90a;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(40deg);
+            -ms-transform: rotate(40deg);
+            transform: rotate(40deg);
           }
         }
       }
@@ -2257,11 +2256,6 @@ select:focus, input:focus {
         margin-bottom: 0;
       }
     }
-    .block-new-products {
-      margin-bottom: 30px!important;
-      margin-top: 10px!important;
-    }
-
   }
 }
 
@@ -2733,39 +2727,39 @@ select:focus, input:focus {
       color: #666666!important;
     }
   }
-  .rma-checkbox{
-    cursor: pointer;
-    padding: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  .rma-item-checkbox + label:before {
-    content: '';
-    margin-right: 10px;
-    display: inline-block;
-    vertical-align: text-top;
-    width: 20px;
-    height: 20px;
-    background: white;
-    -webkit-box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
-    -moz-box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
-    border: 1px solid #3857f3;
-    @media all and (max-width: 767px) {
-      width: 17px;
-      height: 17px;
-    }
-  }
-  .rma-item-checkbox:checked + label:before {
-    background-color: #3857f3;
-    background-image: url(../images/frequent-select.png);
-    @media all and (max-width: 767px) {
-      width: 17px;
-      height: 17px;
-      background-size: contain;
-    }
-  }
+  // .rma-checkbox{
+  //   cursor: pointer;
+  //   padding: 0;
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  // }
+  // .rma-item-checkbox + label:before {
+  //   content: '';
+  //   margin-right: 10px;
+  //   display: inline-block;
+  //   vertical-align: text-top;
+  //   width: 20px;
+  //   height: 20px;
+  //   background: white;
+  //   -webkit-box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
+  //   -moz-box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
+  //   box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
+  //   border: 1px solid #3857f3;
+  //   @media all and (max-width: 767px) {
+  //     width: 17px;
+  //     height: 17px;
+  //   }
+  // }
+  // .rma-item-checkbox:checked + label:before {
+  //   background-color: #3857f3;
+  //   background-image: url(../images/frequent-select.png);
+  //   @media all and (max-width: 767px) {
+  //     width: 17px;
+  //     height: 17px;
+  //     background-size: contain;
+  //   }
+  // }
   .rma-one-item {
     padding: 25px;
     .item-description {

@@ -83,6 +83,7 @@ define([
         isCustomerLoggedIn: customer.isLoggedIn,
         isFormPopUpVisible: formPopUpState.isVisible,
         isFormInline: addressList().length === 0,
+        isThereMoreThanTwoAddresses: addressList().length>2,
         isNewAddressAdded: ko.observable(false),
         saveInAddressBook: 1,
         quoteIsVirtual: quote.isVirtual(),
@@ -308,7 +309,7 @@ define([
         },
 
         viewAllAddresses: function() {
-            if(this.viewButtonState == "View All") {
+            if(this.viewButtonState() == "View All") {
                 // If view all button is clicked
                 $('.shipping-address-items').addClass('open');
                 this.viewButtonState("View Less");

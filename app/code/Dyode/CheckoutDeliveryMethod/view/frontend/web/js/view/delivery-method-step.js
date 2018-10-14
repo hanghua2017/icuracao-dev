@@ -43,32 +43,32 @@ define([
          * @return {Object} checked
          */
         var getRadioCheckedStatusInfo = function (quoteItemData) {
-            var checked = {
-                shipToHome: false,
-                storePickup: false
-            };
+                var checked = {
+                    shipToHome: false,
+                    storePickup: false
+                };
 
-            _.each(quoteItemData, function (quoteItem) {
-                var deliveryInfo = _.findWhere(deliveryDataProvider.getDeliveryData(), {
-                    quoteItemId: parseInt(quoteItem.item_id)
+                _.each(quoteItemData, function (quoteItem) {
+                    var deliveryInfo = _.findWhere(deliveryDataProvider.getDeliveryData(), {
+                        quoteItemId: parseInt(quoteItem.item_id)
+                    });
+
+                    if (!deliveryInfo) {
+                        return checked;
+                    }
+
+                    if (deliveryInfo.deliveryType == 'ship_to_home') {
+                        checked.shipToHome = 'ship_to_home';
+                    } else {
+                        checked.storePickup = 'store_pickup';
+                    }
                 });
 
-                if (!deliveryInfo) {
-                    return checked;
-                }
+                return checked;
+            },
 
-                if (deliveryInfo.deliveryType == 'ship_to_home') {
-                    checked.shipToHome = 'ship_to_home';
-                } else {
-                    checked.storePickup = 'store_pickup';
-                }
-            });
-
-            return checked;
-        },
-
-        quoteItemData = window.checkoutConfig.quoteItemData,
-        radioDefaultCheckedInfo = getRadioCheckedStatusInfo(quoteItemData);
+            quoteItemData = window.checkoutConfig.quoteItemData,
+            radioDefaultCheckedInfo = getRadioCheckedStatusInfo(quoteItemData);
 
         /**
          * Delivery Step Component
@@ -112,7 +112,8 @@ define([
             /**
              * @inheritdoc
              */
-            navigate: function () {},
+            navigate: function () {
+            },
 
             /**
              * @inheritdoc
@@ -131,6 +132,11 @@ define([
                     products = ko.observableArray([]);
 
                 _.each(quoteItemData, function (quoteItem) {
+
+                    if (quoteItem.product_type === 'virtual') {
+                        return false;
+                    }
+
                     products.push({
 
                         //quote related data
@@ -141,7 +147,7 @@ define([
                         //product related data
                         productId: quoteItem.product_id,
                         productName: self.htmlDecode(quoteItem.product.name),
-                        productPrice: priceUtils.formatPrice(quoteItem.price,quote.getPriceFormat()),
+                        productPrice: priceUtils.formatPrice(quoteItem.price, quote.getPriceFormat()),
                         productImageUrl: quoteItem.thumbnail,
 
                         //forms related data
@@ -282,7 +288,7 @@ define([
              * @param {Event} event
              */
             selectProductStore: function (model, event) {
-                
+
                 //keep selected store data in an array so that we can use it in next steps.
                 var form = $(event.target).closest('form'),
                     storeData = {},
@@ -298,7 +304,7 @@ define([
                             selectedStoreInfo.title = storeItem.name;
                             selectedStoreInfo.image = storeItem.image;
                             selectedStoreInfo.street = storeItem.address.street;
-                            selectedStoreInfo.cityAbbrZip = storeItem.address.city+", "+storeItem.address.region_code+" "+storeItem.address.zip;
+                            selectedStoreInfo.cityAbbrZip = storeItem.address.city + ', ' + storeItem.address.region_code + ' ' + storeItem.address.zip;
                         }
 
                     });
@@ -335,12 +341,13 @@ define([
                 this.selectStore(model, event);
             },
 
-            htmlDecode: function(htmlStr)
-            {
+            htmlDecode: function (htmlStr) {
                 var parser = new DOMParser;
+
                 htmlStr = htmlStr.replace('&Reg;', '&reg;');
-                var dom = parser.parseFromString( htmlStr,
+                var dom = parser.parseFromString(htmlStr,
                     'text/html');
+
                 return dom.body.textContent;
             },
 
@@ -443,8 +450,8 @@ define([
                             };
                             _.extend(
                                 _.findWhere(viewModel.storeModals, {
-                                modalElement: viewModel.storePickupModalId
-                            }),
+                                    modalElement: viewModel.storePickupModalId
+                                }),
                                 existingModal
                             );
 
