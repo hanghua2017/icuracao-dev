@@ -8,9 +8,11 @@
  * @copyright Copyright © Dyode
  */
 var config = {
-    mixins: {
-        'Magento_Tax/js/view/checkout/summary/shipping': {
-            'Dyode_Checkout/js/mixin/summary-shipping-mixin': true
+    config: {
+        mixins: {
+            'Magento_Tax/js/view/checkout/summary/shipping': {
+                'Dyode_Checkout/js/mixin/summary-shipping-mixin': true
+            }
         }
     }
 };
