@@ -1,5 +1,5 @@
 body{
-  font-family:"iCuacao-Regular";
+  font-family:"iCuracao-Regular";
 }
 .no-background .navigation {
     background: none !important
@@ -514,6 +514,9 @@ body{
     padding: 0 2px
 }
 @media all and (max-width:1024px){
+  .navigation .level0 .submenu a{
+    font-family: "iCuracao-Regular";
+  }
   .navigation .level0 .submenu a:hover, .navigation .level0 .submenu a.ui-state-focus{
     background:#ffffff !important;
     color:#575757 !important;
@@ -560,19 +563,21 @@ body{
     border-bottom:none !important;
   }
 }
-@media all and (max-width:599px){
+@media all and (max-width:1024px){
   .ves-megamenu > .navigation .nav-item > a{
+    font-family: "iCuracao-Regular";
     font-size:14px;
   }
-}
-@media all and (max-width:599px){
-  .ves-megamenu > .navigation .nav-item > a{
-    font-size:14px !important;
+  .navigation .level0 .submenu .active>a {
+      border:none;
+      background:transparent;
+      color:black;
   }
 }
 @media all and (max-width:479px){
   .nav-sections{
     left:calc(-80%);
     width: calc(80%) !important;
+    transition: all 0.3s;
   }
 }

@@ -1,0 +1,225 @@
+@theme-color: #82b800;
+@desc-border: #e8e8e8;
+@content-light-grey: #aeaeae;
+@content-dark-grey: #5c5c5c;
+@box-orange: #f05c23;
+@link-blue: #4046d1;
+@color-orange: #f88203;
+@btn-orange: #f05c23;
+@green-color: #81b800;
+@darkgreen-color:#4a9f28;
+@org-price: 16px;
+@mrp-price: 24px;
+@popup-header:#d9d8d8;
+@button-greybg:#787878;
+@red-color:#c50606;
+@black:#000;
+.breadcrumbs-font {
+  color: @black;
+  font-family: 'iCuracao-Light';
+  font-size: 12px;
+  text-transform: capitalize;
+  @media all and (min-width: 991px) {
+    font-size: 14px;
+  }
+}
+.aw-store-locator-index-index {
+  .breadcrumbs {
+    margin-bottom: 0;
+    .items {
+      .item {
+        margin: 15px 0 10px 0;
+        @media all and (min-width: 991px) {
+          margin: 30px 0 20px 0;
+        }
+        a {
+          .breadcrumbs-font();
+          &:active,
+          &:hover,
+          &:visited {
+            color: @black;
+            text-decoration: none;
+          }
+        }
+        strong {
+          .breadcrumbs-font();
+        }
+        &:after {
+          .breadcrumbs-font();
+          content: '/';
+        }
+        &:last-child {
+          &:after {
+            content: '';
+          }
+        }
+      }
+    }
+  }
+  .page-wrapper {
+    .page-main {
+      max-width: 1500px; //Removable max
+      .page-title-wrapper {
+        text-align: center;
+        padding: 20px;
+        .page-title {
+          font-family: 'iCuracao-Regular';
+          font-size: 24px;
+          color: @content-dark-grey;
+          margin-bottom: 0;
+        }
+      }
+      .columns {
+        .main {
+          /*Search area styling*/
+          .aw-storelocator-search-block {
+            .product.info.detailed {
+              .product.data.items {
+                @media all and (max-width: 768px) {
+                  margin-left: 0;
+                  margin-right: 0;
+                  border-bottom: none;
+                }
+                .title {
+                  @media all and (max-width: 768px) {
+                    margin-top: 15px;
+                    &:first-child {
+                      margin-top: 0;
+                    }
+                  }
+                  &.active {
+                    border-top: 3px solid @theme-color;
+                    .switch {
+                      padding-bottom: 0px;
+                      font-family: 'iCuracao-Medium';
+                      font-size: 16px;
+                      color: @content-dark-grey;
+                    }
+                  }
+                  .switch {
+                    font-family: 'iCuracao-Regular';
+                    font-size: 16px;
+                    color: @content-light-grey;
+                    border: 1px solid #f3f3f3;
+                    @media all and (min-width: 768px) {
+                      border: none;
+                      -webkit-box-shadow: 0px -2px 7px 0px rgba(30,30,30,0.1);
+                      -moz-box-shadow: 0px -2px 7px 0px rgba(30,30,30,0.1);
+                      box-shadow: 0px -2px 7px 0px rgba(30,30,30,0.1);
+                    }
+                  }
+                }
+                .content {
+                  @media all and (min-width: 769px) {
+                    border: none;
+                    -webkit-box-shadow: 0px 0px 7px 1px rgba(30,30,30,0.1);
+                    -moz-box-shadow: 0px 0px 7px 1px rgba(30,30,30,0.1);
+                    box-shadow: 0px 0px 7px 1px rgba(30,30,30,0.1);
+                  }
+                  @media all and (max-width: 768px) {
+                    padding: 15px 20px 30px;
+                    border: 1px solid #f3f3f3;
+                  }
+                  /*Search form*/
+                  form {
+                    fieldset {
+                      .field {
+                        label, input, select {
+                          font-family: 'iCuracao-Regular';
+                          font-size: 14px;
+                          font-weight: 500;
+                        }
+                        input, select {
+                          width: 100% !important;
+                          border: 1px solid #ccc;
+                          &:focus {
+                            box-shadow: none;
+                          }
+                        }
+                      }
+                    }
+                    /*action search button*/
+                    .actions-toolbar {
+                      button {
+                        background-color: @theme-color;
+                        border: 1px solid @theme-color;
+                        color: #fff;
+                        width: 100%;
+                        border-radius: 3px;
+                        padding: 12px 15px;
+                        text-transform: uppercase;
+                        box-shadow: none;
+                        font-size: 16px;
+                        position: relative;
+                        top: -5px;
+                        font-family: 'iCuracao-Regular';
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          /*End Search area styling*/
+          /*stores and map section*/
+          .aw-storelocator-content-block {
+            @media all and (max-width: 768px) {
+              display: table;
+              min-height: inherit;
+            }
+            /*Store listing*/
+            .aw-storelocator-navigation {
+              @media all and (max-width: 1200px) {
+                width: 40%;
+              }
+              @media all and (min-width: 769px) {
+                border: none;
+                -webkit-box-shadow: 0px -2px 7px 0px rgba(30,30,30,0.1);
+                -moz-box-shadow: 0px -2px 7px 0px rgba(30,30,30,0.1);
+                box-shadow: 0px -2px 7px 0px rgba(30,30,30,0.1);
+              }
+              @media all and (max-width: 768px) {
+                display: table-footer-group;
+                width: 100%;
+                float: none;
+              }
+              /*Store address block*/
+              .aw-storelocator-navigation-item {
+                &.active {
+                  box-shadow: 0 0 2px 1px @theme-color;
+                }
+                .aw-storelocator-description {
+                  font-family: 'iCuracao-Regular';
+                  color: @content-dark-grey;
+                  .aw-storelocator-navigation-item-title
+                  {
+                    font-family: 'iCuracao-Medium';
+                  }
+                }
+                /* Store image section */
+                .aw-storelocator-navigation-item-image {
+                  img {
+                    width: 100%;
+                  }
+                }
+              }
+            }
+            /*Map block*/
+            .aw-storelocator-google-map {
+              @media all and (max-width: 1200px) {
+                width: 59%;
+              }
+              @media all and (max-width: 768px) {
+                display: table-header-group;
+                width: 100%;
+                margin-bottom: 20px;
+              }
+            }
+            /*End Store listing*/
+          }
+          /*End stores and map section*/
+        }
+      }
+    }
+  }
+}

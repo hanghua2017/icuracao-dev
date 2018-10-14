@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package   Dyode
+ * @author    kavitha@dyode.component
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+      <preference for="Dyode\Checkout\Api\CreditManagementInterface" type="Dyode\Checkout\Model\CreditManagement" />
+      <preference for="\Dyode\Checkout\Api\Data\ShippingInformationInterface" type="Dyode\Checkout\Model\ShippingInformation" />
+      <preference for="Dyode\Checkout\Api\GuestShippingInfoInterface" type="Dyode\Checkout\Model\GuestShippingInfoProcessor" />
+</config>

@@ -15,7 +15,7 @@
    $category = $categoryFactory->create()->load($categoryId);
    $categoryProducts = $category->getProductCollection()
                                  ->addAttributeToSelect('*')->setPageSize(5);
-   if($categoryProducts):                              
+   if($categoryProducts):
    if($block->getData('widgettitle')): ?>
    <div class="slider-title">
      <h2 class='widget-title'><?php echo $block->getData('widgettitle'); ?></h2>
@@ -49,15 +49,22 @@
                $imageheight = 250;
         ?>
           <?php $image_url = $imageHelper->init($product, 'product_page_image_large')->setImageFile($product->getFile())->resize($imagewidth, $imageheight)->getUrl();?>
-           <img src="<?php echo $image_url;?>" alt="product"/>
+          <div class="productimage-container">
+            <img src="<?php echo $image_url;?>" alt="product"/>
+          </div>
             <h3><?php echo $product->getName();?></h3>
-              <p class="price"><span class="original-price <?php echo $product->getSpecialPrice() ? 'has-special-price' : '' ?>"><?php echo "$".$product->getPrice();?></span><span class="discount-price"><?php if($_finalPrice!=NULL){echo "$";}echo $product->getSpecialPrice();?></span></p>
+
+              <p class="price"><span class="original-price <?php echo $product->getSpecialPrice() ? 'has-special-price' : '' ?>"><?php echo "$".number_format($_price,2);?></span>
+              <?php if($_finalPrice!=NULL):?>
+                <span class="discount-price"><?php if($_finalPrice!=NULL){echo "$";echo number_format(  $_finalPrice,2);}?></span>
+                <?php endif; ?>
+              </p>
               <?php if($emiViewModel != NULL) {?>
                  <?php $emi = $emiViewModel->monthlyEmi($product->getFinalPrice());?>
               <?php }?>
 
               <?php if($emi!=0):?>
-<p class="subtext"><?php echo "or as low as ";?><span class="amount"><?php echo"$". "".$emi." "."/month";?></span></p>
+<p class="subtext"><?php echo __('Or as low as&nbsp;');?><span class="amount emi-amount"><?php echo"$". "".$emi."";?><?php echo __("/month"); ?></span></p>
 <?php endif?>
           </a>
       </div>

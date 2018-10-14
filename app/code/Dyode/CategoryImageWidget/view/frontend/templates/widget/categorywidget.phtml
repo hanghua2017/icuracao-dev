@@ -3,7 +3,17 @@
     $categoryHelper = $this->getCategoryHelper();
     // classname
     $classname = $this->getClassName();
+    $displayBlock = false;
+    foreach ($categories as $category):
+        $cat = $this->getCategorymodel($category->getId());
+        $image = $cat->getImageUrl();
+        if ($image != null):
+          $displayBlock = true;
+          break;
+        endif;
+    endforeach;
     ?>
+    <?php if ($displayBlock):?>
       <div class="slider-container">
            <div class="slider-widget <?php echo $classname?>">
                 <!-- widget title -->
@@ -28,14 +38,14 @@
              </div>
          </div>
        </div>
-
+    <?php endif;?>
 <script type="text/x-magento-init">
     {
     ".category-items-carousel": {
         "OwlCarousel": {
           "items": 6,
           "dots":false,
-          "loop": true,
+          "loop": false,
           "nav":true,
           "margin": 0,
           "navText": ["<div class='custom-prev'><div class='left'></div></div>", "<div class='custom-next'><div class='right'></div></div>"],

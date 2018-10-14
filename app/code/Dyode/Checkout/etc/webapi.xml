@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package   Dyode
+ * @author    kavitha@dyode.component
+ * Date       13/08/2018
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <route url="/V1/checkout/apply" method="POST">
+        <service class="Dyode\Checkout\Api\CreditManagementInterface" method="apply"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/checkout/remove" method="DELETE">
+        <service class="Dyode\Checkout\Api\CreditManagementInterface" method="removecredit"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/guest-carts/:cartId/custom-shipping-info" method="POST">
+        <service class="Dyode\Checkout\Api\GuestShippingInfoInterface" method="saveAddressInformation"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+</routes>

@@ -1,0 +1,65 @@
+<?php
+/**
+ * Dyode_CheckoutDeliveryMethod Magento2 Module.
+ *
+ * Add a new checkout step in checkout
+ *
+ * @module    Dyode_CheckoutDeliveryMethod
+ * @copyright Copyright © Dyode
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ */
+namespace Dyode\CheckoutDeliveryMethod\Model;
+
+use Magento\Checkout\Model\ConfigProviderInterface;
+use Magento\Checkout\Model\Session;
+
+/**
+ * Delivery Config Provider Class
+ *
+ * Provide delivery options data to the checkout section.
+ */
+class DeliveryConfigProvider implements ConfigProviderInterface
+{
+
+    /**
+     * @var \Magento\Checkout\Model\Session
+     */
+    protected $checkoutSession;
+
+    /**
+     * DeliveryConfigProvider constructor.
+     *
+     * @param \Magento\Checkout\Model\Session $checkoutSession
+     */
+    public function __construct(Session $checkoutSession)
+    {
+        $this->checkoutSession = $checkoutSession;
+    }
+
+    /**
+     * @todo This should also check in quote for any store selection.
+     * @return array $config
+     */
+    public function getConfig()
+    {
+        $config = ['deliveryOptions' => false];
+
+        foreach ($this->getQuote()->getItems() as $quoteItem) {
+            $config['deliveryOptions'][] = [
+                'quoteItemId'  => (int)$quoteItem->getItemId(),
+                'deliveryType' => DeliveryMethod::DELIVERY_OPTION_SHIP_TO_HOME_CODE,
+                'storeId'      => false,
+            ];
+        }
+
+        return $config;
+    }
+
+    /**
+     * @return \Magento\Quote\Model\Quote
+     */
+    public function getQuote()
+    {
+        return $this->checkoutSession->getQuote();
+    }
+}

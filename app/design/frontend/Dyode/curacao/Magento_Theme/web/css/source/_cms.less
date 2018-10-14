@@ -1,12 +1,32 @@
-@box-shadow-color:rgba(0, 0, 0, 0.2);
+@box-shadow-color:rgba(0, 0, 0, 0.1);
 @underline: #81b800;
 @textColor:#333333;
 @gray-text:rgba(51,51,51,255);
 @orange-off: #ff4200;
+@box-orange: #f26722;
+@content-light-grey: #c3c3c3;
 .cms-page-view{
-	.block{
-		@media (min-width: 768px){
-			margin-bottom: 30px;
+	.breadcrumbs{
+		display: none !important;
+	}
+	.page-main{
+		.column{
+			margin-top: 30px;
+			padding-bottom: 0;
+			@media (max-width: 767px){
+				margin-top: 0;
+				padding-top: 15px;
+			}
+
+			.block-new-products {
+				margin-bottom: 30px!important;
+				margin-top: 10px!important;
+			}
+		}
+	.gateway-banner-container{
+		margin:0 0 15px;
+		.banner-block{
+			margin:0;
 		}
 	}
 	.slider-title, .block-title{
@@ -18,6 +38,7 @@
 			display: inline-block;
 			width: auto;
 			margin: 0;
+			font-family: "iCuracao-regular";
 			padding-bottom: 10px;
 			border-bottom: 3px solid @underline;
 			@media screen and (max-width: 400px) {
@@ -25,11 +46,20 @@
 			}
 		}
 	}
+	.slider-title{
+		margin: 15px 0 20px 0;
+	}
 	.product-slider-carousel, .product-slider-new-arrivals{
 		box-shadow: 0 0px 10px @box-shadow-color;
 		margin: 15px 0 30px 0;
-		.owl-stage {
-			position: relative;
+		.owl-stage-outer{
+			margin-left: 4px;
+			.owl-stage {
+				position: relative;
+				display: -webkit-flex;
+				display: flex;
+				align-items: stretch;
+			}
 		}
 		.owl-nav {
 			.custom-prev,
@@ -37,6 +67,13 @@
 				background-color: #f3f3f3;
 				width: 30px;
 				height: 90px;
+				transition: all 0.2s;
+				&:hover{
+					@media all and (min-width:1025px){
+						background-color:#ddd;
+						transition: all 0.2s;
+					}
+				}
 				@media screen and (max-width: 480px) {
 					height: 60px;
 				}
@@ -79,6 +116,8 @@
 			display: inline-block;
 			border-right: 1px solid #ebebeb;
 			width: 100%;
+			height: 100%;
+			min-height:320px;
 			box-sizing: border-box;
 			a {
 				color: @textColor;
@@ -100,26 +139,48 @@
 					}
 					@media all and (max-width:479px){
 						font-size:12px;
-						left:0px;
+						left:10px;
 						top:10px;
 					}
 				}
-				img {
-					width:100%;
-					vertical-align: middle;
-					-moz-transition: all 0.3s;
-					-webkit-transition: all 0.3s;
-					transition: all 0.3s;
+				.productimage-container{
+					overflow: hidden;
+					display: block;
+					padding: 10px 0;
+					margin-top:20px;
+					img {
+						max-width: 150px;
+						width: 100%;
+						vertical-align: middle;
+						-moz-transition: all 0.3s;
+						-webkit-transition: all 0.3s;
+						transition: all 0.3s;
+						margin:0 auto;
+						&:hover {
+							-moz-transform: scale(1.1);
+							-webkit-transform: scale(1.1);
+							transform: scale(1.1);
+							transition: all 0.2s;
+							@media all and (max-width:1024px){
+								-moz-transform: scale(1);
+								-webkit-transform: scale(1);
+								transform: scale(1);
+								transition: all 0.2s;
+							}
+						}
+					}
 				}
 				h3 {
-					font-size: 16px;
-					font-weight: normal;
-					text-align: center;
-					width: 200px;
-					margin: 15px auto;
-					white-space: nowrap;
-					overflow: hidden;
-					text-overflow: ellipsis;
+					font-size: 17px;
+    			font-weight: normal;
+    			font-family: "iCuracao-Medium";
+			    text-align: center;
+			    width: 200px;
+			    color: #000;
+			    margin: 15px auto;
+			    white-space: nowrap;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
 					@media screen and (max-width: 768px) {
 						font-size: 12px;
 					}
@@ -131,27 +192,35 @@
 					}
 				}
 				p.price {
+					font-family: 'iCuracao-Medium';
 					text-align: center;
 					margin-bottom: 15px;
-					.original-price {
-						color: black;
-						font-size: 18px;
-						@media screen and (max-width: 768px) {
-							font-size: 12px;
-						}
+					color: @textColor;
+					font-size: 16px;
+					font-weight:normal;
+					@media screen and (max-width: 768px) {
+						font-size: 14px;
+						margin-bottom: 10px;
 					}
-					.discount-price {
-						color: black;
-						font-size: 18px;
-						@media screen and (max-width: 768px) {
+
+					.original-price {
+						&.has-special-price {
+							color: #888888;
+							text-decoration: line-through;
+							margin-right: 15px;
 							font-size: 14px;
+							@media screen and (max-width: 768px) {
+								font-size: 12px;
+							}
 						}
 					}
 				}
 				p.subtext {
+					font-family: "iCuracao-Light";
 					font-size: 16px;
 					text-align: center;
 					font-weight: 600;
+					color:#000;
 					span.amount {
 						color: #81b800;
 					}
@@ -159,12 +228,44 @@
 						font-size: 12px;
 					}
 				}
-				&:hover {
-					img {
-						-moz-transform: scale(1.1);
-						-webkit-transform: scale(1.1);
-						transform: scale(1.1);
-					}
+				.product-reviews-summary {
+					display: none;
+				  margin-top: 10px;
+				  float: none;
+					text-align: center;
+				  @media all and (max-width: 901px) {
+				    padding-left: 0;
+				    padding-right: 0;
+				    margin: 0;
+				  }
+				  .rating-summary{
+				    margin-right: 10px;
+				    .rating{
+				      background: @box-orange;
+				      color: @white;
+				      padding: 0 3px;
+				      &:after {
+				        content: "";
+				        background-image: url(../images/star.png);
+				        background-repeat: no-repeat;
+				        display: inline-block;
+				        height: 10px;
+				        margin: 4px;
+				        overflow: hidden;
+				        width: 10px;
+				        -webkit-font-smoothing: antialiased;
+				        -moz-osx-font-smoothing: grayscale;
+				        vertical-align: top;
+				        text-align: center;
+				      }
+				    }
+				  }
+				  .reviews-actions{
+				    a{
+				      color: @content-light-grey;
+				      text-decoration: none;
+				    }
+				  }
 				}
 			}
 			&.no-discount {
@@ -183,14 +284,32 @@
 		.items{
 			.item{
 				width: auto;
-				border-right: none;
+				border-right:none;
 			}
 		}
 	}
 	.brand-widget{
 		.single-item {
 			margin: 0 !important;
+			padding: 20px 0;
 		}
+				 .owl-carousel{
+					 .single-item {
+						 a {
+							 img{
+								 max-width: 170px;
+								 margin: 0 auto;
+							 }
+					 }
+					 }
+				 }
+				 .owl-prev,
+				 .owl-next {
+						 position: absolute;
+						 top: 50% !important;
+						 transform: translateY(-50%);
+						 outline: none;
+				 }
 	}
 	.block.widget .pager {
 		display: none;
@@ -201,21 +320,33 @@
 			list-style: none;
 			width:100% !important;
 			padding-left: 0 !important;
+			margin-bottom: 0;
 			.product-image-container{
 				width:100% !important;
-				.product-image-photo {
-					max-width: 85%;
-					transition: all 0.2s;
-					margin: 0px auto;
-					width: 100%;
-					height: auto;
-					max-width: inherit;
-					max-height: inherit;
-					min-height: inherit;
-					vertical-align: middle;
-					&:hover {
-						transform: scale(1.1);
+				.product-image-wrapper{
+					padding-bottom: 0% !important;
+					height:auto;
+					padding: 10px 0;
+					margin-top:20px;
+					.product-image-photo {
+						position: static;
+						max-width: 150px;
 						transition: all 0.2s;
+						margin: 0px auto;
+						width: 100%;
+						vertical-align: middle;
+						&:hover {
+							-moz-transform: scale(1.1);
+							-webkit-transform: scale(1.1);
+							transform: scale(1.1);
+							transition: all 0.2s;
+							@media all and (max-width:1024px){
+								-moz-transform: scale(1);
+								-webkit-transform: scale(1);
+								transform: scale(1);
+								transition: all 0.2s;
+							}
+						}
 					}
 				}
 				@media all and (max-width:990px){
@@ -257,14 +388,16 @@
 				}
 				.product-item-details{
 					.product-item-name{
-						font-size: 16px;
-						font-weight: normal;
-						text-align: center;
-						width: 200px;
-						margin: 15px auto;
-						white-space: nowrap;
-						overflow: hidden;
-						text-overflow: ellipsis;
+						font-size: 17px;
+				    font-weight: normal;
+				    font-family: "iCuracao-Medium";
+				    text-align: center;
+				    width: 200px;
+				    color: #000;
+				    margin: 15px auto;
+				    white-space: nowrap;
+				    overflow: hidden;
+				    text-overflow: ellipsis;
 						@media screen and (max-width: 768px) {
 							font-size: 12px;
 						}
@@ -274,11 +407,16 @@
 						@media screen and (max-width: 400px) {
 							width: 200px;
 						}
+						a{
+							color:#000;
+						}
 					}
 					p.subtext {
+						font-family: "iCuracao-Light";
 						font-size: 16px;
 						text-align: center;
 						font-weight: 600;
+						color:#000;
 						span.amount {
 							color: #81b800;
 						}
@@ -286,27 +424,69 @@
 							font-size: 12px;
 						}
 					}
+					.product-reviews-summary {
+						display: none;
+						text-align: center;
+					  margin-top: 10px;
+					  float: none;
+					  @media all and (max-width: 901px) {
+					    padding-left: 0;
+					    padding-right: 0;
+					    margin: 0;
+					  }
+					  .rating-summary{
+					    margin-right: 10px;
+					    .rating{
+					      background: @box-orange;
+					      color: @white;
+					      padding: 0 3px;
+					      &:after {
+					        content: "";
+					        background-image: url(../images/star.png);
+					        background-repeat: no-repeat;
+					        display: inline-block;
+					        height: 10px;
+					        margin: 4px;
+					        overflow: hidden;
+					        width: 10px;
+					        -webkit-font-smoothing: antialiased;
+					        -moz-osx-font-smoothing: grayscale;
+					        vertical-align: top;
+					        text-align: center;
+					      }
+					    }
+					  }
+					  .reviews-actions{
+					    a{
+					      color: @content-light-grey;
+					      text-decoration: none;
+					    }
+					  }
+					}
 					.price-box{
 						text-align: center;
 						margin-bottom: 15px;
-						.price{
-							color: black;
-							font-size: 18px;
-							font-weight:400;
+						.price-label,.price-discount {
+							display: none;
+						}
+						.price {
+							font-family: 'iCuracao-Medium';
+							color: @textColor;
+							font-size: 16px;
+							font-weight: normal;
 							@media screen and (max-width: 768px) {
 								font-size: 14px;
 							}
 						}
-						.old-price{
+
+						.old-price {
 							margin-right: 5px;
-							.price-label{
-								display:none;
-							}
-							.price{
+
+							.price {
 								color: #888888;
 								text-decoration: line-through;
 								margin-right: 15px;
-								font-size: 16px;
+								font-size: 14px;
 								@media screen and (max-width: 768px) {
 									font-size: 12px;
 								}
@@ -320,4 +500,5 @@
 			}
 		}
 	}
+}
 }

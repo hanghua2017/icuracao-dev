@@ -36,8 +36,8 @@
                 <?= $block->getChildHtml('form_additional_info') ?>
                 <div class="actions-toolbar">
                     <div class="secondary">
-                      <a class="action remind forget-password" href="<?= $block->escapeUrl($block->getForgotPasswordUrl()) ?>"><span><?= $block->escapeHtml(__('Forgot Your Password?')) ?></span></a>
-                      <p class="sign-up">New in Curacao? &nbsp;<a href="<?= $block->escapeUrl($block->getUrl('customer/account/create')); ?>" class="action create primary"><span><?= $block->escapeHtml(__('Create an Account')) ?></span></a></p>
+                      <a class="action remind forget-password" href="<?= $block->escapeUrl($block->getForgotPasswordUrl()) ?>"><span><?= $block->escapeHtml(__('Forgot Password?')) ?></span></a>
+                      <p class="sign-up">New in Curacao? &nbsp;<a href="<?= $block->escapeUrl($block->getUrl('customer/account/create')); ?>" class="action create primary"><span><?= $block->escapeHtml(__('Sign up here')) ?></span></a></p>
                     </div>
                     <div class="primary"><button type="submit" class="action login primary" name="send" id="send2"><span><?= $block->escapeHtml(__('Login')) ?></span></button></div>
 
@@ -48,7 +48,7 @@
     <!-- Card logo and card images -->
     <div class="curacao-card">
       <div class="card-images">
-        <img src="<?php echo $this->getViewFileUrl('images/curacaoCreditLogo.png'); ?>" class="credit-card-logo" alt="credit-card" />
+        <img src="<?php echo $this->getViewFileUrl('images/curacaoCredit-login.png'); ?>" class="credit-card-logo" alt="credit-card" />
         <img src="<?php echo $this->getViewFileUrl('images/curaco_card.png'); ?>" class="credit-card" alt="credit-card" />
       </div>
     </div>

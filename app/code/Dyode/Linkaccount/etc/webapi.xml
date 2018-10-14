@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package   Dyode
+ * @author    kavitha@dyode.component
+ * Date       21/09/2018
+ */
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <route url="/V1/linkaccount/create" method="POST">
+        <service class="Dyode\Linkaccount\Api\LinkAccountInterface" method="create"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+</routes>

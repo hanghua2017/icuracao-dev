@@ -1,0 +1,63 @@
+/************************************************************
+* @package Dyode
+* @module  Dyode_curacao
+* @theme  Curacao
+* @author  Sangeetha D <sangeetha.d@dyode.com>
+* PARTIAL - COMMON Breadcrumbs PDP
+****************************************************************/
+//Mixins to define the font- weight, size, family and color for breadcrumbs
+.breadcrumbs-font {
+  color: @black;
+  font-family: 'iCuracao-Light';
+  font-size: 12px;
+  text-transform: capitalize;
+  @media all and (min-width: 991px) {
+    font-size: 14px;
+  }
+}
+.catalog-product-view{
+  .page-main{
+      @media all and(max-width: 1024px) {
+            margin-top: 0 !important;
+      }
+      @media all and(max-width: 767px) {
+              margin-top: 137px !important;
+      }
+   }
+  .breadcrumbs {
+    margin-bottom: 0;
+      @media all and (max-width: 1024px) {
+       margin-top: 80px;
+      }
+    .items {
+      padding: 25px 0;
+      .item {
+      //  margin: 15px 0 10px 0;
+        @media all and (min-width: 991px) {
+        //  margin: 30px 0 20px 0;
+        }
+        a {
+          .breadcrumbs-font();
+          &:active,
+          &:hover,
+          &:visited {
+            color: @black;
+            text-decoration: none;
+          }
+        }
+        strong {
+          .breadcrumbs-font();
+        }
+        &:after {
+          .breadcrumbs-font();
+          content: '/';
+        }
+        &:last-child {
+          &:after {
+            content: '';
+          }
+        }
+      }
+    }
+  }
+}

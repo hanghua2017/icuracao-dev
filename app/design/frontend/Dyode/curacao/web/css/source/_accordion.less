@@ -5,7 +5,7 @@
     margin:20px 0;
     .accordion-item{
       &:last-child{
-        border-bottom:1px solid @faq-border-color;
+        border-bottom:none!important;
       }
 //common styles for accordion-title
       .accordion-title {
@@ -16,11 +16,11 @@
         padding-right: 36px;
         text-align: left;
         outline: none;
-        font-size: 16px !important;
+        font-size: 18px !important;
         transition: 0.4s;
         position: relative;
         font-family: 'iCuracao-Regular';
-        @media all and (max-width: 768px){
+        @media all and (max-width: 767px){
           font-size:14px;
         }
         &:after{
@@ -33,7 +33,7 @@
           transform: translateY(-50%);
           font-size: 24px;
           transition:all 0.5s;
-          @media all and (max-width: 768px){
+          @media all and (max-width: 767px){
             font-size:17px;
           }
         }
@@ -48,7 +48,7 @@
         }
       }
       .interest-title{
-        @media all and(max-width: 768px){
+        @media all and(max-width: 767px){
           font-size: 15px !important;
         }
         &.active{
@@ -59,37 +59,51 @@
         }
       }
       .price-title{
-        @media all and(max-width: 768px){
+        @media all and(max-width: 767px){
           font-size: 15px !important;
         }
       }
 //Styling for drop-down panel in accordion
       .accordion-panel {
-        padding: 0 18px;
+        padding: 0 20px;
         display: none;
         img{
           width:100%;
         }
         p{
-          font-family: 'iCuracao-Regular';
+          font-family: 'iCuracao-Light';
           color:@black;
           font-size: 14px !important;
           margin:0;
-          margin-bottom: 15px;
+          line-height: 24px;
+          // margin-bottom: 15px;
         }
         ul{
           margin: 0;
           padding-left:20px;
-          list-style-type: circle;
+          list-style-type:disc;
+          @media all and (max-width: 767px){
+            width:100%;
+          }
           li{
-            color:@curacao-green;
+            position: relative;
+            color:black;
             font-size: 14px;
-            margin-bottom: 0px;
-            @media all and (max-width: 768px){
-              width:80%;
+            margin-bottom: 0;
+            @media all and (max-width: 767px){
+              width:100%;
             }
-            @media all and (max-width: 479px){
-              width:90%;
+
+            &:before {
+              position: absolute;
+              left: -20px;
+              content: '';
+              background-image: url('../images/list-style.png');
+              margin-right: 10px;
+              display: inline-block;
+              vertical-align: text-top;
+              width: 20px;
+              height: 20px;
             }
           }
         }
@@ -101,16 +115,17 @@
              }
            }
          }
-         div.accordion-panel.show{
+         div.accordion-panel.show-accordion{
            max-height: 1920px;
-           padding-bottom: 50px;
-           @media all and(max-width: 768px){
+           padding-bottom: 20px!important;
+           padding-left: 20px;
+           @media all and(max-width: 767px){
                  padding-bottom: 20px;
            }
+           @media all and (max-width: 420px) {
+             padding-left: 10px;
+           }
          }
-      }
-      .last{
-        border-bottom: 0 !important;
       }
    }
    .rem-content{
@@ -123,7 +138,7 @@
     }
    .accordion-item{
      .alt-accordion{
-       padding: 25px 45px 25px 20px;
+       padding: 25px 45px 15px 20px;
        text-align: left;
        font-size: 16px;
        color: #333333;
@@ -150,20 +165,25 @@
 
      .alt-panel{
        .panel-content{
-         padding: 0 25px;
-         @media all and(max-width: 768px){
+         padding: 0;
+         @media all and(max-width: 767px){
            padding: 0 15px;
+           padding-right: 0;
          }
          @media all and(max-width: 425px){
-           padding: 0 9px;
+           padding: 0 15px;
+           padding-right: 0;
          }
          .left{
            display: flex;
+           @media all and(max-width: 425px){
+             display: unset;
+           }
            ul{
-             margin: 20px 20px 20px 0;
-             list-style-type: unset;
+             margin: 5px 20px 20px 0;
+             // list-style-type: unset;
              @media all and(max-width: 425px){
-               margin-top: 5px;
+               margin-top: 0px;
                line-height: 1.5;
              }
              li{
@@ -174,10 +194,13 @@
                  font-size: 13px;
                }
              }
-             @media all and(max-width: 768px){
+             @media all and(max-width: 767px){
                padding: 0;
-               margin-right: 45px;
+               margin-right: 0px;
                margin-bottom: 0;
+             }
+             @media all and(max-width: 330px){
+               margin-right: 0px;
              }
            }
          }
@@ -188,9 +211,10 @@
          font-family: 'iCuracao-Light';
          color: @black !important;
          font-size: 14px;
-         line-height: 1.7;
+         line-height: 24px;
          a{
            color: @curacao-green;
+           word-break: break-all;
          }
          span{
            font-weight: 500;
@@ -205,12 +229,13 @@
          color: @black;
          .inline{
            display:inline-flex;
+           margin-top: 10px;
            p{
              background: @curacao-green;
              margin: 0;
-             padding: 15px;
-             color: @white;
-             @media all and(max-width: 768px){
+             padding: 8px 20px;
+             color: @white!important;
+             @media all and(max-width: 767px){
                    padding:10px;
              }
              @media all and(max-width: 425px){
@@ -225,11 +250,11 @@
          }
          ul{
            color: @curacao-green !important;
-           line-height: 1.5 !important;
-           margin: 16px;
-           padding-left: 23px;
-           list-style-type: unset;
-           @media all and(max-width: 768px){
+           line-height: 24px !important;
+           margin: 10px 0 15px;
+           padding-left: 17px;
+           // list-style-type: unset;
+           @media all and(max-width: 767px){
                  padding: 0 15px;
                  margin: 16px 0;
            }
@@ -267,4 +292,47 @@
       }
     }
   }
+}
+.beat-container {
+  .accordion-panel
+    {
+    .show-accordion {
+      padding-left: 20px!important;
+
+      @media all and(max-width: 425px){
+        padding-left: 20px!important;
+      }
+
+      @media all and(max-width: 767px){
+        padding-left: 20px!important;
+      }
+    }
+    }
+}
+.beat-container {
+  .accordion-container .accordion-content .accordion-item .accordion-panel ul{
+          padding-left: 15px!important;
+
+        @media all and(max-width: 425px){
+          padding-left: 25px!important;
+        }
+  }
+  .card-img {
+    max-width: 400px;
+  }
+}
+.beat-inner-ul {
+  padding: 0 !important;
+}
+
+
+
+
+.cms-price-beat-container {
+
+ div.accordion-panel.show-accordion {
+   @media all and(max-width: 420px) {
+     padding-left: 20px !important;
+   }
+ }
 }

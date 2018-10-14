@@ -1,11 +1,16 @@
 <?php
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
+ * Dyode_curacao theme.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package Dyode
+ * @module  Dyode_curacao
+ * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
  */
 
 // @codingStandardsIgnoreFile
-
 ?>
 
 <?php
@@ -24,9 +29,10 @@ $idSuffix = $block->getIdSuffix() ? $block->getIdSuffix() : '';
 $schema = ($block->getZone() == 'item_view') ? true : false;
 ?>
 <?php if ($block->hasSpecialPrice()): ?>
+  <div class="prod-price special-price-block">
     <span class="old-price">
         <?php /* @escapeNotVerified */ echo $block->renderAmount($priceModel->getAmount(), [
-            'display_label'     => __('Regular Price'),
+            'display_label'     => __('Price:'),
             'price_id'          => $block->getPriceId('old-price-' . $idSuffix),
             'price_type'        => 'oldPrice',
             'include_container' => true,
@@ -42,13 +48,22 @@ $schema = ($block->getZone() == 'item_view') ? true : false;
             'schema' => $schema
         ]); ?>
     </span>
+    <span class="price-discount">
+        <?= $block->escapeHtml($block->discount($priceModel, $finalPriceModel)); ?><?= __('% OFF') ?>
+    </span>
+  </div>
 <?php else: ?>
-    <?php /* @escapeNotVerified */ echo $block->renderAmount($finalPriceModel->getAmount(), [
-        'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
-        'price_type'        => 'finalPrice',
-        'include_container' => true,
-        'schema' => $schema
-    ]); ?>
+  <div class="prod-price price-block">
+    <span class="org-price">
+      <?php /* @escapeNotVerified */ echo $block->renderAmount($finalPriceModel->getAmount(), [
+          'display_label'     => __('Price: '),
+          'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
+          'price_type'        => 'finalPrice',
+          'include_container' => true,
+          'schema' => $schema
+      ]); ?>
+    </span>
+  </div>
 <?php endif; ?>
 
 <?php if ($block->showMinimalPrice()): ?>

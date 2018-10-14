@@ -1,16 +1,23 @@
 @import "_typography.less";
-@button-color: #7dac0f;
-@link-blue: #4046d1;
+@theme-color: #97d700; //Header light green
+@theme-color-dark: #81b800; //Header darkgreen
+@heading-text: #000000; //Heading text
+@content-text: #666666; //Content text
+@footer-text: #333333; //Footer text
+@active-blue-color:#4048d1;
+@orange-button: #f26722;
+@white: #ffffff;
+@border-color:#f2f2f2;
+@background-white: #fcfcfc;
 @field-border: #b4b4b4;
-@field-text: #919191;
-@title-text: #000;
+@button-green:#7dac0f;
 
 .customer-account-create {
   .page-wrapper {
     background-color: #fff;
     #maincontent {
       background-image: url("../images/login-background.png");
-      background-color: #f4f4f4;
+      background-color: white;
       max-width: none;
       padding: 0;
       @media all and (max-width: 599px) {
@@ -25,12 +32,20 @@
       .columns {
         max-width: 1500px;
         margin: 40px auto;
+        @media all and (max-width: 768px) {
+          padding-top: 30px;
+          padding-bottom: 30px;
+          margin-bottom: 0;
+        }
         @media all and (max-width: 599px) {
           margin: 0;
+          padding-top: 0;
+          padding-bottom: 0;
         }
         .column.main {
            max-width: 485px;
            margin: 50px auto;
+           margin-bottom: 10px;
            width: 487px;
            box-shadow: 0px 3px 13px rgba(27,32,42,0.1);
            background-color: #ffffff;
@@ -44,10 +59,11 @@
 
 
         form.form-create-account {
-          min-width: auto;
+          min-width: 75%;
           width: 75%;
           margin: 0 auto;
-          padding-top: 30px;
+          padding-top: 40px;
+          background-color: #fff;
           @media all and (max-width: 599px) and (min-width: 468px) {
             width: 65%;
           }
@@ -62,8 +78,9 @@
             legend {
               border-bottom: none;
               text-align: center;
-              color: @title-text;
+              color: @heading-text;
               padding-bottom: 0;
+              margin-bottom: 30px;
 
               span {
                 font-size: 28px;
@@ -91,7 +108,7 @@
 
           .fieldset {
             margin: 0;
-
+            background-color: #fff;
             .field {
               margin: 0;
               padding: 3px 0;
@@ -113,6 +130,11 @@
               &.confirmation {
                 border-bottom-left-radius: 3px;
                 border-bottom-right-radius: 3px;
+              }
+              .control {
+                .mage-error {
+                  padding: 0 10px;
+                }
               }
 
               label {
@@ -179,114 +201,101 @@
 
           .checking-box {
             position: relative;
-
+            margin-top: 25px;
             margin: 20px auto;
             text-align: center;
+            &.check{
+              margin: 0 0 15px 0 !important;
+            }
 
             label {
               display: inline;
             }
-
-            .checking-box-label {
-              display: block;
-              position: relative;
-              padding-left: 20px;
-              margin-bottom: 12px;
+            input[type="checkbox"] {
+              padding: 0;
+              height: initial;
+              width: initial;
+              margin-bottom: 0;
+              display: none;
               cursor: pointer;
+            }
+
+            label {
+              position: relative;
+              cursor: pointer;
+              transition: all 0.2s;
+              font-family: 'iCuracao-Regular';
               font-size: 13px;
-              line-height: 16px;
-              color: rgb(102,102,102);
-              font-family: "iCuracao-Light";
-              -webkit-user-select: none;
-              -moz-user-select: none;
-              -ms-user-select: none;
-              user-select: none;
-              @media all and (max-width: 991px) {
-                font-size: 14px;
+              color:#666;
+
+              span {
+                color: @icon-color;
+                transition: all 0.2s;
               }
-              @media all and (max-width: 476px) {
-                font-size: 13px;
-              }
-              /* Hide the browser's default checkbox */
-              input {
-                position: absolute;
-                opacity: 0;
+
+              &:before {
+                content: '';
+                -webkit-appearance: none;
+                display: inline-block;
+                background-color: white;
+                border: 1px solid #a6a6a6;
+                border-radius: 2px;
+                height: 12px;
+                width: 12px;
+                position: relative;
+                top: 2px;
+                left: 0;
+                margin-right: 10px;
                 cursor: pointer;
-                height: auto;
+
               }
             }
-            /* On mouse-over, add a grey background color */
-            .checking-box-label:hover input ~ .checkmark {
-              background-color: #eee;
-            }
-            /* Create a custom checkbox */
-            .checkmark {
-              position: absolute;
-              top: 0;
-              left: 0;
-              height: 13px;
-              width: 13px;
-              background-color: white;
-              border: 1px solid rgb(166, 166, 166);
-              border-radius: 4px;
-              box-shadow: inset 0 2px 5px rgba(0,0,0,0.25);
-              margin-right: 0.5em;
-              /* Create the checkmark/indicator (hidden when not checked) */
-              &:after {
-                content: "";
-                position: absolute;
-                display: none;
-              }
-              @media all and (max-width: 467px) {
-                height: 13px;
-                width: 13px;
-                top: 1px;
-              }
-            }
-            /* When the checkbox is checked, add a blue background */
-            .checking-box-label input:checked ~ .checkmark {
-              background-color: #eee;
-            }
-            /* Show the checkmark when checked */
-            .checking-box-label input:checked ~ .checkmark:after {
-              display: block;
-            }
-            /* Style the checkmark/indicator */
-            .checking-box-label {
-              .checkmark {
+
+            input[type="checkbox"]:checked {
+              +label {
+
+                &:before {
+                  transition: all 0.2s;
+                }
+
                 &:after {
-                  left: 3px;
-                  top: 0px;
+                  content: '';
+                  position: absolute;
+                  left: 4px;
+                  top: 1px;
                   width: 4px;
                   height: 7px;
-                  border: solid green;
+                  border: solid #84b90a;
                   border-width: 0 3px 3px 0;
                   -webkit-transform: rotate(40deg);
                   -ms-transform: rotate(40deg);
                   transform: rotate(40deg);
-                  @media all and (max-width: 467px) {
-                    left: 3px;
-                    top: 1px;
-                  }
                 }
               }
             }
           }
 
           .actions-toolbar {
+            margin-bottom: 0;
+            height: 60px;
             .primary {
               width: 100%;
 
               button {
-                background-color: @button-color;
-                border: 1px solid @button-color;
+                background-color: @button-green;
+                border: 1px solid @button-green;
                 width: 100%;
                 height: 44px;
-                border-radius: 5px;
-                font-size: 20px;
+                border-radius: 3px;
+                font-size: 16px;
                 margin-right: 0;
+                &:hover
+                {
+                  background-color:@theme-color-dark;
+                  border-color: @theme-color-dark;
+                }
                 span {
-                  font-size: 19px;
+                  font-size: 16px;
                   color: white;
                   font-family: "iCuracao-Light";
                   letter-spacing: 1px;
@@ -304,10 +313,10 @@
             font-size: 12px;
             line-height: 24px;
             color: rgb(102,102,102);
-            font-family: "iCuracao-Light";
+            font-family: "iCuracao-Regular";
 
             a {
-              color: @link-blue;
+              color: @active-blue-color;
               text-decoration: none;
             }
           }
@@ -322,4 +331,49 @@
 }
 .choice{
   width: 160px;
+}
+.customer-account-logoutsuccess {
+  .page-wrapper {
+    #maincontent {
+      background-image: url(../images/login-background.png);
+      background-color: white;
+      max-width: none;
+      padding: 0;
+      .page-title-wrapper {
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 15px;
+      }
+      .page-title {
+        font-family: 'iCuracao-Medium' !important;
+        font-size: 22px;
+        margin-top: 30px;
+        @media all and (max-width: 768px) {
+          font-size: 20px;
+        }
+        @media all and (max-width: 599px) {
+          font-size: 18px;
+          margin-top: 20px;
+        }
+      }
+      .columns {
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 15px;
+        font-family: 'iCuracao-Regular' !important;
+        font-size: 16px !important;
+        @media all and (max-width:768px) {
+          font-size: 14px !important;
+        }
+        p {
+          margin: 10px 0;
+          font-family: 'iCuracao-Regular' !important;
+          font-size: 16px !important;
+          @media all and (max-width:768px) {
+            font-size: 14px !important;
+          }
+        }
+      }
+    }
+  }
 }

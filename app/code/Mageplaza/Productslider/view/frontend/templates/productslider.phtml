@@ -30,20 +30,25 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
 	$showCart = true;
 	$rating = 'short';
 	$description = ($mode == 'list') ? true : false;
-
 }
 ?>
-
-<?php if ($exist):?>
-	<?php if($items !=NULL):?>
-	<?php if ($title): ?>
+<?php
+$allow = false;
+foreach ($items as $item):
+	if ($block->getProductUrl($item)){
+	$allow = true;
+	break;
+	}
+endforeach;
+?>
+<?php if ($exist): ?>
 	<div class="mp-product-slider-block block widget block-products-list <?php echo $mode; ?>">
+	<?php if($allow == true):?>
+		<?php if ($title): ?>
 		<div class="slider-title">
-
 			<h2 class="widget-title"><?php echo $title; ?></h2>
 		</div>
-	<?php endif;?>
-<?php endif;?>
+	 <?php endif;?>
         <div class="block-content">
             <?php /* @escapeNotVerified */ echo '<!-- ' . $image . '-->' ?>
 			<div class="products-<?php /* @escapeNotVerified */ echo $mode; ?> <?php /* @escapeNotVerified */ echo $mode; ?>">
@@ -78,7 +83,7 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
                    <?php $emi = $emiViewModel->monthlyEmi($_item->getFinalPrice());?>
                 <?php  }?>
 								<?php if($emi!=0):?>
-	                <p class="subtext"><?php echo "or as low as";?><span class="amount"><?php echo"$". " ".$emi." "."/month";?></span></p>
+	                <p class="subtext"><?php echo __('Or as low as&nbsp;');?><span class="amount emi-amount"><?php echo"$". "".$emi."";?><?php echo __("/month"); ?></span></p>
                	<?php endif?>
 								<?php if ($rating): ?>
 									<?php echo $block->getReviewsSummaryHtml($_item, $rating) ?>
@@ -146,5 +151,6 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
             </div>
 			<?php echo $block->getPagerHtml() ?>
         </div>
+			<?php endif;?>
 			</div>
 <?php endif;?>

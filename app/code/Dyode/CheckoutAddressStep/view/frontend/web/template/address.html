@@ -1,0 +1,69 @@
+<!--
+/**
+ * Dyode_CheckoutAddressStep Magento2 Module.
+ *
+ * Adding new checkout step in the one page checkout.
+ *
+ * @package   Dyode
+ * @module    Dyode_CheckoutAddressStep
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+
+<li id="address-step" data-bind="fadeVisible: visible">
+
+    <!-- Address Top User Info Section -->
+    <div class="step-top-heading">
+        <h2 class="top-title" data-bind="i18n: 'Billing Address | Shipping Address'"></h2>
+        <p class="top-details">
+            <!-- ko i18n: 'Please enter shipping address if you have opted for "ship to Home".' --><!-- /ko -->
+            <!-- ko i18n: 'Enter billing address to process the invoice in case of both "Ship to home" or "Store Pickup".' -->
+            <!-- /ko -->
+        </p>
+    </div>
+
+    <div class="step-title" data-bind="i18n: 'Add a new ship address'" data-role="title"></div>
+    <div class="step-note">
+        <!-- ko i18n: 'Be sure to click "Save this address" when done' -->
+        <!-- /ko -->
+    </div>
+    <div id="checkout-step-title" class="step-content" data-role="content">
+
+        <each if="!quoteIsVirtual" args="getRegion('customer-email')" render=""/>
+        <each args="getRegion('address-list')" render=""/>
+        <each args="getRegion('address-list-additional-addresses')" render=""/>
+
+        <!-- Address form pop up -->
+        <if args="!isFormInline">
+            <button type="button"
+                    class="action action-show-popup"
+                    click="showFormPopUp"
+                    visible="!isNewAddressAdded()">
+                <span translate="'New Address'"/>
+            </button>
+            <div id="opc-new-shipping-address"
+                 visible="isFormPopUpVisible()"
+                 render="shippingFormTemplate"/>
+        </if>
+
+        <each args="getRegion('before-form')" render=""/>
+
+        <!-- Inline address form -->
+        <render if="isFormInline" args="shippingFormTemplate"/>
+
+        <!-- Shipping Address Save Button -->
+        <div class="shipping-address-action">
+            <button class="action action-update save-address">
+                <span data-bind="i18n: 'Save this address'"></span>
+            </button>
+        </div>
+
+        <hr>
+
+        <!-- Inline Billing address form -->
+        <!-- ko foreach: getRegion('billing-address') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+</li>

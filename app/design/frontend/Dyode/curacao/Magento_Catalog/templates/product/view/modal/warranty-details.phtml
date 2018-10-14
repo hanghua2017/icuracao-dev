@@ -1,0 +1,30 @@
+<?php
+/**
+ * Dyode_curacao theme.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package Dyode
+ * @module  Dyode_curacao
+ * @author  Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+
+/**
+ * @var $block \Magento\Catalog\Block\Product\View
+ */
+?>
+
+<div id="warrantyModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <input type="hidden" name="warranty" value="" />
+        <div class="product-details">
+            <div class="top-section"><!-- static block comes here --></div>
+
+            <div class="waranty-details">
+                <p class="price"><?= __("Price") ?>: <span class="warranty-price"><!-- warranty price comes here--></span></p>
+                <div class="warranty-description"><!-- warranty descriptions come here --></div>
+            </div>
+        </div>
+    </div>
+</div>
