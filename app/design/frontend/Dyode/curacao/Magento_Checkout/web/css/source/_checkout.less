@@ -701,10 +701,7 @@ input[type="radio"] {
         }
       }
       /*styling for the new credit card starts here*/
-      .checkout-payment-method
-      {
-        padding-bottom: 30px;
-      }
+
       #checkout-payment-method-load{
         .payment-methods{
           @media all and (max-width:767px){
@@ -716,6 +713,7 @@ input[type="radio"] {
               font-size:18px !important;
               color:@black;
               margin-bottom: 15px !important;
+              padding-left: 10px;
             }
             .payment-method{
               position: relative;
@@ -725,6 +723,7 @@ input[type="radio"] {
               }
               @media all and (max-width: 479px){
                 margin:0px;
+                padding-bottom: 20px;
               }
               .actions-toolbar{
                 margin-top:15px;
@@ -757,8 +756,12 @@ input[type="radio"] {
               }
               .payment-method-content{
                 padding: 0 0 20px 25px;
+                padding-bottom: 0;
                 @media all and (max-width:767px){
                   padding: 0 25px 20px;
+                }
+                @media all and (max-width:479px){
+                  padding: 0;
                 }
                 .payment-method-billing-address{
                   display: none;
