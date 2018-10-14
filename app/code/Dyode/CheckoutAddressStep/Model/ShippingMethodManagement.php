@@ -170,20 +170,21 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         // Check if quoteitems available
         if (!empty($quoteItems)) {
             foreach ($quoteItems as $quoteItem) {
+
                 # Get the delivery type and  quote item id and decide corresponding logic
                 $quoteItemId = $quoteItem->getItemId();
                 $deliveryType = $quoteItem->getDeliveryType();
+
                 # store shipping/store location details to correponding quote item id
                 if ($deliveryType == self::DELIVERY_OPTION_SHIP_TO_HOME_ID) {
                     $shippingInfo[$quoteItemId] = $this->getShippingMethods($quoteItem, $zipcode);
-                } else {
-                    if ($deliveryType == self::DELIVERY_OPTION_STORE_PICKUP_ID) {
+                }
+
+                if ($deliveryType == self::DELIVERY_OPTION_STORE_PICKUP_ID) {
                         $storeId = $quoteItem->getPickupLocation();
                         $shippingInfo[$quoteItemId] = $this->getPickupStoreDetails($storeId, $quoteItemId);
-                    } else {
-                        echo "ERROR";
-                    }
                 }
+
             }
             # Return shipping method details in JSON format
             return $shippingInfo;
