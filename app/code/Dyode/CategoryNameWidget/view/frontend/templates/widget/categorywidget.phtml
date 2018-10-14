@@ -1,6 +1,6 @@
 <div class="category-name-widget top-section">
        <!-- sticky anchor for the floating interaction of category list -->
-       <div id="sticky-anchor"></div>
+       <!-- <div id="sticky-anchor"></div> -->
          <?php
            $categories = $this->getCategoryCollection();
            $categoryHelper = $this->getCategoryHelper();
@@ -47,42 +47,3 @@
          </div>
        </div>
      </div>
-
-   <script>
-   require([
-   			'jquery',
-   	], function($) {
-      if($('body').is('.discount-sale-sale-saleproducts')){
-        /*js for fixed header starts here*/
-        if ($(window).width() > 768) {
-          //javascript for large screens here
-          $(window).scroll(sticky_relocate);
-          sticky_relocate();
-          function sticky_relocate() {
-            var window_top = $(window).scrollTop();//Get the current vertical position of the scroll bar
-            var div_top = $('.discount-sale-sale-saleproducts #sticky-anchor').offset().top;//Get the top posiiton of the sticky anchor
-            if (window_top > div_top) {
-              //make the category list sticky when the sticky anchor is scrolled to position
-              $('.discount-sale-sale-saleproducts #sticky').addClass('stick');
-            } else {
-              //make the category list static when the sticky anchor is scrolled out to position
-              $('.discount-sale-sale-saleproducts #sticky').removeClass('stick');
-            }
-            // Remove sticky for category list when the footer is reached
-            var top_of_element = $(".discount-sale-sale-saleproducts .page-footer").offset().top;
-            var bottom_of_element = $(".discount-sale-sale-saleproducts .page-footer").offset().top + $(".discount-sale-sale-saleproducts .page-footer").outerHeight();
-            var bottom_of_screen = $(window).scrollTop() + window.innerHeight;
-            var top_of_screen = $(window).scrollTop();
-            if ((bottom_of_screen > top_of_element) && (top_of_screen < bottom_of_element)) {
-              //when the footer is in view make the category list static
-              $('.discount-sale-sale-saleproducts #sticky').addClass('stick02');
-            }
-            else {
-              //when the footer is out of view make the category list sticky
-              $('.discount-sale-sale-saleproducts #sticky').removeClass('stick02');
-            }
-          }
-        }
-      }
-   });
-   </script>

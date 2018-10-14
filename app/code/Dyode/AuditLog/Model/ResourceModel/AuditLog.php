@@ -4,6 +4,7 @@ namespace Dyode\AuditLog\Model\ResourceModel;
 
 use Magento\Framework\Model\ResourceModel\Db\Context;
 use Magento\Framework\Stdlib\DateTime\DateTime;
+use Dyode\AuditLog\Model\AuditLogFactory;
 
 class AuditLog extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
@@ -38,6 +39,7 @@ class AuditLog extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     public function __construct(
         Context $context,
         DateTime $date,
+        AuditLogFactory $auditLogFactory,
         $resourcePrefix = null
     )
     {
@@ -45,6 +47,7 @@ class AuditLog extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         $this->_date = $date;
         $this->getMainTable = "dyode_audit_log";
         $this->connection = $this->getConnection();
+        $this->auditLogFactory = $auditLogFactory;
     }
 
     /**
@@ -67,5 +70,26 @@ class AuditLog extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         $details = $this->connection->fetchAll($select);
 
         return $details;
+    }
+
+    /**
+     * Saves Audit Log
+     *
+     * @param $data
+     *
+     * @return bool
+     */
+    public function saveAuditLog($data)
+    {
+        try {
+            $rowData = $this->auditLogFactory->create();
+            $rowData->setData($data);
+            $rowData->save();
+
+            return true;
+        } catch (\Exception $exception) {
+            error_log($exception->getMessage());
+            return false;
+        }
     }
 }

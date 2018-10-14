@@ -11,6 +11,7 @@
 define([
     'jquery',
     'uiComponent',
+    'uiRegistry',
     'mage/url',
     'Magento_Checkout/js/model/quote',
     'Magento_Checkout/js/model/step-navigator',
@@ -23,6 +24,7 @@ define([
 ], function (
     $,
     Component,
+    registry,
     Url,
     quote,
     stepNavigator,
@@ -43,6 +45,8 @@ define([
         defaults: {
             template: 'Dyode_Checkout/checkout/summary/continue'
         },
+        checkMoPlaceOrderName: 'checkout.steps.billing-step.payment.payments-list.checkmo',
+        authorizePlaceOrderName: 'checkout.steps.billing-step.payment.payments-list.authorizenet_directpost',
 
         /**
          * Proceeds to the next step
@@ -53,6 +57,28 @@ define([
                     stepNavigator.next();
                 }
             );
+        },
+
+        /**
+         * Place order.
+         * We are triggering the default place order button to avoid further chaos.
+         * We are expecting only authorize.net payment here. Check/money order payment method is for testing purpose.
+         * @todo if we can create a stand alone place order button component that performs the exact same functionality
+         *       of the default place order button, then it would be better.
+         */
+        placeOrder: function () {
+            var checkMoBtnComponent = registry.get(this.checkMoPlaceOrderName),
+                authorizeBtnComponent = registry.get(this.authorizePlaceOrderName);
+
+            if (authorizeBtnComponent) {
+                authorizeBtnComponent.placeOrder();
+            }
+
+            if (checkMoBtnComponent) {
+                checkMoBtnComponent.placeOrder();
+            }
+
+            return true;
         },
 
         /**

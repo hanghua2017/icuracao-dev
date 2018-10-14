@@ -20,6 +20,7 @@ define([
         'Magento_Checkout/js/checkout-data',
         'Magento_Checkout/js/model/url-builder',
         'Magento_Checkout/js/model/shipping-service',
+        'Magento_Checkout/js/model/full-screen-loader',
         'Magento_Checkout/js/model/shipping-rate-registry',
         'Magento_Checkout/js/model/error-processor',
         'Magento_Checkout/js/action/select-billing-address',
@@ -36,6 +37,7 @@ define([
         checkoutData,
         urlBuilder,
         shippingService,
+        fullScreenLoader,
         rateRegistry,
         errorProcessor,
         selectBillingAddressAction,
@@ -55,7 +57,21 @@ define([
              * @param {Object} address
              */
             getRates: function (address) {
-                this.estimateShippingMethods(address);
+
+                /**
+                 * We are updating "addressDataProvider" either with quote.shippingAddress or with checkoutData
+                 * billing data in order to show billing address in the address-review section in the third tab.
+                 */
+                if (addressDataProvider.isBillingSameAsShipping()) {
+                    selectBillingAddressAction(quote.shippingAddress());
+                    addressDataProvider.billingAddress(quote.shippingAddress());
+                } else {
+                    var newBillingAddress = createBillingAddress(checkoutData.getBillingAddressFromData());
+
+                    addressDataProvider.billingAddress(newBillingAddress);
+                }
+
+                return false;
             },
 
             /**
@@ -87,6 +103,7 @@ define([
                 }
 
                 shippingService.isLoading(true);
+                fullScreenLoader.startLoader();
                 serviceUrl = this.estimateShippingMethodsUrl();
                 payload = JSON.stringify({
                     address: {
@@ -97,12 +114,15 @@ define([
                 return storage.post(
                     serviceUrl, payload, false
                 ).done(function (result) {
+                    fullScreenLoader.stopLoader();
                     self.setShippingInfo(result);
                     shippingService.setShippingRates(result);
                 }).fail(function (response) {
+                    fullScreenLoader.stopLoader();
                     shippingService.setShippingRates([]);
                     errorProcessor.process(response);
                 }).always(function () {
+                    fullScreenLoader.stopLoader();
                     shippingService.isLoading(false);
                 });
             },
