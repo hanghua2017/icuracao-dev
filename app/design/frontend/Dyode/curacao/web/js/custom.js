@@ -25,7 +25,7 @@ require(['jquery'], function ($) {
       });
       //on click of pagination load plp page from top
         $( document ).ajaxStop(function() {
-          if ($("body").hasClass('catalogsearch-result-index')){
+          if ($("body").hasClass('catalogsearch-result-index') || $("body").hasClass('catalog-category-view')){
           $(this).scrollTop(0);
           }
         });
