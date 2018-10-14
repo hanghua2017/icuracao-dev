@@ -26,9 +26,11 @@ class CancelAdminOrder implements ObserverInterface
 	 * @param \Dyode\CancelOrder\Helper\Data $cancelOrderHelper
 	 */
 	public function __construct(
-		\Dyode\CancelOrder\Helper\Data $cancelOrderHelper
+		\Dyode\CancelOrder\Helper\Data $cancelOrderHelper,
+        \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog
 	) {
 		$this->_cancelOrderHelper = $cancelOrderHelper;
+        $this->auditLog = $auditLog;
 	}
 
 	/**
@@ -56,15 +58,34 @@ class CancelAdminOrder implements ObserverInterface
 
 		if (empty($response)) {
 			$logger->info("Order Id : " . $order->getIncrementId());
-			$logger->info("Order Item Id : " . $orderItem->getId());
+			$logger->info("Order Item Id : " . $order->getId());
 			$logger->info("API Response not Found.");
+
+            //logging audit log
+            $this->auditLog->saveAuditLog([
+                'user_id' => $order->getCustomerId(),
+                'action' => 'Order Cancellation - Invoice Cancellation',
+                'description' => "Fail to Cancelled invoice (No : " . $invoiceNumber . ") for " . $order->getIncrementId(),
+                'client_ip' => "",
+                'module_name' => "Dyode_ArOrderCancel"
+            ]);
+
 			throw new Exception("API Response not Found", 1);
 		}
 
 		if ($response->OK != true) {
 			$logger->info("Order Id : " . $order->getIncrementId());
-			$logger->info("Order Item Id : " . $orderItem->getId());
+			$logger->info("Order Item Id : " . $order->getId());
 			$logger->info($response->INFO);
+            //logging audit log
+            $this->auditLog->saveAuditLog([
+                'user_id' => $order->getCustomerId(),
+                'action' => 'Order Cancellation - Invoice Cancellation',
+                'description' => "Cancelled invoice (No : " . $invoiceNumber . ") for " . $order->getIncrementId(),
+                'client_ip' => "",
+                'module_name' => "Dyode_ArOrderCancel"
+            ]);
+
 			throw new \Exception($response->INFO);
 		}
 	}
