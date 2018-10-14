@@ -19,7 +19,7 @@ $helper = $this->helper(\Magento\Search\Helper\Data::class);
                 <div class="control">
                     <!-- begin category dropdown -->
                     <select name="cat" id="category_search_field">
-                        <option value="">All Categories</option>
+                        <option value=""><?php echo __('All Categories'); ?></option>
                         <?php foreach ($this->getStoreCategories() as $_category): ?>
                         <?php if($_category->hasChildren()): ?>
                           <?php if($_category->getIsActive()) : ?>
