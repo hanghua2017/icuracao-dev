@@ -26,7 +26,7 @@
         <div id="add-billing-address" data-bind="visible: !isAddressDetailsVisible()">
             <div data-bind="mageInit: {'accordion':{'openedState': 'active', 'collapsible': true, 'active': [1,4], 'multipleCollapsible': true}} ">
                 <div data-role="collapsible"  >
-                    <div data-role="title">Add New Shipping Address</div>
+                    <div data-role="title">Add New Billing Address</div>
                     <div data-role="content">
                             <div class="step-note">
                                     <!-- ko i18n: 'Be sure to click "Save this address" when done' -->
@@ -35,16 +35,6 @@
                             <!-- Billing Address Form -->
                             <fieldset class="fieldset">
                                 <!-- ko template: 'Magento_Checkout/billing-address/form' --><!-- /ko -->
-                                <div class="actions-toolbar">
-                                    <div class="primary">
-                                        <button class="action action-update" type="button" data-bind="click: updateAddress">
-                                            <span data-bind="i18n: 'Save this address'"></span>
-                                        </button>
-                                        <button class="action action-cancel" type="button" data-bind="click: cancelAddressEdit">
-                                            <span data-bind="i18n: 'Cancel'"></span>
-                                        </button>
-                                    </div>
-                                </div>
                             </fieldset>                     
                     </div>
                 </div>
@@ -54,16 +44,6 @@
     <if args="!isCustomerLoggedIn()">
         <fieldset class="fieldset" data-bind="visible: !isAddressDetailsVisible()">
             <!-- ko template: 'Magento_Checkout/billing-address/form' --><!-- /ko -->
-            <div class="actions-toolbar">
-                <div class="primary">
-                    <button class="action action-update" type="button" data-bind="click: updateAddress">
-                        <span data-bind="i18n: 'Save this address'"></span>
-                    </button>
-                    <button class="action action-cancel" type="button" data-bind="click: cancelAddressEdit">
-                        <span data-bind="i18n: 'Cancel'"></span>
-                    </button>
-                </div>
-            </div>
         </fieldset>
     </if>
     
