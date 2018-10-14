@@ -15,6 +15,8 @@ define(function () {
     var mixin = {
 
         /**
+         * This will hide shipping method information from summary section.
+         *
          * @return {Boolean}
          */
         isExcludingDisplayed: function () {
@@ -22,6 +24,9 @@ define(function () {
         }
     };
 
+    /**
+     * Mixin of Magento_Tax/js/view/checkout/summary/shipping
+     */
     return function (target) {
         return target.extend(mixin);
     };

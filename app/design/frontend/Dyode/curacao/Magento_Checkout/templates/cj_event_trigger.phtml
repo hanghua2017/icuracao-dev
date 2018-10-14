@@ -1,0 +1,65 @@
+<?php
+/*************************************
+This sample code is provided as a courtesy and is meant for your reference only. This example may not work for your specific shopping cart or web site.
+CJ does not guarantee the accuracy of any coding examples.
+*************************************/
+//-------------------------------------------
+// START CJ CONVERSION TRACKING PIXEL
+//-------------------------------------------
+$cjmerchID = '1528995';
+// if(!Mage::getSingleton('customer/session')->isLoggedIn())
+// {
+    // Not logged, aka Guest/New Customer
+    // $cjtagID= '1528995';
+    $cjaid =  '365638';
+// }
+// else
+// {
+//     // Logged in, aka returning customer
+//     $cjtagID= '17239';
+//     $cjaid = '390939';
+// }
+$cjorder = Mage::getModel('sales/order')->loadByIncrementId(Mage::getSingleton('checkout/session')->getLastRealOrderId());
+$cjdiscount = round(abs($cjorder->getDiscountAmount()),2);
+$cjcoupon = preg_replace('/\W/', '', $cjorder->getCouponCode());
+$cjitems = $cjorder->getAllVisibleItems();
+$cjorderID = $cjorder->getIncrementId();
+$i = 1;
+foreach ($cjitems as $item)
+{
+    $unitPrice = round($item->getPrice(), 2);
+    $sku = $item->getSku();
+    $qty = floor($item->getQtyOrdered());
+    $itemsStr .= '&ITEM' . $i . '=' . $sku . '&AMT' . $i . '=' . $unitPrice . '&QTY' . $i . '=' . $qty;
+    $i++;
+}
+
+// Get cookie values if set
+$channel = Mage::getSingleton('core/cookie')->get('channel');
+$channel_ts = urlencode(Mage::getModel('core/cookie')->get('channel_ts'));
+if(!$channel)
+{
+    $channel = 'direct';
+    $channel_ts = urlencode(date('Y-m-d').'T12:00:00.000Z');
+}
+
+$cjevent = Mage::getSingleton('core/cookie')->get('cjevent');
+if($cjevent){
+?>
+<!-- Start CJ tracking pixel -->
+<iframe src="https://www.emjcd.com/tags/c?containerTagId=<?php echo $cjtagID; ?>&CID=<?php echo $cjmerchID; ?>&OID=<?php echo $cjorderID; ?>&TYPE=<?php echo $cjaid; ?>&COUPON=<?php echo $cjcoupon; ?>&DISCOUNT=<?php echo $cjdiscount?><?php echo $itemsStr;
+?>&CURRENCY=USD&CHANNEL=<?php echo $channel ?>&CHANNEL_TS=<?php echo $channel_ts ?>&CJEVENT=<?php echo $cjevent ?>" height="1" width="1" name="cj_conversion"></iframe>
+<!-- End CJ tracking pixel -->
+<?php
+}
+else{
+
+//Get event id from Cookie - Dyode Dev end
+?>
+<!-- Start CJ tracking pixel -->
+<iframe src="https://www.emjcd.com/tags/c?containerTagId=<?php echo $cjtagID; ?>&CID=<?php echo $cjmerchID; ?>&OID=<?php echo $cjorderID; ?>&TYPE=<?php echo $cjaid; ?>&COUPON=<?php echo $cjcoupon; ?>&DISCOUNT=<?php echo $cjdiscount?><?php echo $itemsStr;
+?>&CURRENCY=USD&CHANNEL=<?php echo $channel ?>&CHANNEL_TS=<?php echo $channel_ts ?>" height="1" width="1" name="cj_conversion"></iframe>
+<!-- End CJ tracking pixel -->
+<?php
+ }
+?>

@@ -124,6 +124,11 @@ define([
                 shippingOptions = self.shippingOptions();
 
             _.each(quoteItemData, function (quoteItem) {
+
+                if (quoteItem.product_type === 'virtual') {
+                    return false;
+                }
+
                 var quoteItemId = parseInt(quoteItem.item_id),
                     shippingOption = shippingOptions[quoteItemId],
                     isQuotesAvailable = !!shippingOption,

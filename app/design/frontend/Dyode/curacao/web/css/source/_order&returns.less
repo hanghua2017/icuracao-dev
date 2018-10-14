@@ -150,3 +150,125 @@
     }
   }
 }
+
+/*styling for order-tracking-login-form starts here*/
+.sales-guest-form{
+  .breadcrumbs{
+    display: none;
+  }
+  .page-main{
+    background: url("../../images/Order-returns-BG.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    .columns{
+      padding: 60px 0;
+      @media all and (max-width: 767px){
+        padding: 0;
+      }
+      .column.main{
+        width: 800px;
+        margin:  0 auto;
+        background-color: @white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
+        margin-top: 0 !important;
+        padding:0 !important;
+        @media all and(max-width: 991px){
+          width: 600px;
+        }
+        @media all and (max-width: 767px){
+          width: 100%;
+          box-shadow:none;
+        }
+        .page-title-wrapper{
+          text-align: center;
+          margin: 0;
+          padding-top: 60px;
+          @media all and (max-width: 767px){
+           padding-top: 45px;
+          }
+          @media all and (max-width: 425px){
+           padding-top: 30px;
+          }
+          h1{
+            font-size: 28px;
+            color: @black;
+            text-transform: capitalize;
+            font-family: 'iCuracao-Light' !important;
+            @media all and(max-width: 767px){
+              font-size: 24px;
+            }
+          }
+        }
+          //styling for form
+        .form{
+          max-width: 500px;
+          min-width: auto;
+          width:100%;
+          margin: 0 auto;
+          @media all and (max-width: 767px){
+            max-width: calc(80% + 30px);
+          }
+          .fieldset{
+            padding: 35px 0 70px 0;
+            @media all and (max-width: 767px){
+              padding: 45px 0;
+            }
+            @media all and (max-width: 425px){
+             padding: 30px 0;
+            }
+            legend{
+              font-family: 'iCuracao-Light';
+              text-transform: capitalize;
+              margin-bottom: 10px;
+              font-size: 20px;
+              color: @black;
+              font-weight: normal;
+              border: none;
+              padding: 0;
+              @media all and (max-width: 425px){
+                font-size: 18px;
+              }
+            }
+            .field{
+              margin:0 0 20px;
+              label{
+                font-weight:normal;
+                font-family: "iCuracao-Medium";
+                color:@black;
+              }
+              input{
+                font-family: 'iCuracao-Light';
+                padding: 14px 20px;
+                min-height: 40px;
+                border: 1px solid @form-label;
+              }
+            }
+          }
+          //Styling for button
+          .actions-toolbar{
+            .primary{
+              float: none;
+              display: block;
+              button{
+                width: 100%;
+                margin-top: 30px;
+                padding: 10px 15px;
+                min-width: 150px;
+                min-height: 50px;
+                font-size: 17px;
+                font-family: 'iCuracao-Medium';
+                background: @curacao-green;
+                border:1px solid @curacao-green;
+                font-weight: normal;
+                @media all and (max-width: 768px){
+                  max-width: 600px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/*styling for order-tracking-login-form ends here*/
