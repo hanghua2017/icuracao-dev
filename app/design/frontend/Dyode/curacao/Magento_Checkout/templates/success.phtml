@@ -1,0 +1,116 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php /** @var $block \Dyode\OrderDetails\Block\Onepage\Success */ ?>
+<?php $order = $block->getOrder($block->getOrderId()); ?>
+<?php $helper = $this->helper('Dyode\OrderDetails\Helper\Data'); ?>
+<?= $block->getAdditionalInfoHtml() ?>
+<div class="order-confirmation-container">
+  <div class="order-confirmation-content">
+    <div class="top-section">
+      <!-- Order Confirmation Section with success message and order number  -->
+       <div class="curacaoOrder-status">
+         <img src="<?php echo $block->getViewFileUrl('images/dart-board.png'); ?>" alt="Success Icon">
+          <h1 class="success-message">Order Successfully Placed</h1>
+       </div>
+       <div class="status-details">
+         <h3>Thank you for your purchase! Your order has been received.</h3>
+            <?php if ($block->getOrderId()): ?>
+              <?php if ($block->getCanViewOrder()) : ?>
+                <p><?= __('Your order number is: %1.', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $block->escapeHtml($block->getViewOrderUrl()), $block->escapeHtml($block->getOrderId()))) ?></p>
+              <?php else : ?>
+                <p><?= __('Your order # is: <span>%1</span>.', $block->escapeHtml($block->getOrderId())) ?></p>
+              <?php endif; ?>
+               <p><?= /* @escapeNotVerified */ __('You will receive an order confirmation email with details of your order and a link to track its progress.') ?></p>
+           <?php endif; ?>
+       </div>
+        <!--       //shiipping info , billing info , payment , order details , delivery date block  -->
+        <div class="section-wrapper">
+          <div class="purchase-details">
+            <!--shipping address  -->
+            <div class="block">
+              <div class="block-title">
+                <h2><?php /* @escapeNotVerified */ echo __('Shipping address'); ?></h2>
+               </div>
+               <address>
+                 <?php echo $block->getFormatedAddress($order->getShippingAddress()); ?>
+               </address>
+             </div>
+             <!--billing address  -->
+             <div class="block">
+                <div class="block-title">
+                    <h2><?php /* @escapeNotVerified */ echo __('Billing Address'); ?></h2>
+                 </div>
+                <address>
+                    <?php echo $block->getFormatedAddress($order->getBillingAddress()); ?>
+                </address>
+             </div>
+             <!--payment  -->
+             <div class="block">
+                <div class="each-details">
+                  <div class="block-title">
+                    <h2><?php /* @escapeNotVerified */ echo __('Payment Method'); ?></h2>
+                  </div>
+                  <div class="details">
+                    <?php echo $block->getPaymentMethodtitle($order); ?>
+                 </div>
+              </div>
+          </div>
+       </div>
+       <!--Cart product details   -->
+       <div class="order-details">
+         <div class="block ord-det">
+           <div class="block-title">
+             <h2>Order Details</h2>
+           </div>
+           <div class="product-details">
+             <?php
+                foreach ($order->getAllVisibleItems() as $item) {?>
+                  <div class="each-product">
+                    <?php
+                        $product = $helper->getProductById($item->getProductId());
+                        $options = $item->getProductOptions();
+                        $imageBlock = $block->getLayout()->createBlock('Magento\Catalog\Block\Product\ListProduct');
+                        $productImage = $imageBlock->getImage($product, 'category_page_list'); ?>
+                      <div class="product-image">
+                          <a href="<?php echo $product->getProductUrl(); ?>"><?php echo $productImage->toHtml(); ?></a>
+                      </div>
+                      <div class="product-info">
+                                  <div class="pdt-name">
+                                    <h3>
+                                      <?php echo $item->getName(); ?>
+                                    </h3>
+                                  </div>
+                                  <div class="pdt-price">
+                                   <?php echo $helper->getFormatedPrice($item->getPrice()); ?>
+                                 </div>
+                                <div class="qty">
+                                  Quantity:
+                                 <span>
+                                   <?php echo $item->getQtyOrdered(); ?>
+                                 </span>
+                               </div>
+                       </div>
+                    </div>
+
+                    <?php
+                    }
+                    ?>
+                      </div>
+                </div>
+            </div>
+      </div>
+</div>
+  <div class="actions-toolbar">
+    <div class="primary">
+    <a class="action primary continue" href="<?php /* @escapeNotVerified */ echo $block->getUrl() ?>">
+        <span><?php echo /* @escapeNotVerified */ __('Continue Shopping'); ?></span>
+    </a>
+  </div>
+</div>
+</div>
+</div>
