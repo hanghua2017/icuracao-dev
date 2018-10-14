@@ -236,19 +236,18 @@
               &:before {
                 content: '';
                 -webkit-appearance: none;
-                background-color: transparent;
-                background-color: white;
-                border: 1px solid #666666;
-                border-radius: 3px;
-                box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.26), inset 0 -15px 10px -12px rgba(0, 0, 0, 0.05);
-                padding: 7px;
                 display: inline-block;
+                background-color: white;
+                border: 1px solid #a6a6a6;
+                border-radius: 2px;
+                height: 12px;
+                width: 12px;
                 position: relative;
-                vertical-align: middle;
+                top: 2px;
+                left: 0;
+                margin-right: 10px;
                 cursor: pointer;
-                margin-right: 15px;
-                margin-top: -2px;
-                transition: all 0.2s;
+
               }
             }
 
@@ -261,16 +260,16 @@
 
                 &:after {
                   content: '';
-                  display: block;
                   position: absolute;
-                  top: 2px;
-                  left: 6px;
-                  width: 3px;
-                  height: 8px;
-                  border: 1.5px solid @orange-off;
-                  border-width: 0 1.5px 1.5px 0;
-                  transform: rotate(45deg);
-                  transition: all 0.2s;
+                  left: 4px;
+                  top: 1px;
+                  width: 4px;
+                  height: 7px;
+                  border: solid #84b90a;
+                  border-width: 0 3px 3px 0;
+                  -webkit-transform: rotate(40deg);
+                  -ms-transform: rotate(40deg);
+                  transform: rotate(40deg);
                 }
               }
             }
