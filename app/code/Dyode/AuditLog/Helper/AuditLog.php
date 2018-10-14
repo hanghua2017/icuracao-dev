@@ -4,28 +4,28 @@ namespace Dyode\AuditLog\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
-use Dyode\AuditLog\Model\AuditLogFactory;
+use Dyode\AuditLog\Model\ResourceModel\AuditLog as AuditLogResourceModel;
 
 class AuditLog extends AbstractHelper
 {
 
     /**
-     * @var \Dyode\AuditLog\Model\AuditLogFactory
+     * @var \Dyode\AuditLog\Model\ResourceModel\AuditLog
      */
-    var $auditLogFactory;
+    var $auditLog;
 
     /**
      * AuditLog constructor.
      *
      * @param \Magento\Framework\App\Helper\Context $context
-     * @param \Dyode\AuditLog\Model\AuditLogFactory $auditLogFactory
+     * @param \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLogFactory
      *
      */
     public function __construct(
         Context $context,
-        AuditLogFactory $auditLogFactory
+        AuditLogResourceModel $auditLog
     ) {
-        $this->auditLogFactory = $auditLogFactory;
+        $this->auditLog = $auditLog;
         parent::__construct($context);
     }
 
@@ -37,11 +37,10 @@ class AuditLog extends AbstractHelper
     public function saveAuditLog($data)
     {
         try {
-            $rowData = $this->auditLogFactory->create();
-            $rowData->setData($data);
-            $rowData->save();
 
-            return true;
+           $this->auditLog->saveAuditLog($data);
+
+           return true;
         } catch (\Exception $exception) {
             error_log($exception->getMessage());
             return false;
