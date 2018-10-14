@@ -32,7 +32,7 @@
 
         <each if="!quoteIsVirtual" args="getRegion('customer-email')" render=""/>
         <each args="getRegion('address-list')" render=""/>
-        <if args="isCustomerLoggedIn() && isThereMoreThanTwoAddresses()">
+        <if args="isCustomerLoggedIn() && isThereMoreThanTwoAddresses">
             <button class="shipping-address-view-all" data-bind="click: viewAllAddresses()"><span data-bind="text: viewButtonState"></span></button>
         </if>
         <each args="getRegion('address-list-additional-addresses')" render=""/>
