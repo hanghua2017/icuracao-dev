@@ -134,6 +134,13 @@ input[type="radio"] {
     {
       margin-top: 20px !important;
     }
+    .column.main
+    {
+      @media all and (max-width: 767px)
+      {
+        padding-bottom: 20px;
+      }
+    }
 
   }
   .sections{
@@ -385,12 +392,20 @@ input[type="radio"] {
         margin: 0;
         box-sizing: border-box;
         padding:15px;
+        position: sticky;
+        top: 10px;
+        margin-top: 2px;
+
         @media only screen and (min-width: 768px){
             padding: 22px 15px;
             -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
             -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
             box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
             background: @white;
+        }
+        @media only screen and (max-width: 768px)
+        {
+          margin-top: 20px;
         }
         &.custom-slide{
           @media all and (max-width:767px){
@@ -435,9 +450,6 @@ input[type="radio"] {
             color: #616060;
             text-align: center;
             margin-bottom: 15px;
-            @media all and (max-width:991px){
-              font-size:12px;
-            }
             @media all and (max-width:767px){
               text-align: left;
               font-weight:700;
@@ -629,6 +641,9 @@ input[type="radio"] {
             margin:0 0 20px;
             font-family: "iCuracao-Regular";
             color:@black;
+            @media all and (max-width:767px){
+              margin-bottom: 0;
+            }
             p{
               &:first-child
               {
@@ -685,6 +700,10 @@ input[type="radio"] {
         }
       }
       /*styling for the new credit card starts here*/
+      .checkout-payment-method
+      {
+        padding-bottom: 30px;
+      }
       #checkout-payment-method-load{
         .payment-methods{
           @media all and (max-width:767px){
@@ -852,7 +871,6 @@ input[type="radio"] {
         box-sizing: border-box;
         @media only screen and (min-width: 768px){
           padding-right:15px;
-          margin-top: 30px;
           width:66.667%;
         }
         @media all and (min-width:991px){
@@ -1171,6 +1189,10 @@ input[type="radio"] {
 
         .checkout-shipping-method
         {
+          .step-title
+          {
+            padding-bottom: 10px;
+          }
           .address-review
           {
             float: left;
@@ -1223,20 +1245,27 @@ input[type="radio"] {
 
               }
 
-              .ship-address-change
+
+
+            }
+            .change
+            {
+              padding: 8px;
+              width: 90px;
+              background: @dark-green-color-1;
+              border: none;
+              text-align: center;
+              color: white;
+              &:hover
               {
-                padding: 8px;
-                width: 90px;
-                background: @dark-green-color-1;
-                border: none;
-                text-align: center;
-                color: white;
-                &:hover
-                {
-                  background: @dark-green-color-2;
-                }
+                background: @dark-green-color-2;
+              }
+              @media all and (max-width: 479px)
+              {
+                font-size:12px;
               }
             }
+
           }
         }
         .form-shipping-address, .form-login,.billing-address-form{
@@ -1518,10 +1547,9 @@ input[type="radio"] {
         .step-title{
           border: none;
           font-family: "iCuracao-Regular";
-          font-size: 20px;
+          font-size: 22px;
           color: @black;
           padding-bottom: 0;
-          margin-bottom: 10px;
           @media all and (max-width:767px){
             font-size:18px;
           }
@@ -1532,6 +1560,7 @@ input[type="radio"] {
         .step-note
         {
           margin-bottom: 20px;
+          margin-top: 10px;
         }
         /*styling for the Checkout Delivery Method Tab starts here*/
         .delivery-method-product-listing{
@@ -1594,7 +1623,7 @@ input[type="radio"] {
               h4{
                 font-family:"iCuracao-Medium";
                 font-weight: normal;
-                font-size:15px;
+                font-size:16px;
                 color:@black;
                 margin:0 0 10px;
                 line-height: 1.25;
@@ -1802,13 +1831,14 @@ input[type="radio"] {
             .fieldset{
               .curacao-outer{
                 margin-top:-20px;
-                padding-bottom: 30px;
+                padding-bottom: 40px;
                 margin-bottom: 30px;
                 border-bottom:1px solid #cccccc;
                 @media all and (max-width:767px){
                   padding-bottom: 20px;
                   margin-bottom: 20px;
                 }
+                
                 .linkaccount{
                   h2{
                     position: relative;
@@ -1816,6 +1846,7 @@ input[type="radio"] {
                     font-size:18px;
                     color:@black;
                     margin-bottom: 15px;
+                    padding-left: 10px;
                   }
                   .curacao-credit-logo{
                     background-image: url("../../images/curacaoCreditLogo.png");
@@ -1846,6 +1877,7 @@ input[type="radio"] {
                     }
                     @media all and (max-width:479px){
                       padding-right:25px;
+                      padding-top: 10px;
                     }
                     #custom-checkout-form{
                       .field{
