@@ -107,6 +107,7 @@ class Index extends Action
             $custEmail  = $this->_coreSession->getCustEmail();
             $customerInfo  = $this->_coreSession->getCustomerInfo();
             $password = $this->_coreSession->getPass();
+            $prevpath = $this->_coreSession->getPrevpage();
             $customerId = '';
 
             //Get Customer Id
@@ -215,7 +216,10 @@ class Index extends Action
                         if(isset($path)){
                            $defaultUrl = $this->urlModel->getUrl('linkaccount/verify/success', ['_secure' => true]);       
                         } else{
-                            $defaultUrl = $this->urlModel->getUrl('checkout/cart/index', ['_secure' => true]);
+                            if($prevpath == 'checkout'){
+                                $this->messageManager->addSuccessMessage('Your password will be lastname with zipcode');
+                                $defaultUrl = $this->urlModel->getUrl('checkout/cart/index', ['_secure' => true]);
+                            }
                         }
                         return $resultRedirect->setUrl($defaultUrl);
                 }
