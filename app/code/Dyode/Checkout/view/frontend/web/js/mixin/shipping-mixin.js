@@ -15,17 +15,21 @@ define(function () {
     var mixin = {
 
         /**
-         * This will hide shipping method information from summary section.
+         * Setting shipping step visibility to false
          *
-         * @return {Boolean}
+         * @returns {mixin}
          */
-        isExcludingDisplayed: function () {
-            return false; //eslint-disable-line eqeqeq
+        initialize: function () {
+            this._super();
+
+            this.visible(false);
+
+            return this;
         }
     };
 
     /**
-     * Mixin of Magento_Tax/js/view/checkout/summary/shipping
+     * Mixin of Magento_Checkout/js/view/shipping
      */
     return function (target) {
         return target.extend(mixin);
