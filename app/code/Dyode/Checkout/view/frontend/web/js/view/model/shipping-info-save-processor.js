@@ -16,7 +16,11 @@
  *
  * Why we need a custom api call? This is because, all the shipping calculations
  * are here based on quote item based instead of the quote. So basically we need
- * multi-shipping inside onpage-checkout!!!
+ * multi-shipping inside onepage-checkout!!!
+ *
+ * Carrier and shipping method we are using is flatrate. This is because Magento always
+ * expect a shipping method against quote for it's internal working. So this is for
+ * bypassing it.
  */
 
 'use strict';
@@ -48,77 +52,76 @@ define([
     urlBuilder,
     customer
 ) {
-        return {
+    return {
 
-            /**
-             * Save shipping information.
-             *
-             * shipping_carrier_info is an additional payload we are adding in order
-             * to hold quote item based shipping information.
-             */
-            saveShippingInformation: function () {
-                var payload,
-                    shippingData = shippingInfoDataProvider.shippingInfo();
+        /**
+         * Save shipping information.
+         *
+         * shipping_carrier_info is an additional payload we are adding in order
+         * to hold quote item based shipping information.
+         */
+        saveShippingInformation: function () {
+            var payload,
+                shippingData = shippingInfoDataProvider.shippingInfo();
 
-                if (!quote.billingAddress()) {
-                    selectBillingAddressAction(quote.shippingAddress());
+            if (!quote.billingAddress()) {
+                selectBillingAddressAction(quote.shippingAddress());
+            }
+            payload = {
+                addressInformation: {
+                    shipping_address: quote.shippingAddress(),
+                    billing_address: quote.billingAddress(),
+                    shipping_method_code: 'flatrate',
+                    shipping_carrier_code: 'flatrate',
+                    shipping_carrier_info: shippingData
                 }
+            };
 
-                payload = {
-                    addressInformation: {
-                        shipping_address: quote.shippingAddress(),
-                        billing_address: quote.billingAddress(),
-                        shipping_method_code: null, //keeping this for legacy
-                        shipping_carrier_code: null, //keeping this for legacy
-                        shipping_carrier_info: shippingData
-                    }
-                };
+            payloadExtender(payload);
 
-                payloadExtender(payload);
+            fullScreenLoader.startLoader();
 
-                fullScreenLoader.startLoader();
-
-                return storage.post(
-                    this.getUrlForSetShippingInformation(quote),
-                    JSON.stringify(payload)
-                ).done(
-                    function (response) {
-                        quote.setTotals(response.totals);
-                        paymentService.setPaymentMethods(
-                            methodConverter(response['payment_methods']
+            return storage.post(
+                this.getUrlForSetShippingInformation(quote),
+                JSON.stringify(payload)
+            ).done(
+                function (response) {
+                    quote.setTotals(response.totals);
+                    paymentService.setPaymentMethods(
+                        methodConverter(response['payment_methods']
                         ));
-                        fullScreenLoader.stopLoader();
-                    }
-                ).fail(
-                    function (response) {
-                        errorProcessor.process(response);
-                        fullScreenLoader.stopLoader();
-                    }
-                );
-            },
-
-            /**
-             * Preparing api url for saving shipping information.
-             * This is a custom api call.
-             */
-            getUrlForSetShippingInformation: function (quote) {
-
-                var requestInfo = {
-                    url: '/carts/mine/custom-shipping-info',
-                    params: {}
-                };
-
-                if (!customer.isLoggedIn()) {
-                    requestInfo = {
-                        url: '/guest-carts/:cartId/custom-shipping-info',
-                        params: {
-                            cartId: quote.getQuoteId()
-                        }
-                    };
+                    fullScreenLoader.stopLoader();
                 }
+            ).fail(
+                function (response) {
+                    errorProcessor.process(response);
+                    fullScreenLoader.stopLoader();
+                }
+            );
+        },
 
-                return urlBuilder.createUrl(requestInfo.url, requestInfo.params);
+        /**
+         * Preparing api url for saving shipping information.
+         * This is a custom api call.
+         */
+        getUrlForSetShippingInformation: function (quote) {
+
+            var requestInfo = {
+                url: '/carts/mine/custom-shipping-info',
+                params: {}
+            };
+
+            if (!customer.isLoggedIn()) {
+                requestInfo = {
+                    url: '/guest-carts/:cartId/custom-shipping-info',
+                    params: {
+                        cartId: quote.getQuoteId()
+                    }
+                };
             }
 
-        };
-    });
+            return urlBuilder.createUrl(requestInfo.url, requestInfo.params);
+        }
+
+    };
+});

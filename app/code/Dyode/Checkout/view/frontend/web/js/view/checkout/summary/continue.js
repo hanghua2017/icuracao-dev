@@ -11,6 +11,7 @@
 define([
     'jquery',
     'uiComponent',
+    'uiRegistry',
     'mage/url',
     'Magento_Checkout/js/model/quote',
     'Magento_Checkout/js/model/step-navigator',
@@ -23,6 +24,7 @@ define([
 ], function (
     $,
     Component,
+    registry,
     Url,
     quote,
     stepNavigator,
@@ -43,6 +45,7 @@ define([
         defaults: {
             template: 'Dyode_Checkout/checkout/summary/continue'
         },
+        defaultPlaceOrderName: 'checkout.steps.billing-step.payment.payments-list.checkmo',
 
         /**
          * Proceeds to the next step
@@ -53,6 +56,22 @@ define([
                     stepNavigator.next();
                 }
             );
+        },
+
+        /**
+         * Place order.
+         * We are triggering the default place order button to avoid further chaos.
+         * @todo if we can create a stand alone place order button component that performs the exact same functionality
+         *       of the default place order button, then it would be better.
+         */
+        placeOrder: function () {
+            var placeOrderBtnComponent = registry.get(this.defaultPlaceOrderName);
+
+            if (placeOrderBtnComponent) {
+                placeOrderBtnComponent.placeOrder();
+            }
+
+            return true;
         },
 
         /**

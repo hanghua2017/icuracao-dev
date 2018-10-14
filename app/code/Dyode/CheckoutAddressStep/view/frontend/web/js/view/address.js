@@ -34,7 +34,8 @@ define([
     'Magento_Checkout/js/model/checkout-data-resolver',
     'Magento_Checkout/js/checkout-data',
     'Magento_Checkout/js/model/shipping-rate-service',
-    'Dyode_CheckoutAddressStep/js/model/estimate-shipping-processor'
+    'Dyode_CheckoutAddressStep/js/model/estimate-shipping-processor',
+    'accordion'
 ], function (
     $,
     ko,
@@ -85,6 +86,7 @@ define([
         isNewAddressAdded: ko.observable(false),
         saveInAddressBook: 1,
         quoteIsVirtual: quote.isVirtual(),
+        viewButtonState: ko.observable("View All"),
 
         /**
          * @return {exports}
@@ -95,7 +97,7 @@ define([
                 fieldsetName = 'checkout.steps.address-step.shippingAddress.shipping-address-fieldset';
 
             this._super();
-
+            
             if (!quote.isVirtual()) {
                 stepNavigator.registerStep(
                     'address-step',
@@ -290,7 +292,6 @@ define([
                 selectShippingAddress(newShippingAddress);
                 checkoutData.setSelectedShippingAddress(newShippingAddress.getKey());
                 checkoutData.setNewCustomerShippingAddress($.extend(true, {}, addressData));
-                this.getPopUp().closeModal();
                 this.isNewAddressAdded(true);
             }
         },
@@ -303,6 +304,18 @@ define([
 
             if (this.source.get('shippingAddress.custom_attributes')) {
                 this.source.trigger('shippingAddress.custom_attributes.data.validate');
+            }
+        },
+
+        viewAllAddresses: function() {
+            if(this.viewButtonState == "View All") {
+                // If view all button is clicked
+                $('.shipping-address-items').addClass('open');
+                this.viewButtonState("View Less");
+            } else {
+                // If expanded collaspse
+                $('.shipping-address-items').removeClass('open');
+                this.viewButtonState("View All");
             }
         }
     });

@@ -15,8 +15,9 @@ define([
     'jquery',
     'uiRegistry',
     'Magento_Checkout/js/checkout-data',
-    'Dyode_CheckoutAddressStep/js/data/address-data-provider'
-], function ($, registry, checkoutData, addressDatProvider) {
+    'Dyode_CheckoutAddressStep/js/data/address-data-provider',
+    'Magento_Customer/js/model/customer'
+], function ($, registry, checkoutData, addressDatProvider, customer) {
 
     /**
      * Mixin for Magento_Checkout/js/view/billing-address
@@ -26,6 +27,8 @@ define([
      * @type {{initialize: initialize}}
      */
     var mixin = {
+
+        isCustomerLoggedIn: customer.isLoggedIn,
 
         /**
          * Make billing form initially invisible.
