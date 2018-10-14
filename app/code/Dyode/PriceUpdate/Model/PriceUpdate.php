@@ -5,6 +5,7 @@
 namespace Dyode\PriceUpdate\Model;
 
 use \Magento\Framework\Model\AbstractModel;
+use Dyode\ARWebservice\Helper\Data;
 
 /**
  * Price Model
@@ -32,10 +33,12 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
+        Data $apiHelper,
         array $data = []
     ) {
         $this->productCollectionFactory = $productCollectionFactory;
         $this->productRepository = $productRepository;
+        $this->apiHelper = $apiHelper;
         parent::__construct($context, $data);
     }
 
@@ -63,7 +66,7 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template
         /** Apply filters here */
         $productCollection->addAttributeToSelect('*')
         ->addAttributeToFilter('vendorId', 2139)
-        ->addAttributeToFilter('cron', 13);
+        ->addAttributeToFilter('cron', 500);
         foreach ($productCollection as $product) {
             $sku = utf8_encode(strtoupper(trim($product->getSku())));
             $this->skuList[$sku]['entity_id'] = $product->getId();
@@ -77,18 +80,18 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template
      */
     public function getBatchPrice()
     {
-
+      $apiKey = $this->apiHelper->getApiKey();
+      $apiUrl = $this->apiHelper->getApiUrl();
         try {
             $httpHeaders = new \Zend\Http\Headers();
             $httpHeaders->addHeaders([
                'Accept' => 'application/json',
                'Content-Type' => 'application/json',
-               'X-Api-Key' => 'TEST-WNNxLUjBxA78J7s'
+               'X-Api-Key' => $apiKey
             ]);
-
             $request = new \Zend\Http\Request();
             $request->setHeaders($httpHeaders);
-            $request->setUri('https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/getPrices?top50=true');
+            $request->setUri($apiUrl.'getPrices?top50=false');
             $request->setMethod(\Zend\Http\Request::METHOD_GET);
 
             $client = new \Zend\Http\Client();
@@ -119,13 +122,13 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template
                 $this->skus[ $obj['sku'] ]= $obj;
             }
             if ($data->CONTINUE) {
-               $this->getBatchPrice();            	
-            }            
+               $this->getBatchPrice();
+            }
         }
         catch (\Exception $e) {
             return false;
         }
-    } 
+    }
 
     /**
      * function name : processBatchprice
@@ -161,7 +164,7 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template
                     if (0 < $special_price && $special_price < $price) {
                         $specialprice = $special_price;
                         $specialfromdate = $special_from_date;
-                        $specialtodate = $special_to_date;          
+                        $specialtodate = $special_to_date;
                     } else {
                         $specialprice = '';
                         $specialfromdate = '';
@@ -182,7 +185,7 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template
                     $product->setCustomerRebate($customer_rebate);
                     $product->save();
                 }
-            } 
+            }
         }
     }
 }
