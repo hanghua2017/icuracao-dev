@@ -22,7 +22,7 @@
         <label data-bind="attr: {for: 'billing-address-same-as-shipping-' + getCode($parent)}"><span
                 data-bind="i18n: 'My billing and shipping address are the same'"></span></label>
     </div>
-    <if args="isCustomerLoggedIn">
+    <if args="isCustomerLoggedIn()">
         <div id="add-billing-address" data-bind="visible: !isAddressDetailsVisible()">
             <div data-bind="mageInit: {'accordion':{'openedState': 'active', 'collapsible': true, 'active': [1,4], 'multipleCollapsible': true}} ">
                 <div data-role="collapsible"  >
@@ -51,7 +51,7 @@
             </div>
         </div>
     </if>
-    <if args="!isCustomerLoggedIn">
+    <if args="!isCustomerLoggedIn()">
         <fieldset class="fieldset" data-bind="visible: !isAddressDetailsVisible()">
             <!-- ko template: 'Magento_Checkout/billing-address/form' --><!-- /ko -->
             <div class="actions-toolbar">
