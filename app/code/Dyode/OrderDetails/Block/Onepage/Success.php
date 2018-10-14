@@ -6,12 +6,14 @@ class Success extends \Magento\Checkout\Block\Onepage\Success {
 
     protected $orderRepository;
     protected $renderer;
+    protected $order;
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Checkout\Model\Session $checkoutSession
      * @param \Magento\Sales\Model\Order\Config $orderConfig
      * @param \Magento\Framework\App\Http\Context $httpContext
+     * @param \Magento\Sales\Api\Data\OrderInterface $order
      * @param array $data
      */
     public function __construct(
@@ -21,19 +23,20 @@ class Success extends \Magento\Checkout\Block\Onepage\Success {
       \Magento\Framework\App\Http\Context $httpContext,
       \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
       \Magento\Sales\Model\Order\Address\Renderer $renderer,
+      \Magento\Sales\Api\Data\OrderInterface $order,
       array $data = []
     ) {
-        // echo "here";
-        // exit;
         $this->orderRepository = $orderRepository;
         $this->renderer = $renderer;
+        $this->order = $order;
         parent::__construct(
                 $context, $checkoutSession, $orderConfig, $httpContext, $data
         );
     }
 
     public function getOrder($id) {
-        return $this->orderRepository->get($id);
+       // return $this->orderRepository->get($id);
+       return $this->order->loadByIncrementId($id);
     }
 
     public function getFormatedAddress($address) {
