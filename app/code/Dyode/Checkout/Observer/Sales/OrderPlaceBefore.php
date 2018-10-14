@@ -11,15 +11,21 @@ class OrderPlaceBefore implements \Magento\Framework\Event\ObserverInterface
     protected $_customerSession;
     protected $_logger;
     protected $_helper;
+    /*
+    *  \Magento\Quote\Model\QuoteFactory $quoteFactory
+    */
+    protected $quoteFactory;
 
     public function __construct(
           \Magento\Customer\Model\Session $customerSession,
           \Dyode\ARWebservice\Helper\Data $helper,
-          \Psr\Log\LoggerInterface $logger
+          \Psr\Log\LoggerInterface $logger,
+          \Magento\Quote\Model\QuoteFactory $quoteFactory
      ) {
-      $this->_customerSession = $customerSession;
-      $this->_logger = $logger;
-      $this->_helper = $helper;
+        $this->_customerSession = $customerSession;
+        $this->_logger = $logger;
+        $this->_helper = $helper;
+        $this->quoteFactory = $quoteFactory;
      }
     /**
      * Execute observer
@@ -61,5 +67,17 @@ class OrderPlaceBefore implements \Magento\Framework\Event\ObserverInterface
           // $this->_logger->log(100,print_r($order,true));
        }
        return false;*/
+
+       $this->_logger->info("inside observe");
+       //$quote = $observer->getQuote();
+       $order = $observer->getEvent()->getOrder();
+      
+       $this->_logger->info("quote Id =" .$order->getQuoteId());
+
+       $quoteId = $order->getQuoteId();
+       $quote = $this->quoteFactory->create()->load($quoteId);
+       $shippingDetails = $quote->getShippingDetails();
+       
+       $this->_logger->info("Shipping Carrier Info =" .$shippingDetails);
     }
 }
