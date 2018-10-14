@@ -82,7 +82,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $httpHeaders->addHeaders([
            'Accept' => 'application/json',
            'Content-Type' => 'application/json',
-           'X-Api-Key' => 'TEST-WNNxLUjBxA78J7s'
+           'X-Api-Key' => 'PROD-T8VtT5GgM7t97Ua'
         ]);
 
         $request = new \Zend\Http\Request();
@@ -110,7 +110,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
           $httpHeaders->addHeaders([
              'Accept' => 'application/json',
              'Content-Type' => 'application/json',
-             'X-Api-Key' => 'TEST-WNNxLUjBxA78J7s'
+             'X-Api-Key' => 'PROD-T8VtT5GgM7t97Ua'
           ]);
 
           $request = new \Zend\Http\Request();
