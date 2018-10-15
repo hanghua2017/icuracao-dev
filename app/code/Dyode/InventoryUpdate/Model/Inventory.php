@@ -36,6 +36,7 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 	\Dyode\InventoryLocation\Model\LocationFactory  $inventoryLocation,
 	\Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry, 
 	\Dyode\InventoryUpdate\Helper\Data $helper,
+	\Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
 	\Dyode\Threshold\Model\Threshold $thresholdModel,
 	array $data = []
 	) {
@@ -45,31 +46,50 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 	    $this->helper = $helper;
 	    $this->inventorylocation = $inventoryLocation;
 	    $this->threshold = $thresholdModel;
-	    $this->_stockRegistry = $stockRegistry;
+	    $this->_stockRegistry = $stockRegistry;	
+        $this->auditLog = $auditLog;
 	    parent::__construct($context, $data);
 	}
 
 	public function updateInventory() {
-		$products = $this->getProducts();
-		foreach ($products as $product) {
-			$productSKU = trim($product->getSku());
-			$productId = trim($product->getId());
-			$this->list[] = $productSKU;
-			$this->productSKUs[$productSKU] = array();
-			$this->productIDs[$productSKU] = $productId;
-		}
-		$this->processBatchInventory();
-		$this->getAllPending();	
-		$this->getAllThreshold();
-		$this->processThreshold();
-		$this->executeProductSkus();
+		try {
+			$clientIP = $_SERVER['REMOTE_ADDR'];
+			$products = $this->getProducts();
+			foreach ($products as $product) {
+				$productSKU = trim($product->getSku());
+				$productId = trim($product->getId());
+				$this->list[] = $productSKU;
+				$this->productSKUs[$productSKU] = array();
+				$this->productIDs[$productSKU] = $productId;
+			}
+			$this->processBatchInventory();
+			$this->getAllPending();	
+			$this->getAllThreshold();
+			$this->processThreshold();
+			$this->executeProductSkus();
+	        $this->auditLog->saveAuditLog([
+	            'user_id' => 'admin',
+	            'action' => 'non set inventory update',
+	            'description' => 'inventory successfully updated',
+	            'client_ip' => $clientIP,
+	            'module_name' => 'dyode_inventoryupdate'
+        	]);
+	    } catch (\Exception $exception) {
+	        $this->auditLog->saveAuditLog([
+	            'user_id' => 'admin',
+	            'action' => 'non set inventory update',
+	            'description' => $exception->getMessage(),
+	            'client_ip' => $clientIP,
+	            'module_name' => 'dyode_inventoryupdate'
+        	]);
+	    }
 	}	
 
 	//get product collection
 	public function getProducts() {
 	    $productCollection = $this->_productCollectionFactory->create();
         $productCollection->addAttributeToSelect('*')
-                          ->addAttributeToFilter('inventorylookup', 14)
+                          ->addAttributeToFilter('inventorylookup', 500)
 					      ->addAttributeToFilter('set', 0)
 					      ->addAttributeToFilter('vendorId', 2139); 
         return $productCollection;
@@ -193,7 +213,18 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 					$company_wide_inventory = array_sum($inventory_values);
 
 					$locationInventory = $this->inventorylocation->create();
-					$locationInventory->addData([
+					$categoryModel = $locationInventory->load($product->getID(), 'productid');
+					$data = $categoryModel->getData();
+					if($data){
+						$model = $locationInventory->load($data['id']);
+        				$model->setArinventory($jsonAR_inv);
+        				$model->setInventoryafterpending($jsonAR_invAfterPending);
+        				$model->setFinalinventory($jsonAR_invAfterPendingAndThreshold);
+        				$model->setProductid($product->getID());
+        				$model->setProductsku($product->getSku());
+        				$saveData = $model->save();	
+					} else {
+						$locationInventory->addData([
 						"productid" => $product->getID(),
 						"productsku" => $sku,
 						"isset" => 0,
@@ -201,14 +232,16 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 						"inventoryafterpending" => $jsonAR_invAfterPending,
 						"finalinventory" => $jsonAR_invAfterPendingAndThreshold
 						]);
-			        $saveData = $locationInventory->save();
+			        	$saveData = $locationInventory->save();
+					}
+					
 			        $stockItem=$this->_stockRegistry->getStockItem($product->getID());
 
 			        if ($product->getArStatus() =='D') {
 			        	$product->setStatus(0);
 			        	$product->setVisibiity(1);
-			        	$product->setInventorylookup('16');
-			        	$product->setCron('15');
+			        	$product->setInventorylookup('499');
+			        	//$product->setCron('15');
 			        	$product->save();
 			        	continue;
 			        }
@@ -237,12 +270,15 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 			        	$product->setStatus(0);
 			        	$product->setVisibiity(1);
 			        	$product->setOosDate(date("Y-m-d 00:00:00"));
-			        	$product->setInventorylookup('14');
+			        	$product->setInventorylookup('500');
 			        	$product->save();
 			        	$stockItem->setQty('0');
 			        }
 					$stockItem->setIsInStock((bool)$finalInv); 
 					$stockItem->save();
+					unset($jsonAR_inv);
+					unset($jsonAR_invAfterPending);
+					unset($jsonAR_invAfterPendingAndThreshold);
 				}
 			}
 		}

@@ -108,16 +108,18 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     //API for getting customer contactaddress
     public function getCustomerContact($customerId)
     {
+        $apiKey = $this->apiHelper->getApiKey();
+        $apiUrl = $this->apiHelper->getApiUrl();
         $httpHeaders = new \Zend\Http\Headers();
         $httpHeaders->addHeaders([
            'Accept' => 'application/json',
            'Content-Type' => 'application/json',
-           'X-Api-Key' => 'PROD-T8VtT5GgM7t97Ua'
+           'X-Api-Key' => $apiKey
         ]);
 
         $request = new \Zend\Http\Request();
         $request->setHeaders($httpHeaders);
-        $request->setUri("https://exchangeweb.lacuracao.com:2007/ws2/test/restapi/ecommerce/GetCustomerContact?cust_id=$customerId");
+        $request->setUri($apiUrl."GetCustomerContact?cust_id=$customerId");
         $request->setMethod(\Zend\Http\Request::METHOD_GET);
 
         $client = new \Zend\Http\Client();
@@ -147,7 +149,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
           $request = new \Zend\Http\Request();
           $request->setHeaders($httpHeaders);
-          $request->setUri($apiUrl.'IsCustomerActive?cust_id=$customerId');
+          $request->setUri($apiUrl."IsCustomerActive?cust_id=$customerId");
           $request->setMethod(\Zend\Http\Request::METHOD_GET);
 
           $client = new \Zend\Http\Client();
@@ -175,7 +177,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
         $request = new \Zend\Http\Request();
         $request->setHeaders($httpHeaders);
-        $request->setUri($apiUrl.'EstimateOk?cust_id=$customerId');
+        $request->setUri($apiUrl."EstimateOk?cust_id=$customerId");
         $request->setMethod(\Zend\Http\Request::METHOD_GET);
 
         $client = new \Zend\Http\Client();
