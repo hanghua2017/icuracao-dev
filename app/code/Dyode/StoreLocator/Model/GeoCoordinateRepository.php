@@ -132,7 +132,7 @@ class GeoCoordinateRepository implements GeoCoordinateRepositoryInterface
         $geoCoordinate = $this->geoCoordinateFactory->create();
         $this->resource->load($geoCoordinate, $geoCoordinateId);
         if (!$geoCoordinate->getId()) {
-            throw new NoSuchEntityException(__('GeoCoordinate with id "%1" does not exist.', $geoCoordinateId));
+            throw new NoSuchEntityException(__('Sorry, we don\'t ship to this location "%1".', $geoCoordinateId));
         }
         return $geoCoordinate;
     }
