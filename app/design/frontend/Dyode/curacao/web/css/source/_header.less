@@ -393,6 +393,7 @@
 
 								&:before {
 									color: @green-color;
+									transition: all ease 0.5s;
 									@media all and (max-width:767px){
 										color: @search-green-color;
 									}
@@ -802,6 +803,12 @@
 									@media all and (max-width:1024px){
 										height:35px;
 										transition: all ease 0.5s;
+									}
+									&:before{
+										@media all and (max-width:1024px){
+											line-height:35px;
+											transition: all ease 0.5s;
+										}
 									}
 								}
 							}
