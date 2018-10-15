@@ -92,6 +92,10 @@ input[type="radio"] {
       .header.content
       {
         padding: 30px !important;
+        @media all and (max-width:479px)
+        {
+          padding-top: 23px !important;
+        }
         .logo
         {
           margin:0 !important;
@@ -104,12 +108,13 @@ input[type="radio"] {
             display: none !important;
           }
         }
-        .customer-signin
+        .customer-signin,.customer-welcome
         {
           position: absolute !important;
           right: 0 !important;
           margin-top: 0 !important;
           margin-right: 30px !important;
+
         }
       }
       .header-message
@@ -841,6 +846,7 @@ input[type="radio"] {
                 .actions-toolbar
                 {
                   margin-top: 10px;
+                  display: none;
                   .primary
                   {
                     button

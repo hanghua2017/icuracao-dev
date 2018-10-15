@@ -66,9 +66,7 @@ class Post extends Action
         if (trim($request->getParam('phonenumber')) === '') {
             throw new LocalizedException(__('Phone Number is missing'));
         }
-        if (trim($request->getParam('account_number')) === '') {
-            throw new LocalizedException(__('Account Number is missing'));
-        }
+        
         if (trim($request->getParam('invoice_number')) === '') {
             throw new LocalizedException(__('Invoice Number is missing'));
         }

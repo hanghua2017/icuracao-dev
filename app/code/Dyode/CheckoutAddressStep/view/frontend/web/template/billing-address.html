@@ -42,7 +42,9 @@
         </div>
     </if>
     <if args="!isCustomerLoggedIn()">
+
         <fieldset class="fieldset" data-bind="visible: !isAddressDetailsVisible()">
+          <div class="step-title" data-role="title">Add New Billing Address</div>
             <!-- ko template: 'Magento_Checkout/billing-address/form' --><!-- /ko -->
         </fieldset>
     </if>
