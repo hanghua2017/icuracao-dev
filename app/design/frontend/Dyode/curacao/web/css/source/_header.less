@@ -837,6 +837,9 @@
 
 		.header.links {
 			border-bottom: none;
+			li{
+				margin:0;
+			}
 			a,
 			a:hover {
 				@media only screen and (max-width: 1024px) {
@@ -1199,6 +1202,31 @@ html[lang="es"]
 		header.page-header {
 			.header.content {
 				.customer-signin {
+					margin: 10px 10px 0 20px;
+					.hello-text {
+						left: 34px;
+					}
+					@media all and (min-width: 991px) {
+						margin: 10px 10px 0 0;
+					}
+					@media all and (max-width: 767px) {
+						margin-right: 5px;
+					}
+					@media all and (max-width: 478px) {
+						.hello-text {
+							left: 30px;
+						}
+						.account-wrapper {
+							a::before {
+								background-size: 26px;
+								width: 26px;
+								height: 26px;
+							}
+							span {
+								font-size: 13px;
+							}
+						}
+					}
 					.account-wrapper {
 						a {
 							white-space: nowrap;

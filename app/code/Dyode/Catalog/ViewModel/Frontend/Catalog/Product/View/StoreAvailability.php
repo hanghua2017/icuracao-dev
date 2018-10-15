@@ -163,7 +163,12 @@ class StoreAvailability implements ArgumentInterface
     {
         if (!$this->customerGeoCoordinate) {
             $zipCode = $this->getCustomer()->getDefaultShippingAddress()->getPostcode();
-            $this->customerGeoCoordinate = $this->geoCoordinateRepository->getById($zipCode);
+            // Handle cases where zipcode is not available
+            try {
+                $this->customerGeoCoordinate = $this->geoCoordinateRepository->getById($zipCode);
+            } catch (\Magento\Framework\Exception\LocalizedException $exception) {
+                return false;
+            }
         }
 
         return $this->customerGeoCoordinate;

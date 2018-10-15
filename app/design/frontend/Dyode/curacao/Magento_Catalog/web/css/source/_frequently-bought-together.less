@@ -80,8 +80,6 @@
       margin-bottom: 0;
       @media all and (max-width: 478px) {
         display: initial;
-        //  padding-left: 15px;
-        //  width: 95%;
       }
 
       li {
@@ -100,7 +98,6 @@
             width: 100%;
             text-align: center;
           }
-
           .include-item {
             img {
               @media all and (max-width: 767px) {
@@ -116,7 +113,6 @@
             }
           }
         }
-
         .product {
           width: 100%;
           @media all and (max-width: 478px) {
@@ -124,7 +120,6 @@
             float: left;
             text-align: center;
           }
-
           &.frequent-item {
             position: relative;
             top: -21px;
@@ -136,7 +131,6 @@
               }
             }
           }
-
           .prod-details {
             width: 70%;
             margin: 0 auto;
@@ -146,14 +140,12 @@
             @media all and (max-width: 767px) {
               width: 100%;
             }
-
             .img-wrapper {
               min-height: 175px;
               @media all and (max-width: 478px) {
                 min-height: auto;
               }
             }
-
             .prod-img {
               width: 150px;
               margin-top: 22px;
@@ -170,19 +162,16 @@
                 width: 120px;
               }
             }
-
             .price-details {
               @media all and (max-width: 478px) {
                 margin-top: 20px;
               }
-
               .name {
                 font-size: 14px;
                 color: rgba(51, 51, 51, 255);
                 text-align: left;
                 font-weight: 500;
                 font-family: 'iCuracao-Medium';
-
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
@@ -200,7 +189,6 @@
                   font-size: 12px;
                 }
               }
-
               .price {
                 margin-top: 10px;
                 color: rgba(51, 51, 51, 255);
@@ -223,11 +211,9 @@
                 @media all and (max-width: 375px) {
                   font-size: 14px;
                 }
-
                 label {
                   font-weight: 600;
                 }
-
                 .off-price {
                   color: #81b800;
                   font-size: 15px;
@@ -261,13 +247,11 @@
           position: absolute;
           opacity: 0;
         }
-
         .frequent-checkbox + label {
           position: relative;
           cursor: pointer;
           padding: 0;
         }
-
         .frequent-checkbox + label:before {
           content: '';
           margin-right: 10px;
@@ -285,7 +269,6 @@
             height: 17px;
           }
         }
-
         .frequent-checkbox:checked + label:before {
           background-color: #3857f3;
           background-image: url("../images/frequent-select.png");
@@ -297,10 +280,8 @@
         }
       }
     }
-
     .frequently-bought-adon-sum-block {
       border-top: 1px solid #d4d4d4;
-
       .frequently-bought-adon-sum {
         margin: 0 auto;
         padding: 20px 0 30px !important;
@@ -310,13 +291,11 @@
         @media all and (max-width: 767px) {
           padding: 20px 0 0 !important;
         }
-
         .price-adons {
           display: flex;
           @media all and (max-width: 767px) {
             flex-direction: column;
           }
-
           .price-sum {
             display: flex;
             justify-content: flex-end;
@@ -327,7 +306,6 @@
             @media all and (max-width: 767px) {
               padding: 0 15px;
             }
-
             .price-block {
               width: auto;
               padding: 0 80px;
@@ -336,28 +314,28 @@
                 padding: 0 80px;
               }
               @media all and (max-width: 1199px) {
-                padding: 0 50px;
+                padding: 0 40px;
               }
               @media all and (max-width: 990px) {
-                padding: 0 27px;
+                padding: 0 25px;
               }
               @media all and (max-width: 767px) {
                 padding: 0;
               }
-
               label {
                 color: @content-light-grey;
                 font-size: 16px;
                 font-family: 'iCuracao-Light';
-
+                @media all and (max-width: 1025px) {
+                  font-size: 14px;
+                }
                 @media all and (max-width:478px) {
                   font-size: 14px;
                 }
               }
-
               .price {
                 color: #333;
-                font-size: 24px;
+                font-size: 20px;
                 font-weight: 600;
                 margin-bottom: 0;
                 font-family: 'iCuracao-Medium';
@@ -370,7 +348,6 @@
                 }
               }
             }
-
             .symbol {
               padding: 5px;
               font-size: 25px;
@@ -391,7 +368,6 @@
               }
             }
           }
-
           form {
             flex-basis: 40%;
             padding-top: 6px;
@@ -400,7 +376,6 @@
               margin-top: 20px;
               border-top: 1px solid #d4d4d4;
             }
-
             .action.add-bundle-btn {
               margin-left: 15px;
               @media all and (max-width: 1024px) {
@@ -427,11 +402,9 @@
                 font-size: 14px;
                 text-align: center;
                 font-family: 'iCuracao-Regular';
-
                 @media all and (max-width: 767px) {
                   width: 100%;
                 }
-
                 &:active {
                   box-shadow: none;
                 }
@@ -440,19 +413,16 @@
                   border: 1px solid #d7470f;
                   box-shadow: 0 4px 6px 0 rgba(0,0,0,0.12);
                 }
-
                 img {
                   position: relative;
                   top: 1px;
                   width: 30px;
                 }
-
-                span {
+              span {
                   position: relative;
                   top: -5px;
                   text-transform: capitalize;
                 }
-
               }
             }
           }
@@ -461,4 +431,40 @@
     }
   }
   // End of Frequently bought items section
+}
+/*Style for spanish*/
+html[lang="es"] {
+  .catalog-product-view {
+    .frequently-bought-items {
+      .frequently-bought-adon-sum-block {
+        .frequently-bought-adon-sum {
+          .price-adons {
+            form {
+              .action.add-bundle-btn {
+                button.add-bundle-btn {
+                  width: 280px;
+                  @media all and (max-width: 375px) {
+                    span {
+                      padding: 12px 30px;
+                    }
+                  }
+                }
+              }
+            }
+            .price-sum {
+              .price-block {
+                @media all and (max-width: 1390px) {
+                  &.unselected {
+                    label {
+                      display: flex;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

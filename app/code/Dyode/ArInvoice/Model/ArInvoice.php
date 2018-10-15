@@ -141,15 +141,18 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         if (empty($accountNumber)) {
             # code...
             $customerId = $order->getCustomerId();
-            $customer = $this->_customerRepositoryInterface->getById($customerId);
-            $accountNumber = (!empty($customer->getCustomAttribute("curacaocustid"))) ?
-                $customer->getCustomAttribute("curacaocustid")->getValue() : null;
+
+            if (!empty($customerId)) {
+                $customer = $this->_customerRepositoryInterface->getById($customerId);
+                $accountNumber = (!empty($customer->getCustomAttribute("curacaocustid"))) ?
+                    $customer->getCustomAttribute("curacaocustid")->getValue() : null;
+            }
         }
         # Validating the Account Number
         $accountNumber = $this->_arInvoiceHelper->validateAccountNumber($accountNumber);
 
         if (($accountNumber == "500-8555") && ($orderType == "full_credit_card")) {
-            # Getting the Check Customer Status
+            # Getting the Check Customer Status - num 54421729
             $customerStatusResponse = $this->_customerStatusHelper->checkCustomerStatus($order, $accountNumber);
             $customerStatus = json_decode($customerStatusResponse);
         }
