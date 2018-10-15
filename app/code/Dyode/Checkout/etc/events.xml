@@ -3,4 +3,7 @@
 	<event name="sales_order_place_before">
 		<observer instance="Dyode\Checkout\Observer\Sales\OrderPlaceBefore" name="dyode_checkout_observer_sales_orderplacebefore_sales_order_place_before"/>
 	</event>
+	<event name="sales_order_place_after">
+		<observer instance="Dyode\Checkout\Observer\Sales\CreateCustomerAfter" name="dyode_checkout_observer_sales_createcustomerafter_sales_order_place_before"/>
+	</event>
 </config>
