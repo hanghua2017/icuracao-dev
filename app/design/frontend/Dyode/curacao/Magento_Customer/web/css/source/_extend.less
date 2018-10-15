@@ -53,13 +53,16 @@ select:focus, input:focus {
     .main {
       margin-bottom: 0px;
     }
+    .message.info, .message.error, .message.warning, .message.notice, .message.success{
+      float:none;
+      clear: both;
+    }
     .message.info.empty {
       font-family: 'iCuracao-Regular';
       font-size: 13px;
       font-weight: 500;
     }
   }
-
 	.page-wrapper{
 		.page-main{
       padding-left: 0;
@@ -296,6 +299,7 @@ select:focus, input:focus {
             padding: 0 20px;
             @media only screen and (max-width: 768px){
                padding: 0 15px;
+
             }
           }
         }
@@ -354,7 +358,6 @@ select:focus, input:focus {
 			//ICuracao-Account content block styles
 			.columns{
 				.column{
-
 
 					a{
             color: @active-blue-color;
@@ -536,6 +539,7 @@ select:focus, input:focus {
 						.actions-toolbar{
 							padding: 0 20px;
 							@media only screen and (max-width: 768px){
+              //  overflow: hidden;
 							   padding: 0 15px;
 							}
         			.primary{
@@ -1120,16 +1124,14 @@ select:focus, input:focus {
     input{
 			border-radius: 5px;
 		}
-    // .actions-toolbar .action.primary,
-    // .box-tocart .action.instant-purchase {
-    //     padding: 8px 17px;
-    // }
     .fieldset{
       width: 100%;
       .field {
         width: 48%;
+        margin: 0 0 0;
         @media all and (max-width:767px){
           width:100%;
+          margin: 0 0 20px;
         }
         label{
           font-weight: normal;
@@ -1139,13 +1141,22 @@ select:focus, input:focus {
         }
         &.field-name-lastname,&.telephone,&.region,&.country,&.shipping {
           float: right;
+
+        }
+        &.billing{
+          margin: 0 0 20px;
+        }
+        &.field-name-firstname,&.company,&.city,&.zip,&.street ,&.field-name-lastname,&.telephone,&.region,&.country{
+          @media all and (min-width:768px){
+            min-height:93px;
+          }
         }
         &.street {
           width:100%;
           float: left;
           clear: both;
           .control {
-            #street_1 {
+            #street_left {
               width: 48%;
               float: left;
               @media all and (max-width:767px){
@@ -1756,7 +1767,7 @@ select:focus, input:focus {
 }
 .newsletter-manage-index,.vault-cards-listaction,.magento-rma-returns-history,
 .customer-account-index,.sales-order-history,.sales-order-view,.magento-rma-returns-create,.customer-address-form,.customer-account-edit,
-.review-customer-index,.rma-rma-list, .rma-rma-order, .customer-address-index{
+.review-customer-index,.rma-rma-list, .rma-rma-order, .customer-address-index,.rma-rma-new{
   .columns{
     .sidebar-main{
       .block-collapsible-nav{
@@ -2120,7 +2131,7 @@ select:focus, input:focus {
 /*common styling for account pages*/
 .account{
   .page-main{
-    .choice{
+    .choice,.ui-rma-items .item-description{
       // input[type="checkbox"] {
       //     margin: -1px 5px 0 0;
       //     vertical-align: middle;
@@ -2193,7 +2204,7 @@ select:focus, input:focus {
           }
         }
       }
-    }
+   }
     .block-addresses-list{
       padding-bottom: 0 !important;
       .block-content{
@@ -2440,12 +2451,12 @@ select:focus, input:focus {
                 width: 100%;
                 height: 44px;
                 border-radius: 3px;
-                background-color: @theme-color;
-                border-color: @theme-color;
+                background-color: @theme-color-dark;
+                border-color: @theme-color-dark;
                 margin:0;
                 &:hover
                 {
-                  background-color:darken(@theme-color, 10%);
+                  background-color:darken(@theme-color-dark, 10%);
                 }
                 span {
                     font-size: 16px;
@@ -2519,6 +2530,9 @@ select:focus, input:focus {
 .rma-new-step2 {
   .curacao-file-upload{
     max-width: 500px;
+    @media all and (max-width:767px){
+      max-width: 100%;
+    }
     .file-upload{
       display:block;
       text-align:center;
@@ -2763,15 +2777,26 @@ select:focus, input:focus {
   .rma-one-item {
     padding: 25px;
     .item-description {
-      width: 20%;
+      width: 160px;
       .image {
         float: none;
-        margin: 0 35px;
+        margin: 0 0 0 35px;
         width: 100%;
       }
       b{
         display: block;
-        margin: 5px 35px;
+        margin: 10px 0 0 35px;
+        width: 100%;
+      }
+    }
+    .item-options{
+      width: 315px;
+      @media all and (max-width:790px){
+        width: 300px;
+      }
+      @media all and (max-width:565px){
+        width: 100%;
+        padding-left: 35px;
       }
     }
   }
@@ -2980,5 +3005,21 @@ select:focus, input:focus {
         }
       }
     }
+  }
+}
+.rma-rma-new{
+  // .block-collapsible-nav{
+  //   @media all and (max-width: 767px){
+  //   padding-top:45px !important;
+  //   }
+  // }
+  form.rma-customer-new{
+    padding: 15px 20px;
+    .block{
+     margin-bottom: 15px;
+    }
+  }
+  .actions-toolbar{
+    overflow: hidden;
   }
 }
