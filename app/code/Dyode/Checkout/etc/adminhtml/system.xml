@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Dyode_Checkout Module
+ *
+ * Extending Magento_Checkout core module.
+ *
+ * @pakcage   Dyode
+ * @module    Dyode_Checkout
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="curacao_checkout" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+            <label>Checkout Settings</label>
+            <tab>curacao_settings</tab>
+            <resource>Dyode_Core::config</resource>
+            <group id="curacao_onepage_checkout" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>Onepage Checkout Settings</label>
+                <field id="terms_and_conditions_cms_page" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+                    <label>Checkout Summary Terms and Conditions</label>
+                    <source_model>Magento\Cms\Model\Config\Source\Page</source_model>
+                </field>
+                <field id="privacy_cms_page" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+                    <label>Checkout Summary Privacy Notice</label>
+                    <source_model>Magento\Cms\Model\Config\Source\Page</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
