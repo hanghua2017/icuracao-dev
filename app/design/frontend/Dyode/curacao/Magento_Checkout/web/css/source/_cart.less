@@ -468,7 +468,7 @@ input, select {
                         .price-excluding-tax{
 
                           @media all and (min-width: 991px) {
-                            padding: 35px 0 35px;
+                            padding: 30px 0 35px;
                           }
                         }
                       }
@@ -510,13 +510,8 @@ input, select {
                           }
                         }
                       }
-                      .price-excluding-tax, .field.qty {
-                        // @media all and (min-width: 768px) {
-                        //     border-left: 1px solid @table-border;
-                        // }
-                      }
                       .price-excluding-tax {
-                        padding: 20px 0 55px;
+                        padding: 30px 0 55px;
                         @media all and (max-width: 767px) {
                           padding: 20px 0;
                         }
@@ -762,6 +757,72 @@ input, select {
     @media all and (max-width: 991px) and (min-width: 768px) {
       top: -3px;
     }
+  }
+}
 
+html[lang="es"] {
+  .checkout-cart-index {
+    .page-wrapper {
+      .page-main {
+        .columns {
+          .column {
+            .cart-container {
+              .form-cart {
+                .table-wrapper {
+                  tbody {
+                    .item-info {
+                      td.qty {
+                        @media all and (max-width: 421px) {
+                          padding-left: 2%;
+                          padding-right: 2%;
+                        }
+                      }
+                      td:not(.item) {
+                        @media all and (max-width: 421px) {
+                          padding-left: 2%;
+                          padding-right: 2%;
+                        }
+                      }
+                      td.subtotal {
+                        @media all and (max-width: 380px) {
+                          padding-left: 2%;
+                          padding-right: 1%;
+                        }
+                      }
+                      td.price {
+                        @media all and (max-width: 767px) {
+                          padding: 15px 0 20px;
+                        }
+                        @media all and (max-width: 650px) and (min-width: 479px) {
+                          .price-excluding-tax{
+                            padding: 15px 0 20px;
+                          }
+                          .credit-desc {
+                            display: inline-grid;
+                          }
+                        }
+                        @media all and (max-width: 479px) {
+                          .price-excluding-tax{
+                            padding: 10px 0 20px;
+                          }
+                        }
+                        @media all and (max-width: 430px) {
+                          width: 43%;
+                          padding-left: 2%;
+                          padding-right: 2%;
+                          .credit-desc {
+                            display: inline-grid;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

@@ -12,12 +12,9 @@ define([
     'jquery',
     'uiComponent',
     'uiRegistry',
-    'mage/url',
     'Magento_Checkout/js/model/quote',
     'Magento_Checkout/js/model/step-navigator',
-    'Magento_Checkout/js/model/error-processor',
-    'Magento_Checkout/js/model/full-screen-loader',
-    'Dyode_CheckoutDeliveryMethod/js/data/delivery-data-provider',
+    'Dyode_CheckoutDeliveryMethod/js/model/delivery-save-processor',
     'Dyode_CheckoutAddressStep/js/model/address-validator',
     'Dyode_CheckoutAddressStep/js/model/estimate-shipping-processor',
     'Dyode_Checkout/js/view/model/shipping-info-save-processor'
@@ -25,17 +22,13 @@ define([
     $,
     Component,
     registry,
-    Url,
     quote,
     stepNavigator,
-    errorProcessor,
-    fullScreenLoader,
-    deliveryDataProvider,
+    deliverySaveProcessor,
     addressValidator,
     shippingEstimateProcessor,
     shippingSaveProcessor
 ) {
-    var quoteItemData = window.checkoutConfig.quoteItemData;
 
     /**
      * Sidebar Continue Button Component
@@ -71,11 +64,11 @@ define([
                 authorizeBtnComponent = registry.get(this.authorizePlaceOrderName);
 
             if (authorizeBtnComponent) {
-                authorizeBtnComponent.placeOrder();
+                return authorizeBtnComponent.placeOrder();
             }
 
             if (checkMoBtnComponent) {
-                checkMoBtnComponent.placeOrder();
+                return checkMoBtnComponent.placeOrder();
             }
 
             return true;
@@ -90,7 +83,7 @@ define([
                 activeStep = steps[activeStepIndex];
 
             if (activeStep.code === 'deliverySelection') {
-                return this.saveDeliveryOptions();
+                return deliverySaveProcessor.saveDeliveryOptions();
             }
 
             if (activeStep.code === 'address-step') {
@@ -115,51 +108,6 @@ define([
                 activeStep = steps[activeStepIndex];
 
             return activeStep.code === 'payment';
-        },
-
-        /**
-         * Save delivery options against the quote when user proceed from delivery step -> address step
-         * @todo This needs to be done through a save processor.
-         */
-        saveDeliveryOptions: function () {
-            // Better error handling # TODO Quote item id repeats
-            var payload = deliveryDataProvider.getDeliveryData(),
-                cartId = quoteItemData[0].quote_id;
-
-            fullScreenLoader.startLoader();
-
-            return $.ajax({
-                url: Url.build('delivery-step/deliveryMethods/save'),
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    quoteItemsData: JSON.stringify(payload),
-                    quoteId: cartId
-                },
-
-                /**
-                 * Success
-                 * @param {JSON} response
-                 */
-                success: function (response) {
-                    fullScreenLoader.stopLoader();
-                },
-
-                /**
-                 * Some bad thing happend in Ajax request
-                 */
-                error: function () {
-                    fullScreenLoader.stopLoader();
-                },
-
-                /**
-                 * Ajax request complete
-                 */
-                complete: function () {
-                    fullScreenLoader.stopLoader();
-                }
-            });
-
         }
     });
 });

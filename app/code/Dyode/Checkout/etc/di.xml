@@ -9,4 +9,5 @@
       <preference for="Dyode\Checkout\Api\CreditManagementInterface" type="Dyode\Checkout\Model\CreditManagement" />
       <preference for="\Dyode\Checkout\Api\Data\ShippingInformationInterface" type="Dyode\Checkout\Model\ShippingInformation" />
       <preference for="Dyode\Checkout\Api\GuestShippingInfoInterface" type="Dyode\Checkout\Model\GuestShippingInfoProcessor" />
+      <preference for="Dyode\Checkout\Api\ShippingInfoManagementInterface" type="Dyode\Checkout\Model\ShippingInfoProcessor" />
 </config>
