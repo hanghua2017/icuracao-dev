@@ -1809,7 +1809,7 @@ body{
 }
 
 .ves-megamenu .dynamic-items {
-    padding: 15px;
+    padding: 10px 0;
     width:40%;
     background: #f9f9f9;
 }
@@ -2672,11 +2672,11 @@ print {
         border-bottom-color: #ddd;
 
     }
-     @media all and (min-width: 1025px) {
+     /* @media all and (min-width: 1025px) {
         .ves-megamenu .navigation .level0 .submenu .dynamic-items ul>.nav-item.current>a {
             padding: 3px 20px 3px 15px;
         }
-      }
+      } */
     .ves-megamenu .navigation .level0.submenu-left,
     .ves-megamenu .navigation .level0.submenu-right {
         position: static
