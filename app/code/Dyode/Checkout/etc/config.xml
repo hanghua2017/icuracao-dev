@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Dyode_Checkout Module
+ *
+ * Extending Magento_Checkout core module.
+ *
+ * @pakcage   Dyode
+ * @module    Dyode_Checkout
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <curacao_checkout>
+            <curacao_onepage_checkout>
+                <terms_and_conditions_cms_page/>
+                <privacy_cms_page />
+            </curacao_onepage_checkout>
+        </curacao_checkout>
+    </default>
+</config>

@@ -16,7 +16,7 @@
         <section id="curacao_catalog" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
             <label>Catalog</label>
             <tab>curacao_settings</tab>
-            <resource>Dyode_Catalog::config</resource>
+            <resource>Dyode_Core::config</resource>
             <group id="curacao_product_page" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
                 <label>Product Details Page</label>
                 <field id="price_beat_cms_page" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
