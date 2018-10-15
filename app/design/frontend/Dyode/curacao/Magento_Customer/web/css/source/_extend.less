@@ -296,6 +296,7 @@ select:focus, input:focus {
             padding: 0 20px;
             @media only screen and (max-width: 768px){
                padding: 0 15px;
+
             }
           }
         }
@@ -354,7 +355,6 @@ select:focus, input:focus {
 			//ICuracao-Account content block styles
 			.columns{
 				.column{
-
 
 					a{
             color: @active-blue-color;
@@ -536,6 +536,7 @@ select:focus, input:focus {
 						.actions-toolbar{
 							padding: 0 20px;
 							@media only screen and (max-width: 768px){
+              //  overflow: hidden;
 							   padding: 0 15px;
 							}
         			.primary{
@@ -1756,7 +1757,7 @@ select:focus, input:focus {
 }
 .newsletter-manage-index,.vault-cards-listaction,.magento-rma-returns-history,
 .customer-account-index,.sales-order-history,.sales-order-view,.magento-rma-returns-create,.customer-address-form,.customer-account-edit,
-.review-customer-index,.rma-rma-list, .rma-rma-order, .customer-address-index{
+.review-customer-index,.rma-rma-list, .rma-rma-order, .customer-address-index,.rma-rma-new{
   .columns{
     .sidebar-main{
       .block-collapsible-nav{
@@ -2120,7 +2121,7 @@ select:focus, input:focus {
 /*common styling for account pages*/
 .account{
   .page-main{
-    .choice{
+    .choice,.ui-rma-items .item-description{
       // input[type="checkbox"] {
       //     margin: -1px 5px 0 0;
       //     vertical-align: middle;
@@ -2193,7 +2194,7 @@ select:focus, input:focus {
           }
         }
       }
-    }
+   }
     .block-addresses-list{
       padding-bottom: 0 !important;
       .block-content{
@@ -2519,6 +2520,9 @@ select:focus, input:focus {
 .rma-new-step2 {
   .curacao-file-upload{
     max-width: 500px;
+    @media all and (max-width:767px){
+      max-width: 100%;
+    }
     .file-upload{
       display:block;
       text-align:center;
@@ -2763,15 +2767,26 @@ select:focus, input:focus {
   .rma-one-item {
     padding: 25px;
     .item-description {
-      width: 20%;
+      width: 160px;
       .image {
         float: none;
-        margin: 0 35px;
+        margin: 0 0 0 35px;
         width: 100%;
       }
       b{
         display: block;
-        margin: 5px 35px;
+        margin: 10px 0 0 35px;
+        width: 100%;
+      }
+    }
+    .item-options{
+      width: 315px;
+      @media all and (max-width:790px){
+        width: 300px;
+      }
+      @media all and (max-width:565px){
+        width: 100%;
+        padding-left: 35px;
       }
     }
   }
@@ -2980,5 +2995,21 @@ select:focus, input:focus {
         }
       }
     }
+  }
+}
+.rma-rma-new{
+  // .block-collapsible-nav{
+  //   @media all and (max-width: 767px){
+  //   padding-top:45px !important;
+  //   }
+  // }
+  form.rma-customer-new{
+    padding: 15px 20px;
+    .block{
+     margin-bottom: 15px;
+    }
+  }
+  .actions-toolbar{
+    overflow: hidden;
   }
 }
