@@ -1,10 +1,16 @@
 <?php
-/*
-Date: 12/07/2018
-Author :Kavitha
-*/
-
+/**
+ * Dyode_ARWebservice Magento2 Module.
+ *
+ *
+ * @package Dyode
+ * @module  Dyode_ARWebservice
+ * @author  Kavitha <kavitha@dyode.com>
+ * @date    12/07/2018
+ * @copyright Copyright © Dyode
+ */
 namespace Dyode\Linkaccount\Controller\Verify;
+
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
