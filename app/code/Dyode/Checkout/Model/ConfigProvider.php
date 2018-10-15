@@ -116,8 +116,9 @@ class ConfigProvider implements ConfigProviderInterface
             $result = $this->_helper->verifyPersonalInfm($params);
             if ($result) {
                 $this->_customerSession->setDownPayment($result);
+                $result = $result->DOWNPAYMENT;
             } else {
-                $result = 0;
+                return false;
             }
             $formattedCurrencyValue = $this->_priceHelper->currency($result, true, false);
             return $formattedCurrencyValue;
@@ -132,9 +133,17 @@ class ConfigProvider implements ConfigProviderInterface
         }
         $customerId = $this->_customerSession->getCustomerId();
         if ($customerId) {
+
+            /**
+             * @var \Magento\Customer\Model\Data\Customer $customer
+             * @var \Magento\Framework\Api\AttributeValue|null $curacaoAttribute
+             */
             $customer = $this->_customerRepositoryInterface->getById($customerId);
-            if (method_exists($customer, 'getCuracaocustid')) {
-                $curaAccId = $customer->getCuracaocustid();
+            $curacaoAttribute = $customer->getCustomAttribute('curacaocustid');
+
+            if ($curacaoAttribute) {
+                $curaAccId = (string)$customer->getCustomAttribute('curacaocustid')->getValue();
+
                 if ($curaAccId) {
                     $this->_linked = true;
                     return $curaAccId;

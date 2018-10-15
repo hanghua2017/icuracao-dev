@@ -63,10 +63,17 @@ class Custom extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
 
         if ($quote->getCustomer()->getCustomAttribute('curacaocustid') != null) {
             $curaAccId = $quote->getCustomer()->getCustomAttribute('curacaocustid')->getValue();
-            $downPayment = $this->_customerSession->getDownPayment() ? $this->_customerSession->getDownPayment() : 0;
+            $downPayment = false;
+
+            /** @var \stdClass $downPaymentSessionInfo */
+            $downPaymentSessionInfo = $this->_customerSession->getDownPayment();
+            if ($downPaymentSessionInfo) {
+                $downPayment = $downPaymentSessionInfo->DOWNPAYMENT;
+            }
+
             $this->_curacaocredit = 0;
 
-            if (!($curaAccId)) {
+            if (!$curaAccId || $downPayment === false) {
                 return $this;
             }
             if ($quote->getCustomer()->getId() && $curaAccId != 0) {
