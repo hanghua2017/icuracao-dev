@@ -20,8 +20,8 @@
       <!-- Top panel wrapper with sign in and create an account if want to remove -->
       <!-- <referenceBlock name="header.panel.wrapper" remove="true" /> -->
       <referenceBlock name="header" remove="true" />
-      <referenceBlock name="register-link" remove="true" />
-      <referenceBlock name="authorization-link-login" remove="true" />
+      <!-- <referenceBlock name="register-link" remove="true" />
+      <referenceBlock name="authorization-link-login" remove="true" /> -->
       <!-- Keep minicart next to search block -->
       <!-- <move element="header.links" destination="header-wrapper" after="top.search"/> -->
       <referenceContainer name="header-wrapper">

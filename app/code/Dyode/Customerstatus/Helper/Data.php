@@ -16,25 +16,55 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
     public $addressMismatch;
 
+    /* 
+    * Constructor
+    */
+    public function __construct(
+        \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
+        \Dyode\ARWebservice\Helper\Data $apiHelper
+    ) {
+        $this->apiHelper = $apiHelper;
+        $this->auditLog = $auditLog;
+    }
+
     //Check status of a customer
     public function checkCustomerStatus($order, $customerId)
     {
-        $Customer_Status = $this->isCustomerActive($customerId);
-        $this->soft = $Customer_Status->DATA->SOFT;
-        $transactionAllowed = $Customer_Status->OK;
-        if ($transactionAllowed && !$this->soft) {
-            $this->customerStatus = true;
-            //shipping address validation
-            $this->validateAddress($order, $customerId);
-        } else {
-            //activate customer account
-            $this->reActivateAccount($order, $customerId);
-        }
+        try {
+          $clientIP = $_SERVER['REMOTE_ADDR'];
+          $Customer_Status = $this->isCustomerActive($customerId);
+          $this->soft = $Customer_Status->DATA->SOFT;
+          $transactionAllowed = $Customer_Status->OK;
+          if ($transactionAllowed && !$this->soft) {
+              $this->customerStatus = true;
+              //shipping address validation
+              $this->validateAddress($order, $customerId);
+          } else {
+              //activate customer account
+              $this->reActivateAccount($order, $customerId);
+          }
 
-        $status['customerstatus'] = $this->customerStatus;
-        $status['addressmismatch'] = $this->addressMismatch;
-        $status['soft'] = $this->soft;
-        return json_encode($status);
+          $status['customerstatus'] = $this->customerStatus;
+          $status['addressmismatch'] = $this->addressMismatch;
+          $status['soft'] = $this->soft;
+          //add admin logs
+          $this->auditLog->saveAuditLog([
+              'user_id' => 'admin',
+              'action' => 'check customer status',
+              'description' => 'check customer status executed successfully',
+              'client_ip' => $clientIP,
+              'module_name' => 'dyode_customerstatus'
+          ]);
+          return json_encode($status);
+        } catch (\Exception $exception) {
+          $this->auditLog->saveAuditLog([
+              'user_id' => 'admin',
+              'action' => 'check customer status',
+              'description' => $exception->getMessage(),
+              'client_ip' => $clientIP,
+              'module_name' => 'dyode_customerstatus'
+          ]);
+        }   
     }
 
     //Reactivate a customer account
@@ -78,16 +108,18 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     //API for getting customer contactaddress
     public function getCustomerContact($customerId)
     {
+        $apiKey = $this->apiHelper->getApiKey();
+        $apiUrl = $this->apiHelper->getApiUrl();
         $httpHeaders = new \Zend\Http\Headers();
         $httpHeaders->addHeaders([
            'Accept' => 'application/json',
            'Content-Type' => 'application/json',
-           'X-Api-Key' => 'PROD-T8VtT5GgM7t97Ua'
+           'X-Api-Key' => $apiKey
         ]);
 
         $request = new \Zend\Http\Request();
         $request->setHeaders($httpHeaders);
-        $request->setUri("https://exchangeweb.lacuracao.com:2007/ws2/test/restapi/ecommerce/GetCustomerContact?cust_id=$customerId");
+        $request->setUri($apiUrl."GetCustomerContact?cust_id=$customerId");
         $request->setMethod(\Zend\Http\Request::METHOD_GET);
 
         $client = new \Zend\Http\Client();
@@ -106,16 +138,18 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     //API for checking whether a customer account is active
     public function isCustomerActive($customerId)
     {
+          $apiKey = $this->apiHelper->getApiKey();
+          $apiUrl = $this->apiHelper->getApiUrl();
           $httpHeaders = new \Zend\Http\Headers();
           $httpHeaders->addHeaders([
              'Accept' => 'application/json',
              'Content-Type' => 'application/json',
-             'X-Api-Key' => 'PROD-T8VtT5GgM7t97Ua'
+             'X-Api-Key' => $apiKey
           ]);
 
           $request = new \Zend\Http\Request();
           $request->setHeaders($httpHeaders);
-          $request->setUri("https://exchangeweb.lacuracao.com:2007/ws2/test/restapi/ecommerce/IsCustomerActive?cust_id=$customerId");
+          $request->setUri($apiUrl."IsCustomerActive?cust_id=$customerId");
           $request->setMethod(\Zend\Http\Request::METHOD_GET);
 
           $client = new \Zend\Http\Client();
@@ -132,16 +166,18 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     //API for reactivating a customer account
     public function estimateOk($customerId)
     {
+        $apiKey = $this->apiHelper->getApiKey();
+        $apiUrl = $this->apiHelper->getApiUrl();
         $httpHeaders = new \Zend\Http\Headers();
         $httpHeaders->addHeaders([
            'Accept' => 'application/json',
            'Content-Type' => 'application/json',
-           'X-Api-Key' => 'TEST-WNNxLUjBxA78J7s'
+           'X-Api-Key' => $apiKey
         ]);
 
         $request = new \Zend\Http\Request();
         $request->setHeaders($httpHeaders);
-        $request->setUri("https://exchangeweb.lacuracao.com:2007/ws2/test/restapi/ecommerce/EstimateOk?cust_id=$customerId");
+        $request->setUri($apiUrl."EstimateOk?cust_id=$customerId");
         $request->setMethod(\Zend\Http\Request::METHOD_GET);
 
         $client = new \Zend\Http\Client();
