@@ -1,0 +1,414 @@
+//ICuracao-Account variables
+@theme-color: #97d700; //Header light green
+@theme-color-dark: #81b800; //Header darkgreen
+@heading-text: #000000; //Heading text
+@content-text: #666666; //Content text
+@footer-text: #333333; //Footer text
+@active-blue-color:#4048d1;
+@orange-button: #f26722;
+@white: #ffffff;
+@border-color:#f2f2f2;
+@background-white: #fcfcfc;
+@badge-orange: #ff4200;
+@black:#000000;
+@form-label:#929292;
+
+.contact-index-index {
+
+
+
+  .contact__heading {
+    margin: 0;
+    font-size: 20px;
+    color: #000;
+    padding-bottom: 20px;
+    font-family: 'iCuracao-Light' !important;
+  }
+
+  .label {
+    span {
+      font-family: 'iCuracao-Light';
+      font-weight: 500;
+      margin-left: 14px;
+      margin-bottom: 3px;
+      font-size: 14px;
+    }
+    &::after{
+      display: none;
+    }
+  }
+
+  .page-wrapper {
+    .page-main {
+      background: url(../images/Order-returns-BG.png);
+      background-size: 100%;
+      width: 100%;
+      max-width: initial;
+      margin: 0;
+      padding: 50px 0;
+      @media all and (max-width: 767px) {
+            padding: 0;
+      }
+      .page-title-wrapper {
+        display: none;
+      }
+      .columns {
+
+        .column.main {
+          max-width: 1090px;
+          margin: 0 auto;
+          padding: 30px;
+          background-color: white;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
+          a{
+            color: #84b90a;
+            border-bottom: solid 1px;
+            text-decoration: none;
+            font-size: 16px;
+            word-break: break-all;
+            font-family: 'iCuracao-Light' !important;
+            &:hover,&:focus{
+              border-bottom: solid 1px;
+              text-decoration: none;
+            }
+          }
+          form.contact {
+            width: 50%;
+            margin: 0;
+            display: inline-block;
+            padding: 0px 55px 0 25px;
+            border-right: 1px solid #c2c2c2;
+            @media all and (max-width: 767px) {
+              width: 100%;
+              margin: 0;
+              text-align: center;
+              display: block;
+              padding: 20px;
+              border-right: none;
+            }
+            .fieldset {
+              margin: 0px 0 0px;
+              .legend, .field.note.no-label{
+                display: none;
+              }
+              .field {
+                label {
+                  float: left;
+                  font-family: 'iCuracao-Regular';
+                  font-weight: 500;
+                  span {
+                    color: @content-text;
+                  }
+                }
+                .control {
+                  input, textarea {
+                    border-radius: 3px;
+                    padding: 22px 12px;
+                    border-color: #a7a7a7;
+                    font-size: 14px;
+                    color: #000;
+                    font-family: 'iCuracao-Regular';
+
+                    &::-webkit-input-placeholder { /* Chrome */
+                      font-family: 'iCuracao-Light';
+                      font-weight: 500;
+                      font-size: 14px;
+                      color: #666666;
+                    }
+                    &:-ms-input-placeholder { /* IE 10+ */
+                      font-family: 'iCuracao-Light';
+                      font-weight: 500;
+                      font-size: 14px;
+                      color: #666666;
+                    }
+                    &::-moz-placeholder { /* Firefox 19+ */
+                      opacity: 1;
+                      font-family: 'iCuracao-Light';
+                      font-weight: 500;
+                      font-size: 14px;
+                      color: #666666;
+                    }
+                    &:-moz-placeholder { /* Firefox 4 - 18 */
+                      opacity: 1;
+                      font-family: 'iCuracao-Light';
+                      font-weight: 500;
+                      font-size: 14px;
+                      color: #666666;
+                    }
+                  }
+
+                  textarea {
+                    padding:13px 12px;
+                    min-height: 140px;
+                  }
+                }
+              }
+            }
+            .actions-toolbar {
+              .primary {
+                width: 100%;
+                button{
+                  border-color: #84b90a;
+                  border-radius: 3px;
+                  padding: 13px 15px;
+                  background: #84b90a;
+                  &:hover {
+                    background: darken(@theme-color, 10%);
+                  }
+              		span{
+                    font-size: 15px;
+                    color: #ffffff;
+                    font-family: 'iCuracao-Light';
+              		}
+            		}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .contact-form-rightside {
+    display: inline-block;
+    width: 50%;
+    float: right;
+    padding: 0px 15px 0 80px;
+    @media all and (max-width: 767px) {
+      display: block;
+      float: none;
+      width: 100%;
+      text-align: center;
+      border-top: 1px solid #c2c2c2;
+      margin-top: 20px;
+      padding: 30px 0 0px!important;
+    }
+    @media all and (max-width: 991px) {
+        padding: 0px 15px 0 55px;
+    }
+    .contact__heading {
+      padding-bottom: 12px;
+    }
+    p{
+      padding: 0;
+      margin: 0;
+      font-family: 'iCuracao-Light';
+      font-size: 15px;
+      color: #333333;
+    }
+    .address-block {
+      margin-bottom: 28px;
+    }
+    .ph {
+      margin-bottom: 32px;
+    }
+    .share-img-block {
+      max-width: 260px;
+      margin: 30px 15px;
+      margin-left: 0;
+      overflow: hidden;
+      @media all and (max-width: 767px) {
+              max-width: 257px;
+              margin: 15px auto;
+      }
+    }
+    .img-wrapper {
+      display: inline-block;
+      float: left;
+      margin-right: 18px;
+      margin-bottom: 15px;
+      @media all and (max-width: 767px) {
+                  margin: 15px;
+      }
+      a{
+        border: none!important;
+        &:hover,&:focus{
+          border: none!important;
+        }
+      }
+    }
+  }
+
+  .fieldset > .field, .fieldset > .fields > .field {
+    margin: 0 0 20px;
+}
+
+.contact-bottom {
+  .contact__heading {
+    color: #000;
+    font-size: 20px;
+    padding-bottom: 0px;
+    display: inline-block;
+    margin-bottom: 24px;
+  }
+  .call-us {
+    margin-top: 45px;
+    padding: 30px 0;
+    border-top: 1px solid #c2c2c2;
+    border-bottom: 1px solid #c2c2c2;
+    text-align: center;
+
+    .call-content {
+      display: flex;
+      @media all and (max-width: 767px) {
+        display: block;
+      }
+      .one,.two {
+        @media all and (max-width: 767px) {
+          width: 50%!important;
+          display: inline-block;
+          float: left;
+          margin: 0;
+          margin-right: 0!important;
+        }
+        @media all and (max-width: 480px) {
+          width: 100%!important;
+          display: block;
+          float: none;
+          padding-bottom: 30px;
+        }
+      }
+      .three {
+          @media all and (max-width: 767px) {
+            width: 100%!important;
+            display: inline-block;
+            margin: 0;
+            margin-top: 30px;
+            margin-right: 0!important;
+          }
+          @media all and (max-width: 480px) {
+            width: 100%!important;
+            display: block;
+            float: none;
+            margin-top: 0px;
+          }
+      }
+      .call-blocks {
+          width: 33.33%;
+
+          @media all and (max-width: 991px) {
+              margin-right: 10px;
+          }
+          h6{
+            padding: 0;
+            margin: 0;
+            font-family: 'iCuracao-Light';
+            font-size: 16px;
+            padding-bottom: 15px;
+            color: #000000;
+            font-weight: 500;
+          }
+          h5{
+            padding: 0;
+            margin: 0;
+            font-family: 'iCuracao-Light';
+            font-size: 15px;
+            color: #333333;
+            font-weight: 500;
+          }
+      }
+    }
+  }
+  .service {
+    text-align: center;
+    padding: 30px 0;
+    border-bottom: 1px solid #c2c2c2;
+      .call-content  {
+        display: flex;
+        @media all and (max-width: 767px) {
+          display: block;
+        }
+        .call-blocks {
+          text-align: left;
+            width: 25%;
+            @media all and (max-width: 480px) {
+              display: block!important;
+              text-align: center!important;
+              width: 100%!important;
+              margin-bottom: 15px!important;
+            }
+            @media all and (max-width: 767px) {
+              display: inline-block;
+              width: 48%;
+              margin: 0;
+              text-align: left;
+              margin-bottom: 35px;
+              margin-right: 0!important;
+            }
+            @media all and (max-width: 991px) {
+                margin-right: 10px;
+            }
+            h6{
+              padding: 0;
+              margin: 0;
+              font-family: 'iCuracao-Light';
+              font-size: 16px;
+              padding-bottom: 15px;
+              color: #000000;
+              font-weight: 500;
+            }
+            a{
+              color: #84b90a;
+              border-bottom: solid 1px;
+              text-decoration: none;
+              font-size: 16px;
+              font-family: 'iCuracao-Light' !important;
+              word-break: break-all;
+              &:hover,&:focus{
+                border-bottom: solid 1px;
+                text-decoration: none;
+              }
+            }
+            h5{
+              padding: 0;
+              margin: 0;
+              font-family: 'iCuracao-Light';
+              font-size: 15px;
+              color: #333333;
+              font-weight: 500;
+              padding-top: 10px;
+            }
+        }
+      }
+  }
+  .bottom-info {
+    display: flex;
+    margin-top: 50px;
+    margin-bottom: 20px;
+
+    @media all and (max-width: 767px) {
+      display: block;
+      margin-top: 35px;
+      margin-bottom: 10px;
+    }
+    .left {
+        width: 50%;
+        @media all and (max-width: 767px) {
+          width: 100%;
+          text-align: center;
+        }
+        h1{
+          font-size: 18px;
+          color: #252525;
+          font-family: 'iCuracao-Regular';
+          margin-bottom: 5px;
+        }
+    }
+    .right {
+      width: 50%;
+      text-align: right;
+      @media all and (max-width: 767px) {
+        width: 100%;
+        text-align: center;
+      }
+      h1{
+        font-size: 20px;
+        color: #252525;
+        font-family: 'iCuracao-Regular';
+        margin-top: 20px;
+      }
+    }
+  }
+}
+
+}

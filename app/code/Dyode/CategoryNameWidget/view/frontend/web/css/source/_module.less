@@ -93,22 +93,22 @@
         }
       }
 
-      .pn-ProductNav_Contents ::-webkit-scrollbar {
+      .pn-ProductNav_Contents::-webkit-scrollbar {
         width: 8px;
       }
       /* Track */
-      .pn-ProductNav_Contents ::-webkit-scrollbar-track {
+      .pn-ProductNav_Contents::-webkit-scrollbar-track {
         box-shadow: inset 0 0 8px #ebebeb;
         background: #ebebeb;
         border-radius: 10px;
       }
       /* Handle */
-      .pn-ProductNav_Contents ::-webkit-scrollbar-thumb {
+      .pn-ProductNav_Contents::-webkit-scrollbar-thumb {
         background: #d0d0d0;
         border-radius: 10px;
       }
       /* Handle on hover */
-      .pn-ProductNav_Contents ::-webkit-scrollbar-thumb:hover {
+      .pn-ProductNav_Contents::-webkit-scrollbar-thumb:hover {
         background: #d0d0d0;
       }
     }
@@ -444,6 +444,8 @@
   .sale-page-container {
     @media all and (min-width: 768px){
       display: flex;
+      position: relative;
+      margin-bottom: 30px;
     }
     .message {
       @media all and (min-width:768px){
@@ -468,13 +470,21 @@
         margin: 0 0 15px;
       }
       @media all and(min-width: 768px) {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 80px;
         margin-right: 15px;
-        height:fit-content;
+        max-height: 500px;
+        //height:fit-content;
+        //margin-bottom: 30px;
       }
       @media all and(min-width: 900px) {
         margin-right: 30px;
       }
       .pn-ProductNav_Contents{
+        @media all and(min-width: 768px) {
+          max-height: 315px;
+        }
         .pn-ProductNav_Link{
           &.active{
             font-family: "iCuracao-Medium";
@@ -485,6 +495,7 @@
     }
 /*styling for the plp section on the sale page starts here*/
     .products.wrapper{
+      margin-bottom: 30px;
       @media all and (min-width:768px){
         width: ~"calc(100% - 250px)";
       }
@@ -539,7 +550,6 @@
             @media all and (max-width:767px) {
               left: 20px;
               top: 20px;
-              z-index: -1;
             }
             @media all and (max-width:479px) {
               font-size: 12px;
@@ -596,7 +606,8 @@
             }
 
             p.subtext {
-              font-family: 'iCuracao-Medium';
+              font-family: 'iCuracao-Light';
+              font-weight: 600;
               font-size: 16px;
               text-align: center;
               color:@black;

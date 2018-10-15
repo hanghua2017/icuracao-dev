@@ -11,6 +11,7 @@ use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\UrlFactory;
 
 class Index extends Action {
 
@@ -21,6 +22,9 @@ class Index extends Action {
   protected $_coreSession;
   protected $_messageManager;
   protected $_resultFactory;
+
+  /** @var \Magento\Framework\UrlFactory */
+  protected $urlModel;
   /**
    * Constructor
    *
@@ -31,13 +35,14 @@ class Index extends Action {
       Context $context,
       PageFactory $resultPageFactory,
       ResultFactory $resultFactory,
+      UrlFactory $urlFactory,
       \Dyode\ARWebservice\Helper\Data $helper,
       \Magento\Checkout\Model\Session $checkoutSession,
       \Magento\Framework\Session\SessionManagerInterface $coreSession,
       \Magento\Framework\Message\ManagerInterface $messageManager,
       \Magento\Customer\Model\Session $customerSession
   ) {
-      parent::__construct($context);
+      $this->urlModel = $urlFactory->create();      
       $this->_resultFactory = $resultFactory;
       $this->_resultPageFactory = $resultPageFactory;
       $this->_customerSession = $customerSession;
@@ -45,6 +50,8 @@ class Index extends Action {
       $this->_coreSession = $coreSession;
       $this->_messageManager = $messageManager;
       $this->_checkoutSession = $checkoutSession;
+      
+      parent::__construct($context);
   }
   /**
    * Execute view action
@@ -67,7 +74,10 @@ class Index extends Action {
             $this->_coreSession->setCurAcc($accountNumber);
             $this->_coreSession->setCustEmail($customerEmail);
             $this->_coreSession->setCustomerInfo($accountInfo);
-            $this->coreSession->setPass('test@123');
+            $this->_coreSession->setFirstname($accountInfo->F_NAME);
+            $this->_coreSession->setLastname($accountInfo->L_NAME);
+            $pass = $accountInfo->L_NAME.$accountInfo->ZIP;
+            $this->_coreSession->setPass($pass);
             $this->_coreSession->setPrevpage('checkout');
 
             if($accountInfo !== false){              

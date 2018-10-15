@@ -5,6 +5,12 @@ input, select {
   }
 }
 .checkout-cart-index{
+  .cart-empty {
+    margin: 25px 0 15px 0;
+    border-radius: 3px;
+    padding: 10px;
+    box-shadow: 0 2px 8px #d7d7d7;
+  }
   .columns .column.main {
      @media all and (max-width: 767px) {
       padding-bottom: 10px !important;
@@ -40,7 +46,7 @@ input, select {
           margin-bottom: 0;
           font-family: 'iCuracao-Medium';
           font-size: 16px;
-          font-weight: 500;
+          font-weight: normal;
           line-height: 38px;
           @media all and (max-width: 767px) {
             font-size: 14px;
@@ -52,7 +58,7 @@ input, select {
         span.bag-qty {
           font-family: 'iCuracao-Medium';
           font-size: 16px;
-          font-weight: 500;
+          font-weight: normal;
           padding-left: 5px;
           line-height: 38px;
           @media all and (max-width: 767px) {
@@ -134,7 +140,7 @@ input, select {
                       color: @content-light-grey;
                       background-color: #fff;
                       font-family: "iCuracao-Medium";
-                      font-weight: 500;
+                      font-weight: normal;
                       @media all and (min-width: 991px) {
                         font-size: 13px;
                       }
@@ -328,7 +334,7 @@ input, select {
                             a {
                               font-family: 'iCuracao-Medium';
                               font-size: 16px;
-                              font-weight: 500;
+                              font-weight: normal;
                               letter-spacing: 0.5px;
                               color: @content-dark-grey;
                               @media all and (max-width: 768px) {
@@ -431,10 +437,11 @@ input, select {
                         letter-spacing: 0px;
                         line-height: 18px;
                         font-family: 'iCuracao-Regular';
+                        font-weight: 500;
                         .price {
                           font-size: 16px;
                           font-family: 'iCuracao-Medium';
-                          font-weight: 500;
+                          font-weight: normal;
                           color: @content-dark-grey;
                           @media all and (max-width: 991px) {
                             font-size: 14px;
@@ -477,7 +484,7 @@ input, select {
                           color: @content-dark-grey;
                           font-family: 'iCuracao-Medium';
                           font-size: 14px;
-                          font-weight: 500;
+                          font-weight: normal;
                           @media all and (max-width: 767px) {
                             top: -15px;
                             font-size: 13px;
@@ -495,7 +502,7 @@ input, select {
                               color: @theme-color;
                               font-size: 13px;
                               font-family: 'iCuracao-Medium';
-                              font-weight: 500;
+                              font-weight: normal;
                               @media all and (max-width: 478px) {
                                 font-size: 12px;
                               }
@@ -539,8 +546,9 @@ input, select {
                     color: @estimated-grey;
                     font-size: 18px;
                     line-height: 23px;
-                    font-family: 'iCuracao-Regular';
-                    letter-spacing: 1px;
+                    font-family: 'iCuracao-Medium';
+                    font-weight: normal;
+                    letter-spacing: 0.5px;
                     @media all and (max-width: 599px) {
                       font-size: 14px;
                     }
@@ -556,7 +564,7 @@ input, select {
                   .continue, button.checkout {
                     color: white;
                     font-family: 'iCuracao-Medium';
-                    font-weight: 500;
+                    font-weight: normal;
                     font-size: 14px;
                     letter-spacing: 0.5px;
                     @media all and (max-width: 767px) {
@@ -624,6 +632,7 @@ input, select {
                 font-size: 14px;
                 color: @content-light-grey;
                 font-family: 'iCuracao-Regular';
+                font-weight: 500;
                 @media all and (max-width: 767px) {
                   font-size: 11px;
                 }
@@ -634,7 +643,9 @@ input, select {
                   font-size: 9px;
                 }
                 b {
-                  color: @content-dark-grey;
+                  color: #666;
+                  font-weight: 500;
+                  font-family: "iCuracao-regular";
                 }
                 img {
                   position: relative;
@@ -698,9 +709,12 @@ input, select {
           background-repeat: no-repeat;
           background-size: 20px;
           font-family: 'iCuracao-Medium';
-          font-weight: 500;
+          font-weight: normal;
           font-size: 14px;
           letter-spacing: 0.5px;
+          @media all and (max-width: 1024px) {
+          letter-spacing: 0;
+          }
         }
         background-color: @btn-orange;
         border: 1px solid @btn-orange;

@@ -18,7 +18,7 @@ use Dyode\ArOrderCancel\Api\OrderInterface;
 class Order implements OrderInterface
 {
     /**
-    * constructor function 
+    * constructor function
     */
     public function __construct(
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
@@ -27,8 +27,8 @@ class Order implements OrderInterface
         \Magento\Sales\Model\Order\Invoice $invoice,
         \Magento\Sales\Model\Service\CreditmemoService $creditmemoService,
         \Magento\Sales\Model\RefundOrder $refundOrder,
-    \Magento\Sales\Model\Order\Creditmemo\ItemCreationFactory $itemCreationFactory,
-    \Magento\Sales\Model\Order\CreditmemoDocumentFactory $creditmemoDocumentFactory
+        \Magento\Sales\Model\Order\Creditmemo\ItemCreationFactory $itemCreationFactory,
+        \Magento\Sales\Model\Order\CreditmemoDocumentFactory $creditmemoDocumentFactory
     ) {
         $this->orderRepository = $orderRepository;
         $this->order = $order;
@@ -44,18 +44,18 @@ class Order implements OrderInterface
      * Cancel order and add order comment
      *
      * @api
-     * @param string $orderId 
-     * @param string $sku 
-     * @param int $quantity 
+     * @param string $orderId
+     * @param string $sku
+     * @param int $quantity
      * @param bool $refundShipping
      * @param string $comment
-     * @param bool $wholeOrder 
+     * @param bool $wholeOrder
      * @return bool
      */
     public function cancelOrder($orderId, $sku, $quantity, $refundShipping = false, $comment, $wholeOrder ) {
 
-     $order = $this->order->loadByIncrementId($orderId);  
-     
+     $order = $this->order->loadByIncrementId($orderId);
+
      try {
             //load order details
             $order = $this->order->loadByIncrementId($orderId);
@@ -75,7 +75,7 @@ class Order implements OrderInterface
                 throw new \Exception('Order is already canceled');
             }
 
-            //unholds an order 
+            //unholds an order
             if($order->canUnhold()) {
                 $order->unhold()->save();
             }
@@ -97,7 +97,7 @@ class Order implements OrderInterface
                     $creditmemo = $this->creditmemoFactory->createByOrder($order);
                     // Don't set invoice if you want to do offline refund
                     $creditmemo->setInvoice($invoiceobj);
-                    $this->creditmemoService->refund($creditmemo); 
+                    $this->creditmemoService->refund($creditmemo);
                     $history = $order->addStatusHistoryComment($comment);
                     $history->setIsCustomerNotified(true); // for backwards compatibility
                     $order->save();
@@ -107,16 +107,16 @@ class Order implements OrderInterface
                 $item = $this->getItemId($order, $sku);
                 if($item){
                     if($order->canCancel()){
-                        $orderItems = $order->getAllItems();        
+                        $orderItems = $order->getAllItems();
                         foreach ($orderItems as $value) {
                            if($value['sku']==$sku){
                                 //quantity validation
                                 if($value['qty_ordered']>=$quantity){
                                     $value->setQtyCanceled($quantity);
-                                    $value->save(); 
+                                    $value->save();
                                 } else{
                                     throw new \Exception('Item quantity exceeded');
-                                }   
+                                }
                             }
                         }
                         //add order history
@@ -130,14 +130,14 @@ class Order implements OrderInterface
                         $history = $order->addStatusHistoryComment($comment);
                         $history->setIsCustomerNotified(true); // for backwards compatibility
                         $order->save();
-                    } 
+                    }
                 }else{
                     throw new \Exception('Order item not found');
-                }   
+                }
             }
         } catch (\Exception $ex) {}
 
-        if(!empty($ex)){
+        if(empty($ex)){
             $returnData['INFO'] = 'Order items have been cancelled';
             $returnData['OK'] = true;
         } else {
@@ -151,11 +151,11 @@ class Order implements OrderInterface
     /**
      * Cancel invoiced item
      *
-     * @param string $order 
-     * @param string $sku 
+     * @param string $order
+     * @param string $sku
      * @param string $qty
-     * @param string $refundShipping 
-     * @param string $comment       
+     * @param string $refundShipping
+     * @param string $comment
      */
     public function cancelInvoicedItem($order, $sku, $qty, $refundShipping, $comment){
         $invoices = $order->getInvoiceCollection();
@@ -180,12 +180,12 @@ class Order implements OrderInterface
             $creditmemo->setBaseShippingTaxAmount('0');
             $creditmemo->setShippingTaxAmount('0');
             $creditmemo->setGrandTotal($creditmemo->getGrandTotal() - $shippingAmount - $shippingTaxAmount);
-            $creditmemo->setBaseGrandTotal($creditmemo->getBaseGrandTotal() - $baseShippingTaxAmount - $baseShippingAmount); 
+            $creditmemo->setBaseGrandTotal($creditmemo->getBaseGrandTotal() - $baseShippingTaxAmount - $baseShippingAmount);
         }
-        
+
         // Don't set invoice if you want to do offline refund
         $creditmemo->setInvoice($invoiceobj);
-        $this->creditmemoService->refund($creditmemo); 
+        $this->creditmemoService->refund($creditmemo);
         //add order history
         $history = $order->addStatusHistoryComment($comment);
         $history->setIsCustomerNotified(true); // for backwards compatibility
@@ -195,16 +195,16 @@ class Order implements OrderInterface
     /**
      * get Id of the order item
      *
-     * @param string $order 
-     * @param string $sku 
+     * @param string $order
+     * @param string $sku
      */
     public function getItemId($order, $sku){
-        $orderItems = $order->getAllItems();        
+        $orderItems = $order->getAllItems();
         foreach ($orderItems as $value){
             if($value['sku'] == $sku){
                 return $value->getId();
-            }                       
+            }
         }
         return false;
-    }   
+    }
 }

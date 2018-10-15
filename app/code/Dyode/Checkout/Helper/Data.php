@@ -8,12 +8,19 @@
 namespace Dyode\Checkout\Helper;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
-{
+{ 
+    /**
+    *   @var \Magento\Framework\App\ResourceConnection
+    */
+    protected $_resourceConnection;
+
     protected $_locationRepo;
     public function __construct(
-      \Dyode\StoreLocator\Model\GeoCoordinateRepository $locationRepo
+      \Dyode\StoreLocator\Model\GeoCoordinateRepository $locationRepo,
+      \Magento\Framework\App\ResourceConnection $resourceConnection
     ){
         $this->_locationRepo = $locationRepo;
+        $this->_resourceConnection = $resourceConnection;
     }
   /* function for setting the price for quote item */
 
@@ -70,13 +77,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
   }
 
   public function checkMomentum($zipcode){
-    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-    $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
-    $connection = $resource->getConnection();
-    $momentumTable = $resource->getTableName('momentum_zipcodes');
+    $resourceConnection = $this->_resourceConnection->getConnection();
+    $momentumTable = $this->_resourceConnection->getTableName('momentum_zipcodes');
 
     $query ="SELECT * FROM ".$momentumTable."  WHERE zip_code = '".$zipcode."' ORDER BY id DESC LIMIT 1";
-    $result = $connection->query($query);
+    $result = $resourceConnection->query($query);
     if($result)
       return 1;
     else

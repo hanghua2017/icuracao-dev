@@ -430,6 +430,8 @@
                   transition: all 0.2s;
                   font-family: 'iCuracao-Regular';
                   font-size: 14px;
+                  width: 100%;
+                  word-wrap: break-word;
                   @media all and (min-width:768px){
                     float: left;
                     font-size: 12px;
@@ -639,7 +641,7 @@
                 background: transparent !important;
                 box-shadow: none !important;
                 border: none !important;
-                padding: 6px 10px;
+                padding: 5px 10px;
                 font-family: 'iCuracao-Medium';
                 @media all and (max-width: 767px) {
                   padding: 5px 10px 0;
@@ -918,7 +920,6 @@
                   @media all and (max-width:767px) {
                     left: 20px;
                     top: 20px;
-                    z-index: -1;
                   }
                   @media all and (max-width:479px) {
                     font-size: 12px;
@@ -966,6 +967,13 @@
                       @media all and (max-width:767px) {
                         font-size: 15px;
                       }
+                      sup{
+    										top:-3px;
+                        font-size: 75%;
+                        @media all and (max-width:767px){
+                          top:-3px;
+                        }
+    									}
                     }
 
                     .old-price {
@@ -1208,9 +1216,9 @@
 
             .emi-stat {
               position: absolute;
-              right: 20px;
+              right: 0px;
               top: 50px;
-              width: 170px;
+              width: 190px;
               font-size: 14px !important;
               @media all and (max-width:990px) {
                 position: static;
@@ -1305,6 +1313,13 @@
                         @media all and (max-width:767px){
                           font-size: 16px;
                         }
+                        sup{
+      										top:-4px;
+                          font-size: 75%;
+                          @media all and (max-width:767px){
+                            top:-3px;
+                          }
+      									}
                       }
 
                       .special-price-block{
@@ -1383,6 +1398,11 @@
 }
 
 .catalogsearch-result-index {
+  .message.notice{
+    .columns{
+    margin-top: 80px;
+    }
+  }
   ul.search__result-tabs {
     border-bottom: none;
   }

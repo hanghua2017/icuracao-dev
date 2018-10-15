@@ -10,6 +10,8 @@ use Magento\Framework\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\View\Element\Messages;
+use Magento\Framework\UrlFactory;
+use Magento\Customer\Model\CustomerFactory;
 
 class Codeverify extends Action
 {
@@ -22,10 +24,23 @@ class Codeverify extends Action
     protected $_customerSession;
     protected $_customerRepositoryInterface;
     protected $_addressFactory;
+    
      /**
      * @var \Magento\Framework\Message\ManagerInterface
      */
     protected $_messageManager;
+
+    /*
+    * @var \Magento\Framework\UrlFactory
+    */
+    protected $urlModel;
+
+     /**
+     * @var \Magento\Customer\Model\CustomerFactory
+     */
+    protected $customerFactory;
+
+
     /**
      * Constructor
      *
@@ -43,7 +58,9 @@ class Codeverify extends Action
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
         \Magento\Customer\Model\AddressFactory $addressFactory,
-        ResultFactory $resultFactory
+        ResultFactory $resultFactory,
+        UrlFactory $urlFactory,
+        CustomerFactory $customerFactory
     ) {
         parent::__construct($context);
         $this->_resultPageFactory = $resultPageFactory;
@@ -55,6 +72,9 @@ class Codeverify extends Action
         $this->_customerSession = $customerSession;
         $this->_customerRepositoryInterface = $customerRepositoryInterface;
         $this->_addressFactory = $addressFactory;
+        $this->urlModel = $urlFactory->create(); 
+        $this->customerFactory = $customerFactory;
+        $this->_storeManager = $storeManager;
     }
 
     /**
@@ -64,23 +84,29 @@ class Codeverify extends Action
      */
     public function execute()
     {
+        $customerId ='';
         $attempts = 0;
         $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
+        $websiteId = $this->_storeManager->getStore()->getWebsiteId();
+        $curacaoCustId = $this->_coreSession->getCurAcc();
+        $custEmail  = $this->_coreSession->getCustEmail();
+        $customerInfo  = $this->_coreSession->getCustomerInfo();
+        $password = $this->_coreSession->getPass();
 
         $postVariables = (array) $this->getRequest()->getPost();
         $this->_coreSession->start();
 
-        $attempts  =  $this->coreSession->getAttempts();
+        $attempts  =  $this->_coreSession->getAttempts();
         if($attempts == 10){
-            $this->coreSession->unsAttempts();    
+            $this->_coreSession->unsAttempts();    
         }
         if($attempts == '' ){
             $attempts = 1;
-            $this->coreSession->setAttempts($attempts);
+            $this->_coreSession->setAttempts($attempts);
         }
         if($attempts < 10){
             $attempts +=1;
-            $this->coreSession->setAttempts($attempts);   
+            $this->_coreSession->setAttempts($attempts);   
             if(!empty($postVariables)){
               //Get Customer Id
                 if($this->_customerSession->isLoggedIn()){
@@ -108,8 +134,8 @@ class Codeverify extends Action
                       $customer->setCustomAttribute('curacaocustid', $accountNumber);
                       $this->_customerRepositoryInterface->save($customer);
                     } else{
-                      $fName = $this->coreSession->getFname();                   
-                      $lName = $this->coreSession->getLastname();
+                      $fName = $this->_coreSession->getFname();                   
+                      $lName = $this->_coreSession->getLastname();
                       $path = $this->_coreSession->getPath();
                       // Instantiate object (this is the most important part)
                       $customer = $this->customerFactory->create();
@@ -174,8 +200,8 @@ class Codeverify extends Action
                       }
                       catch (Exception $e) {
                         $errorMessage = $e->getMessage();
-                    $this->messageManager->addErrorMessage('Code is wrong'.$errorMessage);
-                    $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
+                         $this->messageManager->addErrorMessage('Code is wrong'.$errorMessage);
+                        $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
                       }
                 }
             }           

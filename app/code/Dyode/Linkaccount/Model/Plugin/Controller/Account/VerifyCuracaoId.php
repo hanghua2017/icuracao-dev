@@ -122,8 +122,16 @@ class VerifyCuracaoId
                
                 //Verify Credit Account Infm
                 $accountInfo   =  $this->helper->getARCustomerInfoAction($curacaoId);
-                
-                if($accountInfo !== false){
+
+                if($accountInfo == false){
+                    // Personal Infm failed
+                    $this->messageManager->addErrorMessage('Please enter correct Curacao Id');
+                    $defaultUrl = $this->urlModel->getUrl('*/*/create', ['_secure' => true]);
+                    /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
+               
+                    return $resultRedirect->setUrl($defaultUrl);
+                }
+    
                     // Get Website ID
                     $websiteId  = $this->storeManager->getWebsite()->getWebsiteId();
                     $this->coreSession->setCurAcc($curacaoId);
@@ -137,12 +145,7 @@ class VerifyCuracaoId
                     $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
                         /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
                         return $resultRedirect->setUrl($defaultUrl);
-                }
-                $this->messageManager->addErrorMessage('Please enter correct Curacao Id');
-                $defaultUrl = $this->urlModel->getUrl('*/*/create', ['_secure' => true]);
-                /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
                
-                return $resultRedirect->setUrl($defaultUrl);
 
             } else {
                 //Crossed 5 attempts

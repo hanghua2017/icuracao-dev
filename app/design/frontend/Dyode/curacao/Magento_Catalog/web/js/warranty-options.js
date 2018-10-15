@@ -133,7 +133,6 @@ define([
             }
 
             messageBlock.html('');
-            needToRedirectInput.val('1');
             addToCartButton.trigger('submit');
             addToCartModal.modal('closeModal');
 
@@ -224,7 +223,6 @@ define([
             warrantyOptions.click(this.checkboxClickHandler.bind(this));
             addToCartButton.click(this.addToCartButtonClickHandler.bind(this));
             addToCartModalCheckboxes.click(this.checkboxModalClickHandler.bind(this));
-            $(document).on('ajax:addToCart', this.ajaxAddToCartSuccess.bind(this));
         },
 
         /**
@@ -303,22 +301,6 @@ define([
             addToCartModal.modal('openModal');
 
             return true;
-        },
-
-        /**
-         * Listen to ajax add-to-cart success action.
-         * If this action is fired, then that means the validations are completed and the produt is added to the
-         * cart. So we are checking here whether we want to redirect the user to the cart page or not. We want
-         * to redirect the user, if the product is added via warranty-addtocart-modal.
-         */
-        ajaxAddToCartSuccess: function () {
-            var needToRedirectInput = $('#addtocart_modal_need_to_redirect'),
-                goToCartHiddenLink = $('#warranty-go-to-cart-link')[0];
-
-            if (needToRedirectInput.val() == 1) {
-                needToRedirectInput.val('0');
-                goToCartHiddenLink.click();
-            }
         },
 
         /**

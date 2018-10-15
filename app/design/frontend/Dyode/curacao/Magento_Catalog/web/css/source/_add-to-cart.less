@@ -453,17 +453,19 @@
             .error {
               font-size: 1.3rem;
               position: relative;
-              color: #6f4400;
-              background: #fdf0d5;
+              color: #b30000;
+              background: white;
               margin: 0 0 10px;
               padding: 12px 20px 12px 45px;
+              border-radius:3px;
+              border:1px solid #ebebeb;
 
               &::before {
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
                 font-size: 24px;
                 line-height: 24px;
-                color: #c07600;
+                color: #b30000;
                 content: '\e602';
                 font-family: 'luma-icons';
                 margin: -12px 0 0;
@@ -484,6 +486,7 @@
           .top-section {
             clear: both;
             float: none;
+            position: relative;
 
             .modal-head {
               float: left;
@@ -524,6 +527,8 @@
             .modal-img {
               width: 15%;
               float: right;
+              position: absolute;
+              right: 0;
               @media all and (max-width: 990px) {
                 width: 15%;
               }
@@ -665,6 +670,7 @@
     clear: both;
     float: left;
     width: 100%;
+    margin-top: 25px;
 
     h3 {
       color: @color-orange;
@@ -724,7 +730,7 @@
         }
         /* On mouse-over, add a grey background color */
         .warranty-box:hover input ~ .checkmark {
-          background-color: #eee;
+        //  background-color: #eee;
         }
         /* Create a custom checkbox */
         .checkmark {
@@ -771,10 +777,6 @@
               -webkit-transform: rotate(40deg);
               -ms-transform: rotate(40deg);
               transform: rotate(40deg);
-              @media all and (max-width: 467px) {
-                left: 3px;
-                top: 1px;
-              }
             }
           }
         }

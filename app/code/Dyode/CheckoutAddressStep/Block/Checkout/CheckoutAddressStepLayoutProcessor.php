@@ -12,6 +12,9 @@
 namespace Dyode\CheckoutAddressStep\Block\Checkout;
 
 use Magento\Checkout\Block\Checkout\LayoutProcessorInterface;
+use Magento\Customer\Model\AttributeMetadataDataProvider;
+use Magento\Ui\Component\Form\AttributeMapper;
+use Magento\Checkout\Block\Checkout\AttributeMerger;
 
 /**
  * CheckoutAddressStepLayoutProcessor
@@ -27,6 +30,38 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
     protected $jsLayout;
 
     /**
+     * @var \Magento\Customer\Model\AttributeMetadataDataProvider
+     */
+    public $attributeMetadataDataProvider;
+
+    /**
+     * @var \Magento\Ui\Component\Form\AttributeMapper
+     */
+    public $attributeMapper;
+
+    /**
+     * @var \Magento\Checkout\Block\Checkout\AttributeMerger
+     */
+    public $merger;
+
+    /**
+     * CheckoutAddressStepLayoutProcessor constructor.
+     *
+     * @param \Magento\Customer\Model\AttributeMetadataDataProvider $attributeMetadataDataProvider
+     * @param \Magento\Ui\Component\Form\AttributeMapper $attributeMapper
+     * @param \Magento\Checkout\Block\Checkout\AttributeMerger $merger
+     */
+    public function __construct(
+        AttributeMetadataDataProvider $attributeMetadataDataProvider,
+        AttributeMapper $attributeMapper,
+        AttributeMerger $merger
+    ) {
+        $this->attributeMetadataDataProvider = $attributeMetadataDataProvider;
+        $this->attributeMapper = $attributeMapper;
+        $this->merger = $merger;
+    }
+
+    /**
      * Fills address-step with necessary children
      * It also removes address related children from shipping step.
      *
@@ -39,6 +74,7 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
 
         $jsLayout = $this->addCheckoutAddressStepChildren($jsLayout);
         $jsLayout = $this->removeShippingAddressFromShippingMethodStep($jsLayout);
+        $jsLayout = $this->addBillingAddressIntoAddressStep($jsLayout);
 
         return $jsLayout;
     }
@@ -55,13 +91,18 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
         ["shipping-step"]["children"]["shippingAddress"]["children"];
 
         foreach (array_keys($shippingAddressChildren) as $childrenName) {
-            if (!in_array($childrenName, $this->shippingStepChildrenNames())) {
+            if (!in_array($childrenName, $this->addressStepChildrenNames())) {
                 unset($shippingAddressChildren[$childrenName]);
             }
         }
 
         $jsLayout["components"]["checkout"]["children"]["steps"]["children"]["address-step"]["children"]
         ["shippingAddress"]["children"] = $shippingAddressChildren;
+
+        //remove "company" field from the shipping address
+        unset($jsLayout["components"]["checkout"]["children"]["steps"]["children"]["address-step"]["children"]
+            ["shippingAddress"]["children"]["shipping-address-fieldset"]["children"]["company"]
+        );
 
         return $jsLayout;
     }
@@ -78,7 +119,7 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
         ["shipping-step"]["children"]["shippingAddress"]["children"];
 
         foreach (array_keys($shippingAddressChildren) as $childrenName) {
-            if (in_array($childrenName, $this->shippingStepChildrenNames())) {
+            if (in_array($childrenName, $this->addressStepChildrenNames())) {
                 unset($shippingAddressChildren[$childrenName]);
             }
         }
@@ -89,12 +130,106 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
         return $jsLayout;
     }
 
+    public function addBillingAddressIntoAddressStep(array $jsLayout)
+    {
+        $jsLayout = $this->updateShippingAddressPlaceHolders($jsLayout);
+
+        $elements = $this->getAddressAttributes();
+
+        //remove "company" field from the billing address
+        unset($elements["company"]);
+
+        $jsLayout['components']['checkout']['children']['steps']['children']['address-step']['children']
+        ['shippingAddress']['children']['billing-address'] = $this->getCustomBillingAddressComponent($elements);
+
+        $jsLayout = $this->updateBillingAddressPlaceHolders($jsLayout);
+
+        return $jsLayout;
+    }
+
+    /**
+     * Prepare billing address field for shipping step for physical product
+     *
+     * @param $elements
+     * @return array
+     */
+    public function getCustomBillingAddressComponent($elements)
+    {
+        return [
+            'component'       => 'Magento_Checkout/js/view/billing-address',
+            'displayArea'     => 'billing-address',
+            'provider'        => 'checkoutProvider',
+            'deps'            => ['checkoutProvider'],
+            'dataScopePrefix' => 'billingAddress',
+            'config'          => [
+                'template' => 'Dyode_CheckoutAddressStep/billing-address',
+            ],
+            'children'        => [
+                'form-fields' => [
+                    'component'   => 'uiComponent',
+                    'displayArea' => 'additional-fieldsets',
+                    'children'    => $this->merger->merge(
+                        $elements,
+                        'checkoutProvider',
+                        'billingAddress',
+                        [
+                            'country_id' => [
+                                'sortOrder' => 115,
+                            ],
+                            'region'     => [
+                                'visible' => false,
+                            ],
+                            'region_id'  => [
+                                'component'  => 'Magento_Ui/js/form/element/region',
+                                'config'     => [
+                                    'template'    => 'ui/form/field',
+                                    'elementTmpl' => 'ui/form/element/select',
+                                    'customEntry' => 'billingAddress.region',
+                                ],
+                                'validation' => [
+                                    'required-entry' => true,
+                                ],
+                                'filterBy'   => [
+                                    'target' => '${ $.provider }:${ $.parentScope }.country_id',
+                                    'field'  => 'country_id',
+                                ],
+                            ],
+                            'postcode'   => [
+                                'component'  => 'Magento_Ui/js/form/element/post-code',
+                                'validation' => [
+                                    'required-entry' => true,
+                                ],
+                            ],
+                            'company'    => [
+                                'validation' => [
+                                    'min_text_length' => 0,
+                                ],
+                            ],
+                            'fax'        => [
+                                'validation' => [
+                                    'min_text_length' => 0,
+                                ],
+                            ],
+                            'telephone'  => [
+                                'config' => [
+                                    'tooltip' => [
+                                        'description' => __('For delivery questions.'),
+                                    ],
+                                ],
+                            ],
+                        ]
+                    ),
+                ],
+            ],
+        ];
+    }
+
     /**
      * Holds address related children names which are populating by default magento.
      *
      * @return array
      */
-    protected function shippingStepChildrenNames()
+    protected function addressStepChildrenNames()
     {
         return [
             'customer-email',
@@ -105,5 +240,86 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
             'shipping-address-fieldset',
             'billing-address',
         ];
+    }
+
+    /**
+     * Get all visible address attribute
+     *
+     * @return array
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    protected function getAddressAttributes()
+    {
+        /** @var \Magento\Eav\Api\Data\AttributeInterface[] $attributes */
+        $attributes = $this->attributeMetadataDataProvider->loadAttributesCollection(
+            'customer_address',
+            'customer_register_address'
+        );
+
+        $elements = [];
+        foreach ($attributes as $attribute) {
+            $code = $attribute->getAttributeCode();
+            if ($attribute->getIsUserDefined()) {
+                continue;
+            }
+            $elements[$code] = $this->attributeMapper->map($attribute);
+            if (isset($elements[$code]['label'])) {
+                $label = $elements[$code]['label'];
+                $elements[$code]['label'] = __($label);
+            }
+        }
+        return $elements;
+    }
+
+    /**
+     * Change place holders of shipping address form fields
+     *
+     * @param array $jsLayout
+     * @return array $jsLayout
+     */
+    protected function updateShippingAddressPlaceHolders(array $jsLayout)
+    {
+        //street 1
+        $jsLayout['components']['checkout']['children']['steps']['children']['address-step']
+        ['children']['shippingAddress']['children']['shipping-address-fieldset']['children']
+        ['street']['children'][0]['placeholder'] = __('Street Address, P.O Box, Company name');
+
+        //street 2
+        $jsLayout['components']['checkout']['children']['steps']['children']['address-step']
+        ['children']['shippingAddress']['children']['shipping-address-fieldset']['children']
+        ['street']['children'][1]['placeholder'] = __('Apartment, Suit, Building');
+
+        //telephone
+        $jsLayout["components"]["checkout"]["children"]["steps"]["children"]["address-step"]["children"]
+        ["shippingAddress"]["children"]["shipping-address-fieldset"]["children"]
+        ["telephone"]['placeholder'] = __('(123) 456 7890');
+
+        return $jsLayout;
+    }
+
+    /**
+     * Change placeholders of billing address form fields
+     *
+     * @param array $jsLayout
+     * @return array $jsLayout
+     */
+    protected function updateBillingAddressPlaceHolders(array $jsLayout)
+    {
+        //street 1
+        $jsLayout['components']['checkout']['children']['steps']['children']['address-step']['children']
+        ['shippingAddress']['children']['billing-address']['children']['form-fields']['children']
+        ['street']['children'][0]['placeholder'] = __('Street Address, P.O Box, Company name');
+
+        //street 2
+        $jsLayout['components']['checkout']['children']['steps']['children']['address-step']['children']
+        ['shippingAddress']['children']['billing-address']['children']['form-fields']['children']
+        ['street']['children'][1]['placeholder'] = __('Apartment, Suit, Building');
+
+        //telephone
+        $jsLayout['components']['checkout']['children']['steps']['children']['address-step']['children']
+        ['shippingAddress']['children']['billing-address']['children']['form-fields']['children']
+        ['telephone']['placeholder'] = __('(123) 456 7890');
+
+        return $jsLayout;
     }
 }

@@ -43,32 +43,32 @@ define([
          * @return {Object} checked
          */
         var getRadioCheckedStatusInfo = function (quoteItemData) {
-            var checked = {
-                shipToHome: false,
-                storePickup: false
-            };
+                var checked = {
+                    shipToHome: false,
+                    storePickup: false
+                };
 
-            _.each(quoteItemData, function (quoteItem) {
-                var deliveryInfo = _.findWhere(deliveryDataProvider.getDeliveryData(), {
-                    quoteItemId: parseInt(quoteItem.item_id)
+                _.each(quoteItemData, function (quoteItem) {
+                    var deliveryInfo = _.findWhere(deliveryDataProvider.getDeliveryData(), {
+                        quoteItemId: parseInt(quoteItem.item_id)
+                    });
+
+                    if (!deliveryInfo) {
+                        return checked;
+                    }
+
+                    if (deliveryInfo.deliveryType == 'ship_to_home') {
+                        checked.shipToHome = 'ship_to_home';
+                    } else {
+                        checked.storePickup = 'store_pickup';
+                    }
                 });
 
-                if (!deliveryInfo) {
-                    return checked;
-                }
+                return checked;
+            },
 
-                if (deliveryInfo.deliveryType == 'ship_to_home') {
-                    checked.shipToHome = 'ship_to_home';
-                } else {
-                    checked.storePickup = 'store_pickup';
-                }
-            });
-
-            return checked;
-        },
-
-        quoteItemData = window.checkoutConfig.quoteItemData,
-        radioDefaultCheckedInfo = getRadioCheckedStatusInfo(quoteItemData);
+            quoteItemData = window.checkoutConfig.quoteItemData,
+            radioDefaultCheckedInfo = getRadioCheckedStatusInfo(quoteItemData);
 
         /**
          * Delivery Step Component
@@ -112,7 +112,8 @@ define([
             /**
              * @inheritdoc
              */
-            navigate: function () {},
+            navigate: function () {
+            },
 
             /**
              * @inheritdoc
@@ -131,6 +132,11 @@ define([
                     products = ko.observableArray([]);
 
                 _.each(quoteItemData, function (quoteItem) {
+
+                    if (quoteItem.product_type === 'virtual') {
+                        return false;
+                    }
+
                     products.push({
 
                         //quote related data
@@ -140,8 +146,8 @@ define([
 
                         //product related data
                         productId: quoteItem.product_id,
-                        productName: quoteItem.product.name,
-                        productPrice: priceUtils.formatPrice(quoteItem.price),
+                        productName: self.htmlDecode(quoteItem.product.name),
+                        productPrice: priceUtils.formatPrice(quoteItem.price, quote.getPriceFormat()),
                         productImageUrl: quoteItem.thumbnail,
 
                         //forms related data
@@ -171,7 +177,8 @@ define([
                         //function associated
                         collectStores: self.selectLocation,
                         selectStore: self.selectProductStore,
-                        transformStoreModalHeading: self.transformStoreModalHeading
+                        transformStoreModalHeading: self.transformStoreModalHeading,
+                        updateDeliveryInfo: self.updateDeliveryInfo
                     });
                 });
 
@@ -206,22 +213,9 @@ define([
                 model.showZipForm(showZipForm);
                 model.showStoreSelectedSection(showStoreSelected);
 
-                //prepare new deliveryInfo based on the selection
-                var deliveryData = deliveryDataProvider.getDeliveryData(),
-                    deliveryInfo = _.extend(
-                        _.findWhere(deliveryData, {
-                            quoteItemId: parseInt(model.quoteItemId)
-                        }),
-                        {
-                            deliveryType: radioInputValue
-                        }
-                    );
-
-                //update delivery option observable array.
-                if (deliveryInfo) {
-                    var newDeliveryData = _.extend(deliveryData, [deliveryInfo]);
-                    deliveryDataProvider.deliveryData(newDeliveryData);
-                }
+                this.updateDeliveryInfo(model.quoteItemId, {
+                    deliveryType: radioInputValue
+                });
             },
 
             /**
@@ -309,8 +303,8 @@ define([
                         if (storeItem.id == storeData.storeId) {
                             selectedStoreInfo.title = storeItem.name;
                             selectedStoreInfo.image = storeItem.image;
-                            selectedStoreInfo.streetCity = storeItem.address.street + storeItem.address.city;
-                            selectedStoreInfo.zipCode = storeItem.address.zip;
+                            selectedStoreInfo.street = storeItem.address.street;
+                            selectedStoreInfo.cityAbbrZip = storeItem.address.city + ', ' + storeItem.address.region_code + ' ' + storeItem.address.zip;
                         }
 
                     });
@@ -327,6 +321,14 @@ define([
 
                 //Finally, closing the modal.
                 $('#' + this.storePickupModalId).modal('closeModal');
+
+                /**
+                 * Here "this" context is: quoteItemList::foreach
+                 * Updating delivery info with store picked.
+                 */
+                this.updateDeliveryInfo(this.quoteItemId, {
+                    storeId: parseInt(model.id)
+                });
             },
 
             /**
@@ -337,6 +339,45 @@ define([
             changeStore: function (model, event) {
                 //here "this" has component context
                 this.selectStore(model, event);
+            },
+
+            htmlDecode: function (htmlStr) {
+                var parser = new DOMParser;
+
+                htmlStr = htmlStr.replace('&Reg;', '&reg;');
+                var dom = parser.parseFromString(htmlStr,
+                    'text/html');
+
+                return dom.body.textContent;
+            },
+
+            /**
+             * Update delivery information based on the quote Item
+             *
+             * @param {String|Integer} quoteItemId
+             * @param {Object} updateDeliveryInfo
+             */
+            updateDeliveryInfo: function (quoteItemId, updateDeliveryInfo) {
+
+                //prepare new data against the quoteItem provided
+                var deliveryData = deliveryDataProvider.getDeliveryData(),
+                    deliveryInfo = _.extend(
+                        _.findWhere(deliveryData, {
+                            quoteItemId: parseInt(quoteItemId)
+                        }),
+                        updateDeliveryInfo
+                    );
+
+                //update delivery option observable array.
+                if (deliveryInfo) {
+                    var rejected = _.reject(deliveryData, function (quoteItem) {
+                            return quoteItem.quoteItemId == deliveryInfo.quoteItemId;
+                        }),
+
+                        newDeliveryData = _.union(rejected, [deliveryInfo]);
+
+                    deliveryDataProvider.deliveryData(newDeliveryData);
+                }
             },
 
             /**
@@ -376,7 +417,7 @@ define([
                     fullScreenLoader.startLoader();
 
                     $.ajax({
-                        url: Url.build('/storeloc/storelocator/getstores'),
+                        url: Url.build('/delivery-step/storelocator/getstores'),
                         type: 'POST',
                         dataType: 'json',
                         data: {
@@ -409,8 +450,8 @@ define([
                             };
                             _.extend(
                                 _.findWhere(viewModel.storeModals, {
-                                modalElement: viewModel.storePickupModalId
-                            }),
+                                    modalElement: viewModel.storePickupModalId
+                                }),
                                 existingModal
                             );
 
