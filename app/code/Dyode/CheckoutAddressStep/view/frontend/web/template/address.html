@@ -34,7 +34,7 @@
         <each args="getRegion('address-list')" render=""/>
         <if args="isCustomerLoggedIn() && isThereMoreThanTwoAddresses">
           <div class="viewall-button-outer">
-            <button class="shipping-address-view-all" data-bind="click: viewAllAddresses()"><span data-bind="text: viewButtonState"></span></button>
+            <button class="shipping-address-view-all" data-bind="click: viewAllAddresses"><span data-bind="text: viewButtonState"></span></button>
           </div>
         </if>
         <each args="getRegion('address-list-additional-addresses')" render=""/>
@@ -59,7 +59,7 @@
                                     <render args="shippingFormTemplate" />
                                     <!-- Shipping Address Save Button -->
                                     <div class="shipping-address-action">
-                                        <button class="action action-update save-address" data-bind="click: saveNewAddress">
+                                        <button class="action action-update save-address" data-bind="click: saveNewAddress" href="#view-all-button">
                                             <span data-bind="i18n: 'Save this address'"></span>
                                         </button>
                                     </div>
