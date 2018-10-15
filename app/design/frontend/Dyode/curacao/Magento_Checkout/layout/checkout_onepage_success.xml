@@ -24,7 +24,11 @@
             <block class="Magento\Framework\View\Element\Template" name="guarantee.block" template="Magento_Theme::guarantee-block.phtml" after="home.banner.container"/>
            <block class="Magento\Framework\View\Element\Template" name="you.may.also.like" template="Magento_Checkout::success-page-you-may-also-like.phtml" after="guarantee-block"/>
             <block class="Magento\Framework\View\Element\Template" name="banner.full" template="Magento_Checkout::success-page-banner-full.phtml" after="you.may.also.like"/>
-            <block class="Magento\Framework\View\Element\Template" name="category" template="Magento_Checkout::success-page-category-slider.phtml" after="banner.full"/>
+
+            <container htmlTag="div" htmlClass="category-slider-container">
+              <block class="Magento\Framework\View\Element\Template" name="category" template="Magento_Checkout::success-page-category-slider.phtml" after="banner.full"/>
+            </container>
+
             <block class="Magento\Framework\View\Element\Template" name="banner.double" template="Magento_Checkout::success-page-banner-double.phtml" after="category"/>
 
             <!-- <block class="Magento\Checkout\Block\Registration" name="checkout.registration" template="Magento_Checkout::registration.phtml" cacheable="false"/> -->
