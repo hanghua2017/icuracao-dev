@@ -1,0 +1,58 @@
+<?php
+/** @var \Mirasvit\Rma\Block\Rma\NewRma\Step2\Additional $block */
+?>
+<div class="block">
+    <div class="block-content">
+        <fieldset class="fieldset">
+
+            <div class="field">
+                <label class="label">
+                    <span><?= __('Additional Information') ?></span>
+                </label>
+                <div class="control">
+                    <textarea name="reply" id="reply" class="input-text"></textarea>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">
+                    <span><?= __('Attach files') ?></span>
+                </label>
+
+                <div class="control">
+                  <div class="curacao-file-upload">
+                    <div class="file-upload">
+                      <div class="file-select">
+                        <div class="file-select-button" id="fileName">Choose File</div>
+                        <div class="file-select-name" id="noFile">No file chosen</div>
+                        <?= $block->getFileInputHtml() ?>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <?= $block->getAttachmentLimits() ?>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<script type="text/javascript">
+    require([
+        'jquery'
+    ], function($) {$(function() {
+
+        $('#attachment').bind('change', function () {
+            var filename = $("#attachment").val();
+            if (/^\s*$/.test(filename)) {
+                $(".file-upload").removeClass('active');
+                $("#noFile").text("No file chosen...");
+            }
+            else {
+                $(".file-upload").addClass('active');
+                $("#noFile").text(filename.replace("C:\\fakepath\\", ""));
+            }
+        });
+
+    });
+    })
+</script>
