@@ -2669,8 +2669,14 @@ print {
     }
     .ves-megamenu .navigation .level0 .submenu .dynamic-items ul>.nav-item.current>a {
         border-color: transparent;
-        border-bottom-color: #ddd
+        border-bottom-color: #ddd;
+
     }
+     @media all and (min-width: 1025px) {
+        .ves-megamenu .navigation .level0 .submenu .dynamic-items ul>.nav-item.current>a {
+            padding: 3px 20px 3px 15px;
+        }
+      }
     .ves-megamenu .navigation .level0.submenu-left,
     .ves-megamenu .navigation .level0.submenu-right {
         position: static
@@ -3307,6 +3313,12 @@ print {
   overflow: hidden;
   speak: none;
   text-align: center;
+}
+@media all and (min-width:1025px){
+  .ves-megamenu .navigation .nav-item.dynamic-active > a:after{
+    right: 5px;
+    z-index: 700;
+  }
 }
 .ves-megamenu .navigation .nav-item.dynamic-active.no-subcategory > a:after{
   content:'';
