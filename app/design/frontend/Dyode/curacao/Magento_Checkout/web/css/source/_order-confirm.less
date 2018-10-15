@@ -1,8 +1,52 @@
 // Order Confirmation Pahe styling
 
+
+.checkout-onepage-success .page-wrapper .page-footer {
+      padding-top: 40px!important;
+}
 .order-confirmation-container {
   max-width: 1200px;
   margin: 0 auto;
+
+  .product-image-container {
+      width: 100px!important;
+      @media all and (max-width: 479px)
+      {
+          width: 60px !important;
+      }
+      .product-image-wrapper{
+            padding-bottom: 100px!important;
+      }
+  }
+
+  .product-info {
+    .pdt-price {
+      margin-bottom: 0px;
+      font-family: "iCuracao-Regular";
+      font-size: 16px;
+      color: #d7102b;
+      margin: 0px 0 10px;
+      line-height: 1.25;
+      font-weight: 600;
+    }
+  }
+  .status-details {
+    h3 {
+      font-family: "iCuracao-Medium";
+      font-weight: normal;
+      font-size: 16px;
+      color: #000000;
+      margin: 30px 0 10px;
+      line-height: 1.25;
+    }
+    p{
+      span {
+        font-family: "iCuracao-Medium";
+        font-weight: normal;
+        color: #000000;
+      }
+    }
+  }
 
 
   h1,
@@ -18,18 +62,29 @@
 
         img {
           width: 143px;
+          margin: 80px 0 25px;
           @media screen and (max-width: 600px) {
             width: 100px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+          }
+          @media screen and (max-width: 479px) {
+                width: 50px;
           }
         }
 
+
         h1.success-message {
+          font-weight: normal;
           font-family: 'iCuracao-Medium';
-          color: #4b9b3e;
-          font-size: 26px;
-          margin-top: 0;
+          color: #84b90a;
+          font-size: 30px;
+          margin: 0;
           @media screen and (max-width: 600px) {
             font-size: 20px;
+          }
+          @media screen and (max-width: 479px) {
+            font-size: 18px;
           }
         }
       }
@@ -38,16 +93,17 @@
         text-align: center;
 
         h3 {
-          font-family: 'iCuracao-Regular';
+          font-family: 'iCuracao-Medium';
           color: #000;
           font-size: 16px;
           @media screen and (max-width: 600px) {
             font-size: 14px;
+            margin-top: 15px;
           }
         }
 
         p {
-          font-family: 'iCuracao-Light';
+          font-family: 'iCuracao-Regular';
           margin: 10px 0;
           font-size: 14px;
           @media screen and (max-width: 600px) {
@@ -64,17 +120,21 @@
         max-width: 700px;
         margin: 30px auto 20px;
         padding: 30px;
+        padding-top: 10px;
+        padding-bottom: 20px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
         @media screen and (max-width: 600px) {
           margin: 15px auto 10px;
           padding: 15px;
+          overflow: auto;
         }
 
         .purchase-details {
           border-bottom: 1px solid #d2d2d2;
           padding-bottom: 30px;
           @media screen and (max-width: 600px) {
-            padding-bottom: 15px;
+            padding-bottom: 0;
+            border-bottom: 0;
           }
         }
 
@@ -83,36 +143,49 @@
           display: flex;
           justify-content: space-between;
           @media screen and (max-width: 600px) {
-            flex-direction: column;
+            display: block;
           }
           //common title styling
           .block {
             flex-basis: 33.333%;
             margin-bottom: 0;
             @media screen and (max-width: 600px) {
-              flex-basis: auto;
-              margin-bottom: 20px;
+              width: 50%;
+              float: left;
+            }
+            &.payment-method-outer
+            {
+              @media screen and (max-width: 600px) {
+                width: 100%;
+                float: left;
+                margin-top: 15px;
+              }
             }
 
             .block-title {
               h2 {
-                font-family: 'iCuracao-Regular';
+                font-family: 'iCuracao-Medium';
                 font-size: 18px;
                 color: black;
                 margin: 20px 0 10px;
                 @media screen and (max-width: 600px) {
                   font-size: 16px;
+                  margin-top: 0;
                 }
               }
             }
 
             address {
-              font-family: 'iCuracao-Light';
+              font-family: 'iCuracao-Regular';
               color: #818080;
               font-style: normal;
               font-size: 12px;
               @media screen and (max-width: 600px) {
                 font-size: 12px;
+              }
+              a
+              {
+                color: #818080;
               }
             }
 
@@ -122,7 +195,7 @@
               }
 
               span {
-                font-family: 'iCuracao-Light';
+                font-family: 'iCuracao-Regular';
                 color: #818080;
                 font-size: 12px;
               }
@@ -133,13 +206,29 @@
         .order-details {
           .block.ord-det {
             flex-basis: auto;
+
+          }
+          .block-title
+          {
+            h2
+            {
+              margin-top: 14px !important;
+            }
+          }
+          .delivery-date-outer
+          {
+            @media all and (max-width: 600px)
+            {
+              clear: both;
+              width: 100%;
+            }
           }
 
           .block.delivery {
             flex-basis: 33.3333%;
 
             .est-date {
-              font-family: 'iCuracao-Light';
+              font-family: 'iCuracao-Regular';
               font-size: 14px;
 
               .date {
@@ -166,6 +255,10 @@
 
               .product-info {
                 padding-left: 15px;
+                @media all and (max-width: 479px)
+                {
+                  width: 200px;
+                }
 
                 .pdt-name {
                   h3 {
@@ -173,6 +266,10 @@
                     font-family: 'iCuracao-Regular';
                     color: #000;
                     font-size: 14px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    width: 90%;
+                    white-space: nowrap;
                   }
                 }
 
@@ -202,9 +299,10 @@
     //continue shopping button styling
     .actions-toolbar {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
       @media screen and (max-width: 600px) {
         margin-top: 20px;
+        margin-bottom: 20px;
       }
 
       .primary {
@@ -212,17 +310,18 @@
 
         a.continue {
           border: none;
-          border-radius: 0;
           background-color: #ef4800;
           color: #fff;
           font-family: 'iCuracao-Medium';
-          font-size: 15px;
-          text-transform: uppercase;
-          padding: 10px 25px;
+          font-size: 14px;
+          text-transform: capitalize;
+          border-radius: 3px;
+          padding: 10px 40px;
           margin-right: 0;
-          @media screen and (max-width: 600px) {
-            font-size: 13px;
-            padding: 10px 20px;
+          @media all and (max-width: 600px)
+          {
+            width: 200px;
+            padding: 10px 0px;
           }
         }
       }
@@ -230,122 +329,161 @@
   }
 }
 //Price beat and interest beat block styling
-
-.guarantee-block {
-  display: flex;
-  margin-bottom: 30px;
-
-  .left-block,
-  .right-block {
-    width: 50%;
+.guarantee-block-container {
+  .guarantee-block {
     display: flex;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
-    padding: 10px;
-    border: 1px solid #d8d8d8;
-
-    .image {
-      width: 45%;
-      text-align: right;
-      margin-right: 15px;
-
-      img {
-        max-width: 100px;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        @media screen and (max-width: 768px) {
-          max-width: 80px;
-        }
-        @media screen and (max-width: 480px) {
-          max-width: 100%;
-          height: auto;
-        }
-        @media screen and (max-width: 400px) {
-          height: 100%;
-        }
-      }
-      @media screen and (max-width: 890px) {
-        width: 30%;
-      }
-      @media screen and (max-width: 768px) {
-        text-align: left;
-        margin-right: 5px;
-        width: 100px;
-      }
+    margin:0 0 30px 0;
+    @media all and (max-width:767px){
+      margin:0 0 20px 0;
     }
 
-    .details {
-      width: 55%;
-      @media screen and (max-width: 890px) {
-        width: 70%;
-      }
-      @media screen and (max-width: 768px) {
-        width: 85%;
-      }
-      @media screen and (max-width: 400px) {
-        padding-top: 5px;
-      }
-
-      h2 {
-        font-family: 'iCuracao-Medium';
-        font-size: 20px;
-        margin-bottom: 2px;
-        margin-top: 3px;
-        @media screen and (max-width: 991px) {
-          font-size: 18px;
-        }
-        @media screen and (max-width: 768px) {
-          font-size: 17px;
-        }
-        @media screen and (max-width: 480px) {
-          font-size: 14px;
-        }
-      }
-
-      h3 {
-        font-family: 'iCuracao-Regular';
-        font-size: 14px;
-        margin-bottom: 7px;
-        margin-top: 0;
-        @media screen and (max-width: 991px) {
-          font-size: 13px;
-        }
-        @media screen and (max-width: 768px) {
-          font-size: 12px;
-          margin-bottom: 4px;
-        }
-        @media screen and (max-width: 480px) {
-          font-size: 10px;
-        }
-      }
-
-      p {
-        font-family: 'iCuracao-Light';
-        font-size: 12px;
-        margin-bottom: 0;
-        margin-top: 0;
-        text-transform: uppercase;
-        @media screen and (max-width: 768px) {
-          font-size: 11px;
-        }
-        @media screen and (max-width: 480px) {
-          font-size: 7px;
-        }
-      }
-    }
-    @media screen and (max-width: 400px) {
+    .wrapper {
+      max-width: 385px;
+      margin: 0 auto;
       width: 100%;
+      @media all and (max-width:850px){
+        display: flex;
+      }
+      @media all and (max-width:599px){
+        display: block;
+      }
     }
-  }
 
-  .left-block {
-    margin-right: 15px;
-    @media screen and (max-width: 400px) {
-      margin-right: 0;
-      margin-bottom: 15px;
+    .left-block,
+    .right-block {
+      width: 50%;
+      display: flex;
+      box-shadow: 0 0 10px @box-shadow-color;
+      padding: 10px;
+      box-sizing: border-box;
+      @media all and (max-width:599px){
+        flex-direction: column;
+      }
+
+      .image {
+        text-align: right;
+        margin-right: 15px;
+        display: inline-block;
+        float: left;
+        @media all and (max-width:599px){
+          margin-right:10px;
+        }
+
+        img {
+          max-width: 100px;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          @media screen and (max-width: 840px) {
+            max-width: 80px;
+          }
+          @media screen and (max-width: 767px) {
+            max-width: 80px;
+          }
+          @media screen and (max-width: 599px) {
+            max-width: 75px;
+            height: auto;
+          }
+        }
+        @media screen and (max-width: 767px) {
+          text-align: left;
+          margin-right: 5px;
+          width: 100px;
+        }
+        @media screen and (max-width: 599px) {
+          width: 100%;
+          margin-right: 0;
+          text-align: center;
+        }
+      }
+
+      .details {
+        margin-top:8px;
+        display: inline-block;
+        float: left;
+        @media all and (max-width:1200px){
+
+        }
+        @media screen and (max-width: 991px) {
+          margin-top:4px;
+        }
+        @media screen and (max-width: 890px) {
+          margin-top:10px;
+        }
+        @media screen and (max-width: 767px) {
+
+          margin-top:6px;
+        }
+        @media screen and (max-width: 639px) {
+          margin-top:0px;
+        }
+        @media all and (max-width:599px){
+          width:100%;
+          text-align: center;
+        }
+
+        h2 {
+          font-family: 'iCuracao-Medium';
+          font-size: 20px;
+          font-weight: normal;
+          margin-bottom: 3px;
+          margin-top: 3px;
+          color: @black;
+          @media screen and (max-width: 991px) {
+            font-size: 18px;
+          }
+          @media screen and (max-width: 767px) {
+            font-size: 17px;
+          }
+          @media screen and (max-width: 599px) {
+            font-size: 14px;
+          }
+        }
+
+        h3 {
+          font-family: 'iCuracao-Regular';
+          font-size: 14px;
+          font-weight: normal;
+          margin-bottom: 5px;
+          margin-top: 0;
+          color: @black;
+          @media screen and (max-width: 991px) {
+            font-size: 13px;
+          }
+          @media screen and (max-width: 767px) {
+            font-size: 12px;
+            margin-bottom: 3px;
+          }
+          @media screen and (max-width: 599px) {
+            font-size: 12px;
+          }
+        }
+
+        p {
+          font-family: 'iCuracao-Regular';
+          font-size: 12px;
+          margin-bottom: 0;
+          margin-top: 0;
+          text-transform: uppercase;
+          color: #333;
+          @media screen and (max-width: 991px) {
+            //
+          }
+          @media screen and (max-width: 767px) {
+            font-size: 11px;
+          }
+          @media screen and (max-width: 599px) {
+            font-size: 11px;
+          }
+        }
+      }
     }
-  }
-  @media screen and (max-width: 400px) {
-    display: block;
+
+    .left-block {
+      margin-right: 15px;
+      @media all and (max-width:767px){
+        margin-right:10px;
+      }
+    }
   }
 }
