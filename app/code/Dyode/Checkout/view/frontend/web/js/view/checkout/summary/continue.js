@@ -64,11 +64,11 @@ define([
                 authorizeBtnComponent = registry.get(this.authorizePlaceOrderName);
 
             if (authorizeBtnComponent) {
-                authorizeBtnComponent.placeOrder();
+                return authorizeBtnComponent.placeOrder();
             }
 
             if (checkMoBtnComponent) {
-                checkMoBtnComponent.placeOrder();
+                return checkMoBtnComponent.placeOrder();
             }
 
             return true;
