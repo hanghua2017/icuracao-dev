@@ -55,9 +55,9 @@ class GenerateInvoice
         $logger->info("Cron Works");
 
         $collection = $this->_orderCollectionFactory->create()->addAttributeToSelect('*');
-        $collection->addFieldToFilter('status', 'review_order');
+        $collection->addFieldToFilter('status', 'pending');
         foreach ($collection as $salesOrder) {
-            $this->_arInvoice->createInvoice($salesOrder->getId());
+            $this->_arInvoiceModel->createInvoice($salesOrder->getId());
             $this->_arInvoiceHelper->linkAppleCare($salesOrder);
         }
     }

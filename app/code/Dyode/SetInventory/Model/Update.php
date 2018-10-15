@@ -16,28 +16,49 @@ class Update extends \Magento\Framework\View\Element\Template {
 	\Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,  
 	\Dyode\SetInventory\Helper\Data $helper,
 	\Dyode\InventoryLocation\Model\LocationFactory  $inventoryLocation,
-	\Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry, 
+	\Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry,
+	\Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
+    \Dyode\ARWebservice\Helper\Data $apiHelper,
 	array $data = []
 	) {
 	    $this->_productCollectionFactory = $productCollectionFactory;  
 	    $this->helper = $helper;
 	    $this->inventorylocation = $inventoryLocation;
+	    $this->apiHelper = $apiHelper;
+        $this->auditLog = $auditLog;
 	    $this->_stockRegistry = $stockRegistry;
 	    parent::__construct($context, $data);
 	}
 
 	public function setInventoryUpdate(){
-		$domesticLocation = '06';
-		$nonDomesticLocations ='16,33,22,01';
-		$this->updateInventory($domesticLocation);
-		$this->updateInventory($nonDomesticLocations);
+		try {
+			$clientIP = $_SERVER['REMOTE_ADDR'];
+			$domesticLocation = '06';
+			$nonDomesticLocations ='16,33,22,01';
+			$this->updateInventory($domesticLocation, 'domestic');
+			$this->updateInventory($nonDomesticLocations, 'nondomestic');
+	        $this->auditLog->saveAuditLog([
+	            'user_id' => 'admin',
+	            'action' => 'set inventory update',
+	            'description' => 'inventory updated successfully',
+	            'client_ip' => $clientIP,
+	            'module_name' => 'dyode_setinventory'
+	        ]);
+	    } catch (\Exception $exception) {
+	        $this->auditLog->saveAuditLog([
+	            'user_id' => 'admin',
+	            'action' => 'set inventory update',
+	            'description' => $exception->getMessage(),
+	            'client_ip' => $clientIP,
+	            'module_name' => 'dyode_setinventory'
+	        ]);
+	    }
+		
 	}
 
-	public function updateInventory($location) {
-		$products = $this->getProducts();
+	public function updateInventory($location, $type) {
+		$products = $this->getProducts($type);
 		foreach ($products as $product) {
-			// var_dump($product->getSku());exit;
-			//$this->helper->getSetItems($product->getID());
 			$ARsetDescription = $this->helper->getSetItems(utf8_encode($product->getSku()));
 			if ($ARsetDescription != 'NULL')
             {
@@ -90,29 +111,50 @@ class Update extends \Magento\Framework\View\Element\Template {
 			            $setQuantity = 0;
 			        $AR_items_inventory = json_encode($AR_items_inventory_array, true);
 			        $locationInventory = $this->inventorylocation->create();
-					$locationInventory->addData([
+			        $categoryModel = $locationInventory->load($product->getID(), 'productid');
+					$data = $categoryModel->getData();
+					if($data){
+						$model = $locationInventory->load($data['id']);
+        				$model->setArinventory($AR_items_inventory);
+        				$model->setProductid($product->getID());
+        				$model->setProductsku($product->getSku());
+        				$saveData = $model->save();	
+					} else {
+						$locationInventory->addData([
 						"productid" => $product->getID(),
 						"productsku" => $product->getSku(),
-						"isset" => 0,
+						"isset" => 1,
 						"arinventory" => $AR_items_inventory
 						]);
-			        $saveData = $locationInventory->save();
+						$saveData = $locationInventory->save();
+					}
 			        $stockItem=$this->_stockRegistry->getStockItem($product->getID());
 					$stockItem->setQty($setQuantity);
 					$stockItem->setIsInStock((bool)$setQuantity); 
 					$stockItem->save();	
+					unset($inventoryLevel);
+					unset($AR_items_inventory_array);
+					unset($AR_items_inventory);
 			    }
 			}
 	    } 
 	}	
 
-	public function getProducts() {
+	public function getProducts($type) {
 	    $productCollection = $this->_productCollectionFactory->create();
-        $productCollection->addAttributeToSelect('*')
-                          ->addAttributeToFilter('inventorylookup', 14)
+	    if($type == 'domestic'){
+        	$productCollection->addAttributeToSelect('*')
+                          ->addAttributeToFilter('inventorylookup', 500)
 					      ->addAttributeToFilter('set', 1)
 					      ->addAttributeToFilter('shprate','Domestic')
-					      ->addAttributeToFilter('vendorId', 2139);                
+					      ->addAttributeToFilter('vendorId', 2139);    
+		} else {
+			$productCollection->addAttributeToSelect('*')
+                          ->addAttributeToFilter('inventorylookup', 500)
+					      ->addAttributeToFilter('set', 1)
+					      ->addAttributeToFilter('shprate',['nin' => array('Domestic')])
+					      ->addAttributeToFilter('vendorId', 2139); 
+		}		                  
         return $productCollection;
 	}
 }

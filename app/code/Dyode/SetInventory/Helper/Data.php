@@ -5,17 +5,25 @@ namespace Dyode\SetInventory\Helper;
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
 
+	public function __construct(
+	\Dyode\ARWebservice\Helper\Data $apiHelper 
+	) {
+	    $this->apiHelper = $apiHelper;
+	}
+
 	public function getSetItems($productSKU) {
+		$apiKey = $this->apiHelper->getApiKey();
+        $apiUrl = $this->apiHelper->getApiUrl();
 		$httpHeaders = new \Zend\Http\Headers();
 		$httpHeaders->addHeaders([
 		   'Accept' => 'application/json',
 		   'Content-Type' => 'application/json',
-		   'X-Api-Key' => 'TEST-WNNxLUjBxA78J7s'
+		   'X-Api-Key' => $apiKey
 		]);
 
 		$request = new \Zend\Http\Request();
 		$request->setHeaders($httpHeaders);
-		$request->setUri("https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/getSetItems?item_id=$productSKU");
+		$request->setUri($apiUrl."getSetItems?item_id=$productSKU");
 		$request->setMethod(\Zend\Http\Request::METHOD_GET);
 
 		$client = new \Zend\Http\Client();
@@ -33,16 +41,18 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 	}
 
 	public function inventoryLevel($productSKU,$storeLocations) {
+		$apiKey = $this->apiHelper->getApiKey();
+        $apiUrl = $this->apiHelper->getApiUrl();
 		$httpHeaders = new \Zend\Http\Headers();
 		$httpHeaders->addHeaders([
 		   'Accept' => 'application/json',
 		   'Content-Type' => 'application/json',
-		   'X-Api-Key' => 'TEST-WNNxLUjBxA78J7s'
+		   'X-Api-Key' => $apiKey
 		]);
 
 		$request = new \Zend\Http\Request();
 		$request->setHeaders($httpHeaders);
-		$request->setUri("https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/InventoryLevel?item_id=$productSKU&locations=$storeLocations");
+		$request->setUri($apiUrl."InventoryLevel?item_id=$productSKU&locations=$storeLocations");
 		$request->setMethod(\Zend\Http\Request::METHOD_GET);
 
 		$client = new \Zend\Http\Client();

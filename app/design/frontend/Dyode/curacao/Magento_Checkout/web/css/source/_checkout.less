@@ -1566,6 +1566,75 @@ input[type="radio"] {
           margin-bottom: 20px;
           margin-top: 10px;
         }
+        #checkout-step-title
+        {
+          .step-title
+          {
+            font-size: 18px;
+            padding-bottom: 15px;
+            font-family: "iCuracao-medium";
+          }
+          .add-shipping-address,#add-billing-address
+          {
+            div[data-role="collapsible"]
+            {
+              div[data-role="title"]
+              {
+                padding: 10px;
+                padding-left: 0;
+                padding-bottom: 0;
+                font-size: 18px;
+                color: #333;
+                font-family: "iCuracao-medium";
+                @media all and (max-width: 767px)
+                {
+                  font-size: 16px;
+
+                }
+                &::after
+                {
+                  content: '\002B';
+                  color: #333;
+                  font-weight: bold;
+                  float: right;
+                  font-size: 18px;
+                  margin-left: 5px;
+                  margin-top: 2px;
+                }
+              }
+              &.active
+              {
+                div[data-role="title"]
+                {
+                  &::after
+                  {
+                    content: "\2212";
+                  }
+                }
+              }
+            }
+
+          }
+          #add-billing-address
+          {
+            padding-bottom: 10px;
+          }
+          .add-shipping-address
+          {
+            margin-top: 20px;
+            @media all and (max-width: 479px)
+            {
+              margin-top: 5px;
+            }
+            div[data-role="content"]
+            {
+              .choice
+              {
+                display: none;
+              }
+            }
+          }
+        }
         /*styling for the Checkout Delivery Method Tab starts here*/
         .delivery-method-product-listing{
           .delivery-method-product-item-container{
@@ -1724,6 +1793,50 @@ input[type="radio"] {
         /*styling for the edit address section starts here*/
         .step-content{
           margin: 0;
+          .addresses
+          {
+            .shipping-address-items
+            {
+              height: 290px;
+              overflow: hidden;
+              &.open
+              {
+                height: auto;
+              }
+              @media all and (max-width: 991px)
+              {
+                height: 265px;
+              }
+              .edit-address-link
+              {
+                display: none !important;
+              }
+            }
+          }
+          .viewall-button-outer
+          {
+            text-align: center;
+            width: 84%;
+            padding-top: 20px;
+            @media all and (max-width: 767px)
+            {
+              padding-top: 0;
+              text-align: left;
+              margin-top: 10px;
+            }
+            .shipping-address-view-all
+            {
+              border: none;
+              background: none;
+              box-shadow: none;
+              color: @link-blue-color;
+              font-size: 14px;
+              @media all and (max-width: 479px)
+              {
+                padding-left: 0;
+              }
+            }
+          }
           .action-show-popup, .action-select-shipping-item{
           padding: 7px 12px;
 	            @media only screen and (min-width: 991px){
@@ -1751,10 +1864,12 @@ input[type="radio"] {
               -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
               box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
               line-height: 30px;
+              border-radius: 3px;
               @media only screen and (min-width: 991px){
-                min-height: 310px;
+                min-height: 280px;
 	              margin-right: 30px;
                 width: 40%;
+                margin-left: 1px;
 	            }
               &:before{
                 background: @white;
