@@ -393,6 +393,7 @@
 
 								&:before {
 									color: @green-color;
+									transition: all ease 0.5s;
 									@media all and (max-width:767px){
 										color: @search-green-color;
 									}
@@ -803,6 +804,12 @@
 										height:35px;
 										transition: all ease 0.5s;
 									}
+									&:before{
+										@media all and (max-width:1024px){
+											line-height:35px;
+											transition: all ease 0.5s;
+										}
+									}
 								}
 							}
 						}
@@ -1202,7 +1209,7 @@ html[lang="es"]
 		header.page-header {
 			.header.content {
 				.customer-signin {
-					margin: 10px 10px 0 20px;
+					// margin: 10px 10px 0 20px;
 					.hello-text {
 						left: 34px;
 					}

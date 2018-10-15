@@ -83,7 +83,7 @@ define([
         isCustomerLoggedIn: customer.isLoggedIn,
         isFormPopUpVisible: formPopUpState.isVisible,
         isFormInline: addressList().length === 0,
-        isThereMoreThanTwoAddresses: addressList().length>2,
+        isThereMoreThanTwoAddresses: ko.observable(addressList().length>2),
         isNewAddressAdded: ko.observable(false),
         saveInAddressBook: 1,
         quoteIsVirtual: quote.isVirtual(),
@@ -279,7 +279,7 @@ define([
         saveNewAddress: function () {
             var addressData,
                 newShippingAddress;
-
+            var self = this;
             this.source.set('params.invalid', false);
             this.triggerShippingDataValidateEvent();
 
@@ -294,6 +294,8 @@ define([
                 checkoutData.setSelectedShippingAddress(newShippingAddress.getKey());
                 checkoutData.setNewCustomerShippingAddress($.extend(true, {}, addressData));
                 this.isNewAddressAdded(true);
+                // increment address number
+                self.isThereMoreThanTwoAddresses(self.isThereMoreThanTwoAddresses()+1);
             }
         },
 
