@@ -29,23 +29,25 @@
         <!-- /ko -->
     </div>
     <div id="checkout-step-title" class="step-content" data-role="content">
-
+      <div class="step-title" data-bind="i18n: 'Ship to home'" data-role="title">Ship to home</div>
         <each if="!quoteIsVirtual" args="getRegion('customer-email')" render=""/>
         <each args="getRegion('address-list')" render=""/>
         <if args="isCustomerLoggedIn() && isThereMoreThanTwoAddresses">
+          <div class="viewall-button-outer">
             <button class="shipping-address-view-all" data-bind="click: viewAllAddresses()"><span data-bind="text: viewButtonState"></span></button>
+          </div>
         </if>
         <each args="getRegion('address-list-additional-addresses')" render=""/>
 
-        
+
 
         <each args="getRegion('before-form')" render=""/>
-        
+
         <!-- Inline address form -->
         <render if="isFormInline" args="shippingFormTemplate" />
         <!-- Add new address accordion -->
         <if args="isCustomerLoggedIn() && !isFormInline">
-                <div data-bind="mageInit: {'accordion':{'openedState': 'active', 'collapsible': true, 'active': [1,4], 'multipleCollapsible': true}} ">
+                <div class="add-shipping-address" data-bind="mageInit: {'accordion':{'openedState': 'active', 'collapsible': true, 'active': [1,4], 'multipleCollapsible': true}} ">
                         <div data-role="collapsible"  >
                             <div data-role="title">Add New Shipping Address</div>
                             <div data-role="content">
@@ -60,13 +62,13 @@
                                         <button class="action action-update save-address" data-bind="click: saveNewAddress">
                                             <span data-bind="i18n: 'Save this address'"></span>
                                         </button>
-                                    </div>                          
+                                    </div>
                             </div>
                         </div>
                 </div>
         </if>
 
-        
+
 
         <hr>
 

@@ -25,7 +25,7 @@
     <if args="isCustomerLoggedIn()">
         <div id="add-billing-address" data-bind="visible: !isAddressDetailsVisible()">
             <div data-bind="mageInit: {'accordion':{'openedState': 'active', 'collapsible': true, 'active': [1,4], 'multipleCollapsible': true}} ">
-                <div data-role="collapsible"  >
+                <div data-role="collapsible">
                     <div data-role="title">Add New Billing Address</div>
                     <div data-role="content">
                             <div class="step-note">
@@ -35,7 +35,7 @@
                             <!-- Billing Address Form -->
                             <fieldset class="fieldset">
                                 <!-- ko template: 'Magento_Checkout/billing-address/form' --><!-- /ko -->
-                            </fieldset>                     
+                            </fieldset>
                     </div>
                 </div>
             </div>
@@ -46,6 +46,6 @@
             <!-- ko template: 'Magento_Checkout/billing-address/form' --><!-- /ko -->
         </fieldset>
     </if>
-    
+
 
 </div>
