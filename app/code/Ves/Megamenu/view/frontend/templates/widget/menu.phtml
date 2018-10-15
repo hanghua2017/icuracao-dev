@@ -504,7 +504,7 @@ if ($menu = $this->getMenu()) {
 								/* WINDOW RESIZE */
 								$(window).on("resize", function() {
 									if ($(window).width() < 1025) {
-										$("#<?php echo $blockId ?>").addClass("nav-mobile").removeClass('nav-desktop');
+										// $("#<?php echo $blockId ?>").addClass("nav-mobile").removeClass('nav-desktop');
 
 										<?php if ($desktopTemplate == 'drill') { ?>
 											$('#<?php echo $blockId ?> .drill-opener').hide();
