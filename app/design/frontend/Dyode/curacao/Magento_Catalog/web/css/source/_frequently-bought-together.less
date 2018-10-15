@@ -462,3 +462,39 @@
   }
   // End of Frequently bought items section
 }
+/*Style for spanish*/
+html[lang="es"] {
+  .catalog-product-view {
+    .frequently-bought-items {
+      .frequently-bought-adon-sum-block {
+        .frequently-bought-adon-sum {
+          .price-adons {
+            form {
+              .action.add-bundle-btn {
+                button.add-bundle-btn {
+                  width: 280px;
+                  @media all and (max-width: 375px) {
+                    span {
+                      padding: 12px 30px;
+                    }
+                  }
+                }
+              }
+            }
+            .price-sum {
+              .price-block {
+                @media all and (max-width: 1390px) {
+                  &.unselected {
+                    label {
+                      display: flex;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
