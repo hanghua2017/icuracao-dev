@@ -24,40 +24,33 @@ class Index extends \Magento\Framework\App\Action\Action
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\HTTP\Client\Curl $curl,
-        \Dyode\CancelOrder\Helper\Data $cancelOrderHelper
+        \Dyode\CancelOrder\Helper\Data $cancelOrderHelper,
+        \Dyode\ARWebservice\Helper\Data $arWebServiceHelper
     ) {
         $this->_curl = $curl;
         $this->_cancelOrderHelper = $cancelOrderHelper;
+        $this->arWebServiceHelper = $arWebServiceHelper;
         parent::__construct($context);
     }
     
     public function execute()
     {
-        $invoiceNumber = "ZEP58QX";
-        $itemId = "32O-285-42LB5600";
-        $qty = 1;
+//        $invoiceNumber = "ZEP58QX";
+        $invoiceNumber = $_GET['invNum'];
+        $itemId = $_GET['itemId'];
+        //$itemId = "32O-285-42LB5600";
+        $qty = $_GET['qty'];
+
+        //$qty = 1;
         $inputArray = array(
-            "InvNo" => "ZEP58P6",
-            "ItemID" => "09A-RA3-RS16FT5050RB",
+            "InvNo" => (!empty($invoiceNumber)) ? $invoiceNumber : null,
+            "ItemID" => (!empty($itemId)) ? $itemId : null,
             "qty" => 2
         );
+        $baseUrl = $this->arWebServiceHelper->getApiUrl();
         $data = json_encode($inputArray);
-        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/AdjustItem";
-        // $this->_curl->get($url);
-        // $this->_curl->addHeader("Content-Type", "application/json");
-        // $this->_curl->addHeader("X-Api-Key", "TEST-WNNxLUjBxA78J7s");
-        // $this->_curl->curlOption(CURLOPT_SSL_VERIFYHOST, false);
-        // $this->_curl->curlOption(CURLOPT_SSL_VERIFYPEER, false);
-		// $this->_curl->curlOption(CURLOPT_RETURNTRANSFER, true);
-        // $this->_curl->curlOption(CURLOPT_CUSTOMREQUEST, "PUT");
-        // $this->_curl->curlOption(CURLOPT_POSTFIELDS, $data);
-        // $response = $this->_curl->getBody();
-        // print_r($response);
-        // die();
+        $url = $baseUrl . "AdjustItem";
 
-        /*
-        * Init Curl
-        */
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -67,7 +60,7 @@ class Index extends \Magento\Framework\App\Action\Action
         * Set Content Header
         */
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'X-Api-Key: TEST-WNNxLUjBxA78J7s',
+            'X-Api-Key: ' . $this->arWebServiceHelper->getApiKey(),
             'Content-Type: application/json',
             )
         );
@@ -75,7 +68,7 @@ class Index extends \Magento\Framework\App\Action\Action
          * Set Data
          */
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($inputArray));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
         /**
          * Get Response Data
          */

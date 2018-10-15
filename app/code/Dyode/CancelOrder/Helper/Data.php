@@ -50,13 +50,20 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         /**
          * Initialize Rest Api Connection
          */
-        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/AdjustItem";
+        $baseUrl = $this->arWebServiceHelper->getApiUrl();
+        $url = $baseUrl . "AdjustItem";
         $ch = $this->_arInvoiceHelper->initRestApiConnect($url);
         /**
          * Set Data
          */
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($inputArray));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'X-Api-Key: ' . $this->arWebServiceHelper->getApiKey(),
+                'Content-Type: application/json',
+            )
+        );
+
         /**
          * Get Response Data
          */
@@ -75,7 +82,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         /**
          * Initialize Rest Api Connection
          */
-        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/CancelEstimate?Inv_No=$invNo";
+        $baseUrl = $this->arWebServiceHelper->getApiUrl();
+        $url = $baseUrl . "CancelEstimate?Inv_No=$invNo";
         $ch = $this->_arInvoiceHelper->initRestApiConnect($url);
         /**
          * Set Data

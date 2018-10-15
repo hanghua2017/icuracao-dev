@@ -55,6 +55,7 @@ class Index extends \Magento\Framework\App\Action\Action
 
     public function execute()
     {
+        $orderId = $_GET['id'];
         $writer = new \Zend\Log\Writer\Stream(BP . "/var/log/generateinvoicecron.log");
         $logger = new \Zend\Log\Logger();
         $logger->addWriter($writer);
@@ -63,9 +64,17 @@ class Index extends \Magento\Framework\App\Action\Action
         $collection = $this->_orderCollectionFactory->create()->addAttributeToSelect('*');
         $collection->addFieldToFilter('status', 'pending');
 
-        foreach ($collection as $salesOrder) {
-            $this->arInvoice->createInvoice($salesOrder->getId());
-            $this->_arInvoiceHelper->linkAppleCare($salesOrder);
+        if (!empty($orderId)) {
+            $this->arInvoice->createInvoice($orderId);
+            $order = $this->_orderRepository->get($orderId);
+            $this->_arInvoiceHelper->linkAppleCare($order);
+            die;
+        } else {
+
+            foreach ($collection as $salesOrder) {
+                $this->arInvoice->createInvoice($salesOrder->getId());
+                $this->_arInvoiceHelper->linkAppleCare($salesOrder);
+            }
         }
         echo die;
 
