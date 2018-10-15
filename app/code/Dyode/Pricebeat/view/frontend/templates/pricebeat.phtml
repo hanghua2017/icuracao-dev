@@ -106,43 +106,33 @@ require([
       var numericExpression = /^w.+@[a-zA-Z_-]+?.[a-zA-Z]{2,3}$/;
       $(".error").remove();
       if(first_name== ""){
-        console.log('firstname is empty');
-        $('#first_name').after('<span class="error">First name is required</span>');
+         $('#first_name').after('<span class="error">First name is required</span>');
       }
       if(last_name== ""){
-        console.log('lastname is empty');
         $('#last_name').after('<span class="error">Last name is required</span>');
       }
       if(email== ""){
-        console.log('email is empty');
         $('#email').after('<span class="error">Email-id is required</span>');
       }
       if (email.match(numericExpression)){
-         console.log('email is valid');
          $('#email').after('<span class="error">Email-id valid</span>');
-       }
-        else{
-       console.log('email is invalid');
-       $('#email').after('<span class="error">Email-id invalid</span>');
-          }
-        if(phonenumber== ""){
-        console.log('phonenumber is empty');
+      }
+      else{
+         $('#email').after('<span class="error">Email-id invalid</span>');
+      }
+      if(phonenumber== ""){
         $('#phonenumber').after('<span class="error">Phone number is required</span>');
       }
-      if(account_number== ""){
-        console.log('account_number is empty');
-        $('#account_number').after('<span class="error">Account number is required</span>');
-      }
+      // if(account_number== ""){
+      //   console.log('account_number is empty');
+      //   $('#account_number').after('<span class="error">Account number is required</span>');
+      // }
       if(invoice_number== ""){
-        console.log('invoice_number is empty');
         $('#invoice_number').after('<span class="error">Invoice number is required</span>');
       }
-      console.log(productlink+" "+product_image);
       if (productlink == "" && product_image == "") {
-        console.log('file and url not uploaded');
         $('#product_url').after('<span class="error">Product Link or Product Image is required</span>');
       } else {
-        console.log('hello from else');
         $('#pricebeat').submit();
       }
 

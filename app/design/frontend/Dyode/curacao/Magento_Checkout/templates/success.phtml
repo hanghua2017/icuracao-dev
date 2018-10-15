@@ -14,7 +14,7 @@
     <div class="top-section">
       <!-- Order Confirmation Section with success message and order number  -->
        <div class="curacaoOrder-status">
-         <img src="<?php echo $block->getViewFileUrl('images/dart-board.png'); ?>" alt="Success Icon">
+          <img src="<?php echo $block->getViewFileUrl('images/dart-board.png'); ?>" alt="Success Icon">
           <h1 class="success-message">Order Successfully Placed</h1>
        </div>
        <div class="status-details">
@@ -23,7 +23,7 @@
               <?php if ($block->getCanViewOrder()) : ?>
                 <p><?= __('Your order number is: %1.', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $block->escapeHtml($block->getViewOrderUrl()), $block->escapeHtml($block->getOrderId()))) ?></p>
               <?php else : ?>
-                <p><?= __('Your order # is: <span>%1</span>.', $block->escapeHtml($block->getOrderId())) ?></p>
+                <p><?= __('Your order is: #<span>%1</span>.', $block->escapeHtml($block->getOrderId())) ?></p>
               <?php endif; ?>
                <p><?= /* @escapeNotVerified */ __('You will receive an order confirmation email with details of your order and a link to track its progress.') ?></p>
            <?php endif; ?>
@@ -50,7 +50,7 @@
                 </address>
              </div>
              <!--payment  -->
-             <div class="block">
+             <div class="block payment-method-outer">
                 <div class="each-details">
                   <div class="block-title">
                     <h2><?php /* @escapeNotVerified */ echo __('Payment Method'); ?></h2>
@@ -95,14 +95,26 @@
                                  </span>
                                </div>
                        </div>
-                    </div>
+                  </div>
 
                     <?php
                     }
                     ?>
-                      </div>
-                </div>
-            </div>
+           </div>
+         </div>
+         <div class="block delivery-date-outer">
+           <div class="block-title">
+             <h2>Delivery</h2>
+           </div>
+           <div class="delivery-date-details">
+             <label>Estimated delivery</label>
+             <div class="delivery-date">
+               July 13, 2018
+             </div>
+           </div>
+         </div>
+       </div>
+
       </div>
 </div>
   <div class="actions-toolbar">
