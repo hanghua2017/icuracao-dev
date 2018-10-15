@@ -502,3 +502,104 @@ footer {
     }
   }
 }
+/*Styling for Espanol*/
+html[lang="es"]
+{
+  footer.page-footer  {
+    .footer {
+      .trust-factor-block {
+        .trust-factor {
+          .trust-image {
+            &.why-shop, &.secure {
+              @media all and (max-width: 1316px) {
+                img {
+                  float: left;
+                  margin-left: 10px;
+                }
+                .content {
+                  float: left;
+                  width: 80%;
+                  margin-left: 15px;
+                }
+              }
+              @media all and (max-width: 1055px) and (min-width: 992px) {
+                .content {
+                  width: 75%;
+                }
+              }
+            }
+            &.why-shop {
+              .content {
+                @media all and (max-width: 355px) {
+                  width: 80%;
+                }
+              }
+            }
+            &.trust {
+              @media all and (max-width: 1200px) {
+                img {
+                  float: left;
+                  margin-left: 10px;
+                }
+                .content {
+                  float: left;
+                  width: 80%;
+                  margin-left: 15px;
+                }
+              }
+              @media all and (max-width: 1059px) and (min-width: 992px) {
+                .content {
+                  width: 75%;
+                }
+              }
+            }
+            .content {
+              @media all and (max-width: 1371px) and (min-width: 992px) {
+                margin-left: 5px;
+              }
+              @media all and (max-width: 420px) {
+                width: 85%;
+              }
+              p.title {
+                @media all and (max-width: 1371px) and (min-width: 992px) {
+                  max-width: 95%;
+                }
+                @media all and (max-width: 355px) {
+                  font-size: 13px;
+                }
+              }
+              p.comment {
+                @media all and (max-width: 1532px) {
+                  font-size: 13px;
+                }
+                @media all and (max-width: 1371px) and (min-width: 992px) {
+                  font-size: 12px;
+                  max-width: 95%;
+                }
+              }
+            }
+          }
+        }
+      }
+      .subscribe-block {
+        .block.newsletter {
+          .content {
+            form {
+              .newsletter {
+                .control {
+                  @media all and (max-width: 420px) {
+                    input {
+                      &::-webkit-input-placeholder, &::-moz-placeholder, &:-ms-input-placeholder, &::placeholder {
+                        font-size: 11px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

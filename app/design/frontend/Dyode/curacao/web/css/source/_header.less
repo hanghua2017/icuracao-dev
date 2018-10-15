@@ -394,7 +394,7 @@
 								&:before {
 									color: @green-color;
 									@media all and (max-width:767px){
-										color: @search-green-color;	
+										color: @search-green-color;
 									}
 								}
 							}
@@ -1019,7 +1019,7 @@ html.nav-before-open {
 			-ms-box-shadow: 0 0 5px 0 rgba(50,50,50,0.75);
 			box-shadow: 0 0 5px 0 rgba(50,50,50,0.75);
 			left: 0;
-			z-index: 99;
+			z-index: 1000;
 		}
 
 		.nav-toggle {
@@ -1192,3 +1192,23 @@ html.nav-before-open {
 	}
 }
 /*responsive styling for header ends here*/
+/*Styling for Espanol*/
+html[lang="es"]
+{
+	.page-wrapper {
+		header.page-header {
+			.header.content {
+				.customer-signin {
+					.account-wrapper {
+						a {
+							white-space: nowrap;
+							width: 50px;
+							overflow: hidden;
+							text-overflow: ellipsis;
+						}
+					}
+				}
+			}
+		}
+	}
+}
