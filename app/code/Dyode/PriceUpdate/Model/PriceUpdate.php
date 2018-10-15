@@ -33,12 +33,14 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
+        \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
         Data $apiHelper,
         array $data = []
     ) {
         $this->productCollectionFactory = $productCollectionFactory;
         $this->productRepository = $productRepository;
         $this->apiHelper = $apiHelper;
+        $this->auditLog = $auditLog;
         parent::__construct($context, $data);
     }
 
@@ -49,9 +51,28 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template
      */
     public function updatePrice()
     {
-        $this->getProductSkulist();
-        $this->getBatchPrice();
-        $this->processBatchprice();
+       try {
+          $this->getProductSkulist();
+          $this->getBatchPrice();
+          $this->processBatchprice();
+          //write admin logs
+          $clientIP = $_SERVER['REMOTE_ADDR'];
+          $this->auditLog->saveAuditLog([
+              'user_id' => 'admin',
+              'action' => 'price cron',
+              'description' => 'price updated succesfully',
+              'client_ip' => $clientIP,
+              'module_name' => 'dyode_priceupdate'
+            ]);
+        } catch (\Exception $exception) {
+          $this->auditLog->saveAuditLog([
+              'user_id' => 'admin',
+              'action' => 'price cron',
+              'description' => $exception->getMessage(),
+              'client_ip' => $clientIP,
+              'module_name' => 'dyode_priceupdate'
+            ]);
+        }
     }
 
     /**
