@@ -142,9 +142,10 @@ class VerifyCuracaoId
                     $this->coreSession->setLastname($lName);  
                     $this->coreSession->setPath("linkaccount/verify/success");
 
+                    
                     $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
-                        /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
-                        return $resultRedirect->setUrl($defaultUrl);
+                    /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
+                    return $resultRedirect->setUrl($defaultUrl);
                
 
             } else {
