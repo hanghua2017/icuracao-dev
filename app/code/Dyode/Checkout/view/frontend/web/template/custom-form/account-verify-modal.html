@@ -1,0 +1,164 @@
+<!--
+/**
+ * Dyode_Checkout Module
+ *
+ * Extending Magento_Checkout core module
+ *
+ * @module    Dyode_Checkout
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<div id="curacao-verify-modal" class="linkaccount-container" data-bind="afterRender: initiateCuracaoVerifyModal" style="display:none;">
+    <div class="linkaccount-inner-container">
+        <div class="verifymsg"></div>
+
+        <div class="wrapper clearfix">
+
+            <!--Verification code entry form-->
+            <div class="verify-phone">
+                <form class="verifyform"
+                      id="verifyform"
+                      method="post"
+                      autocomplete="off"
+                      data-mage-init='{"validation":{}}'>
+                    <fieldset class="fieldset verify-wrapper">
+                        <legend class="legend"><span data-bind="i18n: 'Verify Account by Phone'"></span>:</legend>
+                        <br/>
+                        <p class="confirm-acct"
+                           data-bind="i18n: 'To confirm your account, we will send you a security code.'"></p>
+                        <p data-bind="Please select one of the following options."></p>
+
+                        <!--Buttons to choose from sms verification or call verification-->
+                        <div class="contact-wrapper">
+                            <button id="sendtext" name="sendtext" value="Text" data-bind="i18n: 'SMS'"></button>
+                            <div class="contact-icon1">
+                                <img data-bind="attr: {src: smsIconUrl}" alt="sms icon"/>
+                            </div>
+                            <button data-bind="i18n: 'Call'"></button>
+                            <div class="contact-icon2">
+                                <img data-bind="attr: {src: callIconUrl}" alt="call icon"/>
+                            </div>
+                        </div>
+
+                        <!--Input validation code-->
+                        <div class="field required">
+                            <div class="control">
+                                <input id="curacao-verification-code"
+                                       type="text"
+                                       name="curacao-verification-code"
+                                       class="input-text"
+                                       data-validate="{required:true}"
+                                       data-bind="value: verificationCodeInpValue,
+                                            attr: {placeholder: 'Enter Verification Code'"}
+                                />
+                            </div>
+                        </div>
+                    </fieldset>
+                    <!--Submit form-->
+                    <div class="actions-toolbar">
+                        <div class="primary">
+                            <button type="submit"
+                                    class="action submit primary"
+                                    data-bind="attr: {title: $t('Verify account')"
+                            >
+                                <span data-bind="i18n: 'Verify account'"></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!--Divider between 2 forms-->
+            <div class="or-spacer">
+                <span><i data-bind="i18n: 'or'"></i></span>
+            </div>
+
+            <!--Personal information form-->
+            <div class="personal-infm">
+                <form class="pinfm"
+                      id="pinfm"
+                      method="post"
+                      autocomplete="off"
+                      data-mage-init='{"validation":{}}'>
+                    <fieldset class="fieldset">
+                        <legend class="legend"><span data-bind="i18n: 'Verify Personal Information'"></span>:</legend>
+                        <br/>
+                        <p>
+                            <!-- ko i18n: 'To confirm your account, please complete' --><!-- /ko --><br/>
+                            <!-- ko i18n: 'the following information.' --><!-- /ko -->
+                        </p>
+                        <div class="field required ssn-field">
+                            <label for="curacao-ssn-verify" class="label">
+                                <span data-bind="i18n: 'Enter Last 4 Digits of your SSN'"></span>
+                            </label>
+                            <div class="control">
+                                <span class="ssn-number" data-bind="text: 'XXX-XX-'"></span>
+                                <input id="curacao-ssn-verify"
+                                       type="text"
+                                       name="curacao-ssn-verify"
+                                       class="input-text ssn-field"
+                                       maxlength="4"
+                                       data-validate="{required:true,'validate-number':true}"
+                                       data-bind="value: ssnVerifyInpValue"
+                                />
+                            </div>
+                        </div>
+                        <div class="field required">
+                            <label for="curacao-date-of-birth" class="label">
+                                <span data-bind="i18n: 'Date of Birth'"></span>
+                            </label>
+                            <div class="control">
+                                <input type="text"
+                                       class="input-text required-entry"
+                                       id="curacao-date-of-birth"
+                                       name="curacao-date-of-birth"
+                                       aria-required="true"
+                                       data-bind="value: dateOfBirthInpValue, attr: {placeholder: $t('Enter Date of Birth')}"
+                                />
+                            </div>
+                        </div>
+                        <div class="field required">
+                            <label for="curacao-zip-code" class="label"><span data-bind="i18n: 'Zipcode'"></span></label>
+                            <div class="control">
+                                <input id="curacao-zip-code"
+                                       type="text"
+                                       name="curacao-zip-code"
+                                       class="input-text"
+                                       data-validate="{required:true, 'validate-zip-us':true}"
+                                       data-bind="value: zipCodeInpValue, attr: {placeholder: $t('Enter Zipcode')}"
+                                />
+                            </div>
+                        </div>
+                        <div class="field required">
+                            <label for="curacao-maiden-name" class="label">
+                                <span><!-- ko i18n: "Mother's Maiden Name" --><!-- /ko --></span>
+                            </label>
+                            <div class="control">
+                                <input id="curacao-maiden-name"
+                                       type="text"
+                                       name="curacao-maiden-name"
+                                       class="input-text"
+                                       data-validate="{required:true,'letters-only':true}"
+                                       data-bind="value: maidenNameInpValue, attr: {placeholder: $t('Enter Mother\'s Maiden name')}"
+                                />
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!--Submit form-->
+                    <div class="actions-toolbar">
+                        <div class="primary">
+                            <button type="button"
+                                    class="action submit primary"
+                                    data-bind="attr: {title: $t('Submit')}, click: verifyCuracaoAccount">
+                                <span data-bind="i18n: 'Verify account'"></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
