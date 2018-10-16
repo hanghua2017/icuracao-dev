@@ -1,51 +1,84 @@
-/*global define*/
+/**
+ * Dyode_Checkout Module
+ *
+ * Extending Magento_Checkout core module
+ *
+ * @module    Dyode_Checkout
+ * @author    Kavitha <kavitha@dyode.com>
+ * @copyright Copyright © Dyode
+ */
 
 'use strict';
 
 define([
     'jquery',
     'ko',
-    'Magento_Checkout/js/model/quote',
-    'Magento_Checkout/js/model/url-builder',
-    'Magento_Ui/js/form/form',
+    'mage/url',
     'mage/storage',
     'mage/translate',
+    'Magento_Ui/js/form/form',
+    'Magento_Ui/js/model/messageList',
+    'Magento_Checkout/js/model/quote',
+    'Magento_Checkout/js/model/url-builder',
     'Magento_Checkout/js/model/full-screen-loader',
     'Magento_Checkout/js/action/get-payment-information',
     'Magento_Checkout/js/model/totals',
-    'Magento_Ui/js/model/messageList',
     'Magento_Customer/js/model/customer',
-    'mage/url'
+    'Magento_Ui/js/modal/modal'
 ], function (
     $,
     ko,
-    quote,
-    urlBuilder,
-    Component,
+    Url,
     storage,
     $t,
+    Component,
+    messageList,
+    quote,
+    urlBuilder,
     fullScreenLoader,
     getPaymentInformationAction,
     totals,
-    messageList,
-    customer,
-    Url
+    customer
 ) {
-
-    var customerData = window.customerData;
-    var limit = window.checkoutConfig.limit;
-    var dpayment = window.checkoutConfig.total;
-    var canapply = window.checkoutConfig.canapply;
-    var linked = window.checkoutConfig.linked;
+    var curacaoPaymentInfo = window.checkoutConfig.curacaoPayment;
 
     return Component.extend({
 
-        isLogedIn: customer.isLoggedIn(),
-        customerData: customerData,
-        dpayment: dpayment,
-        limit: limit,
-        canapply: canapply,
-        linked: linked,
+        isLoggedIn: customer.isLoggedIn(),
+        customerData: window.customerData,
+        downPayment: curacaoPaymentInfo.downPayment,
+        limit: curacaoPaymentInfo.limit,
+        canApply: curacaoPaymentInfo.canApply,
+        linked: curacaoPaymentInfo.linked,
+        curacaoAccountVerifyModalTemplate: 'Dyode_Checkout/custom-form/account-verify-modal',
+        curacaoAccountVerifyModal: null,
+        smsIconUrl: curacaoPaymentInfo.mediaUrl + '/images/sms-icon.png',
+        callIconUrl: curacaoPaymentInfo.mediaUrl + '/images/call-icon.png',
+        verificationCodeInpValue: ko.observable(''),
+        ssnVerifyInpValue: ko.observable(''),
+        dateOfBirthInpValue: ko.observable(''),
+        zipCodeInpValue: ko.observable(''),
+        maidenNameInpValue: ko.observable(''),
+
+        /**
+         * @inheritdoc
+         */
+        initialize: function () {
+            this._super()
+                .observe({
+                    ApplyDiscount: ko.observable(true)
+                });
+
+            this.ApplyDiscount.subscribe(function (newValue) {
+                if (newValue) {
+                    this.getDiscount();
+                } else {
+                    this.removeDiscount();
+                }
+            }, this);
+
+            return this;
+        },
 
         getLinkUrl: function () {
             return Url.build('creditapp/credit/index');
@@ -138,24 +171,43 @@ define([
         },
 
         getDownPayment: function () {
-            return this.dpayment;
+            return this.downPayment;
         },
 
-        initialize: function () {
-            this._super()
-                .observe({
-                    ApplyDiscount: ko.observable(true)
-                });
+        /**
+         * Registering curacao verification form modal.
+         * Initiating modal only after the modal html dom is loaded.
+         *
+         * @param {HtmlElem} elem
+         */
+        initiateCuracaoVerifyModal: function (elem) {
+            this.curacaoAccountVerifyModal = elem;
+            $(elem).modal({
+                title: $t('Verify your Curacao Account'),
+                modalClass: 'curacao-verify-modal'
+            });
+        },
 
-            this.ApplyDiscount.subscribe(function (newValue) {
-                if (newValue) {
-                    this.getDiscount();
-                } else {
-                    this.removeDiscount();
-                }
-            }, this);
+        /**
+         * Open up curacao-verify-account-modal
+         *
+         * @param {this} model
+         * @param {Event} event
+         */
+        openCuracaoVerifyForm: function (model, event) {
+            event.preventDefault();
+            $(this.curacaoAccountVerifyModal).modal('openModal');
+        },
 
-            return this;
+        /**
+         * Verifying curacao account with given details.
+         *
+         * Fires when the user submit the curacao-verification-modal-form.
+         *
+         * @returns {Boolean}
+         */
+        verifyCuracaoAccount: function () {
+            return false;
         }
     });
 });
