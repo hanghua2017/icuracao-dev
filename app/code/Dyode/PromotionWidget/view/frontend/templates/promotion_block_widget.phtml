@@ -6,6 +6,7 @@ $url=$this->getReferenceUrlSingle();
 
 ?>
  <?php $baseurl = $block->getBaseUrl(); ?>
+ <?php $mediaUrl = $block->getMediaUrl();?>
 <div class="block-products-list">
 <div class="content">
   <div class="gateway-playstation-section container">
@@ -18,12 +19,12 @@ $url=$this->getReferenceUrlSingle();
           <?php $desktop_image_single = $this-> getDesktopImageSingle(); ?>
           <!-- displaying desktop image of single  -->
 
-          <?php $desktop_image_single = $baseurl . "pub/media/" . $desktop_image_single;?>
+          <?php $desktop_image_single = $mediaUrl . $desktop_image_single;?>
           <a href="<?php echo $url; ?>" class="large"><img src= "<?php echo $desktop_image_single; ?>" alt="<?php "Curacao-banner" ?>" /></a>
           <?php  $mobile_image_single= $this->getMobileImageSingle(); ?>
 
           <!-- displaying mobile image -->
-          <?php $mobile_image_single = $baseurl . "pub/media/" . $mobile_image_single;?>
+          <?php $mobile_image_single = $mediaUrl . $mobile_image_single;?>
           <a  href="<?php echo $url; ?>" class="small"><img src= "<?php echo $mobile_image_single; ?>" alt="<?php "Curacao-banner" ?>" /></a>
         </div>
       </div>
@@ -37,24 +38,24 @@ $url=$this->getReferenceUrlSingle();
         <div class="banner-item  ">
           <?php $desktop_image_double_first = $this-> getDesktopImageDoubleFirst();?>
           <!-- displaying desktop image -->
-            <?php $desktop_image_double_first = $baseurl . "pub/media/" . $desktop_image_double_first;?>
+            <?php $desktop_image_double_first = $mediaUrl . $desktop_image_double_first;?>
           <a href="<?php echo $url_double_first; ?>" class="large"><img src= "<?php echo $desktop_image_double_first; ?>"alt="<?php "Curacao-banner" ?>" /></a>
 
            <!-- displaying mobile image -->
           <?php $mobile_image_double_first= $this->getMobileImageDoubleFirst();?>
-            <?php $mobile_image_double_first =  $baseurl . "pub/media/" . $mobile_image_double_first;?>
+            <?php $mobile_image_double_first =  $mediaUrl . $mobile_image_double_first;?>
           <a  href="<?php echo $url_double_first; ?>" class="small"><img src= "<?php echo $mobile_image_double_first; ?>"alt="<?php "Curacao-banner" ?>" /></a>
         </div>
         <div class="banner-item">
           <?php $url_double_second=$this->getReferenceUrlDoubleSecond();
           $desktop_image_double_second = $this-> getDesktopImageDoubleSecond();?>
-            <?php $desktop_image_double_second =  $baseurl . "pub/media/" . $desktop_image_double_second;?>
+            <?php $desktop_image_double_second =  $mediaUrl . $desktop_image_double_second;?>
           <!--displaying desktop image  -->
           <a href="<?php echo $url_double_second; ?>" class="large">
             <img src= "<?php echo $desktop_image_double_second; ?>"alt="<?php "Curacao-banner" ?>" />
           </a>
           <?php $mobile_image_double_second= $this->getMobileImageDoubleSecond();?>
-          <?php $mobile_image_double_second =  $baseurl . "pub/media/" . $mobile_image_double_second;?>
+          <?php $mobile_image_double_second =  $mediaUrl . $mobile_image_double_second;?>
           <!-- displaying mobile image -->
           <a  href="<?php echo $url_double_second; ?>" class="small"><img src= "<?php echo $mobile_image_double_second; ?>"alt="<?php "Curacao-banner" ?>" /></a>
         </div>
@@ -75,13 +76,13 @@ $url=$this->getReferenceUrlSingle();
         <?php endif ?>
         <div class="<?php echo $first_image_class;?>">
           <?php $desktop_image_triple_first = $this->getDesktopImageTripleFirst();?>
-          <?php $desktop_image_triple_first =  $baseurl . "pub/media/" . $desktop_image_triple_first;?>
+          <?php $desktop_image_triple_first = $mediaUrl . $desktop_image_triple_first;?>
           <a href="<?php echo $url_triple_first; ?>" class="large">
             <img src="<?php echo $desktop_image_triple_first; ?>"alt="<?php "Curacao-banner" ?>" />
           </a>
           <!-- mobile image for triple -->
           <?php $mobile_image_triple_first= $this->getMobileImageTripleFirst(); ?>
-          <?php $mobile_image_triple_first = $baseurl . "pub/media/" . $mobile_image_triple_first;?>
+          <?php $mobile_image_triple_first = $mediaUrl . $mobile_image_triple_first;?>
           <a href="<?php echo $url_triple_first; ?>" class="small">
               <img src="<?php echo $mobile_image_triple_first; ?>"alt="<?php "Curacao-banner" ?>" />
           </a>
@@ -95,13 +96,13 @@ $url=$this->getReferenceUrlSingle();
           <?php
            $url_triple_second=$this->getReferenceUrlTripleSecond();
            $desktop_image_triple_second = $this-> getDesktopImageTripleSecond();?>
-           <?php $desktop_image_triple_second =  $baseurl . "pub/media/" . $desktop_image_triple_second;?>
+           <?php $desktop_image_triple_second =  $mediaUrl . $desktop_image_triple_second;?>
           <a href="<?php echo $url_triple_second; ?>" class="large">
             <img src= "<?php echo $desktop_image_triple_second; ?>"alt="<?php "Curacao-banner" ?>" />
           </a>
           <!-- displaying mobile for triple -->
           <?php $mobile_image_triple_second= $this->getMobileImageTripleSecond(); ?>
-          <?php $mobile_image_triple_second =  $baseurl . "pub/media/" . $mobile_image_triple_second;?>
+          <?php $mobile_image_triple_second =  $mediaUrl . $mobile_image_triple_second;?>
           <a href="<?php echo $url_triple_second; ?>" class="small">
               <img src= "<?php echo $mobile_image_triple_second; ?>"alt="<?php "Curacao-banner" ?>" />
           </a>
@@ -110,12 +111,12 @@ $url=$this->getReferenceUrlSingle();
           <?php
           $url_triple_third =$this->getReferenceUrlTripleThird();
           $desktop_image_triple_third = $this-> getDesktopImageTripleThird();?>
-          <?php $desktop_image_triple_third =  $baseurl . "pub/media/" . $desktop_image_triple_third;?>
+          <?php $desktop_image_triple_third =  $mediaUrl . $desktop_image_triple_third;?>
           <a href="<?php echo $url_triple_third; ?>" class="large">
             <img src= "<?php echo $desktop_image_triple_third; ?>"alt="<?php "Curacao-banner" ?>" />
           </a>
          <?php $mobile_image_triple_third= $this->getMobileImageTripleThird();?>
-         <?php $mobile_image_triple_third =  $baseurl . "pub/media/" . $mobile_image_triple_third;?>
+         <?php $mobile_image_triple_third =  $mediaUrl . $mobile_image_triple_third;?>
           <a href="<?php echo $url_triple_third; ?>" class="small">
             <img src= "<?php echo $mobile_image_triple_third; ?>"alt="<?php "Curacao-banner" ?>" />
           </a>
@@ -135,13 +136,13 @@ $url=$this->getReferenceUrlSingle();
       <div class="banner-row <?php echo $classname_quadruple?>">
         <div class="banner-item">
           <?php $desktop_image_quadruple_first = $this-> getDesktopImagequadrupleFirst();?>
-          <?php $desktop_image_quadruple_first =  $baseurl . "pub/media/" . $desktop_image_quadruple_first;?>
+          <?php $desktop_image_quadruple_first =  $mediaUrl . $desktop_image_quadruple_first;?>
             <a href="<?php echo $url_quadruple_one; ?>" class="large">
             <img src= "<?php echo $desktop_image_quadruple_first; ?>"alt="<?php "Curacao-banner" ?>" />
           </a>
           <?php
           $mobile_image_quadruple_first= $this-> getMobileImagequadrupleFirst();?>
-          <?php $mobile_image_quadruple_first =  $baseurl . "pub/media/" . $mobile_image_quadruple_first;?>
+          <?php $mobile_image_quadruple_first =  $mediaUrl . $mobile_image_quadruple_first;?>
 
           <a href="<?php echo $url_quadruple_one; ?>" class="small">
             <img src= "<?php echo $mobile_image_quadruple_first; ?>"alt="<?php "Curacao-banner" ?>" />
@@ -151,14 +152,14 @@ $url=$this->getReferenceUrlSingle();
           <?php
           $url_quadruple_second= $this->getReferenceUrlquadrupleSecond();
           $desktop_image_quadruple_second = $this-> getDesktopImagequadrupleSecond();?>
-          <?php $desktop_image_quadruple_second =  $baseurl . "pub/media/" . $desktop_image_quadruple_second;?>
+          <?php $desktop_image_quadruple_second =  $mediaUrl . $desktop_image_quadruple_second;?>
           <a href="<?php echo $url_quadruple_second; ?>" class="large">
           <img src= "<?php echo $desktop_image_quadruple_second; ?>"alt="<?php "Curacao-banner" ?>" />
           </a>
           <?php
           $mobile_image_quadruple_second= $this->getMobileImagequadrupleSecond();
           ?>
-          <?php $mobile_image_quadruple_second =  $baseurl . "pub/media/" . $mobile_image_quadruple_second;?>
+          <?php $mobile_image_quadruple_second =  $mediaUrl . $mobile_image_quadruple_second;?>
           <a href="<?php echo $url_quadruple_second; ?>" class="small">
             <img src= "<?php echo $mobile_image_quadruple_second; ?>"alt="<?php "Curacao-banner" ?>" />
           </a>
@@ -167,14 +168,14 @@ $url=$this->getReferenceUrlSingle();
       <?php
       $url_quadruple_third=$this->getReferenceUrlquadrupleThird();
       $desktop_image_quadruple_third = $this-> getDesktopImagequadrupleThird();?>
-      <?php $desktop_image_quadruple_third =  $baseurl . "pub/media/" . $desktop_image_quadruple_third;?>
+      <?php $desktop_image_quadruple_third =  $mediaUrl . $desktop_image_quadruple_third;?>
           <a href="<?php echo $url_quadruple_third; ?>" class="large">
           <img src= "<?php echo $desktop_image_quadruple_third; ?>"alt="<?php "Curacao-banner" ?>" />
           </a>
           <?php
           $mobile_image_quadruple_third= $this->getMobileImagequadrupleThird();
           ?>
-          <?php $mobile_image_quadruple_third =  $baseurl . "pub/media/" . $mobile_image_quadruple_third;?>
+          <?php $mobile_image_quadruple_third =  $mediaUrl . $mobile_image_quadruple_third;?>
           <a href="<?php echo $url_quadruple_third; ?>" class="small">
             <img src= "<?php echo $mobile_image_quadruple_third; ?>"alt="<?php "Curacao-banner" ?>" />
           </a>
@@ -183,14 +184,14 @@ $url=$this->getReferenceUrlSingle();
       <?php
        $url_quadruple_fourth =$this->getReferenceUrlquadrupleFourth();
        $desktop_image_quadruple_fourth = $this-> getDesktopImagequadrupleFourth();?>
-       <?php $desktop_image_quadruple_fourth =  $baseurl . "pub/media/" . $desktop_image_quadruple_fourth;?>
+       <?php $desktop_image_quadruple_fourth =  $mediaUrl . $desktop_image_quadruple_fourth;?>
           <a href=<?php echo $url_quadruple_fourth; ?>"" class="large">
           <img src= "<?php echo $desktop_image_quadruple_fourth; ?>"alt="<?php "Curacao-banner" ?>" />
           </a>
           <?php
           $mobile_image_quadruple_fourth= $this->getMobileImagequadrupleFourth();
           ?>
-          <?php $mobile_image_quadruple_fourth =  $baseurl . "pub/media/" . $mobile_image_quadruple_fourth;?>
+          <?php $mobile_image_quadruple_fourth =  $mediaUrl . $mobile_image_quadruple_fourth;?>
           <a href="<?php echo $url_quadruple_fourth; ?>" class="small">
             <img src= "<?php echo $mobile_image_quadruple_fourth; ?>"alt="<?php "Curacao-banner" ?>" />
           </a>

@@ -278,7 +278,7 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
      * @return array $jsLayout
      */
     protected function updateShippingAddressPlaceHolders(array $jsLayout)
-    {
+    {   
         //street 1
         $jsLayout['components']['checkout']['children']['steps']['children']['address-step']
         ['children']['shippingAddress']['children']['shipping-address-fieldset']['children']
