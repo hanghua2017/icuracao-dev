@@ -25,4 +25,31 @@ require(['jquery'], function ($) {
             }
         });
     });
+    /*js for smooth scroll down the page starts here*/
+      $(document).ready(function() {
+  		  $('.beat-container a[href*="#"]').bind('click', function(e) {
+  				e.preventDefault(); // prevent hard jump, the default behavior
+
+  				var target = $(this).attr("href"); // Set the target as variable
+          var mob_width = window.matchMedia("(max-width: 767px)");// screen width of mobiles devices
+
+  				// perform animated scrolling by getting top-position of target-element and set it as scroll target
+  				$('html, body').stop().animate({
+  						scrollTop: $(target).offset().top - 65
+  				}, 600, function() {
+  						location.hash = target; //attach the hash (#jumptarget) to the pageurl
+  				});
+          //perform animated scrolling in mobiles
+          if(mob_width.matches){
+            $('html, body').stop().animate({
+    						scrollTop: $(target).offset().top - 90
+    				}, 600, function() {
+    						location.hash = target; //attach the hash (#jumptarget) to the pageurl
+    				});
+          }
+
+  				return false;
+  		});
+  });
+  /*js for smooth scroll down the page starts here*/
 });
