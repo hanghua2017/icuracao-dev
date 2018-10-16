@@ -96,7 +96,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function verifyPersonalInfm($customerDetails){
       $restResponse =  $this->arConnect('ValidateDP', 'GET',$customerDetails);
       $result = json_decode($restResponse);
-
+     
       if($result->OK != true){
          return false;
       }
