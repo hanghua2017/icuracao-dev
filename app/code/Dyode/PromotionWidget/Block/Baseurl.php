@@ -60,6 +60,7 @@ class Baseurl extends \Magento\Framework\View\Element\Template
         echo $this->_urlInterface->getBaseUrl() . '<br />';
     }
 
+
     /* 
      * get the url of the media folder
     */
@@ -67,7 +68,7 @@ class Baseurl extends \Magento\Framework\View\Element\Template
     {
         $currentStore = $this->_storeManager->getStore();
         $mediaUrl = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
-        return $mediaUrl;
+        return $mediaUrl; 
     }   
 
 }
