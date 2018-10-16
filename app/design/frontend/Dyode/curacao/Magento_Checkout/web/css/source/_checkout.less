@@ -2270,8 +2270,66 @@ input[type="radio"] {
     }
     /*common styling for buttons on Checkout page ends here*/
     .authentication-wrapper{
-      display: none;
-    }
+      z-index: 100000;
+
+        @media all and (max-width: 479px)
+        {
+          margin-top: -69px;
+        }
+        .action-auth-toggle
+        {
+          color: white;
+        }
+        .authentication-dropdown
+        {
+          border: none;
+          box-shadow: 0px 0px 10px 1px rgba(27, 32, 42, 0.1);
+          .modal-inner-wrap
+          {
+            background: white;
+            .modal-content
+            {
+              .block-title
+              {
+                strong
+                {
+                  font-size: 18px;
+                }
+              }
+
+              .block-content
+              {
+                .actions-toolbar
+                {
+                  .action-login
+                  {
+                    background: @button-orange;
+                    border: 1px solid @button-orange;
+                    box-shadow: none;
+                    color: #ffffff;
+                    padding: 7px 30px;
+                    margin-top: 0px;
+                    margin-bottom: 0;
+                    height: 32px;
+                    font-size: 14px;
+                    line-height: 10px;
+                    &:hover
+                    {
+                          background: #e03b01;
+                          border: 1px solid #e03b01;
+                    }
+                  }
+                  .action-remind
+                  {
+                    font-size: 12px;
+                  }
+                }
+              }
+            }
+          }
+
+        }
+      }
     }
   }
 }

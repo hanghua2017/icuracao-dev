@@ -9,7 +9,7 @@
  * @copyright Copyright © Dyode
  */
 -->
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="checkout" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="checkout.root">
                 <arguments>
@@ -153,15 +153,15 @@
                                                                     <item name="title" xsi:type="string" translate="true">Item Price</item>
                                                                     <item name="template" xsi:type="string">Magento_Checkout/cart/totals/subtotal</item>
                                                                 </item>
-                                                            </item>       
-                                                                                           
+                                                            </item>
+
                                                             <item name="discount" xsi:type="array">
                                                                 <item name="component" xsi:type="string">Magento_SalesRule/js/view/summary/discount</item>
                                                                 <item name="config" xsi:type="array">
                                                                     <item name="title" xsi:type="string" translate="true">Discount</item>
                                                                 </item>
                                                             </item>
-                                                                                
+
                                                             <item name="grand-total" xsi:type="array">
                                                                 <item name="component"  xsi:type="string">Magento_Checkout/js/view/summary/grand-total</item>
                                                                 <item name="config" xsi:type="array">
