@@ -154,7 +154,9 @@ class Index extends Action
                 try{
                     // Save data
                     $customer->save();
-                    $this->_customerSession->setCustomerAsLoggedIn($customer);                   
+                    $this->_customerSession->setCustomerAsLoggedIn($customer);   
+                    $this->_customerSession->setCurAcc($curacaoCustId);                
+                    $this->_customerSession->setFname($customerInfo->getFirstName());
                 }
                 catch(\Exception $e) {
                     $errorMessage = $e->getMessage();
