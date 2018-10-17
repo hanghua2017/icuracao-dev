@@ -18,12 +18,14 @@ define([
     'mage/translate',
     'Magento_Ui/js/form/form',
     'Magento_Ui/js/model/messageList',
+    'Magento_Checkout/js/checkout-data',
     'Magento_Checkout/js/model/quote',
     'Magento_Checkout/js/model/url-builder',
     'Magento_Checkout/js/model/full-screen-loader',
     'Magento_Checkout/js/action/get-payment-information',
     'Magento_Checkout/js/model/totals',
     'Magento_Customer/js/model/customer',
+    'Dyode_Checkout/js/model/curacao-service-provider',
     'Magento_Ui/js/modal/modal'
 ], function (
     $,
@@ -33,14 +35,17 @@ define([
     $t,
     Component,
     messageList,
+    checkoutData,
     quote,
     urlBuilder,
     fullScreenLoader,
     getPaymentInformationAction,
     totals,
-    customer
+    customer,
+    curacaoServiceProvider
 ) {
-    var curacaoPaymentInfo = window.checkoutConfig.curacaoPayment;
+    var curacaoPaymentInfo = window.checkoutConfig.curacaoPayment,
+        customerInfo = window.checkoutConfig.customerData;
 
     return Component.extend({
 
@@ -54,6 +59,7 @@ define([
         curacaoAccountVerifyModal: null,
         smsIconUrl: curacaoPaymentInfo.mediaUrl + '/images/sms-icon.png',
         callIconUrl: curacaoPaymentInfo.mediaUrl + '/images/call-icon.png',
+        curacaoAccountIdInpValue: ko.observable(''),
         verificationCodeInpValue: ko.observable(''),
         ssnVerifyInpValue: ko.observable(''),
         dateOfBirthInpValue: ko.observable(''),
@@ -81,7 +87,7 @@ define([
         },
 
         getLinkUrl: function () {
-            return Url.build('creditapp/credit/index');
+            return Url.build('dyode_checkout/curacao/verify');
         },
 
         getDiscount: function () {
@@ -143,16 +149,15 @@ define([
         },
 
         getGuestEmail: function () {
-            if (quote.guestEmail) {
-                return quote.guestEmail;
+            var email = '';
+
+            if (customerInfo.length > 0) {
+                email = customerInfo.email;
+            } else {
+                email = checkoutData.getValidatedEmailValue();
             }
 
-            var storageDetails = localStorage.getItem('mage-cache-storage');
-            var checkoutDetails = JSON.parse(storageDetails);
-            var email = checkoutDetails['checkout-data'].inputFieldEmailValue;
-
             return email;
-
         },
 
         getCuracaoId: function () {
@@ -189,14 +194,31 @@ define([
         },
 
         /**
-         * Open up curacao-verify-account-modal
+         * Verifying given curacao id
+         *
+         * If curacao id is valid, then open up the verification-modal
          *
          * @param {this} model
          * @param {Event} event
          */
-        openCuracaoVerifyForm: function (model, event) {
+        verifyCuracaoId: function (model, event) {
             event.preventDefault();
-            $(this.curacaoAccountVerifyModal).modal('openModal');
+
+            if (this.validateCuracaoId(model)) {
+                var customerInfo = {
+                    'email_address': this.getGuestEmail(),
+                    'curacao_account': this.curacaoAccountIdInpValue()
+                };
+
+                curacaoServiceProvider.verifyCuracaoId(customerInfo).done(function () {
+                    if (!curacaoServiceProvider.isResponseError()) {
+                        $(model.curacaoAccountVerifyModal).modal('openModal');
+                    } else {
+                        model.curacaoAccountIdInpValue('');
+                    }
+                });
+            }
+
         },
 
         /**
@@ -208,6 +230,42 @@ define([
          */
         verifyCuracaoAccount: function () {
             return false;
+        },
+
+        /**
+         * Validate curacao id.
+         *
+         * Curacao id is an 8 or 7 digit number.
+         *
+         * @param   {Object}  model
+         * @returns {Boolean}
+         */
+        validateCuracaoId: function (model) {
+            if (model.curacaoAccountIdInpValue() === '') {
+                messageList.addErrorMessage({
+                    message: $t('Curacao account number cannot be empty.')
+                });
+
+                return false;
+            }
+
+            if (isNaN(model.curacaoAccountIdInpValue())) {
+                messageList.addErrorMessage({
+                    message: $t('Curacao account number should be a number.')
+                });
+
+                return false;
+            }
+
+            if (model.curacaoAccountIdInpValue().length !== 8 && model.curacaoAccountIdInpValue().length !== 7) {
+                messageList.addErrorMessage({
+                    message: $t('Curacao account number provided is invalid.')
+                });
+
+                return false;
+            }
+
+            return true;
         }
     });
 });
