@@ -419,7 +419,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
                                 $resultSetItem = $this->getProductInventory($productId);
                                 if (empty($resultSetItem[0]['finalinventory'])) {
-                                    throw new Exception("Product Inventory Level Not Found", 1);
+                                    throw new \Exception("Product Inventory Level Not Found", 1);
                                 }
                                 $setItemInventoryLevel = json_decode($resultSetItem[0]['finalinventory']);    
 
@@ -435,7 +435,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                                 }
                             }
                         } else {
-                            throw new Exception("Set Items Not Found", 1);
+                            throw new \Exception("Set Items Not Found", 1);
                         }
                         $setLocationFound = 0;
                         foreach ($availableInventory as $locations => $items) {
@@ -513,7 +513,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 $shippingZipCodeLat = $result[0]['lat'];
                 $shippingZipCodeLng = $result[0]['lng'];
             } else {
-                throw new Exception("Error Finding ZipCode Coordinates", 1);
+                throw new \Exception("Error Finding ZipCode Coordinates", 1);
             }
             foreach ($this->_allLocationsZipcodes as $locationCode => $zipCode) {
                 $query = "SELECT * FROM `locations` WHERE `zip` = $zipCode ";
@@ -549,7 +549,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             $product = $this->getProductById($productInfo['ProductId']);
             $resultSetItem = $this->getProductInventory($productInfo['ProductId']);
             if (empty($resultSetItem[0]['finalinventory'])) {
-                throw new Exception("Product Inventory Level Not Found", 1);
+                throw new \Exception("Product Inventory Level Not Found", 1);
             }
 
             $inventoryLevel = json_decode($resultSetItem[0]['finalinventory']);
@@ -630,7 +630,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         if (empty($invoiceNumber)) {
 			$logger->info("Order Id : " . $order->getIncrementId());
 			$logger->info("Invoice Number Not found ");
-			throw new Exception("Invoice Number Not found ");
+			throw new \Exception("Invoice Number Not found ");
 		}
         foreach ($order->getAllItems() as $orderItem) {
             $product = $this->_productRepository->getById($orderItem->getProductId()); 
@@ -643,8 +643,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         if (count($appleItems) > 1) {
             foreach ($appleItems as $appleItem) {
                 if ($appleItem->getProductType() != 'virtual') {
-                    if ($appleItem->getData('warranty_parent_id')) {
-                        $productToLink = $itemsArray[$appleItem->getData('warranty_parent_id')];
+                    if ($appleItem->getData('warranty_parent_item_id')) {
+                        $productToLink = $itemsArray[$appleItem->getData('warranty_parent_item_id')];
                         $warrantyToLink = $appleItem->getSku();
                         array_push($toLinkItems, array($productToLink, $warrantyToLink));
                     }
@@ -678,7 +678,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
 			$logger->info("Order Id : " . $order->getIncrementId());
 			$logger->info("API Response not Found.");
-			throw new Exception("API Response not Found", 1);
+			throw new \Exception("API Response not Found", 1);
 		}
 		if ($response->OK = true) {
             //logging audit log

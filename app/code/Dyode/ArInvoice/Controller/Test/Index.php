@@ -65,12 +65,16 @@ class Index extends \Magento\Framework\App\Action\Action
         $collection->addFieldToFilter('status', 'pending');
 
         if (!empty($orderId)) {
-            $this->arInvoice->createInvoice($orderId);
             $order = $this->_orderRepository->get($orderId);
-            $this->_arInvoiceHelper->linkAppleCare($order);
-            die;
-        } else {
 
+            if ($order->getStatus() == "pending") {
+                $this->arInvoice->createInvoice($orderId);
+                $this->_arInvoiceHelper->linkAppleCare($order);
+                die;
+            } else {
+                echo "Cannot process request now. Order is not Pending";
+            }
+        } else {
             foreach ($collection as $salesOrder) {
                 $this->arInvoice->createInvoice($salesOrder->getId());
                 $this->_arInvoiceHelper->linkAppleCare($salesOrder);
