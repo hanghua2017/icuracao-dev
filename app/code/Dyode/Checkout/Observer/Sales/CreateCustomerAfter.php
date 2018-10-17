@@ -36,6 +36,7 @@ class CreateCustomerAfter implements \Magento\Framework\Event\ObserverInterface
         \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\DataObject $postObject,
+        \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder,
         \Magento\Customer\Model\AddressFactory $addressFactory,
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Magento\Sales\Model\Order $orderSales,
