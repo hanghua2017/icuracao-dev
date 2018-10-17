@@ -53,13 +53,15 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Catalog\Model\ProductRepository $productRepository,
         \Magento\Framework\App\ResourceConnection $resourceConnection,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
-        \Dyode\ARWebservice\Helper\Data $arWebServiceHelper
+        \Dyode\ARWebservice\Helper\Data $arWebServiceHelper,
+        \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog
     ) {
         $this->_orderRepository = $orderRepository;
         $this->_productRepository = $productRepository;
         $this->_resourceConnection = $resourceConnection;
         $this->_customerRepositoryInterface = $customerRepositoryInterface;
         $this->arWebServiceHelper = $arWebServiceHelper;
+        $this->auditLog = $auditLog;
     }
 
     /**
@@ -661,29 +663,52 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         );
         $inputArray["items"] = $toLinkItems;
 
-        # Dummy Values
-        // $inputArray = array(
-        //     "invoice" => "ZEP5903",
-        //     "cust_id" => "53208833",
-        //     "f_name" => "TED",
-        //     "l_name" => "JOHN",
-        //     "email" => "someone@somesite.tld",
-        //     "cell_no" => "(999)999-9999",
-        //     "items" => array(
-        //         array("23H-N05-MC544LL/A","23Y-417-S5094LL/A")
-        //         )
-        // );
         $response = $this->appleCareSetWarranty($inputArray);
 
         if (empty($response)) {
+
+            //logging audit log
+            $this->auditLog->saveAuditLog([
+                'user_id' => $accountNumber,
+                'action' => 'Apple Care Warranty linking',
+                'description' => "No response",
+                'client_ip' => "",
+                'module_name' => "Dyode_ArInvoice"
+            ]);
+
 			$logger->info("Order Id : " . $order->getIncrementId());
 			$logger->info("API Response not Found.");
 			throw new Exception("API Response not Found", 1);
 		}
-		if ($response->OK != true) {
+		if ($response->OK = true) {
+            //logging audit log
+            $this->auditLog->saveAuditLog([
+                'user_id' => $accountNumber,
+                'action' => 'Apple Care Warranty linked successfully',
+                'description' => $response->INFO,
+                'client_ip' => "",
+                'module_name' => "Dyode_ArInvoice"
+            ]);
+
 			$logger->info("Order Id : " . $order->getIncrementId());
 			$logger->info($response->INFO);
             throw new \Exception($response->INFO);
+
+            return true;
+        } else {
+            $this->auditLog->saveAuditLog([
+                'user_id' => $accountNumber,
+                'action' => 'Fail to link Apple Care Warranty',
+                'description' => $response->INFO,
+                'client_ip' => "",
+                'module_name' => "Dyode_ArInvoice"
+            ]);
+
+            $logger->info("Order Id : " . $order->getIncrementId());
+            $logger->info($response->INFO);
+            throw new \Exception($response->INFO);
+
+            return false;
         }
     }
 }
