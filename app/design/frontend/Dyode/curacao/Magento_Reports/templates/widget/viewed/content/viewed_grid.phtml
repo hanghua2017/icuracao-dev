@@ -22,7 +22,9 @@ if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedPr
     $image = 'recently_viewed_products_grid_content_widget';
     $title = __('Recently Viewed');
     $items = $block->getRecentlyViewedProducts();
-
+    // instance
+    $_objectManager =  \Magento\Framework\App\ObjectManager::getInstance();
+    $productHelper = $_objectManager->create('Magento\Catalog\Model\Product');
     $showWishlist = true;
     $showCompare = true;
     $showCart = false;

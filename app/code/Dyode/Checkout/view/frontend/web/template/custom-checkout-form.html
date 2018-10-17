@@ -4,14 +4,15 @@
             <div class="curacao-credit-logo"></div>
         </h2>
         <div class="curacao-credit-fieldset">
-            <form id="custom-checkout-form" method="post" class="form"
-                  data-bind="attr: {'data-hasrequired': $t('* Required Fields'),'action':getLinkUrl()}">
-                <!-- ko foreach: getRegion('custom-checkout-form-fields') -->
-                <!-- ko template: getTemplate() --><!-- /ko -->
-                <!--/ko-->
-                <input type="hidden" data-bind="value: getGuestEmail()" name="customer_email"
-                       placeholder="Enter account number or code"/>
-                <input type="submit" name="button" data-bind="i18n: 'Link account', click: openCuracaoVerifyForm"/>
+            <form id="custom-checkout-form" class="form" data-bind="attr: {'data-hasrequired': $t('* Required Fields')}">
+                <label for="curacao-account-id" data-bind="i18n: 'Have a curacao account?'"></label>
+                <input type="number"
+                       id="curacao-account-id"
+                       class="input-text"
+                       data-bind="attr: {placeholder: $t('Enter account number or code')},
+                            value: curacaoAccountIdInpValue"
+                />
+                <input type="submit" name="button" data-bind="i18n: 'Link account', click: verifyCuracaoId"/>
             </form>
             <p data-bind="i18n: 'If you have received our pre-approved offer, enter your activation code to set up your account'"></p>
             <h3>
