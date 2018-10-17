@@ -72,16 +72,16 @@
      <img src="<?php echo $this->getViewFileUrl('images/pricebeat_logo.png'); ?>" alt="Price Beat Logo">
    </div>
    <div class="beat-banner-content">
-     <h3>Pay lowest price everytime you shop!</h3>
-     <p>Never worry again about getting the best deal. Curacao’s PRICE
+     <h3><?php echo __('Pay lowest price everytime you shop!');?></h3>
+     <p><?php echo __('Never worry again about getting the best deal. Curacao’s PRICE
         BEAT GUARANTEE ensures that you are always going to get the best
         deal on any item soldin our store or online, even after you’ve
-        already made your purchase.</p>
-      <p>Curacao strives to ensure that we have competitive pricing
+        already made your purchase.');?></p>
+      <p><?php echo __('Curacao strives to ensure that we have competitive pricing
         on all items every day, But on occassion a competitor may
         offer the same item for less. with Curacao’s PRICE BEAT GURANTEE,
         We will not only match the competitors price, but we will BEAT it!
-        This is our Promise.</p>
+        This is our Promise.');?></p>
    </div>
  </div>
 
@@ -92,7 +92,6 @@
 require([
   'jquery'
 ], function($) {$(function() {
-    console.log('Pricebeat js is called');
     $('#pricebeat-btn').on('click', function(e) {
       e.preventDefault();
       var productlink    = $('#product_url').val();
@@ -103,7 +102,7 @@ require([
       var phonenumber    =$('#phonenumber').val();
       var account_number =$('#account_number').val();
       var invoice_number =$('#invoice_number').val();
-      var numericExpression = /^w.+@[a-zA-Z_-]+?.[a-zA-Z]{2,3}$/;
+      var numericExpression = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
       $(".error").remove();
       if(first_name== ""){
          $('#first_name').after('<span class="error">First name is required</span>');
@@ -114,19 +113,15 @@ require([
       if(email== ""){
         $('#email').after('<span class="error">Email-id is required</span>');
       }
-      if (email.match(numericExpression)){
-         $('#email').after('<span class="error">Email-id valid</span>');
-      }
-      else{
-         $('#email').after('<span class="error">Email-id invalid</span>');
+      else {
+        if(!numericExpression.test(email)){
+          $('#email').after('<span class="error">Email-id invalid</span>');
+        }
       }
       if(phonenumber== ""){
         $('#phonenumber').after('<span class="error">Phone number is required</span>');
       }
-      // if(account_number== ""){
-      //   console.log('account_number is empty');
-      //   $('#account_number').after('<span class="error">Account number is required</span>');
-      // }
+      
       if(invoice_number== ""){
         $('#invoice_number').after('<span class="error">Invoice number is required</span>');
       }

@@ -78,15 +78,15 @@
      <img src="<?php echo $this->getViewFileUrl('images/interestbeat_logo.png'); ?>" alt="Price Beat Logo">
    </div>
    <div class="beat-banner-content">
-     <h3>We will beat any competitors <br> INTEREST RATE</h3>
-     <p>Curacao is so confident in our landing practices and the interest
+     <h3><?php echo __('We will beat any competitors');?> <br> <?php echo __('INTEREST RATE');?></h3>
+     <p><?php echo __('Curacao is so confident in our landing practices and the interest
        rate that we offer, We have introduced our INTEREST BEAT GUARANTEE.
        This ensures that our cunsomers can enhoy better interest rates than
-       you are able to get with any other retailer’s store credit card.</p>
-      <p>Curacao continually reviews its lending rates and tries to ensure
+       you are able to get with any other retailer’s store credit card.');?></p>
+      <p><?php echo __('Curacao continually reviews its lending rates and tries to ensure
         that our customers pay competitive rate on their outstanding debt.
         With Curacao’s INTEREST BEAT GUARANTEE, We will not only match
-        the competitor’s interest rate, but we will BEAT it! That is our promise.</p>
+        the competitor’s interest rate, but we will BEAT it! That is our promise.');?></p>
    </div>
  </div>
 
@@ -104,7 +104,7 @@ require([
     var phonenumber    =$('#phonenumber').val();
     var account_number =$('#account_number').val();
     var invoice_number =$('#invoice_number').val();
-    var numericExpression = /^w.+@[a-zA-Z_-]+?.[a-zA-Z]{2,3}$/;
+    var numericExpression = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
 
     $(".error").remove();
     if(first_name== ""){
@@ -114,20 +114,17 @@ require([
       $('#last_name').after('<span class="error">Last name is required</span>');
     }
     if(email== ""){
-      $('#email').after('<span class="error">Email-id is required</span>');
+        $('#email').after('<span class="error">Email-id is required</span>');
     }
-    if (email.match(numericExpression)){
-       $('#email').after('<span class="error">Email-id valid</span>');
-     }
-      else{
-     $('#email').after('<span class="error">Email-id invalid</span>');
+      else {
+        if(!numericExpression.test(email)){
+          $('#email').after('<span class="error">Email-id invalid</span>');
         }
+      }
     if(phonenumber== ""){
       $('#phonenumber').after('<span class="error">Phone number is required</span>');
     }
-    // if(account_number== ""){
-    //   $('#account_number').after('<span class="error">Account number is required</span>');
-    // }
+   
     if(invoice_number== ""){
       $('#invoice_number').after('<span class="error">Invoice number is required</span>');
     }

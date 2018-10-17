@@ -42,8 +42,6 @@ class Post extends Action
     }
     public function execute()
     {
-      // echo "hello from controller";
-      // exit();
         $this->validatedParams();
         $this->getFormData();
         //page redirecting
@@ -86,8 +84,7 @@ class Post extends Action
        $data               = $this->getRequest()->getPost();
        $filedata           = $this->getRequest()->getFiles('upload_file');
        $date               = date('Y-m-d h:i:sa');
-       // var_dump($data);
-       // exit();
+       
            if ($_FILES['upload_file']['name']) {
                try {
                    $uploader = $this->_objectManager->create(
@@ -123,11 +120,16 @@ class Post extends Action
        $FormModel->setData('product_image_url', $data['upload_file']);
        $FormModel->setData('created_date', $date);
 
-
-       $FormModel->save();
-
-       // $this->_redirect('blog/index');
-       // $this->messageManager->addSuccess(__('The Request has been send.'));
+        try{
+            $FormModel->save();
+            $this->messageManager->addSuccess(__('The Request has been send.'));
+        } catch(Exception $e){
+            $this->messageManager->addErrorMessage($e);
+            
+        }
+   
+    return $this;
+      
     }
 
 
