@@ -11,6 +11,7 @@ namespace Dyode\Catalog\Observer;
 use Magento\Checkout\Model\Session;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
+use Magento\Framework\Message\ManagerInterface;
 use Magento\Checkout\Model\Cart as CustomerCart;
 
 class RemoveWarrantyFromCart implements ObserverInterface
@@ -32,14 +33,24 @@ class RemoveWarrantyFromCart implements ObserverInterface
     protected $checkoutSession;
 
     /**
+     * @var \Magento\Framework\Message\ManagerInterface
+     */
+    protected $messageManager;
+
+    /**
      * RemoveWarrantyFromCart constructor.
      *
      * @param \Magento\Checkout\Model\Cart $cart
      * @param \Magento\Checkout\Model\Session $checkoutSession
      */
-    public function __construct(CustomerCart $cart, Session $checkoutSession)
+    public function __construct(
+        CustomerCart $cart, 
+        Session $checkoutSession,
+        ManagerInterface $messageManager
+        )
     {
         $this->cart = $cart;
+        $this->messageManager = $messageManager;
         $this->checkoutSession = $checkoutSession;
     }
 
@@ -78,8 +89,16 @@ class RemoveWarrantyFromCart implements ObserverInterface
         foreach ($warrantyIds as $index => $warrantyId) {
             $this->cart->removeItem($warrantyId);
         }
-
-        $this->cart->save();
+        try{
+            $this->cart->save();
+            $message = __('Successfully deleted');
+            $this->messageManager->addSuccessMessage($message);
+        } catch(Exception $e){
+            $this->messageManager->addErrorMessage(
+                'Could not delete the item'
+            );
+        }
+        
 
         return $this;
     }
