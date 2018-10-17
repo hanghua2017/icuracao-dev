@@ -708,6 +708,10 @@ input[type="radio"] {
       /*styling for the new credit card starts here*/
 
       #checkout-payment-method-load{
+        clear: both;
+        float: left;
+        width: 100%;
+
         .payment-methods{
           @media all and (max-width:767px){
             margin:0;
@@ -875,6 +879,18 @@ input[type="radio"] {
       .items-in-cart > .title strong {
         font-size: 1.6rem;
         font-weight: 400;
+      }
+      .checkout-payment-method
+      {
+        .credit-card-types
+        {
+          img
+          {
+            -webkit-filter: inherit;
+
+          }
+        }
+
       }
       /*styling fot the new credit card ends here*/
       .opc-wrapper{
@@ -1959,6 +1975,8 @@ input[type="radio"] {
                 padding-bottom: 40px;
                 margin-bottom: 30px;
                 border-bottom:1px solid #cccccc;
+                float: left;
+                width: 100%;
                 @media all and (max-width:767px){
                   padding-bottom: 20px;
                   margin-bottom: 20px;
@@ -1988,7 +2006,7 @@ input[type="radio"] {
                     border: 1px solid @dark-gray-border;
                     border-radius: 8px;
                     margin: 0 10px;
-                    width: 85%;
+                    width: 100%;
                     padding: 20px 15px;
                     position: relative;
                     box-sizing: border-box;
@@ -2005,6 +2023,24 @@ input[type="radio"] {
                       padding-top: 10px;
                     }
                     #custom-checkout-form{
+                      label[for="curacao-account-id"]
+                      {
+                        width: 100%;
+                        float: left;
+                        font-family: "iCuracao-Medium";
+                        margin-bottom: 5px;
+                      }
+                      #curacao-account-id
+                      {
+                        width: 45%;
+                        clear: both;
+                        float: left;
+                        @media all and (max-width:479px)
+                        {
+                          width: 100%;
+                        }
+                      }
+
                       .field{
                         margin-bottom: 10px;
                         label{
@@ -2030,8 +2066,9 @@ input[type="radio"] {
                       }
                       input[type="submit"]{
                         position: absolute;
-                        left: 45%;
-                        top: 49px;
+                        width: 130px;
+                        top: 45px;
+                        left: 45.8%;
                         height: 32px;
                         background: @theme-color;
                         box-shadow: none;
@@ -2049,6 +2086,11 @@ input[type="radio"] {
                           width:100%;
                           margin-bottom: 10px;
                         }
+                        @media all and (max-width:479px)
+                        {
+                              margin-top: 5px;
+                              position: static;
+                        }
                       }
                     }
                     p{
@@ -2057,12 +2099,21 @@ input[type="radio"] {
                       font-size: 11px;
                       font-style: italic;
                       margin-bottom: 15px;
+                      clear: both;
+                      margin-top: 10px;
+                      float: left;
+                      width: 100%;
+                      @media all and (max-width:479px)
+                      {
+                        margin-top: 0px;
+                      }
                     }
                     h3{
                       font-family: "iCuracao-Medium";
                       color:@black;
                       font-size:14px;
                       font-weight: normal;
+                      clear: both;
                       @media all and (max-width:479px){
                         font-size:13px;
                       }
