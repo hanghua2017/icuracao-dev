@@ -19,6 +19,7 @@ use Dyode\ARWebservice\Helper\Data;
 use Magento\Customer\Model\CustomerFactory;
 use Magento\Store\Model\StoreManagerInterface; 
 use Magento\Customer\Model\Session;
+use Magento\Framework\DataObject;
 
 class VerifyCuracaoId
 {
@@ -48,14 +49,9 @@ class VerifyCuracaoId
     protected $customerFactory;
 
     /**
-     * @var \Magento\Store\Model\StoreManagerInterface
-     */
-    protected $storeManager;
-
-    /**
      * @var Session
      */
-    protected $session;
+    protected $customerSession;
 
     /**
      * RestrictCustomerEmail constructor.
@@ -71,8 +67,7 @@ class VerifyCuracaoId
         CoreSession $coreSession,
         Data $helper,
         CustomerFactory $customerFactory,
-        Session $customerSession,
-        StoreManagerInterface $storeManager
+        Session $customerSession
     )
     {
         $this->urlModel = $urlFactory->create();
@@ -80,8 +75,7 @@ class VerifyCuracaoId
         $this->messageManager = $messageManager;
         $this->coreSession = $coreSession;
         $this->helper = $helper;
-        $this->storeManager = $storeManager;
-        $this->session = $customerSession;
+        $this->customerSession = $customerSession;
         $this->customerFactory = $customerFactory;
     }
 
@@ -92,20 +86,18 @@ class VerifyCuracaoId
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function aroundExecute(
-        \Magento\Customer\Controller\Account\CreatePost $subject,
+        \Magento\Customer\Controller\Account\CreatePost $registerPost,
         \Closure $proceed
     )
     {
+
         /** @var \Magento\Framework\App\RequestInterface $request */
-        $email = $subject->getRequest()->getParam('email');
-        $fName = $subject->getRequest()->getParam('firstname');
-        $lName = $subject->getRequest()->getParam('lastname');
-        $checked = $subject->getRequest()->getParam('account-check');
-        $curacaoId = $subject->getRequest()->getParam('curacaocustid');
-        $password =  $subject->getRequest()->getParam('password');
-        //echo $curacaoId .$checked;
+        $checked = $registerPost->getRequest()->getParam('account-check');
+        $curacaoId = $registerPost->getRequest()->getParam('curacaocustid');
+      
         if(!empty($curacaoId) && ($checked)){
             $this->coreSession->start();
+
             $resultRedirect = $this->resultRedirectFactory->create();
 
             $attempts  =  $this->coreSession->getAttempts();
@@ -131,22 +123,12 @@ class VerifyCuracaoId
                
                     return $resultRedirect->setUrl($defaultUrl);
                 }
-    
-                    // Get Website ID
-                    $websiteId  = $this->storeManager->getWebsite()->getWebsiteId();
-                    $this->coreSession->setCurAcc($curacaoId);
-                    $this->coreSession->setCustEmail($email);
-                    $this->coreSession->setCustomerInfo($accountInfo);  
-                    $this->coreSession->setPass($password);  
-                    $this->coreSession->setFname($fName);  
-                    $this->coreSession->setLastname($lName);  
-                    $this->coreSession->setPath("linkaccount/verify/success");
-
-                    
-                    $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
-                    /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
-                    return $resultRedirect->setUrl($defaultUrl);
-               
+                
+                $this->setCuracaoSessionDetails($accountInfo, $registerPost);
+                      
+                $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
+                /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
+                return $resultRedirect->setUrl($defaultUrl);               
 
             } else {
                 //Crossed 5 attempts
@@ -162,5 +144,30 @@ class VerifyCuracaoId
         }
    
      return $proceed();
+    }
+
+    public function setCuracaoSessionDetails($accountInfo,$registerPost)
+    {
+        $accountNumber = $registerPost->getRequest()->getParam('curacaocustid',false);
+        $customerEmail = $registerPost->getRequest()->getParam('email', false);
+        $password      = $registerPost->getRequest()->getParam('password', false);
+        
+        $curacaoInfo = new DataObject([
+            'account_number' => $accountNumber,
+            'email_address'  => $customerEmail,
+            'first_name'     => $accountInfo->F_NAME,
+            'last_name'      => $accountInfo->L_NAME,
+            'street'         => $accountInfo->STREET,
+            'city'           => $accountInfo->CITY,
+            'state'          => $customerInfo->STATE,
+            'zip_code'       => $accountInfo->ZIP,
+            'previous_page'  => 'create',
+            'password'       => $password,
+            'telephone'      => $accountInfo->PHONE
+        ]);
+
+        $this->customerSession->setCuracaoInfo($curacaoInfo);
+
+        return $this;
     }
 }

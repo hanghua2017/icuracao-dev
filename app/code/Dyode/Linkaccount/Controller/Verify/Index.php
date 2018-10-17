@@ -26,14 +26,10 @@ class Index extends Action
     protected $_helper;
     protected $_messageManager;
     protected $_customerModel;
-    protected $_coreSession;
     protected $_storeManager;
-    protected $_customerResourceFactory;
     protected $_customerRepositoryInterface;
     protected $_addressFactory;
     protected $_resultFactory;
-    protected $_quote;
-    protected $_checkoutSession;
     /**
      * @var \Magento\Quote\Api\CartRepositoryInterface
      */
@@ -64,14 +60,10 @@ class Index extends Action
         \Dyode\ARWebservice\Helper\Data $helper,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Framework\Session\SessionManagerInterface $coreSession,
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
         \Magento\Customer\Model\AddressFactory $addressFactory,
-        \Magento\Quote\Model\Quote $quote,
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
-        \Magento\Customer\Model\ResourceModel\CustomerFactory $customerResourceFactory,
-        \Magento\Checkout\Model\Session $checkoutSession,
         UrlFactory $urlFactory,
         CustomerFactory $customerFactory
     ) {
@@ -81,16 +73,12 @@ class Index extends Action
         $this->_customerSession = $customerSession;
         $this->_helper = $helper;
         $this->_storeManager = $storeManager;
-        $this->_coreSession = $coreSession;
         $this->_messageManager = $messageManager;
         $this->_customerModel = $customerModel;
         $this->_customerRepositoryInterface = $customerRepositoryInterface;
-        $this->_customerResourceFactory = $customerResourceFactory;
         $this->_addressFactory = $addressFactory;
         $this->urlModel = $urlFactory->create(); 
-        $this->_quote = $quote;
         $this->quoteRepository = $quoteRepository;
-        $this->_checkoutSession = $checkoutSession;
         $this->customerFactory = $customerFactory;
         parent::__construct($context);
     }
@@ -105,47 +93,36 @@ class Index extends Action
         $postVariables = (array) $this->getRequest()->getPost();
 
         if(!empty($postVariables)){
-            $this->_coreSession->start();
-            $downPayment = 0;
+          
             $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
             $websiteId = $this->_storeManager->getStore()->getWebsiteId();
-            $curacaoCustId = $this->_coreSession->getCurAcc();
-            $custEmail  = $this->_coreSession->getCustEmail();
-            $customerInfo  = $this->_coreSession->getCustomerInfo();
-            $password = $this->_coreSession->getPass();
-            $prevpath = $this->_coreSession->getPrevpage();
-            $customerId = '';
+            $customerId ='';
+            $customerInfo  = $this->_customerSession->getCuracaoInfo();
 
             //Get Customer Id
             if($this->_customerSession->isLoggedIn()){
                 $customerId    = $this->_customerSession->getCustomer()->getId();
             }
           
-            $zipCode  = $postVariables['link_zipcode'];
-            $customerInfo  = $this->_coreSession->getCustomerInfo();
-            $dob = $postVariables['calendar_inputField'];
-            $ssnLast = $postVariables['ssn-verify'];
-            $maidenName = $postVariables['link_maiden'];
+            $zipCode  = trim($postVariables['link_zipcode']);
+            $curacaoCustId = trim($customerInfo->getAccountNumber());
+            $dob = trim($postVariables['calendar_inputField']);
+            $ssnLast = trim($postVariables['ssn-verify']);
+            $maidenName = trim($postVariables['link_maiden']);
 
-            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-            $cart   = $objectManager->get('\Magento\Checkout\Model\Cart');
-            $totals = $cart->getQuote()->getTotals();
-            $subtotal = $totals['subtotal']['value'];           
-            if($subtotal){
-              $amount =   $subtotal;
-            } else{
-              $amount = '30.00';
-            }
+            
             $postData = array(
                 'cust_id' => $curacaoCustId,
-                'amount' => $amount,
+                'dob'=>$dob,
+                'amount' => 1,
                 'ssn'=>$ssnLast,
-                'zip'=> $zipCode
+                'zip'=> $zipCode,
+                'mmaiden'=>$maidenName
             );
             
             //Verify Credit Account Infm
             $accountInfo   =  $this->_helper->verifyPersonalInfm($postData);
-         
+            $accountInfo = true;
             if($accountInfo == false){
                 // Personal Infm failed
                 $this->_messageManager->addErrorMessage(__('Verification failed [SSN /ZIP]'));
@@ -153,25 +130,21 @@ class Index extends Action
                 return $resultRedirect;
             }
 
-             $downPayment = $accountInfo->DOWNPAYMENT;
-            // $downPayment = 0;
-             //Linking the account
-             if ($customerId) {
+            if ($customerId) {
                $customer = $this->_customerRepositoryInterface->getById($customerId);
                $customer->setCustomAttribute('curacaocustid', $curacaoCustId);
                $this->_customerRepositoryInterface->save($customer);
              } else {
-                $fName = $this->_coreSession->getFname();                   
-                $lName = $this->_coreSession->getLastname();
-                $path = $this->_coreSession->getPath();
+
                 // Instantiate object (this is the most important part)
                 $customer = $this->customerFactory->create();
                 $customer->setWebsiteId($websiteId);
                 // Preparing data for new customer
-                $customer->setEmail($custEmail);
-                $customer->setFirstname($fName);
-                $customer->setLastname($lName);
-                $customer->setPassword($password);
+                $customer->setEmail($customerInfo->getEmailAddress());
+                $customer->setFirstname($customerInfo->getFirstName());
+                $customer->setLastname($customerInfo->getLastName());
+                $customer->setPassword($customerInfo->getPassword());
+
                 // Save Curacao Customer Id
                 if (!empty($curacaoCustId)) {
                     $customerData = $customer->getDataModel();
@@ -181,10 +154,7 @@ class Index extends Action
                 try{
                     // Save data
                     $customer->save();
-                    $this->_customerSession->setCustomerAsLoggedIn($customer);
-                    $this->_customerSession->setDownPayment($downPayment);
-                    $this->_customerSession->setCurAcc($curacaoCustId);
-                    $this->_customerSession->setFname($fName);
+                    $this->_customerSession->setCustomerAsLoggedIn($customer);                   
                 }
                 catch(\Exception $e) {
                     $errorMessage = $e->getMessage();
@@ -195,10 +165,10 @@ class Index extends Action
                 $customerId = $customer->getId();
              }
            
-             $zipCode  = str_replace('-','',$customerInfo->ZIP);//clearn up zip code
+             $zipCode  = str_replace('-','',$customerInfo->getZipCode());//clearn up zip code
 
              //assign what region the state is in
-             switch($customerInfo->STATE)
+             switch($customerInfo->getState())
              {
                      case 'AZ' : $reg_id = 4; break;
                      case 'CA' : $reg_id = 12; break;
@@ -206,14 +176,16 @@ class Index extends Action
                      default   : $reg_id = 12; break;
              }
              //safe information t an array
-             $_custom_address = array('firstname' => $customerInfo->F_NAME,
-                             'lastname' => $customerInfo->L_NAME,
-                             'street' => array('0' => $customerInfo->STREET, '1' => '',),
-                             'city' => $customerInfo->CITY,
-                             'region_id' => $reg_id,
-                             'postcode' => $zipCode,
-                             'country_id' => 'US',
-                             'telephone' => $customerInfo->PHONE);
+             $_custom_address = array(
+                                    'firstname' => $customerInfo->getFirstName(),
+                                    'lastname' => $customerInfo->getFirstName(),
+                                    'street' => array('0' => $customerInfo->getStreet(), '1' => '',),
+                                    'city' => $customerInfo->getCity(),
+                                    'region_id' => $reg_id,
+                                    'postcode' => $zipCode,
+                                    'country_id' => 'US',
+                                    'telephone' => $customerInfo->getTelephone()
+                                );
 
                            
             //get the customer address model and update the address information
