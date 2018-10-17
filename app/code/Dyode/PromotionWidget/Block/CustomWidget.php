@@ -2,6 +2,7 @@
 namespace Dyode\PromotionWidget\Block;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Store\Model\StoreManagerInterface;
 
 class CustomWidget extends \Magento\Framework\View\Element\Template implements \Magento\Widget\Block\BlockInterface
 {
@@ -11,10 +12,13 @@ class CustomWidget extends \Magento\Framework\View\Element\Template implements \
      * @param MagentoFrameworkViewElementTemplateContext $context
      * $data[]
      */
+     public $_storeManager;
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         array $data = []
     ) {
+        $this->_storeManager = $storeManager;
         parent::__construct($context, $data);
     }
 
@@ -392,5 +396,16 @@ class CustomWidget extends \Magento\Framework\View\Element\Template implements \
     public function getReferenceUrlquadrupleFourth()
     {
       return $this->getData('imageurl_quadruple_fourth');
+    }
+    /**
+    * function name : getMediaUrl()
+     * Retrieve MediaUrl()
+     *
+    */
+    public function getMediaUrl()
+    {
+
+       $mediaUrl = $this ->_storeManager-> getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA );
+       return $mediaUrl;
     }
 }
