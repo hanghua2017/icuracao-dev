@@ -142,18 +142,19 @@ class Index extends Action
                 'ssn'=>$ssnLast,
                 'zip'=> $zipCode
             );
-
+            
             //Verify Credit Account Infm
             $accountInfo   =  $this->_helper->verifyPersonalInfm($postData);
-
+         
             if($accountInfo == false){
                 // Personal Infm failed
-                $this->_messageManager->addErrorMessage(__('Verification failed'));
+                $this->_messageManager->addErrorMessage(__('Verification failed [SSN /ZIP]'));
                 $resultRedirect->setPath('linkaccount/verify/index');
                 return $resultRedirect;
             }
 
              $downPayment = $accountInfo->DOWNPAYMENT;
+            // $downPayment = 0;
              //Linking the account
              if ($customerId) {
                $customer = $this->_customerRepositoryInterface->getById($customerId);
@@ -177,15 +178,27 @@ class Index extends Action
                     $customerData->setCustomAttribute('curacaocustid', $curacaoCustId);
                     $customer->updateData($customerData);
                 }
-                // Save data
-                $customer->save();
+                try{
+                    // Save data
+                    $customer->save();
+                    $this->_customerSession->setCustomerAsLoggedIn($customer);
+                    $this->_customerSession->setDownPayment($downPayment);
+                    $this->_customerSession->setCurAcc($curacaoCustId);
+                    $this->_customerSession->setFname($fName);
+                }
+                catch(\Exception $e) {
+                    $errorMessage = $e->getMessage();
+                    $this->messageManager->addErrorMessage($errorMessage);
+                    $defaultUrl = $this->urlModel->getUrl('customer/account/create/', ['_secure' => true]);
+    
+                }
                 $customerId = $customer->getId();
              }
-
-             $customerInfo["ZIP"] = str_replace('-','',$customerInfo['ZIP']);//clearn up zip code
+           
+             $zipCode  = str_replace('-','',$customerInfo->ZIP);//clearn up zip code
 
              //assign what region the state is in
-             switch($customerInfo['STATE'])
+             switch($customerInfo->STATE)
              {
                      case 'AZ' : $reg_id = 4; break;
                      case 'CA' : $reg_id = 12; break;
@@ -193,14 +206,14 @@ class Index extends Action
                      default   : $reg_id = 12; break;
              }
              //safe information t an array
-             $_custom_address = array('firstname' => $customerInfo['F_NAME'],
-                             'lastname' => $customerInfo['L_NAME'],
-                             'street' => array('0' => $customerInfo['STREET'], '1' => '',),
-                             'city' => $customerInfo['CITY'],
+             $_custom_address = array('firstname' => $customerInfo->F_NAME,
+                             'lastname' => $customerInfo->L_NAME,
+                             'street' => array('0' => $customerInfo->STREET, '1' => '',),
+                             'city' => $customerInfo->CITY,
                              'region_id' => $reg_id,
-                             'postcode' => $customerInfo['ZIP'],
+                             'postcode' => $zipCode,
                              'country_id' => 'US',
-                             'telephone' => $customerInfo['PHONE']);
+                             'telephone' => $customerInfo->PHONE);
 
                            
             //get the customer address model and update the address information
@@ -214,11 +227,10 @@ class Index extends Action
    
                 try{
                       $customAddress->save();
-                      $customer->setAddress($customAddress);
-                      $customer->save();
-                      $this->_customerSession->setCustomerAsLoggedIn($customer);
-                      $this->_customerSession->setDownPayment($downpayment);
+                    //  $customer->setAddress($customAddress);
+                    //  $customer->save();
                      
+                    $defaultUrl = $this->urlModel->getUrl('linkaccount/verify/success', ['_secure' => true]); 
                         if(isset($path)){
                            $defaultUrl = $this->urlModel->getUrl('linkaccount/verify/success', ['_secure' => true]);       
                         } else{
@@ -231,7 +243,7 @@ class Index extends Action
                 }
                 catch(\Exception $e) {
                     $errorMessage = $e->getMessage();
-                    $this->messageManager->addErrorMessage('Please enter correct Details'.$errorMessage);
+                    $this->messageManager->addErrorMessage($errorMessage);
                     $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
        
                 }
