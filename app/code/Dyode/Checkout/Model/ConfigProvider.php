@@ -11,6 +11,7 @@ use Magento\Framework\View\LayoutInterface;
 use Magento\Cms\Helper\Page as PageHelper;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
+use Magento\Framework\View\Asset\Repository as AssetRepository;
 
 class ConfigProvider implements ConfigProviderInterface
 {
@@ -40,6 +41,11 @@ class ConfigProvider implements ConfigProviderInterface
     protected $_pageHelper;
 
     /**
+     * @var \Magento\Framework\View\Asset\Repository
+     */
+    protected $_assetRepository;
+
+    /**
      * ConfigProvider constructor.
      *
      * @param \Magento\Framework\Pricing\Helper\Data $priceHelper
@@ -50,6 +56,7 @@ class ConfigProvider implements ConfigProviderInterface
      * @param \Magento\Framework\View\LayoutInterface $layout
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\Cms\Helper\Page $pageHelper
+     * @param \Magento\Framework\View\Asset\Repository $assetRepository
      * @param $blockId
      */
     public function __construct(
@@ -61,6 +68,7 @@ class ConfigProvider implements ConfigProviderInterface
         LayoutInterface $layout,
         ScopeConfigInterface $scopeConfig,
         PageHelper $pageHelper,
+        AssetRepository $assetRepository,
         $blockId
     ) {
         $this->_customerSession = $customerSession;
@@ -71,6 +79,7 @@ class ConfigProvider implements ConfigProviderInterface
         $this->_priceHelper = $priceHelper;
         $this->_scopeConfig = $scopeConfig;
         $this->_pageHelper = $pageHelper;
+        $this->_assetRepository = $assetRepository;
         $this->_cmsBlock = $this->constructBlock($blockId);
     }
 
@@ -83,15 +92,17 @@ class ConfigProvider implements ConfigProviderInterface
 
     public function getConfig()
     {
-        $configArr['canapply'] = $this->_canApply;
-        $configArr['limit'] = $this->getLimit();
-        $configArr['total'] = $this->getDownPayment();
-        $configArr['linked'] = $this->_linked;
+        $configArr['curacaoPayment']['canApply'] = $this->_canApply;
+        $configArr['curacaoPayment']['limit'] = $this->getLimit();
+        $configArr['curacaoPayment']['total'] = $this->getDownPayment();
+        $configArr['curacaoPayment']['linked'] = $this->_linked;
+        $configArr['curacaoPayment']['mediaUrl'] = $this->_assetRepository->getUrl('');
         $configArr['cms_block'] = $this->_cmsBlock;
         $configArr['terms_and_condition'] = $this->checkoutTermsAndConditions();
         $configArr['privacy_link'] = $this->checkoutPrivacyLink();
-      return $configArr;
-   }
+
+        return $configArr;
+    }
 
     public function getLimit()
     {
@@ -133,7 +144,6 @@ class ConfigProvider implements ConfigProviderInterface
         }
         $customerId = $this->_customerSession->getCustomerId();
         if ($customerId) {
-
             /**
              * @var \Magento\Customer\Model\Data\Customer $customer
              * @var \Magento\Framework\Api\AttributeValue|null $curacaoAttribute

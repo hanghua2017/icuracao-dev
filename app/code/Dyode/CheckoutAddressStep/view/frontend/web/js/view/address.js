@@ -294,8 +294,29 @@ define([
                 checkoutData.setSelectedShippingAddress(newShippingAddress.getKey());
                 checkoutData.setNewCustomerShippingAddress($.extend(true, {}, addressData));
                 this.isNewAddressAdded(true);
-                // increment address number
-                self.isThereMoreThanTwoAddresses(self.isThereMoreThanTwoAddresses()+1);
+                // Check if there are now more than two addresses.
+                self.isThereMoreThanTwoAddresses(addressList().length>2);
+                // If there are more than two address's scroll to view all button
+                if(self.isThereMoreThanTwoAddresses()) {
+                    //Press the View All Button
+        
+                    if(document.getElementsByClassName('shipping-address-view-all')[0].innerText == "View All"){
+                        $('.shipping-address-view-all').click();
+                    }
+                    //Smooth Scroll to top
+                    var linkHref = $('.save-address').attr('href');
+                    $('html, body').animate({
+                        scrollTop: $(linkHref).offset().top-320
+                    },600);
+                    
+                }
+                else
+                {
+                    document.body.scrollTop = 370; // For Safari
+                    document.documentElement.scrollTop = 370; // For Chrome, Firefox, IE and Opera
+                }
+                
+
             }
         },
 
