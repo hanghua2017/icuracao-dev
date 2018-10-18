@@ -90,8 +90,13 @@ class Verify extends Action
             $accountInfo = $this->_helper->getARCustomerInfoAction($accountNumber);
 
             if ($accountInfo && $accountInfo !== false) {
-                $this->setCuracaoSessionDetails($accountInfo);
-                return $this->redirecToScrutinizePage();
+                try {
+                    $this->setCuracaoSessionDetails($accountInfo);
+                    return $this->redirectToScrutinizePage($accountInfo);
+
+                } catch (\Exception $exception) {
+                    return $this->sendErrorResponse();
+                }
             }
         }
 
@@ -109,9 +114,58 @@ class Verify extends Action
     }
 
     /**
-     * Add curacao information in the core session.
+     * Add curacao information in the checkout session.
      *
-     * * $accountInfo = stdClass(
+     * @param \stdClass $accountInfo
+     * @return $this
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    protected function setCuracaoSessionDetails($accountInfo)
+    {
+        $curacaoInfo = $this->prepareOutput($accountInfo);
+        $this->_checkoutSession->setCuracaoInfo($curacaoInfo);
+        return $this;
+    }
+
+    /**
+     * Redirecting to curacao account verifying page.
+     *
+     * @param \stdClass $accountInfo
+     * @return \Magento\Framework\Controller\ResultInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    protected function redirectToScrutinizePage($accountInfo)
+    {
+        $curacaoInfo = $this->prepareOutput($accountInfo);
+        $result = $this->_resultFactory->create(ResultFactory::TYPE_JSON);
+        $result->setData([
+            'data' => $curacaoInfo->toArray(),
+            'type' => 'success',
+        ]);
+
+        return $result;
+    }
+
+    /**
+     * Tells to the world that, curacao information provided is wrong.
+     *
+     * @return mixed
+     */
+    protected function sendErrorResponse()
+    {
+        $result = $this->_resultFactory->create(ResultFactory::TYPE_JSON);
+        $result->setData([
+            'message' => 'The given curacao identification number is wrong. Please try again.',
+            'type'    => 'error',
+        ]);
+
+        return $result;
+    }
+
+    /**
+     * Preparing response output.
+     *
+     * $accountInfo = stdClass(
      *      [CELL] => (323)274-6810
      *      [CITY] => LOS ANGELES
      *      [CUST_ID] => 52398671
@@ -125,13 +179,13 @@ class Verify extends Action
      * );
      *
      * @param \stdClass $accountInfo
-     * @return $this
+     * @return \Magento\Framework\DataObject $curacaoInfo
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    protected function setCuracaoSessionDetails($accountInfo)
+    protected function prepareOutput($accountInfo)
     {
         $accountNumber = $this->getRequest()->getParam('curacao_account', false);
-        $customerEmail = $this->getRequest()->getParam('customer_email', false);
+        $customerEmail = $this->getRequest()->getParam('email_address', false);
         $curacaoInfo = new DataObject([
             'account_number' => $accountNumber,
             'email_address'  => $customerEmail,
@@ -142,47 +196,6 @@ class Verify extends Action
             'password'       => $this->mathRandom->getRandomString(8),
         ]);
 
-        $this->_checkoutSession->setCuracaoInfo($curacaoInfo);
-
-        return $this;
-    }
-
-    /**
-     * Redirecting to curacao account verifying page.
-     *
-     * @return mixed
-     */
-    protected function redirecToScrutinizePage()
-    {
-        $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
-        $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
-
-        return $resultRedirect->setUrl($defaultUrl);
-    }
-
-    /**
-     * Tells to the world that, curacao information provided is wrong.
-     *
-     * @return mixed
-     */
-    protected function sendErrorResponse()
-    {
-        if ($this->isAjaxRequest()) {
-            $result = $this->_resultFactory->create(ResultFactory::TYPE_JSON);
-            $result->setData([
-                'message' => 'The given curacao identification number is wrong. Please try again.',
-                'type'    => 'error',
-            ]);
-
-            return $result;
-        }
-
-        $errorMessage = __('The given curacao identification number is wrong. Please try again.');
-        $this->messageManager->addErrorMessage($errorMessage);
-
-        $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
-        $defaultUrl = $this->urlModel->getUrl('checkout/cart/index', ['_secure' => true]);
-
-        return $resultRedirect->setUrl($defaultUrl);
+        return $curacaoInfo;
     }
 }

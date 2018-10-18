@@ -59,6 +59,7 @@ define([
         curacaoAccountVerifyModal: null,
         smsIconUrl: curacaoPaymentInfo.mediaUrl + '/images/sms-icon.png',
         callIconUrl: curacaoPaymentInfo.mediaUrl + '/images/call-icon.png',
+        personalInfoForm: 'pinfm',
         curacaoAccountIdInpValue: ko.observable(''),
         verificationCodeInpValue: ko.observable(''),
         ssnVerifyInpValue: ko.observable(''),
@@ -139,16 +140,21 @@ define([
                         });
                     }
                 }
-            ).fail(
-                function (response) {
-                    //   alert(response);
-                }
-            ).always(function () {
+            ).fail(function (response) {
+                //   alert(response);
+            }).always(function () {
                 fullScreenLoader.stopLoader();
             });
         },
 
-        getGuestEmail: function () {
+        /**
+         * Collect user email address.
+         *
+         * If logged-in customer, then collect it from global data or else bring the data from checkout data.
+         *
+         * @returns {String}
+         */
+        getUserEmail: function () {
             var email = '';
 
             if (customerInfo.length > 0) {
@@ -205,20 +211,22 @@ define([
             event.preventDefault();
 
             if (this.validateCuracaoId(model)) {
-                var customerInfo = {
-                    'email_address': this.getGuestEmail(),
+                var payload = {
+                    'email_address': this.getUserEmail(),
                     'curacao_account': this.curacaoAccountIdInpValue()
                 };
 
-                curacaoServiceProvider.verifyCuracaoId(customerInfo).done(function () {
+                curacaoServiceProvider.verifyCuracaoId(payload).done(function () {
                     if (!curacaoServiceProvider.isResponseError()) {
                         $(model.curacaoAccountVerifyModal).modal('openModal');
                     } else {
                         model.curacaoAccountIdInpValue('');
+                        messageList.addErrorMessage({
+                            message: curacaoServiceProvider.message()
+                        });
                     }
                 });
             }
-
         },
 
         /**
@@ -226,10 +234,38 @@ define([
          *
          * Fires when the user submit the curacao-verification-modal-form.
          *
-         * @returns {Boolean}
          */
-        verifyCuracaoAccount: function () {
-            return false;
+        verifyCuracaoAccount: function (model, event) {
+            event.preventDefault();
+
+            if (this.validateCuracaoVerifyModalForm(model)) {
+                var userInfo = {
+                    ssn_last: this.ssnVerifyInpValue(),
+                    zip_code: this.zipCodeInpValue(),
+                    date_of_birth: this.dateOfBirthInpValue(),
+                    maiden_name: this.maidenNameInpValue()
+                };
+
+                $(model.curacaoAccountVerifyModal).modal('closeModal');
+
+                curacaoServiceProvider.scrutinizeCuracaoUser(userInfo).done(function () {
+                    model.curacaoAccountIdInpValue('');
+
+                    if (!curacaoServiceProvider.isResponseError()) {
+                        var successMessage = $t('Curacao account is linked successfully to the email address') +
+                            ': ' +
+                            model.getUserEmail();
+
+                        messageList.addSuccessMessage({
+                            message: successMessage
+                        });
+                    } else {
+                        messageList.addErrorMessage({
+                            message: curacaoServiceProvider.message()
+                        });
+                    }
+                });
+            }
         },
 
         /**
@@ -266,6 +302,21 @@ define([
             }
 
             return true;
+        },
+
+        /**
+         * Validate curacao-verify-modal-form
+         *
+         * @param {Object} model
+         * @returns {Boolean}
+         */
+        validateCuracaoVerifyModalForm: function (model) {
+            var formId = '#' + model.personalInfoForm,
+                personalForm = $(formId);
+
+            personalForm.validate();
+
+            return personalForm.valid();
         }
     });
 });
