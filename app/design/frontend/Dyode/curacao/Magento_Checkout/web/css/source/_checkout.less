@@ -75,6 +75,33 @@ input[type="radio"] {
   {
     display: none !important;
   }
+  .customer-welcome
+  {
+    height: 50px;
+    right: 16px;
+    position: absolute;
+    top: 42px;
+    z-index: 100000;
+    list-style: none;
+    color: white;
+    @media all and (max-width: 479px)
+    {
+      top: 32px;
+    }
+    .customer-name
+    {
+      display: block;
+      cursor: default;
+      .action
+      {
+        display: none;
+      }
+    }
+    .customer-menu
+    {
+      display: none;
+    }
+  }
   .page-wrapper
   {
     .page-header
@@ -174,6 +201,12 @@ input[type="radio"] {
       }
       .opc-estimated-wrapper {
         display: none;
+      }
+      .messages
+      {
+        float: left;
+        width: 100%;
+        margin-top: 10px;
       }
       .section-heading{
         h2{
@@ -2019,7 +2052,7 @@ input[type="radio"] {
                       padding-right:35px;
                     }
                     @media all and (max-width:479px){
-                      padding-right:25px;
+                      padding-right:15px;
                       padding-top: 10px;
                     }
                     #custom-checkout-form{
@@ -2035,6 +2068,10 @@ input[type="radio"] {
                         width: 45%;
                         clear: both;
                         float: left;
+                        @media all and (max-width:767px)
+                        {
+                          width: 46%;
+                        }
                         @media all and (max-width:479px)
                         {
                           width: 100%;
@@ -2054,7 +2091,7 @@ input[type="radio"] {
                           @media all and (max-width:991px){
                             width:53%;
                           }
-                          @media all and (max-width:767px){
+                          @media all and (max-width:479px){
                             width:100%;
                           }
                           input[type="text"]{
@@ -2078,18 +2115,13 @@ input[type="radio"] {
                         font-weight: 600;
                         text-align: center;
                         border-radius: 2px;
-                        @media all and (max-width:991px){
-                          left:55%;
-                        }
-                        @media all and (max-width:767px){
+
+                        @media all and (max-width:479px)
+                        {
+                          margin-top: 5px;
                           position:static;
                           width:100%;
                           margin-bottom: 10px;
-                        }
-                        @media all and (max-width:479px)
-                        {
-                              margin-top: 5px;
-                              position: static;
                         }
                       }
                     }
