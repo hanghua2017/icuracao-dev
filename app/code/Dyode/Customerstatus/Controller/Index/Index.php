@@ -22,8 +22,8 @@ class Index extends \Magento\Framework\App\Action\Action
 
     public function execute()
     {
+        //uncomment the below line and run the controller url for testing
         $order = $this->order->loadByIncrementId('000000006');
         $Customer_Status = $this->helper->checkCustomerStatus($order, '54421729');
-        var_dump($Customer_Status);
     }
 }

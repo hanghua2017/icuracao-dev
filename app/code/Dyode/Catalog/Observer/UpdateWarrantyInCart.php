@@ -57,10 +57,7 @@ class UpdateWarrantyInCart implements ObserverInterface
     public function execute(Observer $observer)
     {
         $this->cart = $observer->getCart();
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $logger = $objectManager->get("Psr\Log\LoggerInterface");
-        $logger->info("hasWarrantyQuoteItem ++++". json_encode($observer->getProduct()));
-
+        
         if ($this->hasWarrantyQuoteItem() && $this->needToUpdateWarranty()) {
             $this->updateWarrantyQuoteItems();
         }
@@ -73,22 +70,14 @@ class UpdateWarrantyInCart implements ObserverInterface
      */
     public function hasWarrantyQuoteItem()
     {
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $logger = $objectManager->get("Psr\Log\LoggerInterface");
         $quoteItems = $this->cart->getQuote()->getItems();
-        $logger->info("needToUpdateWarranty ++++". json_encode($quoteItems)." count =". count($quoteItems));
-
+       
         foreach ($this->cart->getItems() as $cartItem) {
-
-            $logger->info("hasWarrantyQuoteItem ++++". json_encode($cartItem->getId()));
-            if ($cartItem->getWarrantyParentItemId()) {
+       if ($cartItem->getWarrantyParentItemId()) {
                 $this->warrantyRelation[(int)$cartItem->getItemId()] = (int)$cartItem->getWarrantyParentItemId();
             }
         }
-      
-        $logger->info("hasWarrantyQuoteItem ". json_encode($this->warrantyRelation));
-
-
+  
         if (count($this->warrantyRelation) > 0) {
             return true;
         }
@@ -102,19 +91,15 @@ class UpdateWarrantyInCart implements ObserverInterface
     public function needToUpdateWarranty()
     {
         $this->removeLockedWarrantiesFromRelation();
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $logger = $objectManager->get("Psr\Log\LoggerInterface");
-
-        $logger->info("needToUpdateWarranty ++++". json_encode($this->warrantyRelation));
-
-        
+       
         foreach ($this->warrantyRelation as $warrantyItemId => $parentItemId) {
             $parentQuoteItem = $this->cart->getQuote()->getItemById($parentItemId);
             $warrantyQuoteItem = $this->cart->getQuote()->getItemById($warrantyItemId);
-
-            if ($parentQuoteItem->getQty() != $warrantyQuoteItem->getQty()) {
-                $this->itemsToUpdate[$warrantyItemId] = $parentQuoteItem->getQty();
-            }
+          
+                if( ($parentQuoteItem != null && $warrantyQuoteItem != null) && ($parentQuoteItem->getQty() != $warrantyQuoteItem->getQty())) {
+                    $this->itemsToUpdate[$warrantyItemId] = $parentQuoteItem->getQty();
+                }
+            
         }
 
         if (count($this->itemsToUpdate) > 0) {

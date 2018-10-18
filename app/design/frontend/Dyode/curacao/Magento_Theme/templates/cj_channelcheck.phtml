@@ -1,0 +1,95 @@
+<!-- CJ code to catch channel source -->
+<script type="text/javascript">
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+    if(getParameterByName('cjevent',''))
+        createCookie('cjevent',getParameterByName('cjevent',''),45);
+
+    function createCookie(name,value,days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days*24*60*60*1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+    function eraseCookie(name) {
+        createCookie(name,"",-1);
+    }
+
+    var url_raw = window.location.search;
+    var url = url_raw.toLowerCase();
+    var channelDate = new Date();
+    var channelDateString = channelDate.toISOString();
+    if(url.indexOf('utm_medium=') !== -1 || url.indexOf('gclid=') !== -1)
+    {
+        var found = false;
+        var host = location.hostname;
+
+        var channels = {
+            "cj" : "cj",
+            "direct" : "direct",
+            "affiliate_other" : "affiliate_other",
+            "display" : "display",
+            "social" : "social",
+            "search" : "search",
+            "email" : "email",
+            "other" : "other",
+            "cpc" : "cpc"
+        };
+
+        // Handle Google first, then the others
+        if(url.indexOf('gclid=') !== -1)
+        {
+            createCookie("channel", "cpc", 10);
+            createCookie("channel_ts", channelDateString, 10);
+            found = true;
+        }
+        else
+        {
+            Object.keys(channels).forEach(function (key) {
+                var channel = channels[key];
+                if(url.indexOf('utm_medium=' + channel) !== -1)
+                {
+                    createCookie("channel", channel, 10);
+                    createCookie("channel_ts", channelDateString, 10);
+                    found = true;
+                }
+            });
+        }
+
+        // if not found, default to "direct" channel
+        if(!found && !readCookie("channel"))
+        {
+            createCookie("channel", "direct", 10);
+            createCookie("channel_ts", channelDateString, 10);
+        }
+    }
+    // if channel is not in url and cookie is not set, set to default value of direct
+    else if(!readCookie("channel"))
+    {
+        createCookie("channel", "direct", 10);
+        createCookie("channel_ts", channelDateString, 10);
+    }
+</script>

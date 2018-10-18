@@ -64,9 +64,7 @@ class Post extends Action
         if (trim($request->getParam('phonenumber')) === '') {
             throw new LocalizedException(__('Phone Number is missing'));
         }
-        if (trim($request->getParam('account_number')) === '') {
-            throw new LocalizedException(__('Account Number is missing'));
-        }
+      
         if (trim($request->getParam('invoice_number')) === '') {
             throw new LocalizedException(__('Invoice Number is missing'));
         }
@@ -125,9 +123,16 @@ class Post extends Action
        $FormModel->setData('created_date', $date);
        $FormModel->setData('status', $data['status']);
 
-       $FormModel->save();
-
-       $this->_redirect('blog/index');
+        try{
+            $FormModel->save();
+            $this->messageManager->addSuccess(__('The Request been send.'));
+        } catch(Exception $e){
+            $this->messageManager->addErrorMessage($e);
+            
+        }
+       
+        return $this;
+      // $this->_redirect('blog/index');
        // $this->messageManager->addSuccess(__('The Request been send.'));
     }
 

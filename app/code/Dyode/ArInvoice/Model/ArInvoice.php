@@ -11,6 +11,7 @@ namespace Dyode\ArInvoice\Model;
 use Dyode\ArInvoice\Helper\Data;
 use Magento\Sales\Model\Order;
 
+
 class ArInvoice extends \Magento\Framework\Model\AbstractModel
 {
     /**
@@ -83,6 +84,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         \Dyode\Signifyd\Model\Signifyd $signifydModel,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
         \Magento\Catalog\Model\ProductRepository $productRepository,
+        \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
         \Magento\Framework\Registry $data
     ) {
         $this->_orderCollectionFactory = $orderCollectionFactory;
@@ -94,6 +96,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         $this->_signifydModel = $signifydModel;
         $this->_customerRepositoryInterface = $customerRepositoryInterface;
         $this->_productRepository = $productRepository;
+        $this->auditLog = $auditLog;
 		return parent::__construct($context, $data);
 	}
 
@@ -134,18 +137,23 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         } else {
             $orderType = "full_curacao_credit";     # Setting Order Type = Full Curacao Credit
         }
+
         if (empty($accountNumber)) {
             # code...
             $customerId = $order->getCustomerId();
-            $customer = $this->_customerRepositoryInterface->getById($customerId);
-            $accountNumber = $customer->getCustomAttribute("curacaocustid")->getValue();
+
+            if (!empty($customerId)) {
+                $customer = $this->_customerRepositoryInterface->getById($customerId);
+                $accountNumber = (!empty($customer->getCustomAttribute("curacaocustid"))) ?
+                    $customer->getCustomAttribute("curacaocustid")->getValue() : null;
+            }
         }
         # Validating the Account Number
         $accountNumber = $this->_arInvoiceHelper->validateAccountNumber($accountNumber);
 
-        if ($accountNumber == "500-8555" and $orderType == "full_credit_card") {
-            # Getting the Check Customer Status
-            $customerStatusResponse = $this->_customerStatusHelper->checkCustomerStatus($order, '54421729');
+        if (($accountNumber == "500-8555") && ($orderType == "full_credit_card")) {
+            # Getting the Check Customer Status - num 54421729
+            $customerStatusResponse = $this->_customerStatusHelper->checkCustomerStatus($order, $accountNumber);
             $customerStatus = json_decode($customerStatusResponse);
         }
 
@@ -216,6 +224,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             "ShippingDiscount" => (double)$shippingDiscount,
         );
         $items = array();
+
         // Assigning values to input Array items
         foreach ($order->getAllItems() as $item)
         {
@@ -325,10 +334,18 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
 
         $createInvoiceResponse = $this->_arInvoiceHelper->createRevInvoice($inputArray);    # Creating Invoice using API CreateInvoiceRev
 
-        if (empty($response)) {
+        if (empty($createInvoiceResponse)) {
 			$logger->info("Order Id : " . $order->getIncrementId());
 			$logger->info("API Response not Found.");
-			throw new Exception("API Response not Found", 1);
+            //logging audit log
+            $this->auditLog->saveAuditLog([
+                'user_id' => $inputArray['CustomerID'],
+                'action' => 'AR Invoice Failed',
+                'description' => "Fail to create AR Invoice for order with id" . $incrementId,
+                'client_ip' => "",
+                'module_name' => "Dyode_ArInvoice"
+            ]);
+			throw new \Exception("API Response not Found", 1);
         }
 
         /**
@@ -338,18 +355,37 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             $order->setState("processing")->setStatus("estimate_issue");    # Change the Order Status and Order State
             $order->addStatusToHistory($order->getStatus(), 'Estimate not Issued');     # Add Comment to Order History
             $order->save();     # Save the Changes in Order Status & History
+
+            //logging audit log
+            $this->auditLog->saveAuditLog([
+                'user_id' => $inputArray['CustomerID'],
+                'action' => 'AR Invoice Creation',
+                'description' => "Fail to create AR Invoice for order with id" . $incrementId,
+                'client_ip' => "",
+                'module_name' => "Dyode_ArInvoice"
+            ]);
             // Logger
             $logger->info("Order Id : " . $order->getIncrementId());
-            $logger->info($response->INFO);
+            $logger->info($createInvoiceResponse->INFO);
         } else {  # Create Invoice Response is true
             $estimateNumber = $invoiceNumber = $createInvoiceResponse->DATA->INV_NO;    # Save Estimate Number in Order
             $order->setData('estimatenumber', $estimateNumber);
             $order->addStatusToHistory($order->getStatus(), 'Estimate Number: ' . $estimateNumber );     # Add Comment to Order History
             $order->save();
+
+            //logging audit log
+            $this->auditLog->saveAuditLog([
+                'user_id' => $inputArray['CustomerID'],
+                'action' => 'AR Invoice Creation',
+                'description' => "Created AR Invoice (No : " . $createInvoiceResponse->DATA->INV_NO. ") Successfully for order with id" . $incrementId,
+                'client_ip' => "",
+                'module_name' => "Dyode_ArInvoice"
+            ]);
+
             /**
              * Customer Status Validation
              */
-            if ($customerStatus['customerstatus'] == False || $customerStatus["addressmismatch"] == True || $customerStatus["soft"] == True) {
+            if ((!empty($customerStatus)) && ($customerStatus['customerstatus'] == False || $customerStatus["addressmismatch"] == True || $customerStatus["soft"] == True)) {
                 $order->setState("payment_review")->setStatus("credit_review");    # Change the Order Status and Order State
                 $order->addStatusToHistory($order->getStatus(), 'Your Credit is being Reviewed');     # Add Comment to Order History
                 $order->save();     # Save the Changes in Order Status & History
@@ -359,7 +395,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                 $order->setState("processing")->setStatus("processing");    # Change the Order Status and Order State
                 $order->save();     # Save the Changes in Order Status & History
                 $referId = $incrementId;
-
                 # Web Down Payment API
                 $webDownPaymentResponse = $this->_arInvoiceHelper->webDownPayment($accountNumber, $downPaymentAmount, $invoiceNumber, $referId);
                 /**

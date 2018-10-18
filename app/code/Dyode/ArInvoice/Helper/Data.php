@@ -52,12 +52,14 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Sales\Model\OrderRepository $orderRepository,
         \Magento\Catalog\Model\ProductRepository $productRepository,
         \Magento\Framework\App\ResourceConnection $resourceConnection,
-        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
+        \Dyode\ARWebservice\Helper\Data $arWebServiceHelper
     ) {
         $this->_orderRepository = $orderRepository;
         $this->_productRepository = $productRepository;
         $this->_resourceConnection = $resourceConnection;
         $this->_customerRepositoryInterface = $customerRepositoryInterface;
+        $this->arWebServiceHelper = $arWebServiceHelper;
     }
 
     /**
@@ -68,6 +70,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         /**
          * Init Curl
          */
+        $baseUrl = $this->arWebServiceHelper->getApiUrl();
+        $url = $baseUrl . $url;
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -77,7 +82,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
          * Set Content Header
          */
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'X-Api-Key: TEST-WNNxLUjBxA78J7s',
+            'X-Api-Key: ' . $this->arWebServiceHelper->getApiKey(),
             'Content-Type: application/json',
             )
         );
@@ -92,7 +97,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         /**
          * Initialize Rest Api Connection
          */
-        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/CreateRevEstimate";
+        $url = "CreateRevEstimate";
         $ch = $this->initRestApiConnect($url);
         /**
          * Set Post Data
@@ -122,7 +127,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         /**
          * Initialize Rest Api Connection
          */
-        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/webDownpayment";
+        $url = "webDownpayment";
         $ch = $this->initRestApiConnect($url);
         /**
          * Set Post Data
@@ -152,7 +157,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         /**
          * Initialize Rest Api Connection
          */
-        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/SupplyInvoice";
+        $url = "SupplyInvoice";
         $ch = $this->initRestApiConnect($url);
         /**
          * Set Post Data
@@ -192,7 +197,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         /**
          * Initialize Rest Api Connection
          */
-        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/InventoryLevel?item_id=$itemId&locations=$locations";
+        $url = "InventoryLevel?item_id=$itemId&locations=$locations";
         $ch = $this->initRestApiConnect($url);
         /**
          * Set Post Data
@@ -213,10 +218,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getSetItems($itemId)
     {
-        $ch = curl_init("https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/getSetItems?item_id=$itemId");
+        $url = $this->arWebServiceHelper->getApiUrl() . "getSetItems?item_id=$itemId";
+        $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "X-Api-Key: TEST-WNNxLUjBxA78J7s"));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "X-Api-Key: " . $this->arWebServiceHelper->getApiKey()));
 
         $result = curl_exec($ch);
         curl_close($ch);
@@ -233,7 +239,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         /**
          * Initialize Rest Api Connection
          */
-        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/AppleCareListWarranties";
+        $url = "AppleCareListWarranties";
         $ch = $this->initRestApiConnect($url);
         /**
          * Set Post Data
@@ -257,7 +263,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         /**
          * Initialize Rest Api Connection
          */
-        $url = "https://exchangeweb.lacuracao.com:2007/ws1/test/restapi/ecommerce/AppleCareSetWarranty";
+        $url = "AppleCareSetWarranty";
         $ch = $this->initRestApiConnect($url);
         /**
          * Set Post Data
@@ -358,11 +364,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
          */
         $result = $this->getProductInventory($productId);
         if (empty($result[0]['finalinventory'])) {
-            throw new Exception("Product Inventory Level Not Found", 1);
+            throw new \Exception("Product Inventory Level Not Found", 1);
         }
         $inventoryLocations = json_decode($result[0]['finalinventory']);
 
-        if ($vendorId != '2139') {  # If the vendor is not Curacao 
+        if ($vendorId != '2139') {  # If the vendor is not Curacao
             return '33';
         } else {    # If the vendor is Curacao
             # Get Order Details
@@ -539,11 +545,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
         foreach ($orderItems as $itemId => $productInfo) {
             $product = $this->getProductById($productInfo['ProductId']);
-
-            $resultSetItem = $this->getProductInventory($productId);
+            $resultSetItem = $this->getProductInventory($productInfo['ProductId']);
             if (empty($resultSetItem[0]['finalinventory'])) {
                 throw new Exception("Product Inventory Level Not Found", 1);
             }
+
             $inventoryLevel = json_decode($resultSetItem[0]['finalinventory']);
 
             foreach ($inventoryLevel as $key => $value) {

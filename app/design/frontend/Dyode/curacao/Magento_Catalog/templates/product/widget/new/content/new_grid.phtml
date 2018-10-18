@@ -21,7 +21,7 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
     $image = 'new_products_content_widget_grid';
     $title = __('New Arrivals');
     $items = $block->getProductCollection()->getItems();
-
+    $viewModel = $block->getViewModel();
     $showWishlist = true;
     $showCompare = true;
     $showCart = true;
@@ -63,8 +63,16 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
                                 <?php if ($templateType): ?>
                                     <?= $block->getReviewsSummaryHtml($_item, $templateType) ?>
                                 <?php endif; ?>
-                                	<p class="subtext"><?php echo "or as low as";?><span class="amount"><?php echo" $10/month";?></span></p>
-                                <?php if ($showWishlist || $showCompare || $showCart): ?>
+                                <?php $emi = $viewModel->monthlyEmi($finalPrice);?>
+                                <?php if($emi!=0):?>
+                              <p class="subtext"><?php echo __('Or as low as&nbsp;');?>
+                              <span class="amount emi-amount">
+                              <?php $formated_emi=$priceHelper->currency($emi, true, false);
+                              echo $formated_emi;?>
+                              <?php echo __("/month"); ?>
+                              </span>
+                              </p>
+                              <?php endif?>                                <?php if ($showWishlist || $showCompare || $showCart): ?>
                                     <div class="product-item-actions">
                                         <?php if ($showCart): ?>
                                             <div class="actions-primary">

@@ -1,4 +1,15 @@
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<?xml version="1.0"?>
+<!--
+/**
+ * Dyode_CheckoutDeliveryMethod Magento 2 module
+ * Extending Magento_Checkout
+ * @package Dyode
+ * @module  Dyode_CheckoutDeliveryMethod
+ * @author  Kavitha <kavitha@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="checkout" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="checkout.root">
                 <arguments>
@@ -15,82 +26,8 @@
                                                 <item name="sortOrder" xsi:type="string">1</item>
                                                 <item name="children" xsi:type="array"></item>
                                             </item>
-                                            <!-- Shipping page layout page -->
-                                            <item name="shipping-step" xsi:type="array">
-                                                <item name="children" xsi:type="array">
-                                                    <item name="shippingAddress" xsi:type="array">
-                                                        <item name="children" xsi:type="array">
-                                                            <item name="shippingAdditional" xsi:type="array">
-                                                                <item name="component" xsi:type="string">uiComponent</item>
-                                                                <item name="displayArea" xsi:type="string">shippingAdditional</item>
-                                                                <item name="children" xsi:type="array">
-                                                                    <item name="additional_block" xsi:type="array">
-                                                                        <item name="component" xsi:type="string">Dyode_CheckoutDeliveryMethod/js/view/shipping-method</item>
-                                                                        <item name="children" xsi:type="array">
-                                                                        <item name="price" xsi:type="array">
-                                                                            <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/shipping_method/price</item>
-                                                                                <item name="displayArea" xsi:type="string">price</item>
-                                                                            </item>
-                                                                        </item>
-                                                                    </item>
-                                                                </item>
-                                                                
-                                                            </item>
-                                                        </item>
-
-                                                    </item>
-                                                </item>
-                                            </item>
-
                                         </item>
                                     </item>
-
-                                    <item name="sidebar" xsi:type="array">
-                                        <item name="children" xsi:type="array">
-                                            <item name="summary" xsi:type="array">
-                                                <item name="children" xsi:type="array">
-                                                    <item name="block-totals" xsi:type="array">
-                                                        <item name="component" xsi:type="string">Magento_Checkout/js/view/cart/totals</item>
-                                                        <item name="displayArea" xsi:type="string">totals</item>
-                                                        <item name="config" xsi:type="array">
-                                                            <item name="template" xsi:type="string">Magento_Checkout/cart/totals</item>
-                                                        </item>
-                                                        <item name="children" xsi:type="array">
-                                                            <item name="subtotal" xsi:type="array">
-                                                                <item name="component"  xsi:type="string">Magento_Checkout/js/view/summary/subtotal</item>
-                                                                <item name="config" xsi:type="array">
-                                                                    <item name="title" xsi:type="string" translate="true">Item Price</item>
-                                                                    <item name="template" xsi:type="string">Magento_Checkout/cart/totals/subtotal</item>
-                                                                </item>
-                                                            </item>
-                                                            <item name="grand-total" xsi:type="array">
-                                                                <item name="component"  xsi:type="string">Magento_Checkout/js/view/summary/grand-total</item>
-                                                                <item name="config" xsi:type="array">
-                                                                    <item name="title" xsi:type="string" translate="true">Order Total</item>
-                                                                    <item name="template" xsi:type="string">Magento_Checkout/cart/totals/grand-total</item>
-                                                                </item>
-                                                            </item>
-                                                        </item>
-                                                    </item>
-
-                                                    <item name="paynow" xsi:type="array">
-                                                      <item name="children" xsi:type="array">
-                                                        <item name="details" xsi:type="array">
-                                                            <item name="children" xsi:type="array">
-                                                                <item name="paynowblock" xsi:type="array">
-                                                                    <item name="component" xsi:type="string">Dyode_CheckoutDeliveryMethod/js/view/paynow</item>
-                                                                </item>
-                                                            </item>
-                                                        </item>
-                                                      </item>
-                                                    </item>
-
-                                                </item>
-                                            </item>
-
-                                        </item>
-                                    </item>
-
                                 </item>
                             </item>
                         </item>

@@ -1,0 +1,53 @@
+<!--
+/**
+ * Dyode_CheckoutAddressStep Magento2 Module.
+ *
+ * Adding new checkout step in the one page checkout.
+ *
+ * @package   Dyode
+ * @module    Dyode_CheckoutAddressStep
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+
+/**
+ * Removed billing-address details section
+ */
+-->
+<div class="checkout-billing-address">
+
+    <div class="billing-address-same-as-shipping-block field choice" data-bind="visible: canUseShippingAddress()">
+        <input type="checkbox" name="billing-address-same-as-shipping"
+               data-bind="checked: isAddressSameAsShipping, click: useShippingAddress, attr: {id: 'billing-address-same-as-shipping-' + getCode($parent)}"/>
+        <label data-bind="attr: {for: 'billing-address-same-as-shipping-' + getCode($parent)}"><span
+                data-bind="i18n: 'My billing and shipping address are the same'"></span></label>
+    </div>
+    <if args="isCustomerLoggedIn()">
+        <div id="add-billing-address" data-bind="visible: !isAddressDetailsVisible()">
+            <div data-bind="mageInit: {'accordion':{'openedState': 'active', 'collapsible': true, 'active': [1,4], 'multipleCollapsible': true}} ">
+                <div data-role="collapsible">
+                    <div data-role="title">Add New Billing Address</div>
+                    <div data-role="content">
+                            <div class="step-note">
+                                    <!-- ko i18n: 'Be sure to click "Save this address" when done' -->
+                                    <!-- /ko -->
+                            </div>
+                            <!-- Billing Address Form -->
+                            <fieldset class="fieldset">
+                                <!-- ko template: 'Magento_Checkout/billing-address/form' --><!-- /ko -->
+                            </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </if>
+    <if args="!isCustomerLoggedIn()">
+
+        <fieldset class="fieldset" data-bind="visible: !isAddressDetailsVisible()">
+          <div class="step-title" data-role="title">Add New Billing Address</div>
+            <!-- ko template: 'Magento_Checkout/billing-address/form' --><!-- /ko -->
+        </fieldset>
+    </if>
+
+
+</div>

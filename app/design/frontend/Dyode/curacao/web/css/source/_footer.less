@@ -162,22 +162,22 @@ footer {
                     border: none;
                     border-radius: 2px 0 0 2px;
                     ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-                      font-family: 'iCuracao-Regular';
+                      font-family: 'iCuracao-Light';
                       color: #a6a6a6;
                       line-height: 1;
                     }
                     ::-moz-placeholder { /* Firefox 19+ */
-                      font-family: 'iCuracao-Regular';
+                      font-family: 'iCuracao-Light';
                       color: #a6a6a6;
                       line-height: 1;
                     }
                     :-ms-input-placeholder { /* IE 10+ */
-                      font-family: 'iCuracao-Regular';
+                      font-family: 'iCuracao-Light';
                       color: #a6a6a6;
                       line-height: 1;
                     }
                     :-moz-placeholder { /* Firefox 18- */
-                      font-family: 'iCuracao-Regular';
+                      font-family: 'iCuracao-Light';
                       color: #a6a6a6;
                       line-height: 1;
                     }
@@ -205,10 +205,11 @@ footer {
                   background-color: #81b800;
                   height:37px;
                   color: white;
-                  padding: 10px 11px;
+                  padding: 10px 15px;
                   border-radius: 0 2px 2px 0;
+                  font-weight: normal;
                   span {
-                    font-family: 'iCuracao-Medium';
+                    font-family: 'iCuracao-Light';
                     font-size: 14px;
                   }
                 }
@@ -498,6 +499,107 @@ footer {
         }
       }
       //End Copy right section
+    }
+  }
+}
+/*Styling for Espanol*/
+html[lang="es"]
+{
+  footer.page-footer  {
+    .footer {
+      .trust-factor-block {
+        .trust-factor {
+          .trust-image {
+            &.why-shop, &.secure {
+              @media all and (max-width: 1316px) {
+                img {
+                  float: left;
+                  margin-left: 10px;
+                }
+                .content {
+                  float: left;
+                  width: 80%;
+                  margin-left: 15px;
+                }
+              }
+              @media all and (max-width: 1055px) and (min-width: 992px) {
+                .content {
+                  width: 75%;
+                }
+              }
+            }
+            &.why-shop {
+              .content {
+                @media all and (max-width: 355px) {
+                  width: 80%;
+                }
+              }
+            }
+            &.trust {
+              @media all and (max-width: 1200px) {
+                img {
+                  float: left;
+                  margin-left: 10px;
+                }
+                .content {
+                  float: left;
+                  width: 80%;
+                  margin-left: 15px;
+                }
+              }
+              @media all and (max-width: 1059px) and (min-width: 992px) {
+                .content {
+                  width: 75%;
+                }
+              }
+            }
+            .content {
+              @media all and (max-width: 1371px) and (min-width: 992px) {
+                margin-left: 5px;
+              }
+              @media all and (max-width: 420px) {
+                width: 85%;
+              }
+              p.title {
+                @media all and (max-width: 1371px) and (min-width: 992px) {
+                  max-width: 95%;
+                }
+                @media all and (max-width: 355px) {
+                  font-size: 13px;
+                }
+              }
+              p.comment {
+                @media all and (max-width: 1532px) {
+                  font-size: 13px;
+                }
+                @media all and (max-width: 1371px) and (min-width: 992px) {
+                  font-size: 12px;
+                  max-width: 95%;
+                }
+              }
+            }
+          }
+        }
+      }
+      .subscribe-block {
+        .block.newsletter {
+          .content {
+            form {
+              .newsletter {
+                .control {
+                  @media all and (max-width: 420px) {
+                    input {
+                      &::-webkit-input-placeholder, &::-moz-placeholder, &:-ms-input-placeholder, &::placeholder {
+                        font-size: 11px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

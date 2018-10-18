@@ -1,0 +1,27 @@
+<!--
+/**
+ * Dyode_Checkout Magento 2 module
+ * Extending Magento_Checkout
+ * @package Dyode
+ * @module  Dyode_Chekout
+ * @author  Kavitha <kavitha@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<div class="block-security">
+    <div class="block-security-information">
+        <p data-bind="i18n: 'By placing your order, you agree to '"></p>
+        <p>
+            <span><!-- ko i18n: "Curacao's" --><!-- /ko --></span>
+            <a href="#"
+               target="_blank"
+               data-bind="i18n: 'privacy notice ', attr: {href: getPrivacyLink()}, click: firePrivacyLinkAction">
+            </a>
+            <span data-bind="i18n: 'and'"></span>
+            <a target="_blank" data-bind="i18n: 'conditions of use ', attr: {href: getTcLink()}, click: fireTcLinkAction"></a>
+        </p>
+    </div>
+    <div class="block-secure-message">
+        <p><span data-bind="i18n: 'Safe and Secure Payments. Easy returns. 100% Authentic products.'"></span></p>
+    </div>
+</div>

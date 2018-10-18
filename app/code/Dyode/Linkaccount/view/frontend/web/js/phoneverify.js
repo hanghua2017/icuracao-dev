@@ -21,6 +21,7 @@ define([
                           else{
                             msg = '<p class="success">Successfully send the code</p>';
                           }
+                          $(".messages").html('');
                           $(".verifymsg").html(msg);
                         }
                     });
@@ -42,6 +43,7 @@ define([
                             else{
                               msg = '<p class="success">Verified...</p>';
                             }
+                            $(".messages").html('');
                             $(".verifymsg").html(msg);
                           }
                       });

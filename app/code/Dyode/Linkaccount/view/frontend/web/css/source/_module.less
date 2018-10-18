@@ -35,25 +35,13 @@
     background: url("../images/BG.png");
     background-size: cover;
     background-repeat: no-repeat;
-    padding: 50px 0;
-    @media all and(max-width: 767px){
-      padding: 0;
-    }
   .linkaccount-inner-container{
-    width: 1150px;
+    width: 100%;
     margin:  0 auto;
     background-color: @white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
-    @media all and(max-width: 1250px){
-      max-width: 930px;
-    }
-    @media all and (max-width: 991px){
-      max-width: 700px;
-    }
     @media all and(max-width: 767px) {
-      max-width: 767px;
       box-shadow: none;
-      width: 100%;
     }
 //style for contents in success page
     .success-content{
@@ -98,19 +86,21 @@
   .wrapper{
     padding: 50px 0;
     display: flex;
-    @media all and(max-width: 767px){
+    @media all and(max-width: 800px){
       display: block;
       padding: 15px 0;
+      padding-bottom: 30px;
     }
 //COMMON STYLES for both the forms
     form{
       legend{
         border-bottom: 0 !important;
+        margin-bottom: 8px;
       }
       input{
         border: 1px solid #929292;
         border-radius: 4px;
-        width: 350px;
+        width: 100%;
         min-height: 45px;
         padding: 0 15px;
         &::placeholder{
@@ -154,10 +144,7 @@
           }
         }
         p{
-          font-size: 16px;
-          @media all and(max-width: 425px){
-            font-size: 14px;
-          }
+          font-size: 14px;
         }
         .confirm-acct{
           font-size: 14px;
@@ -175,22 +162,22 @@
      .verify-phone{
           color: @black;
           text-align: center;
-          padding: 150px 0;
           border-right: 1px solid #e5e5e5;
-          flex: 5;
-          padding: 0 20px;
+          width: 50%;
+          padding: 20px 20px 0 20px;
           position: relative;
-          @media all and(max-width: 767px){
+          @media all and(max-width: 800px){
             border-right: 0;
             border-bottom:1px solid #e5e5e5;
-            padding-bottom:50px;
+            padding-bottom:70px;
+            width: 100%;
           }
           .verify-wrapper{
             padding-top: 100px;
             @media all and(max-width: 991px){
               padding-top: 65px;
             }
-            @media all and(max-width: 767px){
+            @media all and(max-width: 800px){
               padding-top: 0;
             }
           }
@@ -241,6 +228,18 @@
             .primary{
               float: none !important;
               display: block!important;
+              button
+              {
+                  font-family: 'iCuracao-Regular';
+                  width: 100%;
+                  min-height:40px;
+                  padding-left: 30px;
+                  background-color: @curacao-green !important;
+                  border: none !important;
+                  outline: none !important;
+                  text-transform: capitalize;
+                  color: @white !important;
+              }
             }
          }
       }
@@ -256,7 +255,7 @@
           margin-left:-15px;
           border-radius:100%;
           background:white;
-          @media all and(max-width: 767px){
+          @media all and(max-width: 800px){
             left:50%;
           }
         }
@@ -275,7 +274,7 @@
           color:#999;
           text-transform:uppercase;
           font-size:12px;
-          @media all and(max-width: 767px){
+          @media all and(max-width: 800px){
             top: -15px;
             bottom: 15px;
             background: @white;
@@ -285,30 +284,37 @@
 //Styling for 2nd form, to enter the personal details
       .personal-infm{
         text-align: center;
-        flex: 5;
+        width: 50%;
         padding: 0 20px;
         color: @black;
-        @media all and(max-width:767px){
-          padding: 75px 45px 0 45px;
-        }
-        @media all and(max-width: 425px){
-          padding: 50px 15px;
+        @media all and (max-width: 800px)
+        {
+            width: 100%;
+            margin-top: 55px;
         }
         .actions-toolbar{
           .primary{
             float: none !important;
             display: block !important;
+            padding: 0px 25px;
+            button
+            {
+                font-family: 'iCuracao-Regular';
+                width: 100%;
+                min-height:40px;
+                padding-left: 30px;
+                background-color: @curacao-green !important;
+                border: none !important;
+                outline: none !important;
+                text-transform: capitalize;
+                color: @white !important;
+            }
           }
         }
         .field{
           label{
-            width: 425px;
+            width: 100%;
             text-align: left;
-            padding-left: 106px;
-            @media all and(max-width: 991px){
-              padding-left: 15px;
-              width: 100%;
-            }
             span{
               color:@input-color;
               font-weight: normal !important;
@@ -319,6 +325,15 @@
               width: 120px;
             }
           }
+          &.required
+          {
+            padding: 0px 25px;
+            @media all and (max-width:479px)
+            {
+              padding:0px;
+              
+            }
+          }
         }
         .ssn-number{
           font-family: 'iCuracao-Light';
@@ -326,19 +341,15 @@
         }
         .ssn-field{
           text-align: left;
-          padding-left: 106px;
           padding-top: 30px;
-          @media all and(max-width: 991px){
-            padding-left: 60px;
-          }
-          @media all and(max-width: 991px){
-            padding-left: 15px;
-          }
+          margin-top: 20px;
           label{
+            width: 100%;
             padding-left: 0;
           }
           input{
             padding: 0 15px;
+            margin-top: 0;
           }
         }
       }

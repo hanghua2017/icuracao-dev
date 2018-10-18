@@ -1,14 +1,22 @@
 <?php
-/*
-Date: 12/07/2018
-Author :Kavitha
-*/
-
+/**
+ * Dyode_ARWebservice Magento2 Module.
+ *
+ *
+ * @package Dyode
+ * @module  Dyode_ARWebservice
+ * @author  Kavitha <kavitha@dyode.com>
+ * @date    12/07/2018
+ * @copyright Copyright © Dyode
+ */
 namespace Dyode\Linkaccount\Controller\Verify;
+
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\UrlFactory;
+use Magento\Customer\Model\CustomerFactory;
 
 class Index extends Action
 {
@@ -18,18 +26,23 @@ class Index extends Action
     protected $_helper;
     protected $_messageManager;
     protected $_customerModel;
-    protected $_coreSession;
     protected $_storeManager;
-    protected $_customerResourceFactory;
     protected $_customerRepositoryInterface;
     protected $_addressFactory;
     protected $_resultFactory;
-    protected $_quote;
-    protected $_checkoutSession;
     /**
      * @var \Magento\Quote\Api\CartRepositoryInterface
      */
     protected $quoteRepository;
+
+    /** @var \Magento\Framework\UrlFactory */
+    protected $urlModel;
+
+     /**
+     * @var \Magento\Customer\Model\CustomerFactory
+     */
+    protected $customerFactory;
+
     /**
      * Constructor
      *
@@ -47,31 +60,27 @@ class Index extends Action
         \Dyode\ARWebservice\Helper\Data $helper,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Framework\Session\SessionManagerInterface $coreSession,
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
         \Magento\Customer\Model\AddressFactory $addressFactory,
-        \Magento\Quote\Model\Quote $quote,
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
-        \Magento\Customer\Model\ResourceModel\CustomerFactory $customerResourceFactory,
-        \Magento\Checkout\Model\Session $checkoutSession
+        UrlFactory $urlFactory,
+        CustomerFactory $customerFactory
     ) {
-        parent::__construct($context);
+        
         $this->_resultFactory = $resultFactory;
         $this->_resultPageFactory = $resultPageFactory;
         $this->_customerSession = $customerSession;
         $this->_helper = $helper;
         $this->_storeManager = $storeManager;
-        $this->_coreSession = $coreSession;
         $this->_messageManager = $messageManager;
         $this->_customerModel = $customerModel;
         $this->_customerRepositoryInterface = $customerRepositoryInterface;
-        $this->_customerResourceFactory = $customerResourceFactory;
         $this->_addressFactory = $addressFactory;
-
-        $this->_quote = $quote;
+        $this->urlModel = $urlFactory->create(); 
         $this->quoteRepository = $quoteRepository;
-        $this->_checkoutSession = $checkoutSession;
+        $this->customerFactory = $customerFactory;
+        parent::__construct($context);
     }
 
     /**
@@ -84,84 +93,84 @@ class Index extends Action
         $postVariables = (array) $this->getRequest()->getPost();
 
         if(!empty($postVariables)){
-            $this->_coreSession->start();
-            $downPayment = 0;
+          
             $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
-            $websiteId = $this->_storeManager->getStore()->getWebsiteId();;
-            $curacaoCustId = $this->_coreSession->getCurAcc();
-            $custEmail  = $this->_coreSession->getCustEmail();
-            $customerInfo  = $this->_coreSession->getCustomerInfo();
-            $password = $this->_coreSession->getPass();
-            $customerId = '';
+            $websiteId = $this->_storeManager->getStore()->getWebsiteId();
+            $customerId ='';
+            $customerInfo  = $this->_customerSession->getCuracaoInfo();
 
             //Get Customer Id
             if($this->_customerSession->isLoggedIn()){
                 $customerId    = $this->_customerSession->getCustomer()->getId();
             }
           
-            $zipCode  = $postVariables['link_zipcode'];
-            $customerInfo  = $this->_coreSession->getCustomerInfo();
-            $dob = $postVariables['calendar_inputField'];
-            $ssnLast = $postVariables['ssn-verify'];
-            $maidenName = $postVariables['link_maiden'];
+            $zipCode  = trim($postVariables['link_zipcode']);
+            $curacaoCustId = trim($customerInfo->getAccountNumber());
+            $dob = trim($postVariables['calendar_inputField']);
+            $ssnLast = trim($postVariables['ssn-verify']);
+            $maidenName = trim($postVariables['link_maiden']);
 
-            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-            $cart   = $objectManager->get('\Magento\Checkout\Model\Cart');
-            $totals = $cart->getQuote()->getTotals();
-            $subtotal = $totals['subtotal']['value'];           
-            if($subtotal){
-              $amount =   $subtotal;
-            } else{
-              $amount = '30.00';
-            }
+            
             $postData = array(
                 'cust_id' => $curacaoCustId,
-                'amount' => $amount
+                'dob'=>$dob,
+                'amount' => 1,
+                'ssn'=>$ssnLast,
+                'zip'=> $zipCode,
+                'mmaiden'=>$maidenName
             );
-
+            
             //Verify Credit Account Infm
             $accountInfo   =  $this->_helper->verifyPersonalInfm($postData);
-
+            $accountInfo = true;
             if($accountInfo == false){
                 // Personal Infm failed
-                $this->_messageManager->addErrorMessage(__('Verification failed'));
+                $this->_messageManager->addErrorMessage(__('Verification failed [SSN /ZIP]'));
                 $resultRedirect->setPath('linkaccount/verify/index');
                 return $resultRedirect;
             }
 
-             $downPayment = $accountInfo->DOWNPAYMENT;
-             //Linking the account
-             if ($customerId) {
+            if ($customerId) {
                $customer = $this->_customerRepositoryInterface->getById($customerId);
                $customer->setCustomAttribute('curacaocustid', $curacaoCustId);
                $this->_customerRepositoryInterface->save($customer);
              } else {
-                $fName = $this->coreSession->getFname();                   
-                $lName = $this->coreSession->getLastname();
-                $path = $this->_coreSession->getPath();
+
                 // Instantiate object (this is the most important part)
                 $customer = $this->customerFactory->create();
                 $customer->setWebsiteId($websiteId);
                 // Preparing data for new customer
-                $customer->setEmail($custEmail);
-                $customer->setFirstname($fName);
-                $customer->setLastname($lName);
-                $customer->setPassword($password);
+                $customer->setEmail($customerInfo->getEmailAddress());
+                $customer->setFirstname($customerInfo->getFirstName());
+                $customer->setLastname($customerInfo->getLastName());
+                $customer->setPassword($customerInfo->getPassword());
+
                 // Save Curacao Customer Id
                 if (!empty($curacaoCustId)) {
                     $customerData = $customer->getDataModel();
                     $customerData->setCustomAttribute('curacaocustid', $curacaoCustId);
                     $customer->updateData($customerData);
                 }
-                // Save data
-                $customer->save();
+                try{
+                    // Save data
+                    $customer->save();
+                    $this->_customerSession->setCustomerAsLoggedIn($customer);   
+                    $this->_customerSession->setCurAcc($curacaoCustId);                
+                    $this->_customerSession->setFname($customerInfo->getFirstName());
+                }
+                catch(\Exception $e) {
+                    $errorMessage = $e->getMessage();
+                    $this->messageManager->addErrorMessage($errorMessage);
+                    $defaultUrl = $this->urlModel->getUrl('customer/account/create/', ['_secure' => true]);
+    
+                }
                 $customerId = $customer->getId();
              }
-
-             $customerInfo["ZIP"] = str_replace('-','',$customerInfo['ZIP']);//clearn up zip code
+           
+             $zipCode  = str_replace('-','',$customerInfo->getZipCode());//clearn up zip code
 
              //assign what region the state is in
-             switch($customerInfo['STATE'])
+             switch($customerInfo->getState())
              {
                      case 'AZ' : $reg_id = 4; break;
                      case 'CA' : $reg_id = 12; break;
@@ -169,14 +178,16 @@ class Index extends Action
                      default   : $reg_id = 12; break;
              }
              //safe information t an array
-             $_custom_address = array('firstname' => $customerInfo['F_NAME'],
-                             'lastname' => $customerInfo['L_NAME'],
-                             'street' => array('0' => $customerInfo['STREET'], '1' => '',),
-                             'city' => $customerInfo['CITY'],
-                             'region_id' => $reg_id,
-                             'postcode' => $customerInfo['ZIP'],
-                             'country_id' => 'US',
-                             'telephone' => $customerInfo['PHONE']);
+             $_custom_address = array(
+                                    'firstname' => $customerInfo->getFirstName(),
+                                    'lastname' => $customerInfo->getFirstName(),
+                                    'street' => array('0' => $customerInfo->getStreet(), '1' => '',),
+                                    'city' => $customerInfo->getCity(),
+                                    'region_id' => $reg_id,
+                                    'postcode' => $zipCode,
+                                    'country_id' => 'US',
+                                    'telephone' => $customerInfo->getTelephone()
+                                );
 
                            
             //get the customer address model and update the address information
@@ -190,21 +201,23 @@ class Index extends Action
    
                 try{
                       $customAddress->save();
-                      $customer->setAddress($customAddress);
-                      $customer->save();
-                      $this->_customerSession->setCustomerAsLoggedIn($customer);
-                      $this->_customerSession->setDownPayment($downpayment);
+                    //  $customer->setAddress($customAddress);
+                    //  $customer->save();
                      
+                    $defaultUrl = $this->urlModel->getUrl('linkaccount/verify/success', ['_secure' => true]); 
                         if(isset($path)){
                            $defaultUrl = $this->urlModel->getUrl('linkaccount/verify/success', ['_secure' => true]);       
                         } else{
-                            $defaultUrl = $this->urlModel->getUrl('checkout/cart/index', ['_secure' => true]);
+                            if($prevpath == 'checkout'){
+                                $this->messageManager->addSuccessMessage('Your password will be lastname with zipcode');
+                                $defaultUrl = $this->urlModel->getUrl('checkout/cart/index', ['_secure' => true]);
+                            }
                         }
                         return $resultRedirect->setUrl($defaultUrl);
                 }
                 catch(\Exception $e) {
                     $errorMessage = $e->getMessage();
-                    $this->messageManager->addErrorMessage('Please enter correct Details'.$errorMessage);
+                    $this->messageManager->addErrorMessage($errorMessage);
                     $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
        
                 }
