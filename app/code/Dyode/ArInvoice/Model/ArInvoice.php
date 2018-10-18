@@ -176,32 +176,14 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
 
         $shippingDescription = ($order->getShippingDescription() !== null) ? $order->getShippingDescription() : "";
 
-        // if ($order->getShippingDescription() !== null) {
-        //     $shippingDescription = $order->getShippingDescription();
-        // } else {
-        //     $shippingDescription = "";
-        // }
-
         $amountPaid = $order->getPayment()->getAmountPaid();
         $orderTotal = $order->getGrandTotal();
 
         $downPaymentAmount = ($orderType == "full_credit_card" or $orderType == "full_curacao_credit") ? '0' : $amountPaid;
 
-        // if ($orderType == "full_credit_card" or $orderType == "full_curacao_credit") {
-        //     $downPaymentAmount = '0';
-        // } else {
-        //     $downPaymentAmount = $amountPaid;
-        // }
-
         $discountAmount = $order->getDiscountAmount();
 
         $discountDescription = ($order->getData("discount_description") !== null) ? $order->getData("discount_description") : "";
-
-        // if ($order->getData("discount_description") !== null) {
-        //     $discountDescription = $order->getData("discount_description");
-        // } else {
-        //     $discountDescription = "";
-        // }
 
         $shippingDiscount = $order->getShippingDiscountAmount();
 
@@ -236,19 +218,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             $itemCost = $item->getBasePrice();
 
             $pickup = ($item->getData('delivery_type') == 1) ? true : false;
-
-            // if ($item->getData('delivery_type') == 1) {
-            //     $pickup = true;
-            // } else {
-            //     $pickup = false;
-            // }
             $taxable = ($item->getTaxAmount() > 0) ? true : false;
-
-            // if ($item->getTaxAmount() > 0) {
-            //     $taxable = true;
-            // } else {
-            //     $taxable = false;
-            // }
 
             $itemId = $item->getId();
             $itemTaxAmount = $item->getTaxAmount();
@@ -256,21 +226,9 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
 
             $itemSet = ($product->getData('set')) ? true : false;
 
-            // if ($product->getData('set')) {
-            //     $itemSet = true;
-            // } else {
-            //     $itemSet = false;
-            // }
-
             $vendorId = $product->getData('vendorid');
 
             $itemType = ($product->getData('vendorid') == 2139) ? "CUR" : "";
-
-            // if ($product->getData('vendorid') == 2139) {
-            //     $itemType = "CUR";
-            // } else {
-            //     $itemType = "";
-            // }
 
             $explodeItemSku = explode("-", $itemSku);
 
@@ -367,6 +325,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             // Logger
             $logger->info("Order Id : " . $order->getIncrementId());
             $logger->info($createInvoiceResponse->INFO);
+            return true;
         } else {  # Create Invoice Response is true
             $estimateNumber = $invoiceNumber = $createInvoiceResponse->DATA->INV_NO;    # Save Estimate Number in Order
             $order->setData('estimatenumber', $estimateNumber);
@@ -395,8 +354,32 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                 $order->setState("processing")->setStatus("processing");    # Change the Order Status and Order State
                 $order->save();     # Save the Changes in Order Status & History
                 $referId = $incrementId;
+
                 # Web Down Payment API
                 $webDownPaymentResponse = $this->_arInvoiceHelper->webDownPayment($accountNumber, $downPaymentAmount, $invoiceNumber, $referId);
+
+                if ($webDownPaymentResponse->OK != true) {
+                    //logging audit log
+                    $this->auditLog->saveAuditLog([
+                        'user_id' => $inputArray['CustomerID'],
+                        'action' => 'AR Web Down Payment Failure',
+                        'description' => "Fail to create web down payment for order with id" . $incrementId,
+                        'client_ip' => "",
+                        'module_name' => "Dyode_ArInvoice"
+                    ]);
+                } else {
+                    //logging audit log
+                    $this->auditLog->saveAuditLog([
+                        'user_id' => $inputArray['CustomerID'],
+                        'action' => 'AR Web Down Payment Success',
+                        'description' => " Web Down Payment Success for order with id" . $incrementId,
+                        'client_ip' => "",
+                        'module_name' => "Dyode_ArInvoice"
+                    ]);
+                }
+
+                return true;
+
                 /**
                  * Not Required
                  */
@@ -409,7 +392,8 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                 */
             }
         }
-        return;
+
+        return false;
     }
 
     /**

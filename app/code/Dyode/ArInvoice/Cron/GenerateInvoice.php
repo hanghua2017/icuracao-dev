@@ -35,11 +35,14 @@ class GenerateInvoice
     public function __construct(
         \Dyode\ArInvoice\Model\ArInvoice $arInvoiceModel,
         \Dyode\ArInvoice\Helper\Data $arInvoiceHelper,
-        \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory
+        \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
+        \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog
+
     ) {
         $this->_arInvoiceModel = $arInvoiceModel;
         $this->_arInvoiceHelper = $arInvoiceHelper;
         $this->_orderCollectionFactory = $orderCollectionFactory;
+        $this->auditLog = $auditLog;
     }
 
     /**
@@ -49,6 +52,7 @@ class GenerateInvoice
      */
     public function execute()
     {
+        $cronStatus = false;
         $writer = new \Zend\Log\Writer\Stream(BP . "/var/log/generateinvoicecron.log");
         $logger = new \Zend\Log\Logger();
         $logger->addWriter($writer);
@@ -57,8 +61,28 @@ class GenerateInvoice
         $collection = $this->_orderCollectionFactory->create()->addAttributeToSelect('*');
         $collection->addFieldToFilter('status', 'pending');
         foreach ($collection as $salesOrder) {
-            $this->_arInvoiceModel->createInvoice($salesOrder->getId());
-            $this->_arInvoiceHelper->linkAppleCare($salesOrder);
+            $cronStatus = $this->_arInvoiceModel->createInvoice($salesOrder->getId());
+            $cronStatus = $this->_arInvoiceHelper->linkAppleCare($salesOrder);
+        }
+
+        if ($cronStatus) {
+            //logging audit log
+            $this->auditLog->saveAuditLog([
+                'user_id' => "",
+                'action' => 'AR Create Invoice Cron',
+                'description' => "Success",
+                'client_ip' => "",
+                'module_name' => "Dyode_ArInvoice"
+            ]);
+        } else {
+            //logging audit log
+            $this->auditLog->saveAuditLog([
+                'user_id' => "",
+                'action' => 'AR Create Invoice Cron',
+                'description' => "Failed",
+                'client_ip' => "",
+                'module_name' => "Dyode_ArInvoice"
+            ]);
         }
     }
 }
