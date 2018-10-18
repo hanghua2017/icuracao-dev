@@ -3117,14 +3117,28 @@ select:focus, input:focus {
    .action.add:before, .action.remove:before , .action.add:active:before , .action.remove:active:before {
      color: #fff;
    }
+   .action.remove, .action.remove:active {
+     @media all and (max-width: 768px){
+     margin-left: 29%;
+     min-width: 60px;
+     top: 12px;
+   }
+   }
     .actions-toolbar{
       padding-bottom: 15px;
       .secondary{
           padding-bottom: 15px;
-        .action{
-          @media all and (max-width: 768px){
-            width: 100%;
-          }
+        // .action{
+        //   @media all and (max-width: 768px){
+        //     width: 100%;
+        //   }
+        // }
+      }
+    }
+    .fieldset{
+      .control{
+        @media all and (max-width: 768px){
+          width: 70%;
         }
       }
     }
@@ -3133,7 +3147,7 @@ select:focus, input:focus {
     .fieldset{
       .control{
         @media all and (max-width: 768px){
-          width: 100%;
+          width: 70%;
         }
       }
     }
