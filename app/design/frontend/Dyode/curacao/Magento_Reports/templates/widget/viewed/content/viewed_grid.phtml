@@ -24,7 +24,7 @@ if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedPr
     $items = $block->getRecentlyViewedProducts();
     // instance
     $_objectManager =  \Magento\Framework\App\ObjectManager::getInstance();
-    $productHelper = $_objectManager->create('Magento\Catalog\Model\Product');
+    $priceHelper = $_objectManager->create('Magento\Framework\Pricing\Helper\Data'); // Instance of Pricing Helpe
     $showWishlist = true;
     $showCompare = true;
     $showCart = false;
