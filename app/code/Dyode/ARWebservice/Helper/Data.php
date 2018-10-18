@@ -182,7 +182,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                   $extension = '';
                   $extensionPauseTime = '';
 
-                  $URL = $apiUrl."PlaceCall?CountryCode=".$countryCode."&PhoneNumber=".$phoneNumber."&Extension=".$extension."&ExtensionPauseTime=".$extensionPauseTime."&VerificationCode=".$verifyCode."&CallerID=".$callerID."&Language=".$language."&LicenseKey=".$licenseKey;
+                  $URL = $wsdlUrl."PlaceCall?CountryCode=".$countryCode."&PhoneNumber=".$phoneNumber."&Extension=".$extension."&ExtensionPauseTime=".$extensionPauseTime."&VerificationCode=".$verifyCode."&CallerID=".$callerID."&Language=".$language."&LicenseKey=".$licenseKey;
 
                   // Get cURL resource
                   $curl = curl_init();
