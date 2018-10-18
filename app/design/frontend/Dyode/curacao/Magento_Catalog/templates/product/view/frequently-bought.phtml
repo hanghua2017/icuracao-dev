@@ -64,7 +64,8 @@ $product = $block->getProduct();
                 </li>
 
                 <?php foreach($fbtProducts as $fbtProduct): ?>
-                    <?php $discount = $viewModel->productDiscount($fbtProduct)//to remove double slashes in product image URL  
+                    <?php $discount = $viewModel->productDiscount($fbtProduct);
+                    //to remove double slashes in product image URL  
                     $fbtImage = str_replace("//","/",$viewModel->getProductImageUrl($fbtProduct)); 
 
                     ?>
