@@ -14,7 +14,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      *
      * @param \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog
      */
-    public function __construct(
+    public function _construct(
         \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog
     ) {
         $this->auditLog = $auditLog;
