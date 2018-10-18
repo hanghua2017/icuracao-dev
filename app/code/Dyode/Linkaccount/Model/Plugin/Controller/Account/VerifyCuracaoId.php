@@ -159,7 +159,7 @@ class VerifyCuracaoId
             'last_name'      => $accountInfo->L_NAME,
             'street'         => $accountInfo->STREET,
             'city'           => $accountInfo->CITY,
-            'state'          => $customerInfo->STATE,
+            'state'          => $accountInfo->STATE,
             'zip_code'       => $accountInfo->ZIP,
             'previous_page'  => 'create',
             'password'       => $password,
