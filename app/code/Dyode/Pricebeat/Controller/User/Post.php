@@ -123,9 +123,16 @@ class Post extends Action
        $FormModel->setData('created_date', $date);
        $FormModel->setData('status', $data['status']);
 
-       $FormModel->save();
-
-       $this->_redirect('blog/index');
+        try{
+            $FormModel->save();
+            $this->messageManager->addSuccess(__('The Request been send.'));
+        } catch(Exception $e){
+            $this->messageManager->addErrorMessage($e);
+            
+        }
+       
+        return $this;
+      // $this->_redirect('blog/index');
        // $this->messageManager->addSuccess(__('The Request been send.'));
     }
 
