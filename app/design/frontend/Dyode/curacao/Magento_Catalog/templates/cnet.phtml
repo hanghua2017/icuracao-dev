@@ -1,0 +1,24 @@
+<?php $_product = $block->getProduct(); ?>
+<script type='text/javascript'>
+
+console.log("cnet.phtml");
+var ccs_cc_args = ccs_cc_args || [];
+// Product Page
+ccs_cc_args.push(['cpn', '<?php echo $_product->getEntityId();?>']);
+ccs_cc_args.push(['mf', ' <?php echo $_product->getAttributeText('tv_brand'); ?>']);
+ccs_cc_args.push(['pn', '<?php echo $_product->getSku(); ?>']);
+ccs_cc_args.push(['upcean', '<?php echo $_product->getAttributeText('upc'); ?>']);
+ccs_cc_args.push(['ccid', 'CATALOG_CODE']);
+ccs_cc_args.push(['lang', 'EN']);
+ccs_cc_args.push(['market', 'US']);
+(function () {
+var o = ccs_cc_args; o.push(['_SKey', 'b6d81391']); o.push(['_ZoneId', 'bef7a93fe8']);
+var sc = document.createElement('script'); sc.type = 'text/javascript'; sc.async = true;
+sc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.cnetcontent.com/jsc/h.js';
+var n = document.getElementsByTagName('script')[0]; n.parentNode.insertBefore(sc, n);
+})();
+</script>
+<div id="ccs-feature-icons"></div>
+<div id="ccs-logos"></div>
+<div id="ccs-explore-product"></div>
+<div id="ccs-inline-content">
