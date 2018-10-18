@@ -30,8 +30,8 @@
         	    <argument name="products_count" xsi:type="number">8</argument>
         	    <argument name="margin" xsi:type="string">5</argument>
               <argument name="parentcat" xsi:type="string">0</argument>
-        	    <argument name="heading" xsi:type="string">Best Sellers</argument>
-        	    <argument name="description" xsi:type="string">Here is your Best Sellers description </argument>
+        	    <argument name="heading" xsi:type="string" translate="true" >Best Sellers</argument>
+        	    <argument name="description" xsi:type="string" translate="true">Here is your Best Sellers description </argument>
         	</arguments>
         </block>
         <block class="Magento\Framework\View\Element\Template" name="banner.block.2" template="Magento_Theme::home-banner-block-2.phtml" after="product.slider.bestsellerproducts"/>
