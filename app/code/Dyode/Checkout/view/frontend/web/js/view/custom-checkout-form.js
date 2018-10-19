@@ -18,6 +18,7 @@ define([
     'mage/translate',
     'Magento_Ui/js/form/form',
     'Magento_Ui/js/model/messageList',
+    'Magento_Catalog/js/price-utils',
     'Magento_Checkout/js/checkout-data',
     'Magento_Checkout/js/model/quote',
     'Magento_Checkout/js/model/url-builder',
@@ -35,6 +36,7 @@ define([
     $t,
     Component,
     messageList,
+    priceUtils,
     checkoutData,
     quote,
     urlBuilder,
@@ -45,7 +47,32 @@ define([
     curacaoServiceProvider
 ) {
     var curacaoPaymentInfo = window.checkoutConfig.curacaoPayment,
-        customerInfo = window.checkoutConfig.customerData;
+        customerInfo = window.checkoutConfig.customerData,
+        isUserLinked = !!curacaoPaymentInfo.linked,
+        downPayment = curacaoPaymentInfo.total ? curacaoPaymentInfo.total : '',
+
+        /**
+         * Helper Function
+         *
+         * Find last 4 digits of a string.
+         * @param {String} string
+         * @returns {String}
+         */
+        getLast4 = function (string) {
+            if (string) {
+                string = string.toString(); //make sure the value is string.
+
+                if (string.length <= 4) {
+                    return string;
+                }
+
+                return string.substring(string.length - 4);
+            }
+
+            return '';
+        },
+
+        curacaoLast4Digit = getLast4(curacaoPaymentInfo.curacaoId);
 
     return Component.extend({
 
@@ -54,18 +81,22 @@ define([
         downPayment: curacaoPaymentInfo.downPayment,
         limit: curacaoPaymentInfo.limit,
         canApply: curacaoPaymentInfo.canApply,
-        linked: curacaoPaymentInfo.linked,
         curacaoAccountVerifyModalTemplate: 'Dyode_Checkout/custom-form/account-verify-modal',
         curacaoAccountVerifyModal: null,
         smsIconUrl: curacaoPaymentInfo.mediaUrl + '/images/sms-icon.png',
         callIconUrl: curacaoPaymentInfo.mediaUrl + '/images/call-icon.png',
         personalInfoForm: 'pinfm',
+        isUserLinked: ko.observable(isUserLinked),
         curacaoAccountIdInpValue: ko.observable(''),
         verificationCodeInpValue: ko.observable(''),
         ssnVerifyInpValue: ko.observable(''),
         dateOfBirthInpValue: ko.observable(''),
         zipCodeInpValue: ko.observable(''),
         maidenNameInpValue: ko.observable(''),
+        curacaoIdLast4Digit: ko.observable(curacaoLast4Digit),
+        curacaoUserCreditLimit: ko.observable(curacaoPaymentInfo.limit),
+        curacaoUserDownPayment: ko.observable(downPayment),
+        canShowDownPayment: ko.observable(true),
 
         /**
          * @inheritdoc
@@ -259,10 +290,14 @@ define([
                         messageList.addSuccessMessage({
                             message: successMessage
                         });
+                        model.isUserLinked(true);
+                        model.processCuracaoLinkedScenario();
+
                     } else {
                         messageList.addErrorMessage({
                             message: curacaoServiceProvider.message()
                         });
+                        model.isUserLinked(false);
                     }
                 });
             }
@@ -317,6 +352,25 @@ define([
             personalForm.validate();
 
             return personalForm.valid();
+        },
+
+        /**
+         * Process guest user turned to curacao linked customer.
+         * We need to show down payment details in this case.
+         */
+        processCuracaoLinkedScenario: function () {
+            if (curacaoServiceProvider.response() && curacaoServiceProvider.response().curacaoInfo) {
+                var curacaoInfo = curacaoServiceProvider.response().curacaoInfo;
+
+                this.curacaoUserCreditLimit(curacaoInfo.creditLimit);
+
+                if (curacaoInfo.downPayment) {
+                    this.curacaoUserDownPayment(curacaoInfo.downPayment);
+                    this.canShowDownPayment(true);
+                } else {
+                    this.canShowDownPayment(false);
+                }
+            }
         }
     });
 });
