@@ -75,6 +75,7 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
         $jsLayout = $this->addCheckoutAddressStepChildren($jsLayout);
         $jsLayout = $this->removeShippingAddressFromShippingMethodStep($jsLayout);
         $jsLayout = $this->addBillingAddressIntoAddressStep($jsLayout);
+        $jsLayout = $this->changeSummaryTotalsSortOrder($jsLayout);
 
         return $jsLayout;
     }
@@ -130,6 +131,13 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
         return $jsLayout;
     }
 
+    /**
+     * Changing the sort order of summary totals as per the design.
+     *
+     * @param array $jsLayout
+     * @return array $jsLayout
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
     public function addBillingAddressIntoAddressStep(array $jsLayout)
     {
         $jsLayout = $this->updateShippingAddressPlaceHolders($jsLayout);
@@ -222,6 +230,24 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
                 ],
             ],
         ];
+    }
+
+    public function changeSummaryTotalsSortOrder(array $jsLayout)
+    {
+        $jsLayout["components"]["checkout"]["children"]["sidebar"]["children"]["summary"]["children"]
+        ["totals"]["children"]['shipping']['sortOrder'] = 10;
+        $jsLayout["components"]["checkout"]["children"]["sidebar"]["children"]["summary"]["children"]
+        ["totals"]["children"]['tax']['sortOrder'] = 20;
+        $jsLayout["components"]["checkout"]["children"]["sidebar"]["children"]["summary"]["children"]
+        ["totals"]["children"]['discount']['sortOrder'] = 30;
+        $jsLayout["components"]["checkout"]["children"]["sidebar"]["children"]["summary"]["children"]
+        ["totals"]["children"]['curacao_discount']['sortOrder'] = 40;
+        $jsLayout["components"]["checkout"]["children"]["sidebar"]["children"]["summary"]["children"]
+        ["totals"]["children"]['subtotal']['sortOrder'] = 50;
+        $jsLayout["components"]["checkout"]["children"]["sidebar"]["children"]["summary"]["children"]
+        ["totals"]["children"]['before_grandtotal']['sortOrder'] = 60;
+
+        return $jsLayout;
     }
 
     /**

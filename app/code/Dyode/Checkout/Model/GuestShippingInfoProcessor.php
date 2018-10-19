@@ -159,11 +159,13 @@ class GuestShippingInfoProcessor implements GuestShippingInfoInterface
         $shippingAmount = $this->calculateShippingAmount($addressInformation);
 
         $totals->setShippingAmount($totals->getShippingAmount() + $shippingAmount);
-        $totals->setShippingInclTax($totals->getShippingInclTax() + $shippingAmount);
-        $totals->setSubtotal($totals->getSubtotal() + $shippingAmount);
-        $totals->setSubtotalInclTax($totals->getSubtotalInclTax() + $shippingAmount);
-        $totals->setSubtotalWithDiscount($totals->getSubtotalWithDiscount() + $shippingAmount);
-        $totals->setGrandTotal($totals->getGrandTotal() + $shippingAmount);
+        $totals->setGrandTotal($totals->getBaseGrandTotal() + $shippingAmount);
+
+        //total segment is also updating; this field is used to show grand total in the checkout
+        $totalSegments = $totals->getTotalSegments();
+        if ($totalSegments && $totalSegments['grand_total']) {
+            $totalSegments['grand_total']->setValue($totals->getBaseGrandTotal() + $shippingAmount);
+        }
 
         return $paymentDetails;
     }

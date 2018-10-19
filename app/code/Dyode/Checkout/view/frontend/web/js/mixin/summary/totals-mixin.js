@@ -15,17 +15,17 @@ define(function () {
     var mixin = {
 
         /**
-         * We dont want to show shipping method title as there is no shipping against quote.
-         * We can have multiple shipping methods since it is keeping in the quote item level.
-         * @returns {String}
+         * Make summary totals always visible
+         *
+         * @return {*}
          */
-        getShippingMethodTitle: function () {
-            return '';
+        isDisplayed: function () {
+            return true;
         }
     };
 
     /**
-     * Mixin of Magento_Tax/js/view/checkout/summary/shipping
+     * Mixin of Magento_Checkout/js/view/summary/totals
      */
     return function (target) {
         return target.extend(mixin);
