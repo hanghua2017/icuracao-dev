@@ -931,17 +931,12 @@
 					.level0 {
 						& > a {
 							text-transform: none;
-						}
-						&.active,&.has-active{
-							> a:not(.ui-state-active){
+							.opener{
 								@media all and (max-width:1024px){
-									border-width:0;
-									background:@white-shade;
-									border-bottom:2px solid @green-color;
-									color:@textColor;
-									span:not(.ui-menu-icon){
-										margin-left:0;
-									}
+									left: 0;
+							    width: 100%;
+							    text-align: right;
+							    padding-right: 18px;
 								}
 							}
 						}
