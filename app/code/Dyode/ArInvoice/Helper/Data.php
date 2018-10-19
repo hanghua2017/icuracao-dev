@@ -111,6 +111,16 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
          */
         $response = curl_exec($ch);
         curl_close($ch);
+
+        //logging audit log
+        $this->auditLog->saveAuditLog([
+            'user_id' => "",
+            'action' => 'ArInvoice Generation API Response',
+            'description' => "input : " . json_encode($inputArray) . "  response : " . $response,
+            'client_ip' => "",
+            'module_name' => "Dyode_ArInvoice"
+        ]);
+
         return json_decode($response);
     }
 
@@ -141,6 +151,16 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
          */
         $response = curl_exec($ch);
         curl_close($ch);
+
+        //logging audit log
+        $this->auditLog->saveAuditLog([
+            'user_id' => "",
+            'action' => 'Ar Web Downpayment API Response',
+            'description' => "input : " . json_encode($inputArray) . "  response : " . $response,
+            'client_ip' => "",
+            'module_name' => "Dyode_ArInvoice"
+        ]);
+
         return json_decode($response);
     }
 

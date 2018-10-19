@@ -3117,19 +3117,30 @@ select:focus, input:focus {
    .action.add:before, .action.remove:before , .action.add:active:before , .action.remove:active:before {
      color: #fff;
    }
+   .action.remove, .action.remove:active {
+     margin-left: 0;
+     @media all and (max-width: 768px){
+       min-width: 60px !important;
+       top: 12px;
+       width: 30%;
+
+     }
+   }
     .actions-toolbar{
       padding-bottom: 15px;
       .secondary{
           padding-bottom: 15px;
-        .action{
-          @media all and (max-width: 768px){
-            width: 100%;
-          }
+      }
+    }
+    .fieldset{
+      .control{
+        @media all and (max-width: 768px){
+          width: 100%;
         }
       }
     }
   }
-  #invitationForm{
+  #invitations-options{
     .fieldset{
       .control{
         @media all and (max-width: 768px){
