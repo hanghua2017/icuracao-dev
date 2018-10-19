@@ -13,7 +13,7 @@
     <route url="/V1/linkaccount/create" method="POST">
         <service class="Dyode\Linkaccount\Api\LinkAccountInterface" method="create"/>
         <resources>
-            <resource ref="self" />
+               <resource ref="anonymous"/>
         </resources>
     </route>
 </routes>

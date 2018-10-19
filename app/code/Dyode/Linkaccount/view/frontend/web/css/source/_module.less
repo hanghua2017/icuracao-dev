@@ -315,6 +315,10 @@
           label{
             width: 100%;
             text-align: left;
+            float: left;
+            color: red;
+            margin-top: 5px;
+            
             span{
               color:@input-color;
               font-weight: normal !important;
@@ -328,10 +332,13 @@
           &.required
           {
             padding: 0px 25px;
+            margin-top: 10px;
+            float: left;
+            margin-bottom: 10px;
             @media all and (max-width:479px)
             {
               padding:0px;
-              
+
             }
           }
         }
@@ -346,6 +353,8 @@
           label{
             width: 100%;
             padding-left: 0;
+            float: left;
+            color: red;
           }
           input{
             padding: 0 15px;
