@@ -29,7 +29,7 @@ class Estimate extends \Magento\Framework\View\Element\Template {
 			///fetch orders with status 'process estimate'
 		    $orders = $this->_orderCollectionFactory->create()->addFieldToSelect('*')->addFieldToFilter(
 		        'status',
-		        ['in' => array('process estimate')]
+		        ['in' => array('processestimate')]
 		    );
 
 		    foreach ($orders as $order) {
