@@ -25,8 +25,13 @@ $product = $block->getProduct();
     <?php
     $fbtProducts = $viewModel->fbtProducts($product);
     $discount = $viewModel->productDiscount($product);
-    //to remove double slashes in product image URL
-    $imageURL = str_replace("//","/",$viewModel->getProductImageUrl($product));
+    //to remove double slashes in product image URL if any
+    $routeName = $viewModel->getProductImageUrl($product);
+    $routeNamePart1 = substr( $routeName, 0 , strpos($routeName,'//') +4 );
+    $routeNamePart2 = substr( $routeName, strpos($routeName,'//') + 4);
+    $routeNamePart2 = str_replace('//', '/' , $routeNamePart2);
+    $imageURL = $routeNamePart1 . $routeNamePart2;
+
     ?>
 
 
@@ -65,8 +70,12 @@ $product = $block->getProduct();
 
                 <?php foreach($fbtProducts as $fbtProduct): ?>
                     <?php $discount = $viewModel->productDiscount($fbtProduct);
-                    //to remove double slashes in product image URL  
-                    $fbtImage = str_replace("//","/",$viewModel->getProductImageUrl($fbtProduct)); 
+                    //to remove double slashes in product image URL if any
+                    $routeName = $viewModel->getProductImageUrl($fbtProduct);
+                    $routeNamePart1 = substr( $routeName, 0 , strpos($routeName,'//') +4 );
+                    $routeNamePart2 = substr( $routeName, strpos($routeName,'//') + 4);
+                    $routeNamePart2 = str_replace('//', '/' , $routeNamePart2);
+                    $fbtImage = $routeNamePart1 . $routeNamePart2;
 
                     ?>
                     <li class="plus-item">

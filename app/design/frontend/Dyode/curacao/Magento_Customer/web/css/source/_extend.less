@@ -3118,36 +3118,33 @@ select:focus, input:focus {
      color: #fff;
    }
    .action.remove, .action.remove:active {
+     margin-left: 0;
      @media all and (max-width: 768px){
-     margin-left: 29%;
-     min-width: 60px;
-     top: 12px;
-   }
+       min-width: 60px !important;
+       top: 12px;
+       width: 30%;
+
+     }
    }
     .actions-toolbar{
       padding-bottom: 15px;
       .secondary{
           padding-bottom: 15px;
-        // .action{
-        //   @media all and (max-width: 768px){
-        //     width: 100%;
-        //   }
-        // }
       }
     }
     .fieldset{
       .control{
         @media all and (max-width: 768px){
-          width: 70%;
+          width: 100%;
         }
       }
     }
   }
-  #invitationForm{
+  #invitations-options{
     .fieldset{
       .control{
         @media all and (max-width: 768px){
-          width: 70%;
+          width: 100%;
         }
       }
     }
