@@ -7,18 +7,15 @@ require(['jquery'], function ($) {
             ns = 'nav-scrolled',
             ms = 'main-scrolled';
 
-        if (!$("body").hasClass('checkout-index-index'))
-        {
-          $(window).scroll(function () {
-              if ($(this).scrollTop() > 158) {
-                  header.addClass(ns);
-                  pageMain.addClass(ms);
-              } else {
-                  header.removeClass(ns);
-                  pageMain.removeClass(ms);
-              }
-          });
-        };
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 158) {
+                header.addClass(ns);
+                pageMain.addClass(ms);
+            } else {
+                header.removeClass(ns);
+                pageMain.removeClass(ms);
+            }
+        });
         /*js for fixed header ends here*/
 
         /*js for making the link active on Sale Page starts here*/

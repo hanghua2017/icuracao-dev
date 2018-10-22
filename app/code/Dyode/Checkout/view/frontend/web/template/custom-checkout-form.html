@@ -1,5 +1,5 @@
 <div class='curacao-outer'>
-    <div class="linkaccount" data-bind="ifnot: isUserLinked">
+    <div class="linkaccount" data-bind="if: (!linked)">
         <h2><span data-bind="i18n: 'Pay with Curacao credit'"></span>
             <div class="curacao-credit-logo"></div>
         </h2>
@@ -12,17 +12,18 @@
                        data-bind="attr: {placeholder: $t('Enter account number or code')},
                             value: curacaoAccountIdInpValue"
                 />
-                <input type="submit" name="button" data-bind="i18n: 'Link account', click: verifyCuracaoId"/>
+                <!-- <input type="submit" name="button" data-bind="i18n: 'Link account', click: verifyCuracaoId"/> -->
+                <button type="button" class="submit-button" data-bind="i18n: 'Link account', click: verifyCuracaoId">Submit</button>
             </form>
             <p data-bind="i18n: 'If you have received our pre-approved offer, enter your activation code to set up your account'"></p>
             <h3>
                 <span data-bind="i18n: 'Don’t have a Curacao account?'"></span>
-                <a href="https://icuracao.com/applynow/" target="_blank" data-bind="i18n: 'Apply Now'"></a>
+                <a href="#" data-bind="i18n: 'Apply Now'"></a>
             </h3>
         </div>
     </div>
 
-    <div data-bind="if: isUserLinked" class="creditlimit">
+    <div data-bind="if: (linked)" class="creditlimit">
         <h2><span data-bind="i18n: 'Pay with Curacao credit'"></span>
             <div class="curacao-credit-logo"></div>
         </h2>
@@ -36,22 +37,18 @@
                     </label>
                 </div>
                 <div class="curacao-id">
-                    <div class="label"><span data-bind="i18n: 'ending with XXXX '"></span></div>
-                    <div class="seller_content" data-bind="text: curacaoIdLast4Digit" data-content="curacaoid"></div>
+                    <div class="label"><!-- ko i18n: 'ending with XXXX ' --><!-- /ko --></div>
+                    <div class="seller_content" data-bind="text: getCuracaoId()" data-content="curacaoid"></div>
                 </div>
                 <div class="curacao-limit">
-                    <div class="label"><span data-bind="i18n: 'Your available credit limit is : '"></span></div>
-                    <div class="seller_content" data-content="curacaolimit">
-                        <span data-bind="text: curacaoUserCreditLimit"></span>
-                    </div>
+                    <div class="label"><!-- ko i18n: 'Your available credit limit is : ' --><!-- /ko --></div>
+                    <div class="seller_content" data-bind="text: getCreditLimit()" data-content="curacaolimit"></div>
                 </div>
             </div>
             <div class="downpayment">
                 <div class="initial-payment">
                     <div class="label"><!-- ko i18n: 'Initial Payment:' --><!-- /ko --></div>
-                    <div class="seller_content" data-content="curacao-payment">
-                        <span data-bind="text: curacaoUserDownPayment"></span>
-                    </div>
+                    <div class="seller_content" data-bind="text: getDownPayment()" data-content="curacao-payment"></div>
                 </div>
                 <div class="label-alert">
                     <!-- ko i18n: 'Please add another payment method for initial amount due today' --><!-- /ko --></div>

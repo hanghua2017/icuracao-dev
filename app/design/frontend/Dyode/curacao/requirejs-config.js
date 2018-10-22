@@ -20,3 +20,14 @@ var config = {
       }
     }
 };
+
+//override priceutils.js
+var config = {
+    'config': {
+        'mixins': {
+            'Magento_Catalog/js/price-utils': {
+                'js/price-utils-mixin': true
+            }
+        }
+    }
+};
