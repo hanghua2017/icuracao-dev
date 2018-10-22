@@ -8,6 +8,9 @@ use Magento\Framework\App\Action\Action;
 // @codingStandardsIgnoreFile
 
 ?>
+<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of Object Manager
+      $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data'); // Instance of Pricing Helper
+ ?>
 <?php
 //  view model
 $emiBlock = $block->getLayout()->getBlock('emi_block');
@@ -61,7 +64,12 @@ $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIE
                                <?php $emi = $emiViewModel->monthlyEmi($_product->getFinalPrice());?>
                         <?php }?>
                       <?php if($emi!=0):?>
-                        <p class="subtext"><?php echo __('Or as low as&nbsp;');?><span class="amount emi-amount"><?php echo"$". "".$emi." ";?><?php echo __("/month"); ?></span></p>
+                        <p class="subtext"><?php echo __('Or as low as');?>
+                          <span class="amount emi-amount">
+                            <?php $formated_emi=$priceHelper->currency($emi, true, false);
+                                  echo __($formated_emi.'/month');?>
+                          </span>
+                        </p>
                       <?php endif?>
                       <?= $block->getProductDetailsHtml($_product) ?>
 

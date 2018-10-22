@@ -76,11 +76,10 @@
               <?php }?>
 
               <?php if($emi!=0):?>
-  <p class="subtext"><?php echo __('Or as low as&nbsp;');?>
+  <p class="subtext"><?php echo __('Or as low as');?>
     <span class="amount emi-amount">
     <?php $formated_emi=$priceHelper->currency($emi, true, false);
-          echo $formated_emi;?>
-          <?php echo __("/month"); ?>
+          echo __($formated_emi.'/month');?>
    </span>
  </p>
 <?php endif?>
