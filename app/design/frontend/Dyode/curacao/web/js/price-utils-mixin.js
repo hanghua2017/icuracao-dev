@@ -5,6 +5,13 @@ define([
    ],
 function ($, _) {
     'use strict';
+    var globalPriceFormat = {
+        requiredPrecision: 2,
+        integerRequired: 1,
+        decimalSymbol: '.',
+        groupSymbol: '.',
+        groupLength: ','
+    };
     return function (target) {
         target.formatPrice = function formatPrice(amount, format, isShowSign) {
             var s = '',
