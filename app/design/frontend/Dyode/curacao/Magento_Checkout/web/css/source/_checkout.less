@@ -75,37 +75,6 @@ input[type="radio"] {
   {
     display: none !important;
   }
-  .customer-signin
-  {
-    display: none;
-  }
-  .customer-welcome
-  {
-    height: 50px;
-    right: 16px;
-    position: absolute;
-    top: 42px;
-    z-index: 100000;
-    list-style: none;
-    color: white;
-    @media all and (max-width: 479px)
-    {
-      top: 32px;
-    }
-    .customer-name
-    {
-      display: block;
-      cursor: default;
-      .action
-      {
-        display: none;
-      }
-    }
-    .customer-menu
-    {
-      display: none;
-    }
-  }
   .page-wrapper
   {
     .page-header
@@ -139,7 +108,7 @@ input[type="radio"] {
             display: none !important;
           }
         }
-        .customer-welcome
+        .customer-signin,.customer-welcome
         {
           position: absolute !important;
           right: 0 !important;
@@ -205,12 +174,6 @@ input[type="radio"] {
       }
       .opc-estimated-wrapper {
         display: none;
-      }
-      .messages
-      {
-        float: left;
-        width: 100%;
-        margin-top: 10px;
       }
       .section-heading{
         h2{
@@ -2056,7 +2019,7 @@ input[type="radio"] {
                       padding-right:35px;
                     }
                     @media all and (max-width:479px){
-                      padding-right:15px;
+                      padding-right:25px;
                       padding-top: 10px;
                     }
                     #custom-checkout-form{
@@ -2072,10 +2035,6 @@ input[type="radio"] {
                         width: 45%;
                         clear: both;
                         float: left;
-                        @media all and (max-width:767px)
-                        {
-                          width: 46%;
-                        }
                         @media all and (max-width:479px)
                         {
                           width: 100%;
@@ -2095,7 +2054,7 @@ input[type="radio"] {
                           @media all and (max-width:991px){
                             width:53%;
                           }
-                          @media all and (max-width:479px){
+                          @media all and (max-width:767px){
                             width:100%;
                           }
                           input[type="text"]{
@@ -2105,7 +2064,35 @@ input[type="radio"] {
                           }
                         }
                       }
-                      input[type="submit"]{
+                      // input[type="submit"]{
+                      //   position: absolute;
+                      //   width: 130px;
+                      //   top: 45px;
+                      //   left: 45.8%;
+                      //   height: 32px;
+                      //   background: @theme-color;
+                      //   box-shadow: none;
+                      //   padding: 7px 40px;
+                      //   border: 1px solid @theme-color;
+                      //   color: @white;
+                      //   font-weight: 600;
+                      //   text-align: center;
+                      //   border-radius: 2px;
+                      //   @media all and (max-width:991px){
+                      //     left:55%;
+                      //   }
+                      //   @media all and (max-width:767px){
+                      //     position:static;
+                      //     width:100%;
+                      //     margin-bottom: 10px;
+                      //   }
+                      //   @media all and (max-width:479px)
+                      //   {
+                      //         margin-top: 5px;
+                      //         position: static;
+                      //   }
+                      // }
+                      .submit-button{
                         position: absolute;
                         width: 130px;
                         top: 45px;
@@ -2113,19 +2100,24 @@ input[type="radio"] {
                         height: 32px;
                         background: @theme-color;
                         box-shadow: none;
-                        padding: 7px 40px;
+                        padding: 7px 10px;
                         border: 1px solid @theme-color;
                         color: @white;
                         font-weight: 600;
                         text-align: center;
                         border-radius: 2px;
-
-                        @media all and (max-width:479px)
-                        {
-                          margin-top: 5px;
+                        @media all and (max-width:991px){
+                          left:55%;
+                        }
+                        @media all and (max-width:767px){
                           position:static;
                           width:100%;
                           margin-bottom: 10px;
+                        }
+                        @media all and (max-width:479px)
+                        {
+                              margin-top: 5px;
+                              position: static;
                         }
                       }
                     }

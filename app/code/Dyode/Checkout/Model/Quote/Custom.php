@@ -6,6 +6,7 @@
  */
 
 namespace Dyode\Checkout\Model\Quote;
+
 /**
  * Class Custom
  *
@@ -29,7 +30,10 @@ class Custom extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
     protected $_curacaocredit;
 
     /**
-     * @param \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency [description]
+     * Custom constructor.
+     *
+     * @param \Magento\Customer\Model\Session $customerSession
+     * @param \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency
      */
     public function __construct(
         \Magento\Customer\Model\Session $customerSession,
@@ -51,9 +55,8 @@ class Custom extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         \Magento\Quote\Model\Quote\Address\Total $total
     ) {
         parent::collect($quote, $shippingAssignment, $total);
+
         $address = $shippingAssignment->getShipping()->getAddress();
-        $customDiscount = $downPayment = $discount = 0;
-        $curaAccId = '';
         if ($address->getAddressType() != 'billing') {
             return $this;
         }
@@ -97,14 +100,13 @@ class Custom extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
      * Assign subtotal amount and label to address object
      *
      * @param \Magento\Quote\Model\Quote $quote
-     * @param Address\Total $total
+     * @param \Magento\Quote\Model\Quote\Address\Total $total
      * @return array
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function fetch(\Magento\Quote\Model\Quote $quote, \Magento\Quote\Model\Quote\Address\Total $total)
     {
         return [
-            'code'  => 'Custom_Discount',
+            'code'  => 'curacao_discount',
             'title' => $this->getLabel(),
             'value' => $this->_curacaocredit,
         ];
