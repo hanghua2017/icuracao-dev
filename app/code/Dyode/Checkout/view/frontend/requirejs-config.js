@@ -15,6 +15,12 @@ var config = {
             },
             'Magento_Checkout/js/view/shipping': {
                 'Dyode_Checkout/js/mixin/shipping-mixin': true
+            },
+            'Magento_Checkout/js/view/summary/totals': {
+                'Dyode_Checkout/js/mixin/summary/totals-mixin': true
+            },
+            'Magento_SalesRule/js/view/summary/discount': {
+                'Dyode_Checkout/js/mixin/summary/totals-mixin': true
             }
         }
     }

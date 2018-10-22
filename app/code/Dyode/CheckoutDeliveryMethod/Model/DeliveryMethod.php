@@ -101,7 +101,7 @@ class DeliveryMethod
      *
      * @return array
      */
-    public function deliveryIdCodeRelations()
+    public static function deliveryIdCodeRelations()
     {
         return [
             self::DELIVERY_OPTION_SHIP_TO_HOME_ID => self::DELIVERY_OPTION_SHIP_TO_HOME_CODE,

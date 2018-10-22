@@ -95,20 +95,23 @@ class SaveManager
      *
      * @param $paymentDetails
      * @param \Dyode\Checkout\Api\Data\ShippingInformationInterface $addressInformation
-     * @return mixed
+     * @return \Magento\Checkout\Api\Data\PaymentDetailsInterface
      */
     public function updateShippingTotal($paymentDetails, ShippingInformationInterface $addressInformation)
     {
         /** @var \Magento\Quote\Model\Cart\Totals $totals */
         $totals = $paymentDetails->getTotals();
         $shippingAmount = $this->calculateShippingAmount($addressInformation);
+        $grandTotal = $totals->getBaseGrandTotal() + $shippingAmount;
 
         $totals->setShippingAmount($totals->getShippingAmount() + $shippingAmount);
-        $totals->setShippingInclTax($totals->getShippingInclTax() + $shippingAmount);
-        $totals->setSubtotal($totals->getSubtotal() + $shippingAmount);
-        $totals->setSubtotalInclTax($totals->getSubtotalInclTax() + $shippingAmount);
-        $totals->setSubtotalWithDiscount($totals->getSubtotalWithDiscount() + $shippingAmount);
-        $totals->setGrandTotal($totals->getGrandTotal() + $shippingAmount);
+        $totals->setGrandTotal($grandTotal);
+
+        //total segment is also updating; this field is used to show grand total in the checkout
+        $totalSegments = $totals->getTotalSegments();
+        if ($totalSegments && $totalSegments['grand_total']) {
+            $totalSegments['grand_total']->setValue($grandTotal);
+        }
 
         return $paymentDetails;
     }
