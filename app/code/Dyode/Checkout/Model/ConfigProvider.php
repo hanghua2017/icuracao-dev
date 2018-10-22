@@ -92,7 +92,6 @@ class ConfigProvider implements ConfigProviderInterface
 
     public function getConfig()
     {
-        $configArr['curacaoPayment']['curacaoId'] = $this->getCuracaoId();
         $configArr['curacaoPayment']['canApply'] = $this->_canApply;
         $configArr['curacaoPayment']['limit'] = $this->getLimit();
         $configArr['curacaoPayment']['total'] = $this->getDownPayment();

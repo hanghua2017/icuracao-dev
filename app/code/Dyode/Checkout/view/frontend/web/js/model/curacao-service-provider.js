@@ -102,7 +102,9 @@ define([
 
                     if (result.type === 'error') {
                         self.isResponseError(true);
-                        self.message(result.message);
+                        messageList.addErrorMessage({
+                            message: result.message
+                        });
                     } else {
                         self.isResponseError(false);
                         self.response(result.data);
