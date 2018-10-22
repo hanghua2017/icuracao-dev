@@ -1,7 +1,8 @@
 // override price format to swap decimal and dot in spanish
 define([
     'jquery',
-    'underscore'
+    'underscore',
+    'Magento_Catalog/js/price-utils'
    ],
 function ($, _) {
     'use strict';
