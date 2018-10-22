@@ -1,17 +1,17 @@
 <ul class="header links">
   <li>
     <a href="<?php echo $block->getUrl();?>customer/account/">
-      Your Account
+      <?php echo __('Your Account');?>
     </a>
   </li>
   <li class="link orders">
     <a href="<?php echo $block->getUrl();?>sales/order/history/">
-    Your orders
+    <?php echo __('Your orders');?>
     </a>
   </li>
   <li class="authorization-link" data-label="or">
     <a href="<?php echo $block->getUrl();?>customer/account/logout/">
-      Sign Out
+      <?php echo __('Sign Out');?>
     </a>
   </li>
 </ul>

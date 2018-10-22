@@ -1128,6 +1128,11 @@ html.nav-before-open {
 			}
 			.customer-menu{
 				display: block;
+				.header{
+					.authorization-link{
+						display: none;
+					}
+				}
 			}
 			ul{
 				position: static;
@@ -1182,6 +1187,22 @@ html.nav-before-open {
 	.nav-toggle {
 		top: 15px;
 		transition: all ease 0.5s;
+	}
+	.nav-sections-item-content > .header.links{
+		.customer-welcome{
+			display: block;
+			.customer-name{
+				display: none;
+			}
+			.customer-menu{
+				display: block;
+				.header{
+					.authorization-link{
+						display: block;
+					}
+				}
+			}
+		}
 	}
 }
 

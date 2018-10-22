@@ -27,7 +27,7 @@ require(['jquery'], function ($) {
     });
     /*js for smooth scroll down the page starts here*/
       $(document).ready(function() {
-  		  $('.beat-container a[href*="#"]').bind('click', function(e) {
+  		  $('.beat-container a[href*="#"],.catalog-product-view .attribute a[href*="#"]').bind('click', function(e) {
   				e.preventDefault(); // prevent hard jump, the default behavior
 
   				var target = $(this).attr("href"); // Set the target as variable

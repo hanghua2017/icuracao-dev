@@ -1767,7 +1767,7 @@ select:focus, input:focus {
 }
 .newsletter-manage-index,.vault-cards-listaction,.magento-rma-returns-history,
 .customer-account-index,.sales-order-history,.sales-order-view,.magento-rma-returns-create,.customer-address-form,.customer-account-edit,
-.review-customer-index,.rma-rma-list, .rma-rma-order, .customer-address-index,.rma-rma-new{
+.review-customer-index,.rma-rma-list, .rma-rma-order, .customer-address-index,.rma-rma-new, .magento-invitation-index-send{
   .columns{
     .sidebar-main{
       .block-collapsible-nav{
@@ -2132,13 +2132,6 @@ select:focus, input:focus {
 .account{
   .page-main{
     .choice,.ui-rma-items .item-description{
-      // input[type="checkbox"] {
-      //     margin: -1px 5px 0 0;
-      //     vertical-align: middle;
-      // }
-      // .label{
-      //   vertical-align: middle;
-      // }
       label {
         display: inline;
       }
@@ -2874,39 +2867,6 @@ select:focus, input:focus {
       color: #666666!important;
     }
   }
-  // .rma-checkbox{
-  //   cursor: pointer;
-  //   padding: 0;
-  //   position: absolute;
-  //   top: 0;
-  //   left: 0;
-  // }
-  // .rma-item-checkbox + label:before {
-  //   content: '';
-  //   margin-right: 10px;
-  //   display: inline-block;
-  //   vertical-align: text-top;
-  //   width: 20px;
-  //   height: 20px;
-  //   background: white;
-  //   -webkit-box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
-  //   -moz-box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
-  //   box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
-  //   border: 1px solid #3857f3;
-  //   @media all and (max-width: 767px) {
-  //     width: 17px;
-  //     height: 17px;
-  //   }
-  // }
-  // .rma-item-checkbox:checked + label:before {
-  //   background-color: #3857f3;
-  //   background-image: url(../images/frequent-select.png);
-  //   @media all and (max-width: 767px) {
-  //     width: 17px;
-  //     height: 17px;
-  //     background-size: contain;
-  //   }
-  // }
   .rma-one-item {
     padding: 25px;
     .item-description {
@@ -3141,11 +3101,6 @@ select:focus, input:focus {
   }
 }
 .rma-rma-new{
-  // .block-collapsible-nav{
-  //   @media all and (max-width: 767px){
-  //   padding-top:45px !important;
-  //   }
-  // }
   form.rma-customer-new{
     padding: 15px 20px;
     .block{
@@ -3154,5 +3109,47 @@ select:focus, input:focus {
   }
   .actions-toolbar{
     overflow: hidden;
+  }
+}
+.magento-invitation-index-send{
+  .form-add-invitations{
+        padding: 0 10px;
+   .action.add:before, .action.remove:before , .action.add:active:before , .action.remove:active:before {
+     color: #fff;
+   }
+   .action.remove, .action.remove:active {
+     @media all and (max-width: 768px){
+     margin-left: 29%;
+     min-width: 60px;
+     top: 12px;
+   }
+   }
+    .actions-toolbar{
+      padding-bottom: 15px;
+      .secondary{
+          padding-bottom: 15px;
+        // .action{
+        //   @media all and (max-width: 768px){
+        //     width: 100%;
+        //   }
+        // }
+      }
+    }
+    .fieldset{
+      .control{
+        @media all and (max-width: 768px){
+          width: 70%;
+        }
+      }
+    }
+  }
+  #invitationForm{
+    .fieldset{
+      .control{
+        @media all and (max-width: 768px){
+          width: 70%;
+        }
+      }
+    }
   }
 }
