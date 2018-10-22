@@ -1,8 +1,7 @@
 // override price format to swap decimal and dot in spanish
 define([
     'jquery',
-    'underscore',
-    'Magento_Catalog/js/price-utils'
+    'underscore'
    ],
 function ($, _) {
     'use strict';
@@ -13,6 +12,11 @@ function ($, _) {
         groupSymbol: '.',
         groupLength: ','
     };
+
+    function stringPad(string, times) {
+        return (new Array(times + 1)).join(string);
+    }
+
     return function (target) {
         target.formatPrice = function formatPrice(amount, format, isShowSign) {
             var s = '',
@@ -62,5 +66,36 @@ function ($, _) {
         };
 
         return target;
+    };
+
+    function objectDeepClone(obj) {
+        return JSON.parse(JSON.stringify(obj));
+    }
+
+    function findOptionId(element) {
+        var re, id, name;
+
+        if (!element) {
+            return id;
+        }
+        name = $(element).attr('name');
+
+        if (name.indexOf('[') !== -1) {
+            re = /\[([^\]]+)?\]/;
+        } else {
+            re = /_([^\]]+)?_/; // just to support file-type-option
+        }
+        id = re.exec(name) && re.exec(name)[1];
+
+        if (id) {
+            return id;
+        }
+    }
+
+    return {
+        formatPrice: formatPrice,
+        deepClone: objectDeepClone,
+        strPad: stringPad,
+        findOptionId: findOptionId
     };
 });
