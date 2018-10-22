@@ -10,4 +10,7 @@
       <preference for="\Dyode\Checkout\Api\Data\ShippingInformationInterface" type="Dyode\Checkout\Model\ShippingInformation" />
       <preference for="Dyode\Checkout\Api\GuestShippingInfoInterface" type="Dyode\Checkout\Model\GuestShippingInfoProcessor" />
       <preference for="Dyode\Checkout\Api\ShippingInfoManagementInterface" type="Dyode\Checkout\Model\ShippingInfoProcessor" />
+      <type name="Magento\Checkout\Model\GuestPaymentInformationManagement">
+            <plugin name="afterGetPaymentInformation" type="Dyode\Checkout\Plugin\Model\GuestPaymentInformationManagementPlugin" />
+      </type>
 </config>
