@@ -56,8 +56,8 @@
             <h3><?php echo $product->getName();?></h3>
 
               <p class="price"><span class="original-price <?php echo $product->getSpecialPrice() ? 'has-special-price' : '' ?>">
-                <?php $originalprice=number_format($_price,2);
-                $originalformattedPrice = $priceHelper->currency($originalprice, true, false);
+                <?php 
+                $originalformattedPrice = $priceHelper->currency($price, true, false);
                 echo $originalformattedPrice;
                 ?>
               </span>
