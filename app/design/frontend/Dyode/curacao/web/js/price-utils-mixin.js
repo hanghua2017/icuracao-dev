@@ -5,6 +5,18 @@ define([
    ],
 function ($, _) {
     'use strict';
+    var globalPriceFormat = {
+        requiredPrecision: 2,
+        integerRequired: 1,
+        decimalSymbol: '.',
+        groupSymbol: '.',
+        groupLength: ','
+    };
+
+    function stringPad(string, times) {
+        return (new Array(times + 1)).join(string);
+    }
+
     return function (target) {
         target.formatPrice = function formatPrice(amount, format, isShowSign) {
             var s = '',
@@ -16,8 +28,8 @@ function ($, _) {
 
             precision = isNaN(format.requiredPrecision = Math.abs(format.requiredPrecision)) ? 2 : format.requiredPrecision;
             integerRequired = isNaN(format.integerRequired = Math.abs(format.integerRequired)) ? 1 : format.integerRequired;
-            decimalSymbol = format.decimalSymbol === undefined ? '.' : format.decimalSymbol;
-            groupSymbol = format.groupSymbol === undefined ? ',' : format.groupSymbol;
+            decimalSymbol = '.';
+            groupSymbol = ',';
             groupLength = format.groupLength === undefined ? 3 : format.groupLength;
             pattern = format.pattern || '%s';
 
@@ -54,5 +66,36 @@ function ($, _) {
         };
 
         return target;
+    };
+
+    function objectDeepClone(obj) {
+        return JSON.parse(JSON.stringify(obj));
+    }
+
+    function findOptionId(element) {
+        var re, id, name;
+
+        if (!element) {
+            return id;
+        }
+        name = $(element).attr('name');
+
+        if (name.indexOf('[') !== -1) {
+            re = /\[([^\]]+)?\]/;
+        } else {
+            re = /_([^\]]+)?_/; // just to support file-type-option
+        }
+        id = re.exec(name) && re.exec(name)[1];
+
+        if (id) {
+            return id;
+        }
+    }
+
+    return {
+        formatPrice: formatPrice,
+        deepClone: objectDeepClone,
+        strPad: stringPad,
+        findOptionId: findOptionId
     };
 });
