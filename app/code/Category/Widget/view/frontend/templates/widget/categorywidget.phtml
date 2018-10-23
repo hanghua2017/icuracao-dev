@@ -57,14 +57,13 @@
 
               <p class="price"><span class="original-price <?php echo $product->getSpecialPrice() ? 'has-special-price' : '' ?>">
                 <?php
-                $originalformattedPrice = $priceHelper->currency($price, true, false);
+                $originalformattedPrice = $priceHelper->currency($_price, true, false);
                 echo $originalformattedPrice;
                 ?>
               </span>
               <?php if($_finalPrice!=NULL):?>
                 <span class="discount-price">
                   <?php if($_finalPrice!=NULL){
-                  
                     $formattedPrice = $priceHelper->currency($_finalPrice, true, false);
                     echo $formattedPrice;
                   }?>
