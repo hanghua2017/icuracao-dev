@@ -205,15 +205,7 @@ class Index extends Action
                     //  $customer->save();
                      
                     $defaultUrl = $this->urlModel->getUrl('linkaccount/verify/success', ['_secure' => true]); 
-                        if(isset($path)){
-                           $defaultUrl = $this->urlModel->getUrl('linkaccount/verify/success', ['_secure' => true]);       
-                        } else{
-                            if($prevpath == 'checkout'){
-                                $this->messageManager->addSuccessMessage('Your password will be lastname with zipcode');
-                                $defaultUrl = $this->urlModel->getUrl('checkout/cart/index', ['_secure' => true]);
-                            }
-                        }
-                        return $resultRedirect->setUrl($defaultUrl);
+                    return $resultRedirect->setUrl($defaultUrl);
                 }
                 catch(\Exception $e) {
                     $errorMessage = $e->getMessage();
