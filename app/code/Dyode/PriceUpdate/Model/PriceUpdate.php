@@ -23,6 +23,8 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template
 
     public $skus = array();
 
+    public $list = array();
+
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory
@@ -33,14 +35,14 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
-        \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
         Data $apiHelper,
+        \Dyode\PriceUpdate\Helper\Data $priceHelper,
         array $data = []
     ) {
         $this->productCollectionFactory = $productCollectionFactory;
         $this->productRepository = $productRepository;
         $this->apiHelper = $apiHelper;
-        $this->auditLog = $auditLog;
+        $this->helper = $priceHelper;
         parent::__construct($context, $data);
     }
 
@@ -53,25 +55,13 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template
     {
        try {
           $this->getProductSkulist();
+          $this->helper->setStock($this->list, 'dyode_priceupdate');
           $this->getBatchPrice();
           $this->processBatchprice();
           //write admin logs
-          $clientIP = $_SERVER['REMOTE_ADDR'];
-          $this->auditLog->saveAuditLog([
-              'user_id' => 'admin',
-              'action' => 'price cron',
-              'description' => 'price updated succesfully',
-              'client_ip' => $clientIP,
-              'module_name' => 'dyode_priceupdate'
-            ]);
+          $this->helper->addLogs('price update', 'price updated successfully', 'dyode_priceupdate');
         } catch (\Exception $exception) {
-          $this->auditLog->saveAuditLog([
-              'user_id' => 'admin',
-              'action' => 'price cron',
-              'description' => $exception->getMessage(),
-              'client_ip' => $clientIP,
-              'module_name' => 'dyode_priceupdate'
-            ]);
+          $this->helper->addLogs('price update', 'price update failed '.$exception, 'dyode_priceupdate');
         }
     }
 
@@ -87,10 +77,19 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template
         /** Apply filters here */
         $productCollection->addAttributeToSelect('*')
         ->addAttributeToFilter('vendorId', 2139)
-        ->addAttributeToFilter('cron', 500);
+        ->addAttributeToFilter('cron', 493);
+        $count = 0;
         foreach ($productCollection as $product) {
             $sku = utf8_encode(strtoupper(trim($product->getSku())));
+            $status = $product->getStatus();
             $this->skuList[$sku]['entity_id'] = $product->getId();
+            $this->list[$count]['sku'] = $product->getSku();
+            if ($status) {
+              $this->list[$count]['active'] = true; 
+            } else {
+              $this->list[$count]['active'] = false;
+            }
+         $count++;   
         }
     }
 
@@ -112,7 +111,7 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template
             ]);
             $request = new \Zend\Http\Request();
             $request->setHeaders($httpHeaders);
-            $request->setUri($apiUrl.'getPrices?top50=false');
+            $request->setUri($apiUrl.'getPrices?top50=true');
             $request->setMethod(\Zend\Http\Request::METHOD_GET);
 
             $client = new \Zend\Http\Client();
@@ -123,6 +122,7 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template
                'timeout' => 30
             ];
             $client->setOptions($options);
+            $this->helper->addLogs('getPrice API calling', $request, 'dyode_priceupdate');
             $response = $client->send($request);
             $data = json_decode($response->getBody());
             $list = $data->LIST;
@@ -145,9 +145,10 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template
             if ($data->CONTINUE) {
                $this->getBatchPrice();
             }
+          $this->helper->addLogs('getPrice API calling', 'response received', 'dyode_priceupdate');
         }
         catch (\Exception $e) {
-            return false;
+          $this->helper->addLogs('getPrice API calling', 'connection failed'.$e, 'dyode_priceupdate');return false;
         }
     }
 
