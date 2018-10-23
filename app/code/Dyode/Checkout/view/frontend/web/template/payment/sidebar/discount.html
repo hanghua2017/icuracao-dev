@@ -13,7 +13,7 @@
 <div class="payment-option _collapsible opc-payment-additional discount-code">
     <div class="payment-option-title field choice" data-role="title">
         <span class="action action-toggle" id="block-discount-heading" role="heading" aria-level="2">
-            <!-- ko i18n: 'Gift cards, Voucher & Promotional codes'--><!-- /ko -->
+            <!-- ko i18n: 'Promotional codes'--><!-- /ko -->
         </span>
     </div>
     <div class="payment-option-content" data-role="content">
@@ -29,7 +29,9 @@
                                id="discount-code"
                                name="discount_code"
                                data-validate="{'required-entry':true}"
-                               data-bind="value: couponCode, attr:{placeholder: $t('ENTER CODE')} " />
+                               data-bind="value: couponCode, attr:{placeholder: $t('Enter Code')} "
+                               onfocus="this.placeholder = ''"
+                               onblur="this.placeholder = 'Enter Code'" />
                     </div>
                 </div>
             </div>
