@@ -15,6 +15,7 @@ use Magento\Catalog\Model\ProductRepository;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Model\Quote;
+use Magento\Checkout\Model\Session;
 
 class AddWarrantyToCartPlugin
 {
@@ -34,6 +35,11 @@ class AddWarrantyToCartPlugin
     protected $parentQuoteItem;
 
     /**
+     * @var \Magento\Checkout\Model\Session
+     */
+    protected $checkoutSession;
+
+    /**
      * @var \Magento\Catalog\Model\ProductRepository
      */
     protected $productRepository;
@@ -44,10 +50,15 @@ class AddWarrantyToCartPlugin
      * @param \Magento\Framework\App\RequestInterface $request
      * @param \Magento\Catalog\Model\ProductRepository $productRepository
      */
-    public function __construct(RequestInterface $request, ProductRepository $productRepository)
+    public function __construct(
+        RequestInterface $request, 
+        ProductRepository $productRepository,
+        Session $checkoutSession
+        )
     {
         $this->request = $request;
         $this->productRepository = $productRepository;
+        $this->checkoutSession = $checkoutSession;
     }
 
     /**
@@ -62,19 +73,63 @@ class AddWarrantyToCartPlugin
     {
         $this->quote = $quote;
         $this->parentQuoteItem = $parentQuoteItem;
+        $quoteItems = $this->quote->getItems();
+        $isExist = false;
+        $warrantyIds = array();
 
         $warrantyParam = $this->request->getParam('warranty');
+
+        $writer = new \Zend\Log\Writer\Stream(BP . "/var/log/Warranty.log");
+		$logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info("Cart Items : " .  json_encode($quoteItems));
 
         //if warranty parameter is present, then this is an add-to-cart action from PDP
         if ($parentQuoteItem->getProduct()->getTypeId() == 'virtual'
             || !$warrantyParam || !is_array($warrantyParam) || count($warrantyParam) === 0) {
-            return $parentQuoteItem;
+                //Check parent product already exist in cart
+                if($quoteItems != null || !empty($quoteItems)){
+                    $isExist = $this->isWarrantyExist($quoteItems,$parentQuoteItem);
+                    if($isExist){
+                        //Lock the warranty Product
+                        $logger->info("Warranty Item Id : " .  $isExist);
+                        $warrantyIds[] = $isExist;
+                        $this->applyWarrantyUpdateLock( $warrantyIds );
+                        return $parentQuoteItem;
+                    }
+                }
+                return $parentQuoteItem;
         }
 
         $this->addWarrantyIntoCart($warrantyParam);
 
         return $parentQuoteItem;
     }
+
+    public function isWarrantyExist($quoteItems,$parentQuoteItem){
+
+        $parentItemId = $parentQuoteItem->getItemId();
+    
+        foreach ($quoteItems as $cartItem) {
+            //If product found check if warranty exists
+            if(($cartItem->getWarrantyParentItemId()) && ( $parentItemId == $cartItem->getWarrantyParentItemId())){
+                return $cartItem->getItemId();
+            }
+        }
+       
+        return false;
+    }
+     /**
+     * @return $this
+     */
+    public function applyWarrantyUpdateLock( $warrantyIds )
+    {
+        $existingLockIds = $this->checkoutSession->getLockedWarrantyIds() ? $this->checkoutSession->getLockedWarrantyIds() : [];
+
+        $this->checkoutSession->setLockedWarrantyIds(array_unique(array_merge($existingLockIds,  $warrantyIds )));
+        return $this;
+    }
+
 
     /**
      * Add warranty to the cart
