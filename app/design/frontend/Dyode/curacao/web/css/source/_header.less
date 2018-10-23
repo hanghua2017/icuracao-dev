@@ -4,7 +4,7 @@
 @gray-text: rgba(51,51,51,255);
 @orange-off: #ff4200;
 @green-color: #97d700;
-@dark-green-color: #84b90a;
+@dark-green-color: #93c138;
 @white: #ffffff;
 @black: #000;
 @white-shade:#efefef;
@@ -20,7 +20,7 @@
 	text-align: center;
 	bottom: 0px;
 	padding: 7px 0;
-	background: @dark-green-color;
+	background: @white;
 	transition: all 0.5s;
 	@media all and (max-width:767px) {
 		display: block;
@@ -28,8 +28,8 @@
 
 	h3 {
 		font-family: 'iCuracao-Regular';
-		font-size: 14px;
-		color: @white;
+		font-size:14px;
+		color: @gray-text;
 		@media all and (max-width:479px) {
 			font-size: 12px;
 		}
@@ -454,7 +454,7 @@
 
 						&::before {
 							content: "";
-							background-image: url("../../images/sign-white.png");
+							background-image: url("../../images/Account.png");
 							background-repeat: no-repeat;
 							background-size: 30px;
 							display: inline-block;
@@ -512,7 +512,7 @@
 
 					&::before {
 						content: "";
-						background-image: url("../../images/sign-white.png");
+						background-image: url("../../images/Account.png");
 						background-repeat: no-repeat;
 						background-size: 30px;
 						display: block;
@@ -672,7 +672,7 @@
 				.action.showcart {
 					&::before {
 						content: "";
-						background-image: url("../../images/minicart-cart.png");
+						background-image: url("../../images/Cart.png");
 						background-repeat: no-repeat;
 						height: 30px;
 				    width: 30px;
