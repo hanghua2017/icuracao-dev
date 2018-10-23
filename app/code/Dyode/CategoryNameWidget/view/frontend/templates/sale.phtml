@@ -67,7 +67,7 @@ $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIE
                         <p class="subtext"><?php echo __('Or as low as');?>
                           <span class="amount emi-amount">
                             <?php $formated_emi=$priceHelper->currency($emi, true, false);
-                                  echo __($formated_emi.'/month');?>
+                                  echo __($formated_emi)?>/<?php echo __('month');?>
                           </span>
                         </p>
                       <?php endif?>
