@@ -18,6 +18,8 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 
    public $productIDs = array();
 
+   public $productlist = array();
+
    public $list = array(); 
 
    public $batchInventory = array();
@@ -36,7 +38,7 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 	\Dyode\InventoryLocation\Model\LocationFactory  $inventoryLocation,
 	\Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry, 
 	\Dyode\InventoryUpdate\Helper\Data $helper,
-	\Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
+	\Dyode\PriceUpdate\Helper\Data $priceHelper,
 	\Dyode\Threshold\Model\Threshold $thresholdModel,
 	array $data = []
 	) {
@@ -47,48 +49,45 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 	    $this->inventorylocation = $inventoryLocation;
 	    $this->threshold = $thresholdModel;
 	    $this->_stockRegistry = $stockRegistry;	
-        $this->auditLog = $auditLog;
+	    $this->priceHelper = $priceHelper;
 	    parent::__construct($context, $data);
 	}
 
 	public function updateInventory() {
 		try {
-			$clientIP = $_SERVER['REMOTE_ADDR'];
 			$products = $this->getProducts();
+			$count = 0;
 			foreach ($products as $product) {
 				$productSKU = trim($product->getSku());
 				$productId = trim($product->getId());
 				$this->list[] = $productSKU;
 				$this->productSKUs[$productSKU] = array();
 				$this->productIDs[$productSKU] = $productId;
+				$status = $product->getStatus();
+	            $this->productlist[$count]['sku'] = $product->getSku();
+	            if ($status) {
+	              $this->productlist[$count]['active'] = true; 
+	            } else {
+	              $this->productlist[$count]['active'] = false;
+	            }
+	            $count++;
 			}
+			$this->priceHelper->setStock($this->productlist, 'dyode_inventoryupdate');
 			$this->processBatchInventory();
 			$this->getAllPending();	
 			$this->getAllThreshold();
 			$this->processThreshold();
 			$this->executeProductSkus();
-	        $this->auditLog->saveAuditLog([
-	            'user_id' => 'admin',
-	            'action' => 'non set inventory update',
-	            'description' => 'inventory successfully updated',
-	            'client_ip' => $clientIP,
-	            'module_name' => 'dyode_inventoryupdate'
-        	]);
+	        $this->priceHelper->addLogs('Non-set inventory update', 'inventory updated successfully', 'dyode_inventoryupdate');
 	    } catch (\Exception $exception) {
-	        $this->auditLog->saveAuditLog([
-	            'user_id' => 'admin',
-	            'action' => 'non set inventory update',
-	            'description' => $exception->getMessage(),
-	            'client_ip' => $clientIP,
-	            'module_name' => 'dyode_inventoryupdate'
-        	]);
+	        $this->priceHelper->addLogs('Non-set inventory update', 'inventory update failed'.$exception, 'dyode_inventoryupdate');
 	    }
 	}	
 
 	//get product collection
 	public function getProducts() {
-	    $productCollection = $this->_productCollectionFactory->create();
-        $productCollection->addAttributeToSelect('*')
+	    $productCollection = $this->_productCollectionFactory->create()
+	    				  ->addAttributeToSelect('*')
                           ->addAttributeToFilter('inventorylookup', 500)
 					      ->addAttributeToFilter('set', 0)
 					      ->addAttributeToFilter('vendorId', 2139); 
@@ -99,19 +98,19 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 	public function processBatchInventory(){
 		$arInventory = $this->helper->getStock();
 		if($arInventory){
-		if($arInventory->OK){
-			foreach ($arInventory->LIST as $item) {
-				$sku = trim( $item->item_id ); //product sku
-				foreach ($item->stock as $location => $quantity) {
-					$store = $location; //store location
-			        $stock = $quantity; //current stock from AR
-			        $this->productSKUs[$sku][$store] = $stock;
+			if($arInventory->OK){
+				foreach ($arInventory->LIST as $item) {
+					$sku = trim( $item->item_id ); //product sku
+					foreach ($item->stock as $location => $quantity) {
+						$store = $location; //store location
+				        $stock = $quantity; //current stock from AR
+				        $this->productSKUs[$sku][$store] = $stock;
+					}
 				}
 			}
-		}
-		if ($arInventory->CONTINUE) {
-			$this->processBatchInventory();
-		}
+			if ($arInventory->CONTINUE) {
+				$this->processBatchInventory();
+			}
 	    }
 	}	
 
@@ -131,7 +130,7 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 		    foreach ($orderItems as $items) {
 		    	$pending = $items['qty_ordered'] - $items['qty_invoiced']; 
 		    	$sku = trim( $items['sku'] );
-				$store = $items['store_id'];
+				$store = $items['pickup_location'];
 				if(isset($this->pending[$sku][$store])){
 					$this->pending[$sku][$store] -= $pending;
 					if ($this->pending[$sku][$store] < 0){ $this->pending[$sku][$store] = 0; }
@@ -143,14 +142,12 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 
 	//Get all threshold values for the products
 	public function getAllThreshold(){
-
 		$data = $this->threshold->getThreshold();
 		if($data)
 		{
 			foreach ($data as $item) {	
 				$department = $item['Sub Departments Name'];
 				$sku = trim( $item['Sub Code'] );
-				
 				if(!isset($sku) || empty($sku)){				
 					// Department
 					$this->thresh[$department] = $item['Threshold'];
@@ -198,7 +195,7 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 				$eid = $this->productIDs[$sku];
 				if (count($this->productSKUs[$sku]) == 0)
 				{
-										
+				 	continue;				
 				}
 				else
 				{
@@ -234,7 +231,7 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 						]);
 			        	$saveData = $locationInventory->save();
 					}
-					
+					$this->priceHelper->addLogs('Non-set inventory update', 'location table updated'.$saveData, 'dyode_inventoryupdate');
 			        $stockItem=$this->_stockRegistry->getStockItem($product->getID());
 
 			        if ($product->getArStatus() =='D') {
