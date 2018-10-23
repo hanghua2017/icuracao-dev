@@ -11,17 +11,22 @@
  */
 namespace Dyode\Checkout\Controller\Curacao;
 
-use Magento\Customer\Model\ResourceModel\CustomerRepository;
-use Magento\Customer\Model\Session as CustomerSession;
-use Magento\Customer\Api\Data\CustomerInterface;
+use Magento\Checkout\Api\PaymentInformationManagementInterface;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\ResultFactory;
-use Magento\Checkout\Model\Session as CheckoutSession;
 use Magento\Framework\Encryption\EncryptorInterface;
-use Dyode\ARWebservice\Helper\Data as ARWebserviceHelper;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Pricing\Helper\Data as PriceHelper;
 use Magento\Store\Model\StoreManagerInterface;
+use Magento\Customer\Model\ResourceModel\CustomerRepository;
+use Magento\Customer\Model\Session as CustomerSession;
+use Magento\Customer\Api\Data\CustomerInterface;
+use Magento\Checkout\Model\Session as CheckoutSession;
+use Magento\Quote\Model\QuoteIdMaskFactory;
+use Dyode\ARWebservice\Helper\Data as ARWebserviceHelper;
+use Dyode\Checkout\Helper\CuracaoHelper;
+use Dyode\Checkout\Model\InfoProcessor\SaveManager;
 
 class Scrutinize extends Action
 {
@@ -76,6 +81,41 @@ class Scrutinize extends Action
     protected $storeManager;
 
     /**
+     * @var boolean|string
+     */
+    protected $downPayment;
+
+    /**
+     * @var string
+     */
+    protected $creditLimit;
+
+    /**
+     * @var \Magento\Framework\Pricing\Helper\Data
+     */
+    protected $priceHelper;
+
+    /**
+     * @var \Dyode\Checkout\Helper\CuracaoHelper
+     */
+    protected $curacaoHelper;
+
+    /**
+     * @var \Magento\Quote\Model\QuoteIdMaskFactory
+     */
+    protected $quoteIdMaskFactory;
+
+    /**
+     * @var \Dyode\Checkout\Model\InfoProcessor\SaveManager
+     */
+    protected $manager;
+
+    /**
+     * @var \Magento\Checkout\Api\PaymentInformationManagementInterface
+     */
+    protected $paymentInformationManagement;
+
+    /**
      * @var string
      */
     protected $curacaoIdAttribute = 'curacaocustid';
@@ -92,6 +132,11 @@ class Scrutinize extends Action
      * @param \Magento\Customer\Model\ResourceModel\CustomerRepository $customerRepository
      * @param \Magento\Customer\Api\Data\CustomerInterface $customerData
      * @param \Magento\Framework\Encryption\EncryptorInterface $encryptor
+     * @param \Magento\Framework\Pricing\Helper\Data $priceHelper
+     * @param \Dyode\Checkout\Helper\CuracaoHelper $curacaoHelper
+     * @param \Magento\Quote\Model\QuoteIdMaskFactory $quoteIdMaskFactory
+     * @param \Dyode\Checkout\Model\InfoProcessor\SaveManager $manager
+     * @param \Magento\Checkout\Api\PaymentInformationManagementInterface $paymentInformationManagement
      */
     public function __construct(
         Context $context,
@@ -102,7 +147,12 @@ class Scrutinize extends Action
         CustomerSession $customerSession,
         CustomerRepository $customerRepository,
         CustomerInterface $customerData,
-        EncryptorInterface $encryptor
+        EncryptorInterface $encryptor,
+        PriceHelper $priceHelper,
+        CuracaoHelper $curacaoHelper,
+        QuoteIdMaskFactory $quoteIdMaskFactory,
+        SaveManager $manager,
+        PaymentInformationManagementInterface $paymentInformationManagement
     ) {
         $this->_resultFactory = $resultFactory;
         $this->storeManager = $storeManager;
@@ -112,6 +162,11 @@ class Scrutinize extends Action
         $this->customerRepository = $customerRepository;
         $this->customerData = $customerData;
         $this->encryptor = $encryptor;
+        $this->priceHelper = $priceHelper;
+        $this->curacaoHelper = $curacaoHelper;
+        $this->quoteIdMaskFactory = $quoteIdMaskFactory;
+        $this->manager = $manager;
+        $this->paymentInformationManagement = $paymentInformationManagement;
 
         parent::__construct($context);
     }
@@ -127,7 +182,7 @@ class Scrutinize extends Action
             try {
                 $this->validateUserInformation();
                 $this->linkUser();
-                $this->_checkoutSession->setCuracaoCustomerId($this->customer->getId());
+                $this->collectUserCreditLimit();
                 return $this->successResponse();
             } catch (\Exception $exception) {
                 return $this->verificationFailedResponse();
@@ -161,10 +216,15 @@ class Scrutinize extends Action
         );
 
         //send api call to collect user info.
-        $this->verifyResult = $this->_helper->verifyPersonalInfm($postData);
+        $verifyResult = $this->_helper->verifyPersonalInfm($postData);
 
-        if ($this->verifyResult == false) {
+        if ($verifyResult == false) {
+            $this->downPayment = false;
             throw new \Exception('Api failed');
+        } else {
+            $downPayment = (float)$verifyResult->DOWNPAYMENT;
+            $this->curacaoHelper->updateCuracaoSessionDetails(['down_payment' => $downPayment]);
+            $this->downPayment = $downPayment;
         }
 
         return $this;
@@ -220,6 +280,27 @@ class Scrutinize extends Action
             }
         }
 
+        $this->_customerSession->setCuracaoCustomerId($this->customer->getId());
+        return $this;
+    }
+
+    /**
+     * Collect curacao user's credit limit.
+     *
+     * @return $this
+     */
+    public function collectUserCreditLimit()
+    {
+        /** @var \Magento\Framework\DataObject $curacaoInfo */
+        $curacaoInfo = $this->_checkoutSession->getCuracaoInfo();
+
+        $creditLimitInfo = $this->_helper->getCreditLimit($curacaoInfo->getAccountNumber());
+        $this->creditLimit = $this->priceHelper->currency(0.00, true, false);
+
+        if ($creditLimitInfo) {
+            $this->creditLimit = $this->priceHelper->currency((float)$creditLimitInfo->CREDITLIMIT, true, false);
+        }
+
         return $this;
     }
 
@@ -232,7 +313,7 @@ class Scrutinize extends Action
     {
         $result = $this->_resultFactory->create(ResultFactory::TYPE_JSON);
         $result->setData([
-            'message' => 'Curacao account verification failed. Please try later.',
+            'message' => __('Curacao account verification failed. Please try later.'),
             'type'    => 'error',
         ]);
 
@@ -258,12 +339,15 @@ class Scrutinize extends Action
     /**
      * Response data.
      *
-     * @return array
+     * Curacao account information and revamped quote totals will be prepared as data response.
+     *
+     * @return array $output
      */
     protected function prepareResponse()
     {
-        return [
-            'email' => $this->customer->getEmail(),
-        ];
+        $output['curacaoInfo']['creditLimit'] = $this->creditLimit;
+        $output['curacaoInfo']['downPayment'] = $this->priceHelper->currency($this->downPayment, true, false);
+
+        return $output;
     }
 }

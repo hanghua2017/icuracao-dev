@@ -95,14 +95,24 @@ class SaveManager
      *
      * @param $paymentDetails
      * @param \Dyode\Checkout\Api\Data\ShippingInformationInterface $addressInformation
-     * @return \Magento\Checkout\Api\Data\PaymentDetailsInterface
+     * @param int $curacaoDiscount
+     * @return mixed
      */
-    public function updateShippingTotal($paymentDetails, ShippingInformationInterface $addressInformation)
-    {
+    public function updateShippingTotal(
+        $paymentDetails,
+        ShippingInformationInterface $addressInformation,
+        $curacaoDiscount = 0
+    ) {
         /** @var \Magento\Quote\Model\Cart\Totals $totals */
         $totals = $paymentDetails->getTotals();
         $shippingAmount = $this->calculateShippingAmount($addressInformation);
         $grandTotal = $totals->getBaseGrandTotal() + $shippingAmount;
+        $calculatedCuracaoDiscount = 0;
+
+        if ($curacaoDiscount !== 0) {
+            $calculatedCuracaoDiscount = -(float)($grandTotal - $curacaoDiscount);
+            $grandTotal = $curacaoDiscount;
+        }
 
         $totals->setShippingAmount($totals->getShippingAmount() + $shippingAmount);
         $totals->setGrandTotal($grandTotal);
@@ -111,6 +121,9 @@ class SaveManager
         $totalSegments = $totals->getTotalSegments();
         if ($totalSegments && $totalSegments['grand_total']) {
             $totalSegments['grand_total']->setValue($grandTotal);
+        }
+        if ($totalSegments && $totalSegments['curacao_discount']) {
+            $totalSegments['curacao_discount']->setValue($calculatedCuracaoDiscount);
         }
 
         return $paymentDetails;
