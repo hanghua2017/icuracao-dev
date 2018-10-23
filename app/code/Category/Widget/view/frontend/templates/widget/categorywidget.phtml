@@ -56,16 +56,16 @@
             <h3><?php echo $product->getName();?></h3>
 
               <p class="price"><span class="original-price <?php echo $product->getSpecialPrice() ? 'has-special-price' : '' ?>">
-                <?php $originalprice=number_format($_price,2);
-                $originalformattedPrice = $priceHelper->currency($originalprice, true, false);
+                <?php
+                $originalformattedPrice = $priceHelper->currency($price, true, false);
                 echo $originalformattedPrice;
                 ?>
               </span>
               <?php if($_finalPrice!=NULL):?>
                 <span class="discount-price">
                   <?php if($_finalPrice!=NULL){
-                    $price= number_format($_finalPrice,2);
-                    $formattedPrice = $priceHelper->currency($price, true, false);
+                  
+                    $formattedPrice = $priceHelper->currency($_finalPrice, true, false);
                     echo $formattedPrice;
                   }?>
                 </span>

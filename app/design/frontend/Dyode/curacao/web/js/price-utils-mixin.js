@@ -28,8 +28,8 @@ function ($, _) {
 
             precision = isNaN(format.requiredPrecision = Math.abs(format.requiredPrecision)) ? 2 : format.requiredPrecision;
             integerRequired = isNaN(format.integerRequired = Math.abs(format.integerRequired)) ? 1 : format.integerRequired;
-            decimalSymbol = format.decimalSymbol === undefined ? '.' : format.decimalSymbol;
-            groupSymbol = format.groupSymbol === undefined ? ',' : format.groupSymbol;
+            decimalSymbol = '.';
+            groupSymbol = ',';
             groupLength = format.groupLength === undefined ? 3 : format.groupLength;
             pattern = format.pattern || '%s';
 
