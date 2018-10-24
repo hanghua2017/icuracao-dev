@@ -6,6 +6,9 @@
 $_product = $block->getProduct();
 $_tvBrandText = '';
 $_upcText = '';
+$mpn = '';
+
+$getMpn = explode("-", $_product->getSku());
 
 /**
  * @todo Better use a view model here to implement this logic
@@ -17,9 +20,10 @@ if ($_product->getResource()->getAttribute('tv_brand')) {
 if ($_product->getUpc()) {
     $_upcText = $_product->getUpc();
 }
-?>
-<?php $getMpn = explode("-", $_product->getSku());
-$mpn = $getMpn[2];
+
+if (isset($getMpn[2])) {
+    $mpn = $getMpn[2];
+}
 ?>
 <script type='text/javascript'>
 
