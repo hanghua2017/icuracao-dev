@@ -145,7 +145,7 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template
             if ($data->CONTINUE) {
                $this->getBatchPrice();
             }
-          $this->helper->addLogs('getPrice API calling', 'response received', 'dyode_priceupdate');
+          $this->helper->addLogs('getPrice API calling', $response->getBody(), 'dyode_priceupdate');
         }
         catch (\Exception $e) {
           $this->helper->addLogs('getPrice API calling', 'connection failed'.$e, 'dyode_priceupdate');return false;

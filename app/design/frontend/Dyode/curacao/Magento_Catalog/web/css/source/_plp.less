@@ -1396,11 +1396,26 @@
     }
   }
 }
-
+/*styling for message on search result page starts here*/
 .catalogsearch-result-index {
-  .message.notice{
+  .page-main{
     .columns{
-    margin-top: 80px;
+      min-height:600px;
+    }
+  }
+  .message.notice{
+    float: right;
+    width:100%;
+    border:none;
+    @media all and (min-width:768px){
+      padding-left: 65px;
+    }
+    div{
+      &:before{
+        @media all and (min-width:768px){
+          left:20px;
+        }
+      }
     }
   }
   ul.search__result-tabs {
@@ -1414,6 +1429,37 @@
     margin: 20px 0;
   }
 }
+/*styling for message on search result page ends here*/
+/*styling for message on product listing page starts here*/
+.catalog-category-view{
+  .page-main{
+    .columns{
+      min-height:600px;
+    }
+  }
+  .message.notice{
+    float: right;
+    width:100%;
+    border:none;
+    @media all and (min-width:768px){
+      padding-left: 65px;
+    }
+    div{
+      &:before{
+        @media all and (min-width:768px){
+          left:20px;
+        }
+      }
+    }
+  }
+  .page-main > .page-title-wrapper .page-title {
+    font-family: 'iCuracao-Medium';
+    font-weight: normal;
+    font-size: 24px;
+    margin: 20px 0;
+  }
+}
+/*styling for message on product listing page ends here*/
 
 #layer-product-list {
   dl {

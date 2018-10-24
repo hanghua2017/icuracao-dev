@@ -56,9 +56,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                'timeout' => 360
             ];
             $client->setOptions($options);
-  			$request->setContent(json_encode($postString));
+  			    $request->setContent(json_encode($postString));
+            $this->addLogs('SetEcommerceStock API calling', $request, $module);
             $response = $client->send($request);
-            $this->addLogs('SetEcommerceStock API calling', 'response received ', $module);
+            $this->addLogs('SetEcommerceStock API calling', $response->getBody(), $module);
         }
         catch (\Exception $e) {
         	$this->addLogs('SetEcommerceStock API calling', 'response failed '.$e, $module);
