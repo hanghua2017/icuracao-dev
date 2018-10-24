@@ -220,6 +220,7 @@ class Scrutinize extends Action
 
         if ($verifyResult == false) {
             $this->downPayment = false;
+            $this->curacaoHelper->updateCuracaoSessionDetails(['is_user_linked' => false]);
             throw new \Exception('Api failed');
         } else {
             $downPayment = (float)$verifyResult->DOWNPAYMENT;

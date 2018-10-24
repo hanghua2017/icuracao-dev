@@ -21,6 +21,24 @@
             <resource ref="anonymous" />
         </resources>
     </route>
+    <route url="/V1/carts/mine/curacao/collect-totals" method="GET">
+        <service class="Dyode\Checkout\Api\CreditManagementInterface" method="applyCuracaoCreditInTotals"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/carts/mine/curacao/remove-totals" method="GET">
+        <service class="Dyode\Checkout\Api\CreditManagementInterface" method="removeCuracaoCreditFromTotals"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
     <route url="/V1/guest-carts/:cartId/custom-shipping-info" method="POST">
         <service class="Dyode\Checkout\Api\GuestShippingInfoInterface" method="saveAddressInformation"/>
         <resources>
