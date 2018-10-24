@@ -12,9 +12,7 @@
 @import "_you-may-also-like";
 @import "_add-to-cart";
 @import "_pdpbreadcrumbs";
-@import "_short-discription";
-@black: 0;
-@price-grey: #838282;
+@import "_short-description";
 
 .price-label-font {
   font-size: 16px;
@@ -99,21 +97,18 @@
       padding-left: 10px;
       font-size: 13px;
     }
-
     img {
       position: relative;
       top: 3px;
       margin-right: 3px;
     }
   }
-
   a.credit-link {
     color: @link-blue;
     padding: 0 20px;
     font-size: 16px;
     font-family: 'iCuracao-Regular';
     font-weight: 500;
-
     &:hover {
       text-decoration: underline;
     }
@@ -137,12 +132,10 @@
     height: 47px;
   }
 }
-
 .catalog-product-view {
   header.page-header {
     z-index: 999;
   }
-
   .page-wrapper {
     .columns {
       .column {
@@ -154,32 +147,25 @@
           -ms-flex-direction: column;
           flex-direction: column;
         }
-
         .product.info.detailed {
           margin-bottom: 0;
-
           .product.data.items {
             border: 1px solid @desc-border;
             @media all and (max-width: 767px) {
               margin-left: 0;
               margin-right: 0;
             }
-
             .item.title {
-              border-top: 3px solid #ffffff;
-
+              border-top: 3px solid @white;
               &:hover {
                 background: transparent !important;
               }
-
               &.active {
                 border-top: 3px solid @theme-color;
-
                 .switch {
                   padding-bottom: 2px;
                 }
               }
-
               .switch {
                 border: 1px solid @desc-border;
                 padding: 5px 40px 4px;
@@ -199,19 +185,16 @@
                   padding-left: 10px;
                   padding-right: 10px;
                 }
-
                 &:after {
                   right: 15px;
                 }
               }
-
               &:first-child {
                 .switch {
                   border-left: none;
                 }
               }
             }
-
             .item.content {
               border: none;
               margin-top: 49px;
@@ -227,7 +210,6 @@
               @media all and (max-width: 467px) {
                 padding: 10px;
               }
-
               button.action {
                 background: #97d70b;
                 border-radius: 3px;
@@ -235,12 +217,10 @@
                 color: white;
                 font-weight: 600;
               }
-
               .table-wrapper {
                 &:last-child {
                   border-bottom: none !important;
                 }
-
                 table {
                   tbody {
                     tr {
@@ -253,30 +233,22 @@
                   }
                 }
               }
-
               .review-fieldset {
                 font-size: small;
-
                 .review-legend {
                   font-size: small;
-
                   strong {
                     margin-top: 8px;
                   }
                 }
-
                 fieldset.review-field-ratings >.label {
                   font-size: 16px;
                 }
-
                 .control {
                   .nested {
                     .review-field-rating {
-                      label {}
-
                       .review-control-vote {
                         margin-bottom: 35px;
-
                         &:before {
                           font-size: 20px;
                           height: 25px;
@@ -296,7 +268,6 @@
                   }
                 }
               }
-
               .product.description {
                 .value {
                   .product-description {
@@ -309,11 +280,9 @@
                       @media all and (max-width: 478px) {
                         font-size: 12px;
                       }
-
                       &:last-child {
                         border-bottom: none;
                       }
-
                       h3 {
                         margin-top: 0;
                         font-family: 'iCuracao-Regular';
@@ -325,7 +294,6 @@
                           font-size: 14px;
                         }
                       }
-
                       ul {
                         margin-bottom: 0;
                         padding-left: 20px;
@@ -335,7 +303,6 @@
                     }
                   }
                 }
-
                 a.redirect-view-details {
                   display: none !important;
                 }
@@ -343,7 +310,6 @@
             }
           }
         }
-
         .product-info-block {
           clear: both;
           float: left;
@@ -397,7 +363,6 @@
               @media all and (max-width: 360px) {
                 width: 75%;
               }
-
               .page-title {
                 font-size: 24px;
                 margin-bottom: 8px;
@@ -428,8 +393,8 @@
             .product-info-price {
               display: inline-block;
               clear: both;
-              border-top: 1px solid #d4d4d4;
-              border-bottom: 1px solid #d4d4d4;
+              border-top: 1px solid @border-grey;
+              border-bottom: 1px solid @border-grey;
               float: left;
               margin: 0;
               padding-bottom: 35px;
@@ -475,7 +440,7 @@
                     .price-container {
                       .price-label {
                         .price-label-font();
-                        color: @price-grey;
+                        color: @label-grey;
                         @media all and (min-width: 768px) {
                           line-height: 36px;
                         }
@@ -609,7 +574,7 @@
                     text-transform: uppercase;
                     .price-font();
                     font-weight: normal;
-                    color: @box-orange;
+                    color: @color-orange;
                   }
                 }
               }
@@ -617,7 +582,7 @@
               .credit-card-emi {
                 .emi-amount {
                   .price {
-                    color: #81b800;
+                    color: @underline;
                       font-weight: 500;
                     font-size: 18px;
                     margin-right: 5px;
@@ -745,7 +710,7 @@
               width: 40%;
               padding: 50px 20px;
               margin-bottom: 0;
-              border-right: 1px solid #d4d4d4;
+              border-right: 1px solid @border-grey;
               @media all and (max-width: 901px) {
                 -ms-flex-order: -1;
                 -webkit-order: -1;
@@ -754,20 +719,17 @@
                 padding: 20px 0;
                 border-right: none;
               }
-
               .gallery-placeholder {
                 @media all and (max-width: 901px) {
                   padding-left: 20px;
                   padding-right: 20px;
                 }
-
                 .fotorama-item {
                   .fotorama__wrap {
                     .fotorama__stage {
                       .fotorama__arr {
                         display: none !important;
                       }
-
                       .fotorama__stage__frame {
                         .fotorama__img {
                           @media all and (min-width: 991px) and (max-width: 1024px) {
@@ -776,21 +738,17 @@
                         }
                       }
                     }
-
                     .fotorama__nav-wrap {
                       margin-top: 50px;
-
                       .fotorama__nav {
                         &.fotorama__shadows--left:before,
                         &.fotorama__shadows--right:after {
                           background-image: none;
                         }
-
                         .fotorama__nav__shaft {
                           .fotorama__thumb-border {
                             border: 1px solid @link-blue;
                           }
-
                           .fotorama__nav__frame {
                             &.fotorama__active {
                               .fotorama__dot {
@@ -798,7 +756,6 @@
                                 border-color: @content-light-grey;
                               }
                             }
-
                             .fotorama__dot {
                               background-color: #efefef;
                               border-color: @content-light-grey;
