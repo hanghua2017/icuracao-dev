@@ -18,7 +18,6 @@
           padding-left: 10px;
           padding-right: 10px;
         }
-
         .value {
           max-height: 100px;
           overflow: hidden;
@@ -27,24 +26,20 @@
             max-height: 120px;
             overflow-y: auto;
           }
-
           p {
             line-height: 24px;
             font-family: 'iCuracao-Regular';
             font-weight: 500;
           }
-
           ul {
             padding-left: 22px;
             margin-bottom: 0;
-
             li {
               font-family: 'iCuracao-Regular';
               margin-bottom: 5px;
               font-weight: 500;
               color: @black;
               position: relative;
-
               &::before {
                 content: "•";
                 color: #aeaeae;
@@ -56,7 +51,6 @@
                 top: -5px;
                 left: 0;
               }
-
               span {
                 display: inline-block;
                 /* Fallback for non-webkit */
@@ -73,14 +67,11 @@
                 }
               }
             }
-
             li {
               font-size: 0;
-
               &::before {
                 font-size: 0;
               }
-
               &:nth-child(1),
               &:nth-child(2),
               &:nth-child(3) {
@@ -88,7 +79,6 @@
                 @media all and (min-width: 991px) {
                   font-size: 14px;
                 }
-
                 &::before {
                   font-size: 22px;
                 }
@@ -96,7 +86,6 @@
             }
           }
         }
-
         a.redirect-view-details,
         a.redirect-view-details:hover {
           color: @link-blue;

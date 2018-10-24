@@ -5,31 +5,25 @@
 * @author  Sangeetha D <sangeetha.d@dyode.com>
 * PARTIAL - COMMON STYLING Frequently bought items section
 ****************************************************************/
-* {
-  //  border: 1px solid;
-}
-
 .catalog-product-view {
   .frequently-bought-items {
     clear: both;
     width: 100%;
     float: left;
-    border-top: 1px solid #d4d4d4;
+    border-top: 1px solid @border-grey;
     order: 3;
     @media all and (max-width: 901px) {
       border-top: none;
     }
-
     h3 {
       text-align: center;
       margin-top: 40px;
       font-family: 'iCuracao-Medium';
       font-size: 24px;
       font-weight: 500;
-
       @media all and (max-width: 901px) {
-        border-top: 1px solid #d4d4d4;
-        border-bottom: 1px solid #d4d4d4;
+        border-top: 1px solid @border-grey;
+        border-bottom: 1px solid @border-grey;
         margin: 0;
         font-size: 18px;
         padding: 15px 0;
@@ -39,7 +33,6 @@
         text-indent: 15px;
       }
     }
-
     .frequently-product-block {
       display: flex;
       width: 70%;
@@ -52,13 +45,10 @@
         width: 100%;
         margin-top: 20px;
       }
-
       .plus-item {
         position: relative;
-
         .include-item {
           padding: 5px;
-
           img {
             position: absolute;
             top: 50%;
@@ -72,7 +62,6 @@
         }
       }
     }
-
     .frequent-item-list {
       padding-left: 0;
       width: 100%;
@@ -81,14 +70,12 @@
       @media all and (max-width: 478px) {
         display: initial;
       }
-
       li {
         list-style: none;
         width: 30%;
         @media all and (max-width: 478px) {
           width: 100%;
         }
-
         &.plus-item {
           width: auto;
           padding: 5px;
@@ -168,7 +155,7 @@
               }
               .name {
                 font-size: 14px;
-                color: rgba(51, 51, 51, 255);
+                color: @textColor;
                 text-align: left;
                 font-weight: 500;
                 font-family: 'iCuracao-Medium';
@@ -191,7 +178,7 @@
               }
               .price {
                 margin-top: 10px;
-                color: rgba(51, 51, 51, 255);
+                color: @textColor;
                 font-size: 18px;
                 font-family: 'iCuracao-Regular';
                 font-weight: 500;
@@ -215,7 +202,7 @@
                   font-weight: 600;
                 }
                 .off-price {
-                  color: #81b800;
+                  color: @underline;
                   font-size: 15px;
                   font-family: 'iCuracao-light';
                   margin-left: 20px;
@@ -281,7 +268,7 @@
       }
     }
     .frequently-bought-adon-sum-block {
-      border-top: 1px solid #d4d4d4;
+      border-top: 1px solid @border-grey;
       .frequently-bought-adon-sum {
         margin: 0 auto;
         padding: 20px 0 30px !important;
@@ -334,7 +321,7 @@
                 }
               }
               .price {
-                color: #333;
+                color: @textColor;
                 font-size: 20px;
                 font-weight: 600;
                 margin-bottom: 0;
@@ -374,7 +361,7 @@
             @media all and (max-width: 767px) {
               padding-top: 0;
               margin-top: 20px;
-              border-top: 1px solid #d4d4d4;
+              border-top: 1px solid @border-grey;
             }
             .action.add-bundle-btn {
               margin-left: 15px;
@@ -391,9 +378,9 @@
               @media all and (max-width: 478px) {}
 
               button.add-bundle-btn {
-                background-color: @btn-orange;
-                border: 1px solid @btn-orange;
-                color: #fff;
+                background-color: @orange-off;
+                border: 1px solid @orange-off;
+                color: @white;
                 width: 250px;
                 border-radius: 3px;
                 padding: 12px 38px;
@@ -432,6 +419,7 @@
   }
   // End of Frequently bought items section
 }
+
 /*Style for spanish*/
 html[lang="es"] {
   .catalog-product-view {
