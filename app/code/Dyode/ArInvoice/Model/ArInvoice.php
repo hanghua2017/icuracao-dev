@@ -114,7 +114,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         $order = $this->getOrderInfo($orderId);
         # Getting the Payment Method
         $paymentMethod = $order->getPayment()->getMethod();
-
         // $signifyRequired = false;
         /**
          * Validating the Payment Method
@@ -124,14 +123,14 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             // $signifyRequired = True;    # Setting Signify Required = True
 
             # Loading Transactional Details
-            $amountPaid = $order->getPayment()->getAmountPaid();
+            $amountAuthorized = $order->getPayment()->getAmountAuthorized();
             $orderTotal = $order->getGrandTotal();
-            if ($amountPaid >= $orderTotal) {
-                $cashAmount = $amountPaid;
+            if ($amountAuthorized >= $orderTotal) {
+                $cashAmount = $amountAuthorized;
                 $accountNumber = '500-8555';
                 $orderType = "full_credit_card";
             } else {
-                $cashAmount = $amountPaid;
+                $cashAmount = $amountAuthorized;
                 $orderType = "partial_credit_card";
             }
         } else {
@@ -176,7 +175,8 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
 
         $shippingDescription = ($order->getShippingDescription() !== null) ? $order->getShippingDescription() : "";
 
-        $amountPaid = $order->getPayment()->getAmountPaid();
+        $amountPaid = (!empty($order->getPayment()->getAmountPaid())) ? $order->getPayment()->getAmountPaid()
+                : $order->getPayment()->getAmountAuthorized();
         $orderTotal = $order->getGrandTotal();
 
         $downPaymentAmount = ($orderType == "full_credit_card" or $orderType == "full_curacao_credit") ? '0' : $amountPaid;
@@ -253,43 +253,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         }
         $inputArray["items"] = $items;
 
-        // # dummy values
-        // $inputArray = array(
-        //     "CustomerID" => "53208833",
-        //     "CreateDate" => $createdDate,
-        //     "CreateTime" => $createdTime,
-        //     "WebReference" => $incrementId,
-        //     "SubTotal" => $subTotal,
-        //     "TaxAmount" => (double)$taxAmount,
-        //     "DestinationZip" => $postCode,
-        //     "ShipCharge" => (double)$shippingAmount,
-        //     "ShipDescription" => $shippingDescription,
-        //     "DownPmt" => (double)$downPaymentAmount,
-        //     "EmpID" => "",
-        //     "DiscountAmount" => (double)$discountAmount,
-        //     "DiscountDescription" => $discountDescription,
-        //     "ShippingDiscount" => (double)$shippingDiscount,
-        //     "items" =>  array(
-        //         array(
-        //             "itemtype" => $itemType,
-        //             "item_id" => $itemSku,
-        //             "item_name" => $itemName,
-        //             "model" => end($explodeItemSku),
-        //             "itemset" => $itemSet,
-        //             "qty" => (int)$itemQty,
-        //             "price" => (double)$itemPrice,
-        //             "cost" => (double)$itemCost,
-        //             "taxable" => $taxable,
-        //             "webvendor" => (int)$vendorId,
-        //             "from" => $itemsStoreLocation[$itemId],
-        //             "pickup" => $pickup,
-        //             "orditemid" => (int)$itemId,
-        //             "tax_amt" => (double)$itemTaxAmount,
-        //             "tax_rate" => (double)$itemTaxRate
-        //         )
-        //     )
-        // );
-
         $createInvoiceResponse = $this->_arInvoiceHelper->createRevInvoice($inputArray);    # Creating Invoice using API CreateInvoiceRev
 
         if (empty($createInvoiceResponse)) {
@@ -325,6 +288,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             // Logger
             $logger->info("Order Id : " . $order->getIncrementId());
             $logger->info($createInvoiceResponse->INFO);
+
             return true;
         } else {  # Create Invoice Response is true
             $estimateNumber = $invoiceNumber = $createInvoiceResponse->DATA->INV_NO;    # Save Estimate Number in Order
@@ -344,7 +308,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             /**
              * Customer Status Validation
              */
-            if ((!empty($customerStatus)) && ($customerStatus['customerstatus'] == False || $customerStatus["addressmismatch"] == True || $customerStatus["soft"] == True)) {
+            if ((!empty($customerStatus)) && ($customerStatus->customerstatus == false || $customerStatus->addressmismatch == true || $customerStatus->soft == true)) {
                 $order->setState("payment_review")->setStatus("credit_review");    # Change the Order Status and Order State
                 $order->addStatusToHistory($order->getStatus(), 'Your Credit is being Reviewed');     # Add Comment to Order History
                 $order->save();     # Save the Changes in Order Status & History
@@ -355,41 +319,33 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                 $order->save();     # Save the Changes in Order Status & History
                 $referId = $incrementId;
 
-                # Web Down Payment API
-                $webDownPaymentResponse = $this->_arInvoiceHelper->webDownPayment($accountNumber, $downPaymentAmount, $invoiceNumber, $referId);
+                if ($downPaymentAmount !== '0') {
+                    # Web Down Payment API
+                    $webDownPaymentResponse = $this->_arInvoiceHelper->webDownPayment($accountNumber,
+                        $downPaymentAmount, $invoiceNumber, $referId);
 
-                if ($webDownPaymentResponse->OK != true) {
-                    //logging audit log
-                    $this->auditLog->saveAuditLog([
-                        'user_id' => $inputArray['CustomerID'],
-                        'action' => 'AR Web Down Payment Failure',
-                        'description' => "Fail to create web down payment for order with id" . $incrementId,
-                        'client_ip' => "",
-                        'module_name' => "Dyode_ArInvoice"
-                    ]);
-                } else {
-                    //logging audit log
-                    $this->auditLog->saveAuditLog([
-                        'user_id' => $inputArray['CustomerID'],
-                        'action' => 'AR Web Down Payment Success',
-                        'description' => " Web Down Payment Success for order with id" . $incrementId,
-                        'client_ip' => "",
-                        'module_name' => "Dyode_ArInvoice"
-                    ]);
+                    if ($webDownPaymentResponse->OK != true) {
+                        //logging audit log
+                        $this->auditLog->saveAuditLog([
+                            'user_id' => $inputArray['CustomerID'],
+                            'action' => 'AR Web Down Payment Failure',
+                            'description' => "Fail to create web down payment for order with id" . $incrementId,
+                            'client_ip' => "",
+                            'module_name' => "Dyode_ArInvoice"
+                        ]);
+                    } else {
+                        //logging audit log
+                        $this->auditLog->saveAuditLog([
+                            'user_id' => $inputArray['CustomerID'],
+                            'action' => 'AR Web Down Payment Success',
+                            'description' => " Web Down Payment Success for order with id" . $incrementId,
+                            'client_ip' => "",
+                            'module_name' => "Dyode_ArInvoice"
+                        ]);
+                    }
                 }
 
                 return true;
-
-                /**
-                 * Not Required
-                 */
-                /*
-                    $customerFirstName = $order->getCustomerFirstname();
-                    $customerLastName = $order->getCustomerLastname();
-                    $customerEmail = $order->getCustomerEmail();
-                    # Supply Invoice API
-                    $supplyInvoiceResponse = $this->_arInvoiceHelper->supplyInvoice($invoiceNumber, $customerFirstName, $customerLastName, $customerEmail);
-                */
             }
         }
 
@@ -407,7 +363,12 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
     /**
      * Prepare Order Items for AR Invoice
      *
-     * @return array
+     * @param $orderId
+     *
+     * @return array|\Dyode\ArInvoice\Helper\Array
+     *
+     * @throws \Magento\Framework\Exception\InputException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function prepareOrderItems($orderId)
     {
