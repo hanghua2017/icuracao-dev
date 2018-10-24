@@ -1593,9 +1593,14 @@ input[type="radio"] {
         {
           .step-title
           {
-            font-size: 18px;
+            font-size: 22px;
             padding-bottom: 15px;
             font-family: "iCuracao-medium";
+            @media all and (max-width: 767px)
+            {
+              font-size: 18px;
+
+            }
           }
           .add-shipping-address,#add-billing-address
           {
@@ -1606,12 +1611,12 @@ input[type="radio"] {
                 padding: 10px;
                 padding-left: 0;
                 padding-bottom: 0;
-                font-size: 22px;
+                font-size: 18px;
                 color: #333;
                 font-family: "iCuracao-medium";
                 @media all and (max-width: 767px)
                 {
-                  font-size: 18px;
+                  font-size: 16px;
 
                 }
                 &::after
@@ -1742,6 +1747,7 @@ input[type="radio"] {
                   }
                   input[type="number"]{
                     width:200px;
+                    font-size: 16px;
                     @media all and (max-width:479px){
                       width:100%;
                     }
