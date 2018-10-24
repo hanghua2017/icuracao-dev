@@ -15,13 +15,20 @@ define([
     'ko',
     'mage/storage',
     'mage/url',
-    'Magento_Checkout/js/model/full-screen-loader'
-], function ($, ko, storage, Url, fullScreenLoader) {
+    'Magento_Customer/js/model/customer',
+    'Magento_Checkout/js/model/quote',
+    'Magento_Checkout/js/model/full-screen-loader',
+    'Magento_Checkout/js/model/url-builder'
+], function ($, ko, storage, Url, customer, quote, fullScreenLoader, urlBuilder) {
+
+    var curacaoPaymentInfo = window.checkoutConfig.curacaoPayment,
+        isUserLinked = !!curacaoPaymentInfo.linked;
 
     return {
         isResponseError: ko.observable(false),
         response: ko.observable(null),
         message: ko.observable(''),
+        isUserLinked: ko.observable(isUserLinked),
 
         /**
          * Checks the given curacao details are valid or not.
@@ -102,12 +109,12 @@ define([
 
                     if (result.type === 'error') {
                         self.isResponseError(true);
-                        messageList.addErrorMessage({
-                            message: result.message
-                        });
+                        self.message(result.message);
+                        self.isUserLinked(false);
                     } else {
                         self.isResponseError(false);
                         self.response(result.data);
+                        self.isUserLinked(true);
                     }
                 },
 
@@ -130,6 +137,40 @@ define([
         },
 
         /**
+         * Apply curacao credit in the payment total collection
+         *
+         * @returns {Deferred}
+         */
+        collectCuracaoTotals: function () {
+            fullScreenLoader.startLoader();
+
+            return storage.get(
+                this.getApplyCuracaoTotalsUrl()
+            ).done(function (response) {
+                quote.setTotals(response.totals);
+            }).always(function () {
+                fullScreenLoader.stopLoader();
+            });
+        },
+
+        /**
+         * Remove curacao credit in the payment total collection
+         *
+         * @returns {Deferred}
+         */
+        removeCuracaoTotals: function () {
+            fullScreenLoader.startLoader();
+
+            return storage.get(
+                this.getRemoveCuracaoTotalsUrl()
+            ).done(function (response) {
+                quote.setTotals(response.totals);
+            }).always(function () {
+                fullScreenLoader.stopLoader();
+            });
+        },
+
+        /**
          * Verify Curacao id request url.
          *
          * @returns {String}
@@ -145,6 +186,54 @@ define([
          */
         scrutinizeCuracaoUserUrl: function () {
             return Url.build('dyode_checkout/curacao/scrutinize');
+        },
+
+        /**
+         * Url to for apply curacao credit api call.
+         *
+         * @returns {String}
+         */
+        getApplyCuracaoTotalsUrl: function () {
+
+            var requestInfo = {
+                url: '/carts/mine/curacao/collect-totals',
+                params: {}
+            };
+
+            if (!customer.isLoggedIn()) {
+                requestInfo = {
+                    url: '/guest-carts/:cartId/curacao/collect-totals',
+                    params: {
+                        cartId: quote.getQuoteId()
+                    }
+                };
+            }
+
+            return urlBuilder.createUrl(requestInfo.url, requestInfo.params);
+        },
+
+        /**
+         * Url to for remove curacao credit api call.
+         *
+         * @returns {String}
+         */
+        getRemoveCuracaoTotalsUrl: function () {
+
+            var requestInfo = {
+                url: '/carts/mine/curacao/remove-totals',
+                params: {}
+            };
+
+            if (!customer.isLoggedIn()) {
+                requestInfo = {
+                    url: '/guest-carts/:cartId/curacao/remove-totals',
+                    params: {
+                        cartId: quote.getQuoteId()
+                    }
+                };
+            }
+
+            return urlBuilder.createUrl(requestInfo.url, requestInfo.params);
         }
     };
 });

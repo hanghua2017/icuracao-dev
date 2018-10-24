@@ -1,5 +1,18 @@
-<!-- ko if: isDisplayedCustomdiscountTotal() -->
-<tr class="totals customdiscount excl">
+<!--
+/**
+ * Dyode_CheckoutAddressStep Magento2 Module.
+ *
+ * Adding new checkout step in the one page checkout.
+ *
+ * @package   Dyode
+ * @module    Dyode_CheckoutAddressStep
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+
+<!-- ko if: isDisplayed() -->
+<tr class="totals custom-discount excl">
     <th class="mark" colspan="1" scope="row" data-bind="text: title"></th>
     <td class="amount">
         <span class="price" data-bind="text: getCustomdiscountTotal()"></span>
