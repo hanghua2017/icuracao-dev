@@ -117,7 +117,7 @@ class VerifyCuracaoId
 
                 if($accountInfo == false){
                     // Personal Infm failed
-                    $this->messageManager->addErrorMessage('Please enter correct Curacao Id');
+                    $this->messageManager->addErrorMessage('Please enter valid details / contact customer support');
                     $defaultUrl = $this->urlModel->getUrl('*/*/create', ['_secure' => true]);
                     /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
                

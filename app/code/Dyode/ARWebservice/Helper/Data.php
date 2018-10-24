@@ -1,27 +1,59 @@
 <?php
-/*
-Date: 03/07/2018
-Author :Kavitha
-*/
-
+/**
+ * Dyode_ARWebservice Magento2 Module.
+ *
+ *
+ * @package   Dyode
+ * @module    Dyode_ARWebservice
+ * @author    Kavitha <kavitha@dyode.com>
+ * @date      03/07/2018
+ * @copyright Copyright © Dyode
+ */
 namespace Dyode\ARWebservice\Helper;
+
+use Magento\Framework\Message\ManagerInterface as MessageManager;
+use Dyode\AuditLog\Model\ResourceModel\AuditLog;
+use Magento\Framework\App\Helper\Context;
+use Zend\Http\Client;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
+    /**
+    *
+    * @var type \Magento\Framework\Message\ManagerInterface
+    */
+    protected $messageManager;
 
-   
+    /**
+    *
+    * @var type \Magento\Framework\Message\ManagerInterface
+    */
+    protected $auditLog;
+
+    /**
+    *
+    * @var type \Zend\Http\Client
+    */
+    protected $zendClient;
+
     /**
      * Data constructor.
-     *
+     * @param \Magento\Framework\Message\ManagerInterface $messageManager
      * @param \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog
-     */
-    // public function __construct(
-    //     \Magento\Framework\App\Helper\Context $context,
-    //     \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog
-    // ) {
-    //     parent::__construct($context);
-    //     $this->auditLog = $auditLog;
-    // }
+     * @param \Zend\Http\Client $zendClient
+     */    
+
+    public function __construct(
+        Context $context,
+        MessageManager $messageManager,
+        AuditLog $auditLog,
+        Client $zendClient
+    ) {
+        $this->messageManager = $messageManager;
+        $this->auditLog = $auditLog;
+        $this->zendClient = $zendClient;
+        parent::__construct($context);
+    }
 
     public function getConfig($config_path)
     {
@@ -63,7 +95,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /*
-    * function to connect the AR using REST
+    * Function to connect the AR using REST
     * $fnName = fucntion namespace
     * type = GET/POST
     * $params as array
@@ -71,24 +103,66 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function arConnect($fnName,$type,$params){
         $apiUrl  = $this->getApiUrl();
         $apiKey  = $this->getApiKey();
-        if(!empty($params)){
-          $paramVal = '?';
-          $cnt = 0;
-          foreach($params as $key=>$value){
-            if($cnt == 0)
-              $paramVal .= $key."=".$value;
-            else
-              $paramVal .= "&".$key."=".$value;
-            $cnt++;
-          }
-        }
-        $curlUrl = $apiUrl."/".$fnName.$paramVal;
-        $ch = curl_init($curlUrl);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $type);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "X-Api-Key:".$apiKey));
+        $result  = '';
+        $curlUrl = $apiUrl."/".$fnName;
+        
+        // if(!empty($params)){
+        //   $paramVal = '?';
+        //   $cnt = 0;
+        //   foreach($params as $key=>$value){
+        //     if($cnt == 0)
+        //       $paramVal .= $key."=".$value;
+        //     else
+        //       $paramVal .= "&".$key."=".$value;
+        //     $cnt++;
+        //   }
+        // }
+       
+        // $ch = curl_init($curlUrl);
+        // curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $type);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "X-Api-Key:".$apiKey));
 
-        $result = curl_exec($ch);
+        // $result = curl_exec($ch);
+        // if($result === false){
+        //     echo "error";
+        //     exit;
+        // }
+        // if (curl_error($ch)) {
+        //     $this->_messageManager->addError(__('Please try after some time '));
+        //     return $this->_redirect('linkaccount/index');
+            
+        // }
+
+        //Call the AR Webservice
+        
+        try{
+            $this->zendClient->reset();
+            $this->zendClient->setUri($curlUrl);
+            $this->zendClient->setMethod(\Zend\Http\Request::METHOD_GET); 
+       	    $this->zendClient->setHeaders([
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+                'Authorization' => $apiKey,
+               ]);
+               
+       	    $this->zendClient->setParameterPost($params);
+            
+       	    $this->zendClient->send();
+            $result = $this->zendClient->getResponse();
+
+        }catch(\Zend\Http\Exception\RuntimeException $runtimeException){
+            $this->auditLog->saveAuditLog([
+                'user_id' => "",
+                'action' => 'AR webservice',
+                'description' => "Fail to connect AR webservice",
+                'client_ip' => "",
+                'module_name' => "Dyode_ARWebservice"
+            ]);
+            $this->messageManager->addError(__('Please try after some time '));
+            return false;
+        }
+
         return $result;
     }
 
@@ -101,27 +175,31 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
         $restResponse =  $this->arConnect('GetCustomerContact', 'GET',$params);
         $result = json_decode($restResponse);
-        if($result->OK != 1){
+        
+        if($result == false) {           
+            return false;
+        }
+        if($result->OK != true){
             //logging audit log
-            // $this->auditLog->saveAuditLog([
-            //     'user_id' => "",
-            //     'action' => 'Get AR Customer Contact',
-            //     'description' => "Fail to get customer contact",
-            //     'client_ip' => "",
-            //     'module_name' => "Dyode_ARWebservice"
-            // ]);
-
+            $this->auditLog->saveAuditLog([
+                'user_id' => "",
+                'action' => 'Get AR Customer Contact',
+                'description' => "Fail to get customer contact",
+                'client_ip' => "",
+                'module_name' => "Dyode_ARWebservice"
+            ]);
+            $this->messageManager->addError(__($result->INFO));
            return false;
         }
 
         //logging audit log
-        // $this->auditLog->saveAuditLog([
-        //     'user_id' => "",
-        //     'action' => 'Get AR Customer Contact',
-        //     'description' => "Obtained Customer Contact for id " . $cu_account,
-        //     'client_ip' => "",
-        //     'module_name' => "Dyode_ARWebservice"
-        // ]);
+        $this->auditLog->saveAuditLog([
+            'user_id' => "",
+            'action' => 'Get AR Customer Contact',
+            'description' => "Obtained Customer Contact for id " . $cu_account,
+            'client_ip' => "",
+            'module_name' => "Dyode_ARWebservice"
+        ]);
 
         $custInfo = $result->DATA;
         return $custInfo;
@@ -129,33 +207,37 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }
     /*=== Validate Customer Information and get DownPayment ===*/
     public function verifyPersonalInfm($customerDetails){
-      $restResponse =  $this->arConnect('ValidateDP', 'GET',$customerDetails);
-      $result = json_decode($restResponse);
-     
-      if($result->OK != true){
-          //logging audit log
-        //   $this->auditLog->saveAuditLog([
-        //       'user_id' => "",
-        //       'action' => 'AR Customer Details Verification',
-        //       'description' => "Fail to Verify Customer Details",
-        //       'client_ip' => "",
-        //       'module_name' => "Dyode_ARWebservice"
-        //   ]);
+        $restResponse =  $this->arConnect('ValidateDP', 'GET',$customerDetails);
+        $result = json_decode($restResponse);
+            
+        if($result == false) {           
+            return false;
+        }
 
-         return false;
-      }
+        if($result->OK != true){
+            //logging audit log
+            $this->auditLog->saveAuditLog([
+                'user_id' => "",
+                'action' => 'AR Customer Details Verification',
+                'description' => "Fail to Verify Customer Details",
+                'client_ip' => "",
+                'module_name' => "Dyode_ARWebservice"
+            ]);
+            $this->messageManager->addError(__($result->INFO));
+            return false;
+        }
 
-        //logging audit log
-        // $this->auditLog->saveAuditLog([
-        //     'user_id' => "",
-        //     'action' => 'AR Customer Details Verification',
-        //     'description' => "AR Customer details verification success",
-        //     'client_ip' => "",
-        //     'module_name' => "Dyode_ARWebservice"
-        // ]);
+            //logging audit log
+            $this->auditLog->saveAuditLog([
+                'user_id' => "",
+                'action' => 'AR Customer Details Verification',
+                'description' => "AR Customer details verification success",
+                'client_ip' => "",
+                'module_name' => "Dyode_ARWebservice"
+            ]);
 
-      $verifiedResult = $result->DATA;
-      return $verifiedResult;
+        $verifiedResult = $result->DATA;
+        return $verifiedResult;
 
     }
 
@@ -259,10 +341,30 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     $restResponse =  $this->arConnect('GetCustomerCreditLimit', 'GET',$params);
     $result = json_decode($restResponse);
 
-    if($result->OK != 1){
-       return false;
+    if($result == false) {           
+        return false;
     }
 
+    if($result->OK != 1){
+        //logging audit log
+        $this->auditLog->saveAuditLog([
+            'user_id' => "",
+            'action' => 'AR Customer Credit Limit',
+            'description' => "AR Customer Credit Limit Failed",
+            'client_ip' => "",
+            'module_name' => "Dyode_ARWebservice"
+        ]);
+        $this->messageManager->addError(__($result->INFO));
+        return false;
+    }
+    //logging audit log
+    $this->auditLog->saveAuditLog([
+        'user_id' => "",
+        'action' => 'AR Customer Credit Limit',
+        'description' => "AR Customer Credit Limit success",
+        'client_ip' => "",
+        'module_name' => "Dyode_ARWebservice"
+    ]);
     return $result->DATA;
   }
 

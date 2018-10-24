@@ -125,7 +125,7 @@ class Index extends Action
             $accountInfo = true;
             if($accountInfo == false){
                 // Personal Infm failed
-                $this->_messageManager->addErrorMessage(__('Verification failed [SSN /ZIP]'));
+                //$this->_messageManager->addErrorMessage(__('Verification failed [SSN /ZIP]'));
                 $resultRedirect->setPath('linkaccount/verify/index');
                 return $resultRedirect;
             }
