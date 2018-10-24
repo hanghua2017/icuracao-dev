@@ -59,7 +59,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
   			    $request->setContent(json_encode($postString));
             $this->addLogs('SetEcommerceStock API calling', $request, $module);
             $response = $client->send($request);
-            $this->addLogs('SetEcommerceStock API calling', json_encode($response), $module);
+            $this->addLogs('SetEcommerceStock API calling', $response->getBody(), $module);
         }
         catch (\Exception $e) {
         	$this->addLogs('SetEcommerceStock API calling', 'response failed '.$e, $module);
