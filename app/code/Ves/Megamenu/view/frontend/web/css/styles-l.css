@@ -2174,7 +2174,7 @@ body{
 @media all and (min-width:1025px),
 print {
     .navigation {
-        background: #84b90a !important;
+        background: #93c138 !important;
         box-sizing: border-box;
         margin-left: auto;
         margin-right: auto;
@@ -2368,7 +2368,7 @@ print {
         display: block;
         margin-bottom: 0;
         padding: 0;
-        background-color: #84b90a !important;
+        background-color: #93c138 !important;
     }
     .ves-megamenu .block-search {
         padding-left: 0
@@ -2450,11 +2450,11 @@ print {
         display: none
     }
     .ves-megamenu .navigation .level0>a{
-      background-color: #84b90a;
+      background-color: #93c138;
       color: #fff;
     }
     .ves-megamenu .navigation .level0.current>a {
-        background-color: #84b90a !important;
+        background-color: #93c138 !important;
         color: #fff;
         transition: all 0.2s;
         text-shadow: 0px 0px 0px #fff;

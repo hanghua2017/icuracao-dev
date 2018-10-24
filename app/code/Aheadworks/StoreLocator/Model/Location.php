@@ -125,6 +125,7 @@ class Location extends AbstractModel
                 $filters['measurement'],
                 $filters['latitude'],
                 $filters['longitude']
+
             );
         }
 
@@ -138,9 +139,16 @@ class Location extends AbstractModel
 
         $collection->addFieldToFilter('status', 1);
 
-        $collection->orderBySortOrder();
-
+        if (!empty($filters) && (!empty($filters['street']))) {
+          // $collection->setOrder("distance","ASC");
+          $collection->getSelect()->order('distance ASC');
+        }
+        else{
+          $collection->orderBySortOrder();
+        }
         $collection = $collection->load();
+
+
 
         return $collection;
     }

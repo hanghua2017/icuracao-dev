@@ -9,16 +9,19 @@ namespace Dyode\ARWebservice\Helper;
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
 
+   
     /**
      * Data constructor.
      *
      * @param \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog
      */
-    public function _construct(
-        \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog
-    ) {
-        $this->auditLog = $auditLog;
-    }
+    // public function __construct(
+    //     \Magento\Framework\App\Helper\Context $context,
+    //     \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog
+    // ) {
+    //     parent::__construct($context);
+    //     $this->auditLog = $auditLog;
+    // }
 
     public function getConfig($config_path)
     {
@@ -100,25 +103,25 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $result = json_decode($restResponse);
         if($result->OK != 1){
             //logging audit log
-            $this->auditLog->saveAuditLog([
-                'user_id' => "",
-                'action' => 'Get AR Customer Contact',
-                'description' => "Fail to get customer contact",
-                'client_ip' => "",
-                'module_name' => "Dyode_ARWebservice"
-            ]);
+            // $this->auditLog->saveAuditLog([
+            //     'user_id' => "",
+            //     'action' => 'Get AR Customer Contact',
+            //     'description' => "Fail to get customer contact",
+            //     'client_ip' => "",
+            //     'module_name' => "Dyode_ARWebservice"
+            // ]);
 
            return false;
         }
 
         //logging audit log
-        $this->auditLog->saveAuditLog([
-            'user_id' => "",
-            'action' => 'Get AR Customer Contact',
-            'description' => "Obtained Customer Contact for id " . $cu_account,
-            'client_ip' => "",
-            'module_name' => "Dyode_ARWebservice"
-        ]);
+        // $this->auditLog->saveAuditLog([
+        //     'user_id' => "",
+        //     'action' => 'Get AR Customer Contact',
+        //     'description' => "Obtained Customer Contact for id " . $cu_account,
+        //     'client_ip' => "",
+        //     'module_name' => "Dyode_ARWebservice"
+        // ]);
 
         $custInfo = $result->DATA;
         return $custInfo;
@@ -131,25 +134,25 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      
       if($result->OK != true){
           //logging audit log
-          $this->auditLog->saveAuditLog([
-              'user_id' => "",
-              'action' => 'AR Customer Details Verification',
-              'description' => "Fail to Verify Customer Details",
-              'client_ip' => "",
-              'module_name' => "Dyode_ARWebservice"
-          ]);
+        //   $this->auditLog->saveAuditLog([
+        //       'user_id' => "",
+        //       'action' => 'AR Customer Details Verification',
+        //       'description' => "Fail to Verify Customer Details",
+        //       'client_ip' => "",
+        //       'module_name' => "Dyode_ARWebservice"
+        //   ]);
 
          return false;
       }
 
         //logging audit log
-        $this->auditLog->saveAuditLog([
-            'user_id' => "",
-            'action' => 'AR Customer Details Verification',
-            'description' => "AR Customer details verification success",
-            'client_ip' => "",
-            'module_name' => "Dyode_ARWebservice"
-        ]);
+        // $this->auditLog->saveAuditLog([
+        //     'user_id' => "",
+        //     'action' => 'AR Customer Details Verification',
+        //     'description' => "AR Customer details verification success",
+        //     'client_ip' => "",
+        //     'module_name' => "Dyode_ARWebservice"
+        // ]);
 
       $verifiedResult = $result->DATA;
       return $verifiedResult;
