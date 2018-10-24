@@ -281,6 +281,7 @@ class Scrutinize extends Action
         }
 
         $this->_customerSession->setCuracaoCustomerId($this->customer->getId());
+        $this->curacaoHelper->updateCuracaoSessionDetails(['is_user_linked' => true]);
         return $this;
     }
 

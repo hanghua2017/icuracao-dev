@@ -133,7 +133,7 @@ class Custom extends AbstractTotal
      */
     public function getLabel()
     {
-        return __('Curacao Credit');
+        return __('Initial Payment');
     }
 
     /**

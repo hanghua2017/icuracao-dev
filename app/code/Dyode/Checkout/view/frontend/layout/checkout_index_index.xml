@@ -115,10 +115,10 @@
                                                         <item name="children" xsi:type="array">
                                                             <item name="curacao_discount" xsi:type="array">
                                                                 <item name="component"  xsi:type="string">Dyode_Checkout/js/view/checkout/cart/totals/customdiscount</item>
-                                                                <item name="sortOrder" xsi:type="string">40</item>
+                                                                <item name="sortOrder" xsi:type="string">110</item>
                                                                 <item name="config" xsi:type="array">
                                                                     <item name="template" xsi:type="string">Dyode_Checkout/checkout/cart/totals/customdiscount</item>
-                                                                    <item name="title" xsi:type="string" translate="true">Curacao Credit</item>
+                                                                    <item name="title" xsi:type="string" translate="true">Initial Payment</item>
                                                                 </item>
                                                             </item>
                                                         </item>

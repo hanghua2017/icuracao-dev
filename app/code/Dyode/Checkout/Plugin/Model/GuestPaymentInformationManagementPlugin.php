@@ -122,7 +122,8 @@ class GuestPaymentInformationManagementPlugin
      */
     protected function afterGetPaymentInformation(PaymentDetailsInterface $paymentInformation)
     {
+        $includeCuracaoTotal = true;
         $shippingAddressInfo = $this->curacaoHelper->getShippingCarrierInfoByQuoteItems($this->quoteMask->getQuoteId());
-        return $this->manager->updateShippingTotal($paymentInformation, $shippingAddressInfo);
+        return $this->manager->updateShippingTotal($paymentInformation, $shippingAddressInfo, $includeCuracaoTotal);
     }
 }

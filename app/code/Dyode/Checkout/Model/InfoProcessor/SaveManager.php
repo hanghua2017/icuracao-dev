@@ -11,9 +11,10 @@
  */
 namespace Dyode\Checkout\Model\InfoProcessor;
 
+use Dyode\Checkout\Helper\CuracaoHelper;
+use Magento\Quote\Api\CartRepositoryInterface;
 use Dyode\Checkout\Api\Data\ShippingInformationInterface;
 use Dyode\CheckoutDeliveryMethod\Model\DeliveryMethod;
-use Magento\Quote\Api\CartRepositoryInterface;
 
 /**
  * SaveManager
@@ -36,13 +37,20 @@ class SaveManager
     protected $quoteRepository;
 
     /**
+     * @var \Dyode\Checkout\Helper\CuracaoHelper
+     */
+    protected $curacaoHelper;
+
+    /**
      * SaveManager constructor.
      *
      * @param \Magento\Quote\Api\CartRepositoryInterface $quoteRepository
+     * @param \Dyode\Checkout\Helper\CuracaoHelper $curacaoHelper
      */
-    public function __construct(CartRepositoryInterface $quoteRepository)
+    public function __construct(CartRepositoryInterface $quoteRepository, CuracaoHelper $curacaoHelper)
     {
         $this->quoteRepository = $quoteRepository;
+        $this->curacaoHelper = $curacaoHelper;
     }
 
     /**
@@ -93,25 +101,24 @@ class SaveManager
     /**
      * Update totals with total shipping amount cost.
      *
-     * @param $paymentDetails
+     * @param \Magento\Checkout\Api\Data\PaymentDetailsInterface $paymentDetails
      * @param \Dyode\Checkout\Api\Data\ShippingInformationInterface $addressInformation
-     * @param int $curacaoDiscount
-     * @return mixed
+     * @param bool $includeCuracaoTotal
+     * @return \Magento\Checkout\Api\Data\PaymentDetailsInterface
      */
     public function updateShippingTotal(
         $paymentDetails,
         ShippingInformationInterface $addressInformation,
-        $curacaoDiscount = 0
+        $includeCuracaoTotal = false
     ) {
         /** @var \Magento\Quote\Model\Cart\Totals $totals */
         $totals = $paymentDetails->getTotals();
         $shippingAmount = $this->calculateShippingAmount($addressInformation);
+        $curacaoDiscount = 0;
         $grandTotal = $totals->getBaseGrandTotal() + $shippingAmount;
-        $calculatedCuracaoDiscount = 0;
 
-        if ($curacaoDiscount !== 0) {
-            $calculatedCuracaoDiscount = -(float)($grandTotal - $curacaoDiscount);
-            $grandTotal = $curacaoDiscount;
+        if ($includeCuracaoTotal) {
+            $curacaoDiscount = $this->curacaoHelper->getCuracaoDownPayment();
         }
 
         $totals->setShippingAmount($totals->getShippingAmount() + $shippingAmount);
@@ -123,7 +130,7 @@ class SaveManager
             $totalSegments['grand_total']->setValue($grandTotal);
         }
         if ($totalSegments && $totalSegments['curacao_discount']) {
-            $totalSegments['curacao_discount']->setValue($calculatedCuracaoDiscount);
+            $totalSegments['curacao_discount']->setValue($curacaoDiscount);
         }
 
         return $paymentDetails;

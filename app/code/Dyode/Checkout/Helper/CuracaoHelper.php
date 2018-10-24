@@ -115,4 +115,21 @@ class CuracaoHelper
         }
         return $carrierInfo;
     }
+
+    /**
+     * Provide curacao down payment value only if curacao user is linked.
+     *
+     * @return float|int $curacaoDownPayment
+     */
+    public function getCuracaoDownPayment()
+    {
+        $curacaoDownPayment = 0;
+        $curacaoInfo = $this->checkoutSession->getCuracaoInfo();
+
+        if ($curacaoInfo && $curacaoInfo->getIsUserLinked()) {
+            $curacaoDownPayment = (float)$curacaoInfo->getDownPayment();
+        }
+
+        return $curacaoDownPayment;
+    }
 }

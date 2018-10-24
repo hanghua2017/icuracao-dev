@@ -38,11 +38,6 @@ class CreditManagement extends \Magento\Framework\Model\AbstractModel implements
     protected $curacaoHelper;
 
     /**
-     * @var \Magento\Checkout\Model\Session
-     */
-    protected $_checkoutSession;
-
-    /**
      * @var \Dyode\Checkout\Model\InfoProcessor\SaveManager
      */
     protected $manager;
@@ -51,7 +46,6 @@ class CreditManagement extends \Magento\Framework\Model\AbstractModel implements
      * CreditManagement constructor.
      *
      * @param \Magento\Customer\Model\Session $customerSession
-     * @param \Magento\Checkout\Model\Session $checkoutSession
      * @param \Magento\Quote\Model\QuoteIdMaskFactory $quoteIdMaskFactory
      * @param \Magento\Checkout\Api\PaymentInformationManagementInterface $paymentInformationManagement
      * @param \Dyode\Checkout\Helper\CuracaoHelper $curacaoHelper
@@ -59,7 +53,6 @@ class CreditManagement extends \Magento\Framework\Model\AbstractModel implements
      */
     public function __construct(
         CustomerSession $customerSession,
-        CheckoutSession $checkoutSession,
         QuoteIdMaskFactory $quoteIdMaskFactory,
         PaymentInformationManagementInterface $paymentInformationManagement,
         CuracaoHelper $curacaoHelper,
@@ -69,7 +62,6 @@ class CreditManagement extends \Magento\Framework\Model\AbstractModel implements
         $this->quoteIdMaskFactory = $quoteIdMaskFactory;
         $this->paymentInformationManagement = $paymentInformationManagement;
         $this->curacaoHelper = $curacaoHelper;
-        $this->_checkoutSession = $checkoutSession;
         $this->manager = $manager;
     }
 
@@ -78,8 +70,8 @@ class CreditManagement extends \Magento\Framework\Model\AbstractModel implements
      */
     public function applyCuracaoCreditInTotals($cartId)
     {
-        $downPayment = $this->collectDownPaymentFromSession();
-        return $this->getPaymentInformation($cartId, $downPayment);
+        $applyCuracaoDownPayment = true;
+        return $this->getPaymentInformation($cartId, $applyCuracaoDownPayment);
     }
 
     /**
@@ -91,32 +83,13 @@ class CreditManagement extends \Magento\Framework\Model\AbstractModel implements
     }
 
     /**
-     * Collects curacao down payment information from the checkout session.
-     *
-     * @return float $downPayment
-     */
-    public function collectDownPaymentFromSession()
-    {
-        /** @var \Magento\Framework\DataObject $curacaoInfo */
-        $downPayment = 0.00;
-        $curacaoInfo = $this->_checkoutSession->getCuracaoInfo();
-
-        if ($curacaoInfo) {
-            $downPayment = $curacaoInfo->getDownPayment();
-        }
-
-        return $downPayment;
-    }
-
-    /**
      * Prepare payment information with updated totals.
-     *
-     * @param string|int $cartId
-     * @param float|bool $downPayment
+     * @param string $cartId
+     * @param bool $downPaymentStatus
      * @return \Magento\Checkout\Api\Data\PaymentDetailsInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function getPaymentInformation($cartId, $downPayment = false)
+    public function getPaymentInformation($cartId, $downPaymentStatus = false)
     {
         if (!$this->_customerSession->isLoggedIn()) {
             $quoteIdMask = $this->quoteIdMaskFactory->create()->load($cartId, 'masked_id');
@@ -126,9 +99,6 @@ class CreditManagement extends \Magento\Framework\Model\AbstractModel implements
         $paymentInformation = $this->paymentInformationManagement->getPaymentInformation($cartId);
         $shippingAddressInfo = $this->curacaoHelper->getShippingCarrierInfoByQuoteItems($cartId);
 
-        if ($downPayment === false) {
-            return $this->manager->updateShippingTotal($paymentInformation, $shippingAddressInfo);
-        }
-        return $this->manager->updateShippingTotal($paymentInformation, $shippingAddressInfo, $downPayment);
+        return $this->manager->updateShippingTotal($paymentInformation, $shippingAddressInfo, $downPaymentStatus);
     }
 }

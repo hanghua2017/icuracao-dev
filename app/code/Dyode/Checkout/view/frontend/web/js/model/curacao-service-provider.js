@@ -21,10 +21,14 @@ define([
     'Magento_Checkout/js/model/url-builder'
 ], function ($, ko, storage, Url, customer, quote, fullScreenLoader, urlBuilder) {
 
+    var curacaoPaymentInfo = window.checkoutConfig.curacaoPayment,
+        isUserLinked = !!curacaoPaymentInfo.linked;
+
     return {
         isResponseError: ko.observable(false),
         response: ko.observable(null),
         message: ko.observable(''),
+        isUserLinked: ko.observable(isUserLinked),
 
         /**
          * Checks the given curacao details are valid or not.
@@ -105,12 +109,12 @@ define([
 
                     if (result.type === 'error') {
                         self.isResponseError(true);
-                        messageList.addErrorMessage({
-                            message: result.message
-                        });
+                        self.message(result.message);
+                        self.isUserLinked(false);
                     } else {
                         self.isResponseError(false);
                         self.response(result.data);
+                        self.isUserLinked(true);
                     }
                 },
 
