@@ -3299,25 +3299,30 @@ print {
     font-weight: normal !important;
   }
 }
-.ves-megamenu .navigation .nav-item.dynamic-active > a:after{
-  position:absolute;
-  right:-10px;
-  top:0px;
-  content:'\e619';
-  font-size:12px;
-  font-family: 'luma-icons';
-  margin: 0;
-  vertical-align: top;
-  display: inline-block;
-  font-weight: normal;
-  overflow: hidden;
-  speak: none;
-  text-align: center;
-}
+
 @media all and (min-width:1025px){
-  .ves-megamenu .navigation .nav-item.dynamic-active > a:after{
-    right: 5px;
-    z-index: 700;
+  .ves-megamenu .navigation .nav-item.dynamic-active > a .drill-opener{
+    display: block;
+    width: 33px;
+    height: 33px;
+    line-height: 33px;
+  }
+  .ves-megamenu .navigation .nav-item.dynamic-active > a .drill-opener:after{
+    position:absolute;
+    width:33px;
+    top:0px;
+    right:5px;
+    z-index:700;
+    content:'\e619';
+    font-size:12px;
+    font-family: 'luma-icons';
+    margin: 0;
+    vertical-align: top;
+    display: inline-block;
+    font-weight: normal;
+    overflow: hidden;
+    speak: none;
+    text-align: center;
   }
 }
 .ves-megamenu .navigation .nav-item.dynamic-active.no-subcategory > a:after{
