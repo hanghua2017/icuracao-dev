@@ -7,13 +7,22 @@
 
 namespace Dyode\Checkout\Model\Quote;
 
+use Magento\Framework\Pricing\PriceCurrencyInterface;
+use Magento\Quote\Model\Quote;
+use Magento\Quote\Model\Quote\Address\Total;
+use Magento\Quote\Api\Data\ShippingAssignmentInterface;
+use Magento\Quote\Model\Quote\Address\Total\AbstractTotal;
+use Magento\Customer\Model\Session as CustomerSession;
+use Magento\Checkout\Model\Session as CheckoutSession;
+use Dyode\ARWebservice\Helper\Data as ARWebserviceHelper;
+use Dyode\Checkout\Helper\CuracaoHelper;
+
 /**
  * Class Custom
- *
- * @package Dyode\Checkout\Model\Quote
  */
-class Custom extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
+class Custom extends AbstractTotal
 {
+
     /**
      * @var \Magento\Framework\Pricing\PriceCurrencyInterface
      */
@@ -30,17 +39,46 @@ class Custom extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
     protected $_curacaocredit;
 
     /**
+     * @var \Magento\Checkout\Model\Session
+     */
+    protected $checkoutSession;
+
+    /**
+     * @var \Dyode\Checkout\Helper\CuracaoHelper
+     */
+    protected $curacaoHelper;
+
+    /**
+     * @var \Dyode\ARWebservice\Helper\Data
+     */
+    protected $arWebserviceHelper;
+
+    /**
+     * @var string
+     */
+    protected $curacaoIdAttribute = 'curacaocustid';
+
+    /**
      * Custom constructor.
      *
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency
+     * @param \Magento\Checkout\Model\Session $checkoutSession
+     * @param \Dyode\Checkout\Helper\CuracaoHelper $curacaoHelper
+     * @param \Dyode\ARWebservice\Helper\Data $arWebserviceHelper
      */
     public function __construct(
-        \Magento\Customer\Model\Session $customerSession,
-        \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency
+        CustomerSession $customerSession,
+        PriceCurrencyInterface $priceCurrency,
+        CheckoutSession $checkoutSession,
+        CuracaoHelper $curacaoHelper,
+        ARWebserviceHelper $arWebserviceHelper
     ) {
         $this->_customerSession = $customerSession;
         $this->_priceCurrency = $priceCurrency;
+        $this->checkoutSession = $checkoutSession;
+        $this->curacaoHelper = $curacaoHelper;
+        $this->arWebserviceHelper = $arWebserviceHelper;
     }
 
     /**
@@ -49,50 +87,26 @@ class Custom extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
      * @param \Magento\Quote\Model\Quote\Address\Total $total
      * @return $this|\Magento\Quote\Model\Quote\Address\Total\AbstractTotal
      */
-    public function collect(
-        \Magento\Quote\Model\Quote $quote,
-        \Magento\Quote\Api\Data\ShippingAssignmentInterface $shippingAssignment,
-        \Magento\Quote\Model\Quote\Address\Total $total
-    ) {
+    public function collect(Quote $quote, ShippingAssignmentInterface $shippingAssignment, Total $total)
+    {
         parent::collect($quote, $shippingAssignment, $total);
 
         $address = $shippingAssignment->getShipping()->getAddress();
+        $curacaoDiscount = 0;
+
         if ($address->getAddressType() != 'billing') {
             return $this;
         }
-        if (!$this->_customerSession->isLoggedIn()) {
-            return $this;
+
+        if ($this->_customerSession->isLoggedIn()) {
+            $curacaoDiscount = $this->collectCuracaoDiscountByCustomer($quote);
         }
 
-        if ($quote->getCustomer()->getCustomAttribute('curacaocustid') != null) {
-            $curaAccId = $quote->getCustomer()->getCustomAttribute('curacaocustid')->getValue();
-            $downPayment = false;
+        $this->_curacaocredit = -$curacaoDiscount;
+        $total->addTotalAmount('curacao_discount', -$curacaoDiscount);
+        $total->addBaseTotalAmount('curacao_discount', -$curacaoDiscount);
+        //$quote->setCuracaocreditUsed(-$curacaoDiscount);
 
-            /** @var \stdClass $downPaymentSessionInfo */
-            $downPaymentSessionInfo = $this->_customerSession->getDownPayment();
-            if ($downPaymentSessionInfo) {
-                $downPayment = $downPaymentSessionInfo->DOWNPAYMENT;
-            }
-
-            $this->_curacaocredit = 0;
-
-            if (!$curaAccId || $downPayment === false) {
-                return $this;
-            }
-            if ($quote->getCustomer()->getId() && $curaAccId != 0) {
-                if ($quote->getUseCredit() && $downPayment > 0) {
-                    //Calculate the discount
-                    $subTotal = $quote->getSubtotal();
-                    $discount = $subTotal - $downPayment;
-                    $customDiscount = -$discount;
-                    $this->_curacaocredit = -$discount;
-
-                    $total->addTotalAmount('customdiscount', $customDiscount);
-                    $total->addBaseTotalAmount('customdiscount', $customDiscount);
-                    $quote->setCuracaocreditUsed($this->_curacaocredit);
-                }
-            }
-        }
         return $this;
     }
 
@@ -103,7 +117,7 @@ class Custom extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
      * @param \Magento\Quote\Model\Quote\Address\Total $total
      * @return array
      */
-    public function fetch(\Magento\Quote\Model\Quote $quote, \Magento\Quote\Model\Quote\Address\Total $total)
+    public function fetch(Quote $quote, Total $total)
     {
         return [
             'code'  => 'curacao_discount',
@@ -119,6 +133,50 @@ class Custom extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
      */
     public function getLabel()
     {
-        return __('Curacao Credit');
+        return __('Initial Payment');
+    }
+
+    /**
+     * Finding curacao down payment amount for the customer.
+     *
+     * @param \Magento\Quote\Model\Quote $quote
+     * @return float|int $curacaoDiscount
+     */
+    protected function collectCuracaoDiscountByCustomer(Quote $quote)
+    {
+        $curacaoDiscount = 0;
+        $curacaoIdAttributeInfo = $quote->getCustomer()->getCustomAttribute($this->curacaoIdAttribute);
+
+        if (!$curacaoIdAttributeInfo || !$curacaoIdAttributeInfo->getValue()) {
+            return $curacaoDiscount;
+        }
+
+        //send api call to collect user info.
+        $postData = ['cust_id' => $curacaoIdAttributeInfo->getValue(), 'amount' => 1];
+        $verifyResult = $this->arWebserviceHelper->verifyPersonalInfm($postData);
+
+        if ($verifyResult) {
+            $curacaoDiscount = (float)$verifyResult->DOWNPAYMENT;
+            $this->curacaoHelper->updateCuracaoSessionDetails(['down_payment' => $curacaoDiscount]);
+        }
+
+        return $curacaoDiscount;
+    }
+
+    /**
+     * Collecting curacao credit down payment from the checkout session.
+     *
+     * @return int $curacaoDiscount
+     */
+    protected function collectCuracaoDiscountBySession()
+    {
+        $curacaoDiscount = 0;
+        $curacaoInfo = $this->checkoutSession->getCuracaoInfo();
+
+        if ($curacaoInfo) {
+            $curacaoDiscount = $curacaoInfo->getDownPayment();
+        }
+
+        return $curacaoDiscount;
     }
 }

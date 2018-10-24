@@ -6,52 +6,99 @@
  */
 namespace Dyode\Checkout\Model;
 
-use \Dyode\Checkout\Api\CreditManagementInterface;
+use Dyode\Checkout\Model\InfoProcessor\SaveManager;
+use Magento\Customer\Model\Session as CustomerSession;
+use Magento\Quote\Model\QuoteIdMaskFactory;
+use Magento\Checkout\Model\Session as CheckoutSession;
+use Magento\Checkout\Api\PaymentInformationManagementInterface;
+use Dyode\Checkout\Api\CreditManagementInterface;
+use Dyode\Checkout\Helper\CuracaoHelper;
 
 class CreditManagement extends \Magento\Framework\Model\AbstractModel implements CreditManagementInterface
 {
+
     /**
-     * @var \Magento\Quote\Api\CartRepositoryInterface
+     * @var \Magento\Customer\Model\Session
      */
-    protected $cartRepository;
     protected $_customerSession;
+
     /**
-     * @param \Magento\Quote\Api\CartRepositoryInterface $cartRepository
+     * @var \Magento\Quote\Model\QuoteIdMaskFactory
+     */
+    protected $quoteIdMaskFactory;
+
+    /**
+     * @var \Magento\Checkout\Api\PaymentInformationManagementInterface
+     */
+    protected $paymentInformationManagement;
+
+    /**
+     * @var \Dyode\Checkout\Helper\CuracaoHelper
+     */
+    protected $curacaoHelper;
+
+    /**
+     * @var \Dyode\Checkout\Model\InfoProcessor\SaveManager
+     */
+    protected $manager;
+
+    /**
+     * CreditManagement constructor.
+     *
+     * @param \Magento\Customer\Model\Session $customerSession
+     * @param \Magento\Quote\Model\QuoteIdMaskFactory $quoteIdMaskFactory
+     * @param \Magento\Checkout\Api\PaymentInformationManagementInterface $paymentInformationManagement
+     * @param \Dyode\Checkout\Helper\CuracaoHelper $curacaoHelper
+     * @param \Dyode\Checkout\Model\InfoProcessor\SaveManager $manager
      */
     public function __construct(
-        \Magento\Customer\Model\Session $customerSession,
-        \Magento\Quote\Api\CartRepositoryInterface $cartRepository
+        CustomerSession $customerSession,
+        QuoteIdMaskFactory $quoteIdMaskFactory,
+        PaymentInformationManagementInterface $paymentInformationManagement,
+        CuracaoHelper $curacaoHelper,
+        SaveManager $manager
     ) {
         $this->_customerSession = $customerSession;
-        $this->cartRepository = $cartRepository;
+        $this->quoteIdMaskFactory = $quoteIdMaskFactory;
+        $this->paymentInformationManagement = $paymentInformationManagement;
+        $this->curacaoHelper = $curacaoHelper;
+        $this->manager = $manager;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function apply($cartId)
+    public function applyCuracaoCreditInTotals($cartId)
     {
-        /** @var \Magento\Quote\Api\Data\CartInterface $quote */
-        if($this->_customerSession->isLoggedIn()){
-          $quote = $this->cartRepository->get($cartId);
-          $quote->setUseCredit(true);
-          $quote->collectTotals();
-          $quote->save();
-          return true;
-        }
-        return true;
+        $applyCuracaoDownPayment = true;
+        return $this->getPaymentInformation($cartId, $applyCuracaoDownPayment);
     }
 
-    public function removecredit($cartId){
-      /** @var \Magento\Quote\Api\Data\CartInterface $quote */
-      $quote = $this->cartRepository->getActive($cartId);
-      $quote->getShippingAddress()->setCollectShippingRates(true);
-      try {
-          $quote->setUseCredit(false);
-          $this->cartRepository->save($quote->collectTotals());
-      } catch (\Exception $e) {
-          throw new CouldNotDeleteException(__('Could not delete curacao credit'));
-      }
-        return true;
+    /**
+     * {@inheritdoc}
+     */
+    public function removeCuracaoCreditFromTotals($cartId)
+    {
+        return $this->getPaymentInformation($cartId);
+    }
+
+    /**
+     * Prepare payment information with updated totals.
+     * @param string $cartId
+     * @param bool $downPaymentStatus
+     * @return \Magento\Checkout\Api\Data\PaymentDetailsInterface
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getPaymentInformation($cartId, $downPaymentStatus = false)
+    {
+        if (!$this->_customerSession->isLoggedIn()) {
+            $quoteIdMask = $this->quoteIdMaskFactory->create()->load($cartId, 'masked_id');
+            $cartId = $quoteIdMask->getQuoteId();
+        }
+
+        $paymentInformation = $this->paymentInformationManagement->getPaymentInformation($cartId);
+        $shippingAddressInfo = $this->curacaoHelper->getShippingCarrierInfoByQuoteItems($cartId);
+
+        return $this->manager->updateShippingTotal($paymentInformation, $shippingAddressInfo, $downPaymentStatus);
     }
 }

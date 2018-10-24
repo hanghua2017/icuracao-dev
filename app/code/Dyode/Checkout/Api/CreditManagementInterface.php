@@ -4,28 +4,28 @@
  * @author    kavitha@dyode.com
  * Date       13/08/2018
  */
-
 namespace Dyode\Checkout\Api;
 
 /**
  * Credit app management
+ *
  * @api
- * @since 100.0.2
  */
 interface CreditManagementInterface
 {
     /**
      * Apply Curacao credit
      *
-     * @param int $cartId
-     * @return bool
+     * @param string $cartId
+     * @return \Magento\Checkout\Api\Data\PaymentDetailsInterface
      */
-    public function apply($cartId);
+    public function applyCuracaoCreditInTotals($cartId);
+
     /**
-    * Remove store credit
-    *
-    * @param int $cartId
-    * @return bool
-    */
-    public function removecredit($cartId);
+     * Remove Curacao credit
+     *
+     * @param string $cartId
+     * @return \Magento\Checkout\Api\Data\PaymentDetailsInterface
+     */
+    public function removeCuracaoCreditFromTotals($cartId);
 }
