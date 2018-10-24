@@ -1,38 +1,21 @@
+<?php
+  $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+  $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+  if($customerSession->isLoggedIn()) {
+    $displayName = $customerSession->getCustomer()->getName();
+  }else{
+    $displayName = "sign in";
+  }
+?>
 <nav class="sidebar" id="sidebar">
-  <div class="sidebar-container"><h2>Hello, Sign in<span class="sidebar__btn-close" id="sidebarBtnClose"><span></h2></div>
-  <ul>
-    <li><a href="https://icuracao.com/applynow" target="_blank"><?php echo __('Curacao Credit'); ?></a></li>
-    <li><a href="https://payments.icuracao.com/home" target="_blank"><?php echo __('Pay Bill'); ?></a></li>
-    <li><a href="https://icuracao.com/lu-catalog" target="_blank"><?php echo __('Digital Catalog'); ?></a></li>
-    <?php if ($block->getStoreCode() == 'default') : ?>
-       <li class="hamburger-link-border"><a href="/store-locator"><?php echo __('Our Stores'); ?></a></li>
-    <?php else: ?>
-      <li class="hamburger-link-border"><a href="/esp/store-locator"><?php echo __('Our Stores'); ?></a></li>
-    <?php endif; ?>
-    <?php if ($block->getStoreCode() == 'default') : ?>
-       <li><a href="/todays-deals.html"><?php echo __("Today's Deal"); ?></a></li>
-    <?php else: ?>
-      <li><a href="/esp/todays-deals.html"><?php echo __("Today's Deal"); ?></a></li>
-    <?php endif; ?>
-    <?php if ($block->getStoreCode() == 'default') : ?>
-        <li class="hamburger-link-border"><a href="/clearance-sale"><?php echo __('Sale'); ?></a></li>
-    <?php else: ?>
-        <li class="hamburger-link-border"><a href="/esp/clearance-sale"><?php echo __('Sale'); ?></a></li>
-    <?php endif; ?>
-    <li class="hamburger-heading"><a><?php echo __('Help & Settings'); ?></a></li>
-    <?php if ($block->getStoreCode() == 'default') : ?>
-    <li><a href="/customer/account/login/"><?php echo __('Your Account'); ?></a></li>
-    <?php else: ?>
-      <li><a href="/esp/customer/account/login/"><?php echo __('Your Account'); ?></a></li>
-    <?php endif; ?>
-    <!-- Store Switcher Start -->
-    <?php if ($block->getStoreCode() == 'default') : ?>
-      <li class="hamburger-language"><a href="/esp"><img src="<?php echo $block->getViewFileUrl('images/lang-icon.png'); ?>" alt="lang-icon" />ESPANOL</a></li>
-    <?php else: ?>
-      <li class="hamburger-language"><a href="/"><img src="<?php echo $block->getViewFileUrl('images/lang-icon.png'); ?>" alt="lang-icon" />ENGLISH</a></li>
-    <?php endif; ?>
-    <!-- Store Switcher End -->
-    <li><a href="/contact"><?php echo __('Customer Service'); ?></a></li>
-  </ul>
+  <div class="sidebar-container">
+    <h2><?php echo __("Hello, " . $displayName); ?><span class="sidebar__btn-close" id="sidebarBtnClose"><span></h2>
+  </div>
+  <?php
+      echo $block->getLayout()
+                ->createBlock('Magento\Cms\Block\Block')
+                ->setBlockId('hamburger-menu')
+                ->toHtml();
+  ?>
 </nav>
 <div class="sidebar-overlay"></div>
