@@ -79,6 +79,7 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 			$this->processThreshold();
 			$this->executeProductSkus();
 	        $this->priceHelper->addLogs('Non-set inventory update', 'inventory updated successfully', 'dyode_inventoryupdate');
+	        return true;
 	    } catch (\Exception $exception) {
 	        $this->priceHelper->addLogs('Non-set inventory update', 'inventory update failed'.$exception, 'dyode_inventoryupdate');
 	    }

@@ -39,12 +39,13 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 			   'adapter'   => 'Zend\Http\Client\Adapter\Curl',
 			   'curloptions' => [CURLOPT_FOLLOWLOCATION => true],
 			   'maxredirects' => 0,
-			   'timeout' => 30
+			   'timeout' => 360
 			];
 			$client->setOptions($options);
 			$this->priceHelper->addLogs('getStock API Calling', $request, 'dyode_inventoryupdate');
 			$response = $client->send($request);
 			$data = json_decode($response->getBody());
+			$this->priceHelper->addLogs('getStock API Calling', $response->getBody(), 'dyode_inventoryupdate');
 			return $data;
 		}catch (\Exception $exception) {
 	        $this->priceHelper->addLogs('getStock API Calling', 'failed'.$exception, 'dyode_inventoryupdate');
