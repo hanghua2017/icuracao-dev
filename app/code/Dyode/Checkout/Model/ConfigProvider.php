@@ -163,6 +163,7 @@ class ConfigProvider implements ConfigProviderInterface
                 $curaAccId = (string)$customer->getCustomAttribute('curacaocustid')->getValue();
 
                 if ($curaAccId) {
+                    $this->curacaoHelper->updateCuracaoSessionDetails(['is_user_linked' => true]);
                     $this->_linked = true;
                     return $curaAccId;
                 } else {
