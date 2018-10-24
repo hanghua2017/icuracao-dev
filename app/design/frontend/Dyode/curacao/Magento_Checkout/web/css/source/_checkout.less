@@ -601,13 +601,46 @@ input[type="radio"] {
                     text-align:right;
                   }
                 }
-                &.grand{
+                // &.grand{
+                //   th,td{
+                //     strong{
+                //       font-family: "iCuracao-Medium";
+                //       font-weight:normal;
+                //       color:@curacao-red-text;
+                //       font-size:18px;
+                //     }
+                //   }
+                // }
+                // &.sub{
+                //   th,td{
+                //     font-family: "iCuracao-Medium";
+                //     font-weight:normal;
+                //     color:@curacao-red-text;
+                //     font-size:18px;
+                //   }
+                // }
+                &.totals{
+                  &.discount{
+                    span{
+                      background: transparent;
+                      border-top:none;
+                      padding: 0 0 10px;
+                      font-family: "iCuracao-Regular";
+                      font-weight: normal;
+                      color: #000;
+                      font-size: 14px;
+                      text-transform: capitalize;
+                    }
+                  }
+                }
+                &:last-child{
                   th,td{
+                    font-family: "iCuracao-Medium";
+                    font-weight:normal;
+                    color:@curacao-red-text;
+                    font-size:18px;
                     strong{
-                      font-family: "iCuracao-Medium";
                       font-weight:normal;
-                      color:@curacao-red-text;
-                      font-size:18px;
                     }
                   }
                 }
