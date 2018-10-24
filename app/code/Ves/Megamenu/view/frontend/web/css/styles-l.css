@@ -3441,3 +3441,9 @@ print {
     margin-right: 5px;
   }
 }
+
+/*styling for espanol megamenu starts here*/
+html[lang="es"] .ves-megamenu .navigation .nav-item .dynamic-items,html[lang="es"] .ves-megamenu .navigation .nav-item .dynamic-content{
+  width:50%;
+}
+/*styling for espanol megamenu ends here*/
