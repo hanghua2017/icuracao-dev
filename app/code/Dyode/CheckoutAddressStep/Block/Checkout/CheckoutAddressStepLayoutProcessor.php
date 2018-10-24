@@ -67,6 +67,7 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
      *
      * @param array $jsLayout
      * @return array $jsLayout
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function process($jsLayout)
     {
@@ -232,6 +233,12 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
         ];
     }
 
+    /**
+     * Changing sort orders of summary totals.
+     *
+     * @param array $jsLayout
+     * @return array $jsLayout
+     */
     public function changeSummaryTotalsSortOrder(array $jsLayout)
     {
         $jsLayout["components"]["checkout"]["children"]["sidebar"]["children"]["summary"]["children"]
@@ -241,7 +248,7 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
         $jsLayout["components"]["checkout"]["children"]["sidebar"]["children"]["summary"]["children"]
         ["totals"]["children"]['discount']['sortOrder'] = 30;
         $jsLayout["components"]["checkout"]["children"]["sidebar"]["children"]["summary"]["children"]
-        ["totals"]["children"]['curacao_discount']['sortOrder'] = 40;
+        ["totals"]["children"]['curacao_discount']['sortOrder'] = 110;
         $jsLayout["components"]["checkout"]["children"]["sidebar"]["children"]["summary"]["children"]
         ["totals"]["children"]['subtotal']['sortOrder'] = 50;
         $jsLayout["components"]["checkout"]["children"]["sidebar"]["children"]["summary"]["children"]
@@ -304,7 +311,7 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
      * @return array $jsLayout
      */
     protected function updateShippingAddressPlaceHolders(array $jsLayout)
-    {   
+    {
         //street 1
         $jsLayout['components']['checkout']['children']['steps']['children']['address-step']
         ['children']['shippingAddress']['children']['shipping-address-fieldset']['children']

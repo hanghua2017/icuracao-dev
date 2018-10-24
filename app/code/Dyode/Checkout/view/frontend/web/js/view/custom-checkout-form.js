@@ -14,16 +14,11 @@ define([
     'jquery',
     'ko',
     'mage/url',
-    'mage/storage',
     'mage/translate',
     'Magento_Ui/js/form/form',
     'Magento_Ui/js/model/messageList',
     'Magento_Checkout/js/checkout-data',
     'Magento_Checkout/js/model/quote',
-    'Magento_Checkout/js/model/url-builder',
-    'Magento_Checkout/js/model/full-screen-loader',
-    'Magento_Checkout/js/action/get-payment-information',
-    'Magento_Checkout/js/model/totals',
     'Magento_Customer/js/model/customer',
     'Dyode_Checkout/js/model/curacao-service-provider',
     'Magento_Ui/js/modal/modal'
@@ -31,21 +26,41 @@ define([
     $,
     ko,
     Url,
-    storage,
     $t,
     Component,
     messageList,
     checkoutData,
     quote,
-    urlBuilder,
-    fullScreenLoader,
-    getPaymentInformationAction,
-    totals,
     customer,
     curacaoServiceProvider
 ) {
     var curacaoPaymentInfo = window.checkoutConfig.curacaoPayment,
-        customerInfo = window.checkoutConfig.customerData;
+        customerInfo = window.checkoutConfig.customerData,
+        isUserLinked = !!curacaoPaymentInfo.linked,
+        downPayment = curacaoPaymentInfo.total ? curacaoPaymentInfo.total : '',
+
+        /**
+         * Helper Function
+         *
+         * Find last 4 digits of a string.
+         * @param {String} string
+         * @returns {String}
+         */
+        getLast4 = function (string) {
+            if (string) {
+                string = string.toString(); //make sure the value is string.
+
+                if (string.length <= 4) {
+                    return string;
+                }
+
+                return string.substring(string.length - 4);
+            }
+
+            return '';
+        },
+
+        curacaoLast4Digit = getLast4(curacaoPaymentInfo.curacaoId);
 
     return Component.extend({
 
@@ -54,18 +69,22 @@ define([
         downPayment: curacaoPaymentInfo.downPayment,
         limit: curacaoPaymentInfo.limit,
         canApply: curacaoPaymentInfo.canApply,
-        linked: curacaoPaymentInfo.linked,
         curacaoAccountVerifyModalTemplate: 'Dyode_Checkout/custom-form/account-verify-modal',
         curacaoAccountVerifyModal: null,
         smsIconUrl: curacaoPaymentInfo.mediaUrl + '/images/sms-icon.png',
         callIconUrl: curacaoPaymentInfo.mediaUrl + '/images/call-icon.png',
         personalInfoForm: 'pinfm',
+        isUserLinked: ko.observable(isUserLinked),
         curacaoAccountIdInpValue: ko.observable(''),
         verificationCodeInpValue: ko.observable(''),
         ssnVerifyInpValue: ko.observable(''),
         dateOfBirthInpValue: ko.observable(''),
         zipCodeInpValue: ko.observable(''),
         maidenNameInpValue: ko.observable(''),
+        curacaoIdLast4Digit: ko.observable(curacaoLast4Digit),
+        curacaoUserCreditLimit: ko.observable(curacaoPaymentInfo.limit),
+        curacaoUserDownPayment: ko.observable(downPayment),
+        canShowDownPayment: ko.observable(true),
 
         /**
          * @inheritdoc
@@ -78,9 +97,21 @@ define([
 
             this.ApplyDiscount.subscribe(function (newValue) {
                 if (newValue) {
-                    this.getDiscount();
+                    curacaoServiceProvider.collectCuracaoTotals().done(function () {
+                        var successMessage = $t('Curacao Credits applied successfully.');
+
+                        messageList.addSuccessMessage({
+                            message: successMessage
+                        });
+                    });
                 } else {
-                    this.removeDiscount();
+                    curacaoServiceProvider.removeCuracaoTotals().done(function () {
+                        var successMessage = $t('Curacao Credit removed successfully.');
+
+                        messageList.addSuccessMessage({
+                            message: successMessage
+                        });
+                    });
                 }
             }, this);
 
@@ -89,62 +120,6 @@ define([
 
         getLinkUrl: function () {
             return Url.build('dyode_checkout/curacao/verify');
-        },
-
-        getDiscount: function () {
-            var message = $t('Your store credit was successfully applied');
-
-            messageList.clear();
-            fullScreenLoader.startLoader();
-
-            return storage.post(
-                urlBuilder.createUrl('/checkout/apply', {})
-            ).done(function (response) {
-                var deferred;
-
-                if (response) {
-                    deferred = $.Deferred();
-                    totals.isLoading(true);
-                    getPaymentInformationAction(deferred);
-                    $.when(deferred).done(function () {
-                        totals.isLoading(false);
-                    });
-                    messageList.addSuccessMessage({
-                        'message': message
-                    });
-                }
-            }).always(function () {
-                fullScreenLoader.stopLoader();
-            });
-        },
-
-        removeDiscount: function () {
-            fullScreenLoader.startLoader();
-
-            return storage.delete(
-                urlBuilder.createUrl('/checkout/remove', {})
-            ).done(
-                function (response) {
-                    var deferred;
-
-                    if (response) {
-                        deferred = $.Deferred();
-                        totals.isLoading(true);
-                        getPaymentInformationAction(deferred);
-                        $.when(deferred).done(function () {
-                            totals.isLoading(false);
-                            fullScreenLoader.stopLoader();
-                        });
-                        messageList.addSuccessMessage({
-                            'message': message
-                        });
-                    }
-                }
-            ).fail(function (response) {
-                //   alert(response);
-            }).always(function () {
-                fullScreenLoader.stopLoader();
-            });
         },
 
         /**
@@ -240,6 +215,7 @@ define([
 
             if (this.validateCuracaoVerifyModalForm(model)) {
                 var userInfo = {
+                    quote_id: quote.getQuoteId(),
                     ssn_last: this.ssnVerifyInpValue(),
                     zip_code: this.zipCodeInpValue(),
                     date_of_birth: this.dateOfBirthInpValue(),
@@ -252,17 +228,25 @@ define([
                     model.curacaoAccountIdInpValue('');
 
                     if (!curacaoServiceProvider.isResponseError()) {
-                        var successMessage = $t('Curacao account is linked successfully to the email address') +
-                            ': ' +
-                            model.getUserEmail();
 
-                        messageList.addSuccessMessage({
-                            message: successMessage
+                        //send collect-totals request with curacao credits.
+                        curacaoServiceProvider.collectCuracaoTotals().done(function () {
+                            var successMessage = $t('Curacao account is linked successfully to the email address') +
+                                ': ' +
+                                model.getUserEmail();
+
+                            messageList.addSuccessMessage({
+                                message: successMessage
+                            });
+                            model.isUserLinked(true);
+                            model.processCuracaoLinkedScenario();
                         });
+
                     } else {
                         messageList.addErrorMessage({
                             message: curacaoServiceProvider.message()
                         });
+                        model.isUserLinked(false);
                     }
                 });
             }
@@ -317,6 +301,25 @@ define([
             personalForm.validate();
 
             return personalForm.valid();
+        },
+
+        /**
+         * Process guest user turned to curacao linked customer.
+         * We need to show down payment details in this case.
+         */
+        processCuracaoLinkedScenario: function () {
+            if (curacaoServiceProvider.response() && curacaoServiceProvider.response().curacaoInfo) {
+                var curacaoInfo = curacaoServiceProvider.response().curacaoInfo;
+
+                this.curacaoUserCreditLimit(curacaoInfo.creditLimit);
+
+                if (curacaoInfo.downPayment) {
+                    this.curacaoUserDownPayment(curacaoInfo.downPayment);
+                    this.canShowDownPayment(true);
+                } else {
+                    this.canShowDownPayment(false);
+                }
+            }
         }
     });
 });
