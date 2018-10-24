@@ -297,6 +297,16 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
          */
         $response = curl_exec($ch);
         curl_close($ch);
+
+        //logging audit log
+        $this->auditLog->saveAuditLog([
+            'user_id' => "",
+            'action' => 'Apple care warranty',
+            'description' => "input : " . json_encode($inputArray) . "  response : " . $response,
+            'client_ip' => "",
+            'module_name' => "Dyode_ArInvoice"
+        ]);
+
         return json_decode($response);
     }
 
@@ -639,96 +649,112 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $appleItems = array();
         $itemsArray = array();
         $toLinkItems = array();
-        $firstName = $order->getCustomerFirstName();
-        $lastName = $order->getCustomerLastName();
+        $accountNumber = "";
+        $firstName = (!empty($order->getCustomerFirstName())) ? $order->getCustomerFirstName() : $order->getBillingAddress()->getFirstName();
+        $lastName = (!empty($order->getCustomerLastName())) ? $order->getCustomerLastName() : $order->getBillingAddress()->getFirstName();
         $email = $order->getCustomerEmail();
         $telephone = $order->getBillingAddress()->getTelephone();
         $customerId = $order->getCustomerId();
-        $customer = $this->_customerRepositoryInterface->getById($customerId);
-        $accountNumber = $customer->getCustomAttribute("curacaocustid")->getValue();
+
+        if (!empty($customerId)) {
+            $customer = $this->_customerRepositoryInterface->getById($customerId);
+            $curacaoCustId = $customer->getCustomAttribute("curacaocustid");
+            if (!empty($curacaoCustId)) {
+                $accountNumber = $curacaoCustId->getValue();
+            }
+        } else {
+            if ((strpos($order->getPayment()->getMethod(), 'authorizenet')) &&
+                ($order->getPayment()->getAmountAuthorized() == $order->getGrandTotal())) {
+                $accountNumber = '500-8555';
+            }
+        }
+
         $invoiceNumber = $order->getData('estimatenumber');
         if (empty($invoiceNumber)) {
 			$logger->info("Order Id : " . $order->getIncrementId());
 			$logger->info("Invoice Number Not found ");
 			throw new \Exception("Invoice Number Not found ");
-		}
-        foreach ($order->getAllItems() as $orderItem) {
-            $product = $this->_productRepository->getById($orderItem->getProductId()); 
-            $brand = $product->getResource()->getAttribute('tv_brand')->getFrontend()->getValue($product);
-            if ($brand != 'Apple') {
-                array_push($appleItems, $orderItem);
-                $itemsArray[$orderItem->getId()] = $product->getSku();
+		} else {
+
+            foreach ($order->getAllItems() as $orderItem) {
+                $product = $this->_productRepository->getById($orderItem->getProductId());
+                $brand = $product->getResource()->getAttribute('tv_brand')->getFrontend()->getValue($product);
+                if ($brand != 'Apple') {
+                    array_push($appleItems, $orderItem);
+                    $itemsArray[$orderItem->getId()] = $product->getSku();
+                }
             }
-        }
-        if (count($appleItems) > 1) {
-            foreach ($appleItems as $appleItem) {
-                if ($appleItem->getProductType() != 'virtual') {
-                    if ($appleItem->getData('warranty_parent_item_id')) {
-                        $productToLink = $itemsArray[$appleItem->getData('warranty_parent_item_id')];
-                        $warrantyToLink = $appleItem->getSku();
-                        array_push($toLinkItems, array($productToLink, $warrantyToLink));
+
+            if (count($appleItems) > 1) {
+                foreach ($appleItems as $appleItem) {
+                    if ($appleItem->getProductType() != 'virtual') {
+                        if ($appleItem->getData('warranty_parent_item_id')) {
+                            $productToLink = $itemsArray[$appleItem->getData('warranty_parent_item_id')];
+                            $warrantyToLink = $appleItem->getSku();
+                            array_push($toLinkItems, array($productToLink, $warrantyToLink));
+                        }
                     }
                 }
             }
-        }
 
-        // Setting up input values
-        $inputArray = array(
-            "invoice" => (string)$invoiceNumber,
-            "cust_id" => $accountNumber,
-            "f_name" => $firstName,
-            "l_name" => $lastName,
-            "email" => $email,
-            "cell_no" => $telephone,
-        );
-        $inputArray["items"] = $toLinkItems;
+            if (!empty($toLinkItems)) {
+                // Setting up input values
+                $inputArray = array(
+                    "invoice" => (string)$invoiceNumber,
+                    "cust_id" => $accountNumber,
+                    "f_name" => $firstName,
+                    "l_name" => $lastName,
+                    "email" => $email,
+                    "cell_no" => $telephone,
+                );
+                $inputArray["items"] = $toLinkItems;
 
-        $response = $this->appleCareSetWarranty($inputArray);
+                $response = $this->appleCareSetWarranty($inputArray);
+            }
 
-        if (empty($response)) {
+            if (empty($response)) {
 
-            //logging audit log
-            $this->auditLog->saveAuditLog([
-                'user_id' => $accountNumber,
-                'action' => 'Apple Care Warranty linking',
-                'description' => "No response",
-                'client_ip' => "",
-                'module_name' => "Dyode_ArInvoice"
-            ]);
+                //logging audit log
+                $this->auditLog->saveAuditLog([
+                    'user_id' => $accountNumber,
+                    'action' => 'Apple Care Warranty linking',
+                    'description' => "No response",
+                    'client_ip' => "",
+                    'module_name' => "Dyode_ArInvoice"
+                ]);
 
-			$logger->info("Order Id : " . $order->getIncrementId());
-			$logger->info("API Response not Found.");
-			throw new \Exception("API Response not Found", 1);
-		}
-		if ($response->OK = true) {
-            //logging audit log
-            $this->auditLog->saveAuditLog([
-                'user_id' => $accountNumber,
-                'action' => 'Apple Care Warranty linked successfully',
-                'description' => $response->INFO,
-                'client_ip' => "",
-                'module_name' => "Dyode_ArInvoice"
-            ]);
+                $logger->info("Order Id : " . $order->getIncrementId());
+                $logger->info("API Response not Found.");
+            } else if ($response->OK = true) {
+                //logging audit log
+                $this->auditLog->saveAuditLog([
+                    'user_id' => $accountNumber,
+                    'action' => 'Apple Care Warranty linked successfully',
+                    'description' => $response->INFO,
+                    'client_ip' => "",
+                    'module_name' => "Dyode_ArInvoice"
+                ]);
 
-			$logger->info("Order Id : " . $order->getIncrementId());
-			$logger->info($response->INFO);
-            throw new \Exception($response->INFO);
+                $logger->info("Order Id : " . $order->getIncrementId());
+                $logger->info($response->INFO);
+                throw new \Exception($response->INFO);
 
-            return true;
-        } else {
-            $this->auditLog->saveAuditLog([
-                'user_id' => $accountNumber,
-                'action' => 'Fail to link Apple Care Warranty',
-                'description' => $response->INFO,
-                'client_ip' => "",
-                'module_name' => "Dyode_ArInvoice"
-            ]);
+                return true;
+            } else {
+                $this->auditLog->saveAuditLog([
+                    'user_id' => $accountNumber,
+                    'action' => 'Fail to link Apple Care Warranty',
+                    'description' => $response->INFO,
+                    'client_ip' => "",
+                    'module_name' => "Dyode_ArInvoice"
+                ]);
 
-            $logger->info("Order Id : " . $order->getIncrementId());
-            $logger->info($response->INFO);
-            throw new \Exception($response->INFO);
+                $logger->info("Order Id : " . $order->getIncrementId());
+                $logger->info($response->INFO);
+                throw new \Exception($response->INFO);
 
-            return false;
+                return false;
+            }
         }
     }
 }
