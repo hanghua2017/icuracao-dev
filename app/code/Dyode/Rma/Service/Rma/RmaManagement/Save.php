@@ -44,7 +44,6 @@ class Save implements \Mirasvit\Rma\Api\Service\Rma\RmaManagement\SaveInterface
         }
         unset($data['rma_id']);
 
-        $data['first_name'] = "Guest";
         $rma = $this->updateRma($performer, $rma, $data);
 
         $this->itemUpdateService->updateItems($rma, $items);
