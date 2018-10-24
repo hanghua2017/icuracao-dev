@@ -143,6 +143,9 @@ class Location extends AbstractModel
           // $collection->setOrder("distance","ASC");
           $collection->getSelect()->order('distance ASC');
         }
+        else{
+          $collection->orderBySortOrder();
+        }
         $collection = $collection->load();
 
 

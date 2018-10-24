@@ -931,20 +931,36 @@
 					.level0 {
 						& > a {
 							text-transform: none;
-						}
-						&.active,&.has-active{
-							> a:not(.ui-state-active){
-								@media all and (max-width:1024px){
-									border-width:0;
-									background:@white-shade;
-									border-bottom:2px solid @green-color;
-									color:@textColor;
-									span:not(.ui-menu-icon){
-										margin-left:0;
+							.opener{
+								width: 100%;
+								height: 100%;
+								background-color: transparent;
+								&:before{
+									position: absolute;
+									right: 0px;
+									line-height: 50px;
+									width: 50px;
+								}
+								&.item-active {
+									&:before{
+										background-color: rgba(0, 0, 0, 0.05);
 									}
 								}
 							}
 						}
+						// &.active,&.has-active{
+						// 	> a:not(.ui-state-active){
+						// 		@media all and (max-width:1024px){
+						// 			border-width:0;
+						// 			background:@white-shade;
+						// 			border-bottom:2px solid @green-color;
+						// 			color:@textColor;
+						// 			span:not(.ui-menu-icon){
+						// 				margin-left:0;
+						// 			}
+						// 		}
+						// 	}
+						// }
 					}
 				}
 			}
