@@ -48,12 +48,11 @@
     </div>
 
     <div class="cart bottom estimated-total-block">
-
-        <?php if (isset($block->getTotals()['grand_total'])): ?>
+        <?php if (isset($block->getTotals()['subtotal'])): ?>
             <?php
                 /** @var $_addressTotal \Magento\Quote\Model\Quote\Address\Total **/
                 $_checkoutHelper = $this->helper('Magento\Checkout\Helper\Data');
-                $_addressTotal = $block->getTotals()['grand_total'];
+                $_addressTotal = $block->getTotals()['subtotal'];
             ?>
             <div class="cart grand-total">
                 <strong>

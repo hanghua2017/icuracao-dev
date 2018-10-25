@@ -17,6 +17,7 @@ use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Model\Quote;
 use Magento\Catalog\Model\ProductRepository;
 use Aheadworks\StoreLocator\Model\LocationFactory;
+use Dyode\CheckoutAddressStep\Helper\Data;
 
 class ShippingMethodManagement implements ShipmentEstimationInterface
 {
@@ -27,6 +28,8 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     const DELIVERY_OPTION_STORE_PICKUP = "store_pickup";
     const DEFAULT_SHIPPING_RATE = 10.24;
     const STORE_LOCATION_CODE = 'store_location_code';
+    const USPS_WITH = 3;
+    const USPS_PRICE_LIMIT = 200;
 
     /**
      * Zipcodes of all inventory locations of Curacao
@@ -97,6 +100,11 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     protected $_scopeConfig;
 
     /**
+     * @var type \Dyode\CheckoutAddressStep\Helper\Data $shipHelper
+     */
+    protected $shipHelper;
+
+    /**
      * ShippingMethodManagement constructor.
      *
      * @param CartRepositoryInterface $quoteRepository
@@ -110,12 +118,14 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
      * @param \Magento\Framework\App\ResourceConnection $resourceConnection
      * @param \Magento\Shipping\Model\Config $shippingConfig
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Dyode\CheckoutAddressStep\Helper\Data $shipHelper
      */
     public function __construct
     (
         CartRepositoryInterface $quoteRepository,
         ProductRepository $productRepository,
         LocationFactory $locationFactory,
+        Data $shipHelper,
         \Dyode\ArInvoice\Helper\Data $distHelper,
         \Dyode\Pilot\Model\Carrier\Pilot $pilot,
         \Dyode\AdsMomentum\Model\Carrier\AdsMomentum $momentum,
@@ -136,6 +146,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         $this->_resourceConnection = $resourceConnection;
         $this->_shippingConfig = $shippingConfig;
         $this->_scopeConfig = $scopeConfig;
+        $this->shipHelper = $shipHelper;
     }
 
     /**
@@ -210,13 +221,15 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         $shipCoordinates = $this->_locationRepo->getById($zipcode);
         $shipLat = $shipCoordinates->getLat();
         $shipLong = $shipCoordinates->getLng();
+       
         // Get quote item id
         $quoteItemId = $quoteItem->getItemId();
         // Get product Id from quote item 
         $productId = $quoteItem->getProductId();
         // Load product information using product id 
         $product = $this->getProductById($productId);
-
+        $productWeight = $product->getWeight();
+        $productPrice = $product->getPrice();
         // Check if product is Freight item if so use ADS momentum or Pilot
         if ($product->getIsfreight()) {
 
@@ -225,7 +238,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
              * and see if its less than 80 km for any of them.
              */
             if ($this->isDomestic($shipLat, $shipLong)) {
-                $productWeight = $product->getWeight();
+                
                 // ADS Momentum
                 $adsCarrierDetails = $shippingConfig[$this->_momentum->getCode()];
                 $carrierCode = $this->_momentum->getCode();
@@ -249,12 +262,38 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
             }
         } else {
             // Item is not freight so use USPS and UPS 
-
-            $carrierCode = 'usps';
-            $carrierMethodCode = 'usps';
-            $carrierTitle = 'UPS';
-            $carrierName = 'Priority';
-            $rate = self::DEFAULT_SHIPPING_RATE;
+            $upsWith = 3;
+            $toCity = $shipCoordinates->getCity();
+            $toState = $shipCoordinates->getAbbr();
+            if(in_array($toState, ['CA','NV','AZ'])){
+                $upsWith = 11;
+            }
+            //Check for USPS
+            switch(true){
+                case (( $productWeight < $upsWith ) && ($productPrice < self::USPS_PRICE_LIMIT)):
+                    $carrierCode = 'usps';
+                    $carrierMethodCode = 'usps';
+                    $carrierTitle = 'USPS';
+                    $carrierName = 'Priority';
+                    $rate = $this->shipHelper->getUSPSRates($zipcode,$productWeight);
+                    break;
+                case (( $productWeight < $upsWith ) && ($productPrice > self::USPS_PRICE_LIMIT)):
+                    $carrierCode = 'ups';
+                    $carrierMethodCode = 'ups';
+                    $carrierTitle = 'UPS';
+                    $carrierName = 'Ground';
+                    $rate = self::DEFAULT_SHIPPING_RATE;
+                    break;
+                default: 
+                    $carrierCode = 'ups';
+                    $carrierMethodCode = 'ups';
+                    $carrierTitle = 'UPS';
+                    $carrierName = 'Ground';
+                    $rate = self::DEFAULT_SHIPPING_RATE;
+                    break;
+                    
+                }
+                      
         }
 
         return [

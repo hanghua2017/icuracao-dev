@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<section id="shippingsettings" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+			<label>Shipping Settings</label>
+			<tab>curacao_settings</tab>
+			<resource>Dyode_CheckoutAddressStep::config_dyode_checkoutaddress</resource>
+			<group id="curacao_shipping" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+				<label>USPS Settings</label>
+				<field id="uspsurl" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>USPS Url</label>
+					<comment/>
+				</field>
+				<field id="stampsurl" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>Stamps Url</label>
+					<comment/>
+				</field>
+				<field id="stampuser" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>Stamp Username</label>
+					<comment/>
+				</field>
+				<field id="stamppass" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>Stamp Password</label>
+					<comment/>
+				</field>
+				<field id="integrationid" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>Integration Id</label>
+					<comment/>
+				</field>
+				<field id="price" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>Default Cost</label>
+					<comment/>
+				</field>
+				<field id="uspsuserid" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>USPS User ID</label>
+					<comment/>
+				</field>
+				<field id="uspssize" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>USPS Size</label>
+					<comment/>
+				</field>
+				<field id="uspscontainer" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>USPS Container</label>
+					<comment/>
+				</field>
+				<field id="zipcodefrom" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>Zipcode From</label>
+					<comment/>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>
