@@ -24,14 +24,13 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }
   /* function for setting the price for quote item */
 
-  public function setQuoteItemPrice($weight){
+  public function setQuoteItemPrice($zipcode,$weight){
 
     // Default Shipping Values
     $price = 10.28;
-    $upsSwith = 3;
     $adsSwitch = 88;
 
-    $zipcode = '90255';
+    //$zipcode = '90255';
 
     // Set Default Dimension Values in case they are missing from request
     $width  =  10;
@@ -46,7 +45,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     $countryCode = $result['abbr'];
     if(in_array($countryCode, ['CA','NV','AZ']))
     {
-        $upsSwith = 11;
         $adsSwitch = 133;
         $volume = $width * $height * $length;
         // Price is same for volume up to 4000 inch Square for local deliveries
