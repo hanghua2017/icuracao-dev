@@ -3,64 +3,62 @@
 footer {
   &.page-footer {
     background-color: @footer-background;
-    padding: 40px;
-    padding-bottom: 0;
+    padding: 40px 40px 0;
     margin-top: 0;
-    @media all and (max-width:1024px){
+    @media all and (max-width:1024px) {
       padding: 15px;
     }
+
     .footer {
       max-width: 1500px;
-      margin: 0px auto;
+      margin: 0 auto;
       border: none;
       padding: 0;
-
       //Footer link styling
       .custom-footer-links {
         padding-left: 20px;
         padding-right: 20px;
         overflow: hidden;
         display: flex;
-        @media all and (max-width: 1024px){
+        @media all and (max-width: 1024px) {
           display: block;
         }
         @media all and (max-width: 1024px) {
           padding: 0;
         }
+
         .footer-block {
-          flex:1;
-          @media all and (max-width: 1024px){
-            // min-height:375px;
-            // display: inline-block;
-            // float: left;
-            // width: 50%;
-          }
-          @media all and (max-width: 1024px){
-            display:block;
+          flex: 1;
+          @media all and (max-width: 1024px) {
+            display: block;
             float: none;
             width: 100%;
-            min-height:auto;
+            min-height: auto;
           }
-          h3{
+
+          h3 {
             font-family: 'iCuracao-Medium';
-            font-weight:300;
+            font-weight: 300;
             font-size: 16px;
             color: #333333;
             margin-bottom: 35px;
             margin-top: 0;
-            @media all and (max-width: 1024px){
-              margin: 0px;
+            @media all and (max-width: 1024px) {
+              margin: 0;
               padding-left: 0;
               padding-right: 0;
             }
           }
+
           .footer-block-links {
             ul {
               list-style: none;
-              padding: 0px;
+              padding: 0;
+
               li {
-                padding: 0 0 7px 0px;
+                padding: 0 0 7px;
                 line-height: 22px;
+
                 a {
                   font-family: 'iCuracao-Regular';
                   text-decoration: none;
@@ -72,59 +70,60 @@ footer {
           }
         }
         //End Footer link styling
-
         //Accordian styling for footer links -  mobile view
         .accordion {
-            cursor: pointer;
-            padding: 18px;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 15px;
-            transition: 0.4s;
-            &:after {
-              content: '\002B';
-              color: #777;
-              font-weight: bold;
-              float: right;
-              font-size: 24px;
-              margin-left: 5px;
-              margin-top: -6px;
-            }
-            &.active:after {
-                content: "\2212";
-            }
+          cursor: pointer;
+          padding: 18px;
+          border: none;
+          text-align: left;
+          outline: none;
+          font-size: 15px;
+          transition: 0.4s;
+
+          &:after {
+            content: '\002B';
+            color: #777;
+            font-weight: bold;
+            float: right;
+            font-size: 24px;
+            margin-left: 5px;
+            margin-top: -6px;
+          }
+
+          &.active:after {
+            content: "\2212";
+          }
         }
+
         .panel {
-            padding: 0px 18px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.2s ease-out;
+          padding: 0 18px;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.2s ease-out;
         }
         //End Accordian styling for footer links -  mobile view
-
       }
-
       //News letter styling
       .subscribe-block {
         clear: both;
         width: 100%;
         float: left;
         margin-top: 35px;
+
         .block.newsletter {
           text-align: right;
           margin-bottom: 0;
-          @media all and (max-width: 991px) {
-          //  width: 50%;
-          }
+      
           @media all and (max-width: 1024px) {
             width: 100%;
           }
+
           .title {
             display: block;
             text-align: left;
             font-family: 'iCuracao-Light';
             color: #333333;
+
             strong {
               font-weight: 500;
               font-size: 14px;
@@ -133,15 +132,18 @@ footer {
 
           .content {
             position: relative;
-            padding: 0px;
+            padding: 0;
+
             form {
               margin-top: 0;
               display: inline-block;
               position: relative;
-              display:block;
+              display: block;
+
               .newsletter {
                 text-align: left;
                 margin: 0;
+
                 label {
                   font-family: 'iCuracao-Light';
                   color: #333333;
@@ -161,22 +163,30 @@ footer {
                     height: 37px;
                     border: none;
                     border-radius: 2px 0 0 2px;
-                    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+
+                    ::-webkit-input-placeholder {
+                      /* Chrome/Opera/Safari */
                       font-family: 'iCuracao-Light';
                       color: #a6a6a6;
                       line-height: 1;
                     }
-                    ::-moz-placeholder { /* Firefox 19+ */
+
+                    ::-moz-placeholder {
+                      /* Firefox 19+ */
                       font-family: 'iCuracao-Light';
                       color: #a6a6a6;
                       line-height: 1;
                     }
-                    :-ms-input-placeholder { /* IE 10+ */
+
+                    :-ms-input-placeholder {
+                      /* IE 10+ */
                       font-family: 'iCuracao-Light';
                       color: #a6a6a6;
                       line-height: 1;
                     }
-                    :-moz-placeholder { /* Firefox 18- */
+
+                    :-moz-placeholder {
+                      /* Firefox 18- */
                       font-family: 'iCuracao-Light';
                       color: #a6a6a6;
                       line-height: 1;
@@ -195,7 +205,7 @@ footer {
 
               .actions {
                 position: absolute;
-                right: 0px;
+                right: 0;
                 top: 0;
                 display: block;
                 width: auto;
@@ -203,11 +213,12 @@ footer {
                 button {
                   border: none;
                   background-color: #81b800;
-                  height:37px;
+                  height: 37px;
                   color: white;
                   padding: 10px 15px;
                   border-radius: 0 2px 2px 0;
                   font-weight: normal;
+
                   span {
                     font-family: 'iCuracao-Light';
                     font-size: 14px;
@@ -219,280 +230,300 @@ footer {
         }
       }
       //End News letter styling
-
-
       //Trust factor
       .trust-factor-block {
         clear: both;
         width: 100%;
         float: left;
+
         .trust-factor {
           display: flex;
           max-width: 1500px;
-          margin: 0px auto;
+          margin: 0 auto;
           text-align: center;
           margin-top: 35px;
           border: solid 1px #dedede;
           @media all and (max-width: 991px) {
-            display:block;
+            display: block;
             border-left: none;
             border-right: none;
             text-align: left;
             padding-left: 0;
             padding-right: 0;
           }
+
           .trust-image {
-              flex: 1;
-              border-right: solid 1px #dedede;
+            flex: 1;
+            border-right: solid 1px #dedede;
+            padding: 15px 0;
+            @media all and (max-width: 991px) {
+              border-right: none;
+              border-bottom: solid 1px #dedede;
+              padding-left: 20px;
+              padding-right: 20px;
+            }
+            @media all and (max-width:479px) {
               padding: 15px 0;
-              @media all and (max-width: 991px) {
-                border-right: none;
-                border-bottom: solid 1px #dedede;
-                padding-left: 20px;
-                padding-right: 20px;
-              }
-              @media all and (max-width:479px){
-                padding: 15px 0;
-              }
-              img {
-                @media all and (max-width: 767px) {
-                    width: 30px;
-                }
-              }
-              .content {
-                  text-align: left;
-                  margin-left: 20px;
-                  display: inline-block;
-                  padding: 0px;
-                  @media all and (max-width: 1160px) {
-                    margin-left: 5px;
-                  }
-                  p {
-                    margin: 0;
-                    &.title {
-                      font-family: 'iCuracao-Regular';
-                      font-size: 17px;
-                      color: #333333;
-                      text-transform: uppercase;
-                      @media all and (max-width: 1160px) {
-                        font-size: 15px;
-                      }
-                      @media all and (max-width: 991px) {
-                        font-size: 16px;
-                      }
-                      @media all and (max-width:479px){
-                        font-size:14px;
-                      }
-                    }
-                    &.comment {
-                      font-size: 15px;
-                      font-family: 'iCuracao-Medium';
-                      color: #999999;
-                      margin-top: 5px;
-                      @media all and (max-width: 1160px) {
-                        font-size: 13px;
-                      }
-                      @media all and (max-width: 991px) {
-                        font-size: 14px;
-                      }
-                      @media all and (max-width:479px){
-                        font-size:12px;
-                      }
-                    }
-                  }
+            }
 
-
-              }
-          }
-          div.why-shop.trust-image {
-              border-right:none;
+            img {
               @media all and (max-width: 767px) {
-                border-bottom:none;
+                width: 30px;
               }
-              img {
-                @media all and (max-width: 991px) {
-                  width: 30px;
+            }
+
+            .content {
+              text-align: left;
+              margin-left: 20px;
+              display: inline-block;
+              padding: 0;
+              @media all and (max-width: 1160px) {
+                margin-left: 5px;
+              }
+
+              p {
+                margin: 0;
+
+                &.title {
+                  font-family: 'iCuracao-Regular';
+                  font-size: 17px;
+                  color: #333333;
+                  text-transform: uppercase;
+                  @media all and (max-width: 1160px) {
+                    font-size: 15px;
+                  }
+                  @media all and (max-width: 991px) {
+                    font-size: 16px;
+                  }
+                  @media all and (max-width:479px) {
+                    font-size: 14px;
+                  }
                 }
-                @media all and (max-width: 767px) {
-                  width: 40px;
+
+                &.comment {
+                  font-size: 15px;
+                  font-family: 'iCuracao-Medium';
+                  color: #999999;
+                  margin-top: 5px;
+                  @media all and (max-width: 1160px) {
+                    font-size: 13px;
+                  }
+                  @media all and (max-width: 991px) {
+                    font-size: 14px;
+                  }
+                  @media all and (max-width:479px) {
+                    font-size: 12px;
+                  }
                 }
               }
+            }
+          }
+
+          div.why-shop.trust-image {
+            border-right: none;
+            @media all and (max-width: 767px) {
+              border-bottom: none;
+            }
+
+            img {
+              @media all and (max-width: 991px) {
+                width: 30px;
+              }
+              @media all and (max-width: 767px) {
+                width: 40px;
+              }
+            }
           }
         }
       }
       //End Trust factor
-
       //Footer bottom content
       .footer-bottom-block {
         clear: both;
         width: 100%;
         float: left;
+
         .footer-bottom {
-          padding: 0px;
+          padding: 0;
           margin-top: 35px;
           overflow: hidden;
-          .icons{
-             overflow: hidden;
-             @media all and (max-width: 767px) {
-               display: flex;
-               flex-wrap: wrap;
-             }
-             .icon-set{
-               float: right;
-               display: inline-block;
-             }
-             .share-icons,.curacao-icons,.payment-icons{
-               display: inline-block;
-             }
-             .share-icons{
-               float: left;
-               width: 74%;
-               @media all and (max-width: 1500px) {
-                 width: 72%;
-               }
-               @media all and (max-width: 1400px) {
-                 width: 70%;
-               }
-               @media all and (max-width: 1300px) {
-                 width: 67%;
-               }
-               @media all and (max-width: 1204px) {
-                 width: 65%;
-               }
-               @media all and (max-width: 1150px) {
-                 width: 62%;
-               }
-               @media all and (max-width: 1065px) {
-                 width: 58%;
-               }
-               @media all and (max-width: 991px) {
-                 width: 100%;
-                 margin-bottom: 20px;
-               }
-               a{
-                 text-decoration: none;
-                 margin-right: 15px;
-                 @media all and (max-width:499px){
-                   margin-right: 10px;
-                 }
-               }
-               .social-icons {
-                 float: left;
-                 @media all and (max-width: 499px) {
-                   img {
-                     width: 28px;
-                   }
-                 }
-               }
-               .curacao-icons {
-                 float: right;
-                 img {
-                   margin-right: 15px;
-                   @media all and (max-width: 991px)
-                   {
-                     &:nth-child(2) {
-                       margin-right: 0;
-                     }
-                   }
-                   @media all and (max-width:499px){
-                     margin-right:10px;
-                     width:37px;
-                     &:nth-child(2) {
-                       margin-right: 0;
-                       width:60px;
-                     }
-                   }
-                 }
-                 @media all and (max-width:479px){
 
-                 }
-               }
-             }
-             .payment-icons{
-               float: right;
-               @media all and (max-width: 991px) {
-                 width: 100%;
-               }
-               img{
-                 margin: 5px 0;
-                 @media all and (max-width:991px){
-                   margin:0 0 5px;
-                 }
-               }
-             }
-           }
-           .disclaim
-           {
-             margin-bottom: 20px;
-             p {
-               font-size: 13px;
-               font-family: 'iCuracao-Light';
-               margin: 0px;
-               margin-top: 20px;
-               color: #333333;
-             }
-           }
-         }
+          .icons {
+            overflow: hidden;
+            @media all and (max-width: 767px) {
+              display: flex;
+              flex-wrap: wrap;
+            }
+
+            .icon-set {
+              float: right;
+              display: inline-block;
+            }
+
+            .curacao-icons,
+            .payment-icons,
+            .share-icons {
+              display: inline-block;
+            }
+
+            .share-icons {
+              float: left;
+              width: 74%;
+              @media all and (max-width: 1500px) {
+                width: 72%;
+              }
+              @media all and (max-width: 1400px) {
+                width: 70%;
+              }
+              @media all and (max-width: 1300px) {
+                width: 67%;
+              }
+              @media all and (max-width: 1204px) {
+                width: 65%;
+              }
+              @media all and (max-width: 1150px) {
+                width: 62%;
+              }
+              @media all and (max-width: 1065px) {
+                width: 58%;
+              }
+              @media all and (max-width: 991px) {
+                width: 100%;
+                margin-bottom: 20px;
+              }
+
+              a {
+                text-decoration: none;
+                margin-right: 15px;
+                @media all and (max-width:499px) {
+                  margin-right: 10px;
+                }
+              }
+
+              .social-icons {
+                float: left;
+                @media all and (max-width: 499px) {
+                  img {
+                    width: 28px;
+                  }
+                }
+              }
+
+              .curacao-icons {
+                float: right;
+
+                img {
+                  margin-right: 15px;
+                  @media all and (max-width: 991px) {
+                    &:nth-child(2) {
+                      margin-right: 0;
+                    }
+                  }
+                  @media all and (max-width:499px) {
+                    margin-right: 10px;
+                    width: 37px;
+
+                    &:nth-child(2) {
+                      margin-right: 0;
+                      width: 60px;
+                    }
+                  }
+                }
+                @media all and (max-width:479px) {}
+              }
+            }
+
+            .payment-icons {
+              float: right;
+              @media all and (max-width: 991px) {
+                width: 100%;
+              }
+
+              img {
+                margin: 5px 0;
+                @media all and (max-width:991px) {
+                  margin: 0 0 5px;
+                }
+              }
+            }
+          }
+
+          .disclaim {
+            margin-bottom: 20px;
+
+            p {
+              font-size: 13px;
+              font-family: 'iCuracao-Light';
+              margin: 20px 0 0;
+              color: #333333;
+            }
+          }
+        }
       }
       //End Footer content
-
       //Copy right section
-      .copy-right-block{
-        margin: 25px 0 10px 0;
+      .copy-right-block {
+        margin: 25px 0 10px;
         width: 100%;
         border-top: solid 1px #b4b4b2;
         overflow: hidden;
-        @media all and (max-width:1024px){
-          margin: 25px 0 0 0;
+        @media all and (max-width:1024px) {
+          margin: 25px 0 0;
         }
-        @media all and (max-width:767px){
-          border-top:none;
-          margin:25px -15px 0;
-          width:~"calc(100% + 30px)";
+        @media all and (max-width:767px) {
+          border-top: none;
+          margin: 25px -15px 0;
+          width: ~"calc(100% + 30px)";
         }
-        .copy-right-section{
-          padding: 0px;
+
+        .copy-right-section {
+          padding: 0;
           max-width: 1500px;
-           margin: 0 auto;
-          .policy-links{
+          margin: 0 auto;
+
+          .policy-links {
             display: inline-block;
             float: left;
-            @media all and (max-width:767px){
+            @media all and (max-width:767px) {
               float: left;
-              width:100%;
+              width: 100%;
               padding: 0 15px 10px;
               background: #e7e7e7;
             }
-            p{
+
+            p {
               margin-top: 1rem;
               font-family: 'iCuracao-Regular';
               font-size: 14px;
               color: #333333;
-              @media all and (max-width:1024px){
-                margin-top:15px;
+              @media all and (max-width:1024px) {
+                margin-top: 15px;
               }
-              a{
+
+              a {
                 text-decoration: none;
                 color: #333333;
                 padding: 0 5px;
               }
             }
           }
-          .copy-right-dev{
+
+          .copy-right-dev {
             display: inline-block;
             float: right;
-            @media all and (max-width:767px){
+            @media all and (max-width:767px) {
               float: left;
-              width:100%;
+              width: 100%;
               padding: 0 15px;
             }
-            p{
+
+            p {
               margin-top: 1rem;
               font-family: 'iCuracao-Regular';
               font-size: 14px;
               color: #999999;
-              @media all and (max-width:1024px){
-                margin-top:15px;
+              @media all and (max-width:1024px) {
+                margin-top: 15px;
               }
             }
           }
@@ -503,19 +534,20 @@ footer {
   }
 }
 /*Styling for Espanol*/
-html[lang="es"]
-{
-  footer.page-footer  {
+html[lang="es"] {
+  footer.page-footer {
     .footer {
       .trust-factor-block {
         .trust-factor {
           .trust-image {
-            &.why-shop, &.secure {
+            &.secure,
+            &.why-shop {
               @media all and (max-width: 1316px) {
                 img {
                   float: left;
                   margin-left: 10px;
                 }
+
                 .content {
                   float: left;
                   width: 80%;
@@ -528,6 +560,7 @@ html[lang="es"]
                 }
               }
             }
+
             &.why-shop {
               .content {
                 @media all and (max-width: 355px) {
@@ -535,12 +568,14 @@ html[lang="es"]
                 }
               }
             }
+
             &.trust {
               @media all and (max-width: 1200px) {
                 img {
                   float: left;
                   margin-left: 10px;
                 }
+
                 .content {
                   float: left;
                   width: 80%;
@@ -553,6 +588,7 @@ html[lang="es"]
                 }
               }
             }
+
             .content {
               @media all and (max-width: 1371px) and (min-width: 992px) {
                 margin-left: 5px;
@@ -560,6 +596,7 @@ html[lang="es"]
               @media all and (max-width: 420px) {
                 width: 85%;
               }
+
               p.title {
                 @media all and (max-width: 1371px) and (min-width: 992px) {
                   max-width: 95%;
@@ -568,6 +605,7 @@ html[lang="es"]
                   font-size: 13px;
                 }
               }
+
               p.comment {
                 @media all and (max-width: 1532px) {
                   font-size: 13px;
@@ -581,6 +619,7 @@ html[lang="es"]
           }
         }
       }
+
       .subscribe-block {
         .block.newsletter {
           .content {
@@ -589,7 +628,10 @@ html[lang="es"]
                 .control {
                   @media all and (max-width: 420px) {
                     input {
-                      &::-webkit-input-placeholder, &::-moz-placeholder, &:-ms-input-placeholder, &::placeholder {
+                      &:-ms-input-placeholder,
+                      &::-moz-placeholder,
+                      &::-webkit-input-placeholder,
+                      &::placeholder {
                         font-size: 11px;
                       }
                     }
