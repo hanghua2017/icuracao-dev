@@ -47,9 +47,10 @@ class ShippingInfoProcessor
      */
     public function saveAddressInformation($cartId, ShippingInformationInterface $addressInformation)
     {
+        $includeCuracaoCredit = true;
         $this->manager->saveQuoteItemShippingInfo($cartId, $addressInformation);
         $paymentDetails = $this->shippingInformationManagement->saveAddressInformation($cartId, $addressInformation);
 
-        return $this->manager->updateShippingTotal($paymentDetails, $addressInformation);
+        return $this->manager->updateShippingTotal($paymentDetails, $addressInformation, $includeCuracaoCredit);
     }
 }

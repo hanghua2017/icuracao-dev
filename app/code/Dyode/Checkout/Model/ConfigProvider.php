@@ -6,6 +6,7 @@
  */
 namespace Dyode\Checkout\Model;
 
+use Dyode\Checkout\Helper\CuracaoHelper;
 use Magento\Checkout\Model\ConfigProviderInterface;
 use Magento\Framework\View\LayoutInterface;
 use Magento\Cms\Helper\Page as PageHelper;
@@ -46,6 +47,11 @@ class ConfigProvider implements ConfigProviderInterface
     protected $_assetRepository;
 
     /**
+     * @var \Dyode\Checkout\Helper\CuracaoHelper
+     */
+    protected $curacaoHelper;
+
+    /**
      * ConfigProvider constructor.
      *
      * @param \Magento\Framework\Pricing\Helper\Data $priceHelper
@@ -57,6 +63,7 @@ class ConfigProvider implements ConfigProviderInterface
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\Cms\Helper\Page $pageHelper
      * @param \Magento\Framework\View\Asset\Repository $assetRepository
+     * @param \Dyode\Checkout\Helper\CuracaoHelper $curacaoHelper
      * @param $blockId
      */
     public function __construct(
@@ -69,6 +76,7 @@ class ConfigProvider implements ConfigProviderInterface
         ScopeConfigInterface $scopeConfig,
         PageHelper $pageHelper,
         AssetRepository $assetRepository,
+        CuracaoHelper $curacaoHelper,
         $blockId
     ) {
         $this->_customerSession = $customerSession;
@@ -80,6 +88,7 @@ class ConfigProvider implements ConfigProviderInterface
         $this->_scopeConfig = $scopeConfig;
         $this->_pageHelper = $pageHelper;
         $this->_assetRepository = $assetRepository;
+        $this->curacaoHelper = $curacaoHelper;
         $this->_cmsBlock = $this->constructBlock($blockId);
     }
 
@@ -122,12 +131,11 @@ class ConfigProvider implements ConfigProviderInterface
     {
         $curaAccId = $this->getCuracaoId();
         if ($curaAccId) {
-            $subTotal = $this->_cart->getQuote()->getSubtotal();
-            $params = array('cust_id' => $curaAccId, 'amount' => $subTotal);
+            $params = ['cust_id' => $curaAccId, 'amount' => 1];
             $result = $this->_helper->verifyPersonalInfm($params);
             if ($result) {
-                $this->_customerSession->setDownPayment($result);
                 $result = $result->DOWNPAYMENT;
+                $this->curacaoHelper->updateCuracaoSessionDetails(['down_payment' => $result]);
             } else {
                 return false;
             }
@@ -155,6 +163,7 @@ class ConfigProvider implements ConfigProviderInterface
                 $curaAccId = (string)$customer->getCustomAttribute('curacaocustid')->getValue();
 
                 if ($curaAccId) {
+                    $this->curacaoHelper->updateCuracaoSessionDetails(['is_user_linked' => true]);
                     $this->_linked = true;
                     return $curaAccId;
                 } else {
@@ -177,6 +186,11 @@ class ConfigProvider implements ConfigProviderInterface
         return $this->_pageHelper->getPageUrl($pageId);
     }
 
+    /**
+     * Provide privacy link cms page for the checkout page, which is configured in the System > Configuration
+     *
+     * @return string
+     */
     public function checkoutPrivacyLink()
     {
         $pageId = $this->_scopeConfig->getValue(self::PRIVACY_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
@@ -184,4 +198,3 @@ class ConfigProvider implements ConfigProviderInterface
     }
 
 }
-

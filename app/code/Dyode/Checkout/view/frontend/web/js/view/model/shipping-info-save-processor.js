@@ -82,14 +82,12 @@ define([
             fullScreenLoader.startLoader();
 
             return storage.post(
-                this.getUrlForSetShippingInformation(quote),
+                this.getUrlForSetShippingInformation(),
                 JSON.stringify(payload)
             ).done(
                 function (response) {
                     quote.setTotals(response.totals);
-                    paymentService.setPaymentMethods(
-                        methodConverter(response['payment_methods']
-                        ));
+                    paymentService.setPaymentMethods(methodConverter(response['payment_methods']));
                     fullScreenLoader.stopLoader();
                 }
             ).fail(
@@ -104,7 +102,7 @@ define([
          * Preparing api url for saving shipping information.
          * This is a custom api call.
          */
-        getUrlForSetShippingInformation: function (quote) {
+        getUrlForSetShippingInformation: function () {
 
             var requestInfo = {
                 url: '/carts/mine/custom-shipping-info',

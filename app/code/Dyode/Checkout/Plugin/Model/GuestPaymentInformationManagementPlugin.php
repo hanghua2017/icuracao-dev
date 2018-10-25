@@ -11,7 +11,7 @@
  */
 namespace Dyode\Checkout\Plugin\Model;
 
-use Dyode\CheckoutDeliveryMethod\Model\DeliveryMethod;
+use Dyode\Checkout\Helper\CuracaoHelper;
 use Magento\Checkout\Api\GuestPaymentInformationManagementInterface;
 use Magento\Checkout\Api\Data\PaymentDetailsInterface;
 use Dyode\Checkout\Model\InfoProcessor\SaveManager;
@@ -53,23 +53,31 @@ class GuestPaymentInformationManagementPlugin
     protected $quoteMask;
 
     /**
+     * @var \Dyode\Checkout\Helper\CuracaoHelper
+     */
+    protected $curacaoHelper;
+
+    /**
      * GuestPaymentInformationManagementPlugin constructor.
      *
      * @param \Dyode\Checkout\Model\InfoProcessor\SaveManager $manager
      * @param \Dyode\Checkout\Api\Data\ShippingInformationInterface $shippingInformation
      * @param \Magento\Quote\Model\QuoteIdMaskFactory $quoteIdMaskFactory
      * @param \Magento\Quote\Api\CartRepositoryInterface $quoteRepository
+     * @param \Dyode\Checkout\Helper\CuracaoHelper $curacaoHelper
      */
     public function __construct(
         SaveManager $manager,
         ShippingInformationInterface $shippingInformation,
         QuoteIdMaskFactory $quoteIdMaskFactory,
-        CartRepositoryInterface $quoteRepository
+        CartRepositoryInterface $quoteRepository,
+        CuracaoHelper $curacaoHelper
     ) {
         $this->manager = $manager;
         $this->shippingInfo = $shippingInformation;
         $this->quoteIdMaskFactory = $quoteIdMaskFactory;
         $this->quoteRepository = $quoteRepository;
+        $this->curacaoHelper = $curacaoHelper;
     }
 
     /**
@@ -114,28 +122,8 @@ class GuestPaymentInformationManagementPlugin
      */
     protected function afterGetPaymentInformation(PaymentDetailsInterface $paymentInformation)
     {
-        $quote = $this->quoteRepository->get($this->quoteMask->getQuoteId());
-        $carrierInfo = [];
-        $deliveryMethodIdCodeRelation = DeliveryMethod::deliveryIdCodeRelations();
-
-        if ($quote) {
-            foreach ($quote->getItems() as $item) {
-                $deliveryType = 0;
-                if (isset($deliveryMethodIdCodeRelation[$item->getDeliveryType()])) {
-                    $deliveryType = $deliveryMethodIdCodeRelation[$item->getDeliveryType()];
-                }
-
-                $carrierInfo[] = [
-                    'quote_item_id' => $item->getItemId(),
-                    'shipping_type' => $deliveryType,
-                    'shipping_data' => (array)json_decode($item->getShippingDetails(), true),
-                ];
-            }
-        }
-
-        return $this->manager->updateShippingTotal(
-            $paymentInformation,
-            $this->shippingInfo->setShippingCarrierInfo($carrierInfo)
-        );
+        $includeCuracaoTotal = true;
+        $shippingAddressInfo = $this->curacaoHelper->getShippingCarrierInfoByQuoteItems($this->quoteMask->getQuoteId());
+        return $this->manager->updateShippingTotal($paymentInformation, $shippingAddressInfo, $includeCuracaoTotal);
     }
 }

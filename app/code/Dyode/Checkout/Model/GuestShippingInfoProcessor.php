@@ -64,12 +64,13 @@ class GuestShippingInfoProcessor implements GuestShippingInfoInterface
     {
         /** @var $quoteIdMask \Magento\Quote\Model\QuoteIdMask */
         $quoteIdMask = $this->quoteIdMaskFactory->create()->load($cartId, 'masked_id');
+        $includeCuracaoCredit = true;
         $this->manager->saveQuoteItemShippingInfo($quoteIdMask->getQuoteId(), $addressInformation);
         $paymentDetails = $this->shippingInformationManagement->saveAddressInformation(
             $quoteIdMask->getQuoteId(),
             $addressInformation
         );
 
-        return $this->manager->updateShippingTotal($paymentDetails, $addressInformation);
+        return $this->manager->updateShippingTotal($paymentDetails, $addressInformation, $includeCuracaoCredit);
     }
 }

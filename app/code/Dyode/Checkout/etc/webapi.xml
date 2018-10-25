@@ -9,8 +9,20 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
 
-    <route url="/V1/checkout/apply" method="POST">
-        <service class="Dyode\Checkout\Api\CreditManagementInterface" method="apply"/>
+    <route url="/V1/guest-carts/:cartId/curacao/collect-totals" method="GET">
+        <service class="Dyode\Checkout\Api\CreditManagementInterface" method="applyCuracaoCreditInTotals"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/guest-carts/:cartId/curacao/remove-totals" method="GET">
+        <service class="Dyode\Checkout\Api\CreditManagementInterface" method="removeCuracaoCreditFromTotals"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/carts/mine/curacao/collect-totals" method="GET">
+        <service class="Dyode\Checkout\Api\CreditManagementInterface" method="applyCuracaoCreditInTotals"/>
         <resources>
             <resource ref="self" />
         </resources>
@@ -18,8 +30,8 @@
             <parameter name="cartId" force="true">%cart_id%</parameter>
         </data>
     </route>
-    <route url="/V1/checkout/remove" method="DELETE">
-        <service class="Dyode\Checkout\Api\CreditManagementInterface" method="removecredit"/>
+    <route url="/V1/carts/mine/curacao/remove-totals" method="GET">
+        <service class="Dyode\Checkout\Api\CreditManagementInterface" method="removeCuracaoCreditFromTotals"/>
         <resources>
             <resource ref="self" />
         </resources>

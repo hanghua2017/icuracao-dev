@@ -6,7 +6,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
 
 	public function __construct(
-  \Dyode\ARWebservice\Helper\Data $apiHelper 
+      \Dyode\ARWebservice\Helper\Data $apiHelper 
   ) {
       $this->apiHelper = $apiHelper;
   }
