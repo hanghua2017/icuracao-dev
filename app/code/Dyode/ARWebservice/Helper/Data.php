@@ -9,40 +9,43 @@
  * @date      03/07/2018
  * @copyright Copyright © Dyode
  */
+
 namespace Dyode\ARWebservice\Helper;
 
 use Magento\Framework\Message\ManagerInterface as MessageManager;
 use Dyode\AuditLog\Model\ResourceModel\AuditLog;
 use Magento\Framework\App\Helper\Context;
+use Magento\Framework\Serialize\Serializer\Json;
 use Zend\Http\Client;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
-    *
-    * @var type \Magento\Framework\Message\ManagerInterface
-    */
+     *
+     * @var type \Magento\Framework\Message\ManagerInterface
+     */
     protected $messageManager;
 
     /**
-    *
-    * @var type \Magento\Framework\Message\ManagerInterface
-    */
+     *
+     * @var type \Magento\Framework\Message\ManagerInterface
+     */
     protected $auditLog;
 
     /**
-    *
-    * @var type \Zend\Http\Client
-    */
+     *
+     * @var type \Zend\Http\Client
+     */
     protected $zendClient;
 
     /**
      * Data constructor.
+     *
+     * @param \Magento\Framework\App\Helper\Context $context
      * @param \Magento\Framework\Message\ManagerInterface $messageManager
      * @param \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog
      * @param \Zend\Http\Client $zendClient
-     */    
-
+     */
     public function __construct(
         Context $context,
         MessageManager $messageManager,
@@ -63,310 +66,350 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         );
     }
 
-    /*
-    To retrieve the API user in system configuration
-    */
-    public function getApiUser(){
+    /**
+     * To retrieve the API user in system configuration
+     *
+     * @return string
+     */
+    public function getApiUser()
+    {
         return $this->getConfig('linkaccount/curacao/apiuser');
     }
-    /*
-    To retrieve the API Password in system configuration
-    */
-    public function getApiPass(){
+
+    /**
+     * To retrieve the API Password in system configuration
+     *
+     * @return string
+     */
+    public function getApiPass()
+    {
         return $this->getConfig('linkaccount/curacao/apipass');
     }
-    /*
-    To retrieve the WSDL Url in system configuration
-    */
-    public function getWsdlUrl(){
+
+    /**
+     * To retrieve the WSDL Url in system configuration
+     *
+     * @return string
+     */
+    public function getWsdlUrl()
+    {
         return $this->getConfig('linkaccount/curacao/wsdlurl');
     }
-    /*
-    To retrieve the API Url in system configuration
-    */
-    public function getApiUrl(){
+
+    /**
+     * To retrieve the API Url in system configuration
+     *
+     * @return string
+     */
+    public function getApiUrl()
+    {
         return $this->getConfig('linkaccount/curacao/apiurl');
     }
-    /*
-    To retrieve the REST API Key in system configuration
-    */
-    public function getApiKey(){
+
+    /**
+     * To retrieve the REST API Key in system configuration
+     *
+     * @return string
+     */
+    public function getApiKey()
+    {
         return $this->getConfig('linkaccount/curacao/apikey');
     }
 
-    /*
-    * Function to connect the AR using REST
-    * $fnName = fucntion namespace
-    * type = GET/POST
-    * $params as array
-    */
-    public function arConnect($fnName,$type,$params){
-        $apiUrl  = $this->getApiUrl();
-        $apiKey  = $this->getApiKey();
-        $result  = '';
-        $curlUrl = $apiUrl."/".$fnName;
-        
-        // if(!empty($params)){
-        //   $paramVal = '?';
-        //   $cnt = 0;
-        //   foreach($params as $key=>$value){
-        //     if($cnt == 0)
-        //       $paramVal .= $key."=".$value;
-        //     else
-        //       $paramVal .= "&".$key."=".$value;
-        //     $cnt++;
-        //   }
-        // }
-       
-        // $ch = curl_init($curlUrl);
-        // curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $type);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        // curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "X-Api-Key:".$apiKey));
+    /**
+     * Function to connect the AR using REST
+     *
+     * @param string $fnName Function namespace
+     * @param $params Parameters to pass to AR REST Service
+     * @return bool|\Zend\Http\Response
+     */
+    public function arConnect($fnName, $params)
+    {
+        $apiUrl = $this->getApiUrl();
+        $apiKey = $this->getApiKey();
+        $curlUrl = $apiUrl . $fnName;
 
-        // $result = curl_exec($ch);
-        // if($result === false){
-        //     echo "error";
-        //     exit;
-        // }
-        // if (curl_error($ch)) {
-        //     $this->_messageManager->addError(__('Please try after some time '));
-        //     return $this->_redirect('linkaccount/index');
-            
-        // }
-
-        //Call the AR Webservice
-        
-        try{
+        try {
             $this->zendClient->reset();
             $this->zendClient->setUri($curlUrl);
-            $this->zendClient->setMethod(\Zend\Http\Request::METHOD_GET); 
-       	    $this->zendClient->setHeaders([
+            $this->zendClient->setMethod(\Zend\Http\Request::METHOD_GET);
+            $this->zendClient->setParameterGet($params);
+            $this->zendClient->setHeaders([
                 'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-                'Authorization' => $apiKey,
-               ]);
-               
-       	    $this->zendClient->setParameterPost($params);
-            
-       	    $this->zendClient->send();
-            $result = $this->zendClient->getResponse();
+                'Accept'       => 'application/json',
+                'X-Api-Key'    => $apiKey,
+            ]);
 
-        }catch(\Zend\Http\Exception\RuntimeException $runtimeException){
+            $this->zendClient->send();
+            return $this->zendClient->getResponse();
+
+        } catch (\Zend\Http\Exception\RuntimeException $runtimeException) {
             $this->auditLog->saveAuditLog([
-                'user_id' => "",
-                'action' => 'AR webservice',
+                'user_id'     => "",
+                'action'      => 'AR webservice',
                 'description' => "Fail to connect AR webservice",
-                'client_ip' => "",
-                'module_name' => "Dyode_ARWebservice"
+                'client_ip'   => "",
+                'module_name' => "Dyode_ARWebservice",
             ]);
             $this->messageManager->addError(__('Please try after some time '));
             return false;
         }
-
-        return $result;
     }
 
-    /*=== Get customer information from AR by using customer ID ===*/
-    public function getARCustomerInfoAction($cu_account){
+    /**
+     * Get customer information from AR by using customer ID
+     *
+     * @param  string $cu_account
+     * @return \stdClass|bool
+     */
+    public function getARCustomerInfoAction($cu_account)
+    {
 
-        if(!isset($cu_account)){return false; }
-        if(!is_numeric($cu_account)){return false;}
-        $params = array('cust_id' => $cu_account);
+        /**
+         * @var \Zend\Http\Response|bool $restResponse
+         * @var \stdClass $result
+         */
 
-        $restResponse =  $this->arConnect('GetCustomerContact', 'GET',$params);
-        $result = json_decode($restResponse);
-        
-        if($result == false) {           
+        if (!isset($cu_account) || !is_numeric($cu_account)) {
             return false;
         }
-        if($result->OK != true){
+
+        //sending api request
+        $params = ['cust_id' => $cu_account];
+        $restResponse = $this->arConnect('GetCustomerContact', $params);
+
+        if (!$restResponse) {
+            return false;
+        }
+
+        $result = json_decode($restResponse->getBody());
+
+        if ($result->OK != true) {
+
             //logging audit log
             $this->auditLog->saveAuditLog([
-                'user_id' => "",
-                'action' => 'Get AR Customer Contact',
+                'user_id'     => "",
+                'action'      => 'Get AR Customer Contact',
                 'description' => "Fail to get customer contact",
-                'client_ip' => "",
-                'module_name' => "Dyode_ARWebservice"
+                'client_ip'   => "",
+                'module_name' => "Dyode_ARWebservice",
             ]);
             $this->messageManager->addError(__($result->INFO));
-           return false;
+            return false;
         }
 
         //logging audit log
         $this->auditLog->saveAuditLog([
-            'user_id' => "",
-            'action' => 'Get AR Customer Contact',
+            'user_id'     => "",
+            'action'      => 'Get AR Customer Contact',
             'description' => "Obtained Customer Contact for id " . $cu_account,
-            'client_ip' => "",
-            'module_name' => "Dyode_ARWebservice"
+            'client_ip'   => "",
+            'module_name' => "Dyode_ARWebservice",
         ]);
 
         $custInfo = $result->DATA;
         return $custInfo;
 
     }
-    /*=== Validate Customer Information and get DownPayment ===*/
-    public function verifyPersonalInfm($customerDetails){
-        $restResponse =  $this->arConnect('ValidateDP', 'GET',$customerDetails);
-        $result = json_decode($restResponse);
-            
-        if($result == false) {           
+
+    /**
+     * Validate Customer Information and get DownPayment
+     *
+     * @param array $customerDetails
+     * @return bool
+     */
+    public function verifyPersonalInfm(array $customerDetails)
+    {
+        $restResponse = $this->arConnect('ValidateDP', $customerDetails);
+
+        if (!$restResponse) {
             return false;
         }
 
-        if($result->OK != true){
+        $result = json_decode($restResponse->getBody());
+
+        if ($result->OK != true) {
+
             //logging audit log
             $this->auditLog->saveAuditLog([
-                'user_id' => "",
-                'action' => 'AR Customer Details Verification',
+                'user_id'     => "",
+                'action'      => 'AR Customer Details Verification',
                 'description' => "Fail to Verify Customer Details",
-                'client_ip' => "",
-                'module_name' => "Dyode_ARWebservice"
+                'client_ip'   => "",
+                'module_name' => "Dyode_ARWebservice",
             ]);
             $this->messageManager->addError(__($result->INFO));
             return false;
         }
 
-            //logging audit log
-            $this->auditLog->saveAuditLog([
-                'user_id' => "",
-                'action' => 'AR Customer Details Verification',
-                'description' => "AR Customer details verification success",
-                'client_ip' => "",
-                'module_name' => "Dyode_ARWebservice"
-            ]);
+        //logging audit log
+        $this->auditLog->saveAuditLog([
+            'user_id'     => "",
+            'action'      => 'AR Customer Details Verification',
+            'description' => "AR Customer details verification success",
+            'client_ip'   => "",
+            'module_name' => "Dyode_ARWebservice",
+        ]);
 
         $verifiedResult = $result->DATA;
         return $verifiedResult;
 
     }
 
-    /*=== Function to send the verification code ===*/
-    /* $type 0 -> Send code as text
-    *        1-> Send code as Voice
-    */
+
+    /**
+     * Function to send the verification code
+     *
+     * $type 0 -> Send code as text; 1-> Send code as Voice
+     *
+     * @param $_phonenumber
+     * @param $_times
+     * @param $_type
+     * @return int|string
+     */
     public function phoneVerifyCode($_phonenumber, $_times, $_type)
     {
-          $salt = 'ag#A\J9.u=j^v}X3';
-          $code = rand(10000,  99999);
-          $url = '';
-          $_phonenumber = '(832)977-1260';
+        $salt = 'ag#A\J9.u=j^v}X3';
+        $code = rand(10000, 99999);
+        $_phonenumber = '(832)977-1260';
 
-          if($_type == 1 )
-          {
-                  $wsdlUrl = $this->getConfig('linkaccount/curacao/phonewsdlurl');
-                  $countryCode = '1';
-                  $phone = $_phonenumber;
-                  $valuesToDelete = array('(', ')', '-', ' ');
-                  $phone = str_replace($valuesToDelete, '', $phone);
-                  $phoneNumber = $phone;
-                  $licenseKey = $this->getConfig('linkaccount/curacao/licensekey');
-                  $callerID = $this->getConfig('linkaccount/curacao/callerid');
-                  $language = 'en';
-                  $verifyCode = $code;
-                  $extension = '';
-                  $extensionPauseTime = '';
+        if ($_type == 1) {
+            $wsdlUrl = $this->getConfig('linkaccount/curacao/phonewsdlurl');
+            $countryCode = '1';
+            $phone = $_phonenumber;
+            $valuesToDelete = ['(', ')', '-', ' '];
+            $phone = str_replace($valuesToDelete, '', $phone);
+            $phoneNumber = $phone;
+            $licenseKey = $this->getConfig('linkaccount/curacao/licensekey');
+            $callerID = $this->getConfig('linkaccount/curacao/callerid');
+            $language = 'en';
+            $verifyCode = $code;
+            $extension = '';
+            $extensionPauseTime = '';
 
-                  $URL = $wsdlUrl."PlaceCall?CountryCode=".$countryCode."&PhoneNumber=".$phoneNumber."&Extension=".$extension."&ExtensionPauseTime=".$extensionPauseTime."&VerificationCode=".$verifyCode."&CallerID=".$callerID."&Language=".$language."&LicenseKey=".$licenseKey;
+            $URL = $wsdlUrl . "PlaceCall?CountryCode=" . $countryCode . "&PhoneNumber=" . $phoneNumber . "&Extension=" . $extension . "&ExtensionPauseTime=" . $extensionPauseTime . "&VerificationCode=" . $verifyCode . "&CallerID=" . $callerID . "&Language=" . $language . "&LicenseKey=" . $licenseKey;
 
-                  // Get cURL resource
-                  $curl = curl_init();
-                  curl_setopt_array($curl, array(CURLOPT_RETURNTRANSFER => 1, CURLOPT_URL => $URL, CURLOPT_USERAGENT => 'Service Objects Telephone Verification'));
-                  curl_setopt($curl, CURLOPT_TIMEOUT, 50); //timeout in seconds
-                  // Send the request & save response to $resp
-                  $resp = curl_exec($curl);
+            // Get cURL resource
+            $curl = curl_init();
+            curl_setopt_array($curl, [
+                CURLOPT_RETURNTRANSFER => 1,
+                CURLOPT_URL            => $URL,
+                CURLOPT_USERAGENT      => 'Service Objects Telephone Verification',
+            ]);
+            curl_setopt($curl, CURLOPT_TIMEOUT, 50); //timeout in seconds
+            // Send the request & save response to $resp
+            $resp = curl_exec($curl);
 
-                  if($resp == false)
-                  {
-                      curl_close($curl);
-                      return -1;
-                  }
+            if ($resp == false) {
+                curl_close($curl);
+                return -1;
+            }
 
-          }
-          else
-          {
-                  $apiUrl = $this->getConfig('linkaccount/curacao/phonewsdlurl');
-                  $countryCode = '1';
-                  $phone = $_phonenumber;
-                  $valuesToDelete = array('(', ')', '-', ' ');
-                  $phone = str_replace($valuesToDelete, '', $phone);
-                  $phoneNumber = $phone;
-                  $licenseKey = $this->getConfig('linkaccount/curacao/licensekey');
-                  $message = 'Your Curacao verification code is ' . $code . '.';
+        } else {
+            $apiUrl = $this->getConfig('linkaccount/curacao/phonewsdlurl');
+            $countryCode = '1';
+            $phone = $_phonenumber;
+            $valuesToDelete = ['(', ')', '-', ' '];
+            $phone = str_replace($valuesToDelete, '', $phone);
+            $phoneNumber = $phone;
+            $licenseKey = $this->getConfig('linkaccount/curacao/licensekey');
+            $message = 'Your Curacao verification code is ' . $code . '.';
 
-                  //use backup url once given purchased license key
-                  $backupURL = $this->getConfig('linkaccount/curacao/backupurl')."SendSMS?CountryCode=".urlencode($countryCode)."&PhoneNumber=".urlencode($phoneNumber)."&Message=".urlencode($message)."&LicenseKey=".urlencode($licenseKey);
+            //use backup url once given purchased license key
+            $backupURL = $this->getConfig('linkaccount/curacao/backupurl') . "SendSMS?CountryCode=" . urlencode($countryCode) . "&PhoneNumber=" . urlencode($phoneNumber) . "&Message=" . urlencode($message) . "&LicenseKey=" . urlencode($licenseKey);
 
-                  $URL = $apiUrl."SendSMS?CountryCode=".$countryCode."&PhoneNumber=".$phoneNumber."&Message=".$message."&LicenseKey=".$licenseKey;
+            $URL = $apiUrl . "SendSMS?CountryCode=" . $countryCode . "&PhoneNumber=" . $phoneNumber . "&Message=" . $message . "&LicenseKey=" . $licenseKey;
 
-                  // Get cURL resource
-                  $curl = curl_init();
-                  curl_setopt_array($curl, array(CURLOPT_RETURNTRANSFER => 1, CURLOPT_URL => $URL, CURLOPT_USERAGENT => 'Service Objects Telephone Verification'));
-                  curl_setopt($curl, CURLOPT_TIMEOUT, 50); //timeout in seconds
-                  // Send the request & save response to $resp
-                  $resp = curl_exec($curl);
-                  // Close request to clear up some resources
-                  if($resp == false)
-                  {
-                      curl_setopt_array($curl, array(CURLOPT_RETURNTRANSFER => 1, CURLOPT_URL => $backupURL, CURLOPT_USERAGENT => 'Service Objects Telephone Verification'));
-                      curl_setopt($curl, CURLOPT_TIMEOUT, 50); //timeout in seconds
-                      // Send the request & save response to $resp
-                      $resp = curl_exec($curl);
-                      if($resp == false)
-                      {
-                          curl_close($curl);
-                          return -1;
-                      }
-                 }
-          }
-          return trim(md5($salt . $code));
-  }
-
-  // Verify code return 0 is verified
-  public function verifyCode($_enc, $_vid)
-  {
-      $salt = 'ag#A\J9.u=j^v}X3';
-      if(trim($_enc) === trim(md5($salt . $_vid)))
-          return 0;
-      else
-          return -1;
-  }
-  /*==== Function to return the credit limit ===*/
-  public function getCreditLimit($cu_account){
-    if(!isset($cu_account)){return false; }
-    if(!is_numeric($cu_account)){return false;}
-
-    $params = array('cust_id' => $cu_account);
-
-    $restResponse =  $this->arConnect('GetCustomerCreditLimit', 'GET',$params);
-    $result = json_decode($restResponse);
-
-    if($result == false) {           
-        return false;
+            // Get cURL resource
+            $curl = curl_init();
+            curl_setopt_array($curl, [
+                CURLOPT_RETURNTRANSFER => 1,
+                CURLOPT_URL            => $URL,
+                CURLOPT_USERAGENT      => 'Service Objects Telephone Verification',
+            ]);
+            curl_setopt($curl, CURLOPT_TIMEOUT, 50); //timeout in seconds
+            // Send the request & save response to $resp
+            $resp = curl_exec($curl);
+            // Close request to clear up some resources
+            if ($resp == false) {
+                curl_setopt_array($curl, [
+                    CURLOPT_RETURNTRANSFER => 1,
+                    CURLOPT_URL            => $backupURL,
+                    CURLOPT_USERAGENT      => 'Service Objects Telephone Verification',
+                ]);
+                curl_setopt($curl, CURLOPT_TIMEOUT, 50); //timeout in seconds
+                // Send the request & save response to $resp
+                $resp = curl_exec($curl);
+                if ($resp == false) {
+                    curl_close($curl);
+                    return -1;
+                }
+            }
+        }
+        return trim(md5($salt . $code));
     }
 
-    if($result->OK != 1){
+    /**
+     * Verify code return 0 is verified
+     *
+     * @param $_enc
+     * @param $_vid
+     * @return int
+     */
+    public function verifyCode($_enc, $_vid)
+    {
+        $salt = 'ag#A\J9.u=j^v}X3';
+        if (trim($_enc) === trim(md5($salt . $_vid))) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+
+    /**
+     * Function to return the credit limit
+     *
+     * @param array $cu_account
+     * @return bool
+     */
+    public function getCreditLimit($cu_account)
+    {
+        if (!isset($cu_account) || !is_numeric($cu_account)) {
+            return false;
+        }
+
+        $params = ['cust_id' => $cu_account];
+        $restResponse = $this->arConnect('GetCustomerCreditLimit', $params);
+
+        if (!$restResponse) {
+            return false;
+        }
+
+        $result = json_decode($restResponse->getBody());
+
+        if ($result->OK != 1) {
+
+            //logging audit log
+            $this->auditLog->saveAuditLog([
+                'user_id'     => "",
+                'action'      => 'AR Customer Credit Limit',
+                'description' => "AR Customer Credit Limit Failed",
+                'client_ip'   => "",
+                'module_name' => "Dyode_ARWebservice",
+            ]);
+            $this->messageManager->addError(__($result->INFO));
+            return false;
+        }
+
         //logging audit log
         $this->auditLog->saveAuditLog([
-            'user_id' => "",
-            'action' => 'AR Customer Credit Limit',
-            'description' => "AR Customer Credit Limit Failed",
-            'client_ip' => "",
-            'module_name' => "Dyode_ARWebservice"
+            'user_id'     => "",
+            'action'      => 'AR Customer Credit Limit',
+            'description' => "AR Customer Credit Limit success",
+            'client_ip'   => "",
+            'module_name' => "Dyode_ARWebservice",
         ]);
-        $this->messageManager->addError(__($result->INFO));
-        return false;
+        return $result->DATA;
     }
-    //logging audit log
-    $this->auditLog->saveAuditLog([
-        'user_id' => "",
-        'action' => 'AR Customer Credit Limit',
-        'description' => "AR Customer Credit Limit success",
-        'client_ip' => "",
-        'module_name' => "Dyode_ARWebservice"
-    ]);
-    return $result->DATA;
-  }
 
 }
-?>
