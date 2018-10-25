@@ -21,6 +21,9 @@ var config = {
             },
             'Magento_SalesRule/js/view/summary/discount': {
                 'Dyode_Checkout/js/mixin/summary/totals-mixin': true
+            },
+            'Magento_Checkout/js/view/progress-bar': {
+                'Dyode_Checkout/js/mixin/progress-bar-mixin': true
             }
         }
     }

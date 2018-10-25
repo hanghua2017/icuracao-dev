@@ -188,8 +188,8 @@ class Codeverify extends Action
 
                       try{
                             $customAddress->save();
-                            $customer->setAddress($customAddress);
-                            $customer->save();
+                          //  $customer->setAddress($customAddress);
+                           // $customer->save();
                             $this->_customerSession->setCustomerAsLoggedIn($customer);
                             if(isset($path)){
                               $defaultUrl = $this->urlModel->getUrl('linkaccount/verify/success', ['_secure' => true]);       
@@ -200,9 +200,12 @@ class Codeverify extends Action
                       }
                       catch (Exception $e) {
                         $errorMessage = $e->getMessage();
-                         $this->messageManager->addErrorMessage('Code is wrong'.$errorMessage);
+                         $this->messageManager->addErrorMessage('Shipping address could not be saved');
                         $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
                       }
+                } else {
+                    $this->messageManager->addErrorMessage('Code is wrong'.$errorMessage);
+                        $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
                 }
             }           
         } else{
