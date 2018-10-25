@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Dyode_CheckoutAddressStep Magento2 Module.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package Dyode
+ * @module  Dyode_CheckoutAddressStep
+ * @author  Kavitha <kavitha@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <shippingsettings>
+            <curacao_shipping>
+                <uspsurl>http://production.shippingapis.com/ShippingAPI.dll</uspsurl>
+                <stampsurl>https://swsim.testing.stamps.com/swsim/swsimv62.asmx?wsdl</stampsurl>
+                <stampuser>Curacao-001</stampuser>
+                <stamppass>postage1</stamppass>
+                <integrationid>878f540b-c09e-4d21-a3ea-e738683ddbc0</integrationid>
+                <price>10.28</price>
+                <uspsuserid>403CURAC6814</uspsuserid>
+                <uspssize>Regular</uspssize>
+                <uspscontainer>Variable</uspscontainer>
+                <zipcodefrom>90015</zipcodefrom>
+            </curacao_shipping>
+        </shippingsettings>
+    </default>
+</config>

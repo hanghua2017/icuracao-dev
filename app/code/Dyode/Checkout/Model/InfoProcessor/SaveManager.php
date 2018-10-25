@@ -101,6 +101,16 @@ class SaveManager
     /**
      * Update totals with total shipping amount cost.
      *
+     * Changing shipping amount: We have shipping amount based on the quote item instead of quote. Hence according
+     * to the user selection of shipping methods against each quote item, we are calculating the totals shipping
+     * amount by looping through each quote items data.
+     *
+     * Changing grand total: Grand total which we are getting at this stage has tax and discount applied in it. So
+     * we need to add shipping cost along to that in order to make the grand total correct.
+     *
+     * Curacao credit: This is applicable to only curacao users. We are just showing this data as an initial
+     * down payment, just after the "Order Total" part. Hence no need to change other totals based on this.
+     *
      * @param \Magento\Checkout\Api\Data\PaymentDetailsInterface $paymentDetails
      * @param \Dyode\Checkout\Api\Data\ShippingInformationInterface $addressInformation
      * @param bool $includeCuracaoTotal
@@ -121,7 +131,7 @@ class SaveManager
             $curacaoDiscount = $this->curacaoHelper->getCuracaoDownPayment();
         }
 
-        $totals->setShippingAmount($totals->getShippingAmount() + $shippingAmount);
+        $totals->setShippingAmount($shippingAmount);
         $totals->setGrandTotal($grandTotal);
 
         //total segment is also updating; this field is used to show grand total in the checkout
@@ -129,6 +139,8 @@ class SaveManager
         if ($totalSegments && $totalSegments['grand_total']) {
             $totalSegments['grand_total']->setValue($grandTotal);
         }
+
+        //updating curacao total segment in order to show it in the frontend.
         if ($totalSegments && $totalSegments['curacao_discount']) {
             $totalSegments['curacao_discount']->setValue($curacaoDiscount);
         }
