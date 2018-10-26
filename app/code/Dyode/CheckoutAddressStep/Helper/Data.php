@@ -161,15 +161,18 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper{
     * Function to return the rate using UPS
     */
     public function getUPSRates($zipcode, $weight, $height = '', $length = '', $width = ''){
+        if(!$weight){
+            $weight = '50';
+        }
         $_ups_package_types = array('02' => 'Package');
 
- 	    $geoLocation = $this->geoCoordinateRepository->getById($toZip);
+ 	    $geoLocation = $this->geoCoordinateRepository->getById($zipcode);
         $toCity = $geoLocation->getCity();
         $toState = $geoLocation->getAbbr();
         $fromState = 'CA';
 
-        $upsUrl = $this->getConfigData('shippingsettings/curacao_ups/upsurl');
-        $upsShipper = $this->getConfigData('shippingsettings/curacao_ups/upsshipper');
+        $upsUrl = $this->getConfig('shippingsettings/curacao_ups/upsurl');
+        $upsShipper = $this->getConfig('shippingsettings/curacao_ups/upsshipper');
 
         $this->startWriter('RatingServiceSelectionRequest', 'en-US');
 
@@ -187,7 +190,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper{
         $this->_xmlWriter->startElement('Shipper');
     	$this->_xmlWriter->writeElement('Name');
     	if ($upsShipper)
-    		$this->_xmlWriter->writeElement('ShipperNumber',upsShipper);
+    		$this->_xmlWriter->writeElement('ShipperNumber',$upsShipper);
     	$this->_xmlWriter->startElement('Address');
     	$this->_xmlWriter->writeElement('AddressLine1');
     	$this->_xmlWriter->writeElement('city');
@@ -214,12 +217,60 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper{
         $this->writeDimensions($length,$width,$height,$weight,'02');
 
         $this->_xmlWriter->endElement();
-
+ 
         $xmlrequest = $this->endWriter();
 
-        $result = $this->getCurl($upsUrl . '/Rate', $this->setXMLAccessRequest() . $xmlrequest);
-    	$xml = simplexml_load_string($result);
+        $xmlResponse = $this->getCurl($upsUrl . '/Rate', $this->setXMLAccessRequest() . $xmlrequest);
+        $xml = simplexml_load_string($xmlResponse);
+       
+        // $xml = new \Magento\Framework\Simplexml\Config();
+        // $xml->loadString($xmlResponse);
+        // print_r($xmlResponse);
 
+        $options = $xml->RatedShipment;
+       
+        $available_options = array();
+        foreach ($options as $option){
+
+            $code = $option->Service->Code;
+           
+            switch ($code){
+    			case '03':	//UPS_GROUND
+    				$rate = $option->NegotiatedRates->NetSummaryCharges->GrandTotal->MonetaryValue ? (float) $option->NegotiatedRates->NetSummaryCharges->GrandTotal->MonetaryValue : (float) $xml->RatedShipment->RatedPackage->TotalCharges->MonetaryValue;
+    				$available_options[] = array(
+    						'Code'			=> 'G',
+    						'UPSCode'		=> '03',
+    						'Service'		=> 'UPS_GROUND',
+    						'Description'	=> 'UPS Ground',
+    						'Rate'			=> $rate
+    				);
+                   
+                    break;
+                case '12':	//UPS_3_DAYS
+                	$rate = $option->NegotiatedRates->NetSummaryCharges->GrandTotal->MonetaryValue ? (float) $option->NegotiatedRates->NetSummaryCharges->GrandTotal->MonetaryValue : (float) $xml->RatedShipment->RatedPackage->TotalCharges->MonetaryValue;
+                	$available_options[] = array(
+                			'Code'		=> 'G',
+                    		'UPSCode'	=> '12',
+                       		'Service'	=> 'UPS_3_DAYS',
+                       		'Description'=> 'UPS 3 Days',
+                       		'Rate'		=> $rate
+                        );
+                    break;
+                case '02':	//UPS_2ND_DAY
+                	$rate = $option->NegotiatedRates->NetSummaryCharges->GrandTotal->MonetaryValue ? (float) $option->NegotiatedRates->NetSummaryCharges->GrandTotal->MonetaryValue : (float) $xml->RatedShipment->RatedPackage->TotalCharges->MonetaryValue;
+                	$available_options[] = array(
+                			'Code'		=> 'G',
+                			'UPSCode'	=> '02',
+                			'Service'	=> 'UPS_2ND_DAY',
+                			'Description'=> 'UPS 2nd Day',
+                			'Rate'		=> $rate
+                       	);
+                    break;
+
+                default: break;
+            }
+        }
+        return $available_options;
     }
     /**
      * Function for the starting of XML
@@ -256,14 +307,14 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper{
     */
     protected function setXMLAccessRequest()
     {
-        $userId = $this->getConfigData('shippingsettings/curacao_ups/upsuserid');
-        $userIdPass = $this->getConfigData('shippingsettings/curacao_ups/upspassword');
-        $accessKey = $this->getConfigData('shippingsettings/curacao_ups/upsaccesskey');
+        $userId = $this->getConfig('shippingsettings/curacao_ups/upsuserid');
+        $userIdPass = $this->getConfig('shippingsettings/curacao_ups/upspassword');
+        $accessKey = $this->getConfig('shippingsettings/curacao_ups/upsaccesskey');
 
         $this->startWriter('AccessRequest', 'en-US');
-        $this->writer->writeElement('AccessLicenseNumber', $accessKey);
-        $this->writer->writeElement('UserId', $userId);
-        $this->writer->writeElement('Password',$userIdPass);
+        $this->_xmlWriter->writeElement('AccessLicenseNumber', $accessKey);
+        $this->_xmlWriter->writeElement('UserId', $userId);
+        $this->_xmlWriter->writeElement('Password',$userIdPass);
         return $this->endWriter();
     }
     /**
@@ -296,7 +347,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper{
     /**
      * Function to add the Dimensions
      */
-    public function writeDimensions($length,$width,$height,$weight,$package_type = '02'){
+    public function writeDimensions($length='10',$width='10',$height='10',$weight,$package_type = '02'){
         
         $this->_xmlWriter->startElement('Package');
        
@@ -314,11 +365,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper{
         $this->_xmlWriter->writeElement('Weight', $weight);
         $this->_xmlWriter->endElement();
 
-        $this->_xmlWriter->startElement('Dimensions');
-        $this->_xmlWriter->writeElement('Length', $length);
-        $this->_xmlWriter->writeElement('Width', $width);
-        $this->_xmlWriter->writeElement('Height', $height);
-        $this->_xmlWriter->endElement();
+        // $this->_xmlWriter->startElement('Dimensions');
+        // $this->_xmlWriter->writeElement('Length', $length);
+        // $this->_xmlWriter->writeElement('Width', $width);
+        // $this->_xmlWriter->writeElement('Height', $height);
+        // $this->_xmlWriter->endElement();
 
         $this->_xmlWriter->endElement();
     }
