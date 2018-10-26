@@ -59,6 +59,11 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
     protected $_productRepository;
 
     /**
+     * @var \Magento\Sales\Model\Service\InvoiceService
+     */
+    protected $_invoiceService;
+
+    /**
      * Construct
      *
      * @param \Magento\Framework\Model\Context $context
@@ -71,6 +76,8 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
      * @param \Dyode\Signifyd\Model\Signifyd $signifydModel
      * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface
      * @param \Magento\Catalog\Model\ProductRepository $productRepository
+     * @param \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
+     * @param \Magento\Sales\Model\Service\InvoiceService $invoiceService,
      * @param \Magento\Framework\Registry $data
      */
 	public function __construct(
@@ -85,6 +92,8 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
         \Magento\Catalog\Model\ProductRepository $productRepository,
         \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
+        \Magento\Sales\Model\Service\InvoiceService $invoiceService,
+        \Magento\Framework\DB\Transaction $transaction,
         \Magento\Framework\Registry $data
     ) {
         $this->_orderCollectionFactory = $orderCollectionFactory;
@@ -97,6 +106,8 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         $this->_customerRepositoryInterface = $customerRepositoryInterface;
         $this->_productRepository = $productRepository;
         $this->auditLog = $auditLog;
+        $this->_invoiceService = $invoiceService;
+        $this->_transaction = $transaction;
 		return parent::__construct($context, $data);
 	}
 
@@ -150,7 +161,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         # Validating the Account Number
         $accountNumber = $this->_arInvoiceHelper->validateAccountNumber($accountNumber);
 
-        if (($accountNumber == "500-8555") && ($orderType == "full_credit_card")) {
+        if (($accountNumber !== "500-8555")) {
             # Getting the Check Customer Status - num 54421729
             $customerStatusResponse = $this->_customerStatusHelper->checkCustomerStatus($order, $accountNumber);
             $customerStatus = json_decode($customerStatusResponse);
@@ -296,6 +307,16 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             $order->addStatusToHistory($order->getStatus(), 'Estimate Number: ' . $estimateNumber );     # Add Comment to Order History
             $order->save();
 
+            //generating magento invoice
+            if($order->canInvoice()) {
+                $invoice = $this->_invoiceService->prepareInvoice($order);
+                $invoice->register();
+                $invoice->save();
+
+                $transactionSave = $this->_transaction->addObject($invoice)->addObject($invoice->getOrder());
+                $transactionSave->save();
+            }
+
             //logging audit log
             $this->auditLog->saveAuditLog([
                 'user_id' => $inputArray['CustomerID'],
@@ -309,7 +330,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
              * Customer Status Validation
              */
             if ((!empty($customerStatus)) && ($customerStatus->customerstatus == false || $customerStatus->addressmismatch == true || $customerStatus->soft == true)) {
-                $order->setState("payment_review")->setStatus("credit_review");    # Change the Order Status and Order State
+                $order->setState("pending_payment")->setStatus("creditreview");    # Change the Order Status and Order State
                 $order->addStatusToHistory($order->getStatus(), 'Your Credit is being Reviewed');     # Add Comment to Order History
                 $order->save();     # Save the Changes in Order Status & History
                 # Notify Customer  - incomplete...
