@@ -116,14 +116,23 @@ class ConfigProvider implements ConfigProviderInterface
     public function getLimit()
     {
         $curaAccId = $this->getCuracaoId();
+        $limit = 0;
+
         if ($curaAccId) {
             $this->_curacaoId = $curaAccId;
-            $result = $this->_helper->getCreditLimit($curaAccId);
-            $limit = (float)$result->CREDITLIMIT;
             $this->_canApply = 1;
+
+            $result = $this->_helper->getCreditLimit($curaAccId);
+
+            if ($result) {
+                $limit = (float)$result->CREDITLIMIT;
+            }
+
             $formattedCurrencyValue = $this->_priceHelper->currency($limit, true, false);
+
             return $formattedCurrencyValue;
         }
+
         return false;
     }
 

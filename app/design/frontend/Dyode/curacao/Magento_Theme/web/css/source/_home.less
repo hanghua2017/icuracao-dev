@@ -1066,13 +1066,19 @@
 	display: block !important;
 
 }
-.messages
+.page.messages
 {
-	.message
-	{
-		&:first-child
+	.messages{
+		display: none;
+		&:last-child{
+			display: block;
+		}
+		.message
 		{
 			display: none;
+			&:last-child{
+				display: block;
+			}
 		}
 	}
 }
