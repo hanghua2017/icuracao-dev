@@ -31,7 +31,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
 			$request = new \Zend\Http\Request();
 			$request->setHeaders($httpHeaders);
-			$request->setUri($apiUrl."getStock?top50=true");
+			$request->setUri($apiUrl."getStock?top50=false");
 			$request->setMethod(\Zend\Http\Request::METHOD_GET);
 
 			$client = new \Zend\Http\Client();

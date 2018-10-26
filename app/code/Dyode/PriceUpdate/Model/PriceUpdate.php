@@ -108,7 +108,7 @@ class PriceUpdate extends \Magento\Framework\Model\AbstractModel
             ]);
             $request = new \Zend\Http\Request();
             $request->setHeaders($httpHeaders);
-            $request->setUri($apiUrl.'getPrices?top50=true');
+            $request->setUri($apiUrl.'getPrices?top50=false');
             $request->setMethod(\Zend\Http\Request::METHOD_GET);
 
             $client = new \Zend\Http\Client();
