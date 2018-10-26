@@ -14,7 +14,7 @@ use Dyode\ARWebservice\Helper\Data;
  * @module   PriceUpdate
  * @author   Nithin
  */
-class PriceUpdate extends \Magento\Framework\View\Element\Template
+class PriceUpdate extends \Magento\Framework\Model\AbstractModel
 {
 
     public $productCollectionFactory;
@@ -37,7 +37,7 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         Data $apiHelper,
         \Dyode\PriceUpdate\Helper\Data $priceHelper,
-        array $data = []
+        $data = []
     ) {
         $this->productCollectionFactory = $productCollectionFactory;
         $this->productRepository = $productRepository;

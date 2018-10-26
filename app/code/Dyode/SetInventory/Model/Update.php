@@ -3,7 +3,7 @@ namespace Dyode\SetInventory\Model;
 
 use \Magento\Framework\Model\AbstractModel;
 
-class Update extends \Magento\Framework\View\Element\Template {
+class Update extends \Magento\Framework\Model\AbstractModel {
     /** @var \Magento\Sales\Model\ResourceModel\Order\CollectionFactory */
    protected $_productCollectionFactory;
    /** @var \Magento\Sales\Model\ResourceModel\Order\Collection */
