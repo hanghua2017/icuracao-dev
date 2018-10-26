@@ -307,3 +307,22 @@
 "Billing Last Name","Apellido de facturación"
 "Email","Email"
 "Email Address","Dirección de correo electrónico"
+'Please enter shipping address if you have opted for "ship to Home".','Por favor, introduzca la dirección de envío si ha optado por "enviar a casa".'
+"Add a new ship address","Añadir una nueva dirección de envío"
+"Billing Address | Shipping Address","Dirección de facturación | Dirección de Envío"
+'Enter billing address to process the invoice in case of both "Ship to home" or "Store Pickup".','ngrese la dirección de facturación para procesar la factura en caso de "Enviar a domicilio" o "Recoger en tienda".'
+'Be sure to click "Save this address" when done','
+Asegúrese de hacer clic en "Guardar esta dirección" cuando haya terminado'
+"Address Lane 1","Dirección carril 1"
+"Address Lane 2","Dirección carril 2"
+"Delivery Method","Método de entrega"
+"Not yet calculated","Aún no calculado"
+"Forgot Your Password?","Olvidó su contraseña?"
+"When do you need your order?","Cuándo necesitas tu pedido?"
+"Shipping address","Dirección de Envío"
+"Billing address","Dirección de Envio"
+"Don’t have a Curacao account?","No tienes una cuenta en Curazao?"
+"Pay with Curacao credit","Pagar con credito de curacao"
+"Have a curacao account?","Tienes una cuenta de curazao?"
+"Enter account number or code","Ingrese el número de cuenta o código"
+"If you have received our pre-approved offer, enter your activation code to set up your account","Si ha recibido nuestra oferta preaprobada, ingrese su código de activación para configurar su cuenta"
