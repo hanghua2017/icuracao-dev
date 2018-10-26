@@ -52,7 +52,7 @@ class CancelAdminOrder implements ObserverInterface
 		if (empty($invoiceNumber)) {
 			$logger->info("Order Id : " . $order->getIncrementId());
 			$logger->info("Invoice Number Not found ");
-			throw new Exception("Invoice Number Not found ");
+			throw new \Exception("Invoice Number Not found ");
 		}
 		$response = $this->_cancelOrderHelper->cancelEstimate($invoiceNumber);
 
@@ -70,7 +70,7 @@ class CancelAdminOrder implements ObserverInterface
                 'module_name' => "Dyode_ArOrderCancel"
             ]);
 
-			throw new Exception("API Response not Found", 1);
+			throw new \Exception("API Response not Found", 1);
 		}
 
 		if ($response->OK != true) {
