@@ -40,7 +40,7 @@
                        //product in sales
                       $_savePercent = 100-round(($_finalPrice / $_price) * 100);
                  ?>
-                  <span class="discount-flag"><?php echo $_savePercent . "% Off";?></span>
+                  <span class="discount-flag"><?php echo $_savePercent;?>%<?php echo __('Off');?></span>
                   <?php
                 // endif;
               endif;
