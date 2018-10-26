@@ -40,8 +40,8 @@ class Code extends \Magento\Framework\App\Action\Action {
       
       $accountNumber = $this->_coreSession->getCurAcc();
       $accountInfo   =  $this->_helper->getARCustomerInfoAction($accountNumber);
-      $phone  =  $accountInfo->PHONE;
-
+     // $phone  =  $accountInfo->PHONE;
+      $phone  = '(832)977-1260';
       $resultData = '';
 
       /* verifyType 0 -> Send code as text

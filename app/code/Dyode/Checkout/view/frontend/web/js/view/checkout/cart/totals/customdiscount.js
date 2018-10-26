@@ -16,10 +16,14 @@ define([
     'underscore',
     'Magento_Checkout/js/view/summary/abstract-total',
     'Magento_Checkout/js/model/quote',
-    'Dyode_Checkout/js/model/curacao-service-provider'
-], function (ko, $, _, Component, quote, curacaoServiceProvider) {
+    'Magento_Customer/js/model/customer',
+    'Dyode_Checkout/js/model/curacao-service-provider',
+    'Dyode_Checkout/js/data/curacao-data-provider'
+], function (ko, $, _, Component, quote, customer, curacaoServiceProvider, curacaoDataProvider) {
 
-    var initialDownPayment = window.checkoutConfig.curacaoPayment.total;
+    var curacaoPaymentInfo = window.checkoutConfig.curacaoPayment,
+        initialDownPayment = curacaoPaymentInfo.total,
+        initialDPaymentNaked = parseInt(curacaoPaymentInfo.totalNaked, 10);
 
     return Component.extend({
         defaults: {
@@ -27,6 +31,8 @@ define([
         },
         totals: quote.getTotals(),
         value: ko.observable(initialDownPayment),
+        valueNaked: ko.observable(initialDPaymentNaked),
+        isCustomerLoggedIn: customer.isLoggedIn(),
 
         /**
          * Subscribe to quote totals so that any update on curacao credit,
@@ -38,20 +44,11 @@ define([
             this._super();
 
             quote.totals.subscribe(function (newTotals) {
-                var price = 0,
-                    curacaoTotalSegment;
+                var price = self.getCuracaoCreditByTotals(newTotals),
+                    formattedPrice = self.getFormattedPrice(price);
 
-                if (newTotals['total_segments']) {
-                    curacaoTotalSegment = _.findWhere(newTotals['total_segments'], {
-                        code: 'curacao_discount'
-                    });
-
-                    if (curacaoTotalSegment && curacaoTotalSegment.value) {
-                        price = curacaoTotalSegment.value;
-                    }
-                }
-
-                self.value(self.getFormattedPrice(price));
+                self.valueNaked(parseInt(price, 10));
+                self.value(formattedPrice);
             });
 
             return this;
@@ -63,7 +60,32 @@ define([
          * @override
          */
         isDisplayed: function () {
-            return this.isFullMode() && curacaoServiceProvider.isUserLinked();
+            return this.isFullMode() &&
+                curacaoServiceProvider.isUserLinked() &&
+                curacaoDataProvider.hasCuracaoCreditApplied();
+        },
+
+        /**
+         * Collect curacao credit from the quote totals segment.
+         *
+         * @param {Object} totals
+         * @returns {Number} price
+         */
+        getCuracaoCreditByTotals: function (totals) {
+            var price = 0,
+                curacaoTotalSegment;
+
+            if (totals['total_segments']) {
+                curacaoTotalSegment = _.findWhere(totals['total_segments'], {
+                    code: 'curacao_discount'
+                });
+
+                if (curacaoTotalSegment && curacaoTotalSegment.value) {
+                    price = curacaoTotalSegment.value;
+                }
+            }
+
+            return price;
         }
     });
 });

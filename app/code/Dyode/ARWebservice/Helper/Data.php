@@ -194,7 +194,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 'client_ip'   => "",
                 'module_name' => "Dyode_ARWebservice",
             ]);
-            $this->messageManager->addError(__($result->INFO));
             return false;
         }
 
@@ -238,7 +237,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 'client_ip'   => "",
                 'module_name' => "Dyode_ARWebservice",
             ]);
-            $this->messageManager->addError(__($result->INFO));
             return false;
         }
 
@@ -397,7 +395,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 'client_ip'   => "",
                 'module_name' => "Dyode_ARWebservice",
             ]);
-            $this->messageManager->addError(__($result->INFO));
             return false;
         }
 

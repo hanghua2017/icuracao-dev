@@ -3,17 +3,14 @@ namespace Dyode\Threshold\Model;
 
 use \Magento\Framework\Model\AbstractModel;
 
-class Threshold extends \Magento\Framework\View\Element\Template {
+class Threshold extends \Magento\Framework\Model\AbstractModel {
 
-   public function __construct(
-	\Magento\Framework\View\Element\Template\Context $context,  
-	\Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-	\Magento\Framework\File\Csv $csv,
-	array $data = []
+   public function __construct( 
+		\Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+		\Magento\Framework\File\Csv $csv
 	) {
 	    $this->scopeConfig = $scopeConfig;
 	    $this->csv = $csv;
-	    parent::__construct($context, $data);
 	}
 
 

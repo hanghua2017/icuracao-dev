@@ -3,7 +3,7 @@ namespace Dyode\SetInventory\Model;
 
 use \Magento\Framework\Model\AbstractModel;
 
-class Update extends \Magento\Framework\View\Element\Template {
+class Update extends \Magento\Framework\Model\AbstractModel {
     /** @var \Magento\Sales\Model\ResourceModel\Order\CollectionFactory */
    protected $_productCollectionFactory;
    /** @var \Magento\Sales\Model\ResourceModel\Order\Collection */
@@ -11,15 +11,13 @@ class Update extends \Magento\Framework\View\Element\Template {
 
    protected $_stockRegistry;
    
-   public function __construct(
-	\Magento\Framework\View\Element\Template\Context $context,  
+   public function __construct( 
 	\Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,  
 	\Dyode\SetInventory\Helper\Data $helper,
 	\Dyode\InventoryLocation\Model\LocationFactory  $inventoryLocation,
 	\Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry,
 	\Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
-    \Dyode\ARWebservice\Helper\Data $apiHelper,
-	array $data = []
+    \Dyode\ARWebservice\Helper\Data $apiHelper
 	) {
 	    $this->_productCollectionFactory = $productCollectionFactory;  
 	    $this->helper = $helper;
@@ -27,7 +25,6 @@ class Update extends \Magento\Framework\View\Element\Template {
 	    $this->apiHelper = $apiHelper;
         $this->auditLog = $auditLog;
 	    $this->_stockRegistry = $stockRegistry;
-	    parent::__construct($context, $data);
 	}
 
 	public function setInventoryUpdate(){
