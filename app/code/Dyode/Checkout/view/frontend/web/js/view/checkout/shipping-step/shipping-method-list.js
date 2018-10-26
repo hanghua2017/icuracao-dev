@@ -280,9 +280,16 @@ define([
         getShippingMethodDeliveryMessage: function (shippingMethod) {
             var deliveryMessage = '',
                 carrierCode = shippingMethod.carrier_code,
+                methodCode = shippingMethod.method_code,
                 carriersWithMessages = _.keys(this.shippingMethodDeliveryMessages) || [];
 
-            if (_.contains(carriersWithMessages, carrierCode)) {
+            if (carrierCode === 'ups' && methodCode === '2DA') {
+                deliveryMessage = $t('Within 2 Days');
+
+            } else if (carrierCode === 'ups' && methodCode === '3DS') {
+                deliveryMessage = $t('Within 3 Days');
+
+            } else if (_.contains(carriersWithMessages, carrierCode)) {
                 deliveryMessage = this.shippingMethodDeliveryMessages[carrierCode];
             }
 
