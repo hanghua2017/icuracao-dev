@@ -193,7 +193,7 @@ class Inventory extends \Magento\Framework\Model\AbstractModel {
 				$eid = $this->productIDs[$sku];
 				if (count($this->productSKUs[$sku]) == 0)
 				{
-				 	continue;				
+								
 				}
 				else
 				{
