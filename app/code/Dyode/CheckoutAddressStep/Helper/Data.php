@@ -168,9 +168,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper{
         $toState = $geoLocation->getAbbr();
         $fromState = 'CA';
 
-        $userId = $this->getConfigData('shippingsettings/curacao_ups/upsuserid');
-        $userIdPass = $this->getConfigData('shippingsettings/curacao_ups/upspassword');
-        $accessKey = $this->getConfigData('shippingsettings/curacao_ups/upsaccesskey');
+        $upsUrl = $this->getConfigData('shippingsettings/curacao_ups/upsurl');
         $upsShipper = $this->getConfigData('shippingsettings/curacao_ups/upsshipper');
 
         $this->startWriter('RatingServiceSelectionRequest', 'en-US');
@@ -219,6 +217,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper{
 
         $xmlrequest = $this->endWriter();
 
+        $result = $this->getCurl($upsUrl . '/Rate', $this->setXMLAccessRequest() . $xmlrequest);
+    	$xml = simplexml_load_string($result);
+
     }
     /**
      * Function for the starting of XML
@@ -246,6 +247,41 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper{
         $xml = $this->_xmlWriter->outputMemory();
         $this->_xmlWriter = null;
         return $xml;
+    }
+
+    /**
+    * Set xml access request
+    *
+    * @return void
+    */
+    protected function setXMLAccessRequest()
+    {
+        $userId = $this->getConfigData('shippingsettings/curacao_ups/upsuserid');
+        $userIdPass = $this->getConfigData('shippingsettings/curacao_ups/upspassword');
+        $accessKey = $this->getConfigData('shippingsettings/curacao_ups/upsaccesskey');
+
+        $this->startWriter('AccessRequest', 'en-US');
+        $this->writer->writeElement('AccessLicenseNumber', $accessKey);
+        $this->writer->writeElement('UserId', $userId);
+        $this->writer->writeElement('Password',$userIdPass);
+        return $this->endWriter();
+    }
+    /**
+     * Call the UPS url for getting result
+     */
+    private function getCurl($url, $data, $timeout = 300, $headers = array()) {
+        $ch = curl_init($url);
+        $default_headers = array(
+            CURLOPT_POST => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CONNECTTIMEOUT => $timeout,
+            CURLOPT_POSTFIELDS => $data
+        );
+        curl_setopt_array($ch, $default_headers + $headers);
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        return $response;
     }
 
     /**
