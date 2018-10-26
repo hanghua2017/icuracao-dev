@@ -155,7 +155,7 @@ class Verify extends Action
     {
         $result = $this->_resultFactory->create(ResultFactory::TYPE_JSON);
         $result->setData([
-            'message' => 'The given curacao identification number is wrong. Please try again.',
+            'message' => __('The given curacao identification number is wrong. Please try again.'),
             'type'    => 'error',
         ]);
 
