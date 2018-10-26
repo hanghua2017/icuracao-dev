@@ -7,7 +7,7 @@ class Threshold extends \Magento\Framework\Model\AbstractModel {
 
    public function __construct( 
 		\Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-		\Magento\Framework\File\Csv $csv,
+		\Magento\Framework\File\Csv $csv
 	) {
 	    $this->scopeConfig = $scopeConfig;
 	    $this->csv = $csv;
