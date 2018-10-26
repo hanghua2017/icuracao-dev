@@ -11,7 +11,7 @@ class Estimate extends \Magento\Framework\Model\AbstractModel
    public function __construct( 
 	\Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory, 
 	\Dyode\ProcessEstimate\Helper\Data $helper,
-	\Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
+	\Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog
 	) {
 	    $this->_orderCollectionFactory = $orderCollectionFactory;
 	    $this->helper = $helper;
