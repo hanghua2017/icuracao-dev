@@ -3,7 +3,7 @@ namespace Dyode\InventoryUpdate\Model;
 
 use \Magento\Framework\Model\AbstractModel;
 
-class Inventory extends \Magento\Framework\View\Element\Template {
+class Inventory extends \Magento\Framework\Model\AbstractModel {
 
    protected $_productCollectionFactory;
 
@@ -40,7 +40,7 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 	\Dyode\InventoryUpdate\Helper\Data $helper,
 	\Dyode\PriceUpdate\Helper\Data $priceHelper,
 	\Dyode\Threshold\Model\Threshold $thresholdModel,
-	array $data = []
+	$data = []
 	) {
 	    $this->_productCollectionFactory = $productCollectionFactory;  
 	    $this->_orderCollectionFactory = $orderCollectionFactory;

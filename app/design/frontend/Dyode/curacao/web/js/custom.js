@@ -8,12 +8,16 @@ require(['jquery'], function ($) {
             ms = 'main-scrolled';
 
         $(window).scroll(function () {
-            if ($(this).scrollTop() > 158) {
+            if ($(this).scrollTop() > 158 ) {
                 header.addClass(ns);
                 pageMain.addClass(ms);
             } else {
                 header.removeClass(ns);
                 pageMain.removeClass(ms);
+            }
+            if($("body").hasClass('checkout-index-index')){
+              header.removeClass(ns);
+              pageMain.removeClass(ms);
             }
         });
         /*js for fixed header ends here*/

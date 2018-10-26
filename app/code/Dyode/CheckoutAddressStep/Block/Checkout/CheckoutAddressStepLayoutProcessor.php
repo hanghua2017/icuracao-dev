@@ -220,6 +220,9 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
                                 ],
                             ],
                             'telephone'  => [
+                                'validation' => [
+                                    'phoneUS' => true,
+                                ],
                                 'config' => [
                                     'tooltip' => [
                                         'description' => __('For delivery questions.'),
@@ -326,6 +329,11 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
         $jsLayout["components"]["checkout"]["children"]["steps"]["children"]["address-step"]["children"]
         ["shippingAddress"]["children"]["shipping-address-fieldset"]["children"]
         ["telephone"]['placeholder'] = __('(123) 456 7890');
+
+        //add US-Phone number validation for shipping address telephone field
+        $jsLayout["components"]["checkout"]["children"]["steps"]["children"]["address-step"]["children"]
+        ["shippingAddress"]["children"]["shipping-address-fieldset"]["children"]
+        ["telephone"]['validation']['phoneUS'] = true;
 
         return $jsLayout;
     }

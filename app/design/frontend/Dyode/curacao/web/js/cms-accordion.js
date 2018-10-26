@@ -25,8 +25,8 @@ require(['jquery'], function ($) {
             }
         });
     });
-    /*js for smooth scroll down the page starts here*/
       $(document).ready(function() {
+        /*js for smooth scroll down the page starts here*/
   		  $('.beat-container a[href*="#"],.catalog-product-view .attribute a[href*="#"]').bind('click', function(e) {
   				e.preventDefault(); // prevent hard jump, the default behavior
 
@@ -50,6 +50,12 @@ require(['jquery'], function ($) {
 
   				return false;
   		});
+        /*js for smooth scroll down the page starts here*/
+        /*js for smooth scroll up on PDP page starts here*/
+      $('.catalog-product-view .add-to-cart-block .actions #product-addtocart-button,.catalog-product-view .frequently-bought-items .frequently-bought-adon-sum-block .frequently-bought-adon-sum .price-adons form .add-bundle-btn .add-bundle-btn,checkout-index-index .page-main .checkout-container .opc-sidebar.custom-slide .modal-inner-wrap .modal-content .actions-toolbar .continue').bind('click',function(){
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+        return false;
+      });
+      /*js for smooth scroll up on PDP page ends here*/
   });
-  /*js for smooth scroll down the page starts here*/
 });

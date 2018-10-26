@@ -4,6 +4,7 @@
  * @author    kavitha@dyode.com
  * Date       02/08/2018
  */
+
 namespace Dyode\Checkout\Model;
 
 use Dyode\Checkout\Helper\CuracaoHelper;
@@ -101,6 +102,8 @@ class ConfigProvider implements ConfigProviderInterface
 
     public function getConfig()
     {
+        $this->curacaoHelper->updateCuracaoSessionDetails(['down_payment' => 0]);
+
         $configArr['curacaoPayment']['canApply'] = $this->_canApply;
         $configArr['curacaoPayment']['limit'] = $this->getLimit();
         $configArr['curacaoPayment']['total'] = $this->getDownPayment();
@@ -116,33 +119,46 @@ class ConfigProvider implements ConfigProviderInterface
     public function getLimit()
     {
         $curaAccId = $this->getCuracaoId();
+        $limit = 0;
+
         if ($curaAccId) {
             $this->_curacaoId = $curaAccId;
-            $result = $this->_helper->getCreditLimit($curaAccId);
-            $limit = (float)$result->CREDITLIMIT;
             $this->_canApply = 1;
+
+            $result = $this->_helper->getCreditLimit($curaAccId);
+
+            if ($result) {
+                $limit = (float)$result->CREDITLIMIT;
+            }
+
             $formattedCurrencyValue = $this->_priceHelper->currency($limit, true, false);
+
             return $formattedCurrencyValue;
         }
+
         return false;
     }
 
     public function getDownPayment()
     {
+        $result = $this->_priceHelper->currency(0, true, false);
         $curaAccId = $this->getCuracaoId();
-        if ($curaAccId) {
-            $params = ['cust_id' => $curaAccId, 'amount' => 1];
-            $result = $this->_helper->verifyPersonalInfm($params);
-            if ($result) {
-                $result = $result->DOWNPAYMENT;
-                $this->curacaoHelper->updateCuracaoSessionDetails(['down_payment' => $result]);
-            } else {
-                return false;
-            }
-            $formattedCurrencyValue = $this->_priceHelper->currency($result, true, false);
-            return $formattedCurrencyValue;
+
+        if (!$curaAccId) {
+            return $result;
         }
-        return false;
+
+        $params = ['cust_id' => $curaAccId, 'amount' => 1];
+        $response = $this->_helper->verifyPersonalInfm($params);
+
+        if (!$response) {
+            return $result;
+        }
+
+        $result = $response->DOWNPAYMENT;
+        $this->curacaoHelper->updateCuracaoSessionDetails(['down_payment' => $result]);
+
+        return $this->_priceHelper->currency($result, true, false);
     }
 
     public function getCuracaoId()

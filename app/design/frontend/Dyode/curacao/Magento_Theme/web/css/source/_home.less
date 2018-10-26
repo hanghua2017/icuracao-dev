@@ -348,9 +348,6 @@
 										margin-top: 0;
 										text-transform: uppercase;
 										color: #333;
-										@media screen and (max-width: 991px) {
-											//
-										}
 										@media screen and (max-width: 767px) {
 											font-size: 11px;
 										}
@@ -528,11 +525,6 @@
 										-webkit-transition: all 0.3s;
 										transition: all 0.3s;
 										margin:0 auto;
-										// @media screen and (max-width: 400px) {
-										//     max-width: 85px;
-										//     max-height: 54px;
-										//     min-height: 54px;
-										// }
 									}
 								}
 
@@ -952,9 +944,6 @@
 								margin-bottom: 20px;
 								display: flex;
 								justify-content: space-between;
-								// @media screen and (max-width: 768px) {
-								// 	margin-bottom: 10px;
-								// }
 
 								&.full {
 									a {
@@ -1077,13 +1066,19 @@
 	display: block !important;
 
 }
-.messages
+.page.messages
 {
-	.message
-	{
-		&:first-child
+	.messages{
+		display: none;
+		&:last-child{
+			display: block;
+		}
+		.message
 		{
 			display: none;
+			&:last-child{
+				display: block;
+			}
 		}
 	}
 }
