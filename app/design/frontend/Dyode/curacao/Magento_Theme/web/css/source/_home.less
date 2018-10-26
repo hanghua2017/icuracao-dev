@@ -1094,14 +1094,29 @@
 	}
 }
 
-/*Style for spanish*/
+/*styling for Espanol homepage starts here*/
 html[lang="es"] {
-.cms-index-index,.checkout-onepage-success {
-		.guarantee-block-container {
-			.guarantee-block {
-				.wrapper {
-					max-width: 480px;
-				 }
+	.checkout-onepage-success,
+	.cms-index-index {
+		.page-wrapper {
+			.page-main {
+				.columns {
+					.main {
+						.guarantee-block-container {
+							.guarantee-block {
+								.wrapper {
+									max-width: 500px;
+									@media all and (max-width:1050px) {
+										display: flex;
+									}
+									@media all and (max-width:599px) {
+										display: block;
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
