@@ -15,10 +15,10 @@
       <!-- Order Confirmation Section with success message and order number  -->
        <div class="curacaoOrder-status">
           <img src="<?php echo $block->getViewFileUrl('images/dart-board.png'); ?>" alt="Success Icon">
-          <h1 class="success-message">Order Successfully Placed</h1>
+          <h1 class="success-message"><?php echo __('Order Successfully Placed')?></h1>
        </div>
        <div class="status-details">
-         <h3>Thank you for your purchase! Your order has been received.</h3>
+         <h3><?php echo __('Thank you for your purchase! Your order has been received.')?>'</h3>
             <?php if ($block->getOrderId()): ?>
               <?php if ($block->getCanViewOrder()) : ?>
                 <p><?= __('Your order number is: %1.', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $block->escapeHtml($block->getViewOrderUrl()), $block->escapeHtml($block->getOrderId()))) ?></p>
@@ -65,7 +65,7 @@
        <div class="order-details">
          <div class="block ord-det">
            <div class="block-title">
-             <h2>Order Details</h2>
+             <h2><?php echo __('Order Details')?></h2>
            </div>
            <div class="product-details">
              <?php foreach ($order->getAllVisibleItems() as $item) :?>
@@ -88,7 +88,7 @@
                                    <?php echo $helper->getFormatedPrice($item->getPrice()); ?>
                                  </div>
                                 <div class="qty">
-                                  Quantity:
+                                  <?php echo __('Quantity:')?>
                                  <span>
                                    <?php echo  intval($item->getQtyOrdered()); ?>
                                  </span>
@@ -98,7 +98,7 @@
                   <!-- Right side -->
                   <div class="block delivery-date-outer">
                     <div class="block-title">
-                      <h2>Delivery</h2>
+                      <h2><?php echo __('Delivery')?></h2>
                     </div>
                     <!-- <div class="delivery-date-details">
                       <label>Estimated delivery</label>
@@ -107,7 +107,7 @@
                       </div>
                     </div> -->
                     <div class="store-location-details">
-                      <label>Store Pickup</label>
+                      <label><?php echo __('Store Pickup')?></label>
                       <div class="store-location-content">
                         <div class="title">5980 Pacific Blvd</div>
                         <div class="address">Huntington Park</div>
