@@ -271,7 +271,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
 			$logger->info("API Response not Found.");
             //logging audit log
             $this->auditLog->saveAuditLog([
-                'user_id' => $inputArray['CustomerID'],
+                'user_id' => "",
                 'action' => 'AR Invoice Failed',
                 'description' => "Fail to create AR Invoice for order with id" . $incrementId,
                 'client_ip' => "",
@@ -285,12 +285,12 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
          */
         if ($createInvoiceResponse->OK != true) {   # Create Invoice Response is false
             $order->setState("processing")->setStatus("estimate_issue");    # Change the Order Status and Order State
-            $order->addStatusToHistory($order->getStatus(), 'Estimate not Issued');     # Add Comment to Order History
+            $order->addStatusToHistory($order->getStatus(), 'Estimate not Issued');   # Add Comment to Order History
             $order->save();     # Save the Changes in Order Status & History
 
             //logging audit log
             $this->auditLog->saveAuditLog([
-                'user_id' => $inputArray['CustomerID'],
+                'user_id' => "",
                 'action' => 'AR Invoice Creation',
                 'description' => "Fail to create AR Invoice for order with id" . $incrementId,
                 'client_ip' => "",
@@ -312,14 +312,13 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                 $invoice = $this->_invoiceService->prepareInvoice($order);
                 $invoice->register();
                 $invoice->save();
-
                 $transactionSave = $this->_transaction->addObject($invoice)->addObject($invoice->getOrder());
                 $transactionSave->save();
             }
 
             //logging audit log
             $this->auditLog->saveAuditLog([
-                'user_id' => $inputArray['CustomerID'],
+                'user_id' => "",
                 'action' => 'AR Invoice Creation',
                 'description' => "Created AR Invoice (No : " . $createInvoiceResponse->DATA->INV_NO. ") Successfully for order with id" . $incrementId,
                 'client_ip' => "",
@@ -333,6 +332,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                 $order->setState("pending_payment")->setStatus("creditreview");    # Change the Order Status and Order State
                 $order->addStatusToHistory($order->getStatus(), 'Your Credit is being Reviewed');     # Add Comment to Order History
                 $order->save();     # Save the Changes in Order Status & History
+
                 # Notify Customer  - incomplete...
                 # Notify Credit Department to Review  - incomplete...
             } else {
@@ -348,7 +348,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                     if ($webDownPaymentResponse->OK != true) {
                         //logging audit log
                         $this->auditLog->saveAuditLog([
-                            'user_id' => $inputArray['CustomerID'],
+                            'user_id' => "",
                             'action' => 'AR Web Down Payment Failure',
                             'description' => "Fail to create web down payment for order with id" . $incrementId,
                             'client_ip' => "",
@@ -357,7 +357,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                     } else {
                         //logging audit log
                         $this->auditLog->saveAuditLog([
-                            'user_id' => $inputArray['CustomerID'],
+                            'user_id' => "",
                             'action' => 'AR Web Down Payment Success',
                             'description' => " Web Down Payment Success for order with id" . $incrementId,
                             'client_ip' => "",
@@ -365,9 +365,8 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                         ]);
                     }
                 }
-
-                return true;
             }
+            return true;
         }
 
         return false;
