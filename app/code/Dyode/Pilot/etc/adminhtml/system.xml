@@ -31,7 +31,10 @@
 					<can_be_empty>1</can_be_empty>
 					<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
 				</field>
-				<field id="specificerrmsg" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="80" translate="label" type="textarea">
+				<field id="delivery_message" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="80" translate="label" type="text">
+					<label>Delivery Message</label>
+				</field>
+				<field id="specificerrmsg" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="90" translate="label" type="textarea">
 					<label>Displayed Error Message</label>
 				</field>
 			</group>
