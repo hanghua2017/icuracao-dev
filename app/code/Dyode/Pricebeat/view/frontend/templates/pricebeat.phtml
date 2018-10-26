@@ -41,15 +41,15 @@
 
         <div class="or-block">
           <p class="line"></p>
-          <p class="or-text">OR</p>
+          <p class="or-text"><?php echo __('OR')?></p>
         </div>
 
         <label for="productimage" class="label"><span><?php /* @escapeNotVerified */ echo __("Competitor's product image or screenshot") ?></span></label>
         <div class="curacao-file-upload">
           <div class="file-upload">
             <div class="file-select">
-              <div class="file-select-button" id="fileName">Choose File</div>
-              <div class="file-select-name" id="noFile">No file chosen</div>
+              <div class="file-select-button" id="fileName"><?php echo __('Choose File')?></div>
+              <div class="file-select-name" id="noFile"><?php echo __('No file chosen')?></div>
               <input type="file" name="upload_file" id="chooseFile">
             </div>
           </div>
@@ -105,28 +105,28 @@ require([
       var numericExpression = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
       $(".error").remove();
       if(first_name== ""){
-         $('#first_name').after('<span class="error">First name is required</span>');
+         $('#first_name').after('<span class="error"><?php echo __('First name is required')?></span>');
       }
       if(last_name== ""){
-        $('#last_name').after('<span class="error">Last name is required</span>');
+        $('#last_name').after('<span class="error"><?php echo __('Last name is required')?></span>');
       }
       if(email== ""){
-        $('#email').after('<span class="error">Email-id is required</span>');
+        $('#email').after('<span class="error"><?php echo __('Email-id is required')?></span>');
       }
       else {
         if(!numericExpression.test(email)){
-          $('#email').after('<span class="error">Email-id invalid</span>');
+          $('#email').after('<span class="error"><?php echo __('Email-id invalid')?></span>');
         }
       }
       if(phonenumber== ""){
-        $('#phonenumber').after('<span class="error">Phone number is required</span>');
+        $('#phonenumber').after('<span class="error"><?php echo __('Phone number is required')?></span>');
       }
-      
+
       if(invoice_number== ""){
-        $('#invoice_number').after('<span class="error">Invoice number is required</span>');
+        $('#invoice_number').after('<span class="error"><?php echo __('Invoice number is required')?></span>');
       }
       if (productlink == "" && product_image == "") {
-        $('#product_url').after('<span class="error">Product Link or Product Image is required</span>');
+        $('#product_url').after('<span class="error"><?php echo __('Product Link or Product Image is required')?></span>');
       } else {
         $('#pricebeat').submit();
       }
