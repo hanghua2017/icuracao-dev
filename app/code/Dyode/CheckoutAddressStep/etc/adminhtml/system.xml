@@ -48,6 +48,31 @@
 					<comment/>
 				</field>
 			</group>
+
+			<group id="curacao_ups" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+				<label>UPS Settings</label>
+				<field id="upsurl" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>UPS Url</label>
+					<comment/>
+				</field>
+				<field id="upsshipper" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>UPS Shipper</label>
+					<comment/>
+				</field>
+				<field id="upsuserid" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>UPS UserId</label>
+					<comment/>
+				</field>
+				<field id="upspassword" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>UPS Password</label>
+					<comment/>
+				</field>
+				<field id="upsaccesskey" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>UPS Access Key</label>
+					<comment/>
+				</field>
+			</group>
 		</section>
 	</system>
+
 </config>

@@ -182,6 +182,8 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         if (!empty($quoteItems)) {
             foreach ($quoteItems as $quoteItem) {
 
+                if($quoteItem->getIsVirtual())  continue;
+
                 # Get the delivery type and  quote item id and decide corresponding logic
                 $quoteItemId = $quoteItem->getItemId();
                 $deliveryType = $quoteItem->getDeliveryType();
@@ -248,7 +250,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
 
                 // Check if momentum and calculate rate
                 if ($this->_checkoutHelper->checkMomentum($zipcode) && $productWeight) {
-                    $rate = $this->_checkoutHelper->setQuoteItemPrice($productWeight);
+                    $rate = $this->_checkoutHelper->setQuoteItemPrice($zipcode,$productWeight);
                 }
             } else {
                 // Pilot
@@ -278,19 +280,28 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
                     $rate = $this->shipHelper->getUSPSRates($zipcode,$productWeight);
                     break;
                 case (( $productWeight < $upsWith ) && ($productPrice > self::USPS_PRICE_LIMIT)):
-                    $carrierCode = 'ups';
-                    $carrierMethodCode = 'ups';
-                    $carrierTitle = 'UPS';
-                    $carrierName = 'Ground';
-                    $rate = self::DEFAULT_SHIPPING_RATE;
+                    
+                    //Get the shipping methods for ups
+                    $shippingMethods = $this->shipHelper->getUPSRates($zipcode,$productWeight);
+                    $deliverymethods = $this->prepareUpsShippingData($shippingMethods,$quoteItemId);
+                    
+                    return [
+                        'quote_item_id'    => $quoteItemId,
+                        'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
+                        'delivery_methods' => [$deliverymethods],
+                    ];
                     break;
-                default: 
-                    $carrierCode = 'ups';
-                    $carrierMethodCode = 'ups';
-                    $carrierTitle = 'UPS';
-                    $carrierName = 'Ground';
-                    $rate = self::DEFAULT_SHIPPING_RATE;
-                    break;
+                default:
+                $shippingMethods = $this->shipHelper->getUPSRates($zipcode,$productWeight);
+               
+                $deliverymethods  = $this->prepareUpsShippingData($shippingMethods,$quoteItemId);
+                
+                return [
+                    'quote_item_id'    => $quoteItemId,
+                    'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
+                    'delivery_methods' => $deliverymethods
+                ];
+
                     
                 }
                       
@@ -317,6 +328,65 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         ];
     }
 
+    /**
+    * Prepare Shipping method data for UPS to checkout
+    */
+    protected function prepareUpsShippingData($shippingMethods,$quoteItemId)
+    {
+        $deliverymethods = array();
+        
+        foreach($shippingMethods as $method){
+            switch($method['UPSCode']){
+                case '03':
+                            $deliverymethods[] = [
+                                'quote_item_id'  => $quoteItemId,
+                                "carrier_code"   => 'ups',
+                                "method_code"    => 'GND',
+                                "carrier_title"  => 'UPS',
+                                "method_title"   => 'GROUND',
+                                "amount"         => $method['Rate'],
+                                "base_amount"    => $method['Rate'],
+                                "available"      => true,
+                                "error_message"  => "",
+                                "price_excl_tax" => 5,
+                                "price_incl_tax" => 5,
+                            ];
+                          break;
+                case '12':
+                            $deliverymethods[] = [
+                                'quote_item_id'  => $quoteItemId,
+                                "carrier_code"   => 'ups',
+                                "method_code"    => '2DA',
+                                "carrier_title"  => 'UPS',
+                                "method_title"   => '2nd Day',
+                                "amount"         => $method['Rate'],
+                                "base_amount"    => $method['Rate'],
+                                "available"      => true,
+                                "error_message"  => "",
+                                "price_excl_tax" => 5,
+                                "price_incl_tax" => 5,
+                            ];
+                          break;
+                case '02':
+                            $deliverymethods[] = [
+                                'quote_item_id'  => $quoteItemId,
+                                "carrier_code"   => 'ups',
+                                "method_code"    => '3DS',
+                                "carrier_title"  => 'UPS',
+                                "method_title"   => '3 Days',
+                                "amount"         => $method['Rate'],
+                                "base_amount"    => $method['Rate'],
+                                "available"      => true,
+                                "error_message"  => "",
+                                "price_excl_tax" => 5,
+                                "price_incl_tax" => 5,
+                            ];
+                          break;
+            }
+            
+        }
+        return $deliverymethods;
+    }
     /**
      * Get store locations according to store id
      *
