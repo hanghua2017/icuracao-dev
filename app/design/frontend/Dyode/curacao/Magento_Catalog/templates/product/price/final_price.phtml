@@ -49,7 +49,7 @@ $schema = ($block->getZone() == 'item_view') ? true : false;
         ]); ?>
     </span>
     <span class="price-discount">
-        <?= $block->escapeHtml($block->discount($priceModel, $finalPriceModel)); ?><?= __('% OFF') ?>
+        <?= $block->escapeHtml($block->discount($priceModel, $finalPriceModel)); ?>%<?= __('OFF') ?>
     </span>
   </div>
 <?php else: ?>
