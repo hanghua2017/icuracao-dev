@@ -137,7 +137,7 @@ define([
                     carrierCode = firstShippingMethod ? firstShippingMethod.carrier_code : '',
                     methodCode = firstShippingMethod ? firstShippingMethod.method_code : '',
                     activeMethod = firstShippingMethod ? carrierCode + '_' + methodCode : false,
-                    shippingMethods = self.prepareShippingMethods(quoteItemId, shippingOption, activeMethod) || [],
+                    shippingMethods = self.prepareShippingMethods(quoteItemId, shippingOption, self) || [],
                     storePicked = self.prepareStorePicked(shippingOption);
 
                 productItems.push({
@@ -168,12 +168,13 @@ define([
          *
          * @param {String|Integer} quoteItemId
          * @param {Object} shippingMethodCollection
-         * @param {String} activeMethod
+         * @param {this} $this
          * @returns {Array}
          */
-        prepareShippingMethods: function (quoteItemId, shippingMethodCollection, activeMethod) {
+        prepareShippingMethods: function (quoteItemId, shippingMethodCollection, $this) {
             var methods = [],
-                carrierMethodCode;
+                carrierMethodCode,
+                deliveryMessage = '';
 
             if (!shippingMethodCollection || shippingMethodCollection.deliveryOption !== 'ship_to_home') {
                 return methods;
@@ -181,13 +182,14 @@ define([
 
             _.each(shippingMethodCollection.data, function (shippingMethod) {
                 carrierMethodCode = shippingMethod.carrier_code + '_' + shippingMethod.method_code;
+                deliveryMessage = $this.getShippingMethodDeliveryMessage(shippingMethod);
 
                 methods.push(_.extend(shippingMethod, {
                     methodValue: carrierMethodCode,
                     methodId: 'method_' + carrierMethodCode + '_' + quoteItemId,
                     methodName: 'ship_method_' + quoteItemId,
                     methodPrice: priceUtils.formatPrice(shippingMethod.amount, quote.getPriceFormat()),
-                    expectedDeliveryMsg: $t('3-5 business days')
+                    expectedDeliveryMsg: deliveryMessage
                 }));
             });
 
@@ -265,6 +267,33 @@ define([
          */
         changeShippingMethod: function () {
             stepNavigator.navigateTo('deliverySelection');
+        },
+
+        /**
+         * Provide Shipping method delivery message.
+         *
+         * These messages can be configured via backend (System > Configuration > Shipping Method Settings).
+         *
+         * @param {Object} shippingMethod
+         * @returns {String}
+         */
+        getShippingMethodDeliveryMessage: function (shippingMethod) {
+            var deliveryMessage = '',
+                carrierCode = shippingMethod.carrier_code,
+                methodCode = shippingMethod.method_code,
+                carriersWithMessages = _.keys(this.shippingMethodDeliveryMessages) || [];
+
+            if (carrierCode === 'ups' && methodCode === '2DA') {
+                deliveryMessage = $t('Within 2 Days');
+
+            } else if (carrierCode === 'ups' && methodCode === '3DS') {
+                deliveryMessage = $t('Within 3 Days');
+
+            } else if (_.contains(carriersWithMessages, carrierCode)) {
+                deliveryMessage = this.shippingMethodDeliveryMessages[carrierCode];
+            }
+
+            return $t(deliveryMessage);
         }
     });
 });

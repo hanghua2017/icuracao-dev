@@ -69,6 +69,7 @@
            </div>
            <div class="product-details">
              <?php foreach ($order->getAllVisibleItems() as $item) :?>
+               <div class="each-product-outer">
                   <div class="each-product">
                     <?php
                         $product = $helper->getProductById($item->getProductId());
@@ -115,6 +116,7 @@
                       </div>
                     </div>
                   </div>
+                </div>  
                 <?php endforeach; ?>
            </div>
          </div>
