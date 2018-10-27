@@ -15,7 +15,6 @@ namespace Dyode\ARWebservice\Helper;
 use Magento\Framework\Message\ManagerInterface as MessageManager;
 use Dyode\AuditLog\Model\ResourceModel\AuditLog;
 use Magento\Framework\App\Helper\Context;
-use Magento\Framework\Serialize\Serializer\Json;
 use Zend\Http\Client;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper

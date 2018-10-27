@@ -62,7 +62,7 @@ class Code extends \Magento\Framework\App\Action\Action {
                 case 0 :
                     $resultData = $this->_helper->phoneVerifyCode($phone, 1, 0);
                     break;
-    
+
                 case 1:
                     $resultData = $this->_helper->phoneVerifyCode($phone, 1, 1);
                     break;
@@ -73,7 +73,7 @@ class Code extends \Magento\Framework\App\Action\Action {
           }
           $resultJson = $this->_resultJsonFactory->create();
           return $resultJson->setData($resultData);
-      }      
-     
+      }
+
    }
 }

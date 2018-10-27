@@ -11,6 +11,7 @@
 
 namespace Dyode\Linkaccount\Controller\Verify;
 
+
 use Dyode\ARWebservice\Helper\Data;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Customer\Model\Session;
@@ -21,7 +22,6 @@ use Magento\Customer\Model\AddressFactory;
 
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\Controller\ResultFactory;
-use Magento\Framework\View\Element\Messages;
 use Magento\Framework\UrlFactory;
 use Magento\Customer\Model\CustomerFactory;
 
@@ -38,14 +38,14 @@ class Codeverify extends Action
      * @var Dyode\ARWebservice\Helper\Data
      */
     protected $helper;
-   
+
     /**
      * @var \Magento\Customer\Model\Session
      */
     protected $customerSession;
 
     protected $_addressFactory;
-    
+
      /**
      * @var \Magento\Framework\Message\ManagerInterface
      */
@@ -71,9 +71,9 @@ class Codeverify extends Action
         PageFactory $resultPageFactory,
         Data $helper,
         Session $customerSession,
-        StoreManagerInterface $storeManager,      
+        StoreManagerInterface $storeManager,
         ManagerInterface $messageManager,
-        AddressFactory $addressFactory,        
+        AddressFactory $addressFactory,
         ResultFactory $resultFactory,
         UrlFactory $urlFactory,
         CustomerFactory $customerFactory
@@ -81,11 +81,11 @@ class Codeverify extends Action
         parent::__construct($context);
         $this->_resultPageFactory = $resultPageFactory;
         $this->messageManager = $messageManager;
-        $this->customerSession = $customerSession;  
-        $this->helper = $helper;        
-        $this->resultFactory = $resultFactory;      
+        $this->customerSession = $customerSession;
+        $this->helper = $helper;
+        $this->resultFactory = $resultFactory;
         $this->_addressFactory = $addressFactory;
-        $this->urlModel = $urlFactory->create(); 
+        $this->urlModel = $urlFactory->create();
         $this->storeManager = $storeManager;
         $this->customerFactory = $customerFactory;
     }
@@ -107,7 +107,7 @@ class Codeverify extends Action
             $customerInfo  = $this->customerSession->getCuracaoInfo();
             $websiteId = $this->storeManager->getStore()->getWebsiteId();
             $curacaoCustId = trim($customerInfo->getAccountNumber());
-            
+
             if ( !( $customerInfo->getEmailAddress() ) && !( $curacaoCustId ) ) {
                 $this->messageManager->addErrorMessage( "Please enter Email address and Curacao Customer Number " );
                 $defaultUrl = $this->urlModel->getUrl('*/*/create', ['_secure' => true]);
@@ -117,7 +117,7 @@ class Codeverify extends Action
 
             $verificationCode = trim ( $postVariables['verification_code'] );
             $encodeCode = $this->customerSession->getEncCode();
-            if ( isset( $verificationCode ) ) { 
+            if ( isset( $verificationCode ) ) {
 
                 $userinfo = array(
                     "cu_account"=> $curacaoCustId,
@@ -126,10 +126,10 @@ class Codeverify extends Action
 
                 // Check if code is good 0 good -1 no good
                 $checkResult =   $this->helper->verifyCode(  $encodeCode, $verificationCode );
-               
+
                  //If Result is verified then link the Curacao account with Magento
                  if($checkResult == 0){
-                  
+
                     // Instantiate object (this is the most important part)
                         $customer = $this->customerFactory->create();
                         $customer->setWebsiteId($websiteId);
@@ -148,15 +148,15 @@ class Codeverify extends Action
                         try{
                             // Save data
                             $customer->save();
-                            $this->customerSession->setCustomerAsLoggedIn($customer);   
-                            $this->customerSession->setCurAcc($curacaoCustId);                
+                            $this->customerSession->setCustomerAsLoggedIn($customer);
+                            $this->customerSession->setCurAcc($curacaoCustId);
                             $this->customerSession->setFname($customerInfo->getFirstName());
                         }
                         catch(\Exception $e) {
                             $errorMessage = $e->getMessage();
                             $this->messageManager->addErrorMessage($errorMessage);
                             $defaultUrl = $this->urlModel->getUrl('customer/account/create/', ['_secure' => true]);
-            
+
                         }
                         $customerId = $customer->getId();
                         $zipCode  = str_replace('-','',$customerInfo->getZipCode());//clearn up zip code
@@ -179,8 +179,8 @@ class Codeverify extends Action
                                                'country_id' => 'US',
                                                'telephone' => $customerInfo->getTelephone()
                                            );
-           
-                                      
+
+
                         //get the customer address model and update the address information
                         if($customerId){
                            $customAddress = $this->_addressFactory->create();
@@ -188,21 +188,21 @@ class Codeverify extends Action
                                            ->setCustomerId($customerId)
                                            ->setIsDefaultBilling('1')
                                            ->setIsDefaultShipping('1')
-                                           ->setSaveInAddressBook('1');              
+                                           ->setSaveInAddressBook('1');
                            try{
                                 $customAddress->save();
-                                          
-                                $defaultUrl = $this->urlModel->getUrl('linkaccount/verify/success', ['_secure' => true]); 
+
+                                $defaultUrl = $this->urlModel->getUrl('linkaccount/verify/success', ['_secure' => true]);
                                 return $resultRedirect->setUrl($defaultUrl);
                            }
                            catch(\Exception $e) {
                                $errorMessage = $e->getMessage();
                                $this->messageManager->addErrorMessage($errorMessage);
                                $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
-                  
+
                            }
                         }
-                    $defaultUrl = $this->urlModel->getUrl('linkaccount/verify/success', ['_secure' => true]); 
+                    $defaultUrl = $this->urlModel->getUrl('linkaccount/verify/success', ['_secure' => true]);
                     return $resultRedirect->setUrl($defaultUrl);
 
                 } else {
@@ -224,7 +224,7 @@ class Codeverify extends Action
 
             }
 
-        }      
+        }
     }
 
 }
