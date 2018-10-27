@@ -265,10 +265,12 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         } else {
             // Item is not freight so use USPS and UPS 
             $upsWith = 3;
+            $adsSwitch = 88;
             $toCity = $shipCoordinates->getCity();
             $toState = $shipCoordinates->getAbbr();
             if(in_array($toState, ['CA','NV','AZ'])){
                 $upsWith = 11;
+                $adsSwitch = 133;
             }
             //Check for USPS
             switch(true){
@@ -291,16 +293,37 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
                         'delivery_methods' => [$deliverymethods],
                     ];
                     break;
+                case (( $productWeight >= $upsWith ) && $productWeight < $adsSwitch) :
+                     //Get the shipping methods for ups
+                     $shippingMethods = $this->shipHelper->getUPSRates($zipcode,$productWeight);
+                     $deliverymethods = $this->prepareUpsShippingData($shippingMethods,$quoteItemId);
+                     
+                     return [
+                         'quote_item_id'    => $quoteItemId,
+                         'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
+                         'delivery_methods' => [$deliverymethods],
+                     ];
+                    break;
+                case (( $productWeight >= $adsSwitch ) && $productWeight < 150 ):
+                     //Get the shipping methods for ups
+                     $shippingMethods = $this->shipHelper->getUPSRates($zipcode,$productWeight);
+                     $deliverymethods = $this->prepareUpsShippingData($shippingMethods,$quoteItemId);
+                     
+                     return [
+                         'quote_item_id'    => $quoteItemId,
+                         'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
+                         'delivery_methods' => [$deliverymethods],
+                     ];
+                    break;
                 default:
-                $shippingMethods = $this->shipHelper->getUPSRates($zipcode,$productWeight);
-               
-                $deliverymethods  = $this->prepareUpsShippingData($shippingMethods,$quoteItemId);
-                
-                return [
-                    'quote_item_id'    => $quoteItemId,
-                    'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
-                    'delivery_methods' => $deliverymethods
-                ];
+                    $shippingMethods = $this->shipHelper->getUPSRates($zipcode,$productWeight);
+                    $deliverymethods  = $this->prepareUpsShippingData($shippingMethods,$quoteItemId);
+                    
+                    return [
+                        'quote_item_id'    => $quoteItemId,
+                        'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
+                        'delivery_methods' => $deliverymethods
+                    ];
 
                     
                 }

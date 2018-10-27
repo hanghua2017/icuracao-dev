@@ -270,78 +270,39 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $salt = 'ag#A\J9.u=j^v}X3';
         $code = rand(10000, 99999);
         $_phonenumber = '(832)977-1260';
+        $params = array();
 
-        if ($_type == 1) {
-            $wsdlUrl = $this->getConfig('linkaccount/curacao/phonewsdlurl');
-            $countryCode = '1';
-            $phone = $_phonenumber;
-            $valuesToDelete = ['(', ')', '-', ' '];
-            $phone = str_replace($valuesToDelete, '', $phone);
-            $phoneNumber = $phone;
-            $licenseKey = $this->getConfig('linkaccount/curacao/licensekey');
-            $callerID = $this->getConfig('linkaccount/curacao/callerid');
-            $language = 'en';
-            $verifyCode = $code;
-            $extension = '';
-            $extensionPauseTime = '';
+        $wsdlUrl = $this->getConfig('linkaccount/curacao/phonewsdlurl');
+        $client = new \SoapClient($wsdlUrl,array( "trace" => 1 ));
+        $licenseKey = $this->getConfig('linkaccount/curacao/licensekey');
+        $callerID = $this->getConfig('linkaccount/curacao/callerid');
+        $countryCode = '1';
+        $valuesToDelete = ['(', ')', '-', ' '];
+        $phone = str_replace($valuesToDelete, '', $_phonenumber);
+        $params['PhoneNumber'] = $phone;
+        $params['LicenseKey'] = $licenseKey;
+        
+        if ($_type == 1) {  
+           
+            $params['CountryCode'] = '1';           
+            $params['CallerID'] = $callerID;
+            $params['Language'] = 'en';
+            $params['VerificationCode'] = $code;
+            $params['Extension'] = '';
+            $params['ExtensionPauseTime'] = '';
 
-            $URL = $wsdlUrl . "PlaceCall?CountryCode=" . $countryCode . "&PhoneNumber=" . $phoneNumber . "&Extension=" . $extension . "&ExtensionPauseTime=" . $extensionPauseTime . "&VerificationCode=" . $verifyCode . "&CallerID=" . $callerID . "&Language=" . $language . "&LicenseKey=" . $licenseKey;
-
-            // Get cURL resource
-            $curl = curl_init();
-            curl_setopt_array($curl, [
-                CURLOPT_RETURNTRANSFER => 1,
-                CURLOPT_URL            => $URL,
-                CURLOPT_USERAGENT      => 'Service Objects Telephone Verification',
-            ]);
-            curl_setopt($curl, CURLOPT_TIMEOUT, 50); //timeout in seconds
-            // Send the request & save response to $resp
-            $resp = curl_exec($curl);
-
-            if ($resp == false) {
-                curl_close($curl);
-                return -1;
-            }
-
-        } else {
-            $apiUrl = $this->getConfig('linkaccount/curacao/phonewsdlurl');
-            $countryCode = '1';
-            $phone = $_phonenumber;
-            $valuesToDelete = ['(', ')', '-', ' '];
-            $phone = str_replace($valuesToDelete, '', $phone);
-            $phoneNumber = $phone;
-            $licenseKey = $this->getConfig('linkaccount/curacao/licensekey');
-            $message = 'Your Curacao verification code is ' . $code . '.';
-
-            //use backup url once given purchased license key
-            $backupURL = $this->getConfig('linkaccount/curacao/backupurl') . "SendSMS?CountryCode=" . urlencode($countryCode) . "&PhoneNumber=" . urlencode($phoneNumber) . "&Message=" . urlencode($message) . "&LicenseKey=" . urlencode($licenseKey);
-
-            $URL = $apiUrl . "SendSMS?CountryCode=" . $countryCode . "&PhoneNumber=" . $phoneNumber . "&Message=" . $message . "&LicenseKey=" . $licenseKey;
-
-            // Get cURL resource
-            $curl = curl_init();
-            curl_setopt_array($curl, [
-                CURLOPT_RETURNTRANSFER => 1,
-                CURLOPT_URL            => $URL,
-                CURLOPT_USERAGENT      => 'Service Objects Telephone Verification',
-            ]);
-            curl_setopt($curl, CURLOPT_TIMEOUT, 50); //timeout in seconds
-            // Send the request & save response to $resp
-            $resp = curl_exec($curl);
-            // Close request to clear up some resources
-            if ($resp == false) {
-                curl_setopt_array($curl, [
-                    CURLOPT_RETURNTRANSFER => 1,
-                    CURLOPT_URL            => $backupURL,
-                    CURLOPT_USERAGENT      => 'Service Objects Telephone Verification',
-                ]);
-                curl_setopt($curl, CURLOPT_TIMEOUT, 50); //timeout in seconds
-                // Send the request & save response to $resp
-                $resp = curl_exec($curl);
-                if ($resp == false) {
-                    curl_close($curl);
+            $response = $soapClient->PlaceCall($params);
+            $result= $response->PlaceCallResult;
+            if (isset($result->Error)) {
                     return -1;
-                }
+            }
+        } else {
+          
+            $message = 'Your Curacao verification code is ' . $code . '.';
+            $response = $soapClient->SendSMS($params);
+            $result = $response->SendSMSResult;
+            if (isset($result->Error)) {
+                    return -1;
             }
         }
         return trim(md5($salt . $code));
