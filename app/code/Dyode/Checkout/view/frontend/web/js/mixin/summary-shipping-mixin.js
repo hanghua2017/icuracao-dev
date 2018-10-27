@@ -21,6 +21,14 @@ define(function () {
          */
         getShippingMethodTitle: function () {
             return '';
+        },
+
+        /**
+         * Avoid quote.shippingMethod exists check since it wont apply in our case.
+         * @returns {Boolean}
+         */
+        isCalculated: function () {
+            return this.totals() && this.isFullMode();
         }
     };
 

@@ -113,7 +113,7 @@ footer {
         .block.newsletter {
           text-align: right;
           margin-bottom: 0;
-      
+
           @media all and (max-width: 1024px) {
             width: 100%;
           }
@@ -157,7 +157,7 @@ footer {
                   input {
                     margin-top: 0;
                     font-family: 'iCuracao-Regular';
-                    padding: 11px 5px 10px 10px;
+                    padding: 11px 93px 10px 10px;
                     background-color: #e7e7e7;
                     color: #333333;
                     height: 37px;
@@ -540,79 +540,40 @@ html[lang="es"] {
       .trust-factor-block {
         .trust-factor {
           .trust-image {
-            &.secure,
-            &.why-shop {
-              @media all and (max-width: 1316px) {
-                img {
-                  float: left;
-                  margin-left: 10px;
-                }
-
-                .content {
-                  float: left;
-                  width: 80%;
-                  margin-left: 15px;
+            display: flex;
+            @media all and (min-width:992px){
+              padding: 15px;
+            }
+            img{
+              height:40px;
+              @media all and (max-width:991px){
+                width:40px;
+                height: 40px;
+              }
+            }
+            .content{
+              margin-left:20px !important;
+              @media all and (max-width:991px){
+                margin-left:10px !important;
+              }
+            }
+            &.trust{
+              img{
+                @media all and (max-width:991px){
+                  width: 30px;
+                  height: 40px;
                 }
               }
-              @media all and (max-width: 1055px) and (min-width: 992px) {
-                .content {
-                  width: 75%;
+              .content{
+                @media all and (max-width:991px){
+                  margin-left:20px !important;
                 }
               }
             }
-
-            &.why-shop {
-              .content {
-                @media all and (max-width: 355px) {
-                  width: 80%;
-                }
-              }
-            }
-
-            &.trust {
-              @media all and (max-width: 1200px) {
-                img {
-                  float: left;
-                  margin-left: 10px;
-                }
-
-                .content {
-                  float: left;
-                  width: 80%;
-                  margin-left: 15px;
-                }
-              }
-              @media all and (max-width: 1059px) and (min-width: 992px) {
-                .content {
-                  width: 75%;
-                }
-              }
-            }
-
-            .content {
-              @media all and (max-width: 1371px) and (min-width: 992px) {
-                margin-left: 5px;
-              }
-              @media all and (max-width: 420px) {
-                width: 85%;
-              }
-
-              p.title {
-                @media all and (max-width: 1371px) and (min-width: 992px) {
-                  max-width: 95%;
-                }
-                @media all and (max-width: 355px) {
-                  font-size: 13px;
-                }
-              }
-
-              p.comment {
-                @media all and (max-width: 1532px) {
-                  font-size: 13px;
-                }
-                @media all and (max-width: 1371px) and (min-width: 992px) {
-                  font-size: 12px;
-                  max-width: 95%;
+            &.why-shop{
+              img{
+                @media all and (max-width:991px){
+                  height: 30px;
                 }
               }
             }
