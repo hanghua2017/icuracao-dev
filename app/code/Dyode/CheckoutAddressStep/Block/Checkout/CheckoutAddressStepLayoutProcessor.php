@@ -9,10 +9,13 @@
  * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
  * @copyright Copyright © Dyode
  */
+
 namespace Dyode\CheckoutAddressStep\Block\Checkout;
 
 use Magento\Checkout\Block\Checkout\LayoutProcessorInterface;
 use Magento\Customer\Model\AttributeMetadataDataProvider;
+use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Store\Model\ScopeInterface;
 use Magento\Ui\Component\Form\AttributeMapper;
 use Magento\Checkout\Block\Checkout\AttributeMerger;
 
@@ -23,6 +26,12 @@ use Magento\Checkout\Block\Checkout\AttributeMerger;
  */
 class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
 {
+
+    const ADS_MOMENTUM_DELIVERY_MSG_CONFIG_PATH = 'carriers/adsmomentum/delivery_message';
+    const PILOT_DELIVERY_MSG_CONFIG_PATH = 'carriers/pilot/delivery_message';
+    const UPS_DELIVERY_MSG_CONFIG_PATH = 'carriers/ups/delivery_message';
+    const USPS_DELIVERY_MSG_CONFIG_PATH = 'carriers/usps/delivery_message';
+
 
     /**
      * @var array
@@ -45,20 +54,28 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
     public $merger;
 
     /**
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     */
+    protected $scopeConfig;
+
+    /**
      * CheckoutAddressStepLayoutProcessor constructor.
      *
      * @param \Magento\Customer\Model\AttributeMetadataDataProvider $attributeMetadataDataProvider
      * @param \Magento\Ui\Component\Form\AttributeMapper $attributeMapper
      * @param \Magento\Checkout\Block\Checkout\AttributeMerger $merger
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      */
     public function __construct(
         AttributeMetadataDataProvider $attributeMetadataDataProvider,
         AttributeMapper $attributeMapper,
-        AttributeMerger $merger
+        AttributeMerger $merger,
+        ScopeConfigInterface $scopeConfig
     ) {
         $this->attributeMetadataDataProvider = $attributeMetadataDataProvider;
         $this->attributeMapper = $attributeMapper;
         $this->merger = $merger;
+        $this->scopeConfig = $scopeConfig;
     }
 
     /**
@@ -77,6 +94,7 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
         $jsLayout = $this->removeShippingAddressFromShippingMethodStep($jsLayout);
         $jsLayout = $this->addBillingAddressIntoAddressStep($jsLayout);
         $jsLayout = $this->changeSummaryTotalsSortOrder($jsLayout);
+        $jsLayout = $this->provideCustomDataToComponents($jsLayout);
 
         return $jsLayout;
     }
@@ -220,7 +238,10 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
                                 ],
                             ],
                             'telephone'  => [
-                                'config' => [
+                                'validation' => [
+                                    'phoneUS' => true,
+                                ],
+                                'config'     => [
                                     'tooltip' => [
                                         'description' => __('For delivery questions.'),
                                     ],
@@ -327,6 +348,11 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
         ["shippingAddress"]["children"]["shipping-address-fieldset"]["children"]
         ["telephone"]['placeholder'] = __('(123) 456 7890');
 
+        //add US-Phone number validation for shipping address telephone field
+        $jsLayout["components"]["checkout"]["children"]["steps"]["children"]["address-step"]["children"]
+        ["shippingAddress"]["children"]["shipping-address-fieldset"]["children"]
+        ["telephone"]['validation']['phoneUS'] = true;
+
         return $jsLayout;
     }
 
@@ -355,4 +381,51 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
 
         return $jsLayout;
     }
+
+    /**
+     * Provide component specific data to the component.
+     *
+     * This is a much better method to feed a component with an external data (server data)
+     * instead of fetching it through the "window.checkoutConfig" global variable, which considered as a bad practice.
+     *
+     * @param array $jsLayout
+     * @return array $jsLayout
+     */
+    public function provideCustomDataToComponents(array $jsLayout)
+    {
+
+        //add delivery messages into "quoteShippingList" component;
+        $jsLayout["components"]["checkout"]["children"]["steps"]["children"]["shipping-step"]["children"]
+        ["shippingAddress"]["children"]["shippingAdditional"]["children"]["quoteShippingList"]
+        ['config']['shippingMethodDeliveryMessages'] = $this->collectShippingMethodDeliveryMsgs();
+
+        return $jsLayout;
+    }
+
+    /**
+     * Collect shipping method delivery messages from system configuration.
+     *
+     * @return array
+     */
+    protected function collectShippingMethodDeliveryMsgs()
+    {
+        return [
+            'adsmomentum' => $this->getConfigValue(self::ADS_MOMENTUM_DELIVERY_MSG_CONFIG_PATH),
+            'pilot'       => $this->getConfigValue(self::PILOT_DELIVERY_MSG_CONFIG_PATH),
+            'ups'         => $this->getConfigValue(self::UPS_DELIVERY_MSG_CONFIG_PATH),
+            'usps'        => $this->getConfigValue(self::USPS_DELIVERY_MSG_CONFIG_PATH),
+        ];
+    }
+
+    /**
+     * Collect a configuration value corresponding to the config path given against the store.
+     *
+     * @param string $configPath
+     * @return string
+     */
+    protected function getConfigValue($configPath)
+    {
+        return $this->scopeConfig->getValue($configPath, ScopeInterface::SCOPE_STORE);
+    }
+
 }

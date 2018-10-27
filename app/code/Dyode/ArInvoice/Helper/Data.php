@@ -244,10 +244,23 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "X-Api-Key: " . $this->arWebServiceHelper->getApiKey()));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Content-Type: application/json",
+            "X-Api-Key: " . $this->arWebServiceHelper->getApiKey()]
+        );
 
         $result = curl_exec($ch);
         curl_close($ch);
+
+        //logging audit log
+        $this->auditLog->saveAuditLog([
+            'user_id' => "",
+            'action' => 'AR get set items',
+            'description' => "input : itemId : " . $itemId . "  response : " . $result,
+            'client_ip' => "",
+            'module_name' => "Dyode_ArInvoice"
+        ]);
+        error_log("input : itemId : " . $itemId . "  response : " . $result);
         return $result;
     }
 
@@ -340,6 +353,12 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->_orderRepository->get($orderId);
     }
 
+    /**
+     * Get the inventory details of the product
+     *
+     * @param $productId
+     * @return array
+     */
     public function getProductInventory($productId)
     {
         $resourceConnection = $this->_resourceConnection->getConnection();
@@ -395,9 +414,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
          * Getting the Inventory Level from location_inventory table
          */
         $result = $this->getProductInventory($productId);
-        if (empty($result[0]['finalinventory'])) {
-            throw new \Exception("Product Inventory Level Not Found", 1);
-        }
+//        if (empty($result[0]['finalinventory'])) {
+//            throw new \Exception("Product Inventory Level Not Found", 1);
+//        }
         $inventoryLocations = json_decode($result[0]['finalinventory']);
 
         if ($vendorId != '2139') {  # If the vendor is not Curacao
@@ -426,7 +445,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                     return $storeLocationCode;
                 } else {
                     $set = $product->getData('set');
-                    if ($set == 'Yes') {
+
+                    if ($set == "1") {
                         $setItems = json_decode($this->getSetItems($itemSku));
                         $pendingArray = $this->getPendingEstimate($itemSku);
                         if (count($pendingArray) > 0) {
@@ -447,34 +467,38 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
                                 $setItemProduct = $this->getProductBySku($setItem->ITEM_ID);
 
-                                $resultSetItem = $this->getProductInventory($productId);
-                                if (empty($resultSetItem[0]['finalinventory'])) {
-                                    throw new \Exception("Product Inventory Level Not Found", 1);
-                                }
-                                $setItemInventoryLevel = json_decode($resultSetItem[0]['finalinventory']);    
+                                $resultSetItem = $this->getProductInventory($setItemProduct->getId());
 
-                                foreach ($setItemInventoryLevel as $key => $value) {
-                                    $stockAvailable = $value - $pending[$setItem->ITEM_ID];
-                                    $stockOrdered = $itemQty * $setItemsQty[$setItem->ITEM_ID];
-                                    if (empty($availableInventory[$key])) {
-                                        $availableInventory[$key] = array();
-                                    }
-                                    if ($stockAvailable > $stockOrdered) {
-                                        array_push($availableInventory[$key], $setItem->ITEM_ID);
+//                                if (empty($resultSetItem[0]['finalinventory'])) {
+//                                    throw new \Exception("Product Inventory Level Not Found", 1);
+//                                }
+                                $setItemInventoryLevel = (!empty($resultSetItem)) ?
+                                    json_decode($resultSetItem[0]['finalinventory']) : [];
+                                if (!empty($setItemInventoryLevel)) {
+                                    foreach ($setItemInventoryLevel as $key => $value) {
+                                        $stockAvailable = $value - $pending[$setItem->ITEM_ID];
+                                        $stockOrdered = $itemQty * $setItemsQty[$setItem->ITEM_ID];
+                                        if (empty($availableInventory[$key])) {
+                                            $availableInventory[$key] = array();
+                                        }
+                                        if ($stockAvailable > $stockOrdered) {
+                                            array_push($availableInventory[$key], $setItem->ITEM_ID);
+                                        }
                                     }
                                 }
                             }
+
                         } else {
                             throw new \Exception("Set Items Not Found", 1);
                         }
                         $setLocationFound = 0;
                         foreach ($availableInventory as $locations => $items) {
-                            if (count($itemsArray) ==  count($items)) {
+                            if (count($itemsArray) == count($items)) {
                                 $setLocationFound = 1;
                                 return $locations;
                             }
                         }
-                        if ($setLocationFound == 1) {
+                        if ($setLocationFound != 1) {
                             # Send Out of Stock Notification
                             return 01;
                         }
@@ -578,9 +602,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         foreach ($orderItems as $itemId => $productInfo) {
             $product = $this->getProductById($productInfo['ProductId']);
             $resultSetItem = $this->getProductInventory($productInfo['ProductId']);
-            if (empty($resultSetItem[0]['finalinventory'])) {
-                throw new \Exception("Product Inventory Level Not Found", 1);
-            }
+//            if (empty($resultSetItem[0]['finalinventory'])) {
+//                throw new \Exception("Product Inventory Level Not Found", 1);
+//            }
 
             $inventoryLevel = json_decode($resultSetItem[0]['finalinventory']);
 

@@ -21,6 +21,7 @@ define([
     'Magento_Checkout/js/model/quote',
     'Magento_Customer/js/model/customer',
     'Dyode_Checkout/js/model/curacao-service-provider',
+    'Dyode_Checkout/js/data/curacao-data-provider',
     'Magento_Ui/js/modal/modal'
 ], function (
     $,
@@ -32,7 +33,8 @@ define([
     checkoutData,
     quote,
     customer,
-    curacaoServiceProvider
+    curacaoServiceProvider,
+    curacaoDataProvider
 ) {
     var curacaoPaymentInfo = window.checkoutConfig.curacaoPayment,
         customerInfo = window.checkoutConfig.customerData,
@@ -100,6 +102,7 @@ define([
                     curacaoServiceProvider.collectCuracaoTotals().done(function () {
                         var successMessage = $t('Curacao Credits applied successfully.');
 
+                        curacaoDataProvider.hasCuracaoCreditApplied(true);
                         messageList.addSuccessMessage({
                             message: successMessage
                         });
@@ -108,6 +111,7 @@ define([
                     curacaoServiceProvider.removeCuracaoTotals().done(function () {
                         var successMessage = $t('Curacao Credit removed successfully.');
 
+                        curacaoDataProvider.hasCuracaoCreditApplied(false);
                         messageList.addSuccessMessage({
                             message: successMessage
                         });
@@ -308,6 +312,8 @@ define([
          * We need to show down payment details in this case.
          */
         processCuracaoLinkedScenario: function () {
+            curacaoDataProvider.hasCuracaoCreditApplied(true);
+
             if (curacaoServiceProvider.response() && curacaoServiceProvider.response().curacaoInfo) {
                 var curacaoInfo = curacaoServiceProvider.response().curacaoInfo;
 

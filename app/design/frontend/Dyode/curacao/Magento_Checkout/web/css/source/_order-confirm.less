@@ -1,6 +1,4 @@
-// Order Confirmation Pahe styling
-
-
+// Order Confirmation Page styling
 .checkout-onepage-success .page-wrapper .page-footer {
       padding-top: 40px!important;
 }
@@ -115,7 +113,7 @@
           }
         }
       }
-      //shiipping info , billing info , payment , order details , delivery date block styling
+      //shipping info , billing info , payment , order details , delivery date block styling
       .section-wrapper {
         max-width: 700px;
         margin: 30px auto 20px;
@@ -216,36 +214,7 @@
               margin-top: 14px !important;
             }
           }
-          .delivery-date-outer
-          {
-            width: 50%;
-            margin-top: -41px;
-            @media all and (max-width: 600px)
-            {
-              clear: both;
-              width: 100%;
 
-            }
-
-            @media all and (max-width: 520px)
-            {
-              margin-top: 0;
-            }
-            .store-location-details
-            {
-              label
-              {
-                font-weight: 700;
-              }
-              .store-location-content
-              {
-                .title
-                {
-                  margin: 0;
-                }
-              }
-            }
-          }
 
           .block.delivery {
             flex-basis: 33.3333%;
@@ -266,71 +235,134 @@
           .product-details {
             width: 100%;
             float: left;
-            display: flex;
             @media all and (max-width: 520px)
             {
               display: block;
             }
-            .each-product {
+            .each-product-outer
+            {
               display: flex;
-                  width: 70%;
-
-              .product-image {
-                max-width: 100%;
-
-                img {
-                  max-width: 100%;
-                  height: auto;
-                }
+              @media all and (max-width:550px)
+              {
+                display:block;
+                width:100%;
               }
+              .each-product {
+                display: flex;
+                    width: 70%;
+                  @media all and (max-width:550px)
+                  {
+                    width:100%;
+                  }
+                .product-image {
+                  max-width: 100%;
 
-              .product-info {
-                padding-left: 15px;
-                @media all and (max-width: 520px)
-                {
-                  width: 100%;
+                  img {
+                    max-width: 100%;
+                    height: auto;
+                  }
                 }
 
-                .pdt-name {
-                  h3 {
-                    margin: 14px 0 10px;
+                .product-info {
+                  padding-left: 15px;
+                  @media all and (max-width: 520px)
+                  {
+                    width: 100%;
+                  }
+                  @media all and (max-width: 479px)
+                  {
+                    width: 70%;
+                  }
+
+                  .pdt-name {
+                    h3 {
+                      margin: 14px 0 10px;
+                      font-family: 'iCuracao-Regular';
+                      color: #000;
+                      font-size: 14px;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      width: 290px;
+                      white-space: nowrap;
+                      @media all and (max-width:720px)
+                      {
+                        width: 200px;
+                      }
+                      @media all and (max-width:520px)
+                      {
+                        width: 100%;
+                      }
+                    }
+                  }
+
+                  .pdt-price {
+                    margin-bottom: 5px;
+
+                    span {
+                      font-family: 'iCuracao-Medium';
+                      color: #d7102b;
+                      font-size: 16px;
+                    }
+                  }
+
+                  .qty {
                     font-family: 'iCuracao-Regular';
                     color: #000;
                     font-size: 14px;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    width: 290px;
-                    white-space: nowrap;
-                    @media all and (max-width:720px)
+
+
+                  }
+                }
+              }
+
+              .delivery-date-outer
+              {
+                width: 50%;
+
+                @media all and (max-width: 600px)
+                {
+                  clear: both;
+                  width: 100%;
+
+                }
+
+                .block-title
+                {
+                  display:none;
+                }
+                .store-location-details
+                {
+                  label
+                  {
+                    font-weight: 700;
+                  }
+                  .store-location-content
+                  {
+                    .title
                     {
-                      width: 200px;
-                    }
-                    @media all and (max-width:520px)
-                    {
-                      width: 100%;
+                      margin: 0;
                     }
                   }
                 }
+              }
 
-                .pdt-price {
-                  margin-bottom: 5px;
-
-                  span {
-                    font-family: 'iCuracao-Medium';
-                    color: #d7102b;
-                    font-size: 16px;
+              &:first-child
+              {
+                .delivery-date-outer
+                {
+                  margin-top: -41px;
+                  @media all and (max-width: 550px)
+                  {
+                    margin-top: 0;
                   }
-                }
-
-                .qty {
-                  font-family: 'iCuracao-Regular';
-                  color: #000;
-                  font-size: 14px;
-
-                  span {}
+                  .block-title
+                  {
+                    display:block;
+                  }
                 }
               }
             }
+
           }
         }
       }
@@ -502,9 +534,6 @@
           margin-top: 0;
           text-transform: uppercase;
           color: #333;
-          @media screen and (max-width: 991px) {
-            //
-          }
           @media screen and (max-width: 767px) {
             font-size: 11px;
           }

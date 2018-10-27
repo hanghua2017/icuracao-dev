@@ -17,7 +17,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         }
 
         if ($percentage) {
-            return $percentage."% Off";
+            return $percentage. '% '. __("Off");
         }
 
     }

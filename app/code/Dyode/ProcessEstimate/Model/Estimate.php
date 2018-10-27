@@ -1,25 +1,21 @@
 <?php
 namespace Dyode\ProcessEstimate\Model;
 
-use \Magento\Framework\Model\AbstractModel;
-
-class Estimate extends \Magento\Framework\View\Element\Template {
+class Estimate extends \Magento\Framework\Model\AbstractModel
+{
 
    protected $_orderCollectionFactory;
 
    protected $orders;
 
-   public function __construct(
-	\Magento\Framework\View\Element\Template\Context $context,  
+   public function __construct( 
 	\Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory, 
 	\Dyode\ProcessEstimate\Helper\Data $helper,
-	\Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
-	array $data = []
+	\Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog
 	) {
 	    $this->_orderCollectionFactory = $orderCollectionFactory;
 	    $this->helper = $helper;
 	    $this->auditLog = $auditLog;
-	    parent::__construct($context, $data);
 	}
 
 	//fetch and process orders
@@ -29,12 +25,12 @@ class Estimate extends \Magento\Framework\View\Element\Template {
 			///fetch orders with status 'process estimate'
 		    $orders = $this->_orderCollectionFactory->create()->addFieldToSelect('*')->addFieldToFilter(
 		        'status',
-		        ['in' => array('process estimate')]
+		        ['in' => array('processestimate')]
 		    );
 
 		    foreach ($orders as $order) {
 		    	$paymentMethod = $this->getPaymentMethod($order);	    
-		    	if (strpos($paymentMethod, 'Authorize.net') !== false) {
+		    	if (strpos($paymentMethod, 'authorizenet') !== false) {
 		    		$Signify_Required = true;
 		    		$orderTotal = $order->getGrandTotal(); //order total
 		    		$payment = $order->getPayment();

@@ -3,7 +3,7 @@ namespace Dyode\InventoryUpdate\Model;
 
 use \Magento\Framework\Model\AbstractModel;
 
-class Inventory extends \Magento\Framework\View\Element\Template {
+class Inventory extends \Magento\Framework\Model\AbstractModel {
 
    protected $_productCollectionFactory;
 
@@ -30,8 +30,7 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 
    public $pendingthreshold = array();
 
-   public function __construct(
-	\Magento\Framework\View\Element\Template\Context $context,  
+   public function __construct( 
 	\Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,  
     \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
 	\Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory, 
@@ -39,8 +38,7 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 	\Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry, 
 	\Dyode\InventoryUpdate\Helper\Data $helper,
 	\Dyode\PriceUpdate\Helper\Data $priceHelper,
-	\Dyode\Threshold\Model\Threshold $thresholdModel,
-	array $data = []
+	\Dyode\Threshold\Model\Threshold $thresholdModel
 	) {
 	    $this->_productCollectionFactory = $productCollectionFactory;  
 	    $this->_orderCollectionFactory = $orderCollectionFactory;
@@ -50,7 +48,6 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 	    $this->threshold = $thresholdModel;
 	    $this->_stockRegistry = $stockRegistry;	
 	    $this->priceHelper = $priceHelper;
-	    parent::__construct($context, $data);
 	}
 
 	public function updateInventory() {
@@ -196,7 +193,7 @@ class Inventory extends \Magento\Framework\View\Element\Template {
 				$eid = $this->productIDs[$sku];
 				if (count($this->productSKUs[$sku]) == 0)
 				{
-				 	continue;				
+								
 				}
 				else
 				{

@@ -14,7 +14,7 @@ use Dyode\ARWebservice\Helper\Data;
  * @module   PriceUpdate
  * @author   Nithin
  */
-class PriceUpdate extends \Magento\Framework\View\Element\Template
+class PriceUpdate extends \Magento\Framework\Model\AbstractModel
 {
 
     public $productCollectionFactory;
@@ -32,18 +32,15 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template
      * @param \Magento\Catalog\Api\ProductRepositoryInterface $productRepository
      */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         Data $apiHelper,
-        \Dyode\PriceUpdate\Helper\Data $priceHelper,
-        array $data = []
+        \Dyode\PriceUpdate\Helper\Data $priceHelper
     ) {
         $this->productCollectionFactory = $productCollectionFactory;
         $this->productRepository = $productRepository;
         $this->apiHelper = $apiHelper;
         $this->helper = $priceHelper;
-        parent::__construct($context, $data);
     }
 
     /**
@@ -111,7 +108,7 @@ class PriceUpdate extends \Magento\Framework\View\Element\Template
             ]);
             $request = new \Zend\Http\Request();
             $request->setHeaders($httpHeaders);
-            $request->setUri($apiUrl.'getPrices?top50=true');
+            $request->setUri($apiUrl.'getPrices?top50=false');
             $request->setMethod(\Zend\Http\Request::METHOD_GET);
 
             $client = new \Zend\Http\Client();

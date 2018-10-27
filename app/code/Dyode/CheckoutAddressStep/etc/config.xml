@@ -26,6 +26,13 @@
                 <uspscontainer>Variable</uspscontainer>
                 <zipcodefrom>90015</zipcodefrom>
             </curacao_shipping>
+            <curacao_ups>
+                <upsurl>https://onlinetools.ups.com/ups.app/xml</upsurl>
+                <upsshipper>V4575W</upsshipper>
+                <upsuserid>icuracao</upsuserid>
+                <upspassword>015COM4fy</upspassword>
+                <upsaccesskey>1D09F07A9C0DF1F6</upsaccesskey>
+            </curacao_ups>
         </shippingsettings>
     </default>
 </config>
