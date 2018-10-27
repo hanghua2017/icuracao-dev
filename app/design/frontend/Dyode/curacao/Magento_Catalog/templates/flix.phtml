@@ -1,0 +1,38 @@
+<?php
+/**
+ * @var \Magento\Catalog\Block\Product\View $block
+ * @var \Magento\Catalog\Model\Product $_product
+ */
+$_product = $block->getProduct();
+$_tvBrandText = '';
+$mpn = '';
+
+$getMpn = explode("-", $_product->getSku());
+
+if ($_product->getResource()->getAttribute('tv_brand')) {
+    $_tvBrandText = $_product->getAttributeText('tv_brand');
+}
+
+if (isset($getMpn[2])) {
+    $mpn = $getMpn[2];
+}
+?>
+<?php
+if ($_product->getVendorid() == '2139') {
+    ?>
+    <div id="flix-minisite"></div>
+    <div id="flix-inpage"></div>
+    <script type="text/javascript" src="//media.flixfacts.com/js/loader.js"
+                data-flix-distributor="12198"
+                data-flix-language="us"
+                data-flix-brand="<?php echo $_tvBrandText; ?>"
+                data-flix-mpn="<?php echo $mpn; ?>"
+                data-flix-ean=""
+                data-flix-sku="<?php echo $_product->getSku(); ?>"
+                data-flix-button="flix-minisite"
+                data-flix-inpage="flix-inpage"
+                data-flix-button-image=""
+                data-flix-fallback-language=""
+                data-flix-price="">
+    </script>
+<?php } ?>
