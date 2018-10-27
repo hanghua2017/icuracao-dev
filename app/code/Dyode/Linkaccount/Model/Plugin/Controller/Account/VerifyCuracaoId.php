@@ -17,7 +17,6 @@ use Magento\Framework\Message\ManagerInterface;
 use \Magento\Framework\Session\SessionManagerInterface as CoreSession; 
 use Dyode\ARWebservice\Helper\Data;
 use Magento\Customer\Model\CustomerFactory;
-use Magento\Store\Model\StoreManagerInterface; 
 use Magento\Customer\Model\Session;
 use Magento\Framework\DataObject;
 

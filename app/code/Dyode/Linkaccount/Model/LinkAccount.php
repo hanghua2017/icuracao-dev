@@ -7,10 +7,6 @@
  
 namespace Dyode\Linkaccount\Model;
 
-use \Dyode\Linkaccount\Api\LinkAccountInterface;
-use Magento\Customer\Api\AccountManagementInterface;
-
-
 class LinkAccount extends \Magento\Framework\Model\AbstractModel
 {
 	/**

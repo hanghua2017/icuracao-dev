@@ -5,11 +5,11 @@ Author :Kavitha
 */
 
 namespace Dyode\Linkaccount\Controller\Verify;
+
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\Controller\ResultFactory;
-use Magento\Framework\View\Element\Messages;
 use Magento\Framework\UrlFactory;
 use Magento\Customer\Model\CustomerFactory;
 
