@@ -6,10 +6,6 @@ Author :Kavitha
 
 namespace Dyode\Linkaccount\Controller\Verify;
 
-use Magento\Framework\App\Action\Context;
-use Magento\Framework\View\Result\PageFactory;
-use Magento\Framework\Controller\ResultFactory;
-
 class Code extends \Magento\Framework\App\Action\Action {
 
     protected $_resultJsonFactory;
