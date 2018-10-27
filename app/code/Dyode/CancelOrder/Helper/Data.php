@@ -50,7 +50,15 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Cancel Order Item using API -> AdjustItem
      *
-     * @return Json
+     * @param $invNo
+     * @param $itemId
+     * @param $qty
+     * @param string $newSubTotal
+     * @param string $newTotalTax
+     * @param string $newPrice
+     * @param string $newDescription
+     *
+     * @return mixed
      */
     public function adjustItem($invNo, $itemId, $qty, $newSubTotal = '', $newTotalTax = '', $newPrice = '', $newDescription = '')
     {
@@ -104,7 +112,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Cancel Order using API -> CancelEstimate
      *
-     * @return Json
+     * @param $invNo
+     *
+     * @return mixed
      */
     public function cancelEstimate($invNo)
     {

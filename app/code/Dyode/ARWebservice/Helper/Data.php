@@ -15,7 +15,6 @@ namespace Dyode\ARWebservice\Helper;
 use Magento\Framework\Message\ManagerInterface as MessageManager;
 use Dyode\AuditLog\Model\ResourceModel\AuditLog;
 use Magento\Framework\App\Helper\Context;
-use Magento\Framework\Serialize\Serializer\Json;
 use Zend\Http\Client;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
@@ -271,80 +270,88 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $code = rand(10000, 99999);
         $_phonenumber = '(832)977-1260';
 
-        if ($_type == 1) {
-            $wsdlUrl = $this->getConfig('linkaccount/curacao/phonewsdlurl');
-            $countryCode = '1';
-            $phone = $_phonenumber;
-            $valuesToDelete = ['(', ')', '-', ' '];
-            $phone = str_replace($valuesToDelete, '', $phone);
-            $phoneNumber = $phone;
-            $licenseKey = $this->getConfig('linkaccount/curacao/licensekey');
-            $callerID = $this->getConfig('linkaccount/curacao/callerid');
-            $language = 'en';
-            $verifyCode = $code;
-            $extension = '';
-            $extensionPauseTime = '';
+        $licenseKey = $this->getConfig('linkaccount/curacao/licensekey');
+        $callerID = $this->getConfig('linkaccount/curacao/callerid');
+        $wsdlUrl = $this->getConfig('linkaccount/curacao/phonewsdlurl');
 
-            $URL = $wsdlUrl . "PlaceCall?CountryCode=" . $countryCode . "&PhoneNumber=" . $phoneNumber . "&Extension=" . $extension . "&ExtensionPauseTime=" . $extensionPauseTime . "&VerificationCode=" . $verifyCode . "&CallerID=" . $callerID . "&Language=" . $language . "&LicenseKey=" . $licenseKey;
+        $countryCode = '1';
+        $valuesToDelete = ['(', ')', '-', ' '];
+        $phoneNumber = str_replace($valuesToDelete, '', $_phonenumber);
+        
+        if ($_type == 1) {  
+           
+            $params = [
+                'CountryCode' => $countryCode,
+                'PhoneNumber' => $phoneNumber,
+                'LicenseKey'  => $licenseKey,
+                'Language'    => 'en',
+                'VerificationCode' => $code,
+                'Extension'=>'',
+                'ExtensionPauseTime'=>''
+            ];
 
+           // $URL = $wsdlUrl . "PlaceCall?CountryCode=" . $countryCode . "&PhoneNumber=" . $phoneNumber . "&Extension=" . $extension . "&ExtensionPauseTime=" . $extensionPauseTime . "&VerificationCode=" . $verifyCode . "&CallerID=" . $callerID . "&Language=" . $language . "&LicenseKey=" . $licenseKey;
+            
             // Get cURL resource
-            $curl = curl_init();
-            curl_setopt_array($curl, [
-                CURLOPT_RETURNTRANSFER => 1,
-                CURLOPT_URL            => $URL,
-                CURLOPT_USERAGENT      => 'Service Objects Telephone Verification',
-            ]);
-            curl_setopt($curl, CURLOPT_TIMEOUT, 50); //timeout in seconds
-            // Send the request & save response to $resp
-            $resp = curl_exec($curl);
+            // $curl = curl_init();
+            // curl_setopt_array($curl, [
+            //     CURLOPT_RETURNTRANSFER => 1,
+            //     CURLOPT_URL            => $URL,
+            //     CURLOPT_USERAGENT      => 'Service Objects Telephone Verification',
+            // ]);
+            // curl_setopt($curl, CURLOPT_TIMEOUT, 50); //timeout in seconds
+            // // Send the request & save response to $resp
+            // $resp = curl_exec($curl);
 
-            if ($resp == false) {
-                curl_close($curl);
-                return -1;
+            // if ($resp == false) {
+            //     curl_close($curl);
+            //     return -1;
+            // }
+
+            $soapClient = new \SoapClient($wsdlUrl."?WSDL", array( "trace" => 1 ));
+            $response = $soapClient->__soapCall("PlaceCall", array($params));
+            file_put_contents('/var/www/html/curacao/var/log/resp.xml',$response);
+
+            // $response = $soapClient->PlaceCall($params);
+            // $result= $response->PlaceCallResult;
+            if (isset($result->Error)) {
+                    return -1;
             }
+
+            return trim(md5($salt . $code));
 
         } else {
-            $apiUrl = $this->getConfig('linkaccount/curacao/phonewsdlurl');
-            $countryCode = '1';
-            $phone = $_phonenumber;
-            $valuesToDelete = ['(', ')', '-', ' '];
-            $phone = str_replace($valuesToDelete, '', $phone);
-            $phoneNumber = $phone;
-            $licenseKey = $this->getConfig('linkaccount/curacao/licensekey');
+                                            
             $message = 'Your Curacao verification code is ' . $code . '.';
 
-            //use backup url once given purchased license key
-            $backupURL = $this->getConfig('linkaccount/curacao/backupurl') . "SendSMS?CountryCode=" . urlencode($countryCode) . "&PhoneNumber=" . urlencode($phoneNumber) . "&Message=" . urlencode($message) . "&LicenseKey=" . urlencode($licenseKey);
+            $params = [
+                'CountryCode' => $countryCode,
+                'PhoneNumber' => $phoneNumber,
+                'Message'     => $message,
+                'LicenseKey'  => $licenseKey
+            ];
+          
+            try {
+                $this->zendClient->reset();
+                $this->zendClient->setUri($wsdlUrl."/SendSMS");
+                $this->zendClient->setMethod(\Zend\Http\Request::METHOD_POST);
+                $this->zendClient->setParameterPost($params);
+                $this->zendClient->send();
+                return trim(md5($salt . $code));
 
-            $URL = $apiUrl . "SendSMS?CountryCode=" . $countryCode . "&PhoneNumber=" . $phoneNumber . "&Message=" . $message . "&LicenseKey=" . $licenseKey;
-
-            // Get cURL resource
-            $curl = curl_init();
-            curl_setopt_array($curl, [
-                CURLOPT_RETURNTRANSFER => 1,
-                CURLOPT_URL            => $URL,
-                CURLOPT_USERAGENT      => 'Service Objects Telephone Verification',
-            ]);
-            curl_setopt($curl, CURLOPT_TIMEOUT, 50); //timeout in seconds
-            // Send the request & save response to $resp
-            $resp = curl_exec($curl);
-            // Close request to clear up some resources
-            if ($resp == false) {
-                curl_setopt_array($curl, [
-                    CURLOPT_RETURNTRANSFER => 1,
-                    CURLOPT_URL            => $backupURL,
-                    CURLOPT_USERAGENT      => 'Service Objects Telephone Verification',
+            } catch (\Zend\Http\Exception\RuntimeException $runtimeException) {
+                $this->auditLog->saveAuditLog([
+                    'user_id'     => "",
+                    'action'      => 'AR webservice',
+                    'description' => "Fail to connect AR webservice",
+                    'client_ip'   => "",
+                    'module_name' => "Dyode_ARWebservice",
                 ]);
-                curl_setopt($curl, CURLOPT_TIMEOUT, 50); //timeout in seconds
-                // Send the request & save response to $resp
-                $resp = curl_exec($curl);
-                if ($resp == false) {
-                    curl_close($curl);
-                    return -1;
-                }
-            }
+                return -1;
+            }  
+
         }
-        return trim(md5($salt . $code));
+        
     }
 
     /**
