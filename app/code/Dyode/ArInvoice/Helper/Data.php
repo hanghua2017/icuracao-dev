@@ -417,7 +417,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 //        if (empty($result[0]['finalinventory'])) {
 //            throw new \Exception("Product Inventory Level Not Found", 1);
 //        }
-        $inventoryLocations = json_decode($result[0]['finalinventory']);
+        $inventoryLocations = (!empty($result)) ? json_decode($result[0]['finalinventory']) : [];
 
         if ($vendorId != '2139') {  # If the vendor is not Curacao
             return '33';
@@ -469,9 +469,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
                                 $resultSetItem = $this->getProductInventory($setItemProduct->getId());
 
-//                                if (empty($resultSetItem[0]['finalinventory'])) {
-//                                    throw new \Exception("Product Inventory Level Not Found", 1);
-//                                }
                                 $setItemInventoryLevel = (!empty($resultSetItem)) ?
                                     json_decode($resultSetItem[0]['finalinventory']) : [];
                                 if (!empty($setItemInventoryLevel)) {
@@ -488,8 +485,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                                 }
                             }
 
-                        } else {
-                            throw new \Exception("Set Items Not Found", 1);
                         }
                         $setLocationFound = 0;
                         foreach ($availableInventory as $locations => $items) {
@@ -602,9 +597,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         foreach ($orderItems as $itemId => $productInfo) {
             $product = $this->getProductById($productInfo['ProductId']);
             $resultSetItem = $this->getProductInventory($productInfo['ProductId']);
-//            if (empty($resultSetItem[0]['finalinventory'])) {
-//                throw new \Exception("Product Inventory Level Not Found", 1);
-//            }
 
             $inventoryLevel = json_decode($resultSetItem[0]['finalinventory']);
 
@@ -697,9 +689,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         if (empty($invoiceNumber)) {
 			$logger->info("Order Id : " . $order->getIncrementId());
 			$logger->info("Invoice Number Not found ");
-			throw new \Exception("Invoice Number Not found ");
 		} else {
-
             foreach ($order->getAllItems() as $orderItem) {
                 $product = $this->_productRepository->getById($orderItem->getProductId());
                 $brand = $product->getResource()->getAttribute('tv_brand')->getFrontend()->getValue($product);
@@ -761,7 +751,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
                 $logger->info("Order Id : " . $order->getIncrementId());
                 $logger->info($response->INFO);
-                throw new \Exception($response->INFO);
 
                 return true;
             } else {
@@ -775,7 +764,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
                 $logger->info("Order Id : " . $order->getIncrementId());
                 $logger->info($response->INFO);
-                throw new \Exception($response->INFO);
 
                 return false;
             }
