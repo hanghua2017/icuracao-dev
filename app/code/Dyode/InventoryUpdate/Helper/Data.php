@@ -44,7 +44,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 			$client->setOptions($options);
 			$this->priceHelper->addLogs('getStock API Calling', $request, 'dyode_inventoryupdate');
 			$response = $client->send($request);
-			$data = json_decode($response->getBody());
+			$data = $response->getBody();
 			$this->priceHelper->addLogs('getStock API Calling', $response->getBody(), 'dyode_inventoryupdate');
 			return $data;
 		}catch (\Exception $exception) {

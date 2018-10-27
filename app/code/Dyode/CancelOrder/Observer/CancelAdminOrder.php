@@ -10,8 +10,6 @@ namespace Dyode\CancelOrder\Observer;
 
 use \Magento\Framework\Event\Observer;
 use \Magento\Framework\Event\ObserverInterface;
-use \Dyode\CancelOrder\Helper\Data;
-use \Magento\Framework\Event\Manager;
 
 class CancelAdminOrder implements ObserverInterface
 {
@@ -27,10 +25,12 @@ class CancelAdminOrder implements ObserverInterface
 	 */
 	public function __construct(
 		\Dyode\CancelOrder\Helper\Data $cancelOrderHelper,
-        \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog
+        \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
+        \Magento\Framework\Message\ManagerInterface $messageManager
 	) {
 		$this->_cancelOrderHelper = $cancelOrderHelper;
         $this->auditLog = $auditLog;
+        $this->messageManager = $messageManager;
 	}
 
 	/**
@@ -40,49 +40,52 @@ class CancelAdminOrder implements ObserverInterface
 	 */
 	public function execute(Observer $observer)
 	{
-		$writer = new \Zend\Log\Writer\Stream(BP . "/var/log/ordercancellation.log");
-		$logger = new \Zend\Log\Logger();
-		$logger->addWriter($writer);
+	    try {
+            $writer = new \Zend\Log\Writer\Stream(BP . "/var/log/ordercancellation.log");
+            $logger = new \Zend\Log\Logger();
+            $logger->addWriter($writer);
 
-		$order = $observer->getEvent()->getOrder();
-		$orderId = $order->getIncrementId();
-		// Getting the Invoice Number
-		$invoiceNumber = $order->getData('estimatenumber');
+            $order = $observer->getEvent()->getOrder();
+            // Getting the Invoice Number
+            $invoiceNumber = $order->getData('estimatenumber');
 
-		if (empty($invoiceNumber)) {
-			$logger->info("Order Id : " . $order->getIncrementId());
-			$logger->info("Invoice Number Not found ");
-		}
+            if (empty($invoiceNumber)) {
+                $logger->info("Order Id : " . $order->getIncrementId());
+                $logger->info("Invoice Number Not found ");
+            }
 
-		$response = $this->_cancelOrderHelper->cancelEstimate($invoiceNumber);
+            $response = $this->_cancelOrderHelper->cancelEstimate($invoiceNumber);
 
-		if (empty($response)) {
-			$logger->info("Order Id : " . $order->getIncrementId());
-			$logger->info("Order Item Id : " . $order->getId());
-			$logger->info("API Response not Found.");
+            if (empty($response)) {
+                $logger->info("Order Id : " . $order->getIncrementId());
+                $logger->info("Order Item Id : " . $order->getId());
+                $logger->info("API Response not Found.");
 
-            //logging audit log
-            $this->auditLog->saveAuditLog([
-                'user_id' => $order->getCustomerId(),
-                'action' => 'Order Cancellation - Invoice Cancellation',
-                'description' => "Fail to Cancelled invoice (No : " . $invoiceNumber . ") for " . $order->getIncrementId(),
-                'client_ip' => "",
-                'module_name' => "Dyode_ArOrderCancel"
-            ]);
-		}
+                //logging audit log
+                $this->auditLog->saveAuditLog([
+                    'user_id' => $order->getCustomerId(),
+                    'action' => 'Order Cancellation - Invoice Cancellation',
+                    'description' => "Fail to Cancelled invoice (No : " . $invoiceNumber . ") for " . $order->getIncrementId(),
+                    'client_ip' => "",
+                    'module_name' => "Dyode_ArOrderCancel"
+                ]);
+            }
 
-		if ($response->OK != true) {
-			$logger->info("Order Id : " . $order->getIncrementId());
-			$logger->info("Order Item Id : " . $order->getId());
-			$logger->info($response->INFO);
-            //logging audit log
-            $this->auditLog->saveAuditLog([
-                'user_id' => $order->getCustomerId(),
-                'action' => 'Order Cancellation - Invoice Cancellation',
-                'description' => "Cancelled invoice (No : " . $invoiceNumber . ") for " . $order->getIncrementId(),
-                'client_ip' => "",
-                'module_name' => "Dyode_ArOrderCancel"
-            ]);
-		}
+            if ($response->OK != true) {
+                $logger->info("Order Id : " . $order->getIncrementId());
+                $logger->info("Order Item Id : " . $order->getId());
+                $logger->info($response->INFO);
+                //logging audit log
+                $this->auditLog->saveAuditLog([
+                    'user_id' => $order->getCustomerId(),
+                    'action' => 'Order Cancellation - Invoice Cancellation',
+                    'description' => "Cancelled invoice (No : " . $invoiceNumber . ") for " . $order->getIncrementId(),
+                    'client_ip' => "",
+                    'module_name' => "Dyode_ArOrderCancel"
+                ]);
+            }
+        } catch (\Exception $exception) {
+            $this->messageManager->addException($exception, __('Something went Wrong. Please see the logs for more details'));
+        }
 	}
 }
