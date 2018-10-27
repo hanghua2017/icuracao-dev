@@ -290,7 +290,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
                     return [
                         'quote_item_id'    => $quoteItemId,
                         'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
-                        'delivery_methods' => [$deliverymethods],
+                        'delivery_methods' => $deliverymethods,
                     ];
                     break;
                 case (( $productWeight >= $upsWith ) && $productWeight < $adsSwitch) :
@@ -301,7 +301,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
                      return [
                          'quote_item_id'    => $quoteItemId,
                          'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
-                         'delivery_methods' => [$deliverymethods],
+                         'delivery_methods' => $deliverymethods,
                      ];
                     break;
                 case (( $productWeight >= $adsSwitch ) && $productWeight < 150 ):
@@ -312,7 +312,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
                      return [
                          'quote_item_id'    => $quoteItemId,
                          'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
-                         'delivery_methods' => [$deliverymethods],
+                         'delivery_methods' => $deliverymethods,
                      ];
                     break;
                 default:
