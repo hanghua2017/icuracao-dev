@@ -9,6 +9,7 @@
  * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
  * @copyright Copyright © Dyode
  */
+
 namespace Dyode\Checkout\Model\InfoProcessor;
 
 use Dyode\Checkout\Helper\CuracaoHelper;
@@ -133,15 +134,17 @@ class SaveManager
 
         $totals->setShippingAmount($shippingAmount);
         $totals->setGrandTotal($grandTotal);
-
-        //total segment is also updating; this field is used to show grand total in the checkout
         $totalSegments = $totals->getTotalSegments();
-        if ($totalSegments && $totalSegments['grand_total']) {
+
+        if ($totalSegments && isset($totalSegments['grand_total'])) {
             $totalSegments['grand_total']->setValue($grandTotal);
         }
 
-        //updating curacao total segment in order to show it in the frontend.
-        if ($totalSegments && $totalSegments['curacao_discount']) {
+        if ($totalSegments && isset($totalSegments['shipping'])) {
+            $totalSegments['shipping']->setValue($shippingAmount);
+        }
+
+        if ($totalSegments && isset($totalSegments['curacao_discount'])) {
             $totalSegments['curacao_discount']->setValue($curacaoDiscount);
         }
 
