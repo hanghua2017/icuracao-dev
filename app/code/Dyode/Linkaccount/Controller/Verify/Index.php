@@ -25,19 +25,25 @@ class Index extends Action
     protected $_customerSession;
     protected $_helper;
     protected $_messageManager;
-    protected $_customerModel;
+  
     protected $_storeManager;
-    protected $_customerRepositoryInterface;
-    protected $_addressFactory;
-    protected $_resultFactory;
     /**
-     * @var \Magento\Quote\Api\CartRepositoryInterface
+     * @var \Magento\Customer\Api\CustomerRepositoryInterface
      */
-    protected $quoteRepository;
-
-    /** @var \Magento\Framework\UrlFactory */
+    protected $_customerRepositoryInterface;
+    /**
+     * @var \Magento\Customer\Model\AddressFactory
+     */
+    protected $_addressFactory;
+    /**
+     * @var Magento\Framework\Controller\ResultFactory
+     */
+    protected $_resultFactory;
+  
+    /** 
+     * @var \Magento\Framework\UrlFactory 
+     */
     protected $urlModel;
-
      /**
      * @var \Magento\Customer\Model\CustomerFactory
      */
@@ -56,14 +62,12 @@ class Index extends Action
         Context $context,
         PageFactory $resultPageFactory,
         ResultFactory $resultFactory,
-        \Magento\Customer\Model\Customer $customerModel,
         \Dyode\ARWebservice\Helper\Data $helper,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
         \Magento\Customer\Model\AddressFactory $addressFactory,
-        \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
         UrlFactory $urlFactory,
         CustomerFactory $customerFactory
     ) {
@@ -74,11 +78,9 @@ class Index extends Action
         $this->_helper = $helper;
         $this->_storeManager = $storeManager;
         $this->_messageManager = $messageManager;
-        $this->_customerModel = $customerModel;
         $this->_customerRepositoryInterface = $customerRepositoryInterface;
         $this->_addressFactory = $addressFactory;
         $this->urlModel = $urlFactory->create(); 
-        $this->quoteRepository = $quoteRepository;
         $this->customerFactory = $customerFactory;
         parent::__construct($context);
     }
