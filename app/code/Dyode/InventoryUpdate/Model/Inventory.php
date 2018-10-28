@@ -229,35 +229,35 @@ class Inventory extends \Magento\Framework\Model\AbstractModel {
                $product->setVisibiity(1);
                $product->setInventorylookup('499');
                //$product->setCron('15');
-               //$product->save();
+               $product->save();
                continue;
             }
             
             if ($product->getArStatus() =='Z') {
                $product->setStatus(0);
                $product->setVisibiity(1);
-               //$product->save();
+               $product->save();
                continue;
             }
 
             if ($product->getArStatus() =='R' && $company_wide_inventory < 5) {
                $product->setStatus(0);
                $product->setVisibiity(1);
-               //$product->save();
+               $product->save();
                continue;
             }
             if($finalInv > 0){
                $product->setStatus(1);
                $product->setVisibiity(4);
                $product->setOosDate('');
-               //$product->save();
+               $product->save();
                $stockItem->setQty($finalInv);
             } else {
                $product->setStatus(0);
                $product->setVisibiity(1);
                $product->setOosDate(date("Y-m-d 00:00:00"));
                $product->setInventorylookup('500');
-    //         $product->save();
+               $product->save();
                $stockItem->setQty('0');
             }
                $stockItem->setIsInStock((bool)$finalInv); 
