@@ -1,0 +1,5 @@
+<?php $_product = $block->getProduct(); ?>
+<div id="wc-power-page"></div>
+<script>
+Webcollage.loadProductContent('icuracao', '<?php echo $_product->getEntityId();?>', {"power-page": {autoPlayAndStop: true, hasPowerPageContentCallback: webcollageCallback}});
+</script>
