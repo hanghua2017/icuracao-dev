@@ -17,19 +17,20 @@
     <div class="step-top-heading">
         <h2 class="top-title" data-bind="i18n: 'Billing Address | Shipping Address'"></h2>
         <p class="top-details">
-            <!-- ko i18n: 'Please enter shipping address if you have opted for "Ship to Home".' --><!-- /ko -->
-            <!-- ko i18n: 'Enter billing address to process the invoice in case of both "Ship to home" or "Store Pickup".' -->
+            <!-- ko i18n: 'Please enter shipping address if you have opted for' --><!-- /ko --> "<!-- ko i18n:'Ship to Home.'--><!-- /ko -->"
+            <!-- ko i18n: 'Enter billing address to process the invoice in case of both' --><!-- /ko --> "<!-- ko i18n:'Ship to Home'--><!-- /ko -->" <!-- ko i18n:'or' --><!-- /ko --> "<!-- ko i18n:'Store Pickup.'--><!-- /ko -->"
             <!-- /ko -->
         </p>
     </div>
 
     <div class="step-title" data-bind="i18n: 'Add a new ship address'" data-role="title"></div>
     <div class="step-note">
-        <!-- ko i18n: 'Be sure to click "Save this address" when done' -->
+
+        <!-- ko i18n: 'Be sure to click' --><!-- /ko -->"<!-- ko i18n:'Save this address'--><!-- /ko -->" <!-- ko i18n:'when done' --><!-- /ko -->
         <!-- /ko -->
     </div>
     <div id="checkout-step-title" class="step-content" data-role="content">
-      <div class="step-title" data-bind="i18n: 'Ship to home'" data-role="title">Ship to home</div>
+      <div class="step-title" data-bind="i18n: 'Ship to home'" data-role="title"></div>
         <each if="!quoteIsVirtual" args="getRegion('customer-email')" render=""/>
         <each args="getRegion('address-list')" render=""/>
         <if args="isCustomerLoggedIn() && isThereMoreThanTwoAddresses">
@@ -52,8 +53,8 @@
                             <div data-role="title">Add New Shipping Address</div>
                             <div data-role="content">
                                     <div class="step-note">
-                                            <!-- ko i18n: 'Be sure to click "Save this address" when done' -->
-                                            <!-- /ko -->
+                                      <!-- ko i18n: 'Be sure to click' --><!-- /ko -->"<!-- ko i18n:'Save this address'--><!-- /ko -->" <!-- ko i18n:'when done' --><!-- /ko -->
+                                      <!-- /ko -->
                                     </div>
                                     <!-- Shiping Address Form -->
                                     <render args="shippingFormTemplate" />
