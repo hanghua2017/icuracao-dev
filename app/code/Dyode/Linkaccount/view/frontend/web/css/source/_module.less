@@ -521,6 +521,29 @@
               }
             }
           }
+          .disclaimer{
+            padding: 10px 0;
+            p{
+              width: 345px;
+              margin: 0 auto;
+              font-size: 14px;
+              font-family: 'iCuracao-Regular';
+              //color: #8a8888;
+              @media all and (max-width: 820px){
+              width: 315px;
+              }
+              @media all and (max-width: 800px){
+                width: 100%;
+                text-align: center;
+              }
+              @media all and (max-width: 525px){
+              width: 345px;
+              }
+              @media all and (max-width: 430px){
+              width: 100%;
+              }
+            }
+          }
         }
         //Styling for the divider between two forms
         .or-spacer{
@@ -587,11 +610,26 @@
               margin-top: 0;
             }
           }
+
         }
       }
     }
   }
 }
+.ui-datepicker{
+      z-index: 99999999 !important;
+      .ui-datepicker-title{
+            margin: 0 20px;
+        select {
+          padding-right: 10px;
+        }
+    }
+    .ui-datepicker-prev, .ui-datepicker-next{
+        width: 15px;
+        height: 30px;
+    }
+}
+
 /*styling for link account popup on Checkout Page ends here*/
 html[lang="es"] {
  .linkaccount-container{
