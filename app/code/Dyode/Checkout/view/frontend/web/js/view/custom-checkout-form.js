@@ -22,7 +22,8 @@ define([
     'Magento_Customer/js/model/customer',
     'Dyode_Checkout/js/model/curacao-service-provider',
     'Dyode_Checkout/js/data/curacao-data-provider',
-    'Magento_Ui/js/modal/modal'
+    'Magento_Ui/js/modal/modal',
+    'mage/calendar'
 ], function (
     $,
     ko,
@@ -175,6 +176,14 @@ define([
             $(elem).modal({
                 title: $t('Verify your Curacao Account'),
                 modalClass: 'curacao-verify-modal'
+            });
+
+            //Inititialize date picker for dob input field.
+            $('#curacao-date-of-birth').datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1850:2020'
             });
         },
 

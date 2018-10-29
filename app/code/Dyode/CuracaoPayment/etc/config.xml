@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Dyode_CuracaoPayment Magento2 Module.
+ *
+ * Provide the facility: curacao custom payment method
+ *
+ * @package   Dyode
+ * @module    Dyode_CuracaoPayment
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<payment>
+			<curacaofullpayment>
+				<active>1</active>
+				<model>Dyode\CuracaoPayment\Model\Payment\CuracaoFullPayment</model>
+				<order_status>pending</order_status>
+				<title>Curacao Credit Payment</title>
+				<allowspecific>0</allowspecific>
+				<group>offline</group>
+			</curacaofullpayment>
+		</payment>
+	</default>
+</config>
