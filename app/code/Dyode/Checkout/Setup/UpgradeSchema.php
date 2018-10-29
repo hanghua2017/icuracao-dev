@@ -29,6 +29,10 @@ class UpgradeSchema implements UpgradeSchemaInterface
             $this->upgradeSchemaTwoZeroThree($installer);
         }
 
+        if (version_compare($context->getVersion(), '2.0.4', '<')) {
+            $this->upgradeSchemaTwoZeroFour($installer);
+        }
+
         $installer->endSetup();
     }
 
@@ -43,15 +47,6 @@ class UpgradeSchema implements UpgradeSchemaInterface
       // Updating the 'catalog_product_bundle_option_value' table.
       $connection->addColumn(
           $installer->getTable('quote_item'),
-          'shipping_details',
-          [
-            'type'     => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-            'comment'  => 'Shipping details'
-          ]
-      );
-
-      $connection->addColumn(
-          $installer->getTable('sales_order_item'),
           'shipping_details',
           [
             'type'     => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
@@ -91,6 +86,24 @@ class UpgradeSchema implements UpgradeSchemaInterface
       // Updating the 'quote_item' table.
       $connection->addColumn(
           $installer->getTable('quote_item'),
+          'shipping_cost',
+          [
+            'type'     => \Magento\Framework\DB\Ddl\Table::TYPE_DECIMAL,
+            'comment'  => 'Shipping Cost'
+          ]
+      );
+    }
+    /*
+    * Schema for 2.0.4
+    *
+    * @param \Magento\Framework\Setup\SchemaSetupInterface $installer
+    */
+    public function upgradeSchemaTwoZeroFour(SchemaSetupInterface $installer)
+    {
+      $connection = $installer->getConnection();
+      // Updating the 'quote_item' table.
+      $connection->addColumn(
+          $installer->getTable('sales_order_item'),
           'shipping_cost',
           [
             'type'     => \Magento\Framework\DB\Ddl\Table::TYPE_DECIMAL,
