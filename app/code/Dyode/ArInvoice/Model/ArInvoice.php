@@ -39,11 +39,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
      * @var \Dyode\Customerstatus\Helper\Data $customerStatusHelper
      **/
     protected $_customerStatusHelper;
-
-    /**
-     * @var \Dyode\Signifyd\Model\Signifyd $signifydModel
-     */
-    protected $_signifydModel;
     /**
      * @var \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface
      */
@@ -69,7 +64,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
      * @param \Magento\Sales\Model\ResourceModel\Order\Status\CollectionFactory $statusCollectionFactory
      * @param \Dyode\ArInvoice\Helper\Data $arInvoiceHelper
      * @param \Dyode\Customerstatus\Helper\Data $customerStatusHelper
-     * @param \Dyode\Signifyd\Model\Signifyd $signifydModel
      * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface
      * @param \Magento\Catalog\Model\ProductRepository $productRepository
      * @param \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
@@ -84,7 +78,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         \Magento\Sales\Model\ResourceModel\Order\Status\CollectionFactory $statusCollectionFactory,
         \Dyode\ArInvoice\Helper\Data $arInvoiceHelper,
         \Dyode\Customerstatus\Helper\Data $customerStatusHelper,
-        \Dyode\Signifyd\Model\Signifyd $signifydModel,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
         \Magento\Catalog\Model\ProductRepository $productRepository,
         \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
@@ -98,7 +91,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         $this->_statusCollectionFactory = $statusCollectionFactory;
         $this->_arInvoiceHelper = $arInvoiceHelper;
         $this->_customerStatusHelper = $customerStatusHelper;
-        $this->_signifydModel = $signifydModel;
         $this->_customerRepositoryInterface = $customerRepositoryInterface;
         $this->_productRepository = $productRepository;
         $this->auditLog = $auditLog;
