@@ -19,18 +19,40 @@ class ConfigProvider implements ConfigProviderInterface
 {
     const TC_CONFIG_PATH = 'curacao_checkout/curacao_onepage_checkout/terms_and_conditions_cms_page';
     const PRIVACY_CONFIG_PATH = 'curacao_checkout/curacao_onepage_checkout/privacy_cms_page';
+    const ADS_MOMENTUM_DELIVERY_MSG_CONFIG_PATH = 'carriers/adsmomentum/delivery_message';
+    const PILOT_DELIVERY_MSG_CONFIG_PATH = 'carriers/pilot/delivery_message';
+    const UPS_DELIVERY_MSG_CONFIG_PATH = 'carriers/ups/delivery_message';
+    const USPS_DELIVERY_MSG_CONFIG_PATH = 'carriers/usps/delivery_message';
 
-    /** @var LayoutInterface */
+    /**
+     * @var \Magento\Framework\View\LayoutInterface
+     */
     protected $_layout;
+
+    /**
+     * @var \Magento\Customer\Model\Session
+     */
     protected $_customerSession;
+
+    /**
+     * @var \Dyode\ARWebservice\Helper\Data
+     */
     protected $_helper;
+
+    /**
+     * @var \Magento\Customer\Api\CustomerRepositoryInterface
+     */
     protected $_customerRepositoryInterface;
-    protected $_curacaoId;
+
+    /**
+     * @var \Magento\Checkout\Model\Cart
+     */
     protected $_cart;
+
+    /**
+     * @var \Magento\Framework\Pricing\Helper\Data
+     */
     protected $_priceHelper;
-    protected $_canApply;
-    protected $_linked;
-    protected $_cmsBlock;
 
     /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
@@ -51,6 +73,46 @@ class ConfigProvider implements ConfigProviderInterface
      * @var \Dyode\Checkout\Helper\CuracaoHelper
      */
     protected $curacaoHelper;
+
+    /**
+     * @var bool|int
+     */
+    protected $_canApply;
+
+    /**
+     * Curacao Customer Account Number.
+     *
+     * @var string|int
+     */
+    protected $_curacaoId;
+
+    /**
+     * Indicate whether user is curacao customer or not.
+     *
+     * @var bool
+     */
+    protected $_linked;
+
+    /**
+     * Cms Block Html content.
+     *
+     * @var string
+     */
+    protected $_cmsBlock;
+
+    /**
+     * Holds curacao user credit limit.
+     *
+     * @var bool
+     */
+    protected $creditLimit = false;
+
+    /**
+     * Holds curacao user down payment.
+     *
+     * @var bool
+     */
+    protected $downPayment = false;
 
     /**
      * ConfigProvider constructor.
@@ -93,6 +155,12 @@ class ConfigProvider implements ConfigProviderInterface
         $this->_cmsBlock = $this->constructBlock($blockId);
     }
 
+    /**
+     * Grab a static block html based on it's id.
+     *
+     * @param $blockId
+     * @return mixed
+     */
     public function constructBlock($blockId)
     {
         $block = $this->_layout->createBlock('Magento\Cms\Block\Block')
@@ -100,6 +168,9 @@ class ConfigProvider implements ConfigProviderInterface
         return $block;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getConfig()
     {
         $this->curacaoHelper->updateCuracaoSessionDetails(['down_payment' => 0]);
@@ -116,8 +187,20 @@ class ConfigProvider implements ConfigProviderInterface
         return $configArr;
     }
 
+    /**
+     * Collect curacao credit limit.
+     *
+     * @return bool|float|string
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
     public function getLimit()
     {
+
+        if ($this->creditLimit) {
+            return $this->creditLimit;
+        }
+
         $curaAccId = $this->getCuracaoId();
         $limit = 0;
 
@@ -130,37 +213,56 @@ class ConfigProvider implements ConfigProviderInterface
             if ($result) {
                 $limit = (float)$result->CREDITLIMIT;
             }
-
-            $formattedCurrencyValue = $this->_priceHelper->currency($limit, true, false);
-
-            return $formattedCurrencyValue;
         }
 
-        return false;
+        $this->creditLimit = $this->_priceHelper->currency($limit, true, false);
+
+        return $this->creditLimit;
     }
 
+    /**
+     * Collect curacao down payment info.
+     *
+     * @return bool|float|string
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
     public function getDownPayment()
     {
-        $result = $this->_priceHelper->currency(0, true, false);
+
+        if ($this->downPayment) {
+            return $this->downPayment;
+        }
+
+        $this->downPayment = $this->_priceHelper->currency(0, true, false);
         $curaAccId = $this->getCuracaoId();
 
         if (!$curaAccId) {
-            return $result;
+            return $this->downPayment;
         }
 
         $params = ['cust_id' => $curaAccId, 'amount' => 1];
         $response = $this->_helper->verifyPersonalInfm($params);
 
         if (!$response) {
-            return $result;
+            return $this->downPayment;
         }
 
         $result = $response->DOWNPAYMENT;
         $this->curacaoHelper->updateCuracaoSessionDetails(['down_payment' => $result]);
 
-        return $this->_priceHelper->currency($result, true, false);
+        $this->downPayment = $this->_priceHelper->currency($result, true, false);
+
+        return $this->downPayment;
     }
 
+    /**
+     * Collect curacao customer account number.
+     *
+     * @return bool|string
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
     public function getCuracaoId()
     {
         if (!$this->_customerSession->getCustomerId()) {
@@ -211,6 +313,32 @@ class ConfigProvider implements ConfigProviderInterface
     {
         $pageId = $this->_scopeConfig->getValue(self::PRIVACY_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
         return $this->_pageHelper->getPageUrl($pageId);
+    }
+
+    /**
+     * Collect shipping method delivery messages from system configuration.
+     *
+     * @return array
+     */
+    public function collectShippingMethodDeliveryMsgs()
+    {
+        return [
+            'adsmomentum' => $this->getConfigValue(self::ADS_MOMENTUM_DELIVERY_MSG_CONFIG_PATH),
+            'pilot'       => $this->getConfigValue(self::PILOT_DELIVERY_MSG_CONFIG_PATH),
+            'ups'         => $this->getConfigValue(self::UPS_DELIVERY_MSG_CONFIG_PATH),
+            'usps'        => $this->getConfigValue(self::USPS_DELIVERY_MSG_CONFIG_PATH),
+        ];
+    }
+
+    /**
+     * Collect a configuration value corresponding to the config path given against the store.
+     *
+     * @param string $configPath
+     * @return string
+     */
+    protected function getConfigValue($configPath)
+    {
+        return $this->_scopeConfig->getValue($configPath, ScopeInterface::SCOPE_STORE);
     }
 
 }
