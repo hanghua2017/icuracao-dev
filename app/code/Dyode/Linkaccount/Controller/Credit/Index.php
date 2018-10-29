@@ -83,11 +83,8 @@ class Index extends Action
                 return $resultRedirect;
             }
           }
-
-
       }
       return $this->_resultPageFactory->create();
 
     }
-
 }

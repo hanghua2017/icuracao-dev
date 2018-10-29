@@ -233,7 +233,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         $productWeight = $product->getWeight();
         $productPrice = $product->getPrice();
         // Check if product is Freight item if so use ADS momentum or Pilot
-        if ($product->getIsfreight()) {
+        if ($product->getFreight()) {
 
             /**
              * Find distance between destination and all store locations
@@ -280,40 +280,6 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
                     $carrierTitle = 'USPS';
                     $carrierName = 'Priority';
                     $rate = $this->shipHelper->getUSPSRates($zipcode,$productWeight);
-                    break;
-                case (( $productWeight < $upsWith ) && ($productPrice > self::USPS_PRICE_LIMIT)):
-                    
-                    //Get the shipping methods for ups
-                    $shippingMethods = $this->shipHelper->getUPSRates($zipcode,$productWeight);
-                    $deliverymethods = $this->prepareUpsShippingData($shippingMethods,$quoteItemId);
-                    
-                    return [
-                        'quote_item_id'    => $quoteItemId,
-                        'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
-                        'delivery_methods' => $deliverymethods,
-                    ];
-                    break;
-                case (( $productWeight >= $upsWith ) && $productWeight < $adsSwitch) :
-                     //Get the shipping methods for ups
-                     $shippingMethods = $this->shipHelper->getUPSRates($zipcode,$productWeight);
-                     $deliverymethods = $this->prepareUpsShippingData($shippingMethods,$quoteItemId);
-                     
-                     return [
-                         'quote_item_id'    => $quoteItemId,
-                         'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
-                         'delivery_methods' => $deliverymethods,
-                     ];
-                    break;
-                case (( $productWeight >= $adsSwitch ) && $productWeight < 150 ):
-                     //Get the shipping methods for ups
-                     $shippingMethods = $this->shipHelper->getUPSRates($zipcode,$productWeight);
-                     $deliverymethods = $this->prepareUpsShippingData($shippingMethods,$quoteItemId);
-                     
-                     return [
-                         'quote_item_id'    => $quoteItemId,
-                         'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
-                         'delivery_methods' => $deliverymethods,
-                     ];
                     break;
                 default:
                     $shippingMethods = $this->shipHelper->getUPSRates($zipcode,$productWeight);

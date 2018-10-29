@@ -1,15 +1,27 @@
 <?php
-/*
-Date: 16/07/2018
-Author :Kavitha
-*/
+/**
+ * Dyode_Linkaccount Magento2 Module.
+ *
+ * Extending Magento_Customer
+ *
+ * @package   Dyode
+ * @module    Dyode_Linkaccount
+ * @author    kavitha@dyode.com
+ */
 
 namespace Dyode\Linkaccount\Controller\Verify;
+
+
+use Dyode\ARWebservice\Helper\Data;
+use Magento\Store\Model\StoreManagerInterface;
+use Magento\Customer\Model\Session;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
+use Magento\Framework\Message\ManagerInterface;
+use Magento\Customer\Model\AddressFactory;
+
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\Controller\ResultFactory;
-use Magento\Framework\View\Element\Messages;
 use Magento\Framework\UrlFactory;
 use Magento\Customer\Model\CustomerFactory;
 
@@ -17,29 +29,36 @@ class Codeverify extends Action
 {
 
     protected $_resultPageFactory;
-    protected $_customer;
-    protected $_coreSession;
-    protected $_helper;
-    protected $_resultFactory;
-    protected $_customerSession;
-    protected $_customerRepositoryInterface;
+    /**
+     * @var Magento\Framework\Controller\ResultFactory
+     */
+    protected $resultFactory;
+
+    /**
+     * @var Dyode\ARWebservice\Helper\Data
+     */
+    protected $helper;
+
+    /**
+     * @var \Magento\Customer\Model\Session
+     */
+    protected $customerSession;
+
     protected $_addressFactory;
-    
+
      /**
      * @var \Magento\Framework\Message\ManagerInterface
      */
-    protected $_messageManager;
+    protected $messageManager;
 
+    /**
+     * @var Magento\Store\Model\StoreManagerInterface
+     */
+    protected $storeManager;
     /*
     * @var \Magento\Framework\UrlFactory
     */
     protected $urlModel;
-
-     /**
-     * @var \Magento\Customer\Model\CustomerFactory
-     */
-    protected $customerFactory;
-
 
     /**
      * Constructor
@@ -50,31 +69,25 @@ class Codeverify extends Action
     public function __construct(
         Context $context,
         PageFactory $resultPageFactory,
-        \Magento\Customer\Model\Customer $customer,
-        \Magento\Customer\Model\Session $customerSession,
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Framework\Session\SessionManagerInterface $coreSession,
-        \Dyode\ARWebservice\Helper\Data $helper,
-        \Magento\Framework\Message\ManagerInterface $messageManager,
-        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
-        \Magento\Customer\Model\AddressFactory $addressFactory,
+        Data $helper,
+        Session $customerSession,
+        StoreManagerInterface $storeManager,
+        ManagerInterface $messageManager,
+        AddressFactory $addressFactory,
         ResultFactory $resultFactory,
         UrlFactory $urlFactory,
         CustomerFactory $customerFactory
     ) {
         parent::__construct($context);
         $this->_resultPageFactory = $resultPageFactory;
-        $this->_customer = $customer;
-        $this->_coreSession = $coreSession;
-        $this->_helper = $helper;
-        $this->_messageManager = $messageManager;
-        $this->_resultFactory = $resultFactory;
-        $this->_customerSession = $customerSession;
-        $this->_customerRepositoryInterface = $customerRepositoryInterface;
+        $this->messageManager = $messageManager;
+        $this->customerSession = $customerSession;
+        $this->helper = $helper;
+        $this->resultFactory = $resultFactory;
         $this->_addressFactory = $addressFactory;
-        $this->urlModel = $urlFactory->create(); 
+        $this->urlModel = $urlFactory->create();
+        $this->storeManager = $storeManager;
         $this->customerFactory = $customerFactory;
-        $this->_storeManager = $storeManager;
     }
 
     /**
@@ -86,137 +99,132 @@ class Codeverify extends Action
     {
         $customerId ='';
         $attempts = 0;
-        $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
-        $websiteId = $this->_storeManager->getStore()->getWebsiteId();
-        $curacaoCustId = $this->_coreSession->getCurAcc();
-        $custEmail  = $this->_coreSession->getCustEmail();
-        $customerInfo  = $this->_coreSession->getCustomerInfo();
-        $password = $this->_coreSession->getPass();
-
         $postVariables = (array) $this->getRequest()->getPost();
-        $this->_coreSession->start();
 
-        $attempts  =  $this->_coreSession->getAttempts();
-        if($attempts == 10){
-            $this->_coreSession->unsAttempts();    
-        }
-        if($attempts == '' ){
-            $attempts = 1;
-            $this->_coreSession->setAttempts($attempts);
-        }
-        if($attempts < 10){
-            $attempts +=1;
-            $this->_coreSession->setAttempts($attempts);   
-            if(!empty($postVariables)){
-              //Get Customer Id
-                if($this->_customerSession->isLoggedIn()){
-                  $customerId    = $this->_customerSession->getCustomer()->getId();
-                } 
+        if ( !empty( $postVariables ) ) {
 
-                $accountNumber = $this->_coreSession->getCurAcc();
-                $customerInfo  = $this->_coreSession->getCustomerInfo();
-                $encodeCode = $this->_coreSession->getEncCode();
+            $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+            $customerInfo  = $this->customerSession->getCuracaoInfo();
+            $websiteId = $this->storeManager->getStore()->getWebsiteId();
+            $curacaoCustId = trim($customerInfo->getAccountNumber());
 
-                $verification_code = $postVariables['verification_code'];
+            if ( !( $customerInfo->getEmailAddress() ) && !( $curacaoCustId ) ) {
+                $this->messageManager->addErrorMessage( "Please enter Email address and Curacao Customer Number " );
+                $defaultUrl = $this->urlModel->getUrl('*/*/create', ['_secure' => true]);
+                /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
+                return $resultRedirect->setUrl($defaultUrl);
+            }
+
+            $verificationCode = trim ( $postVariables['verification_code'] );
+            $encodeCode = $this->customerSession->getEncCode();
+            if ( isset( $verificationCode ) ) {
+
                 $userinfo = array(
-                        "cu_account"=> $accountNumber,
-                        "verification_code"=> $verification_code
+                    "cu_account"=> $curacaoCustId,
+                    "verification_code"=> $verificationCode
                 );
 
                 // Check if code is good 0 good -1 no good
-                $checkResult =   $this->_helper->verifyCode(  $encodeCode, $verification_code );
+                $checkResult =   $this->helper->verifyCode(  $encodeCode, $verificationCode );
 
-                //If Result is verified then link the Curacao account with Magento
-                if($checkResult == 0){
-                    //Linking the account
-                    if ($customerId) {
-                      $customer = $this->_customerRepositoryInterface->getById($customerId);
-                      $customer->setCustomAttribute('curacaocustid', $accountNumber);
-                      $this->_customerRepositoryInterface->save($customer);
-                    } else{
-                      $fName = $this->_coreSession->getFname();                   
-                      $lName = $this->_coreSession->getLastname();
-                      $path = $this->_coreSession->getPath();
-                      // Instantiate object (this is the most important part)
-                      $customer = $this->customerFactory->create();
-                      $customer->setWebsiteId($websiteId);
-                      // Preparing data for new customer
-                      $customer->setEmail($custEmail);
-                      $customer->setFirstname($fName);
-                      $customer->setLastname($lName);
-                      $customer->setPassword($password);
-                      // Save Curacao Customer Id
-                      if (!empty($curacaoCustId)) {
-                          $customerData = $customer->getDataModel();
-                          $customerData->setCustomAttribute('curacaocustid', $curacaoCustId);
-                          $customer->updateData($customerData);
-                      }
-                      // Save data
-                      $customer->save();
-                      $customerId = $customer->getId();
-                    }
+                 //If Result is verified then link the Curacao account with Magento
+                 if($checkResult == 0){
 
-                    $customerInfo["ZIP"] = str_replace('-','',$customerInfo['ZIP']);//clearn up zip code
+                    // Instantiate object (this is the most important part)
+                        $customer = $this->customerFactory->create();
+                        $customer->setWebsiteId($websiteId);
+                        // Preparing data for new customer
+                        $customer->setEmail($customerInfo->getEmailAddress());
+                        $customer->setFirstname($customerInfo->getFirstName());
+                        $customer->setLastname($customerInfo->getLastName());
+                        $customer->setPassword($customerInfo->getPassword());
 
-                      //assign what region the state is in
-                      switch($customerInfo['STATE'])
-                      {
-                              case 'AZ' : $reg_id = 4; break;
-                              case 'CA' : $reg_id = 12; break;
-                              case 'NV' : $reg_id = 39; break;
-                              default   : $reg_id = 12; break;
-                      }
-                      //safe information t an array
-                      $_custom_address = array('firstname' => $customerInfo['F_NAME'],
-                                      'lastname' => $customerInfo['L_NAME'],
-                                      'street' => array('0' => $customerInfo['STREET'], '1' => '',),
-                                      'city' => $customerInfo['CITY'],
-                                      'region_id' => $reg_id,
-                                      'postcode' => $customerInfo['ZIP'],
-                                      'country_id' => 'US',
-                                      'telephone' => $customerInfo['PHONE']);
+                        // Save Curacao Customer Id
+                        if (!empty($curacaoCustId)) {
+                            $customerData = $customer->getDataModel();
+                            $customerData->setCustomAttribute('curacaocustid', $curacaoCustId);
+                            $customer->updateData($customerData);
+                        }
+                        try{
+                            // Save data
+                            $customer->save();
+                            $this->customerSession->setCustomerAsLoggedIn($customer);
+                            $this->customerSession->setCurAcc($curacaoCustId);
+                            $this->customerSession->setFname($customerInfo->getFirstName());
+                        }
+                        catch(\Exception $e) {
+                            $errorMessage = $e->getMessage();
+                            $this->messageManager->addErrorMessage($errorMessage);
+                            $defaultUrl = $this->urlModel->getUrl('customer/account/create/', ['_secure' => true]);
+
+                        }
+                        $customerId = $customer->getId();
+                        $zipCode  = str_replace('-','',$customerInfo->getZipCode());//clearn up zip code
+
+                        //assign what region the state is in
+                        switch($customerInfo->getState()) {
+                                case 'AZ' : $reg_id = 4; break;
+                                case 'CA' : $reg_id = 12; break;
+                                case 'NV' : $reg_id = 39; break;
+                                default   : $reg_id = 12; break;
+                        }
+                        //safe information t an array
+                        $_custom_address = array(
+                                               'firstname' => $customerInfo->getFirstName(),
+                                               'lastname' => $customerInfo->getFirstName(),
+                                               'street' => array('0' => $customerInfo->getStreet(), '1' => '',),
+                                               'city' => $customerInfo->getCity(),
+                                               'region_id' => $reg_id,
+                                               'postcode' => $zipCode,
+                                               'country_id' => 'US',
+                                               'telephone' => $customerInfo->getTelephone()
+                                           );
 
 
-                      //get the customer address model and update the address information
+                        //get the customer address model and update the address information
+                        if($customerId){
+                           $customAddress = $this->_addressFactory->create();
+                           $customAddress  ->setData($_custom_address)
+                                           ->setCustomerId($customerId)
+                                           ->setIsDefaultBilling('1')
+                                           ->setIsDefaultShipping('1')
+                                           ->setSaveInAddressBook('1');
+                           try{
+                                $customAddress->save();
 
-                      $customAddress = $this->_addressFactory->create();
-                      $customAddress  ->setData($_custom_address)
-                                      ->setCustomerId($customerId)
-                                      ->setIsDefaultBilling('1')
-                                      ->setIsDefaultShipping('1')
-                                      ->setSaveInAddressBook('1');
+                                $defaultUrl = $this->urlModel->getUrl('linkaccount/verify/success', ['_secure' => true]);
+                                return $resultRedirect->setUrl($defaultUrl);
+                           }
+                           catch(\Exception $e) {
+                               $errorMessage = $e->getMessage();
+                               $this->messageManager->addErrorMessage($errorMessage);
+                               $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
 
-                      try{
-                            $customAddress->save();
-                          //  $customer->setAddress($customAddress);
-                           // $customer->save();
-                            $this->_customerSession->setCustomerAsLoggedIn($customer);
-                            if(isset($path)){
-                              $defaultUrl = $this->urlModel->getUrl('linkaccount/verify/success', ['_secure' => true]);       
-                            } else{
-                                $defaultUrl = $this->urlModel->getUrl('checkout/cart/index', ['_secure' => true]);
-                            }
-                            return $resultRedirect->setUrl($defaultUrl);
-                      }
-                      catch (Exception $e) {
-                        $errorMessage = $e->getMessage();
-                         $this->messageManager->addErrorMessage('Shipping address could not be saved');
-                        $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
-                      }
+                           }
+                        }
+                    $defaultUrl = $this->urlModel->getUrl('linkaccount/verify/success', ['_secure' => true]);
+                    return $resultRedirect->setUrl($defaultUrl);
+
                 } else {
-                    $this->messageManager->addErrorMessage('Code is wrong'.$errorMessage);
-                        $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
+                     //Crossed 5 attempts
+                    $this->messageManager->addErrorMessage(
+                        'Verification code is wrong'
+                    );
+                    $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
+                    /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
+                    return $resultRedirect->setUrl($defaultUrl);
                 }
-            }           
-        } else{
-           //Crossed 5 attempts
-            $this->messageManager->addErrorMessage(
-                'You have crossed 5 attempts !!'
-            );
-            $defaultUrl = $this->urlModel->getUrl('*/*/create', ['_secure' => true]);
-            /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
-            return $resultRedirect->setUrl($defaultUrl);
+
+            } else{
+
+                $this->messageManager->addErrorMessage( "Please enter your verification code " );
+                $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
+                /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
+                return $resultRedirect->setUrl($defaultUrl);
+
+            }
+
         }
-     }
+    }
 
 }
