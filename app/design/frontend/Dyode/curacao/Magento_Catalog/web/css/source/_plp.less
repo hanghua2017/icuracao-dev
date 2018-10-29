@@ -1320,17 +1320,61 @@ html[lang="es"]{
   .catalog-category-view,.catalogsearch-result-index{
     .page-main{
       .columns{
+        .sidebar-main{
+          .filter{
+            .block-title{
+              strong{
+                @media all and (max-width:767px){
+                  right:45px;
+                }
+              }
+            }
+          }
+        }
         .column{
           .page-title-wrapper{
-            width: ~"calc(100% - 390px)";
+            width: ~"calc(100% - 410px)";
             @media all and (max-width:767px){
-              width: ~"calc(100% - 210px)";
+              width: ~"calc(100% - 225px)";
             }
           }
           .toolbar.toolbar-products{
+            @media all and (max-width:767px){
+              margin-right: 10px;
+            }
             .modes{
               @media all and (min-width:768px){
                 margin:0 !important;
+              }
+              @media all and (max-width:767px){
+                width:50px;
+              }
+              .modes-mode {
+                &.active {
+                  padding: 0 !important;
+                  &:before {
+                    content: '' !important;
+                    padding: 0 !important;
+                  }
+                }
+              }
+              .mode-list:before {
+                font-family: 'iCuracao-Medium';
+                content: 'Lista' !important;
+                font-size: 14px;
+                @media all and (max-width: 767px) {
+                  font-size: 12px;
+                }
+              }
+              .mode-grid:before {
+                font-family: 'iCuracao-Medium';
+                content: 'Parrilla' !important;
+                font-size: 14px;
+                left: 8px;
+                position: relative;
+                @media all and (max-width: 767px) {
+                  font-size: 12px;
+                }
               }
             }
             .toolbar-sorter{
