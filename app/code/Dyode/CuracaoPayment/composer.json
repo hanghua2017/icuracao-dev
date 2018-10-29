@@ -1,0 +1,22 @@
+{
+    "name": "dyode/module-curacaopayment",
+    "description": "",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "email": "rajeev.ktomy@dyode.com",
+            "name": "Rajeev K Tomy"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Dyode\\CuracaoPayment\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}
