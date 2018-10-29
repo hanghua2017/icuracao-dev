@@ -280,7 +280,9 @@
 "Submit","Enviar"
 "Enter Code","Introduzca el código"
 "Pending","Pendiente"
+"pending","Pendiente"
 "Processing","Tratamiento"
+"processing","Tratamiento"
 "View Order","Ver pedido"
 "Reorder","Reordenar"
 "Date","Fecha"
@@ -416,5 +418,6 @@ Curazao se esfuerza por garantizar que tengamos precios competitivos
 "Best seller","Mejor vendido"
 "Add New Billing Address","Agregar nueva dirección de facturación"
 "Curacao Account Number","Número de cuenta de Curacao"
+
 "Price Beat","Precio Beat"
 "Interest Beat","Interés Beat"
