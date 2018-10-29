@@ -13,16 +13,19 @@ class View extends \Magento\Backend\App\Action
     protected $_auditLog;
 
     /**
+     * View constructor.
+     *
      * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Framework\Registry    $coreRegistry
+     * @param \Magento\Framework\Registry $coreRegistry
+     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
+     * @param AuditLog $auditLog
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Registry $coreRegistry,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         AuditLog $auditLog
-    )
-    {
+    ) {
         parent::__construct($context);
         $this->_coreRegistry = $coreRegistry;
         $this->_resultPageFactory = $resultPageFactory;
@@ -50,6 +53,7 @@ class View extends \Magento\Backend\App\Action
         $resultPage = $this->_resultPageFactory->create();
         $title =  __('Audit Log Details');
         $resultPage->getConfig()->getTitle()->prepend($title);
+
         return $resultPage;
     }
 
