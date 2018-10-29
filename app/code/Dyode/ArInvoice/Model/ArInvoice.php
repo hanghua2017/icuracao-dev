@@ -121,7 +121,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         /**
          * Validating the Payment Method
          */
-        if (strpos($paymentMethod, 'authorizenet') !== false) {
+        if ((strpos($paymentMethod, 'authorizenet') !== false) || (strpos($paymentMethod, 'authnetcim') !== false)) {
             # Loading Transactional Details
             $amountAuthorized = $order->getPayment()->getAmountAuthorized();
             $orderTotal = $order->getGrandTotal();
