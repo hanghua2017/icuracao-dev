@@ -91,8 +91,8 @@ class Estimate extends \Magento\Framework\Model\AbstractModel
 
 	//process Supply Invoice API
 	public function setSupplyInvoice($order){
-		$firstName = $order->getCustomerFirstname();
-		$lastName = $order->getCustomerLastname();
+		$firstName = (!empty($order->getCustomerFirstname())) ? $order->getCustomerFirstname() : $order->getShippingAddress()->getFirstname();
+		$lastName = (!empty($order->getCustomerLastname())) ? $order->getCustomerLastname() : $order->getShippingAddress()->getLastname();
 		$email = $order->getCustomerEmail();
 		$invoice_details = $order->getInvoiceCollection();
 		foreach ($invoice_details as $invoice) {
