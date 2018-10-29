@@ -3,7 +3,11 @@
 	<default>
 		<linkaccount>
 			<curacao>
-				<apiurl/>
+				<apiurl>https://exchangeweb.lacuracao.com:2007/ws1/restapi/ecommerce/</apiurl>
+				<apikey>PROD-T8VtT5GgM7t97Ua</apikey>
+				<phonewsdlurl>http://ws.serviceobjects.com/tv/TelephoneVerification.asmx</phonewsdlurl>
+				<licensekey>WS58-UYM3-JXS1</licensekey>
+				<callerid>8664101611</callerid>
 			</curacao>
 		</linkaccount>
 	</default>

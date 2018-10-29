@@ -8,10 +8,6 @@
  */
 namespace Dyode\ArInvoice\Model;
 
-use Dyode\ArInvoice\Helper\Data;
-use Magento\Sales\Model\Order;
-
-
 class ArInvoice extends \Magento\Framework\Model\AbstractModel
 {
     /**
@@ -114,7 +110,13 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
     /**
      * Create AR Invoice by Order Id
      *
-     * @return void
+     * @param $orderId
+     *
+     * @return bool
+     *
+     * @throws \Magento\Framework\Exception\InputException
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function createInvoice($orderId)
     {
@@ -123,16 +125,11 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         $logger->addWriter($writer);
 
         $order = $this->getOrderInfo($orderId);
-        # Getting the Payment Method
         $paymentMethod = $order->getPayment()->getMethod();
-        // $signifyRequired = false;
         /**
          * Validating the Payment Method
          */
         if (strpos($paymentMethod, 'authorizenet') !== false) {
-            // Signify_Required
-            // $signifyRequired = True;    # Setting Signify Required = True
-
             # Loading Transactional Details
             $amountAuthorized = $order->getPayment()->getAmountAuthorized();
             $orderTotal = $order->getGrandTotal();
@@ -167,11 +164,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             $customerStatus = json_decode($customerStatusResponse);
         }
 
-        // if ($signifyRequired == True) {
-        //     # Signify Score
-        //     $this->_signifydModel->processSignifyd($order->getIncrementId());
-        // }
-
         # Prepare Order Items
         $itemsStoreLocation = $this->prepareOrderItems($orderId);
 
@@ -198,7 +190,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
 
         $shippingDiscount = $order->getShippingDiscountAmount();
 
-        // $accountNumber = "53208833";
         # Assigning values to input Array
         $inputArray = array(
             "CustomerID" => $accountNumber,
@@ -227,20 +218,14 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             $itemQty = $item->getQtyOrdered();
             $itemPrice = $item->getPrice();
             $itemCost = $item->getBasePrice();
-
             $pickup = ($item->getData('delivery_type') == 1) ? true : false;
             $taxable = ($item->getTaxAmount() > 0) ? true : false;
-
             $itemId = $item->getId();
             $itemTaxAmount = $item->getTaxAmount();
             $itemTaxRate = $item->getTaxPercent();
-
             $itemSet = ($product->getData('set')) ? true : false;
-
             $vendorId = $product->getData('vendorid');
-
             $itemType = ($product->getData('vendorid') == 2139) ? "CUR" : "";
-
             $explodeItemSku = explode("-", $itemSku);
 
             array_push($items, array(
@@ -262,6 +247,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                 )
             );
         }
+
         $inputArray["items"] = $items;
 
         $createInvoiceResponse = $this->_arInvoiceHelper->createRevInvoice($inputArray);    # Creating Invoice using API CreateInvoiceRev
@@ -277,96 +263,96 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                 'client_ip' => "",
                 'module_name' => "Dyode_ArInvoice"
             ]);
-			throw new \Exception("API Response not Found", 1);
-        }
-
-        /**
-         * Create Invoice Response Validation
-         */
-        if ($createInvoiceResponse->OK != true) {   # Create Invoice Response is false
-            $order->setState("processing")->setStatus("estimate_issue");    # Change the Order Status and Order State
-            $order->addStatusToHistory($order->getStatus(), 'Estimate not Issued');   # Add Comment to Order History
-            $order->save();     # Save the Changes in Order Status & History
-
-            //logging audit log
-            $this->auditLog->saveAuditLog([
-                'user_id' => "",
-                'action' => 'AR Invoice Creation',
-                'description' => "Fail to create AR Invoice for order with id" . $incrementId,
-                'client_ip' => "",
-                'module_name' => "Dyode_ArInvoice"
-            ]);
-            // Logger
-            $logger->info("Order Id : " . $order->getIncrementId());
-            $logger->info($createInvoiceResponse->INFO);
-
-            return true;
-        } else {  # Create Invoice Response is true
-            $estimateNumber = $invoiceNumber = $createInvoiceResponse->DATA->INV_NO;    # Save Estimate Number in Order
-            $order->setData('estimatenumber', $estimateNumber);
-            $order->addStatusToHistory($order->getStatus(), 'Estimate Number: ' . $estimateNumber );     # Add Comment to Order History
-            $order->save();
-
-            //generating magento invoice
-            if($order->canInvoice()) {
-                $invoice = $this->_invoiceService->prepareInvoice($order);
-                $invoice->register();
-                $invoice->save();
-                $transactionSave = $this->_transaction->addObject($invoice)->addObject($invoice->getOrder());
-                $transactionSave->save();
-            }
-
-            //logging audit log
-            $this->auditLog->saveAuditLog([
-                'user_id' => "",
-                'action' => 'AR Invoice Creation',
-                'description' => "Created AR Invoice (No : " . $createInvoiceResponse->DATA->INV_NO. ") Successfully for order with id" . $incrementId,
-                'client_ip' => "",
-                'module_name' => "Dyode_ArInvoice"
-            ]);
+        } else {
 
             /**
-             * Customer Status Validation
+             * Create Invoice Response Validation
              */
-            if ((!empty($customerStatus)) && ($customerStatus->customerstatus == false || $customerStatus->addressmismatch == true || $customerStatus->soft == true)) {
-                $order->setState("pending_payment")->setStatus("creditreview");    # Change the Order Status and Order State
-                $order->addStatusToHistory($order->getStatus(), 'Your Credit is being Reviewed');     # Add Comment to Order History
+            if ((!empty($createInvoiceResponse->OK)) && $createInvoiceResponse->OK != true) {   # Create Invoice Response is false
+                $order->setState("processing")->setStatus("estimate_issue");    # Change the Order Status and Order State
+                $order->addStatusToHistory($order->getStatus(), 'Estimate not Issued');   # Add Comment to Order History
                 $order->save();     # Save the Changes in Order Status & History
 
-                # Notify Customer  - incomplete...
-                # Notify Credit Department to Review  - incomplete...
-            } else {
-                $order->setState("processing")->setStatus("processing");    # Change the Order Status and Order State
-                $order->save();     # Save the Changes in Order Status & History
-                $referId = $incrementId;
+                //logging audit log
+                $this->auditLog->saveAuditLog([
+                    'user_id' => "",
+                    'action' => 'AR Invoice Creation',
+                    'description' => "Fail to create AR Invoice for order with id" . $incrementId,
+                    'client_ip' => "",
+                    'module_name' => "Dyode_ArInvoice"
+                ]);
+                // Logger
+                $logger->info("Order Id : " . $order->getIncrementId());
+                $logger->info($createInvoiceResponse->INFO);
 
-                if ($downPaymentAmount !== '0') {
-                    # Web Down Payment API
-                    $webDownPaymentResponse = $this->_arInvoiceHelper->webDownPayment($accountNumber,
-                        $downPaymentAmount, $invoiceNumber, $referId);
+                return true;
+            } else { # Create Invoice Response is true
+                $estimateNumber = $invoiceNumber = $createInvoiceResponse->DATA->INV_NO;    # Save Estimate Number in Order
+                $order->setData('estimatenumber', $estimateNumber);
+                $order->addStatusToHistory($order->getStatus(), 'Estimate Number: ' . $estimateNumber);     # Add Comment to Order History
+                $order->save();
 
-                    if ($webDownPaymentResponse->OK != true) {
-                        //logging audit log
-                        $this->auditLog->saveAuditLog([
-                            'user_id' => "",
-                            'action' => 'AR Web Down Payment Failure',
-                            'description' => "Fail to create web down payment for order with id" . $incrementId,
-                            'client_ip' => "",
-                            'module_name' => "Dyode_ArInvoice"
-                        ]);
-                    } else {
-                        //logging audit log
-                        $this->auditLog->saveAuditLog([
-                            'user_id' => "",
-                            'action' => 'AR Web Down Payment Success',
-                            'description' => " Web Down Payment Success for order with id" . $incrementId,
-                            'client_ip' => "",
-                            'module_name' => "Dyode_ArInvoice"
-                        ]);
+                //generating magento invoice
+                if ($order->canInvoice()) {
+                    $invoice = $this->_invoiceService->prepareInvoice($order);
+                    $invoice->register();
+                    $invoice->save();
+                    $transactionSave = $this->_transaction->addObject($invoice)->addObject($invoice->getOrder());
+                    $transactionSave->save();
+                }
+
+                //logging audit log
+                $this->auditLog->saveAuditLog([
+                    'user_id' => "",
+                    'action' => 'AR Invoice Creation',
+                    'description' => "Created AR Invoice (No : " . $createInvoiceResponse->DATA->INV_NO . ") Successfully for order with id" . $incrementId,
+                    'client_ip' => "",
+                    'module_name' => "Dyode_ArInvoice"
+                ]);
+
+                /**
+                 * Customer Status Validation
+                 */
+                if ((!empty($customerStatus)) && ($customerStatus->customerstatus == false || $customerStatus->addressmismatch == true || $customerStatus->soft == true)) {
+                    $order->setState("pending_payment")->setStatus("creditreview");    # Change the Order Status and Order State
+                    $order->addStatusToHistory($order->getStatus(), 'Your Credit is being Reviewed');     # Add Comment to Order History
+                    $order->save();     # Save the Changes in Order Status & History
+
+                    # Notify Customer  - incomplete...
+                    # Notify Credit Department to Review  - incomplete...
+                } else {
+                    $order->setState("processing")->setStatus("processing");    # Change the Order Status and Order State
+                    $order->save();     # Save the Changes in Order Status & History
+                    $referId = $incrementId;
+
+                    if ($downPaymentAmount !== '0') {
+                        # Web Down Payment API
+                        $webDownPaymentResponse = $this->_arInvoiceHelper->webDownPayment($accountNumber,
+                            $downPaymentAmount, $invoiceNumber, $referId);
+
+                        if ($webDownPaymentResponse->OK != true) {
+                            //logging audit log
+                            $this->auditLog->saveAuditLog([
+                                'user_id' => "",
+                                'action' => 'AR Web Down Payment Failure',
+                                'description' => "Fail to create web down payment for order with id" . $incrementId,
+                                'client_ip' => "",
+                                'module_name' => "Dyode_ArInvoice"
+                            ]);
+                        } else {
+                            //logging audit log
+                            $this->auditLog->saveAuditLog([
+                                'user_id' => "",
+                                'action' => 'AR Web Down Payment Success',
+                                'description' => " Web Down Payment Success for order with id" . $incrementId,
+                                'client_ip' => "",
+                                'module_name' => "Dyode_ArInvoice"
+                            ]);
+                        }
                     }
                 }
+                return true;
             }
-            return true;
         }
 
         return false;

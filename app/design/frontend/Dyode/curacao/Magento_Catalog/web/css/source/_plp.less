@@ -1314,3 +1314,34 @@
     }
   }
 }
+
+/*styling for plp on espanol website starts here*/
+html[lang="es"]{
+  .catalog-category-view,.catalogsearch-result-index{
+    .page-main{
+      .columns{
+        .column{
+          .page-title-wrapper{
+            width: ~"calc(100% - 390px)";
+            @media all and (max-width:767px){
+              width: ~"calc(100% - 210px)";
+            }
+          }
+          .toolbar.toolbar-products{
+            .modes{
+              @media all and (min-width:768px){
+                margin:0 !important;
+              }
+            }
+            .toolbar-sorter{
+              .sorter-options{
+                width:155px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/*styling for plp on espanol website ends here*/

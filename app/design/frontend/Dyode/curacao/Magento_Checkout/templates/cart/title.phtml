@@ -12,7 +12,7 @@
 
 <?php if ($block->getItemsSummaryQty() > 0): ?>
     <?php if ($block->getItemsSummaryQty() == 1): ?>
-        <span class="bag-qty">(<?= $block->escapeHtml('1 item') ?>)</span>
+        <span class="bag-qty">(<?= $block->escapeHtml(__('1 item')) ?>)</span>
     <?php else: ?>
         <span class="bag-qty">
             (<?= /* @escapeNotVerified */ $block->getItemsSummaryQty()?> <?= $block->escapeHtml( __('items')) ?>)

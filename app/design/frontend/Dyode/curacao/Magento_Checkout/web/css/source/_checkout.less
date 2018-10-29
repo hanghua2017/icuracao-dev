@@ -2045,8 +2045,7 @@ input[type="radio"] {
                         width: 45%;
                         clear: both;
                         float: left;
-                        @media all and (max-width:479px)
-                        {
+                        @media all and (max-width:767px){
                           width: 100%;
                         }
                       }
@@ -2094,12 +2093,7 @@ input[type="radio"] {
                         @media all and (max-width:767px){
                           position:static;
                           width:100%;
-                          margin-bottom: 10px;
-                        }
-                        @media all and (max-width:479px)
-                        {
-                              margin-top: 5px;
-                              position: static;
+                          margin-top: 10px;
                         }
                       }
                     }
@@ -2113,10 +2107,6 @@ input[type="radio"] {
                       margin-top: 10px;
                       float: left;
                       width: 100%;
-                      @media all and (max-width:479px)
-                      {
-                        margin-top: 0px;
-                      }
                     }
                     h3{
                       font-family: "iCuracao-Medium";
@@ -2332,7 +2322,9 @@ input[type="radio"] {
     /*common styling for buttons on Checkout page ends here*/
     .authentication-wrapper{
       z-index: 100000;
-
+        @media all and (max-width:767px){
+          margin-top:-75px;
+        }
         @media all and (max-width: 479px)
         {
           margin-top: -69px;
@@ -2393,3 +2385,31 @@ input[type="radio"] {
     }
   }
 }
+/*styling for checkout page on Espanol starts here*/
+html[lang="es"]{
+  .checkout-index-index{
+    .page-main{
+      .checkout-container{
+        .opc{
+          #checkout-step-payment{
+            #co-payment-form{
+              .fieldset{
+                .curacao-outer{
+                  .linkaccount{
+                    .curacao-credit-logo{
+                      left:243px;
+                      @media all and (max-width:370px){
+                        display: none;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/*styling for checkout page on Espanol ends here*/
