@@ -55,7 +55,12 @@ class ViewAction extends Column
     {
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
-                $order = $this->orderRepository->get($item['entity_id']);
+                if(isset($item['order_id'])){
+                    $id = $item['order_id'];
+                } else {
+                    $id = $item['entity_id'];
+                }
+                $order = $this->orderRepository->get($id);
                 $orderStatus = $order->getStatus();
                 if (isset($item['entity_id']) && $orderStatus != 'initial') {
                     $viewUrlPath = $this->getData('config/viewUrlPath') ?: '#';
