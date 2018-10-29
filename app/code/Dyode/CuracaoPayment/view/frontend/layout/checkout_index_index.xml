@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Dyode_CuracaoPayment Magento2 Module.
+ *
+ * Provide the facility: curacao custom payment method
+ *
+ * @package   Dyode
+ * @module    Dyode_CuracaoPayment
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<body>
+		<referenceBlock name="checkout.root">
+			<!--<arguments>-->
+				<!--<argument name="jsLayout" xsi:type="array">-->
+					<!--<item name="components" xsi:type="array">-->
+						<!--<item name="checkout" xsi:type="array">-->
+							<!--<item name="children" xsi:type="array">-->
+								<!--<item name="steps" xsi:type="array">-->
+									<!--<item name="children" xsi:type="array">-->
+										<!--<item name="billing-step" xsi:type="array">-->
+											<!--<item name="children" xsi:type="array">-->
+												<!--<item name="payment" xsi:type="array">-->
+													<!--<item name="children" xsi:type="array">-->
+														<!--<item name="renders" xsi:type="array">-->
+															<!--<item name="children" xsi:type="array">-->
+																<!--<item name="curacaofullpayment" xsi:type="array">-->
+																	<!--<item name="component" xsi:type="string">Dyode_CuracaoPayment/js/view/payment/curacaofullpayment</item>-->
+																	<!--<item name="methods" xsi:type="array">-->
+																		<!--<item name="curacaofullpayment" xsi:type="array">-->
+																			<!--<item name="isBillingAddressRequired" xsi:type="boolean">true</item>-->
+																		<!--</item>-->
+																	<!--</item>-->
+																<!--</item>-->
+															<!--</item>-->
+														<!--</item>-->
+													<!--</item>-->
+												<!--</item>-->
+											<!--</item>-->
+										<!--</item>-->
+									<!--</item>-->
+								<!--</item>-->
+							<!--</item>-->
+						<!--</item>-->
+					<!--</item>-->
+				<!--</argument>-->
+			<!--</arguments>-->
+		</referenceBlock>
+	</body>
+</page>
