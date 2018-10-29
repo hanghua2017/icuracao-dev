@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Dyode_CuracaoPayment Magento2 Module.
+ *
+ * Provide the facility: curacao custom payment method
+ *
+ * @package   Dyode
+ * @module    Dyode_CuracaoPayment
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+	<module name="Dyode_CuracaoPayment" setup_version="1.0.0"/>
+</config>

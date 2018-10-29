@@ -10,20 +10,28 @@
 
 define([
     'jquery',
-    'uiComponent',
+    'underscore',
     'uiRegistry',
+    'uiComponent',
     'Magento_Checkout/js/model/quote',
     'Magento_Checkout/js/model/step-navigator',
+    'Magento_Authorizenet/js/view/payment/method-renderer/authorizenet-directpost',
+    'Dyode_CuracaoPayment/js/view/payment/curacaofullpayment',
+    'Dyode_Checkout/js/data/curacao-data-provider',
     'Dyode_CheckoutDeliveryMethod/js/model/delivery-save-processor',
     'Dyode_CheckoutAddressStep/js/model/address-validator',
     'Dyode_CheckoutAddressStep/js/model/estimate-shipping-processor',
     'Dyode_Checkout/js/view/model/shipping-info-save-processor'
 ], function (
     $,
-    Component,
+    _,
     registry,
+    Component,
     quote,
     stepNavigator,
+    authorizePaymentMethod,
+    CuracaoPaymentMethod,
+    curacaoDataProvider,
     deliverySaveProcessor,
     addressValidator,
     shippingEstimateProcessor,
@@ -39,7 +47,25 @@ define([
             template: 'Dyode_Checkout/checkout/summary/continue'
         },
         checkMoPlaceOrderName: 'checkout.steps.billing-step.payment.payments-list.checkmo',
-        authorizePlaceOrderName: 'checkout.steps.billing-step.payment.payments-list.authorizenet_directpost',
+        authorizePlaceOrderName: 'checkout.steps.billing-step.payment.payments-list.authnetcim',
+        curacaoCustomPaymentName: 'checkout.steps.billing-step.payment.payments-list.curacaofullpayment',
+
+        /**
+         * Subscribe to quote.totals and update zeroDownPayment flag.
+         *
+         * @returns {exports}
+         */
+        initialize: function () {
+            var self = this;
+
+            this._super();
+
+            quote.totals.subscribe(function (newTotals) {
+                curacaoDataProvider.isZeroDownPayment(self.isZeroDownPayment(newTotals));
+            });
+
+            return this;
+        },
 
         /**
          * Proceeds to the next step
@@ -53,25 +79,15 @@ define([
         },
 
         /**
-         * Place order.
-         * We are triggering the default place order button to avoid further chaos.
-         * We are expecting only authorize.net payment here. Check/money order payment method is for testing purpose.
-         * @todo if we can create a stand alone place order button component that performs the exact same functionality
-         *       of the default place order button, then it would be better.
+         * Place Order either with authorize.net or with Curacao payment.
+         * @returns {*}
          */
         placeOrder: function () {
-            var checkMoBtnComponent = registry.get(this.checkMoPlaceOrderName),
-                authorizeBtnComponent = registry.get(this.authorizePlaceOrderName);
-
-            if (authorizeBtnComponent) {
-                return authorizeBtnComponent.placeOrder();
+            if (curacaoDataProvider.canPerformCuracaoPayment()) {
+                return this.placeOrderWithCuracaoPayment();
             }
 
-            if (checkMoBtnComponent) {
-                return checkMoBtnComponent.placeOrder();
-            }
-
-            return true;
+            return this.placeOrderWithAuthorize();
         },
 
         /**
@@ -108,6 +124,48 @@ define([
                 activeStep = steps[activeStepIndex];
 
             return activeStep.code === 'payment';
+        },
+
+        /**
+         * Place order with Authorize.net
+         *
+         * @returns {Boolean}
+         */
+        placeOrderWithAuthorize: function () {
+            return registry.get(this.authorizePlaceOrderName).placeOrder();
+        },
+
+
+        /**
+         * Place order with Curacao custom payment option.
+         *
+         * @returns {Boolean}
+         */
+        placeOrderWithCuracaoPayment: function () {
+            return registry.get(this.curacaoCustomPaymentName).placeOrder();
+        },
+
+        /**
+         * Verify whether the curacao down payment is zero.
+         *
+         * @param {Object} totals
+         * @returns {Boolean}
+         */
+        isZeroDownPayment: function (totals) {
+            var isDownPayment = false,
+                curacaoTotalSegment;
+
+            if (totals['total_segments']) {
+                curacaoTotalSegment = _.findWhere(totals['total_segments'], {
+                    code: 'curacao_discount'
+                });
+
+                if (curacaoTotalSegment && curacaoTotalSegment.value == 0) {
+                    isDownPayment = true;
+                }
+            }
+
+            return isDownPayment;
         }
     });
 });
