@@ -13,6 +13,12 @@ class View extends \Magento\Backend\Block\Template
      */
     protected $_auditLog;
 
+    /**
+     * View constructor.
+     *
+     * @param Context $context
+     * @param AuditLog $auditLog
+     */
     public function __construct(
         Context $context,
         AuditLog $auditLog

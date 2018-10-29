@@ -15,14 +15,15 @@ class Index extends Action
     protected $_resultPageFactory;
 
     /**
-     * @param \Magento\Backend\App\Action\Context        $context
-     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
+     * Index constructor.
+     *
+     * @param Context $context
+     * @param PageFactory $resultPageFactory
      */
     public function __construct(
         Context $context,
         PageFactory $resultPageFactory
-    )
-    {
+    ) {
         parent::__construct($context);
         $this->_resultPageFactory = $resultPageFactory;
     }
