@@ -319,7 +319,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     {
         if (!$this->storeLocations) {
             $this->storeLocations = $this->geoCoordinateCollection
-                ->addFieldToFilter('zipcode', ['in' => $this->_allLocationsZipCodes])
+                ->addFieldToFilter('zip', ['in' => $this->_allLocationsZipCodes])
                 ->setPageSize(count($this->_allLocationsZipCodes))
                 ->setCurPage(1);
         }
@@ -350,6 +350,14 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         return $this->_productRepository->getById($id);
     }
 
+    /**
+     * Prepare ADS Momentum shipping details.
+     *
+     * @param \Magento\Quote\Model\Quote\Item $quoteItem
+     * @param $product
+     * @param string|int $zipCode
+     * @return array
+     */
     protected function adsMomentumShippingDetails(QuoteItem $quoteItem, $product, $zipCode)
     {
         $shippingConfig = $this->getCarriersConfig();
@@ -383,6 +391,13 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         return $this->prepareShippingInfo($shippingData);
     }
 
+    /**
+     * Prepare Pilot shipping method details.
+     *
+     * @param \Magento\Quote\Model\Quote\Item $quoteItem
+     * @param string|int $zipCode
+     * @return array
+     */
     protected function pilotShippingDetails(QuoteItem $quoteItem, $zipCode)
     {
         $shippingConfig = $this->getCarriersConfig();
@@ -410,6 +425,14 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         return $this->prepareShippingInfo($shippingData);
     }
 
+    /**
+     * Prepare USPS shipping method information.
+     *
+     * @param \Magento\Quote\Model\Quote\Item $quoteItem
+     * @param $product
+     * @param string|int $zipCode
+     * @return array
+     */
     protected function uspsShippingDetails(QuoteItem $quoteItem, $product, $zipCode)
     {
         $carrierCode = 'usps';
@@ -436,6 +459,14 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         return $this->prepareShippingInfo($shippingData);
     }
 
+    /**
+     * Prepare UPS shipping method information.
+     *
+     * @param \Magento\Quote\Model\Quote\Item $quoteItem
+     * @param $product
+     * @param string|int $zipCode
+     * @return array
+     */
     protected function upsShippingDetails(QuoteItem $quoteItem, $product, $zipCode)
     {
         $productWeight = $product->getWeight();
@@ -464,41 +495,41 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
             switch ($method['UPSCode']) {
                 case '03':
                     $deliveryMethods[] = [
-                        'quote_item_id'  => $quoteItemId,
-                        "carrier_code"   => 'ups',
-                        "method_code"    => 'GND',
-                        "carrier_title"  => 'UPS',
-                        "method_title"   => 'GROUND',
-                        "amount"         => $method['Rate'],
-                        "base_amount"    => $method['Rate'],
-                        "available"      => true,
-                        "error_message"  => '',
+                        'quote_item_id' => $quoteItemId,
+                        "carrier_code"  => 'ups',
+                        "method_code"   => 'GND',
+                        "carrier_title" => 'UPS',
+                        "method_title"  => 'GROUND',
+                        "amount"        => $method['Rate'],
+                        "base_amount"   => $method['Rate'],
+                        "available"     => true,
+                        "error_message" => '',
                     ];
                     break;
                 case '12':
                     $deliveryMethods[] = [
-                        'quote_item_id'  => $quoteItemId,
-                        "carrier_code"   => 'ups',
-                        "method_code"    => '2DA',
-                        "carrier_title"  => 'UPS',
-                        "method_title"   => '2nd Day',
-                        "amount"         => $method['Rate'],
-                        "base_amount"    => $method['Rate'],
-                        "available"      => true,
-                        "error_message"  => '',
+                        'quote_item_id' => $quoteItemId,
+                        "carrier_code"  => 'ups',
+                        "method_code"   => '2DA',
+                        "carrier_title" => 'UPS',
+                        "method_title"  => '2nd Day',
+                        "amount"        => $method['Rate'],
+                        "base_amount"   => $method['Rate'],
+                        "available"     => true,
+                        "error_message" => '',
                     ];
                     break;
                 case '02':
                     $deliveryMethods[] = [
-                        'quote_item_id'  => $quoteItemId,
-                        "carrier_code"   => 'ups',
-                        "method_code"    => '3DS',
-                        "carrier_title"  => 'UPS',
-                        "method_title"   => '3 Days',
-                        "amount"         => $method['Rate'],
-                        "base_amount"    => $method['Rate'],
-                        "available"      => true,
-                        "error_message"  => '',
+                        'quote_item_id' => $quoteItemId,
+                        "carrier_code"  => 'ups',
+                        "method_code"   => '3DS',
+                        "carrier_title" => 'UPS',
+                        "method_title"  => '3 Days',
+                        "amount"        => $method['Rate'],
+                        "base_amount"   => $method['Rate'],
+                        "available"     => true,
+                        "error_message" => '',
                     ];
                     break;
             }
@@ -507,6 +538,12 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         return $deliveryMethods;
     }
 
+    /**
+     * Prepare the shipping array response from the shipping data object.
+     *
+     * @param \Magento\Framework\DataObject $shippingMethodInfo
+     * @return array
+     */
     protected function prepareShippingInfo(DataObject $shippingMethodInfo)
     {
         return [
