@@ -29,7 +29,7 @@ class Estimate extends \Magento\Framework\Model\AbstractModel
 		    );
 
 		    foreach ($orders as $order) {
-		    	$paymentMethod = $this->getPaymentMethod($order);	    
+		    	$paymentMethod = $order->getPayment()->getMethod();
 		    	if (strpos($paymentMethod, 'authorizenet') !== false) {
 		    		$Signify_Required = true;
 		    		$orderTotal = $order->getGrandTotal(); //order total
@@ -48,7 +48,7 @@ class Estimate extends \Magento\Framework\Model\AbstractModel
 		    	} else {
 		    		$this->setSupplyInvoice($order);
 		    	}			
-			} 
+			}
 	        $this->auditLog->saveAuditLog([
 	            'user_id' => 'admin',
 	            'action' => 'process estimate cron',
