@@ -279,7 +279,6 @@
 "Enter Mother\'s Maiden name","Ingrese el apellido de soltera de la madre"
 "Submit","Enviar"
 "Enter Code","Introduzca el código"
-"Pending","Pendiente"
 "View Order","Ver pedido"
 "Reorder","Reordenar"
 "Date","Fecha"
@@ -400,7 +399,6 @@ Curazao se esfuerza por garantizar que tengamos precios competitivos
 "Phone number is required","Se requiere numero de telefono"
 "Invoice number is required","Se requiere número de factura"
 "Product Link or Product Image is required","Se requiere enlace del producto o imagen del producto"
-"Processing","Tratamiento"
 "We will beat any competitors","Vamos a vencer a cualquier competidor"
 "Curacao is so confident in our landing practices and the interest
   rate that we offer, We have introduced our INTEREST BEAT GUARANTEE.
@@ -425,3 +423,6 @@ Curazao se esfuerza por garantizar que tengamos precios competitivos
 "priority","prioridad"
 "Link account","Vincular cuenta"
 "Add New Shipping Address","Añadir nueva Dirección de Envío"
+"Curacao Account Number","Número de cuenta de Curacao"
+"Price Beat","Precio Beat"
+"Interest Beat","Interés Beat"
