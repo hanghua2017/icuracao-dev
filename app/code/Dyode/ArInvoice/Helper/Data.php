@@ -69,9 +69,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function initRestApiConnect($url)
     {
-        /**
-         * Init Curl
-         */
         $baseUrl = $this->arWebServiceHelper->getApiUrl();
         $url = $baseUrl . $url;
 
@@ -80,14 +77,12 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        /**
-         * Set Content Header
-         */
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'X-Api-Key: ' . $this->arWebServiceHelper->getApiKey(),
             'Content-Type: application/json',
             )
         );
+
         return $ch;
     }
 
@@ -101,14 +96,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
          */
         $url = "CreateRevEstimate";
         $ch = $this->initRestApiConnect($url);
-        /**
-         * Set Post Data
-         */
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($inputArray));
-        /**
-         * Get Response Data
-         */
+
         $response = curl_exec($ch);
         curl_close($ch);
 
@@ -136,20 +126,14 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             "inv_no" => $invNo,
             "referID" => $referId
         );
-        /**
-         * Initialize Rest Api Connection
-         */
+
         $url = "webDownpayment";
         $ch = $this->initRestApiConnect($url);
-        /**
-         * Set Post Data
-         */
+
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($inputArray));
-        /**
-         * Get Response Data
-         */
         $response = curl_exec($ch);
+
         curl_close($ch);
 
         //logging audit log
@@ -176,37 +160,36 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             "LastName" => $lastName,
             "eMail" => $email
         );
-        /**
-         * Initialize Rest Api Connection
-         */
+
         $url = "SupplyInvoice";
         $ch = $this->initRestApiConnect($url);
-        /**
-         * Set Post Data
-         */
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($inputArray));
-        /**
-         * Get Response Data
-         */
         $response = curl_exec($ch);
+
         curl_close($ch);
         return $response;
     }
 
     /**
      * Validate Account Number
+     *
+     * @param int $accountNumber
+     *
+     * @return int $accountNumberFormatted
      */
     public function validateAccountNumber($accountNumber)
     {
         if (strlen($accountNumber) == 7) {
-            return $accountNumberFormatted = substr_replace($accountNumber, "-", 3, 0);
+            $accountNumberFormatted = substr_replace($accountNumber, "-", 3, 0);
         } elseif (strlen($accountNumber) < 7) {
             $accountNumber = str_pad($accountNumber, 7, "0", STR_PAD_LEFT);
-            return $accountNumberFormatted = substr_replace($accountNumber, "-", 3, 0);
+            $accountNumberFormatted = substr_replace($accountNumber, "-", 3, 0);
         } else {
-            return $accountNumberFormatted = $accountNumber;
+            $accountNumberFormatted = $accountNumber;
         }
+
+        return $accountNumberFormatted;
     }
 
     /**
@@ -216,20 +199,13 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function inventoryLevel($itemId, $locations)
     {
-        /**
-         * Initialize Rest Api Connection
-         */
         $url = "InventoryLevel?item_id=$itemId&locations=$locations";
         $ch = $this->initRestApiConnect($url);
-        /**
-         * Set Post Data
-         */
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-        /**
-         * Get Response Data
-         */
         $response = curl_exec($ch);
+
         curl_close($ch);
+
         return json_decode($response);
     }
 
@@ -240,16 +216,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getSetItems($itemId)
     {
-        $url = $this->arWebServiceHelper->getApiUrl() . "getSetItems?item_id=$itemId";
-        $ch = curl_init($url);
+        $ch = $this->initRestApiConnect("getSetItems?item_id=$itemId");
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            "Content-Type: application/json",
-            "X-Api-Key: " . $this->arWebServiceHelper->getApiKey()]
-        );
-
         $result = curl_exec($ch);
+
         curl_close($ch);
 
         //logging audit log
@@ -260,7 +230,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             'client_ip' => "",
             'module_name' => "Dyode_ArInvoice"
         ]);
-        error_log("input : itemId : " . $itemId . "  response : " . $result);
+
         return $result;
     }
 
@@ -271,20 +241,13 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function appleCareListWarranties()
     {
-        /**
-         * Initialize Rest Api Connection
-         */
         $url = "AppleCareListWarranties";
         $ch = $this->initRestApiConnect($url);
-        /**
-         * Set Post Data
-         */
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-        /**
-         * Get Response Data
-         */
         $response = curl_exec($ch);
+
         curl_close($ch);
+
         return json_decode($response);
     }
 
@@ -300,15 +263,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
          */
         $url = "AppleCareSetWarranty";
         $ch = $this->initRestApiConnect($url);
-        /**
-         * Set Post Data
-         */
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($inputArray));
-        /**
-         * Get Response Data
-         */
         $response = curl_exec($ch);
+
         curl_close($ch);
 
         //logging audit log
@@ -479,6 +437,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                             return 01;
                         }
                     } else {
+
                         return "k";
                     }
                 }
