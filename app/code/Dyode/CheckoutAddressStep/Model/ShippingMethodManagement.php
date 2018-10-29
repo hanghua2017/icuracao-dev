@@ -233,7 +233,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         $productWeight = $product->getWeight();
         $productPrice = $product->getPrice();
         // Check if product is Freight item if so use ADS momentum or Pilot
-        if ($product->getIsfreight()) {
+        if ($product->getFreight()) {
 
             /**
              * Find distance between destination and all store locations
