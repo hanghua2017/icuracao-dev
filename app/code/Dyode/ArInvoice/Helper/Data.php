@@ -584,7 +584,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 }
             }
         }
-        ksort($groupedItemsLocation);
+
+        if (!empty($groupedItemsLocation)) {
+            ksort($groupedItemsLocation);
+        }
 
         return $groupedItemsLocation;
     }
