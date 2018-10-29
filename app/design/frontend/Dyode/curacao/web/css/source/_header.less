@@ -251,13 +251,17 @@
 							//Search auto searchautocomplete styling
 							.searchautocomplete__autocomplete._active {
 								text-align: left;
-								width: ~"calc(100% - 77px)" !important;
+
 								border: 1px solid @light-border-color !important;
+
+								@media all and (max-width:1024px) {
+									width: ~"calc(100% - 210px)" !important;
+								}
 								@media all and (max-width:768px) {
-									width: ~"calc(100% - 210px)";
+									width: ~"calc(100% - 77px)" !important;
 								}
 								@media all and (min-width:1025px) {
-									width: ~"calc(100% - 205px)" !important;
+									width: ~"calc(100% - 192px)" !important;
 								}
 
 								a.title {
@@ -1304,6 +1308,22 @@ html[lang="es"] {
 							}
 						}
 					}
+				}
+			}
+			//Search auto searchautocomplete styling
+			.searchautocomplete__autocomplete._active {
+				text-align: left;
+
+				border: 1px solid @light-border-color !important;
+
+				@media all and (max-width:1024px) {
+					width: ~"calc(100% - 230px)" !important;
+				}
+				@media all and (max-width:768px) {
+					width: ~"calc(100% - 77px)" !important;
+				}
+				@media all and (min-width:1025px) {
+					width: ~"calc(100% - 226px)" !important;
 				}
 			}
 		}
