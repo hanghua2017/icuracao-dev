@@ -375,17 +375,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function assignInventoryLocation($item)
     {
         /**
-         * Get item id
-         */
-        $itemId = $item->getItemId();
-        /**
          * Get item qty ordered
          */
         $itemQty = $item->getQtyOrdered();
-        /**
-         * Get item qty invoiced
-         */
-        $itemQtyInvoiced = $item->getQtyInvoiced();
         /**
          * Get item Product Id
          */
@@ -403,28 +395,17 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
          */
         $vendorId = $product->getData('vendorid');
         /**
-         * Get Product IsSet Value
-         */
-        $set = $product->getData('set');
-        /**
-         * Get Product Shipping Type
-         */
-        $shippingRate = $product->getData('shiptype');
-        /**
          * Getting the Inventory Level from location_inventory table
          */
         $result = $this->getProductInventory($productId);
-//        if (empty($result[0]['finalinventory'])) {
-//            throw new \Exception("Product Inventory Level Not Found", 1);
-//        }
+
         $inventoryLocations = (!empty($result)) ? json_decode($result[0]['finalinventory']) : [];
 
         if ($vendorId != '2139') {  # If the vendor is not Curacao
             return '33';
-        } else {    # If the vendor is Curacao
-            # Get Order Details
+        } else {
+
             $order = $this->getOrderInfo($item->getOrderId());
-            # Get Delivery Method
             $storePickup = $item->getData('delivery_type');
 
             if ($storePickup == True) { # If the Delivery Type is Store Pickup
@@ -592,13 +573,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $groupedLocationFound = 0;
         $availableLocations = array();
-        $groupedLocation = array();
 
         foreach ($orderItems as $itemId => $productInfo) {
-            $product = $this->getProductById($productInfo['ProductId']);
             $resultSetItem = $this->getProductInventory($productInfo['ProductId']);
 
-            $inventoryLevel = json_decode($resultSetItem[0]['finalinventory']);
+            $inventoryLevel = (!empty($resultSetItem)) ? json_decode($resultSetItem[0]['finalinventory']) : [];
 
             foreach ($inventoryLevel as $key => $value) {
                 // Array Initializing

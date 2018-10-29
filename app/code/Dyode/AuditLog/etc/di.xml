@@ -10,7 +10,6 @@
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <!--data provider name which used in grid ui component file -->
                 <item name="dyode_audit_log_list_data_source" xsi:type="string">Dyode\AuditLog\Model\ResourceModel\AuditLog\Collection</item>
             </argument>
         </arguments>
