@@ -11,8 +11,8 @@ class Inventory extends \Magento\Framework\Model\AbstractModel {
 
    protected $products;
 
-   //Not Domestic locations
-   public $locations = array('01', '09', '16', '22', '29', '33', '35', '38', '40', '51', '57', '64');  
+   //locations
+   public $locations = array('01', '06', '09', '16', '22', '29', '33', '35', '38', '40', '51', '57', '64');  
 
    public $productSKUs = array();
 
@@ -105,7 +105,12 @@ class Inventory extends \Magento\Framework\Model\AbstractModel {
                foreach ($item['stock'] as $location => $quantity) {
                   $store = $location; //store location
                   $stock = $quantity; //current stock from AR
-                  $this->productSKUs[$sku][$store] = $stock;
+                  if (in_array($store, $this->locations)){
+                     $this->productSKUs[$sku][$store] = $stock;
+                  } else {
+                     //set inventory as zero if store is not in locations array
+                     $this->productSKUs[$sku][$store] = 0;
+                  }
                }
             }
          }
@@ -221,7 +226,6 @@ class Inventory extends \Magento\Framework\Model\AbstractModel {
                ]);
                $saveData = $locationInventory->save();
             }
-            $this->priceHelper->addLogs('Non-set inventory update', 'location table updated', 'dyode_inventoryupdate$');
             $stockItem=$this->_stockRegistry->getStockItem($product->getID());
 
             if ($product->getArStatus() =='D') {
@@ -229,35 +233,35 @@ class Inventory extends \Magento\Framework\Model\AbstractModel {
                $product->setVisibiity(1);
                $product->setInventorylookup('499');
                //$product->setCron('15');
-               //$product->save();
+               $product->save();
                continue;
             }
             
             if ($product->getArStatus() =='Z') {
                $product->setStatus(0);
                $product->setVisibiity(1);
-               //$product->save();
+               $product->save();
                continue;
             }
 
             if ($product->getArStatus() =='R' && $company_wide_inventory < 5) {
                $product->setStatus(0);
                $product->setVisibiity(1);
-               //$product->save();
+               $product->save();
                continue;
             }
             if($finalInv > 0){
                $product->setStatus(1);
                $product->setVisibiity(4);
                $product->setOosDate('');
-               //$product->save();
+               $product->save();
                $stockItem->setQty($finalInv);
             } else {
                $product->setStatus(0);
                $product->setVisibiity(1);
                $product->setOosDate(date("Y-m-d 00:00:00"));
                $product->setInventorylookup('500');
-    //         $product->save();
+               $product->save();
                $stockItem->setQty('0');
             }
                $stockItem->setIsInStock((bool)$finalInv); 
@@ -267,6 +271,7 @@ class Inventory extends \Magento\Framework\Model\AbstractModel {
                unset($jsonAR_invAfterPendingAndThreshold);
          }
       }
+      $this->priceHelper->addLogs('Non-set inventory update', 'location table updated', 'dyode_inventoryupdate');
    }
 }
 
