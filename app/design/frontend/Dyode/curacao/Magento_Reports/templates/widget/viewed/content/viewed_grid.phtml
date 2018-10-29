@@ -32,10 +32,11 @@ if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedPr
     //  view model
     $emiBlock = $block->getLayout()->getBlock('emi_block');
     $emiViewModel = $emiBlock->getViewModel();
-    $limit = $block->getRecentlyViewedProducts()->getSize();
+    //uncomment the below line and use it for limiting the minimum number of products to be
+    //$limit = $block->getRecentlyViewedProducts()->getSize();
 }
 ?>
-<?php if ($exist && $limit>=4):?>
+<?php if ($exist):?>
     <div class="block widget block-viewed-products-<?= /* @escapeNotVerified */ $mode ?>">
         <div class="slider-title">
             <strong class='widget-title' role="heading" aria-level="2"><?= /* @escapeNotVerified */ $title ?></strong>
