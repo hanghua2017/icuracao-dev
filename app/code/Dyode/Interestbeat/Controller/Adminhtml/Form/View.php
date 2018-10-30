@@ -8,11 +8,12 @@
  *                     It is also available through the world-wide-web at this URL:
  *                     http://opensource.org/licenses/mit-license.php
  *
- *                     @category  Dyode
- *                     @package   Dyode_Interestbeat
- *                     @copyright Copyright (c) 2017
- *                     @license   http://opensource.org/licenses/mit-license.php MIT License
+ * @category  Dyode
+ * @package   Dyode_Interestbeat
+ * @copyright Copyright (c) 2017
+ * @license   http://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace Dyode\Interestbeat\Controller\Adminhtml\Form;
 
 class View extends \Dyode\Interestbeat\Controller\Adminhtml\Form
@@ -37,6 +38,10 @@ class View extends \Dyode\Interestbeat\Controller\Adminhtml\Form
      * @var \Magento\Framework\Controller\Result\JsonFactory
      */
     protected $resultJsonFactory;
+
+    /**
+     * @var \Magento\Framework\Registry|null
+     */
     protected $_coreRegistry = null;
 
     /**
@@ -58,21 +63,14 @@ class View extends \Dyode\Interestbeat\Controller\Adminhtml\Form
         \Magento\Framework\Registry $registry,
         \Magento\Backend\Model\View\Result\RedirectFactory $resultRedirectFactory,
         \Magento\Backend\App\Action\Context $context
-
-    )
-    {
-        $this->backendSession    = $backendSession;
+    ) {
+        $this->backendSession = $backendSession;
         $this->resultPageFactory = $resultPageFactory;
         $this->resultJsonFactory = $resultJsonFactory;
         $this->_coreRegistry = $registry;
-
         parent::__construct($formFactory, $registry, $resultRedirectFactory, $context);
     }
-    /**
-* Core registry
-*
-* @var \Magento\Framework\Registry
-*/
+
     /**
      * is action allowed
      *
@@ -82,35 +80,35 @@ class View extends \Dyode\Interestbeat\Controller\Adminhtml\Form
     {
         return $this->_authorization->isAllowed('Dyode_Interestbeat::form');
     }
-    public function execute() {
+
+    public function execute()
+    {
         $id = $this->getRequest()->getParam('form_id');
         $model = $this->_objectManager->create('Dyode\Interestbeat\Model\Form');
 
-        if($id){
-        $model->load($id);
-        if(!$model->getId()){
-        $this->messageManager->addError(__('This Form no longer exits. '));
-        $resultRedirect = $this->resultRedirectFactory->create();
-        return $resultRedirect->setPath('dyode_interestbeat*/*/view');
-        }
+        if ($id) {
+            $model->load($id);
+            if (!$model->getId()) {
+                $this->messageManager->addError(__('This Form no longer exits. '));
+                $resultRedirect = $this->resultRedirectFactory->create();
+                return $resultRedirect->setPath('dyode_interestbeat*/*/view');
+            }
         }
         $data = $this->_objectManager->get('Magento\Backend\Model\Session')->getFormData(true);
         if (!empty($data)) {
-        $model->setData($data);
+            $model->setData($data);
         }
 
         $this->_coreRegistry->register('dyode_dyode_form_data', $model);
         $resultPage = $this->resultPageFactory->create();
         $resultPage->addBreadcrumb(
-        $id ? __('Edit Product FAQ') : __('New Product FAQ'),
-        $id ? __('Edit Product FAQ') : __('New Product FAQ')
+            $id ? __('Edit Product FAQ') : __('New Product FAQ'),
+            $id ? __('Edit Product FAQ') : __('New Product FAQ')
         );
         $resultPage->getConfig()->getTitle()->prepend(__('Product FAQs'));
         $resultPage->getConfig()->getTitle()
-        ->prepend($model->getId() ? $model->getname() : __('New Product FAQs'));
+            ->prepend($model->getId() ? $model->getname() : __('New Product FAQs'));
 
         return $resultPage;
     }
-
-
 }
