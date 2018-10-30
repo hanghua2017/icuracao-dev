@@ -10,4 +10,7 @@
       <!-- API for setting delivery type -->
       <preference for="Dyode\CheckoutDeliveryMethod\Api\DeliveryMethodManagementInterface" type="Dyode\CheckoutDeliveryMethod\Model\DeliveryMethodManagement"/>
       <preference for="Dyode\CheckoutDeliveryMethod\Api\DeliveryMethodInformationInterface" type="Dyode\CheckoutDeliveryMethod\Model\DeliveryMethodInformation"/>
+      <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="CheckoutDelivery_to_order_item" type="Dyode\CheckoutDeliveryMethod\Model\Plugin\Quote\ToOrderItem"/>
+      </type>
 </config>

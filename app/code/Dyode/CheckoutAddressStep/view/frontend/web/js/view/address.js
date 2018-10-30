@@ -87,7 +87,8 @@ define([
         isNewAddressAdded: ko.observable(false),
         saveInAddressBook: 1,
         quoteIsVirtual: quote.isVirtual(),
-        viewButtonState: ko.observable("View All"),
+        viewButtonState: ko.observable($t('View All')),
+
 
         /**
          * @return {exports}
@@ -98,7 +99,7 @@ define([
                 fieldsetName = 'checkout.steps.address-step.shippingAddress.shipping-address-fieldset';
 
             this._super();
-            
+
             if (!quote.isVirtual()) {
                 stepNavigator.registerStep(
                     'address-step',
@@ -299,7 +300,7 @@ define([
                 // If there are more than two address's scroll to view all button
                 if(self.isThereMoreThanTwoAddresses()) {
                     //Press the View All Button
-        
+
                     if(document.getElementsByClassName('shipping-address-view-all')[0].innerText == "View All"){
                         $('.shipping-address-view-all').click();
                     }
@@ -308,14 +309,14 @@ define([
                     $('html, body').animate({
                         scrollTop: $(linkHref).offset().top-320
                     },600);
-                    
+
                 }
                 else
                 {
                     document.body.scrollTop = 370; // For Safari
                     document.documentElement.scrollTop = 370; // For Chrome, Firefox, IE and Opera
                 }
-                
+
 
             }
         },
