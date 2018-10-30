@@ -235,7 +235,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         $shipCoordinates = $this->_locationRepo->getById($zipCode);
         $product = $this->getProductById($quoteItem->getProductId());
 
-        if ($product->getIsfreight()) {
+        if ($product->getFreight()) {
             if ($this->isDomestic($shipCoordinates->getLat(), $shipCoordinates->getLng())) {
                 return $this->adsMomentumShippingDetails($quoteItem, $product, $zipCode);
             }

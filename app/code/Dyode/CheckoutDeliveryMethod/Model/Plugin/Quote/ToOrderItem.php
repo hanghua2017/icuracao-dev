@@ -10,11 +10,19 @@
         protected $productRepository;
 
         /**
+         * @var type \Magento\Sales\Api\OrderRepositoryInterface
+         */
+        protected $orderRepository;
+
+        /**
+         * @param \Magento\Sales\Api\OrderRepositoryInterface
          * @param \Magento\Catalog\Model\Product $productRepository
          */
         public function __construct(
-        \Magento\Catalog\Model\Product $productRepository
+            \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
+            \Magento\Catalog\Model\Product $productRepository
         ) {
+            $this->orderRepository = $orderRepository;
             $this->productRepository = $productRepository;
         }
 
@@ -27,21 +35,33 @@
          * @return type
          */
         public function aroundConvert(
-        \Magento\Quote\Model\Quote\Item\ToOrderItem $subject, callable $proceed, \Magento\Quote\Model\Quote\Item\AbstractItem $item, $additional = []
+            \Magento\Quote\Model\Quote\Item\ToOrderItem $subject, 
+            callable $proceed,
+            \Magento\Quote\Model\Quote\Item\AbstractItem $item,
+            $additional = []
         ) {
 
+            $writer = new \Zend\Log\Writer\Stream(BP . "/var/log/QuoteToOrder.log");
+            $logger = new \Zend\Log\Logger();
+            $logger->addWriter($writer);
+          
             $orderItem = $proceed($item, $additional);
-            $productId = $item->getProduct()->getId();
-            $product = $this->productRepository->load($productId);
-            $deliveryType = $product->getDeliveryType();
-            $pickupLocation = $product->getPickupLocation();
-            $pickupLocAddrs = $product->getPickupLocationAddress();
+            $order = $item->getOrder()->getData();
+            $logger->info("pickupLocation : " .  $order->getId());
 
-            $orderItem->setDeliveryType($deliveryType);
-            $orderItem->setPickupLocation($pickupLocation);
-            $orderItem->setPickupLocationAddress($pickupLocAddrs);
+            $orderItem->setDeliveryType($item->getDeliveryType());
+            $orderItem->setPickupLocation($item->getPickupLocation());
+            $orderItem->setPickupLocationAddress($item->getPickupLocationAddress());
+
+            if ( $item->getWarrantyParentItemId() ) {
+                $orderItem->setWarrantyParentItemId( $item->getWarrantyParentItemId() );
+            }
+            if ( $item->getShippingDetails() ) {
+                $orderItem->setShippingDetails( $item->getShippingDetails() );
+                $orderItem->setShippingCost( $item->getShippingCost() );
+            }
+
             return $orderItem;
         }
-
     }
-    ?>
+

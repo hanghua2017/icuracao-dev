@@ -30,7 +30,7 @@ class Estimate extends \Magento\Framework\Model\AbstractModel
 
 		    foreach ($orders as $order) {
 		    	$paymentMethod = $order->getPayment()->getMethod();
-		    	if (strpos($paymentMethod, 'authorizenet') !== false) {
+                if ((strpos($paymentMethod, 'authorizenet') !== false) || (strpos($paymentMethod, 'authnetcim') !== false)) {
 		    		$Signify_Required = true;
 		    		$orderTotal = $order->getGrandTotal(); //order total
 		    		$payment = $order->getPayment();

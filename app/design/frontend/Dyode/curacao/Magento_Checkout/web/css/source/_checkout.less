@@ -795,6 +795,9 @@ input[type="radio"] {
                         @media all and (max-width:767px){
                           position: static;
                         }
+                        label{
+                          display: none;
+                        }
                         .credit-card-types{
                           li{
                             width:32px;
@@ -2045,7 +2048,7 @@ input[type="radio"] {
                         width: 45%;
                         clear: both;
                         float: left;
-                        @media all and (max-width:767px){
+                        @media all and (max-width:768px){
                           width: 100%;
                         }
                       }
@@ -2063,7 +2066,7 @@ input[type="radio"] {
                           @media all and (max-width:991px){
                             width:53%;
                           }
-                          @media all and (max-width:767px){
+                          @media all and (max-width:768px){
                             width:100%;
                           }
                           input[type="text"]{
@@ -2090,7 +2093,7 @@ input[type="radio"] {
                         @media all and (max-width:991px){
                           left:55%;
                         }
-                        @media all and (max-width:767px){
+                        @media all and (max-width:768px){
                           position:static;
                           width:100%;
                           margin-top: 10px;
@@ -2390,16 +2393,29 @@ html[lang="es"]{
   .checkout-index-index{
     .page-main{
       .checkout-container{
+        .opc-progress-bar{
+          .opc-progress-bar-item > span{
+            @media all and (max-width:880px){
+              padding-right: 12px;
+            }
+          }
+        }
         .opc{
           #checkout-step-payment{
             #co-payment-form{
               .fieldset{
                 .curacao-outer{
                   .linkaccount{
+                    h2{
+                      @media all and (max-width:375px){
+                        padding-right: 70px;
+                      }
+                    }
                     .curacao-credit-logo{
                       left:243px;
-                      @media all and (max-width:370px){
-                        display: none;
+                      @media all and (max-width:375px){
+                        left:auto;
+                        right: 0;
                       }
                     }
                   }

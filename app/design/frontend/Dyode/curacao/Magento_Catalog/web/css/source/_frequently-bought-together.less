@@ -469,3 +469,62 @@ html[lang="es"] {
     }
   }
 }
+html[lang="es"]{
+  .catalog-product-view{
+     .frequently-bought-items{
+       .frequent-item-list{
+         li{
+           .product{
+             .prod-details{
+               .price-details{
+                 .price{
+                   .off-price{
+                     font-size: 14px;
+                     margin-left: 10px;
+                     @media all and (max-width: 1024px){
+                       font-size: 13px;
+                     }
+                     @media all and (max-width: 767px){
+                       font-size: 12px;
+                     }
+                     @media all and (max-width: 478px){
+                       font-size: 14px;
+                       margin-left: 20px;
+                       margin-top: 2px;
+                     }
+                     @media all and (max-width:375px){
+                       font-size: 12px;
+                     }
+                   }
+                 }
+               }
+             }
+           }
+         }
+       }
+       .frequently-bought-adon-sum-block{
+         .frequently-bought-adon-sum{
+           .price-adons{
+             form{
+               .action.add-bundle-btn{
+                 button.add-bundle-btn{
+                   @media all and (max-width:767px){
+                     width:100%;
+                   }
+                   span{
+                     @media all and (min-width:768px) and (max-width:1024px){
+                       top:-3px;
+                     }
+                     @media all and (max-width:375px){
+                       padding: 0;
+                     }
+                   }
+                 }
+               }
+             }
+           }
+         }
+       }
+     }
+  }
+}
