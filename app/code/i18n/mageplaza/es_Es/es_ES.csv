@@ -284,7 +284,7 @@
 "<strong>Get more insights from Magento Business Intelligence</strong>","<strong>Obtén mas ideas con Magento Business Intelligence</strong>",module,Magento_Analytics
 "Magento Business Intelligence provides you with a simple and clear path to
                     becoming more data driven.</br> Learn more about <a target=""_blank""
-                    href=""https://dashboard.rjmetrics.com/v2/magento/signup/"">Magento BI Essentials and BI Pro</a> tiers.","Magento Business Intelligence le proporciona un camino sencillo y claro para 
+                    href=""https://dashboard.rjmetrics.com/v2/magento/signup/"">Magento BI Essentials and BI Pro</a> tiers.","Magento Business Intelligence le proporciona un camino sencillo y claro para
                     convertirse en más datos.</br> Más información sobre <a target=""_blank""
                     href=""https://dashboard.rjmetrics.com/v2/magento/signup/"">Magento BI Essentials and BI Pro</a>tiers.",module,Magento_Analytics
 "Auto Parts","Piezas de automóvil",module,Magento_Analytics
@@ -3634,8 +3634,8 @@
 "Invalid value of ""%value"" provided for the %fieldName field.","Invalid value of ""%value"" provided for the %fieldName field.",module,Magento_CompanyCredit
 "Please enter a valid %1/%2 currency rate.","Please enter a valid %1/%2 currency rate.",module,Magento_CompanyCredit
 "Invoice created for %1","Invoice created for %1",module,Magento_CompanyCredit
-"The selected credit currency is not valid. 
-                        Customers will not be able to place orders until you update the credit currency.","The selected credit currency is not valid. 
+"The selected credit currency is not valid.
+                        Customers will not be able to place orders until you update the credit currency.","The selected credit currency is not valid.
                         Customers will not be able to place orders until you update the credit currency.",module,Magento_CompanyCredit
 "Store Credit","Store Credit",module,Magento_CompanyCredit
 "Refund to Company Credit","Refund to Company Credit",module,Magento_CompanyCredit
@@ -7891,7 +7891,7 @@ Ahora puede seleccionar la fecha de caducidad que desee.",module,Magento_Negotia
 "The product that was requested doesn't exist. Verify the product and try again.","El producto que ha solicitado no existe. Verifica el producto e inténtelo de nuevo.",module,Magento_NegotiableQuoteSharedCatalog
 "Shared Catalog (or Customer Group)","Catálogo compartido (o grupo de clientes)",module,Magento_NegotiableQuoteSharedCatalog
 "No New Relic Application ID configured, cannot continue with Cron Event reporting","No esta configurada la nueva ID de aplicación Relic, no se puede continuar con el reporte de Eventos Cron",module,Magento_NewRelicReporting
-"The New Relic integration requires the newrelic-php5 agent, which is not installed. More 
+"The New Relic integration requires the newrelic-php5 agent, which is not installed. More
                         information on installing the agent is available <a target=""_blank"" href=""%1"">here</a>.","La nueva integración Relic requiere al agente newrelic-php5 que no está instalado. Más información sobre cómo instalar el agente está disponible <a target=""_blank"" href=""%1""> aquí</a>.",module,Magento_NewRelicReporting
 "New Relic Reporting Section","Nueva sección de reporte Relic",module,Magento_NewRelicReporting
 "New Relic Reporting","Nuevos informes Relic",module,Magento_NewRelicReporting
@@ -8693,7 +8693,7 @@ Ahora puede seleccionar la fecha de caducidad que desee.",module,Magento_Negotia
 "Enable PayPal Credit","Habilitar crédito de PayPal",module,Magento_Paypal
 "PayPal Express Checkout lets you give customers access to financing through PayPal Credit&#174; - at no additional cost to you.
                         You get paid up front, even though customers have more time to pay. A pre-integrated payment button lets customers pay quickly with PayPal Credit&#174;.
-                        <a href=""https:/www.paypal.com/webapps/mpp/promotional-financing"" target=""_blank"">Learn More</a>","PayPal Express Checkout le permite brindarles a los clientes acceso a financiamiento a través de PayPal Credit&#174; - sin costo adicional para usted. 
+                        <a href=""https:/www.paypal.com/webapps/mpp/promotional-financing"" target=""_blank"">Learn More</a>","PayPal Express Checkout le permite brindarles a los clientes acceso a financiamiento a través de PayPal Credit&#174; - sin costo adicional para usted.
                         Se le paga por adelantado, a pesar de que los clientes tienen más tiempo para pagar. Un botón de pago preintegrado permite a los clientes pagar rápidamente con PayPal Credit&#174;.
                          <a href=""https:/www.paypal.com/webapps/mpp/promotional-financing"" target=""_blank""> Más información </a>",module,Magento_Paypal
 "Sort Order PayPal Credit","Organizar orden de Paypal Credit",module,Magento_Paypal
@@ -8704,10 +8704,10 @@ Ahora puede seleccionar la fecha de caducidad que desee.",module,Magento_Negotia
                         Use PayPal’s free banner ads that let you advertise PayPal Credit&#174; financing as a payment option when your customers check out with PayPal.
                         The PayPal Advertising Program has been shown to generate additional purchases as well as increase consumer's average purchase sizes by 15%
                         or more. <a href=""https:/financing.paypal.com/ppfinportal/content/forrester"" target=""_blank"">See Details</a>.","<a href=""https:/financing.paypal.com/ppfinportal/content/whyUseFinancing"" target=""_blank""> ¿Por qué financiar publicidad?</a><br/>
-                         <strong> Aumente sus ventas cuando publicite financiación. </strong><br/> PayPal ayuda a convertir navegadores en compradores con financiación 
-                        de PayPal Credit&#174; Sus clientes tienen más tiempo para pagar, mientras que se les paga por adelantado, sin costo adicional para usted. 
-                        Use los anuncios de banner gratuitos de PayPal que le permiten anunciar PayPal Credit&#174; Financiamiento como una opción de pago cuando sus clientes pagan con PayPal. 
-                        Se ha demostrado que el Programa de publicidad de PayPal genera compras adicionales y aumenta el tamaño promedio de compra del consumidor en un 15% 
+                         <strong> Aumente sus ventas cuando publicite financiación. </strong><br/> PayPal ayuda a convertir navegadores en compradores con financiación
+                        de PayPal Credit&#174; Sus clientes tienen más tiempo para pagar, mientras que se les paga por adelantado, sin costo adicional para usted.
+                        Use los anuncios de banner gratuitos de PayPal que le permiten anunciar PayPal Credit&#174; Financiamiento como una opción de pago cuando sus clientes pagan con PayPal.
+                        Se ha demostrado que el Programa de publicidad de PayPal genera compras adicionales y aumenta el tamaño promedio de compra del consumidor en un 15%
                         o más. <a href=""https:/financing.paypal.com/ppfinportal/content/forrester"" target=""_blank""> Ver detalles </a>.",module,Magento_Paypal
 "Publisher ID","ID de editor",module,Magento_Paypal
 "Required to display a banner","Necesario para mostrar un banner",module,Magento_Paypal
@@ -8825,10 +8825,10 @@ Ahora puede seleccionar la fecha de caducidad que desee.",module,Magento_Negotia
                             Use PayPal’s free banner ads that let you advertise PayPal Credit&#174; financing as a payment option when your customers check out with PayPal.
                             The PayPal Advertising Program has been shown to generate additional purchases as well as increase consumer's average purchase sizes by 15%
                             or more. <a href=""https:/financing.paypal.com/ppfinportal/content/forrester"" target=""_blank"">See Details</a>.","<a href=""https:/financing.paypal.com/ppfinportal/content/whyUseFinancing"" target=""_blank""> ¿Por qué financiar publicidad?</a><br/>
-                         <strong> Aumente sus ventas cuando publicite financiación. </strong><br/> PayPal ayuda a convertir navegadores en compradores con financiación 
-                        de PayPal Credit&#174; Sus clientes tienen más tiempo para pagar, mientras que se les paga por adelantado, sin costo adicional para usted. 
-                        Use los anuncios de banner gratuitos de PayPal que le permiten anunciar PayPal Credit&#174; Financiamiento como una opción de pago cuando sus clientes pagan con PayPal. 
-                        Se ha demostrado que el Programa de publicidad de PayPal genera compras adicionales y aumenta el tamaño promedio de compra del consumidor en un 15% 
+                         <strong> Aumente sus ventas cuando publicite financiación. </strong><br/> PayPal ayuda a convertir navegadores en compradores con financiación
+                        de PayPal Credit&#174; Sus clientes tienen más tiempo para pagar, mientras que se les paga por adelantado, sin costo adicional para usted.
+                        Use los anuncios de banner gratuitos de PayPal que le permiten anunciar PayPal Credit&#174; Financiamiento como una opción de pago cuando sus clientes pagan con PayPal.
+                        Se ha demostrado que el Programa de publicidad de PayPal genera compras adicionales y aumenta el tamaño promedio de compra del consumidor en un 15%
                         o más. <a href=""https:/financing.paypal.com/ppfinportal/content/forrester"" target=""_blank""> Ver detalles </a>.",module,Magento_Paypal
 "Basic Settings - PayPal Payments Pro Hosted Solution","Ajustes básicos: Solución alojada de Payments Pro de PayPal",module,Magento_Paypal
 "Display Express Checkout in the Payment Information step","Mostrar pago exprés en la pantalla de información del pago",module,Magento_Paypal
@@ -8855,10 +8855,10 @@ Ahora puede seleccionar la fecha de caducidad que desee.",module,Magento_Negotia
                                 Use PayPal’s free banner ads that let you advertise PayPal Credit&#174; financing as a payment option when your customers check out with PayPal.
                                 The PayPal Advertising Program has been shown to generate additional purchases as well as increase consumer's average purchase sizes by 15%
                                 or more. <a href=""https:/financing.paypal.com/ppfinportal/content/forrester"" target=""_blank"">See Details</a>.","<a href=""https:/financing.paypal.com/ppfinportal/content/whyUseFinancing"" target=""_blank""> ¿Por qué financiar publicidad?</a><br/>
-                         <strong> Aumente sus ventas cuando publicite financiación. </strong><br/> PayPal ayuda a convertir navegadores en compradores con financiación 
-                        de PayPal Credit&#174; Sus clientes tienen más tiempo para pagar, mientras que se les paga por adelantado, sin costo adicional para usted. 
-                        Use los anuncios de banner gratuitos de PayPal que le permiten anunciar PayPal Credit&#174; Financiamiento como una opción de pago cuando sus clientes pagan con PayPal. 
-                        Se ha demostrado que el Programa de publicidad de PayPal genera compras adicionales y aumenta el tamaño promedio de compra del consumidor en un 15% 
+                         <strong> Aumente sus ventas cuando publicite financiación. </strong><br/> PayPal ayuda a convertir navegadores en compradores con financiación
+                        de PayPal Credit&#174; Sus clientes tienen más tiempo para pagar, mientras que se les paga por adelantado, sin costo adicional para usted.
+                        Use los anuncios de banner gratuitos de PayPal que le permiten anunciar PayPal Credit&#174; Financiamiento como una opción de pago cuando sus clientes pagan con PayPal.
+                        Se ha demostrado que el Programa de publicidad de PayPal genera compras adicionales y aumenta el tamaño promedio de compra del consumidor en un 15%
                         o más. <a href=""https:/financing.paypal.com/ppfinportal/content/forrester"" target=""_blank""> Ver detalles </a>.",module,Magento_Paypal
 "Not you?","¿No es Usted?",module,Magento_Persistent
 "Your shopping cart has been updated with new prices.","Su carro de compras se ha actualizado con nuevos precios.",module,Magento_Persistent
@@ -10563,6 +10563,7 @@ Ahora puede seleccionar la fecha de caducidad que desee.",module,Magento_Negotia
 "The order address couldn't be deleted.","The order address couldn't be deleted.",module,Magento_Sales
 "The order address couldn't be saved.","The order address couldn't be saved.",module,Magento_Sales
 "Pending","Pendiente",module,Magento_Sales
+"Processing","tratamiento",module,Magento_Sales
 "Refunded","Reembolsado",module,Magento_Sales
 "Canceled","Cancelado",module,Magento_Sales
 "Unknown State","Estado desconocido",module,Magento_Sales
@@ -11728,17 +11729,17 @@ Ahora puede seleccionar la fecha de caducidad que desee.",module,Magento_Negotia
 "Delete ""${ $.$data.name }""","Eliminar ""${ $.$data.name }""",module,Magento_SharedCatalog
 "Catalog and Tier Price","Catálogo y precios del segmento",module,Magento_SharedCatalog
 "Group or Catalog","Grupo o catálogo",module,Magento_SharedCatalog
-"You must enable the <a href=""%1"" data-role=""notification-dialog"">shared catalog</a> feature in 
+"You must enable the <a href=""%1"" data-role=""notification-dialog"">shared catalog</a> feature in
         Stores -> Configuration -> B2B Features to use the shared catalogs in the storefront.
-        Otherwise, the categories and products you're configuring in shared catalogs will 
-        not be restricted to customers.","Debe habilitar la característica de</a> <a href=""%1"" data-role=""notification-dialog"">Catálogo compartido en 
+        Otherwise, the categories and products you're configuring in shared catalogs will
+        not be restricted to customers.","Debe habilitar la característica de</a> <a href=""%1"" data-role=""notification-dialog"">Catálogo compartido en
         tiendas-> configuración-> características de B2B para usar los catálogos compartidos en el escaparate.
-        lo contrario, las categorías y productos que está configurando en catálogos compartidos voluntad 
+        lo contrario, las categorías y productos que está configurando en catálogos compartidos voluntad
         no es restringido a los clientes.",module,Magento_SharedCatalog
-"You must enable the shared catalog feature in Stores -> Configuration -> B2B Features 
-    to use the shared catalogs in the storefront. Otherwise, the categories and products you're 
+"You must enable the shared catalog feature in Stores -> Configuration -> B2B Features
+    to use the shared catalogs in the storefront. Otherwise, the categories and products you're
     configuring in shared catalogs will not be restricted to customers.","Debe habilitar la característica de Catálogo compartido en         tiendas-> configuración-> características de B2B para usar los catálogos compartidos en el escaparate.
-        lo contrario, las categorías y productos que está configurando en catálogos compartidos voluntad 
+        lo contrario, las categorías y productos que está configurando en catálogos compartidos voluntad
         no es restringido a los clientes.",module,Magento_SharedCatalog
 "Next","Siguiente",module,Magento_SharedCatalog
 "Edit Configurations","Editar las configuraciones",module,Magento_SharedCatalog
