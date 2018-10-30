@@ -119,11 +119,6 @@ class Codeverify extends Action
             $encodeCode = $this->customerSession->getEncCode();
             if ( isset( $verificationCode ) ) {
 
-                $userinfo = array(
-                    "cu_account"=> $curacaoCustId,
-                    "verification_code"=> $verificationCode
-                );
-
                 // Check if code is good 0 good -1 no good
                 $checkResult =   $this->helper->verifyCode(  $encodeCode, $verificationCode );
 
