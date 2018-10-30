@@ -52,9 +52,8 @@ class Order implements OrderInterface
      * @param bool $wholeOrder
      * @return bool
      */
-    public function cancelOrder($orderId, $sku, $quantity, $refundShipping = false, $comment, $wholeOrder ) {
-
-     $order = $this->order->loadByIncrementId($orderId);
+    public function cancelOrder($orderId, $sku, $quantity, $refundShipping = false, $comment, $wholeOrder )
+    {
 
      try {
             //load order details
