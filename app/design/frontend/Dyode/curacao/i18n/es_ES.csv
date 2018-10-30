@@ -306,12 +306,15 @@
 "Billing Last Name","Apellido de facturación"
 "Email","Email"
 "Email Address","Dirección de correo electrónico"
-'Please enter shipping address if you have opted for "ship to Home".','Por favor, introduzca la dirección de envío si ha optado por "enviar a casa".'
+"Please enter shipping address if you have opted for","Por favor, introduzca la dirección de envío si ha optado por"
+"Ship to Home.","Enviar a casa."
 "Add a new ship address","Añadir una nueva dirección de envío"
 "Billing Address | Shipping Address","Dirección de facturación | Dirección de Envío"
-'Enter billing address to process the invoice in case of both "Ship to home" or "Store Pickup".','ngrese la dirección de facturación para procesar la factura en caso de "Enviar a domicilio" o "Recoger en tienda".'
-'Be sure to click "Save this address" when done','
-Asegúrese de hacer clic en "Guardar esta dirección" cuando haya terminado'
+"Enter billing address to process the invoice in case of both","Introduzca la dirección de facturación para procesar la factura en caso de que ambos"
+
+"Be sure to click","Asegúrese de hacer clic"
+"Save this address","Guardar esta direccion"
+"when done","cuando termine"
 "Address Lane 1","Dirección carril 1"
 "Address Lane 2","Dirección carril 2"
 "Delivery Method","Método de entrega"
@@ -352,11 +355,11 @@ Recibirá un correo electrónico de confirmación del pedido con los detalles de
 "Quantity:","Cantidad:"
 "Delivery","Entrega"
 "Store Pickup","Recoger en tienda"
+"Store Pickup.","Recoger en tienda."
 "Continue Shopping","Seguir comprando"
 "Order Details","Detalles del pedido"
 "Apply Now","Aplica ya"
 " Store Locations","Ubicaciones de tiendas"
-'Please enter shipping address if you have opted for "ship to Home".','Introduzca la dirección de envío si ha optado por "enviar a casa".'
 "Tax","Impuestos"
 "We'll Beat any Competitor's Prices","Batiremos los precios de cualquier competidor"
 "First Name","Nombre de pila"
@@ -413,7 +416,13 @@ Curazao se esfuerza por garantizar que tengamos precios competitivos
         La tasa de interés de la competencia, ¡pero la VAMOS A VERAR! Esa es nuestra promesa."
 "Best seller","Mejor vendido"
 "Add New Billing Address","Agregar nueva dirección de facturación"
+"3-5 business day","3-5 días hábiles"
+"Within 2 Days","Dentro de 2 días"
+"Within 3 Days","Dentro de 3 días"
+"Change shipping method","Cambiar el método de envío"
+"priority","prioridad"
+"Link account","Vincular cuenta"
+"Add New Shipping Address","Añadir nueva Dirección de Envío"
 "Curacao Account Number","Número de cuenta de Curacao"
-
 "Price Beat","Precio Beat"
 "Interest Beat","Interés Beat"
