@@ -112,7 +112,9 @@ class ConfigProvider implements ConfigProviderInterface
      *
      * @var bool
      */
-    protected $downPayment = false;
+    protected $downPayment = 0;
+
+    protected $isCreditUsed = false;
 
     /**
      * ConfigProvider constructor.
@@ -173,7 +175,10 @@ class ConfigProvider implements ConfigProviderInterface
      */
     public function getConfig()
     {
-        $this->curacaoHelper->updateCuracaoSessionDetails(['down_payment' => 0]);
+        $this->curacaoHelper->updateCuracaoSessionDetails([
+            'down_payment'   => $this->downPayment,
+            'is_credit_used' => $this->isCreditUsed,
+        ]);
 
         $configArr['curacaoPayment']['canApply'] = $this->_canApply;
         $configArr['curacaoPayment']['limit'] = $this->getLimit();
@@ -265,10 +270,16 @@ class ConfigProvider implements ConfigProviderInterface
      */
     public function getCuracaoId()
     {
+        if ($this->_curacaoId) {
+            return $this->_curacaoId;
+        }
+
         if (!$this->_customerSession->getCustomerId()) {
             return false;
         }
+
         $customerId = $this->_customerSession->getCustomerId();
+
         if ($customerId) {
             /**
              * @var \Magento\Customer\Model\Data\Customer $customer
@@ -281,15 +292,22 @@ class ConfigProvider implements ConfigProviderInterface
                 $curaAccId = (string)$customer->getCustomAttribute('curacaocustid')->getValue();
 
                 if ($curaAccId) {
-                    $this->curacaoHelper->updateCuracaoSessionDetails(['is_user_linked' => true]);
                     $this->_linked = true;
+                    $this->isCreditUsed = true;
+                    $this->curacaoHelper->updateCuracaoSessionDetails([
+                        'is_user_linked' => true,
+                        'is_credit_used' => true,
+                    ]);
+
                     return $curaAccId;
+
                 } else {
                     $this->_linked = false;
                     return false;
                 }
             }
         }
+
         return false;
     }
 

@@ -9,6 +9,7 @@
  * @date    12/07/2018
  * @copyright Copyright © Dyode
  */
+
 namespace Dyode\Checkout\Controller\Curacao;
 
 use Magento\Checkout\Api\PaymentInformationManagementInterface;
@@ -206,14 +207,14 @@ class Scrutinize extends Action
         $zipCode = $this->getRequest()->getParam('zip_code', false);
         $maidenName = $this->getRequest()->getParam('maiden_name', false);
         $dob = $this->getRequest()->getParam('date_of_birth', false);
-        $postData = array(
+        $postData = [
             'cust_id' => $curacaoInfo->getAccountNumber(),
             'amount'  => 1, //this field is mandatory and hence put a sample value;
             'ssn'     => $ssnLast,
             'zip'     => $zipCode,
             'dob'     => $dob,
             'mmaiden' => $maidenName,
-        );
+        ];
 
         //send api call to collect user info.
         $verifyResult = $this->_helper->verifyPersonalInfm($postData);
@@ -266,7 +267,7 @@ class Scrutinize extends Action
                 $customerData->setCustomAttribute($this->curacaoIdAttribute, $curacaoInfo->getAccountNumber());
 
                 //linking curacao id with the existing customer.
-                $this->customer = $this->customerRepository->save($customerData, $hashPassword);
+                $this->customer = $this->customerRepository->save($customerData);
             } catch (NoSuchEntityException $exception) {
                 //Confirmed customer is a guest; so let's create a new customer account for the user.
                 $this->customerData->setEmail($curacaoInfo->getEmailAddress())
@@ -282,7 +283,7 @@ class Scrutinize extends Action
         }
 
         $this->_customerSession->setCuracaoCustomerId($this->customer->getId());
-        $this->curacaoHelper->updateCuracaoSessionDetails(['is_user_linked' => true]);
+        $this->curacaoHelper->updateCuracaoSessionDetails(['is_user_linked' => true, 'is_credit_used' => true]);
         return $this;
     }
 
