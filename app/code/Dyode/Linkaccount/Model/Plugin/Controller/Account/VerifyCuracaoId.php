@@ -67,8 +67,7 @@ class VerifyCuracaoId
         Data $helper,
         CustomerFactory $customerFactory,
         Session $customerSession
-    )
-    {
+    ) {
         $this->urlModel = $urlFactory->create();
         $this->resultRedirectFactory = $redirectFactory;
         $this->messageManager = $messageManager;
@@ -87,8 +86,7 @@ class VerifyCuracaoId
     public function aroundExecute(
         \Magento\Customer\Controller\Account\CreatePost $registerPost,
         \Closure $proceed
-    )
-    {
+    ) {
 
         /** @var \Magento\Framework\App\RequestInterface $request */
         $checked = $registerPost->getRequest()->getParam('account-check');
@@ -100,21 +98,21 @@ class VerifyCuracaoId
             $resultRedirect = $this->resultRedirectFactory->create();
 
             $attempts  =  $this->coreSession->getAttempts();
-            if($attempts == 10){
+            if ($attempts == 10) {
                 $this->coreSession->unsAttempts();    
             }
-            if($attempts == '' ){
+            if ($attempts == '' ) {
                 $attempts = 1;
                 $this->coreSession->setAttempts($attempts);
             }
-            if($attempts < 10){
+            if ($attempts < 10) {
                 $attempts +=1;
                 $this->coreSession->setAttempts($attempts);   
                
                 //Verify Credit Account Infm
                 $accountInfo   =  $this->helper->getARCustomerInfoAction($curacaoId);
 
-                if($accountInfo == false){
+                if ($accountInfo == false) {
                     // Personal Infm failed
                     $this->messageManager->addErrorMessage('Please enter valid details / contact customer support');
                     $defaultUrl = $this->urlModel->getUrl('*/*/create', ['_secure' => true]);
@@ -131,15 +129,11 @@ class VerifyCuracaoId
 
             } else {
                 //Crossed 5 attempts
-                $this->messageManager->addErrorMessage(
-                    'You have crossed 5 attempts !!'
-                );
+                $this->messageManager->addErrorMessage('You have crossed 5 attempts !!');
                 $defaultUrl = $this->urlModel->getUrl('*/*/create', ['_secure' => true]);
-                /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
+
                 return $resultRedirect->setUrl($defaultUrl);
             }
-        
-        
         }
    
      return $proceed();

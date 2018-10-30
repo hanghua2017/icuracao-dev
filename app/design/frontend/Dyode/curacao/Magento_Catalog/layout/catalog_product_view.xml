@@ -13,9 +13,12 @@
 -->
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-
     <body>
+    <referenceBlock name="head.additional">
+        <block class="Magento\Catalog\Block\Product\View" name="webcollage_script" template="webcollage_script.phtml"/>
+    </referenceBlock>
         <referenceContainer name="content">
+          <block class="Magento\Catalog\Block\Product\View" name="webcollage" template="Magento_Catalog::webcollage.phtml" before="-"/>
           <block class="Magento\Catalog\Block\Product\View" name="cnet" template="Magento_Catalog::cnet.phtml" before="-"/>
             <container name="product.info-block" htmlTag="div" htmlClass="product-info-block" before="-">
                 <referenceContainer name="product.info.main">
