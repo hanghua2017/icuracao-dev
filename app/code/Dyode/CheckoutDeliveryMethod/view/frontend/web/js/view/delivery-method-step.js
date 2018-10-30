@@ -100,7 +100,7 @@ define([
                 stepNavigator.registerStep(
                     this.stepCode,
                     this.stepCode,
-                    $t(this.stepTitle),
+                    $t('Delivery Method'),
                     this.isVisible,
                     _.bind(this.navigate, this),
                     5

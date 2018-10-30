@@ -44,39 +44,7 @@ class OrderPlaceBefore implements \Magento\Framework\Event\ObserverInterface
     public function execute(
         \Magento\Framework\Event\Observer $observer
     ) {
-    /*  if ($this->_customerSession->isLoggedIn()) {
-         $customerId = $this->_customerSession->getCustomerId();
-       }
-       $this->_logger->info("customer Id ".$customerId );
-
-       $accountNumber = $this->_coreSession->getCurAcc();
-       //Get Customer Contact information
-       $accountInfo   =  $this->_helper->getARCustomerInfoAction($accountNumber);
-
-       if($accountInfo !== false){
-           //Get the DownPayment
-
-           $postData = array(
-               'CustID' => $accountNumber,
-               'Zip' =>'',
-               'DOB' => '',
-               'SSN' => '',
-               'MMaiden' => '',
-               'Amount' => 1,
-               'CCV' => ''
-           );
-           $validateDp   =  $this->_helper->verifyPersonalInfm($postData);
-          // $validateDp = true;
-           if($validateDp == false){
-              return false;
-           }
-
-           $order = $observer->getEvent()->getOrder();
-          // $this->_logger->log(100,print_r($order,true));
-       }
-       return false;*/
-
-       //$quote = $observer->getQuote();
+        //$quote = $observer->getQuote();
        $order = $observer->getEvent()->getOrder();      
        $quoteId = $order->getQuoteId();
        $quote = $this->quoteFactory->create()->load($quoteId);
@@ -86,6 +54,7 @@ class OrderPlaceBefore implements \Magento\Framework\Event\ObserverInterface
        $quote->getShippingAddress()->setData('shipping_amount',$this->_shippingCost);
        $quote->save();
 
+       
     }
     /**
      * Set shipping cost against quote

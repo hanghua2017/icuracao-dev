@@ -101,20 +101,59 @@
                     <div class="block-title">
                       <h2><?php echo __('Delivery')?></h2>
                     </div>
-                    <!-- <div class="delivery-date-details">
-                      <label>Estimated delivery</label>
-                      <div class="delivery-date">
-                        <?= date('M d,Y', strtotime("+3 days"))?>
+                    <?php
+                        $pickupLocation = $item->getPickupLocation();
+                        $address =  $block->getPickupLocation($pickupLocation);  
+                    ?>
+                    <?php 
+                        if($pickupLocation) { 
+                           $addressDetails = $address->getData();
+                    ?>
+                      <div class="store-location-details">
+                        <label><?php echo __('Store Pickup')?></label>
+                        <div class="store-location-content">
+                          <div class="title"><?php echo $addressDetails['title']; ?></div>
+                          <div class="address"><?php echo $addressDetails['city']; ?></div>
+                          <div class="cityAbbrZip"><?php echo $addressDetails['street'] . "  ". $addressDetails['zip']; ?></div>
+                        </div>
                       </div>
-                    </div> -->
-                    <div class="store-location-details">
-                      <label><?php echo __('Store Pickup')?></label>
-                      <div class="store-location-content">
-                        <div class="title">5980 Pacific Blvd</div>
-                        <div class="address">Huntington Park</div>
-                        <div class="cityAbbrZip">Huntington Park, 12 90255</div>
+                    <?php } else { ?>
+                    <?php 
+                         $shippingDetails =  json_decode($item->getShippingDetails());
+                         $carrierCode = $shippingDetails->carrier_code;
+                         $carrierMsg =  $block->collectShippingMethodDeliveryMsgs();
+                         switch($carrierCode){
+                            case 'ups':
+                                        $methodCode = $shippingDetails->method_code;
+                                        switch($methodCode){
+                                            case 'GND': 
+                                                      $message = $carrierMsg['ups'];
+                                                      break;
+                                            case '2DA':
+                                                      $message = date('M d,Y', strtotime("+2 days"));
+                                                      break;
+                                            case '3DS':
+                                                      $message = date('M d,Y', strtotime("+3 days"));
+                                                      break;
+                                        }
+                                        break;
+                            case 'usps': $message = $carrierMsg['usps'];
+                                         break;
+                            case 'adsmomentum': $message = $carrierMsg['adsmomentum'];
+                                            break;
+                            case 'pilot': $message = $carrierMsg['pilot'];
+                                            break;                
+
+                         }
+                        
+                    ?>  
+                      <div class="delivery-date-details">
+                      <label><?php echo __('Estimated delivery'); ?></label>
+                      <div class="delivery-date">
+                      <?php echo $message; ?>
                       </div>
                     </div>
+                    <?php } ?>
                   </div>
                 </div>  
                 <?php endforeach; ?>

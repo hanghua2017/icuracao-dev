@@ -115,7 +115,7 @@ class Codeverify extends Action
 
             $verificationCode = trim ( $postVariables['verification_code'] );
             $encodeCode = $this->customerSession->getEncCode();
-            if ( isset($verificationCode)) {
+            if (isset($verificationCode)) {
                 // Check if code is good 0 good -1 no good
                 $checkResult =   $this->helper->verifyCode($encodeCode, $verificationCode);
 
