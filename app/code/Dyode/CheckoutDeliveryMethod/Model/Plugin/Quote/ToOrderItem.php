@@ -10,11 +10,19 @@
         protected $productRepository;
 
         /**
+         * @var type \Magento\Sales\Api\OrderRepositoryInterface
+         */
+        protected $orderRepository;
+
+        /**
+         * @param \Magento\Sales\Api\OrderRepositoryInterface
          * @param \Magento\Catalog\Model\Product $productRepository
          */
         public function __construct(
-        \Magento\Catalog\Model\Product $productRepository
+            \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
+            \Magento\Catalog\Model\Product $productRepository
         ) {
+            $this->orderRepository = $orderRepository;
             $this->productRepository = $productRepository;
         }
 
@@ -38,7 +46,8 @@
             $logger->addWriter($writer);
           
             $orderItem = $proceed($item, $additional);
-            $logger->info("pickupLocation : " .  $item->getDeliveryType());
+            $order = $item->getOrder()->getData();
+            $logger->info("pickupLocation : " .  $order->getId());
 
             $orderItem->setDeliveryType($item->getDeliveryType());
             $orderItem->setPickupLocation($item->getPickupLocation());
