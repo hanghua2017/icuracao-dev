@@ -1,4 +1,5 @@
 <?php
+
 namespace Dyode\Interestbeat\Block\Adminhtml\Form;
 
 use Magento\Backend\Block\Widget\Form\Container;

@@ -7,39 +7,43 @@ namespace Dyode\CategoryImageWidget\Model\Config\Source;
  * @author  Nismath V I
  */
 use Magento\Framework\Option\ArrayInterface;
-use Magento\Catalog\Helper\Category;
 
 class Categorylist implements ArrayInterface
 {
-  protected $_categoryHelper;
-  public function __construct(\Magento\Catalog\Helper\Category $catalogCategory)
-  {
-    $this->_categoryHelper = $catalogCategory;
-  }
-    /*
+    /**
+     * @var \Magento\Catalog\Helper\Category
+     */
+    protected $_categoryHelper;
+
+    /**
+     * Categorylist constructor.
+     * @param \Magento\Catalog\Helper\Category $catalogCategory
+     */
+    public function __construct(\Magento\Catalog\Helper\Category $catalogCategory)
+    {
+        $this->_categoryHelper = $catalogCategory;
+    }
+
+    /**
      * Return categories helper
      */
-
     public function getStoreCategories($sorted = false, $asCollection = false, $toLoad = true)
     {
         return $this->_categoryHelper->getStoreCategories($sorted , $asCollection, $toLoad);
     }
 
-    /*
+    /**
     * function name : toOptionArray
      * Option getter
      * @return array
      */
     public function toOptionArray()
     {
-
-
         $arr = $this->toArray();
         $ret = [];
 
         foreach ($arr as $key => $value)
         {
-
             $ret[] = [
                 'value' => $key,
                 'label' => $value
@@ -56,7 +60,6 @@ class Categorylist implements ArrayInterface
      */
     public function toArray()
     {
-
         $categories = $this->getStoreCategories(true,false,true);
 
         $catagoryList = array();
@@ -67,6 +70,4 @@ class Categorylist implements ArrayInterface
 
         return $catagoryList;
     }
-
 }
-?>

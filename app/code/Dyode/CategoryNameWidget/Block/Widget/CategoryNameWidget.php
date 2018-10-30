@@ -1,18 +1,42 @@
 <?php
+
 namespace Dyode\CategoryNameWidget\Block\Widget;
 
 class CategoryNameWidget extends \Magento\Framework\View\Element\Template implements \Magento\Widget\Block\BlockInterface
 {
+    /**
+     * @var string $_template
+     */
 	protected $_template = 'widget/categorywidget.phtml';
 
     /**
      * Default value for products count that will be shown
      */
      protected $_categoryHelper;
+
+    /**
+     * @var \Magento\Catalog\Model\Indexer\Category\Flat\State
+     */
      protected $categoryFlatConfig;
+
+    /**
+     * @var \Magento\Theme\Block\Html\Topmenu
+     */
      protected $topMenu;
+
+    /**
+     * @var \Magento\Catalog\Model\CategoryFactory
+     */
      protected $_categoryFactory;
+
+    /**
+     * @var $mainTitle
+     */
      protected $mainTitle;
+
+    /**
+     * @var $className
+     */
      protected $className;
 
     /**
@@ -33,6 +57,7 @@ class CategoryNameWidget extends \Magento\Framework\View\Element\Template implem
         $this->_categoryFactory = $categoryFactory;
         parent::__construct($context);
     }
+
     /**
      * Return categories helper
      */
@@ -40,19 +65,22 @@ class CategoryNameWidget extends \Magento\Framework\View\Element\Template implem
     {
         return $this->_categoryHelper;
     }
-		/**
-		 * Return category
-		 */
+
+    /**
+     * Return category
+     */
     public function getCategorymodel($id)
     {
          $_category = $this->_categoryFactory->create();
             $_category->load($id);
+
             return $_category;
     }
+
     /**
-		  * Retrieve collection of selected categories
-      */
-   public function getCategoryCollection()
+     * Retrieve collection of selected categories
+     */
+    public function getCategoryCollection()
     {
         $rootCat    = $this->getData('parentcat');
         $category   = $this->_categoryFactory->create();
@@ -62,20 +90,19 @@ class CategoryNameWidget extends \Magento\Framework\View\Element\Template implem
                       ->addIdFilter($rootCat);
         return $collection;
     }
-		/**
-		  * function name : getSaleCategory
-      * Retrieve getSaleCategory
-		  *
-      */
-		public function getSaleCategory()
-		{
-			$salecategory =$this->getData('salecat');
-			return $salecategory;
-		}
-		/**
-		* function name : getMainTitle
-     * Retrieve blocktitle
-    */
+
+    /**
+     * @return mixed
+     */
+    public function getSaleCategory()
+    {
+        $salecategory =$this->getData('salecat');
+        return $salecategory;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getMainTitle()
     {
         $mainTitle = $this->getData('blocktitle');

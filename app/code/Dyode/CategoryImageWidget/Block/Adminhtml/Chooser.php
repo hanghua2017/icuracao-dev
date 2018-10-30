@@ -1,10 +1,21 @@
 <?php
-namespace Dyode\CategoryImageWidget\Block\Adminhtml;
-//category chooser
-class Chooser extends \Magento\Backend\Block\Template {
 
+namespace Dyode\CategoryImageWidget\Block\Adminhtml;
+
+class Chooser extends \Magento\Backend\Block\Template
+{
+
+    /**
+     * @var \Magento\Framework\Data\Form\Element\Factory
+     */
     protected $_elementFactory;
 
+    /**
+     * Chooser constructor.
+     * @param \Magento\Backend\Block\Template\Context $context
+     * @param \Magento\Framework\Data\Form\Element\Factory $elementFactory
+     * @param array $data
+     */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Framework\Data\Form\Element\Factory $elementFactory, array $data = []
@@ -13,6 +24,13 @@ class Chooser extends \Magento\Backend\Block\Template {
         parent::__construct($context, $data);
     }
 
+    /**
+     * Preparing chooser html element
+     *
+     * @param \Magento\Framework\Data\Form\Element\AbstractElement $element
+     *
+     * @return \Magento\Framework\Data\Form\Element\AbstractElement
+     */
     public function prepareElementHtml(\Magento\Framework\Data\Form\Element\AbstractElement $element) {
         $htmlId = $element->getId();
         $data = $element->getData();
@@ -33,6 +51,13 @@ HTML;
         return $element;
     }
 
+    /**
+     * After element html
+     *
+     * @param $element
+     *
+     * @return string
+     */
     protected function _afterElementHtml($element)
     {
         $htmlId = $element->getId();
@@ -48,6 +73,13 @@ HTML;
         return $return;
     }
 
+    /**
+     * After element JS
+     *
+     * @param $element
+     *
+     * @return string
+     */
     protected function _afterElementJs($element)
     {
         $chooserUrl = $this->getUrl('adminhtml/widget_instance/categories', []);

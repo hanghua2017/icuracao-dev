@@ -1,28 +1,40 @@
 <?php
+
 namespace Dyode\CategoryNameWidget\Model\Config\Source;
+
 /**
  * @category Dyode
  * @package  Dyode_CategoryNameWidget
  * @module   CategoryNameWidget
  * @author  Nismath V I
  */
+
 use Magento\Framework\Option\ArrayInterface;
-use Magento\Catalog\Helper\Category;
 
 class Categorylist implements ArrayInterface
 {
-  protected $_categoryHelper;
-  public function __construct(\Magento\Catalog\Helper\Category $catalogCategory)
-  {
-    $this->_categoryHelper = $catalogCategory;
-  }
+
+    /**
+     * @var \Magento\Catalog\Helper\Category
+     */
+    protected $_categoryHelper;
+
+    /**
+     * Categorylist constructor.
+     *
+     * @param \Magento\Catalog\Helper\Category $catalogCategory
+     */
+    public function __construct(\Magento\Catalog\Helper\Category $catalogCategory)
+    {
+        $this->_categoryHelper = $catalogCategory;
+    }
+
     /*
      * Return categories helper
      */
-
     public function getStoreCategories($sorted = false, $asCollection = false, $toLoad = true)
     {
-        return $this->_categoryHelper->getStoreCategories($sorted , $asCollection, $toLoad);
+        return $this->_categoryHelper->getStoreCategories($sorted, $asCollection, $toLoad);
     }
 
     /*
@@ -32,13 +44,10 @@ class Categorylist implements ArrayInterface
      */
     public function toOptionArray()
     {
-
-
         $arr = $this->toArray();
         $ret = [];
 
-        foreach ($arr as $key => $value)
-        {
+        foreach ($arr as $key => $value) {
 
             $ret[] = [
                 'value' => $key,
@@ -56,17 +65,14 @@ class Categorylist implements ArrayInterface
      */
     public function toArray()
     {
-
-        $categories = $this->getStoreCategories(true,false,true);
+        $categories = $this->getStoreCategories(true, false, true);
 
         $catagoryList = array();
-        foreach ($categories as $category){
+        foreach ($categories as $category) {
 
             $catagoryList[$category->getEntityId()] = __($category->getName());
         }
 
         return $catagoryList;
     }
-
 }
-?>
