@@ -310,7 +310,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
             $soapClient = new \SoapClient($wsdlUrl."?WSDL", array( "trace" => 1 ));
             $response = $soapClient->__soapCall("PlaceCall", array($params));
-            file_put_contents('/var/www/html/curacao/var/log/resp.xml',$response);
+           
 
             // $response = $soapClient->PlaceCall($params);
             // $result= $response->PlaceCallResult;
