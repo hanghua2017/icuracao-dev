@@ -13,12 +13,10 @@
 -->
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-<head>
-  <!-- web collage integration start -->
-  <script src="https://scontent.webcollage.net/api/v2/product-content"></script>
-  <!-- web collage integration end -->
-</head>
     <body>
+    <referenceBlock name="head.additional">
+        <block class="Magento\Catalog\Block\Product\View" name="webcollage_script" template="webcollage_script.phtml"/>
+    </referenceBlock>
         <referenceContainer name="content">
           <block class="Magento\Catalog\Block\Product\View" name="webcollage" template="Magento_Catalog::webcollage.phtml" before="-"/>
           <block class="Magento\Catalog\Block\Product\View" name="cnet" template="Magento_Catalog::cnet.phtml" before="-"/>
