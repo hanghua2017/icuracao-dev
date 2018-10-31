@@ -284,15 +284,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                 $order->addStatusToHistory($order->getStatus(), 'Estimate Number: ' . $estimateNumber);     # Add Comment to Order History
                 $order->save();
 
-//                //generating magento invoice
-//                if ($order->canInvoice()) {
-//                    $invoice = $this->_invoiceService->prepareInvoice($order);
-//                    $invoice->register();
-//                    $invoice->save();
-//                    $transactionSave = $this->_transaction->addObject($invoice)->addObject($invoice->getOrder());
-//                    $transactionSave->save();
-//                }
-
                 //logging audit log
                 $this->auditLog->saveAuditLog([
                     'user_id' => "",
