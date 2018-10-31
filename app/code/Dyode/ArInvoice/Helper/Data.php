@@ -535,6 +535,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getGroupedLocation($order, $orderItems)
     {
+        $groupedItemsLocation = [];
         $groupedLocationFound = 0;
         $availableLocations = array();
 
