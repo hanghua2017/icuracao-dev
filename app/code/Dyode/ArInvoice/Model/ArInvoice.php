@@ -210,7 +210,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             $itemQty = $item->getQtyOrdered();
             $itemPrice = $item->getPrice();
             $itemCost = $item->getBasePrice();
-            $pickup = ($item->getData('delivery_type') == 1) ? true : false;
+            $pickup = ($item->getData('delivery_type') == 2) ? true : false;
             $taxable = ($item->getTaxAmount() > 0) ? true : false;
             $itemId = $item->getId();
             $itemTaxAmount = $item->getTaxAmount();
@@ -278,7 +278,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                 $logger->info($createInvoiceResponse->INFO);
 
                 return true;
-            } else { # Create Invoice Response is true
+            } else if (!empty($createInvoiceResponse->OK)) { # Create Invoice Response is true
                 $estimateNumber = $invoiceNumber = $createInvoiceResponse->DATA->INV_NO;    # Save Estimate Number in Order
                 $order->setData('estimatenumber', $estimateNumber);
                 $order->addStatusToHistory($order->getStatus(), 'Estimate Number: ' . $estimateNumber);     # Add Comment to Order History

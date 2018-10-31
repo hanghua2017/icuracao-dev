@@ -3,8 +3,6 @@
 Date: 16/07/2018
 Author :Kavitha
 */
-
-
 namespace Dyode\Linkaccount\Controller\Verify;
 
 class Success extends \Magento\Framework\App\Action\Action
