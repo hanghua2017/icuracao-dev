@@ -21,17 +21,12 @@ define([
     'Dyode_Checkout/js/data/curacao-data-provider'
 ], function (ko, $, _, Component, quote, customer, curacaoServiceProvider, curacaoDataProvider) {
 
-    var curacaoPaymentInfo = window.checkoutConfig.curacaoPayment,
-        initialDownPayment = curacaoPaymentInfo.total,
-        initialDPaymentNaked = parseInt(curacaoPaymentInfo.totalNaked, 10);
-
     return Component.extend({
         defaults: {
             template: 'Dyode_Checkout/checkout/summary/customdiscount'
         },
         totals: quote.getTotals(),
-        value: ko.observable(initialDownPayment),
-        valueNaked: ko.observable(initialDPaymentNaked),
+        value: curacaoDataProvider.downPayment,
         isCustomerLoggedIn: customer.isLoggedIn(),
 
         /**
@@ -47,8 +42,7 @@ define([
                 var price = self.getCuracaoCreditByTotals(newTotals),
                     formattedPrice = self.getFormattedPrice(price);
 
-                self.valueNaked(parseInt(price, 10));
-                self.value(formattedPrice);
+                curacaoDataProvider.downPayment(formattedPrice);
             });
 
             return this;

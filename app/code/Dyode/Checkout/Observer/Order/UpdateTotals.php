@@ -93,7 +93,7 @@ class UpdateTotals implements ObserverInterface
      * Main entry point.
      *
      * @param \Magento\Framework\Event\Observer $observer
-     * @return $this|void
+     * @return $this
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function execute(Observer $observer)
@@ -102,7 +102,7 @@ class UpdateTotals implements ObserverInterface
         $this->order = $this->payment->getOrder();
 
         $this->updateOrderTotals();
-        $this->updateOrderItemsDeliveryInformation();
+        $this->updateOrderItemsInformation();
 
         return $this;
     }
@@ -131,16 +131,20 @@ class UpdateTotals implements ObserverInterface
      *
      * @return $this
      */
-    public function updateOrderItemsDeliveryInformation()
+    public function updateOrderItemsInformation()
     {
         foreach ($this->order->getAllVisibleItems() as $orderItem) {
+
             /** @var \Magento\Sales\Api\Data\OrderItemInterface $orderItem */
+            $quoteItem = $this->quote->getItemById($orderItem->getQuoteItemId());
 
             if ($orderItem->getIsVirtual()) {
+                if ($quoteItem->getWarrantyParentItemId()) {
+                    $orderItem->setWarrantyParentItemId($quoteItem->getWarrantyParentItemId());
+                }
+
                 continue;
             }
-
-            $quoteItem = $this->quote->getItemById($orderItem->getQuoteItemId());
 
             $orderItem->setDeliveryType($quoteItem->getDeliveryType());
             $orderItem->setPickupLocation($quoteItem->getPickupLocation());
@@ -154,22 +158,24 @@ class UpdateTotals implements ObserverInterface
      * Updating total_due of order.
      *
      * This is required because, this is the amount which is passed to the payment method opted.
-     * In the case of curcao credit user, we should use the credit amount as the payment amount.
+     * In the case of curacao credit user, we should use the credit amount as the payment amount.
      *
      * @return $this
      */
     public function updateTotalDue()
     {
         if ($this->curacaoHelper->hasCuracaoCreditUsed()) {
+            $curacaoCredit = $this->curacaoHelper->getCuracaoDownPayment();
+            $this->order->setIsCuracaoCreditUsed(true);
+            $this->order->setCuracaoDownPayment((float)$curacaoCredit);
 
             //if downPayment = 0, paymentMethod  = curacaoFullPayment; No need to update totalDue in that case.
-            if (!$this->curacaoHelper->getCuracaoDownPayment()) {
+            if (!$curacaoCredit) {
                 return $this;
             }
 
-            $curacaoCredit = (float)$this->curacaoHelper->getCuracaoDownPayment();
             $grandTotal = $this->order->getGrandTotal();
-            $totalPaid = $grandTotal - $curacaoCredit;
+            $totalPaid = $grandTotal - (float)$curacaoCredit;
 
             //TotalDue = grandTotal - totalPaid; We are setting totalPaid in order to make totalDue = curacaoCredit
             $this->order->setTotalPaid($totalPaid);

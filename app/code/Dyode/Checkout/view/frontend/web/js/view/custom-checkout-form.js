@@ -40,7 +40,6 @@ define([
     var curacaoPaymentInfo = window.checkoutConfig.curacaoPayment,
         customerInfo = window.checkoutConfig.customerData,
         isUserLinked = !!curacaoPaymentInfo.linked,
-        downPayment = curacaoPaymentInfo.total ? curacaoPaymentInfo.total : '',
 
         /**
          * Helper Function
@@ -86,7 +85,7 @@ define([
         maidenNameInpValue: ko.observable(''),
         curacaoIdLast4Digit: ko.observable(curacaoLast4Digit),
         curacaoUserCreditLimit: ko.observable(curacaoPaymentInfo.limit),
-        curacaoUserDownPayment: ko.observable(downPayment),
+        curacaoUserDownPayment: curacaoDataProvider.downPayment,
         canShowDownPayment: ko.observable(true),
 
         /**
