@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <settings>
+        <buttons>
+            <button name="add">
+                <url path="sales/order_create/start"/>
+                <class>disabled</class>
+                <label translate="true"></label>
+            </button>
+        </buttons>
+    </settings>
+
     <columns name="sales_order_columns">
       <!-- add estimate number column in orders grid -->
         <column name="estimate_number" class="Dyode\Order\Ui\Component\Listing\Column\EstimateNumber">
