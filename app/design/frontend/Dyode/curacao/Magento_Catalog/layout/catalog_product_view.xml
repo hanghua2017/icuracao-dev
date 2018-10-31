@@ -105,7 +105,6 @@
                     </arguments>
                 </block>
             </container>
-            <block class="Magento\Catalog\Block\Product\View" name="flix" template="Magento_Catalog::flix.phtml" before="-"/>
             <container name="product.info.details.before" htmlTag="div" htmlClass="product-info-details-before" before="product.info.details" />
             <container name="product.info.details.after" htmlTag="div" htmlClass="banner-block" after="product.info.details">
                 <block class="Magento\Cms\Block\Block" name="offers.of.this.week.1">
@@ -124,6 +123,7 @@
                     </arguments>
                 </block>
             </container>
+            <block class="Magento\Catalog\Block\Product\View" name="flix" template="Magento_Catalog::flix.phtml"/>
         </referenceContainer>
 
         <!-- MOVING BLOCKS -->
