@@ -27,6 +27,7 @@ use Magento\Framework\Pricing\Helper\Data as PriceHelper;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Model\QuoteIdMaskFactory;
 use Magento\Store\Model\StoreManagerInterface;
+use Zend\Serializer\Adapter\Json;
 
 class Scrutinize extends Action
 {
@@ -106,6 +107,11 @@ class Scrutinize extends Action
     protected $curacaoHelper;
 
     /**
+     * @var \Zend\Serializer\Adapter\Json
+     */
+    protected $jsonHelper;
+
+    /**
      * @var string
      */
     protected $curacaoIdAttribute = 'curacaocustid';
@@ -125,6 +131,7 @@ class Scrutinize extends Action
      * @param \Magento\Framework\Encryption\EncryptorInterface $encryptor
      * @param \Magento\Framework\Pricing\Helper\Data $priceHelper
      * @param \Dyode\Checkout\Helper\CuracaoHelper $curacaoHelper
+     * @param \Zend\Serializer\Adapter\Json $jsonHelper
      */
     public function __construct(
         Context $context,
@@ -138,7 +145,8 @@ class Scrutinize extends Action
         CustomerInterface $customerData,
         EncryptorInterface $encryptor,
         PriceHelper $priceHelper,
-        CuracaoHelper $curacaoHelper
+        CuracaoHelper $curacaoHelper,
+        Json $jsonHelper
     ) {
         $this->_resultFactory = $resultFactory;
         $this->storeManager = $storeManager;
@@ -151,6 +159,7 @@ class Scrutinize extends Action
         $this->encryptor = $encryptor;
         $this->priceHelper = $priceHelper;
         $this->curacaoHelper = $curacaoHelper;
+        $this->jsonHelper = $jsonHelper;
 
         parent::__construct($context);
     }
@@ -193,7 +202,7 @@ class Scrutinize extends Action
         $amount = $this->collectCuracaoAmountToPass();
         $postData = [
             'cust_id' => $curacaoInfo->getAccountNumber(),
-            'amount'  => 1, //this field is mandatory and hence put a sample value;
+            'amount'  => $amount, //this field is mandatory and hence put a sample value;
             'ssn'     => $ssnLast,
             'zip'     => $zipCode,
             'dob'     => $dob,
@@ -279,7 +288,7 @@ class Scrutinize extends Action
     public function collectUserCreditLimit()
     {
         /** @var \Magento\Framework\DataObject $curacaoInfo */
-        $curacaoInfo = $this->_checkoutSession->getCuracaoInfo();
+        $curacaoInfo = $this->curacaoHelper->getCuracaoSessionInformation();
 
         $creditLimitInfo = $this->_helper->getCreditLimit($curacaoInfo->getAccountNumber());
         $this->creditLimit = $this->priceHelper->currency(0.00, true, false);
