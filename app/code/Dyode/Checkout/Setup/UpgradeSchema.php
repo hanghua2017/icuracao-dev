@@ -31,6 +31,10 @@ class UpgradeSchema implements UpgradeSchemaInterface
             $this->upgradeSchemaTwoZeroFive($installer);
         }
 
+        if (version_compare($context->getVersion(), '2.0.5', '<')) {
+            $this->upgradeSchemaTwoZeroFive($installer);
+        }
+
         $installer->endSetup();
     }
 
