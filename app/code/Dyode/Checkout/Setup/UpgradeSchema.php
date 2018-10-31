@@ -11,6 +11,7 @@
 
 namespace Dyode\Checkout\Setup;
 
+use Magento\Framework\DB\Ddl\Table;
 use Magento\Framework\Setup\UpgradeSchemaInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
@@ -26,12 +27,8 @@ class UpgradeSchema implements UpgradeSchemaInterface
             $this->upgradeSchemaTwoZeroOne($installer);
         }
 
-        if (version_compare($context->getVersion(), '2.0.3', '<')) {
-            $this->upgradeSchemaTwoZeroThree($installer);
-        }
-
-        if (version_compare($context->getVersion(), '2.0.4', '<')) {
-            $this->upgradeSchemaTwoZeroFour($installer);
+        if (version_compare($context->getVersion(), '2.0.5', '<')) {
+            $this->upgradeSchemaTwoZeroFive($installer);
         }
 
         if (version_compare($context->getVersion(), '2.0.5', '<')) {
@@ -45,6 +42,7 @@ class UpgradeSchema implements UpgradeSchemaInterface
      * Schema for 2.0.2
      *
      * @param \Magento\Framework\Setup\SchemaSetupInterface $installer
+     * @return $this
      */
     public function upgradeSchemaTwoZeroOne(SchemaSetupInterface $installer)
     {
@@ -54,88 +52,77 @@ class UpgradeSchema implements UpgradeSchemaInterface
             $installer->getTable('quote_item'),
             'shipping_details',
             [
-                'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-                'comment' => 'Shipping details'
-            ]
-        );
-        $connection->addColumn(
-            $installer->getTable('sales_order'),
-            'use_credit',
-            [
-                'type' => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-                'nullable' => true,
-                'default' => '1',
-                'comment' => 'credit balance'
+                'type'    => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                'comment' => 'Shipping details',
             ]
         );
 
-        $connection->addColumn(
-            $installer->getTable('sales_order'),
-            'curacaocredit_used',
-            [
-                'type' => \Magento\Framework\DB\Ddl\Table::TYPE_DECIMAL,
-                'nullable' => true,
-                'default' => '0.0000',
-                'comment' => 'credit used',
-            ]
-        );
-    }
-
-    /*
-    * Schema for 2.0.3
-    *
-    * @param \Magento\Framework\Setup\SchemaSetupInterface $installer
-    */
-    public function upgradeSchemaTwoZeroThree(SchemaSetupInterface $installer)
-    {
-        $connection = $installer->getConnection();
-        // Updating the 'quote_item' table.
-        $connection->addColumn(
-            $installer->getTable('quote_item'),
-            'shipping_cost',
-            [
-                'type' => \Magento\Framework\DB\Ddl\Table::TYPE_DECIMAL,
-                'comment' => 'Shipping Cost'
-            ]
-        );
-    }
-
-    /*
-    * Schema for 2.0.4
-    *
-    * @param \Magento\Framework\Setup\SchemaSetupInterface $installer
-    */
-    public function upgradeSchemaTwoZeroFour(SchemaSetupInterface $installer)
-    {
-        $connection = $installer->getConnection();
-        // Updating the 'quote_item' table.
-        $connection->addColumn(
-            $installer->getTable('sales_order_item'),
-            'shipping_cost',
-            [
-                'type' => \Magento\Framework\DB\Ddl\Table::TYPE_DECIMAL,
-                'comment' => 'Shipping Cost'
-            ]
-        );
+        return $this;
     }
 
     /**
-     * Schema for 2.0.5
+     * Remove unwanted columns from sales_order and quote tables.
+     * Remove unwanted columns from sales_order_item and quote_item tables.
+     * Add new columns into sales_order table.
      *
      * @param \Magento\Framework\Setup\SchemaSetupInterface $installer
+     * @return $this
      */
     public function upgradeSchemaTwoZeroFive(SchemaSetupInterface $installer)
     {
         $connection = $installer->getConnection();
+        $salesOrderTable = $installer->getTable('sales_order');
+        $quoteTable = $installer->getTable('quote');
+        $salesOrderItemTable = $installer->getTable('sales_order_item');
+        $quoteItemTable = $installer->getTable('quote_item');
 
-        // Remove the 'shipping_cost' from sales_order_item table is exists.
-        if ($connection->tableColumnExists('sales_order_item', 'shipping_cost') === true) {
-            $connection->dropColumn('sales_order_item', 'shipping_cost');
+        //Remove columns from quote and sales_order tables.
+        $columnToRemove = ['use_credit', 'curacaocredit_used'];
+        foreach ($columnToRemove as $column) {
+            if ($connection->tableColumnExists($salesOrderTable, $column)) {
+                $connection->dropColumn($salesOrderTable, $column);
+            }
+
+            if ($connection->tableColumnExists($quoteTable, $column)) {
+                $connection->dropColumn($quoteTable, $column);
+            }
         }
 
-        // Remove the 'shipping_cost' from quote_item table if exists.
-        if ($connection->tableColumnExists('quote_item', 'shipping_cost') === true) {
-            $connection->dropColumn('quote_item', 'shipping_cost');
+        //Remove columns from quote_item and sales_order_item tables.
+        $columnToRemove = ['shipping_cost', 'pickup_location_address'];
+        foreach ($columnToRemove as $column) {
+            if ($connection->tableColumnExists($quoteItemTable, $column)) {
+                $connection->dropColumn($quoteItemTable, $column);
+            }
+
+            if ($connection->tableColumnExists($salesOrderItemTable, $column)) {
+                $connection->dropColumn($salesOrderItemTable, $column);
+            }
         }
+
+        //Add columns into sales_order table.
+        $columnsToAdd = [
+            'is_curacao_credit_used' => [
+                'type'     => Table::TYPE_BOOLEAN,
+                'nullable' => false,
+                'unsigned' => true,
+                'default'  => 0,
+                'comment'  => 'Indicate whether the order payment involves curacao credit payment.',
+            ],
+            'curacao_down_payment'   => [
+                'type'      => Table::TYPE_DECIMAL,
+                'nullable'  => true,
+                'precision' => 12,
+                'scale'     => 4,
+                'unsigned'  => true,
+                'comment'   => 'Curacao down payment involved in the order.',
+            ],
+        ];
+        foreach ($columnsToAdd as $columnName => $columnDefinition) {
+            $connection->addColumn($salesOrderTable, $columnName, $columnDefinition);
+        }
+
+        return $this;
+
     }
 }
