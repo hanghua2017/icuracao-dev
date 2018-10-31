@@ -3,8 +3,6 @@
  * Copyright © Dyode, Inc. All rights reserved.
  */
 namespace Dyode\SetInventory\Cron;
- 
- protected $update;
 
 /**
  * SetInventory Cron
@@ -15,6 +13,8 @@ namespace Dyode\SetInventory\Cron;
  */
 class Setinventory
 {
+    protected $update;
+
     /**
     * constructor function
     */
