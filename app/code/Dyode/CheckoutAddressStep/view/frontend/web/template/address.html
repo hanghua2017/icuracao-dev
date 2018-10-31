@@ -50,7 +50,7 @@
         <if args="isCustomerLoggedIn() && !isFormInline">
                 <div class="add-shipping-address" data-bind="mageInit: {'accordion':{'openedState': 'active', 'collapsible': true, 'active': [1,4], 'multipleCollapsible': true}} ">
                         <div data-role="collapsible"  >
-                            <div data-role="title">Add New Shipping Address</div>
+                            <div data-role="title" data-bind="i18n: 'Add New Shipping Address'"></div>
                             <div data-role="content">
                                     <div class="step-note">
                                       <!-- ko i18n: 'Be sure to click' --><!-- /ko -->"<!-- ko i18n:'Save this address'--><!-- /ko -->" <!-- ko i18n:'when done' --><!-- /ko -->

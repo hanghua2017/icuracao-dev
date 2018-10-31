@@ -11,16 +11,19 @@ use Magento\Customer\Model\Session;
 use Dyode\ARWebservice\Helper\Data;
 use Magento\Framework\Controller\Result\JsonFactory;
 
-class Code extends \Magento\Framework\App\Action\Action {
+class Code extends \Magento\Framework\App\Action\Action
+{
 
   /**
    * @var \Magento\Framework\Controller\Result\JsonFactory
    */
     protected $_resultJsonFactory;
+
     /**
      * @var Magento\Customer\Model\Session $customerSession
      */
     protected $_customerSession;
+
     /**
      * @var Dyode\ARWebservice\Helper\Data
      */
@@ -42,7 +45,8 @@ class Code extends \Magento\Framework\App\Action\Action {
        $this->_resultJsonFactory = $resultJsonFactory;
        $this->_customerSession = $customerSession;
        $this->_helper = $helper;
-     }
+    }
+
    public function execute()
    {
       $verifytype = $this->getRequest()->getParam('verifytype', false);
@@ -72,6 +76,7 @@ class Code extends \Magento\Framework\App\Action\Action {
             $this->_customerSession->setEncCode($resultData);
           }
           $resultJson = $this->_resultJsonFactory->create();
+
           return $resultJson->setData($resultData);
       }
 

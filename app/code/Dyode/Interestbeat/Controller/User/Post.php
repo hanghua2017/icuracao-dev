@@ -1,18 +1,14 @@
 <?php
+
 namespace Dyode\Interestbeat\Controller\User;
+
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Dyode\Interestbeat\Model\FormFactory;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Session\SessionManagerInterface;
-use Magento\Framework\HTTP\PhpEnvironment\Request;
-use \Magento\Framework\App\RequestInterface;
-use Magento\Framework\App\Request\Http;
-use \Dyode\Interestbeat\Model\Upload;
 use \Magento\Framework\Filesystem;
-use \Magento\MediaStorage\Model\File\UploaderFactory;
-use \Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use \Magento\Customer\Model\Session;
 
@@ -24,6 +20,7 @@ class Post extends Action
     protected  $fileUploaderFactory;
     protected  $filesystem;
     protected $customerSession;
+
     public function __construct(
       Context $context,
       FormFactory $modelFormFactory,
@@ -76,38 +73,42 @@ class Post extends Action
         //Add your more validations here
         return $request->getParams();
     }
+
+    /**
+     * Getting form data
+     *
+     * @return $this
+     *
+     * @throws \Exception
+     */
     private function getFormData()
     {
-
        $resultRedirect     = $this->resultRedirectFactory->create();
        $FormModel          = $this->_modelFormFactory->create();
        $data               = $this->getRequest()->getPost();
-       $filedata           = $this->getRequest()->getFiles('upload_file');
        $date               = date('Y-m-d h:i:sa');
        
-           if ($_FILES['upload_file']['name']) {
-               try {
-                   $uploader = $this->_objectManager->create(
-                       'Magento\MediaStorage\Model\File\Uploader',
-                       ['fileId' => 'upload_file']
-                   );
-                   $uploader->setAllowedExtensions(['jpg', 'jpeg', 'gif', 'png']);
-                   $uploader->setAllowRenameFiles(true);
-                   $uploader->setFilesDispersion(true);
+       if ($_FILES['upload_file']['name']) {
+           try {
+               $uploader = $this->_objectManager->create(
+                   'Magento\MediaStorage\Model\File\Uploader',
+                   ['fileId' => 'upload_file']
+               );
+               $uploader->setAllowedExtensions(['jpg', 'jpeg', 'gif', 'png']);
+               $uploader->setAllowRenameFiles(true);
+               $uploader->setFilesDispersion(true);
 
-                   $mediaDirectory = $this->fileSystem->getDirectoryRead(DirectoryList::MEDIA);
-                   $path = $mediaDirectory->getAbsolutePath('images/');
-                   $imagePath = $uploader->save($path);
-                   $data['upload_file'] = $imagePath['file'];
+               $mediaDirectory = $this->fileSystem->getDirectoryRead(DirectoryList::MEDIA);
+               $path = $mediaDirectory->getAbsolutePath('images/');
+               $imagePath = $uploader->save($path);
+               $data['upload_file'] = $imagePath['file'];
                    // var_dump($data);
                    // exit();
-               } catch (Exception $e) {
-                   $this->messageManager->addException($e->getMessage());
-                   return $resultRedirect->setUrl($this->_redirect->getRefererUrl());
-               }
+           } catch (Exception $e) {
+               $this->messageManager->addException($e->getMessage());
+               return $resultRedirect->setUrl($this->_redirect->getRefererUrl());
            }
-
-
+       }
 
        $FormModel->setData('first_name', $data['first_name']);
        $FormModel->setData('last_name', $data['last_name']);
@@ -129,8 +130,5 @@ class Post extends Action
         }
    
     return $this;
-      
     }
-
-
 }

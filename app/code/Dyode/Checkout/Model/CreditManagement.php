@@ -71,6 +71,7 @@ class CreditManagement extends \Magento\Framework\Model\AbstractModel implements
     public function applyCuracaoCreditInTotals($cartId)
     {
         $applyCuracaoDownPayment = true;
+        $this->curacaoHelper->updateCuracaoSessionDetails(['is_credit_used' => true]);
         return $this->getPaymentInformation($cartId, $applyCuracaoDownPayment);
     }
 
@@ -79,6 +80,7 @@ class CreditManagement extends \Magento\Framework\Model\AbstractModel implements
      */
     public function removeCuracaoCreditFromTotals($cartId)
     {
+        $this->curacaoHelper->updateCuracaoSessionDetails(['is_credit_used' => false]);
         return $this->getPaymentInformation($cartId);
     }
 

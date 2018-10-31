@@ -1,7 +1,7 @@
 <?php
 
-
 namespace Dyode\Linkaccount\Controller\Credit;
+
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
@@ -17,10 +17,11 @@ class Index extends Action
     protected $_coreSession;
     protected $_messageManager;
     protected $_resultFactory;
+
     /**
      * Constructor
      *
-     * @param \Magento\Framework\App\Action\Context  $context
+     * @param \Magento\Framework\App\Action\Context $context
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      */
     public function __construct(
@@ -32,7 +33,8 @@ class Index extends Action
         \Magento\Framework\Session\SessionManagerInterface $coreSession,
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Magento\Customer\Model\Session $customerSession
-    ) {
+    )
+    {
         parent::__construct($context);
         $this->_resultFactory = $resultFactory;
         $this->_resultPageFactory = $resultPageFactory;
@@ -50,41 +52,43 @@ class Index extends Action
      */
     public function execute()
     {
-      $postVariables = (array) $this->getRequest()->getPost();
+        $postVariables = (array)$this->getRequest()->getPost();
+        $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
+        if (!empty($postVariables)) {
+            //get the customer //
+            $customerId = $this->_customerSession->getCustomer()->getId();
 
-      $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
-      if(!empty($postVariables)){
-        //get the customer //
-        $customerId = $this->_customerSession->getCustomer()->getId();
+            if (!$customerId) {
+                $resultRedirect->setPath('linkaccount/index');
 
-        if(!$customerId)
-        {
-          $resultRedirect->setPath('linkaccount/index');
-          return $resultRedirect;
-        }
-        $accountNumber = $postVariables['curacao_account'];
-        $customer = $this->_customerModel->load($customerId);
-        if($customer){
-            //Check customer already updated the curacao
-            $curaAccId = $customer->getCuracaocustid();
-
-            if($curaAccId != '' && $curaAccId == $accountNumber){
-                //Already linked with the Magento Account
-                $this->_messageManager->addError(__('Your account is already linked.'));
-                return $this->_redirect('linkaccount/index');
-            }
-            $this->_coreSession->setCurAcc($accountNumber);
-            //Verify Credit Account Infm
-            $accountInfo   =  $this->_helper->getARCustomerInfoAction($accountNumber);
-
-            $this->_coreSession->setCustomerInfo($accountInfo);
-            if($accountInfo !== false){
-                $resultRedirect->setPath('linkaccount/verify/index');
                 return $resultRedirect;
             }
-          }
-      }
-      return $this->_resultPageFactory->create();
+            $accountNumber = $postVariables['curacao_account'];
+            $customer = $this->_customerModel->load($customerId);
 
+            //Check customer already updated the curacao
+            if ($customer) {
+                $curaAccId = $customer->getCuracaocustid();
+
+                if ($curaAccId != '' && $curaAccId == $accountNumber) {
+                    //Already linked with the Magento Account
+                    $this->_messageManager->addError(__('Your account is already linked.'));
+
+                    return $this->_redirect('linkaccount/index');
+                }
+                $this->_coreSession->setCurAcc($accountNumber);
+                //Verify Credit Account Infm
+                $accountInfo = $this->_helper->getARCustomerInfoAction($accountNumber);
+
+                $this->_coreSession->setCustomerInfo($accountInfo);
+                if ($accountInfo !== false) {
+                    $resultRedirect->setPath('linkaccount/verify/index');
+
+                    return $resultRedirect;
+                }
+            }
+        }
+
+        return $this->_resultPageFactory->create();
     }
 }

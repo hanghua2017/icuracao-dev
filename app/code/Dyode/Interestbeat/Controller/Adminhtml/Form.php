@@ -53,8 +53,8 @@ abstract class Form extends \Magento\Backend\App\Action
         \Magento\Backend\App\Action\Context $context
     )
     {
-        $this->formFactory          = $formFactory;
-        $this->coreRegistry          = $coreRegistry;
+        $this->formFactory = $formFactory;
+        $this->coreRegistry = $coreRegistry;
         $this->resultRedirectFactory = $resultRedirectFactory;
         parent::__construct($context);
     }
@@ -66,13 +66,14 @@ abstract class Form extends \Magento\Backend\App\Action
      */
     protected function initForm()
     {
-        $formId  = (int) $this->getRequest()->getParam('form_id');
+        $formId = (int) $this->getRequest()->getParam('form_id');
         /** @var \Dyode\Interestbeat\Model\Form  */
-        $form    = $this->formFactory->create();
+        $form = $this->formFactory->create();
         if ($formId) {
             $form->load($formId);
         }
         $this->coreRegistry->register('dyode_interestbeat_form', $form);
+
         return $form;
     }
 }

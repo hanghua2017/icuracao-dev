@@ -5,10 +5,14 @@ namespace Dyode\Linkaccount\Block\Verify;
 
 class Index extends \Magento\Framework\View\Element\Template
 {
-    /*
+    /**
     * @var \Magento\Backend\Block\Template\Context
     */
     protected $_storeManager;
+
+    /**
+     * @var
+     */
     protected $baseUrl;
      /**
      * Construct
@@ -20,8 +24,7 @@ class Index extends \Magento\Framework\View\Element\Template
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Backend\Block\Template\Context $context,
         array $data = []
-    )
-    {
+    ) {
         $this->_storeManager = $storeManager;
         parent::__construct($context, $data);
     }
@@ -34,8 +37,10 @@ class Index extends \Magento\Framework\View\Element\Template
     public function getFormAction()  {
 
         $baseUrl = $this->_storeManager->getStore()->getBaseUrl();
+
         return $baseUrl.'linkaccount/verify/index';
     }
+
     /**
     * Get form action URL for POST request
     *
@@ -44,8 +49,8 @@ class Index extends \Magento\Framework\View\Element\Template
     public function getCodeFormAction()  {
         
         $baseUrl = $this->_storeManager->getStore()->getBaseUrl();
+
         return $baseUrl.'linkaccount/verify/codeverify';
 
     }
-
 }
