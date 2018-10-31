@@ -32,8 +32,9 @@
                     </div>
                     <div data-role="content">
                             <div class="step-note">
-                                    <!-- ko i18n: 'Be sure to click "Save this address" when done' -->
+                                    <!-- ko i18n: 'Be sure to click' --><!-- /ko -->"<!-- ko i18n:'Save this address'--><!-- /ko -->" <!-- ko i18n:'when done' --><!-- /ko -->
                                     <!-- /ko -->
+
                             </div>
                             <!-- Billing Address Form -->
                             <fieldset class="fieldset">
@@ -47,7 +48,7 @@
     <if args="!isCustomerLoggedIn()">
 
         <fieldset class="fieldset" data-bind="visible: !isAddressDetailsVisible()">
-          <div class="step-title" data-role="title">Add New Billing Address</div>
+          <div class="step-title" data-bind="i18n: 'Add New Billing Address'" data-role="title"></div>
             <!-- ko template: 'Magento_Checkout/billing-address/form' --><!-- /ko -->
         </fieldset>
     </if>

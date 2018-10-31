@@ -27,21 +27,32 @@
          * @return type
          */
         public function aroundConvert(
-        \Magento\Quote\Model\Quote\Item\ToOrderItem $subject, callable $proceed, \Magento\Quote\Model\Quote\Item\AbstractItem $item, $additional = []
+            \Magento\Quote\Model\Quote\Item\ToOrderItem $subject, 
+            callable $proceed,
+            \Magento\Quote\Model\Quote\Item\AbstractItem $item,
+            $additional = []
         ) {
 
+            $writer = new \Zend\Log\Writer\Stream(BP . "/var/log/QuoteToOrder.log");
+            $logger = new \Zend\Log\Logger();
+            $logger->addWriter($writer);
+          
             $orderItem = $proceed($item, $additional);
-            $productId = $item->getProduct()->getId();
-            $product = $this->productRepository->load($productId);
-            $deliveryType = $product->getDeliveryType();
-            $pickupLocation = $product->getPickupLocation();
-            $pickupLocAddrs = $product->getPickupLocationAddress();
+            $logger->info("pickupLocation : " .  $item->getDeliveryType());
 
-            $orderItem->setDeliveryType($deliveryType);
-            $orderItem->setPickupLocation($pickupLocation);
-            $orderItem->setPickupLocationAddress($pickupLocAddrs);
+            $orderItem->setDeliveryType($item->getDeliveryType());
+            $orderItem->setPickupLocation($item->getPickupLocation());
+            $orderItem->setPickupLocationAddress($item->getPickupLocationAddress());
+
+            if ( $item->getWarrantyParentItemId() ) {
+                $orderItem->setWarrantyParentItemId( $item->getWarrantyParentItemId() );
+            }
+            if ( $item->getShippingDetails() ) {
+                $orderItem->setShippingDetails( $item->getShippingDetails() );
+                $orderItem->setShippingCost( $item->getShippingCost() );
+            }
+
             return $orderItem;
         }
-
     }
-    ?>
+
