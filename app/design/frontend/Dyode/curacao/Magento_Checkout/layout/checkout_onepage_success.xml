@@ -11,7 +11,11 @@
     </head>
     <body>
         <referenceBlock name="head.additional">
-            <block class="Magento\Checkout\Block\Onepage\Success" name="Event.snippet" template="Magento_Checkout::event_snippet.phtml"/>
+            <block name="Event.snippet" template="Magento_Checkout::event_snippet.phtml">
+            <arguments>
+                <argument name="view_model" xsi:type="object">Dyode\OrderDetails\ViewModel\Order\Success</argument>
+            </arguments>
+            </block>
         </referenceBlock>
         <referenceBlock name="page.main.title" remove="true">
             <block class="Magento\Checkout\Block\Onepage\Success" name="checkout.success.print.button" template="Magento_Checkout::button.phtml"/>

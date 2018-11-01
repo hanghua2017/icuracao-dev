@@ -1,9 +1,10 @@
 <!-- Event snippet for Sales_Conversion conversion page -->
 <?php
-$order = Mage::getModel('sales/order')->loadByIncrementId(Mage::getSingleton('checkout/session')->getLastRealOrderId());
-$orderID = $order->getIncrementId();
-$grandTotal = $order->getGrandTotal();
-exit();
+
+$viewmodel = $block->getViewModel();
+$order=$viewmodel->getOrder();
+$orderID=$order->getIncrementId();
+$grandTotal=$order->getGrandTotal();
 ?>
 <script>
     gtag('event', 'conversion', {
