@@ -33,15 +33,27 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
     <div class="overlay">  <!--black overlay for mobile sorter pop up  --> </div>
     <div class="sorter-list-popup">
       <h3><?= /* @escapeNotVerified */ __('Sort By') ?></h3>
-      <?php foreach ($block->getAvailableOrders() as $_key => $_order): ?>
-          <a href="<?php echo $block->getPagerUrl("product_list_order=" . $_key) ?>"
-              <?php if ($block->isOrderCurrent($_key)): ?>
-                  class="selected"
-              <?php endif; ?>
-              >
-              <?php echo $block->escapeHtml(__($_order)) ?>
-          </a>
-      <?php endforeach; ?>
+        <?php
+        $getParams = $block->getRequest()->getParams();
+        $params = null;
+        if (!empty($getParams)) {
+            foreach ($getParams as $key => $value) {
+                if ($key != 'product_list_order') {
+                    $params .= $key . '=' . $value . '&';
+                }
+            }
+        }
+        foreach ($block->getAvailableOrders() as $_key => $_order): ?>
+
+            <a href="<?php echo $block->getPagerUrl($params . "product_list_order=" . $_key) ?>"
+                <?php if ($block->isOrderCurrent($_key)): ?>
+                    class="selected"
+                <?php endif; ?>
+            >
+                <?php echo $block->escapeHtml(__($_order)) ?>
+            </a>
+        <?php endforeach; ?>
+
       <?php if ($block->getCurrentDirection() == 'desc'): ?>
           <a title="<?= /* @escapeNotVerified */ __('Set Ascending Direction') ?>" href="#" class="action sorter-action sort-desc" data-role="direction-switcher" data-value="asc">
               <span><?= /* @escapeNotVerified */ __('Set Ascending Direction') ?></span>
@@ -72,7 +84,7 @@ require([
           $(".page-header").css({"z-index": "1"});
          });
         $($overlay).unbind('click').click(function(e){
-          //close pop up 
+          //close pop up
           $($sortPopup).animate({height: 'toggle'});
           $($overlay).fadeOut( "fast");
          $("body").css({overflow: "visible"});
