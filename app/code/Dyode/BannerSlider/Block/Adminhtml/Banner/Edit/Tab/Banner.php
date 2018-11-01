@@ -10,6 +10,25 @@ namespace Dyode\BannerSlider\Block\Adminhtml\Banner\Edit\Tab;
  */
 class Banner extends \Magestore\Bannerslider\Block\Adminhtml\Banner\Edit\Tab\Banner
 {
+    protected $_systemStore;
+
+    public function __construct(
+        \Magento\Backend\Block\Template\Context $context,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\Data\FormFactory $formFactory,
+        \Magento\Framework\DataObjectFactory $objectFactory,
+        \Magestore\Bannerslider\Model\Banner $banner,
+        \Magestore\Bannerslider\Model\ResourceModel\Value\CollectionFactory $valueCollectionFactory,
+        \Magestore\Bannerslider\Model\SliderFactory $sliderFactory,
+        \Magento\Cms\Model\Wysiwyg\Config $wysiwygConfig,
+        \Magento\Store\Model\System\Store $systemStore,
+        \Magento\Framework\Stdlib\DateTime\Timezone $dateTime,
+        array $data = []
+    ) {
+        $this->_systemStore = $systemStore;
+        parent::__construct($context, $registry, $formFactory, $objectFactory, $banner, $valueCollectionFactory, $sliderFactory, $wysiwygConfig, $dateTime, $data);
+    }
+
     /**
      * Prepare form.
      *
