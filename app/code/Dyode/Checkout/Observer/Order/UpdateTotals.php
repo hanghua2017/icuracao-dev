@@ -139,11 +139,11 @@ class UpdateTotals implements ObserverInterface
             $quoteItem = $this->quote->getItemById($orderItem->getQuoteItemId());
 
             if ($orderItem->getIsVirtual()) {
+
+                //for warranty products
                 if ($quoteItem->getWarrantyParentItemId()) {
                     $orderItem->setWarrantyParentItemId($quoteItem->getWarrantyParentItemId());
                 }
-
-                continue;
             }
 
             $orderItem->setDeliveryType($quoteItem->getDeliveryType());
@@ -246,7 +246,7 @@ class UpdateTotals implements ObserverInterface
 
         //calculate total shipping amount by looping through the quote items.
         foreach ($this->quote()->getItems() as $quoteItem) {
-            if ($quoteItem->getIsVirtual()
+            if ($quoteItem->getProductType() === 'virtual'
                 || $quoteItem->getDeliveryType() != DeliveryMethod::DELIVERY_OPTION_SHIP_TO_HOME_ID
             ) {
                 continue;

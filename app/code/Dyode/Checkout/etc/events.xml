@@ -13,9 +13,12 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
 	<event name="checkout_onepage_controller_success_action">
-		<observer instance="Dyode\Checkout\Observer\Sales\CreateCustomerAfter" name="dyode_checkout_observer_sales_createcustomerafter_sales_order_place_before"/>
+		<observer name="createCustomerAfterOrderPlaced" instance="Dyode\Checkout\Observer\Sales\CreateCustomerAfter" />
 	</event>
 	<event name="sales_order_payment_place_start">
-		<observer instance="Dyode\Checkout\Observer\Order\UpdateTotals" name="updateOrderTotalBeforePlaceOrder"/>
+		<observer name="updateOrderTotalBeforePlaceOrder" instance="Dyode\Checkout\Observer\Order\UpdateTotals" />
+	</event>
+	<event name="sales_order_payment_place_end">
+		<observer name="correctOrderTotalDue" instance="Dyode\Checkout\Observer\Order\CorrectOrderTotalDue" />
 	</event>
 </config>

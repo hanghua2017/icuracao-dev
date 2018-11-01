@@ -199,7 +199,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         if (!empty($quoteItems)) {
             foreach ($quoteItems as $quoteItem) {
 
-                if ($quoteItem->getIsVirtual()) {
+                if ($quoteItem->getProductType() === 'virtual') {
                     continue;
                 }
 
