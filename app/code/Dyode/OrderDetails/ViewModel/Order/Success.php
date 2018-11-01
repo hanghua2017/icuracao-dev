@@ -178,7 +178,7 @@ class Success implements ArgumentInterface
 
         /** @var \Magento\Sales\Api\Data\OrderItemInterface $item */
         foreach ($this->getOrder()->getAllVisibleItems() as $item) {
-            if ($item->getIsVirtual()) {
+            if ($item->getProductType() === 'virtual') {
                 continue;
             }
 

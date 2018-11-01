@@ -12,10 +12,11 @@
 
 namespace Dyode\Checkout\Model\InfoProcessor;
 
-use Dyode\Checkout\Helper\CuracaoHelper;
-use Magento\Quote\Api\CartRepositoryInterface;
+use Dyode\ARWebservice\Helper\Data as ARWebserviceHelper;
 use Dyode\Checkout\Api\Data\ShippingInformationInterface;
+use Dyode\Checkout\Helper\CuracaoHelper;
 use Dyode\CheckoutDeliveryMethod\Model\DeliveryMethod;
+use Magento\Quote\Api\CartRepositoryInterface;
 
 /**
  * SaveManager
@@ -43,15 +44,25 @@ class SaveManager
     protected $curacaoHelper;
 
     /**
+     * @var \Dyode\ARWebservice\Helper\Data
+     */
+    protected $arWebserviceHelper;
+
+    /**
      * SaveManager constructor.
      *
      * @param \Magento\Quote\Api\CartRepositoryInterface $quoteRepository
      * @param \Dyode\Checkout\Helper\CuracaoHelper $curacaoHelper
+     * @param \Dyode\ARWebservice\Helper\Data $arWebserviceHelper
      */
-    public function __construct(CartRepositoryInterface $quoteRepository, CuracaoHelper $curacaoHelper)
-    {
+    public function __construct(
+        CartRepositoryInterface $quoteRepository,
+        CuracaoHelper $curacaoHelper,
+        ARWebserviceHelper $arWebserviceHelper
+    ) {
         $this->quoteRepository = $quoteRepository;
         $this->curacaoHelper = $curacaoHelper;
+        $this->arWebserviceHelper = $arWebserviceHelper;
     }
 
     /**
@@ -125,11 +136,27 @@ class SaveManager
         /** @var \Magento\Quote\Model\Cart\Totals $totals */
         $totals = $paymentDetails->getTotals();
         $shippingAmount = $this->calculateShippingAmount($addressInformation);
-        $curacaoDiscount = 0;
+        $curacaoDiscount = $this->curacaoHelper->getCuracaoDownPayment();
         $grandTotal = $totals->getBaseGrandTotal() + $shippingAmount;
 
         if ($includeCuracaoTotal) {
             $curacaoDiscount = $this->curacaoHelper->getCuracaoDownPayment();
+            $curacaoInfo = $this->curacaoHelper->getCuracaoSessionInformation();
+
+            if ($this->curacaoHelper->hasCuracaoCreditUsed() && $curacaoInfo->getAccountNumber()) {
+
+                //send api call to collect user info.
+                $postData = [
+                    'cust_id' => $curacaoInfo->getAccountNumber(),
+                    'amount'  => $grandTotal,
+                ];
+                $verifyResult = $this->arWebserviceHelper->verifyPersonalInfm($postData);
+
+                if ($verifyResult) {
+                    $curacaoDiscount = (float)$verifyResult->DOWNPAYMENT;
+                    $this->curacaoHelper->updateCuracaoSessionDetails(['down_payment' => $curacaoDiscount]);
+                }
+            }
         }
 
         $totals->setShippingAmount($shippingAmount);
