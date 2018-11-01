@@ -1,12 +1,19 @@
 <?php
 
-
 namespace Dyode\Linkaccount\Block\Verify;
 
 class Success extends \Magento\Framework\View\Element\Template
 {
+    /**
+     * @var \Magento\Framework\Session\SessionManagerInterface
+     */
     protected $_coreSession;
+
+    /**
+     * @var \Magento\Customer\Model\Session
+     */
     protected $customerSession;
+
      /**
      * Construct
      *
@@ -32,6 +39,7 @@ class Success extends \Magento\Framework\View\Element\Template
      */
     public function getCuracaoId() {
         $curacaoId = substr($this->customerSession->getCurAcc(), -4);
+
         return $curacaoId;
     }
 
@@ -41,7 +49,8 @@ class Success extends \Magento\Framework\View\Element\Template
     * @return string
     */
     public function getCustomer() {
-        $customerName = $this->customerSession->getFname();                   
+        $customerName = $this->customerSession->getFname();
+
         return $customerName;
     }
 

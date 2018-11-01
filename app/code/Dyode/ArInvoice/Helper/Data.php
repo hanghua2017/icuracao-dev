@@ -10,6 +10,11 @@ namespace Dyode\ArInvoice\Helper;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
+
+    /**
+     * Constant for order store pickup
+     */
+    const DELIVERY_OPTION_STORE_PICKUP_ID = 2;
     /**
      * Zipcodes of all inventory locations of Curacao
      */
@@ -366,8 +371,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             $order = $this->getOrderInfo($item->getOrderId());
             $storePickup = $item->getData('delivery_type');
 
-            if ($storePickup == True) { # If the Delivery Type is Store Pickup
-                $storeLocationCode = $item->getData('store_location');
+            if ($storePickup == self::DELIVERY_OPTION_STORE_PICKUP_ID) {
+                $storeLocationCode = $item->getData('pickup_location');
                 return $storeLocationCode;
             } else { # If the Delivery Type is Shipping
                 $shippingRate = $product->getData('shiptype');
@@ -530,6 +535,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getGroupedLocation($order, $orderItems)
     {
+        $groupedItemsLocation = [];
         $groupedLocationFound = 0;
         $availableLocations = array();
 

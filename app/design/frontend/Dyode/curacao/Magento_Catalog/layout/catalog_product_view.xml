@@ -13,9 +13,12 @@
 -->
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-
     <body>
+    <referenceBlock name="head.additional">
+        <block class="Magento\Catalog\Block\Product\View" name="webcollage_script" template="webcollage_script.phtml"/>
+    </referenceBlock>
         <referenceContainer name="content">
+          <block class="Magento\Catalog\Block\Product\View" name="webcollage" template="Magento_Catalog::webcollage.phtml" before="-"/>
           <block class="Magento\Catalog\Block\Product\View" name="cnet" template="Magento_Catalog::cnet.phtml" before="-"/>
             <container name="product.info-block" htmlTag="div" htmlClass="product-info-block" before="-">
                 <referenceContainer name="product.info.main">
@@ -102,7 +105,6 @@
                     </arguments>
                 </block>
             </container>
-            <block class="Magento\Catalog\Block\Product\View" name="flix" template="Magento_Catalog::flix.phtml" before="-"/>
             <container name="product.info.details.before" htmlTag="div" htmlClass="product-info-details-before" before="product.info.details" />
             <container name="product.info.details.after" htmlTag="div" htmlClass="banner-block" after="product.info.details">
                 <block class="Magento\Cms\Block\Block" name="offers.of.this.week.1">
@@ -121,6 +123,7 @@
                     </arguments>
                 </block>
             </container>
+            <block class="Magento\Catalog\Block\Product\View" name="flix" template="Magento_Catalog::flix.phtml"/>
         </referenceContainer>
 
         <!-- MOVING BLOCKS -->
