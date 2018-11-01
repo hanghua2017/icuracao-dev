@@ -11,11 +11,15 @@
 'use strict';
 
 define(['ko'], function (ko) {
-    var isUserLinked = !!window.checkoutConfig.curacaoPayment.linked;
+
+    var curacaoPaymentInfo = window.checkoutConfig.curacaoPayment,
+        isUserLinked = !!curacaoPaymentInfo.linked,
+        initialDownPayment = curacaoPaymentInfo.total;
 
     return {
         hasCuracaoCreditApplied: ko.observable(isUserLinked),
         isZeroDownPayment: ko.observable(false),
+        downPayment: ko.observable(initialDownPayment),
 
         /**
          * Checks whether payment option has to be curacao-custom-payment method.

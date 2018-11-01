@@ -1,9 +1,21 @@
 <?xml version="1.0" ?>
+<!--
+/**
+ * Dyode_Checkout Module
+ *
+ * Extending Magento_Checkout core module.
+ *
+ * @pakcage   Dyode
+ * @module    Dyode_Checkout
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
-	<event name="sales_order_place_before">
-		<observer instance="Dyode\Checkout\Observer\Sales\OrderPlaceBefore" name="dyode_checkout_observer_sales_orderplacebefore_sales_order_place_before"/>
-	</event>
 	<event name="checkout_onepage_controller_success_action">
 		<observer instance="Dyode\Checkout\Observer\Sales\CreateCustomerAfter" name="dyode_checkout_observer_sales_createcustomerafter_sales_order_place_before"/>
+	</event>
+	<event name="sales_order_payment_place_start">
+		<observer instance="Dyode\Checkout\Observer\Order\UpdateTotals" name="updateOrderTotalBeforePlaceOrder"/>
 	</event>
 </config>

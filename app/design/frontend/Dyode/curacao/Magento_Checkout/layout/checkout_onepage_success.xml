@@ -20,12 +20,13 @@
             </action>
         </referenceBlock>
         <referenceContainer name="content">
-          <!-- <block class="Magento\Framework\View\Element\Template" name="cj.cookiecreate" before="-" template="Magento_Checkout::cj_event_trigger.phtml"/> -->
-            <block class="Magento\Checkout\Block\Onepage\Success" name="checkout.success" template="Magento_Checkout::success.phtml" cacheable="false">
-                <container name="order.success.additional.info" label="Order Success Additional Info"/>
-            </block>
+            <referenceBlock name="checkout.success">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Dyode\OrderDetails\ViewModel\Order\Success</argument>
+                </arguments>
+            </referenceBlock>
             <block class="Magento\Framework\View\Element\Template" name="guarantee.block" template="Magento_Theme::guarantee-block.phtml" after="home.banner.container"/>
-           <block class="Magento\Framework\View\Element\Template" name="you.may.also.like" template="Magento_Checkout::success-page-you-may-also-like.phtml" after="guarantee-block"/>
+            <block class="Magento\Framework\View\Element\Template" name="you.may.also.like" template="Magento_Checkout::success-page-you-may-also-like.phtml" after="guarantee-block"/>
             <block class="Magento\Framework\View\Element\Template" name="banner.full" template="Magento_Checkout::success-page-banner-full.phtml" after="you.may.also.like"/>
 
             <container htmlTag="div" htmlClass="category-slider-container">
@@ -33,9 +34,6 @@
             </container>
 
             <block class="Magento\Framework\View\Element\Template" name="banner.double" template="Magento_Checkout::success-page-banner-double.phtml" after="category"/>
-
-            <!-- <block class="Magento\Checkout\Block\Registration" name="checkout.registration" template="Magento_Checkout::registration.phtml" cacheable="false"/> -->
-
         </referenceContainer>
 
     </body>
