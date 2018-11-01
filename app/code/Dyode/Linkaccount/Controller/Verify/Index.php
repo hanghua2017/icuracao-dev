@@ -92,15 +92,20 @@ class Index extends Action
      */
     public function execute()
     {
-        $customerInfom = $this->_customerSession->getCuracaoSessionDetails() ? $this->_customerSession->getCuracaoSessionDetails() : '';
+        $customerInfo  = $this->_customerSession->getCuracaoInfo() ? $this->_customerSession->getCuracaoInfo() : '';
         $postVariables = (array) $this->getRequest()->getPost();
+       
+        if(empty($customerInfo) && !isset($customerInfo)){
+            $this->messageManager->addErrorMessage('Please enter the Curacao Id');
+            $defaultUrl = $this->urlModel->getUrl('customer/account/create/', ['_secure' => true]);
+        }
 
         if(!empty($postVariables)){
           
             $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
             $websiteId = $this->_storeManager->getStore()->getWebsiteId();
             $customerId ='';
-            $customerInfo  = $this->_customerSession->getCuracaoInfo();
+            
 
             //Get Customer Id
             if($this->_customerSession->isLoggedIn()){
@@ -112,20 +117,35 @@ class Index extends Action
             $dob = trim($postVariables['calendar_inputField']);
             $ssnLast = trim($postVariables['ssn-verify']);
             $maidenName = trim($postVariables['link_maiden']);
+            $postData = array();
+            $postData['cust_id']  =  $curacaoCustId;
+
+            if(isset($ssnLast)){
+                $postData['ssn']  =  $ssnLast;
+                $postData['dob']  =  $dob;
+            } else {
+                if(isset($maidenName)){
+                    if(isset($zipCode)){
+                        $postData['zip']  =  $zipCode;
+                    } else if(isset($dob)) {
+                        $postData['dob']  =  $dob;
+                    }
+                } 
+            }
 
             
-            $postData = array(
-                'cust_id' => $curacaoCustId,
-                'dob'=>$dob,
-                'amount' => 1,
-                'ssn'=>$ssnLast,
-                'zip'=> $zipCode,
-                'mmaiden'=>$maidenName
-            );
+            // $postData = array(
+            //     'cust_id' => $curacaoCustId,
+            //     'dob'=>$dob,
+            //     'amount' => 1,
+            //     'ssn'=>$ssnLast,
+            //     'zip'=> $zipCode,
+            //     'mmaiden'=>$maidenName
+            // );
             
             //Verify Credit Account Infm
             $accountInfo   =  $this->_helper->verifyPersonalInfm($postData);
-            $accountInfo = true;
+            
             if($accountInfo == false){
                 // Personal Infm failed
                 //$this->_messageManager->addErrorMessage(__('Verification failed [SSN /ZIP]'));
@@ -220,7 +240,7 @@ class Index extends Action
             
 
           }
-       return $this->_resultPageFactory->create();
+        return $this->_resultPageFactory->create();
     }
 
 
