@@ -92,6 +92,7 @@ class Index extends Action
      */
     public function execute()
     {
+        $customerInfom = $this->_customerSession->getCuracaoSessionDetails() ? $this->_customerSession->getCuracaoSessionDetails() : '';
         $postVariables = (array) $this->getRequest()->getPost();
 
         if(!empty($postVariables)){

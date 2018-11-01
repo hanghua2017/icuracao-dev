@@ -1,7 +1,7 @@
- <div class="verifymsg"></div>
-    <div class="linkaccount-container">
+ <div class="linkaccount-container">
       <div class="linkaccount-inner-container">
-       <div class="wrapper clearfix">
+        <div class="wrapper clearfix">
+        <div class="verifymsg"></div>
 <!--Verification code entry form-->
         <div class="verify-phone">
             <form class="verifyform" id="verifyform" method="post"
@@ -34,7 +34,7 @@
             <div class="actions-toolbar">
                     <div class="primary">
                         <button type="submit" class="action submit primary"
-                        title="<?php  echo __('Verify Account') ?>"><span><?php echo __('Verify account') ?></span>
+                        title="<?php  echo __('Verify Account') ?>" id="verifycode"><span><?php echo __('Verify Account') ?></span>
                        </button>
                     </div>
                 </div>
@@ -52,17 +52,17 @@
           <fieldset class="fieldset">
               <legend class="legend"><span><?php echo __('Verify Personal Information') ?>:</span></legend><br/>
               <p><?php echo __('To confirm your account, please complete')?><br /><?php echo __('the following information.')?> </p>
-              <div class="field required ssn-field">
+              <div class="field ssn-field">
                       <label for="ssn-verify" class="label">
                         <span><?php echo __('Enter Last 4 Digits of your SSN ') ?></span></label>
                       <div class="control">
                           <span class="ssn-number"><?php echo __('XXX-XX-') ?></span>
                           <input id="ssn-verify" type="text" name="ssn-verify"
                           class="input-text ssn-field" maxlength="4"
-                          data-validate="{required:true,'validate-number':true}"/>
+                          data-validate="{'validate-number':true}"/>
                       </div>
                   </div>
-                  <div class="field required">
+                  <div class="field ">
                       <label for="link_email" class="label"><span><?php echo __('Date of Birth') ?></span></label>
                       <div class="control">
                       <input type="text" class="input-text required-entry"
@@ -74,7 +74,7 @@
                       <label for="link_zipcode" class="label"><span><?php echo __('Zipcode') ?></span></label>
                       <div class="control">
                           <input id="link_zipcode" type="text" name="link_zipcode"
-                          class="input-text" data-validate="{required:true, 'validate-zip-us':true}"
+                          class="input-text" data-validate="{'validate-zip-us':true}"
                           placeholder="Enter Zipcode">
                       </div>
                   </div>
@@ -82,15 +82,16 @@
                       <label for="link_maiden" class="label"><span><?php echo __("Mother's Maiden Name") ?></span></label>
                       <div class="control">
                           <input id="link_maiden" type="text" name="link_maiden" class="input-text"
-                          data-validate="{required:true,'letters-only':true}" placeholder="Enter Mother's Maiden name">
+                          data-validate="{'letters-only':true}" placeholder="Enter Mother's Maiden name">
                       </div>
                   </div>
+                  <p> <?php echo __('Please enter SSN and DOB / Zipcode and Mothers Maiden Name'); ?></p>
           </fieldset>
 <!--Submit form-->
           <div class="actions-toolbar">
                   <div class="primary">
-                      <button type="submit" class="action submit primary"
-                       title="<?php  echo __('Submit') ?>"><span><?php echo __('Verify account') ?></span></button>
+                      <button type="button" class="action submit primary"
+                       title="<?php  echo __('Submit') ?>" id="verifydocs"><span><?php echo __('Verify account') ?></span></button>
                  </div>
                </div>
              </form>
@@ -107,7 +108,10 @@
      ], function($,calendar){
          $("#calendar_inputField").calendar({
               buttonText:"<?php echo __('Select Date') ?>",
-              dateFormat: "yy-mm-dd"
+              dateFormat: "yy-mm-dd",
+              changeMonth: true,
+              changeYear: true,
+              yearRange: '1850:2020'
          });
          $("#ssn-verify").keypress(function(e){
              var keyCode = e.which;
@@ -134,6 +138,39 @@
                  && keyCode != 8 && keyCode != 32) {
                  e.preventDefault();
                }
+            });
+            /**
+            * Functions for the following conditions
+            * Doc A Users - SSN and DOB
+            * Doc B Users -  MMaiden and DOB or Zipcode
+            */
+            $("#verifydocs").on('click',function(){
+                var dob = $("#calendar_inputField").val();
+                var zipcode = $("#link_zipcode").val();
+                //SSN not empty - DOC A Users
+                if( ($("#ssn-verify").val() != null) && ($("#ssn-verify").val() != '') ) {
+                    //check DOB is also entered
+                    if( ( dob != null) && ( dob != '') ){
+                        $("#pinfm").submit(); 
+                    } else {
+                        $("#calendar_inputField").parent().addClass('error');
+                        return false
+                    }
+                } else {
+                    //DOC B Users
+                    if( ($("#link_maiden").val() != null) && ($("#link_maiden").val() != '') ){
+                        if( ( (zipcode != null) && (zipcode != '') ) || ( ( dob != null) && ( dob != '') ) ) {
+                            $("#pinfm").submit();
+                        } else {
+                            $("#link_zipcode").parent().addClass('error');
+                            $("#calendar_inputField").parent().addClass('error');
+                            return false;
+                        }
+                    }                
+                }
+
+                $(".verifymsg").html('Please enter details for verification');
+                                               
             });
        });
 </script>
