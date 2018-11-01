@@ -7,7 +7,9 @@
 
 namespace Dyode\Checkout\Model\Quote;
 
+use Dyode\CheckoutDeliveryMethod\Model\DeliveryMethod;
 use Magento\Framework\Pricing\PriceCurrencyInterface;
+use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Quote\Model\Quote;
 use Magento\Quote\Model\Quote\Address\Total;
 use Magento\Quote\Api\Data\ShippingAssignmentInterface;
@@ -54,6 +56,11 @@ class Custom extends AbstractTotal
     protected $arWebserviceHelper;
 
     /**
+     * @var \Magento\Framework\Serialize\Serializer\Json
+     */
+    protected $jsonHelper;
+
+    /**
      * @var string
      */
     protected $curacaoIdAttribute = 'curacaocustid';
@@ -66,19 +73,22 @@ class Custom extends AbstractTotal
      * @param \Magento\Checkout\Model\Session $checkoutSession
      * @param \Dyode\Checkout\Helper\CuracaoHelper $curacaoHelper
      * @param \Dyode\ARWebservice\Helper\Data $arWebserviceHelper
+     * @param \Magento\Framework\Serialize\Serializer\Json $jsonHelper
      */
     public function __construct(
         CustomerSession $customerSession,
         PriceCurrencyInterface $priceCurrency,
         CheckoutSession $checkoutSession,
         CuracaoHelper $curacaoHelper,
-        ARWebserviceHelper $arWebserviceHelper
+        ARWebserviceHelper $arWebserviceHelper,
+        Json $jsonHelper
     ) {
         $this->_customerSession = $customerSession;
         $this->_priceCurrency = $priceCurrency;
         $this->checkoutSession = $checkoutSession;
         $this->curacaoHelper = $curacaoHelper;
         $this->arWebserviceHelper = $arWebserviceHelper;
+        $this->jsonHelper = $jsonHelper;
     }
 
     /**
@@ -91,21 +101,20 @@ class Custom extends AbstractTotal
     {
         parent::collect($quote, $shippingAssignment, $total);
 
-        $address = $shippingAssignment->getShipping()->getAddress();
+        //$address = $shippingAssignment->getShipping()->getAddress();
         $curacaoDiscount = 0;
 
-        if ($address->getAddressType() != 'billing') {
-            return $this;
-        }
+//        if ($address->getAddressType() != 'billing') {
+//            return $this;
+//        }
 
         if ($this->_customerSession->isLoggedIn()) {
-            $curacaoDiscount = $this->collectCuracaoDiscountByCustomer($quote);
+            $this->collectCuracaoDiscountByCustomer($quote);
         }
 
-        $this->_curacaocredit = -$curacaoDiscount;
-        $total->addTotalAmount('curacao_discount', -$curacaoDiscount);
-        $total->addBaseTotalAmount('curacao_discount', -$curacaoDiscount);
-        //$quote->setCuracaocreditUsed(-$curacaoDiscount);
+//        $this->_curacaocredit = -$curacaoDiscount;
+//        $total->addTotalAmount('curacao_discount', -$curacaoDiscount);
+//        $total->addBaseTotalAmount('curacao_discount', -$curacaoDiscount);
 
         return $this;
     }
@@ -152,7 +161,10 @@ class Custom extends AbstractTotal
         }
 
         //send api call to collect user info.
-        $postData = ['cust_id' => $curacaoIdAttributeInfo->getValue(), 'amount' => 1];
+        $postData = [
+            'cust_id' => $curacaoIdAttributeInfo->getValue(),
+            'amount'  => $this->prepareCuracaoDiscount($quote),
+        ];
         $verifyResult = $this->arWebserviceHelper->verifyPersonalInfm($postData);
 
         if ($verifyResult) {
@@ -178,5 +190,34 @@ class Custom extends AbstractTotal
         }
 
         return $curacaoDiscount;
+    }
+
+    /**
+     * Preparing curacao amount which needs to be passed to the ARWebservice.
+     *
+     * @param \Magento\Quote\Model\Quote $quote
+     * @return float|int
+     */
+    protected function prepareCuracaoDiscount(Quote $quote)
+    {
+
+        $shippingAmount = 0;
+
+        //calculate total shipping amount by looping through the quote items.
+        foreach ($quote->getItems() as $quoteItem) {
+            if ($quoteItem->getIsVirtual()
+                || $quoteItem->getDeliveryType() != DeliveryMethod::DELIVERY_OPTION_SHIP_TO_HOME_ID
+            ) {
+                continue;
+            }
+
+            $shipmentData = $this->jsonHelper->unserialize($quoteItem->getShippingDetails());
+
+            if (isset($shipmentData['amount'])) {
+                $shippingAmount += $shipmentData['amount'];
+            }
+        }
+
+        return $this->checkoutSession->getQuote()->getBaseGrandTotal() + $shippingAmount;
     }
 }

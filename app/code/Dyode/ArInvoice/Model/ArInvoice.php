@@ -231,7 +231,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                     "cost" => (double)$itemCost,
                     "taxable" => $taxable,
                     "webvendor" => (int)$vendorId,
-                    "from" => $itemsStoreLocation[$itemId],
+                    "from" => isset($itemsStoreLocation[$itemId]) ? $itemsStoreLocation[$itemId] : null,
                     "pickup" => $pickup,
                     "orditemid" => (int)$itemId,
                     "tax_amt" => (double)$itemTaxAmount,
@@ -283,15 +283,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                 $order->setData('estimatenumber', $estimateNumber);
                 $order->addStatusToHistory($order->getStatus(), 'Estimate Number: ' . $estimateNumber);     # Add Comment to Order History
                 $order->save();
-
-//                //generating magento invoice
-//                if ($order->canInvoice()) {
-//                    $invoice = $this->_invoiceService->prepareInvoice($order);
-//                    $invoice->register();
-//                    $invoice->save();
-//                    $transactionSave = $this->_transaction->addObject($invoice)->addObject($invoice->getOrder());
-//                    $transactionSave->save();
-//                }
 
                 //logging audit log
                 $this->auditLog->saveAuditLog([
@@ -380,22 +371,26 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
          */
         $order = $this->_orderRepository->get($orderId);
         foreach ($order->getAllItems() as $orderItem) {
-            if ($orderItem->getParentItemId() == null) {
-                $orderItemsLocation[$orderItem->getItemId()] = $this->_arInvoiceHelper->assignInventoryLocation($orderItem);
-                if ($orderItemsLocation[$orderItem->getItemId()] == "k") {
-                    $orderItems[$orderItem->getItemId()] = array(
-                        "ProductId" => $orderItem->getProductId(),
-                        "ItemQty" => $orderItem->getQtyOrdered()
-                    );
-                    unset($orderItemsLocation[$orderItem->getItemId()]);
+            if (!$orderItem->getIsVirtual()) {
+                if ($orderItem->getParentItemId() == null) {
+                    $orderItemsLocation[$orderItem->getItemId()] = $this->_arInvoiceHelper->assignInventoryLocation($orderItem);
+                    if ($orderItemsLocation[$orderItem->getItemId()] == "k") {
+                        $orderItems[$orderItem->getItemId()] = array(
+                            "ProductId" => $orderItem->getProductId(),
+                            "ItemQty" => $orderItem->getQtyOrdered()
+                        );
+                        unset($orderItemsLocation[$orderItem->getItemId()]);
+                    }
                 }
             }
         }
+
         if (!empty($orderItems)) {
             $groupedItemsLocation = $this->_arInvoiceHelper->getGroupedLocation($order,$orderItems);
             $orderItemsLocation = $orderItemsLocation + $groupedItemsLocation;
             ksort($orderItemsLocation);
         }
+
         return $orderItemsLocation;
     }
 }

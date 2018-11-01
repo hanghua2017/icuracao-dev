@@ -94,10 +94,16 @@ class Estimate extends \Magento\Framework\Model\AbstractModel
 		$firstName = (!empty($order->getCustomerFirstname())) ? $order->getCustomerFirstname() : $order->getShippingAddress()->getFirstname();
 		$lastName = (!empty($order->getCustomerLastname())) ? $order->getCustomerLastname() : $order->getShippingAddress()->getLastname();
 		$email = $order->getCustomerEmail();
+
+		$invoiceNumber = (!empty($order->getData('estimatenumber'))) ? $order->getData('estimatenumber') : null;
+
+		/*
 		$invoice_details = $order->getInvoiceCollection();
 		foreach ($invoice_details as $invoice) {
 		 $invoiceNumber = $invoice->getIncrementId();
-		}		
+		}
+		*/
+
 		//calls goSupplyInvoice helper function for the API response
 		$this->helper->goSupplyInvoice($invoiceNumber,$firstName,$lastName,$email);
 	}
