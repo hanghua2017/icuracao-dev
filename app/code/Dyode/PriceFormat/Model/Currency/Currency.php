@@ -4,7 +4,7 @@
  * See COPYING.txt for license details.
  */
 
-namespace Dyode\PriceFilter\Model\Currency;
+namespace Dyode\PriceFormat\Model\Currency;
 
 /**
  * Currency model
