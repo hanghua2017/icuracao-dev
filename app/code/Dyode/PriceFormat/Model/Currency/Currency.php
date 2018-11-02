@@ -28,6 +28,7 @@ class Currency extends \Magento\Directory\Model\Currency
          * %f - the argument is treated as a float, and presented as a floating-point number (locale aware).
          * %F - the argument is treated as a float, and presented as a floating-point number (non-locale aware).
          */
+        $options["locale"] = 'en';
         $price = sprintf("%F", $price);
         return $this->_localeCurrency->getCurrency($this->getCode())->toCurrency($price, $options);
     }
