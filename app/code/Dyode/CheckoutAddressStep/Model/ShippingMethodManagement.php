@@ -199,7 +199,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         if (!empty($quoteItems)) {
             foreach ($quoteItems as $quoteItem) {
 
-                if ($quoteItem->getIsVirtual()) {
+                if ($quoteItem->getProductType() === 'virtual') {
                     continue;
                 }
 
@@ -240,7 +240,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
                 return $this->adsMomentumShippingDetails($quoteItem, $product, $zipCode);
             }
 
-            return $this->pilotShippingDetails($quoteItem, $zipCode);
+            return $this->pilotShippingDetails($quoteItem, $product, $zipCode);
         }
 
         $upsWith = 3;
@@ -395,17 +395,22 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
      * Prepare Pilot shipping method details.
      *
      * @param \Magento\Quote\Model\Quote\Item $quoteItem
+     * @param \Magento\Catalog\Model\Product $product
      * @param string|int $zipCode
      * @return array
      */
-    protected function pilotShippingDetails(QuoteItem $quoteItem, $zipCode)
+    protected function pilotShippingDetails(QuoteItem $quoteItem, $product, $zipCode)
     {
         $shippingConfig = $this->getCarriersConfig();
         $pilotCode = $this->_pilot->getCode();
         $pilotDetails = $shippingConfig[$pilotCode];
         $carrierTitle = $pilotDetails['title'];
         $carrierName = $pilotDetails['name'];
-        $rate = $this->_pilot->getPilotRatesSoap('90001', $zipCode);
+        if($product->getWeight() != null)
+            $productWeight = $product->getWeight();
+               
+        $rate = $this->_pilot->getPilotRatesSoap('90001', $zipCode, $productWeight);
+        
 
         $shippingData = new DataObject([
             'quote_item_id'  => $quoteItem->getItemId(),

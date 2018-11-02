@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Dyode_BannerSlider Magento2 Module.
+ *
+ * Extending Magestore_Bannerslider
+ *
+ * @package Dyode
+ * @module  Dyode_Catalog
+ * @author  Nithin <nithin@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magestore\Bannerslider\Controller\Adminhtml\Banner\Save" type="Dyode\BannerSlider\Controller\Adminhtml\Banner\Save" />
+    <preference for="Magestore\Bannerslider\Model\ResourceModel\Banner\Collection" type="Dyode\BannerSlider\Model\ResourceModel\Banner\Collection" />
+    <preference for="Magestore\Bannerslider\Block\Adminhtml\Banner\Edit\Tab\Banner" type="Dyode\BannerSlider\Block\Adminhtml\Banner\Edit\Tab\Banner" />
+</config>

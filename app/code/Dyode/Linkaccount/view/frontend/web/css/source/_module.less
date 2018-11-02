@@ -3,6 +3,7 @@
 @text-grey:#6b6b6b;
 @input-color:#8a8888;
 @black: #000;
+@red-color:#c50606;
 //Common styles for all 3 linkaccount pages
 .linkaccount-verify-success,.linkaccount-verify-index,.linkaccount-credit-index{
   .ui-datepicker{
@@ -157,10 +158,7 @@
           }
         }
         p{
-          font-size: 16px;
-          @media all and(max-width: 425px){
-            font-size: 14px;
-          }
+          font-size: 14px;
         }
         .confirm-acct{
           font-size: 14px;
@@ -241,6 +239,7 @@
             }
           }
           .actions-toolbar{
+            margin-bottom: 20px;
             .primary{
               float: none !important;
               display: block!important;
@@ -291,6 +290,10 @@
         flex: 5;
         padding: 0 20px;
         color: @black;
+
+        .errormsg,.verifymsg_docs  {
+          color: #ff4200;
+        }
         @media all and(max-width:767px){
           padding: 75px 45px 0 45px;
         }
@@ -590,6 +593,13 @@
               text-align: left;
               padding-left: 0px;
             }
+            .control {
+              label.error {
+                color:@red-color;
+                float: left;
+                margin-top: 3px;
+              }
+            }
             &.required{
               padding: 0px 25px;
               @media all and (max-width:479px){
@@ -628,6 +638,22 @@
         width: 15px;
         height: 30px;
     }
+}
+.linkaccount-container{
+  .linkaccount-inner-container{
+    .wrapper{
+      form{
+        .error{
+          input {
+            border: 1px solid Red !important;
+        }
+        }
+        p{
+          font-size: 14px;
+        }
+      }
+    }
+  }
 }
 
 /*styling for link account popup on Checkout Page ends here*/
