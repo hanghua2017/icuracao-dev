@@ -1,0 +1,22 @@
+{
+    "name": "dyode/module-priceformat",
+    "description": "",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "email": "nithin@dyode.com",
+            "name": "Nithin"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Dyode\\PriceFormat\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}
