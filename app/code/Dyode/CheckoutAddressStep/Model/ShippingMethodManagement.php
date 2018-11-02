@@ -395,10 +395,11 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
      * Prepare Pilot shipping method details.
      *
      * @param \Magento\Quote\Model\Quote\Item $quoteItem
+     * @param \Magento\Catalog\Model\Product $product
      * @param string|int $zipCode
      * @return array
      */
-    protected function pilotShippingDetails(QuoteItem $quoteItem, $zipCode)
+    protected function pilotShippingDetails(QuoteItem $quoteItem, $product, $zipCode)
     {
         $shippingConfig = $this->getCarriersConfig();
         $pilotCode = $this->_pilot->getCode();
