@@ -85,7 +85,9 @@
                           data-validate="{'letters-only':true}" placeholder="Enter Mother's Maiden name">
                       </div>
                   </div>
-                  <p> <?php echo __('Please enter SSN and DOB / Zipcode and Mothers Maiden Name'); ?></p>
+
+                  <span class="errormsg"> </span>
+                  <p><?php echo __('Please enter SSN and DOB OR Mothers Maiden Name and Zipcode OR Mothers Maiden Name and DOB'); ?></p>
           </fieldset>
 <!--Submit form-->
           <div class="actions-toolbar">
@@ -153,6 +155,7 @@
                     if( ( dob != null) && ( dob != '') ){
                         $("#pinfm").submit(); 
                     } else {
+                        $(".errormsg").html("Please enter either DOB");
                         $("#calendar_inputField").parent().addClass('error');
                         return false
                     }
@@ -162,6 +165,7 @@
                         if( ( (zipcode != null) && (zipcode != '') ) || ( ( dob != null) && ( dob != '') ) ) {
                             $("#pinfm").submit();
                         } else {
+                            $(".errormsg").html("Please enter either DOB or Zipcode");
                             $("#link_zipcode").parent().addClass('error');
                             $("#calendar_inputField").parent().addClass('error');
                             return false;
