@@ -92,9 +92,13 @@ class Index extends Action
      */
     public function execute()
     {
-        $customerInfo  = $this->_customerSession->getCuracaoInfo() ? $this->_customerSession->getCuracaoInfo() : '';
+        $customerInfo  = $this->_customerSession->getCuracaoInfo();
         $postVariables = (array) $this->getRequest()->getPost();
        
+        if($customerInfo->getAccountNumber() != null ){
+            $this->messageManager->addErrorMessage("Curacao Id seems null");
+            $defaultUrl = $this->urlModel->getUrl('customer/account/create/', ['_secure' => true]);
+        }
         if(empty($customerInfo) && !isset($customerInfo)){
             $this->messageManager->addErrorMessage('Please enter the Curacao Id');
             $defaultUrl = $this->urlModel->getUrl('customer/account/create/', ['_secure' => true]);
@@ -133,16 +137,6 @@ class Index extends Action
                 } 
             }
 
-            
-            // $postData = array(
-            //     'cust_id' => $curacaoCustId,
-            //     'dob'=>$dob,
-            //     'amount' => 1,
-            //     'ssn'=>$ssnLast,
-            //     'zip'=> $zipCode,
-            //     'mmaiden'=>$maidenName
-            // );
-            
             //Verify Credit Account Infm
             $accountInfo   =  $this->_helper->verifyPersonalInfm($postData);
             
