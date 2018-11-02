@@ -15,7 +15,7 @@ class Format extends \Magento\Framework\Locale\Format
         }
 
         $formatter = new \NumberFormatter($localeCode, \NumberFormatter::CURRENCY);
-        $format = $formatter->getPattern();
+        $format = '¤#,##0.00';
         $decimalSymbol = '.';
         $groupSymbol = ',';
 
