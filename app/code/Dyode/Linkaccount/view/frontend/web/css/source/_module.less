@@ -157,10 +157,7 @@
           }
         }
         p{
-          font-size: 16px;
-          @media all and(max-width: 425px){
-            font-size: 14px;
-          }
+          font-size: 14px;
         }
         .confirm-acct{
           font-size: 14px;
@@ -241,6 +238,7 @@
             }
           }
           .actions-toolbar{
+            margin-bottom: 20px;
             .primary{
               float: none !important;
               display: block!important;
@@ -291,6 +289,10 @@
         flex: 5;
         padding: 0 20px;
         color: @black;
+
+        .errormsg,.verifymsg_docs  {
+          color: #ff4200;
+        }
         @media all and(max-width:767px){
           padding: 75px 45px 0 45px;
         }
@@ -637,9 +639,9 @@
           input {
             border: 1px solid Red !important;
         }
-        }  
+        }
         p{
-          font-size: 16px;
+          font-size: 14px;
         }
       }
     }
