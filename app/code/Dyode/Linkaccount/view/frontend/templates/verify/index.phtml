@@ -1,7 +1,6 @@
  <div class="linkaccount-container">
       <div class="linkaccount-inner-container">
         <div class="wrapper clearfix">
-        <div class="verifymsg"></div>
 <!--Verification code entry form-->
         <div class="verify-phone">
             <form class="verifyform" id="verifyform" method="post"
@@ -46,6 +45,7 @@
         </div>
 <!--Personal information form-->
         <div class="personal-infm">
+
           <form class="pinfm" id="pinfm" method="post" autocomplete="off"
           action="<?php echo $block->getFormAction(); ?>" data-mage-init='{"validation":{}}'>
 <!--Enter fields required for verification - ssn no:,dob,zipcode and maiden name-->
@@ -53,6 +53,8 @@
               <legend class="legend"><span><?php echo __('Verify Personal Information') ?>:</span></legend><br/>
               <p><?php echo __('To confirm your account, please complete')?><br /><?php echo __('the following information.')?> </p>
               <div class="field ssn-field">
+                <span class="errormsg"> </span>
+                 <div class="verifymsg" style="display:none;"><?php echo __("Please enter details for verification"); ?></div>
                       <label for="ssn-verify" class="label">
                         <span><?php echo __('Enter Last 4 Digits of your SSN ') ?></span></label>
                       <div class="control">
@@ -70,7 +72,7 @@
                       placeholder="Enter Date of Birth" />
                       </div>
                   </div>
-                  <div class="field required">
+                  <div class="field">
                       <label for="link_zipcode" class="label"><span><?php echo __('Zipcode') ?></span></label>
                       <div class="control">
                           <input id="link_zipcode" type="text" name="link_zipcode"
@@ -78,15 +80,13 @@
                           placeholder="Enter Zipcode">
                       </div>
                   </div>
-                  <div class="field required">
+                  <div class="field">
                       <label for="link_maiden" class="label"><span><?php echo __("Mother's Maiden Name") ?></span></label>
                       <div class="control">
                           <input id="link_maiden" type="text" name="link_maiden" class="input-text"
                           data-validate="{'letters-only':true}" placeholder="Enter Mother's Maiden name">
                       </div>
                   </div>
-
-                  <span class="errormsg"> </span>
                   <p><?php echo __('Please enter SSN and DOB OR Mothers Maiden Name and Zipcode OR Mothers Maiden Name and DOB'); ?></p>
           </fieldset>
 <!--Submit form-->
@@ -151,6 +151,7 @@
                 var zipcode = $("#link_zipcode").val();
                 var ssn = $("#ssn-verify").val();
                 var mmn = $("#link_maiden").val();
+                validateForm();
                 //SSN not empty - DOC A Users
                 $(".error").remove();
                 if( ($("#ssn-verify").val() != null) && ($("#ssn-verify").val() != '') ) {
@@ -160,7 +161,6 @@
                     }
                     else {
                         $(".errormsg").html("Please enter DOB");
-                        //  $("#calendar_inputField").parent().addClass('error');
                         return false
                     }
                 }
@@ -172,8 +172,6 @@
                     }
                     else{
                         $(".errormsg").html("Please enter either SSN or MMN");
-                        // $("#link_zipcode").parent().addClass('error');
-                        // $("#calendar_inputField").parent().addClass('error');
                         return false;
                     }
                 }
@@ -187,8 +185,6 @@
                             $("#pinfm").submit();
                         }else{
                             $(".errormsg").html("Please enter either DOB or Zipcode");
-                            // $("#link_zipcode").parent().addClass('error');
-                            // $("#calendar_inputField").parent().addClass('error');
                             return false;
                         }
                     }
@@ -199,15 +195,21 @@
                     }
                     else{
                         $(".errormsg").html("Please enter Mother's Maiden Name");
-                        // $("#link_zipcode").parent().addClass('error');
-                        // $("#calendar_inputField").parent().addClass('error');
                         return false;
                     }
 
                 }
-
-                // $(".verifymsg").html('Please enter details for verification');
-
             });
+          function validateForm(){
+            var dob = $("#calendar_inputField").val();
+            var zipcode = $("#link_zipcode").val();
+            var ssn = $("#ssn-verify").val();
+            var mmn = $("#link_maiden").val();
+              if(dob == '' && zipcode == '' && ssn == '' && mmn == ''){
+                  $(".verifymsg").show();
+                }else{
+                  $(".verifymsg").hide();
+              }
+          }
      });
 </script>
