@@ -6,6 +6,7 @@
  */
  
 namespace Dyode\Linkaccount\Model;
+use Dyode\AuditLog\Model\ResourceModel\AuditLog;
 
 class LinkAccount extends \Magento\Framework\Model\AbstractModel
 {
@@ -19,20 +20,29 @@ class LinkAccount extends \Magento\Framework\Model\AbstractModel
      */
     protected $customerFactory;
 
+	/**
+     *
+     * @var type \Magento\Framework\Message\ManagerInterface
+     */
+	protected $auditLog;
+	
     /**
      * Construct
      *
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
 	 * @param \Magento\Customer\Model\CustomerFactory $customerFactory
+	 * @param  AuditLog $auditLog,
      */
 	public function __construct(
 		\Magento\Framework\Model\Context $context,
 		\Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Customer\Model\CustomerFactory $customerFactory,
+		\Magento\Customer\Model\CustomerFactory $customerFactory,
+		AuditLog $auditLog,
 		\Magento\Framework\Registry $data
 	) {
 		$this->storeManager     = $storeManager;
+		$this->auditLog = $auditLog;
 		$this->customerFactory  = $customerFactory;
 		return parent::__construct($context, $data);
 	}
@@ -74,6 +84,15 @@ class LinkAccount extends \Magento\Framework\Model\AbstractModel
 				'OK' => false
 			);
 		}
+		//logging audit log
+		$this->auditLog->saveAuditLog([
+			'user_id'     => "",
+			'action'      => 'API call',
+			'description' => "Fail to create customer".$curacaoCustId,
+			'client_ip'   => "",
+			'module_name' => "Dyode_ARWebservice",
+		]);
+
 		return json_encode($returnArray);
 	}
 }
