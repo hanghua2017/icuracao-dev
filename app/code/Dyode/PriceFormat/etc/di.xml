@@ -13,10 +13,5 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Magento\Framework\Locale\Format" type="Dyode\PriceFormat\Model\Format"/>
-    <type name='Magento\Framework\Currency'>
-		<plugin
-		  name='Dyode\PriceFormat\Plugin\Framework\Currency'
-		  type='Dyode\PriceFormat\Plugin\Framework\Currency'
-		/>
-    </type>
+    <preference for="Magento\Directory\Model\Currency" type="Dyode\PriceFormat\Model\Currency\Currency"/>
 </config>
