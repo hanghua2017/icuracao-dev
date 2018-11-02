@@ -65,8 +65,8 @@
                   <div class="field ">
                       <label for="link_email" class="label"><span><?php echo __('Date of Birth') ?></span></label>
                       <div class="control">
-                      <input type="text" class="input-text required-entry"
-                      id="calendar_inputField" name="calendar_inputField" aria-required="true"
+                      <input type="text" class="input-text"
+                      id="calendar_inputField" name="calendar_inputField"
                       placeholder="Enter Date of Birth" />
                       </div>
                   </div>
@@ -149,32 +149,65 @@
             $("#verifydocs").on('click',function(){
                 var dob = $("#calendar_inputField").val();
                 var zipcode = $("#link_zipcode").val();
+                var ssn = $("#ssn-verify").val();
+                var mmn = $("#link_maiden").val();
                 //SSN not empty - DOC A Users
+                $(".error").remove();
                 if( ($("#ssn-verify").val() != null) && ($("#ssn-verify").val() != '') ) {
                     //check DOB is also entered
                     if( ( dob != null) && ( dob != '') ){
-                        $("#pinfm").submit(); 
-                    } else {
-                        $(".errormsg").html("Please enter either DOB");
-                        $("#calendar_inputField").parent().addClass('error');
+                        $("#pinfm").submit();
+                    }
+                    else {
+                        $(".errormsg").html("Please enter DOB");
+                        //  $("#calendar_inputField").parent().addClass('error');
                         return false
                     }
-                } else {
+                }
+                else if( ($("#calendar_inputField").val() != null) && ($("#calendar_inputField").val() != '') ){
+                    if( ( (ssn != null) && (ssn != '') ) ) {
+                        $("#pinfm").submit();
+                    } else if(( ( mmn != null) && ( mmn != '') ) ){
+                        $("#pinfm").submit();
+                    }
+                    else{
+                        $(".errormsg").html("Please enter either SSN or MMN");
+                        // $("#link_zipcode").parent().addClass('error');
+                        // $("#calendar_inputField").parent().addClass('error');
+                        return false;
+                    }
+                }
+                else {
                     //DOC B Users
                     if( ($("#link_maiden").val() != null) && ($("#link_maiden").val() != '') ){
-                        if( ( (zipcode != null) && (zipcode != '') ) || ( ( dob != null) && ( dob != '') ) ) {
+                        if( ( (zipcode != null) && (zipcode != '') ) ) {
                             $("#pinfm").submit();
-                        } else {
+
+                        } else if(( ( dob != null) && ( dob != '') ) ){
+                            $("#pinfm").submit();
+                        }else{
                             $(".errormsg").html("Please enter either DOB or Zipcode");
-                            $("#link_zipcode").parent().addClass('error');
-                            $("#calendar_inputField").parent().addClass('error');
+                            // $("#link_zipcode").parent().addClass('error');
+                            // $("#calendar_inputField").parent().addClass('error');
                             return false;
                         }
-                    }                
+                    }
+                }
+                if( ( (zipcode != null) && (zipcode != '') ) ) {
+                    if(( ( mmn != null) && ( mmn != '') ) ){
+                        $("#pinfm").submit();
+                    }
+                    else{
+                        $(".errormsg").html("Please enter Mother's Maiden Name");
+                        // $("#link_zipcode").parent().addClass('error');
+                        // $("#calendar_inputField").parent().addClass('error');
+                        return false;
+                    }
+
                 }
 
-                $(".verifymsg").html('Please enter details for verification');
-                                               
+                // $(".verifymsg").html('Please enter details for verification');
+
             });
-       });
+     });
 </script>
