@@ -3,6 +3,7 @@
 @text-grey:#6b6b6b;
 @input-color:#8a8888;
 @black: #000;
+@red-color:#c50606;
 //Common styles for all 3 linkaccount pages
 .linkaccount-verify-success,.linkaccount-verify-index,.linkaccount-credit-index{
   .ui-datepicker{
@@ -591,6 +592,13 @@
               width: 100%;
               text-align: left;
               padding-left: 0px;
+            }
+            .control {
+              label.error {
+                color:@red-color;
+                float: left;
+                margin-top: 3px;
+              }
             }
             &.required{
               padding: 0px 25px;
