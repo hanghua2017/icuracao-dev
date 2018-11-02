@@ -106,7 +106,7 @@ class Pilot extends \Magento\Shipping\Model\Carrier\AbstractCarrier implements
      */
 
     
-    public function getPilotRatesSoap($fromZip = '90001', $toZip , $weight , $width = 20, $height = 20, $length = 20){
+    public function getPilotRatesSoap($fromZip = '90001', $toZip = '12345' , $weight = 20, $width = 20, $height = 20, $length = 20){
         
         $client = new SoapClient("http://ws.pilotdelivers.com/tms2.1/tms/PilotServiceRequest.asmx?wsdl");
         

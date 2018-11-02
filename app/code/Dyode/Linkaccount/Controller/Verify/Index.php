@@ -92,24 +92,20 @@ class Index extends Action
      */
     public function execute()
     {
-        $customerInfo  = $this->_customerSession->getCuracaoInfo();
         $postVariables = (array) $this->getRequest()->getPost();
-       
-        if($customerInfo->getAccountNumber() != null ){
-            $this->messageManager->addErrorMessage("Curacao Id seems null");
-            $defaultUrl = $this->urlModel->getUrl('customer/account/create/', ['_secure' => true]);
-        }
-        if(empty($customerInfo) && !isset($customerInfo)){
-            $this->messageManager->addErrorMessage('Please enter the Curacao Id');
-            $defaultUrl = $this->urlModel->getUrl('customer/account/create/', ['_secure' => true]);
-        }
-
+        
         if(!empty($postVariables)){
           
             $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
             $websiteId = $this->_storeManager->getStore()->getWebsiteId();
+            $customerInfo  = $this->_customerSession->getCuracaoInfo();
             $customerId ='';
             
+
+            if(empty($customerInfo) && !isset($customerInfo)){
+                $this->messageManager->addErrorMessage('Please enter the Curacao Id');
+                $defaultUrl = $this->urlModel->getUrl('customer/account/create/', ['_secure' => true]);
+            }
 
             //Get Customer Id
             if($this->_customerSession->isLoggedIn()){
