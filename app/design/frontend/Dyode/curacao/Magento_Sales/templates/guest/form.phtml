@@ -17,7 +17,7 @@
 
             <div class="control">
                 <input type="text" class="input-text" id="oar-order-id" name="oar_order_id"
-                       data-validate="{required:true}" placeholder="Order ID"/>
+                       data-validate="{required:true}" placeholder="<?= __('Order ID') ?>"/>
             </div>
         </div>
         <div class="field lastname required">
@@ -25,7 +25,7 @@
 
             <div class="control">
                 <input type="text" class="input-text" id="oar-billing-lastname" name="oar_billing_lastname"
-                       data-validate="{required:true}" placeholder="Billing Last Name"/>
+                       data-validate="{required:true}" placeholder="<?=__('Billing Last Name') ?>"/>
             </div>
         </div>
         <div class="field find required search-type-select">
@@ -43,14 +43,14 @@
 
             <div class="control">
                 <input type="email" class="input-text" id="oar_email" name="oar_email"
-                       data-validate="{required:true, 'validate-email':true}" placeholder="Email Address"/>
+                       data-validate="{required:true, 'validate-email':true}" placeholder="<?=__('Email Address') ?>"/>
             </div>
         </div>
         <div id="oar-zip" class="field zip required">
             <label class="label" for="oar_zip"><span><?= /* @escapeNotVerified */ __('Billing ZIP Code') ?></span></label>
 
             <div class="control">
-                <input type="text" class="input-text" id="oar_zip" name="oar_zip" data-validate="{required:true}" placeholder="Billing Zip Code"/>
+                <input type="text" class="input-text" id="oar_zip" name="oar_zip" data-validate="{required:true}" placeholder="<?=__('Billing Zip Code') ?>"/>
             </div>
         </div>
     </fieldset>
