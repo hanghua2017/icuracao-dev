@@ -1,6 +1,8 @@
  <div class="linkaccount-container">
       <div class="linkaccount-inner-container">
         <div class="wrapper clearfix">
+          <div class="verifymsg"></div>
+
 <!--Verification code entry form-->
         <div class="verify-phone">
             <form class="verifyform" id="verifyform" method="post"
@@ -52,10 +54,11 @@
           <fieldset class="fieldset">
               <legend class="legend"><span><?php echo __('Verify Personal Information') ?>:</span></legend><br/>
               <p><?php echo __('To confirm your account, please complete')?><br /><?php echo __('the following information.')?> </p>
-              <div class="field ssn-field">
                 <span class="errormsg"> </span>
-                 <div class="verifymsg" style="display:none;"><?php echo __("Please enter details for verification"); ?></div>
-                      <label for="ssn-verify" class="label">
+                <div class="verifymsg_docs" style="display:none;"><?php echo __("Please enter details for verification"); ?></div>
+
+                 <div class="field ssn-field">
+                        <label for="ssn-verify" class="label">
                         <span><?php echo __('Enter Last 4 Digits of your SSN ') ?></span></label>
                       <div class="control">
                           <span class="ssn-number"><?php echo __('XXX-XX-') ?></span>
@@ -206,9 +209,9 @@
             var ssn = $("#ssn-verify").val();
             var mmn = $("#link_maiden").val();
               if(dob == '' && zipcode == '' && ssn == '' && mmn == ''){
-                  $(".verifymsg").show();
+                  $(".verifymsg_docs").show();
                 }else{
-                  $(".verifymsg").hide();
+                  $(".verifymsg_docs").hide();
               }
           }
      });
