@@ -5,8 +5,6 @@ use Magento\Framework\Locale\Bundle\DataBundle;
 
 class Format extends \Magento\Framework\Locale\Format
 {
-    private static $defaultNumberSet = 'en';
- 
     public function getPriceFormat($localeCode = null, $currencyCode = null)
     {
         $localeCode = $localeCode ?: $this->_localeResolver->getLocale();
@@ -15,22 +13,17 @@ class Format extends \Magento\Framework\Locale\Format
         } else {
             $currency = $this->_scopeResolver->getScope()->getCurrentCurrency();
         }
- 
-        $localeData = (new DataBundle())->get($localeCode);
-        $defaultSet = $localeData['NumberElements']['default'] ?: self::$defaultNumberSet;
- 
-        $format = $localeData['NumberElements'][$defaultSet]['patterns']['currencyFormat']
-            ?: ($localeData['NumberElements'][self::$defaultNumberSet]['patterns']['currencyFormat']
-                ?: explode(';', $localeData['NumberPatterns'][1])[0]);
 
+        $formatter = new \NumberFormatter($localeCode, \NumberFormatter::CURRENCY);
+        $format = $formatter->getPattern();
         $decimalSymbol = '.';
         $groupSymbol = ',';
- 
+
         $pos = strpos($format, ';');
         if ($pos !== false) {
             $format = substr($format, 0, $pos);
         }
-        $format = preg_replace("/[^0\#\.,]/", "", $format);
+        $format = preg_replace("/[^0\#\.,]/", '', $format);
         $totalPrecision = 0;
         $decimalPoint = strpos($format, '.');
         if ($decimalPoint !== false) {
@@ -44,14 +37,14 @@ class Format extends \Magento\Framework\Locale\Format
         if ($pos !== false) {
             $requiredPrecision = strlen($t) - $pos - $totalPrecision;
         }
- 
+
         if (strrpos($format, ',') !== false) {
             $group = $decimalPoint - strrpos($format, ',') - 1;
         } else {
             $group = strrpos($format, '.');
         }
         $integerRequired = strpos($format, '.') - strpos($format, '0');
- 
+
         $result = [
             //TODO: change interface
             'pattern' => $currency->getOutputFormat(),
@@ -61,7 +54,8 @@ class Format extends \Magento\Framework\Locale\Format
             'groupSymbol' => $groupSymbol,
             'groupLength' => $group,
             'integerRequired' => $integerRequired,
-        ];       
+        ];
+
         return $result;
     }
 }
