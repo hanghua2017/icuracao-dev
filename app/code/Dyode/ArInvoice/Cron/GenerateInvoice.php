@@ -78,7 +78,7 @@ class GenerateInvoice
                 $this->auditLog->saveAuditLog([
                     'user_id' => "",
                     'action' => 'AR Create Invoice Cron',
-                    'description' => "Success",
+                    'description' => "Invoice generated for ".$salesOrder->getId(),
                     'client_ip' => "",
                     'module_name' => "Dyode_ArInvoice"
                 ]);
@@ -87,7 +87,7 @@ class GenerateInvoice
                 $this->auditLog->saveAuditLog([
                     'user_id' => "",
                     'action' => 'AR Create Invoice Cron',
-                    'description' => "Failed",
+                    'description' => "Failed invoice generation for ".$salesOrder->getId(),
                     'client_ip' => "",
                     'module_name' => "Dyode_ArInvoice"
                 ]);
