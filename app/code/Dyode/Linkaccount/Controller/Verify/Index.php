@@ -119,6 +119,7 @@ class Index extends Action
             $maidenName = trim($postVariables['link_maiden']);
             $postData = array();
             $postData['cust_id']  =  $curacaoCustId;
+            $postData['amount'] = 1;
 
             if(isset($ssnLast)){
                 $postData['ssn']  =  $ssnLast;
