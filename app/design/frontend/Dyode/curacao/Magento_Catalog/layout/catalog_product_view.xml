@@ -15,6 +15,7 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
     <referenceBlock name="head.additional">
+      <block class="Magento\Catalog\Block\Product\View" name="webcollage_script_1" template="webcollage_script_1.phtml"/>
         <block class="Magento\Catalog\Block\Product\View" name="webcollage_script" template="webcollage_script.phtml"/>
     </referenceBlock>
         <referenceContainer name="content">
