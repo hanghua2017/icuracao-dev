@@ -111,7 +111,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $this->auditLog->saveAuditLog([
             'user_id' => "",
             'action' => 'ArInvoice Generation API Response',
-            'description' => "input : " . json_encode($inputArray) . "  response : " . $response,
+            'description' => "input : " . json_encode($inputArray,JSON_UNESCAPED_SLASHES) . "  response : " . $response,
             'client_ip' => "",
             'module_name' => "Dyode_ArInvoice"
         ]);
