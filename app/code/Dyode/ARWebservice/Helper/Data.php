@@ -175,6 +175,15 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
         //sending api request
         $params = ['cust_id' => $cu_account];
+        //Logging parameters to AR Webservice        
+         $this->auditLog->saveAuditLog([
+            'user_id'     => "",
+            'action'      => "Get AR Customer Contact",
+            'description' => "Parameters to AR webservice". $cu_account,
+            'client_ip'   => "",
+            'module_name' => "Dyode_ARWebservice",
+        ]);
+
         $restResponse = $this->arConnect('GetCustomerContact', $params);
 
         if (!$restResponse) {
@@ -189,7 +198,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             $this->auditLog->saveAuditLog([
                 'user_id'     => "",
                 'action'      => 'Get AR Customer Contact',
-                'description' => "Fail to get customer contact",
+                'description' => "Fail to get customer contact". $restResponse->getBody(),
                 'client_ip'   => "",
                 'module_name' => "Dyode_ARWebservice",
             ]);
@@ -220,6 +229,15 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $restResponse = $this->arConnect('ValidateDP', $customerDetails);
 
+        //Logging parameters to AR Webservice        
+        $this->auditLog->saveAuditLog([
+            'user_id'     => "",
+            'action'      => "ValidateDP",
+            'description' => "Parameters to AR webservice". json_encode($customerDetails),
+            'client_ip'   => "",
+            'module_name' => "Dyode_ARWebservice",
+        ]);
+
         if (!$restResponse) {
             return false;
         }
@@ -232,7 +250,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             $this->auditLog->saveAuditLog([
                 'user_id'     => "",
                 'action'      => 'AR Customer Details Verification',
-                'description' => "Fail to Verify Customer Details",
+                'description' => "Fail to Verify Customer Details".$restResponse->getBody(),
                 'client_ip'   => "",
                 'module_name' => "Dyode_ARWebservice",
             ]);
@@ -243,14 +261,13 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $this->auditLog->saveAuditLog([
             'user_id'     => "",
             'action'      => 'AR Customer Details Verification',
-            'description' => "AR Customer details verification success",
+            'description' => "AR Customer details verification success".$result->DATA,
             'client_ip'   => "",
             'module_name' => "Dyode_ARWebservice",
         ]);
-
         $verifiedResult = $result->DATA;
-        return $verifiedResult;
 
+        return $verifiedResult;
     }
 
 
@@ -343,10 +360,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 $this->auditLog->saveAuditLog([
                     'user_id'     => "",
                     'action'      => 'AR webservice',
-                    'description' => "Fail to connect AR webservice",
+                    'description' => "Fail to send SMS to ".$phoneNumber,
                     'client_ip'   => "",
                     'module_name' => "Dyode_ARWebservice",
                 ]);
+                
                 return -1;
             }  
 
@@ -398,7 +416,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             $this->auditLog->saveAuditLog([
                 'user_id'     => "",
                 'action'      => 'AR Customer Credit Limit',
-                'description' => "AR Customer Credit Limit Failed",
+                'description' => "AR Customer Credit Limit Failed ".$restResponse->getBody(),
                 'client_ip'   => "",
                 'module_name' => "Dyode_ARWebservice",
             ]);
@@ -409,10 +427,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $this->auditLog->saveAuditLog([
             'user_id'     => "",
             'action'      => 'AR Customer Credit Limit',
-            'description' => "AR Customer Credit Limit success",
+            'description' => "AR Customer Credit Limit success".$result->DATA,
             'client_ip'   => "",
             'module_name' => "Dyode_ARWebservice",
         ]);
+
         return $result->DATA;
     }
 

@@ -17,6 +17,12 @@ use Dyode\ArOrderCancel\Api\OrderInterface;
  */
 class Order implements OrderInterface
 {
+     /**
+     *
+     * @var type \Magento\Framework\Message\ManagerInterface
+     */
+    protected $auditLog;
+
     /**
     * constructor function
     */
@@ -27,6 +33,7 @@ class Order implements OrderInterface
         \Magento\Sales\Model\Order\Invoice $invoice,
         \Magento\Sales\Model\Service\CreditmemoService $creditmemoService,
         \Magento\Sales\Model\RefundOrder $refundOrder,
+        \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
         \Magento\Sales\Model\Order\Creditmemo\ItemCreationFactory $itemCreationFactory,
         \Magento\Sales\Model\Order\CreditmemoDocumentFactory $creditmemoDocumentFactory
     ) {
@@ -38,6 +45,7 @@ class Order implements OrderInterface
         $this->refundOrder = $refundOrder;
         $this->itemCreationFactory = $itemCreationFactory;
         $this->creditmemoDocumentFactory = $creditmemoDocumentFactory;
+        $this->auditLog = $auditLog;
     }
 
     /**
@@ -60,17 +68,44 @@ class Order implements OrderInterface
             $order = $this->order->loadByIncrementId($orderId);
 
             if(!$order->getId()){
+                //logging audit log
+                $this->auditLog->saveAuditLog([
+                    'user_id' => "",
+                    'action' => 'AR Create Invoice Cron',
+                    'description' => "Order not found ".$orderId,
+                    'client_ip' => "",
+                    'module_name' => "Dyode_ArInvoice"
+                ]);
+
                 throw new \Exception('Order not found'); //order not found
             }
             $orderStatus = $order->getStatus();
 
             //checks whether the order is already closed
             if($orderStatus == 'closed'){
+                 //logging audit log
+                 $this->auditLog->saveAuditLog([
+                    'user_id' => "",
+                    'action' => 'AR Create Invoice Cron',
+                    'description' => "Order is already closed for ".$orderId,
+                    'client_ip' => "",
+                    'module_name' => "Dyode_ArInvoice"
+                ]);
+
                 throw new \Exception('Order is already closed');
             }
 
             //checks whether the order is already canceled
             if($orderStatus == 'canceled'){
+                //logging audit log
+                $this->auditLog->saveAuditLog([
+                    'user_id' => "",
+                    'action' => 'AR Create Invoice Cron',
+                    'description' => "Order is already canceled for ".$orderId,
+                    'client_ip' => "",
+                    'module_name' => "Dyode_ArInvoice"
+                ]);
+
                 throw new \Exception('Order is already canceled');
             }
 
@@ -81,11 +116,20 @@ class Order implements OrderInterface
 
             if($wholeOrder){
                 if($order->canCancel()){
+                      //logging audit log
+                      $this->auditLog->saveAuditLog([
+                        'user_id' => "",
+                        'action' => 'AR Create Invoice Cron',
+                        'description' => "successfully cancelled",
+                        'client_ip' => "",
+                        'module_name' => "Dyode_ArInvoice"
+                    ]);
                     $order->cancel();
                     //add order history
                     $history = $order->addStatusHistoryComment($comment);
                     $history->setIsCustomerNotified(true); // for backwards compatibility
                     $order->save();
+                    
                 } else{
                     //get all invoices
                     $invoices = $order->getInvoiceCollection();
@@ -100,6 +144,14 @@ class Order implements OrderInterface
                     $history = $order->addStatusHistoryComment($comment);
                     $history->setIsCustomerNotified(true); // for backwards compatibility
                     $order->save();
+                    //logging audit log
+                    $this->auditLog->saveAuditLog([
+                        'user_id' => "",
+                        'action' => 'AR Create Invoice Cron',
+                        'description' => "successfully cancelled",
+                        'client_ip' => "",
+                        'module_name' => "Dyode_ArInvoice"
+                    ]);
                 }
             } else {
                 //get a specific order item
@@ -113,7 +165,24 @@ class Order implements OrderInterface
                                 if($value['qty_ordered']>=$quantity){
                                     $value->setQtyCanceled($quantity);
                                     $value->save();
+                                    //logging audit log
+                                    $this->auditLog->saveAuditLog([
+                                        'user_id' => "",
+                                        'action' => 'AR Create Invoice Cron',
+                                        'description' => "successfully cancelled",
+                                        'client_ip' => "",
+                                        'module_name' => "Dyode_ArInvoice"
+                                    ]);
                                 } else{
+                                     //logging audit log
+                                    $this->auditLog->saveAuditLog([
+                                        'user_id' => "",
+                                        'action' => 'AR Create Invoice Cron',
+                                        'description' => "Item quantity exceeded ",
+                                        'client_ip' => "",
+                                        'module_name' => "Dyode_ArInvoice"
+                                    ]);
+
                                     throw new \Exception('Item quantity exceeded');
                                 }
                             }
@@ -122,6 +191,14 @@ class Order implements OrderInterface
                         $history = $order->addStatusHistoryComment($comment);
                         $history->setIsCustomerNotified(true); // for backwards compatibility
                         $order->save();
+                        //logging audit log
+                        $this->auditLog->saveAuditLog([
+                            'user_id' => "",
+                            'action' => 'AR Create Invoice Cron',
+                            'description' => "successfully cancelled",
+                            'client_ip' => "",
+                            'module_name' => "Dyode_ArInvoice"
+                        ]);
                     }else{
                         //cancel invoiced items
                         $this->cancelInvoicedItem($order, $sku, $quantity, $refundShipping, $comment);
@@ -129,8 +206,24 @@ class Order implements OrderInterface
                         $history = $order->addStatusHistoryComment($comment);
                         $history->setIsCustomerNotified(true); // for backwards compatibility
                         $order->save();
+                        //logging audit log
+                        $this->auditLog->saveAuditLog([
+                            'user_id' => "",
+                            'action' => 'AR Create Invoice Cron',
+                            'description' => "successfully cancelled",
+                            'client_ip' => "",
+                            'module_name' => "Dyode_ArInvoice"
+                        ]);
                     }
                 }else{
+                     //logging audit log
+                     $this->auditLog->saveAuditLog([
+                        'user_id' => "",
+                        'action' => 'AR Create Invoice Cron',
+                        'description' => "Order item not found ",
+                        'client_ip' => "",
+                        'module_name' => "Dyode_ArInvoice"
+                    ]);
                     throw new \Exception('Order item not found');
                 }
             }
