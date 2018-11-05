@@ -40,6 +40,7 @@ define([
     var curacaoPaymentInfo = window.checkoutConfig.curacaoPayment,
         customerInfo = window.checkoutConfig.customerData,
         isUserLinked = !!curacaoPaymentInfo.linked,
+        isZeroDownPayment = !curacaoPaymentInfo.totalNaked,
 
         /**
          * Helper Function
@@ -81,6 +82,7 @@ define([
         zipInputFieldId: 'curacao-zip-code',
         maidenNameInpFieldId: 'curacao-maiden-name',
         isUserLinked: ko.observable(isUserLinked),
+        isZeroDownPayment: ko.observable(isZeroDownPayment),
         curacaoAccountIdInpValue: ko.observable(''),
         verificationCodeInpValue: ko.observable(''),
         ssnVerifyInpValue: ko.observable(''),
@@ -314,6 +316,7 @@ define([
                 var curacaoInfo = curacaoServiceProvider.response().curacaoInfo;
 
                 this.curacaoUserCreditLimit(curacaoInfo.creditLimit);
+                this.isZeroDownPayment(!curacaoInfo.downPaymentNaked);
 
                 if (curacaoInfo.downPayment) {
                     this.curacaoUserDownPayment(curacaoInfo.downPayment);

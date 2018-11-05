@@ -351,6 +351,7 @@ class Scrutinize extends Action
     protected function prepareResponse()
     {
         $output['curacaoInfo']['creditLimit'] = $this->creditLimit;
+        $output['curacaoInfo']['downPaymentNaked'] = $this->downPayment;
         $output['curacaoInfo']['downPayment'] = $this->priceHelper->currency($this->downPayment, true, false);
 
         return $output;
