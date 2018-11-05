@@ -17,7 +17,9 @@ use Aheadworks\StoreLocator\Helper\Image as AheadImageHelper;
 use Aheadworks\StoreLocator\Model\Location;
 use Aheadworks\StoreLocator\Model\ResourceModel\Location\CollectionFactory;
 use Dyode\ArInvoice\Helper\Data as ArInvoiceHelper;
+use Dyode\InventoryLocation\Model\ResourceModel\Location\CollectionFactory as InventoryLocationCollectionFactory;
 use Dyode\StoreLocator\Model\GeoCoordinateRepository;
+use Magento\Catalog\Model\Product;
 use Magento\Customer\Model\Session;
 use Magento\Framework\Api\Filter;
 use Magento\Framework\Api\Search\FilterGroup;
@@ -26,6 +28,7 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\DataObject;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Store\Model\ScopeInterface;
+use Magento\Framework\Serialize\Serializer\Json as JsonHelper;
 
 class StoreAvailability implements ArgumentInterface
 {
@@ -87,13 +90,30 @@ class StoreAvailability implements ArgumentInterface
     protected $aheadImageHelper;
 
     /**
+     * @var \Dyode\InventoryLocation\Model\ResourceModel\Location\CollectionFactory
+     */
+    protected $inventoryLocationCollectionFactory;
+
+    /**
+     * @var \Magento\Framework\Serialize\Serializer\Json
+     */
+    protected $jsonHelper;
+
+    /**
+     * @var []
+     */
+    protected $productAvailStores = [];
+
+    /**
      * StoreAvailability constructor.
      *
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Aheadworks\StoreLocator\Model\ResourceModel\Location\CollectionFactory $locationCollectionFactory
+     * @param \Dyode\InventoryLocation\Model\ResourceModel\Location\CollectionFactory $inventoryLocationCollectionFactory
      * @param \Dyode\StoreLocator\Model\GeoCoordinateRepository $geoCoordinateRepository
+     * @param \Magento\Framework\Serialize\Serializer\Json $jsonHelper
      * @param \Dyode\ArInvoice\Helper\Data $arInvoiceHelper
      * @param \Aheadworks\StoreLocator\Helper\Image $aheadImageHelper
      */
@@ -102,7 +122,9 @@ class StoreAvailability implements ArgumentInterface
         SearchCriteriaInterface $searchCriteria,
         Session $customerSession,
         CollectionFactory $locationCollectionFactory,
+        InventoryLocationCollectionFactory $inventoryLocationCollectionFactory,
         GeoCoordinateRepository $geoCoordinateRepository,
+        JsonHelper $jsonHelper,
         ArInvoiceHelper $arInvoiceHelper,
         AheadImageHelper $aheadImageHelper
     ) {
@@ -110,9 +132,11 @@ class StoreAvailability implements ArgumentInterface
         $this->searchCriteria = $searchCriteria;
         $this->customerSession = $customerSession;
         $this->locationCollectionFactory = $locationCollectionFactory;
+        $this->inventoryLocationCollectionFactory = $inventoryLocationCollectionFactory;
         $this->arInvoiceHelper = $arInvoiceHelper;
         $this->geoCoordinateRepository = $geoCoordinateRepository;
         $this->aheadImageHelper = $aheadImageHelper;
+        $this->jsonHelper = $jsonHelper;
     }
 
     /**
@@ -127,11 +151,10 @@ class StoreAvailability implements ArgumentInterface
 
     /**
      * If customer is not logged in or customer do not have shipping address or there is no stores available,
-     * then we dont want to show the nearest store.
+     * then we don't want to show the nearest store.
      *locationFactory
      *
      * @return bool
-     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function canShowNearestStore()
     {
@@ -338,5 +361,46 @@ class StoreAvailability implements ArgumentInterface
     public function arInvoiceHelper()
     {
         return $this->arInvoiceHelper;
+    }
+
+    /**
+     * @param string|integer|\Magento\Catalog\Model\Product $product
+     * @return array
+     */
+    public function productAvailableStores($product)
+    { //product = 107389;2514
+        $productId = $product;
+        if ($product instanceof Product) {
+            $productId = $product->getId();
+        }
+
+        if (isset($this->productAvailStores[$productId])) {
+            return $this->productAvailStores[$productId];
+        }
+
+        /** @var \Dyode\InventoryLocation\Model\ResourceModel\Location\Collection $inventoryCollection */
+        $storesList = [];
+        $productAvailStores = [];
+
+        $inventoryCollection = $this->inventoryLocationCollectionFactory->create();
+        $inventoryCollection->addFieldToFilter('productid', $productId)->setPageSize(1)->setCurPage(1);
+
+        //if product is a "set product", then the inventory details should be taken from ARWebservice.
+        foreach ($inventoryCollection->getItems() as $inventory) {
+            $storesList = $this->jsonHelper->unserialize($inventory->getFinalinventory());
+            if ($inventory->getIsset()) {
+                $storesList = $this->jsonHelper->unserialize($inventory->getArinventory());
+            }
+        }
+
+        foreach ($storesList as $store => $inventoryLevel) {
+            if ($inventoryLevel > 0) {
+                $productAvailStores[] = (int)$store;
+            }
+        }
+
+        $this->productAvailStores[$productId] = $productAvailStores;
+
+        return $this->productAvailStores[$productId];
     }
 }
