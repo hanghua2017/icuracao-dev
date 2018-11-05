@@ -205,14 +205,14 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         foreach ($order->getAllItems() as $item)
         {
             $product = $this->_productRepository->getById($item->getProductId()); 
-            $itemSku = $item->getSku();
-            $itemName = $item->getName();
+            $itemSku = str_replace("\/","-",$item->getSku());
+            $itemName = str_replace("\/","-",$item->getName());
             $itemQty = $item->getQtyOrdered();
             $itemPrice = $item->getPrice();
             $itemCost = $item->getBasePrice();
             $pickup = ($item->getData('delivery_type') == 2) ? true : false;
             $taxable = ($item->getTaxAmount() > 0) ? true : false;
-            $itemId = $item->getId();
+            $itemId = str_replace("\/","-",$item->getId());
             $itemTaxAmount = $item->getTaxAmount();
             $itemTaxRate = $item->getTaxPercent();
             $itemSet = ($product->getData('set')) ? true : false;
