@@ -9,6 +9,11 @@
     <body>
       <referenceContainer name="main">
         <container name="content">
+          <block name="customer.section.config" class="Magento\Customer\Block\SectionConfig"
+               template="Magento_Customer::js/section-config.phtml"/>
+          <block name="customer.customer.data"
+                 class="Magento\Customer\Block\CustomerData"
+                 template="Magento_Customer::js/customer-data.phtml"/>
           <container name='home.banner.container' htmlTag="div" htmlClass="banner-container" before="-">
             <block class="Magestore\Bannerslider\Block\Bannerslider" name="bannerslider.cms.page.content.top" before="-">
               <action method="setPosition">
