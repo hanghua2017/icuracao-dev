@@ -15,10 +15,11 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
     <referenceBlock name="head.additional">
-      <block class="Magento\Catalog\Block\Product\View" name="webcollage_script_1" template="webcollage_script_1.phtml"/>
         <block class="Magento\Catalog\Block\Product\View" name="webcollage_script" template="webcollage_script.phtml"/>
     </referenceBlock>
         <referenceContainer name="content">
+          <block class="Magento\Catalog\Block\Product\View" name="webcollage" template="Magento_Catalog::webcollage.phtml" before="-"/>
+          <block class="Magento\Catalog\Block\Product\View" name="cnet" template="Magento_Catalog::cnet.phtml" before="-"/>
             <container name="product.info-block" htmlTag="div" htmlClass="product-info-block" before="-">
                 <referenceContainer name="product.info.main">
                     <block template="Magento_Catalog::product/view/price-beat.phtml" before="product.info.price">
@@ -104,11 +105,9 @@
                     </arguments>
                 </block>
             </container>
+            <block class="Magento\Catalog\Block\Product\View" name="flix" template="Magento_Catalog::flix.phtml" before="-"/>
             <container name="product.info.details.before" htmlTag="div" htmlClass="product-info-details-before" before="product.info.details" />
             <container name="product.info.details.after" htmlTag="div" htmlClass="banner-block" after="product.info.details">
-              <block class="Magento\Catalog\Block\Product\View" name="webcollage" template="Magento_Catalog::webcollage.phtml"/>
-              <block class="Magento\Catalog\Block\Product\View" name="cnet" template="Magento_Catalog::cnet.phtml"/>
-              <block class="Magento\Catalog\Block\Product\View" name="flix" template="Magento_Catalog::flix.phtml"/>
                 <block class="Magento\Cms\Block\Block" name="offers.of.this.week.1">
                     <arguments>
                         <argument name="block_id" xsi:type="string">offers_of_the_week_1</argument>
@@ -131,13 +130,12 @@
         <move element="product.info.main" destination="product.info-block" before="-" />
         <move element="product.info.media" destination="product.info-block" after="product.info.main" />
         <move element="product.info.upsell" destination="product.info.details.before" />
-        <move element="product.info.stock.sku" destination="page.main.title" />
-        <move element="product.info.review" destination="page.main.title" after="product.info.price" />
+        <move element="product.info.review" destination="page.main.title" />
 
 
         <!-- REMOVED BLOCKS -->
-        <!-- <referenceBlock name="product.info.sku" remove="true"/> -->
-        <!-- <referenceContainer name="product.info.stock.sku" remove="true" /> -->
+        <referenceBlock name="product.info.sku" remove="true"/>
+        <referenceContainer name="product.info.stock.sku" remove="true" />
         <referenceBlock name="product.info.mailto" remove="true" />
         <referenceBlock name="catalog.product.related" remove="true" />
 
