@@ -1,4 +1,5 @@
 <?php
+
 namespace Dyode\InventoryLocation\Model\ResourceModel;
 
 class Location extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
@@ -13,4 +14,3 @@ class Location extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         $this->_init('location_inventory', 'id');
     }
 }
-?>

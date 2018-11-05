@@ -82,12 +82,22 @@ class Getstores extends Action
     /**
      * Collect product available store locations
      *
-     * @param string|int $productId
+     * @param integer $productId
      * @return \Aheadworks\StoreLocator\Model\ResourceModel\Location\Collection
+     * @throws \Exception
      */
     public function collectProductStores($productId)
     {
-        return $this->storeViewModel->availableStores();
+        $storesFilter = $this->storeViewModel->productAvailableStores($productId);
+
+        if (count($storesFilter) === 0) {
+            throw new \Exception(__('No stores available.'));
+        }
+
+        return $this->storeViewModel->availableStores()
+            ->addFieldToFilter('store_location_code', ['in' => $storesFilter])
+            ->setCurPage(1)
+            ->setPageSize(count($storesFilter));
     }
 
     /**

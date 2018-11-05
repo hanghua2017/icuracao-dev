@@ -1,5 +1,8 @@
 <?php
+
 namespace Dyode\InventoryLocation\Model;
+
+use Dyode\InventoryLocation\Model\ResourceModel\Location as InventoryLocationResourceModel;
 
 class Location extends \Magento\Framework\Model\AbstractModel
 {
@@ -10,7 +13,6 @@ class Location extends \Magento\Framework\Model\AbstractModel
      */
     protected function _construct()
     {
-        $this->_init('Dyode\InventoryLocation\Model\ResourceModel\Location');
+        $this->_init(InventoryLocationResourceModel::class);
     }
 }
-?>

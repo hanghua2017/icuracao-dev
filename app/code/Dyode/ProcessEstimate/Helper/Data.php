@@ -6,22 +6,26 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
 
 	public function __construct(
-      \Dyode\ARWebservice\Helper\Data $apiHelper 
+      \Dyode\ARWebservice\Helper\Data $apiHelper,
+      \Dyode\PriceUpdate\Helper\Data $logHelper 
   ) {
       $this->apiHelper = $apiHelper;
+      $this->logHelper = $logHelper;
   }
 
   //webDownPayment API function
 	public function webDownPayment($customerID,$amountPaid,$invoiceNumber,$referenceID) {
  		$dataSetItems = array('cust_id' => $customerID,'amount' => $amountPaid, 'inv_no' => $invoiceNumber, 'referID' => $referenceID);
  		$response = $this->setAPIClient('webDownpayment',$dataSetItems);
+    $this->logHelper->addLogs('Calling weDownpayment', json_encode($response), 'Dyode_Processestimate');
 
 	}
 
 	//SupplyInvoice API function
 	public function goSupplyInvoice($invoiceNumber,$firstName,$lastName,$email) {
-   		$dataSetItems = array('InvNo' => $invoiceNumber,'FirstName' => $firstName, 'LastName' => $lastName, 'eMail' => $email);
-        $response = $this->setAPIClient('SupplyInvoice',$dataSetItems);
+ 		$dataSetItems = array('InvNo' => $invoiceNumber,'FirstName' => $firstName, 'LastName' => $lastName, 'eMail' => $email);
+    $response = $this->setAPIClient('SupplyInvoice',$dataSetItems);
+    $this->logHelper->addLogs('Calling goSupplyInvoice', json_encode($response), 'Dyode_Processestimate');
 	}
 
 	//Setting REST API Client
