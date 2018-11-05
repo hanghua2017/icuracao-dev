@@ -15,7 +15,6 @@ namespace Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View;
 
 use Aheadworks\StoreLocator\Helper\Image as AheadImageHelper;
 use Aheadworks\StoreLocator\Model\Location;
-//use Aheadworks\StoreLocator\Model\LocationFactory;
 use Aheadworks\StoreLocator\Model\ResourceModel\Location\CollectionFactory;
 use Dyode\ArInvoice\Helper\Data as ArInvoiceHelper;
 use Dyode\StoreLocator\Model\GeoCoordinateRepository;
@@ -102,7 +101,6 @@ class StoreAvailability implements ArgumentInterface
         ScopeConfigInterface $scopeConfig,
         SearchCriteriaInterface $searchCriteria,
         Session $customerSession,
-        //LocationFactory $locationFactory,
         CollectionFactory $locationCollectionFactory,
         GeoCoordinateRepository $geoCoordinateRepository,
         ArInvoiceHelper $arInvoiceHelper,
@@ -111,7 +109,6 @@ class StoreAvailability implements ArgumentInterface
         $this->scopeConfig = $scopeConfig;
         $this->searchCriteria = $searchCriteria;
         $this->customerSession = $customerSession;
-        //$this->locationFactory = $locationFactory;
         $this->locationCollectionFactory = $locationCollectionFactory;
         $this->arInvoiceHelper = $arInvoiceHelper;
         $this->geoCoordinateRepository = $geoCoordinateRepository;
@@ -165,8 +162,7 @@ class StoreAvailability implements ArgumentInterface
     /**
      * Collect customer location information by zipcode available in the shipping address.
      *
-     * @return \Dyode\StoreLocator\Api\Data\GeoCoordinateInterface
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @return bool|\Dyode\StoreLocator\Api\Data\GeoCoordinateInterface
      */
     public function customerGeoCoordinate()
     {
