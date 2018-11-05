@@ -186,8 +186,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         if ($result->OK != true) {
             $this->arErrorLogs("GetCustomerContact",  "Failed to get customer contact details ". $restResponse->getBody()); 
 
-            $error  = $this->getErrorCodes($result->INFO);
-
             return false;
         }
         $this->arErrorLogs("GetCustomerContact", "Obtained Customer Details for id " . $cu_account); 
@@ -218,6 +216,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
         if ($result->OK != true) {
             $this->arErrorLogs("ValidateDP", "Failed to Verify Customer Details".$restResponse->getBody()); 
+
+            $error  = $this->getErrorCodes($result->INFO);
 
             return false;
         }
@@ -395,10 +395,18 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      * Function to get the error codes
      * @param string
      */
-    public function getErrorCodes( $codeInfo ){
+    public function getErrorCodes($codeInfo){
         $errorArr  = explode("[",$codeInfo );
+
+        $writer = new \Zend\Log\Writer\Stream(BP . "/var/log/Linkaccount.log");
+		$logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info("Params: " .  json_encode($errorArr));
+
         if($errorArr[0] == 'Authentication error') {
-            $errorCodes = explode(" ", trim ( str_replace("","]",trim($errorArr[1]) ) ));
+            $errorCodes = explode(" ", trim ( str_replace("]","",trim($errorArr[1]) ) ));
+            //$logger->info("Params: " .  json_encode($errorCodes));
+
             $errorMsg = 'Following fields are invalid ';
             $counter = 0;
             foreach($errorCodes as $code ){
@@ -413,11 +421,12 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                         case 'ZIP': $errorMsg .= 'Zipcode';
                                     break;
                     }
-                    if( $counter < count($errorCodes) )
+                    if( $counter < (count($errorCodes)-1) )
                         $errorMsg .= ' | ';
                 }
             }
-            throw new \Dyode\ARWebservice\Exception\ArResponseException($errorMsg , $e);
+        //    $logger->info("Params: " .  $errorMsg );
+            throw new \Dyode\ARWebservice\Exception\ArResponseException(__($errorMsg));
             
         }
     }
