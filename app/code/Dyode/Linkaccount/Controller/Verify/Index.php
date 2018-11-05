@@ -135,15 +135,20 @@ class Index extends Action
             }
 
             //Verify Credit Account Infm
-            $accountInfo   =  $this->_helper->verifyPersonalInfm($postData);
-            
-            if($accountInfo == false){
-                // Personal Infm failed
-                //$this->_messageManager->addErrorMessage(__('Verification failed [SSN /ZIP]'));
-                $resultRedirect->setPath('linkaccount/verify/index');
-                return $resultRedirect;
+            try{
+                $accountInfo   =  $this->_helper->verifyPersonalInfm($postData);
+            } 
+            catch(\Dyode\ARWebservice\Exception\ArResponseException $e){
+                $this->_messageManager->addErrorMessage($e->getMessage());
+                $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
+                return $resultRedirect->setUrl($defaultUrl);
             }
-
+            catch(Exception $e){
+                $this->_messageManager->addErrorMessage($e->getMessage());
+                $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
+                return $resultRedirect->setUrl($defaultUrl);
+            }
+         
             if ($customerId) {
                $customer = $this->_customerRepositoryInterface->getById($customerId);
                $customer->setCustomAttribute('curacaocustid', $curacaoCustId);
@@ -223,6 +228,7 @@ class Index extends Action
                     $errorMessage = $e->getMessage();
                     $this->messageManager->addErrorMessage($errorMessage);
                     $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
+                    return $resultRedirect->setUrl($defaultUrl);
                 }
             }
             
