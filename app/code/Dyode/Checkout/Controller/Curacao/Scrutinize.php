@@ -12,6 +12,7 @@
 
 namespace Dyode\Checkout\Controller\Curacao;
 
+use Dyode\ARWebservice\Exception\ArResponseException;
 use Dyode\ARWebservice\Helper\Data as ARWebserviceHelper;
 use Dyode\Checkout\Helper\CuracaoHelper;
 use Dyode\CheckoutDeliveryMethod\Model\DeliveryMethod;
@@ -177,6 +178,15 @@ class Scrutinize extends Action
                 $this->linkUser();
                 $this->collectUserCreditLimit();
                 return $this->successResponse();
+            } catch (ArResponseException $e) {
+                $result = $this->_resultFactory->create(ResultFactory::TYPE_JSON);
+                $result->setData([
+                    'message' => $e->getMessage(),
+                    'type'    => 'error',
+                ]);
+
+                return $result;
+
             } catch (\Exception $exception) {
                 return $this->verificationFailedResponse();
             }
