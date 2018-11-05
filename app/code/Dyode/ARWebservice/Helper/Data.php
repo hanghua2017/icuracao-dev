@@ -261,7 +261,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $this->auditLog->saveAuditLog([
             'user_id'     => "",
             'action'      => 'AR Customer Details Verification',
-            'description' => "AR Customer details verification success".$result->DATA,
+            'description' => "AR Customer details verification success".$restResponse->getBody(),
             'client_ip'   => "",
             'module_name' => "Dyode_ARWebservice",
         ]);
@@ -427,7 +427,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $this->auditLog->saveAuditLog([
             'user_id'     => "",
             'action'      => 'AR Customer Credit Limit',
-            'description' => "AR Customer Credit Limit success".$result->DATA,
+            'description' => "AR Customer Credit Limit success".$restResponse->getBody(),
             'client_ip'   => "",
             'module_name' => "Dyode_ARWebservice",
         ]);
