@@ -143,13 +143,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             return $this->zendClient->getResponse();
 
         } catch (\Zend\Http\Exception\RuntimeException $runtimeException) {
-            $this->auditLog->saveAuditLog([
-                'user_id'     => "",
-                'action'      => 'AR webservice',
-                'description' => "Fail to connect AR webservice",
-                'client_ip'   => "",
-                'module_name' => "Dyode_ARWebservice",
-            ]);
+            $this->arErrorLogs("GetCustomerContact", "Failed to connect AR webservice");
+
             $this->messageManager->addError(__('Please try after some time '));
             return false;
         }
@@ -175,44 +170,27 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
         //sending api request
         $params = ['cust_id' => $cu_account];
-        //Logging parameters to AR Webservice        
-         $this->auditLog->saveAuditLog([
-            'user_id'     => "",
-            'action'      => "Get AR Customer Contact",
-            'description' => "Parameters to AR webservice". $cu_account,
-            'client_ip'   => "",
-            'module_name' => "Dyode_ARWebservice",
-        ]);
+        
+        $this->arErrorLogs("GetCustomerContact", "Parameters to AR webservice". $cu_account);
 
         $restResponse = $this->arConnect('GetCustomerContact', $params);
 
         if (!$restResponse) {
+            $this->arErrorLogs("GetCustomerContact", "Not getting response from AR webservice"); 
+
             return false;
         }
 
         $result = json_decode($restResponse->getBody());
 
         if ($result->OK != true) {
+            $this->arErrorLogs("GetCustomerContact",  "Failed to get customer contact details ". $restResponse->getBody()); 
 
-            //logging audit log
-            $this->auditLog->saveAuditLog([
-                'user_id'     => "",
-                'action'      => 'Get AR Customer Contact',
-                'description' => "Fail to get customer contact". $restResponse->getBody(),
-                'client_ip'   => "",
-                'module_name' => "Dyode_ARWebservice",
-            ]);
+            $error  = $this->getErrorCodes($result->INFO);
+
             return false;
         }
-
-        //logging audit log
-        $this->auditLog->saveAuditLog([
-            'user_id'     => "",
-            'action'      => 'Get AR Customer Contact',
-            'description' => "Obtained Customer Contact for id " . $cu_account,
-            'client_ip'   => "",
-            'module_name' => "Dyode_ARWebservice",
-        ]);
+        $this->arErrorLogs("GetCustomerContact", "Obtained Customer Details for id " . $cu_account); 
 
         $custInfo = $result->DATA;
         return $custInfo;
@@ -229,42 +207,23 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $restResponse = $this->arConnect('ValidateDP', $customerDetails);
 
-        //Logging parameters to AR Webservice        
-        $this->auditLog->saveAuditLog([
-            'user_id'     => "",
-            'action'      => "ValidateDP",
-            'description' => "Parameters to AR webservice". json_encode($customerDetails),
-            'client_ip'   => "",
-            'module_name' => "Dyode_ARWebservice",
-        ]);
+        $this->arErrorLogs("ValidateDP", "Parameters to AR webservice". json_encode($customerDetails)); 
 
         if (!$restResponse) {
+            $this->arErrorLogs("ValidateDP", "Response is null"); 
             return false;
         }
 
         $result = json_decode($restResponse->getBody());
 
         if ($result->OK != true) {
+            $this->arErrorLogs("ValidateDP", "Failed to Verify Customer Details".$restResponse->getBody()); 
 
-            //logging audit log
-            $this->auditLog->saveAuditLog([
-                'user_id'     => "",
-                'action'      => 'AR Customer Details Verification',
-                'description' => "Fail to Verify Customer Details".$restResponse->getBody(),
-                'client_ip'   => "",
-                'module_name' => "Dyode_ARWebservice",
-            ]);
             return false;
         }
 
-        //logging audit log
-        $this->auditLog->saveAuditLog([
-            'user_id'     => "",
-            'action'      => 'AR Customer Details Verification',
-            'description' => "AR Customer details verification success".$restResponse->getBody(),
-            'client_ip'   => "",
-            'module_name' => "Dyode_ARWebservice",
-        ]);
+        $this->arErrorLogs("ValidateDP", "Verification success".$restResponse->getBody()); 
+       
         $verifiedResult = $result->DATA;
 
         return $verifiedResult;
@@ -285,8 +244,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $salt = 'ag#A\J9.u=j^v}X3';
         $code = rand(10000, 99999);
-       // $_phonenumber = '(832)977-1260';
-
+     
         $licenseKey = $this->getConfig('linkaccount/curacao/licensekey');
         $callerID = $this->getConfig('linkaccount/curacao/callerid');
         $wsdlUrl = $this->getConfig('linkaccount/curacao/phonewsdlurl');
@@ -332,7 +290,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             // $response = $soapClient->PlaceCall($params);
             // $result= $response->PlaceCallResult;
             if (isset($result->Error)) {
-                    return -1;
+                $this->arErrorLogs("Call", "Failed to place a call to ".$phoneNumber); 
+                return -1;
             }
 
             return trim(md5($salt . $code));
@@ -357,14 +316,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 return trim(md5($salt . $code));
 
             } catch (\Zend\Http\Exception\RuntimeException $runtimeException) {
-                $this->auditLog->saveAuditLog([
-                    'user_id'     => "",
-                    'action'      => 'AR webservice',
-                    'description' => "Fail to send SMS to ".$phoneNumber,
-                    'client_ip'   => "",
-                    'module_name' => "Dyode_ARWebservice",
-                ]);
-                
+
+                $this->arErrorLogs("SMS", "Fail to send SMS to ".$phoneNumber);              
                 return -1;
             }  
 
@@ -411,28 +364,61 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $result = json_decode($restResponse->getBody());
 
         if ($result->OK != 1) {
+            $this->arErrorLogs("AR Customer Credit Limit", "AR Customer Credit Limit Failed".$restResponse->getBody());
 
-            //logging audit log
-            $this->auditLog->saveAuditLog([
-                'user_id'     => "",
-                'action'      => 'AR Customer Credit Limit',
-                'description' => "AR Customer Credit Limit Failed ".$restResponse->getBody(),
-                'client_ip'   => "",
-                'module_name' => "Dyode_ARWebservice",
-            ]);
             return false;
         }
 
-        //logging audit log
-        $this->auditLog->saveAuditLog([
-            'user_id'     => "",
-            'action'      => 'AR Customer Credit Limit',
-            'description' => "AR Customer Credit Limit success".$restResponse->getBody(),
-            'client_ip'   => "",
-            'module_name' => "Dyode_ARWebservice",
-        ]);
+        $this->arErrorLogs("AR Customer Credit Limit", "AR Customer Credit Limit success".$restResponse->getBody());
 
         return $result->DATA;
     }
 
+    /**
+     * Function to send the AR message
+     * @param String
+     * @param String
+     */
+
+    public function arErrorLogs($action, $description){
+         //logging audit log
+         $this->auditLog->saveAuditLog([
+            'user_id'     => "",
+            'action'      => $action,
+            'description' => $description,
+            'client_ip'   => $_SERVER['REMOTE_ADDR'],
+            'module_name' => "Dyode_ARWebservice"
+        ]);
+    }
+
+    /**
+     * Function to get the error codes
+     * @param string
+     */
+    public function getErrorCodes( $codeInfo ){
+        $errorArr  = explode("[",$codeInfo );
+        if($errorArr[0] == 'Authentication error') {
+            $errorCodes = explode(" ", trim ( str_replace("","]",trim($errorArr[1]) ) ));
+            $errorMsg = 'Following fields are invalid ';
+            $counter = 0;
+            foreach($errorCodes as $code ){
+                if($code != ""){
+                    switch($code){
+                        case 'SSN': $errorMsg .= 'SSN';
+                                    break;
+                        case 'DOB': $errorMsg .= 'DOB';
+                                    break;
+                        case 'MAIDEN': $errorMsg .= 'Mothers Maiden Name';
+                                       break;
+                        case 'ZIP': $errorMsg .= 'Zipcode';
+                                    break;
+                    }
+                    if( $counter < count($errorCodes) )
+                        $errorMsg .= ' | ';
+                }
+            }
+            throw new \Dyode\ARWebservice\Exception\ArResponseException($errorMsg , $e);
+            
+        }
+    }
 }
