@@ -9,24 +9,25 @@
  * @date    12/07/2018
  * @copyright Copyright © Dyode
  */
+
 namespace Dyode\Checkout\Controller\Curacao;
 
-use Magento\Checkout\Api\PaymentInformationManagementInterface;
+use Dyode\ARWebservice\Helper\Data as ARWebserviceHelper;
+use Dyode\Checkout\Helper\CuracaoHelper;
+use Dyode\CheckoutDeliveryMethod\Model\DeliveryMethod;
+use Magento\Customer\Api\Data\CustomerInterface;
+use Magento\Customer\Model\ResourceModel\CustomerRepository;
+use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Encryption\EncryptorInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Pricing\Helper\Data as PriceHelper;
-use Magento\Store\Model\StoreManagerInterface;
-use Magento\Customer\Model\ResourceModel\CustomerRepository;
-use Magento\Customer\Model\Session as CustomerSession;
-use Magento\Customer\Api\Data\CustomerInterface;
-use Magento\Checkout\Model\Session as CheckoutSession;
+use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Model\QuoteIdMaskFactory;
-use Dyode\ARWebservice\Helper\Data as ARWebserviceHelper;
-use Dyode\Checkout\Helper\CuracaoHelper;
-use Dyode\Checkout\Model\InfoProcessor\SaveManager;
+use Magento\Store\Model\StoreManagerInterface;
+use Zend\Serializer\Adapter\Json;
 
 class Scrutinize extends Action
 {
@@ -39,11 +40,6 @@ class Scrutinize extends Action
      * @var \Magento\Framework\Controller\ResultFactory
      */
     protected $_resultFactory;
-
-    /**
-     * @var \Magento\Checkout\Model\Session
-     */
-    protected $_checkoutSession;
 
     /**
      * @var \stdClass
@@ -81,6 +77,16 @@ class Scrutinize extends Action
     protected $storeManager;
 
     /**
+     * @var \Magento\Quote\Api\CartRepositoryInterface
+     */
+    protected $quoteRepository;
+
+    /**
+     * @var \Magento\Quote\Model\QuoteIdMaskFactory
+     */
+    protected $quoteIdMaskFactory;
+
+    /**
      * @var boolean|string
      */
     protected $downPayment;
@@ -101,19 +107,9 @@ class Scrutinize extends Action
     protected $curacaoHelper;
 
     /**
-     * @var \Magento\Quote\Model\QuoteIdMaskFactory
+     * @var \Zend\Serializer\Adapter\Json
      */
-    protected $quoteIdMaskFactory;
-
-    /**
-     * @var \Dyode\Checkout\Model\InfoProcessor\SaveManager
-     */
-    protected $manager;
-
-    /**
-     * @var \Magento\Checkout\Api\PaymentInformationManagementInterface
-     */
-    protected $paymentInformationManagement;
+    protected $jsonHelper;
 
     /**
      * @var string
@@ -127,46 +123,43 @@ class Scrutinize extends Action
      * @param \Magento\Framework\Controller\ResultFactory $resultFactory
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Dyode\ARWebservice\Helper\Data $helper
-     * @param \Magento\Checkout\Model\Session $checkoutSession
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Customer\Model\ResourceModel\CustomerRepository $customerRepository
+     * @param \Magento\Quote\Api\CartRepositoryInterface $quoteRepository
+     * @param \Magento\Quote\Model\QuoteIdMaskFactory $quoteIdMaskFactory
      * @param \Magento\Customer\Api\Data\CustomerInterface $customerData
      * @param \Magento\Framework\Encryption\EncryptorInterface $encryptor
      * @param \Magento\Framework\Pricing\Helper\Data $priceHelper
      * @param \Dyode\Checkout\Helper\CuracaoHelper $curacaoHelper
-     * @param \Magento\Quote\Model\QuoteIdMaskFactory $quoteIdMaskFactory
-     * @param \Dyode\Checkout\Model\InfoProcessor\SaveManager $manager
-     * @param \Magento\Checkout\Api\PaymentInformationManagementInterface $paymentInformationManagement
+     * @param \Zend\Serializer\Adapter\Json $jsonHelper
      */
     public function __construct(
         Context $context,
         ResultFactory $resultFactory,
         StoreManagerInterface $storeManager,
         ARWebserviceHelper $helper,
-        CheckoutSession $checkoutSession,
         CustomerSession $customerSession,
         CustomerRepository $customerRepository,
+        CartRepositoryInterface $quoteRepository,
+        QuoteIdMaskFactory $quoteIdMaskFactory,
         CustomerInterface $customerData,
         EncryptorInterface $encryptor,
         PriceHelper $priceHelper,
         CuracaoHelper $curacaoHelper,
-        QuoteIdMaskFactory $quoteIdMaskFactory,
-        SaveManager $manager,
-        PaymentInformationManagementInterface $paymentInformationManagement
+        Json $jsonHelper
     ) {
         $this->_resultFactory = $resultFactory;
         $this->storeManager = $storeManager;
         $this->_helper = $helper;
-        $this->_checkoutSession = $checkoutSession;
         $this->_customerSession = $customerSession;
         $this->customerRepository = $customerRepository;
+        $this->quoteRepository = $quoteRepository;
+        $this->quoteIdMaskFactory = $quoteIdMaskFactory;
         $this->customerData = $customerData;
         $this->encryptor = $encryptor;
         $this->priceHelper = $priceHelper;
         $this->curacaoHelper = $curacaoHelper;
-        $this->quoteIdMaskFactory = $quoteIdMaskFactory;
-        $this->manager = $manager;
-        $this->paymentInformationManagement = $paymentInformationManagement;
+        $this->jsonHelper = $jsonHelper;
 
         parent::__construct($context);
     }
@@ -201,19 +194,29 @@ class Scrutinize extends Action
     public function validateUserInformation()
     {
         /** @var \Magento\Framework\DataObject $curacaoInfo */
-        $curacaoInfo = $this->_checkoutSession->getCuracaoInfo();
+        $curacaoInfo = $this->curacaoHelper->getCuracaoSessionInformation();
         $ssnLast = $this->getRequest()->getParam('ssn_last', false);
         $zipCode = $this->getRequest()->getParam('zip_code', false);
         $maidenName = $this->getRequest()->getParam('maiden_name', false);
         $dob = $this->getRequest()->getParam('date_of_birth', false);
-        $postData = array(
+        $amount = $this->collectCuracaoAmountToPass();
+        $postData = [
             'cust_id' => $curacaoInfo->getAccountNumber(),
-            'amount'  => 1, //this field is mandatory and hence put a sample value;
-            'ssn'     => $ssnLast,
-            'zip'     => $zipCode,
-            'dob'     => $dob,
-            'mmaiden' => $maidenName,
-        );
+            'amount'  => $amount, //this field is mandatory and hence put a sample value;
+        ];
+
+        if ($ssnLast) {
+            $postData['ssn'] = $ssnLast;
+        }
+        if ($zipCode) {
+            $postData['zip'] = $zipCode;
+        }
+        if ($maidenName) {
+            $postData['mmaiden'] = $maidenName;
+        }
+        if ($dob) {
+            $postData['dob'] = $dob;
+        }
 
         //send api call to collect user info.
         $verifyResult = $this->_helper->verifyPersonalInfm($postData);
@@ -244,7 +247,7 @@ class Scrutinize extends Action
     public function linkUser()
     {
         /** @var \Magento\Framework\DataObject $curacaoInfo */
-        $curacaoInfo = $this->_checkoutSession->getCuracaoInfo();
+        $curacaoInfo = $this->curacaoHelper->getCuracaoSessionInformation();
 
         if ($this->_customerSession->isLoggedIn()) {
             //linking curacao id to the logged in customer.
@@ -266,7 +269,7 @@ class Scrutinize extends Action
                 $customerData->setCustomAttribute($this->curacaoIdAttribute, $curacaoInfo->getAccountNumber());
 
                 //linking curacao id with the existing customer.
-                $this->customer = $this->customerRepository->save($customerData, $hashPassword);
+                $this->customer = $this->customerRepository->save($customerData);
             } catch (NoSuchEntityException $exception) {
                 //Confirmed customer is a guest; so let's create a new customer account for the user.
                 $this->customerData->setEmail($curacaoInfo->getEmailAddress())
@@ -282,7 +285,7 @@ class Scrutinize extends Action
         }
 
         $this->_customerSession->setCuracaoCustomerId($this->customer->getId());
-        $this->curacaoHelper->updateCuracaoSessionDetails(['is_user_linked' => true]);
+        $this->curacaoHelper->updateCuracaoSessionDetails(['is_user_linked' => true, 'is_credit_used' => true]);
         return $this;
     }
 
@@ -294,7 +297,7 @@ class Scrutinize extends Action
     public function collectUserCreditLimit()
     {
         /** @var \Magento\Framework\DataObject $curacaoInfo */
-        $curacaoInfo = $this->_checkoutSession->getCuracaoInfo();
+        $curacaoInfo = $this->curacaoHelper->getCuracaoSessionInformation();
 
         $creditLimitInfo = $this->_helper->getCreditLimit($curacaoInfo->getAccountNumber());
         $this->creditLimit = $this->priceHelper->currency(0.00, true, false);
@@ -351,5 +354,51 @@ class Scrutinize extends Action
         $output['curacaoInfo']['downPayment'] = $this->priceHelper->currency($this->downPayment, true, false);
 
         return $output;
+    }
+
+    /**
+     * Prepare curacao amount to be passed.
+     *
+     * Curacao Amount  = Current Base Grand Total + Aggregated Shipping Amount Calculated from Quote Items.
+     *
+     * @return int
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    protected function collectCuracaoAmountToPass()
+    {
+        $curacaoAmount = 1;
+        $shippingAmount = 0;
+        $cartId = $this->getRequest()->getParam('quote_id', false);
+
+        //if no quote_id in the request, then we don't want to proceed.
+        if (!$cartId) {
+            return $curacaoAmount;
+        }
+
+        //load active quote model
+        if (!$this->_customerSession->isLoggedIn()) {
+            $quoteIdMask = $this->quoteIdMaskFactory->create()->load($cartId, 'masked_id');
+            $cartId = $quoteIdMask->getQuoteId();
+        }
+        $quote = $this->quoteRepository->getActive($cartId);
+
+        //calculate total shipping amount by looping through the quote items.
+        foreach ($quote->getItems() as $quoteItem) {
+            if ($quoteItem->getProductType() === 'virtual'
+                || $quoteItem->getDeliveryType() != DeliveryMethod::DELIVERY_OPTION_SHIP_TO_HOME_ID
+            ) {
+                continue;
+            }
+
+            $shipmentData = $this->jsonHelper->unserialize($quoteItem->getShippingDetails());
+
+            if (isset($shipmentData['amount'])) {
+                $shippingAmount += $shipmentData['amount'];
+            }
+        }
+
+        $curacaoAmount = $quote->getBaseGrandTotal() + $shippingAmount;
+
+        return $curacaoAmount;
     }
 }

@@ -8,7 +8,7 @@
  */
 namespace Dyode\ShippingOrder\Model\Order;
 
-class Shipment extends \Magento\Framework\Model\AbstractModel// implements \Magento\Framework\DataObject\IdentityInterface
+class Shipment extends \Magento\Framework\Model\AbstractModel
 {
     /**
      * @var \Magento\Sales\Api\OrderRepositoryInterface
@@ -28,7 +28,7 @@ class Shipment extends \Magento\Framework\Model\AbstractModel// implements \Mage
     /**
      * Construct
      * 
-     * @param \Magento\Framework\Model\Context                                     $context
+     * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
      * @param \Magento\Sales\Model\Convert\Order $convertOrder
      * @param \Magento\Shipping\Model\ShipmentNotifier $shipmentNotifier
@@ -50,7 +50,6 @@ class Shipment extends \Magento\Framework\Model\AbstractModel// implements \Mage
     public function createShipment($orderId)
     {
         $order = $this->_orderRepository->get($orderId);
- 
         // to check order can ship or not
         if (!$order->canShip()) {
             throw new \Magento\Framework\Exception\LocalizedException(
@@ -74,7 +73,6 @@ class Shipment extends \Magento\Framework\Model\AbstractModel// implements \Mage
         $orderShipment->register();
         $orderShipment->getOrder()->setIsInProcess(true);
         try {
- 
             // Save created Order Shipment
             $orderShipment->save();
             $orderShipment->getOrder()->save();

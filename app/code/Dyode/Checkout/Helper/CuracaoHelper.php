@@ -9,6 +9,7 @@
  * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
  * @copyright Copyright © Dyode
  */
+
 namespace Dyode\Checkout\Helper;
 
 use Dyode\Checkout\Api\Data\ShippingInformationInterface;
@@ -82,6 +83,16 @@ class CuracaoHelper
     }
 
     /**
+     * Get curacao session information.
+     *
+     * @return \Magento\Framework\DataObject|null
+     */
+    public function getCuracaoSessionInformation()
+    {
+        return $this->checkoutSession->getCuracaoInfo();
+    }
+
+    /**
      * Prepare shipping carrier information from the quote items.
      *
      * @param string|int $quoteId
@@ -131,5 +142,21 @@ class CuracaoHelper
         }
 
         return $curacaoDownPayment;
+    }
+
+    /**
+     * Checks whether user is opted the curacao credit as one of it's payment option.
+     *
+     * @return bool
+     */
+    public function hasCuracaoCreditUsed()
+    {
+        $curacaoInfo = $this->getCuracaoSessionInformation();
+
+        if ($curacaoInfo && $curacaoInfo->getIsUserLinked() && $curacaoInfo->getIsCreditUsed()) {
+            return true;
+        }
+
+        return false;
     }
 }

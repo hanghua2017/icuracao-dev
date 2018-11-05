@@ -251,13 +251,17 @@
 							//Search auto searchautocomplete styling
 							.searchautocomplete__autocomplete._active {
 								text-align: left;
-								width: ~"calc(100% - 77px)" !important;
+
 								border: 1px solid @light-border-color !important;
+
+								@media all and (max-width:1024px) {
+									width: ~"calc(100% - 210px)" !important;
+								}
 								@media all and (max-width:768px) {
-									width: ~"calc(100% - 210px)";
+									width: ~"calc(100% - 77px)" !important;
 								}
 								@media all and (min-width:1025px) {
-									width: ~"calc(100% - 205px)" !important;
+									width: ~"calc(100% - 192px)" !important;
 								}
 
 								a.title {
@@ -1267,10 +1271,10 @@ html[lang="es"] {
 						left: 34px;
 					}
 					@media all and (min-width: 768px) {
-						margin: 10px 10px 0 0;
+						margin: 10px 15px 0 0;
 					}
 					@media all and (max-width: 767px) {
-						margin-right: 10px;
+						margin-right: 15px;
 					}
 					@media all and (max-width: 478px) {
 						.account-wrapper {
@@ -1304,6 +1308,22 @@ html[lang="es"] {
 							}
 						}
 					}
+				}
+			}
+			//Search auto searchautocomplete styling
+			.searchautocomplete__autocomplete._active {
+				text-align: left;
+
+				border: 1px solid @light-border-color !important;
+
+				@media all and (max-width:1024px) {
+					width: ~"calc(100% - 230px)" !important;
+				}
+				@media all and (max-width:768px) {
+					width: ~"calc(100% - 77px)" !important;
+				}
+				@media all and (min-width:1025px) {
+					width: ~"calc(100% - 226px)" !important;
 				}
 			}
 		}

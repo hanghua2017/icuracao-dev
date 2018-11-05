@@ -39,11 +39,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
      * @var \Dyode\Customerstatus\Helper\Data $customerStatusHelper
      **/
     protected $_customerStatusHelper;
-
-    /**
-     * @var \Dyode\Signifyd\Model\Signifyd $signifydModel
-     */
-    protected $_signifydModel;
     /**
      * @var \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface
      */
@@ -69,7 +64,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
      * @param \Magento\Sales\Model\ResourceModel\Order\Status\CollectionFactory $statusCollectionFactory
      * @param \Dyode\ArInvoice\Helper\Data $arInvoiceHelper
      * @param \Dyode\Customerstatus\Helper\Data $customerStatusHelper
-     * @param \Dyode\Signifyd\Model\Signifyd $signifydModel
      * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface
      * @param \Magento\Catalog\Model\ProductRepository $productRepository
      * @param \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
@@ -84,7 +78,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         \Magento\Sales\Model\ResourceModel\Order\Status\CollectionFactory $statusCollectionFactory,
         \Dyode\ArInvoice\Helper\Data $arInvoiceHelper,
         \Dyode\Customerstatus\Helper\Data $customerStatusHelper,
-        \Dyode\Signifyd\Model\Signifyd $signifydModel,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
         \Magento\Catalog\Model\ProductRepository $productRepository,
         \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
@@ -98,7 +91,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         $this->_statusCollectionFactory = $statusCollectionFactory;
         $this->_arInvoiceHelper = $arInvoiceHelper;
         $this->_customerStatusHelper = $customerStatusHelper;
-        $this->_signifydModel = $signifydModel;
         $this->_customerRepositoryInterface = $customerRepositoryInterface;
         $this->_productRepository = $productRepository;
         $this->auditLog = $auditLog;
@@ -129,7 +121,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         /**
          * Validating the Payment Method
          */
-        if (strpos($paymentMethod, 'authorizenet') !== false) {
+        if ((strpos($paymentMethod, 'authorizenet') !== false) || (strpos($paymentMethod, 'authnetcim') !== false)) {
             # Loading Transactional Details
             $amountAuthorized = $order->getPayment()->getAmountAuthorized();
             $orderTotal = $order->getGrandTotal();
@@ -218,7 +210,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             $itemQty = $item->getQtyOrdered();
             $itemPrice = $item->getPrice();
             $itemCost = $item->getBasePrice();
-            $pickup = ($item->getData('delivery_type') == 1) ? true : false;
+            $pickup = ($item->getData('delivery_type') == 2) ? true : false;
             $taxable = ($item->getTaxAmount() > 0) ? true : false;
             $itemId = $item->getId();
             $itemTaxAmount = $item->getTaxAmount();
@@ -239,7 +231,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                     "cost" => (double)$itemCost,
                     "taxable" => $taxable,
                     "webvendor" => (int)$vendorId,
-                    "from" => $itemsStoreLocation[$itemId],
+                    "from" => isset($itemsStoreLocation[$itemId]) ? $itemsStoreLocation[$itemId] : null,
                     "pickup" => $pickup,
                     "orditemid" => (int)$itemId,
                     "tax_amt" => (double)$itemTaxAmount,
@@ -286,20 +278,11 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                 $logger->info($createInvoiceResponse->INFO);
 
                 return true;
-            } else { # Create Invoice Response is true
+            } else if (!empty($createInvoiceResponse->OK)) { # Create Invoice Response is true
                 $estimateNumber = $invoiceNumber = $createInvoiceResponse->DATA->INV_NO;    # Save Estimate Number in Order
                 $order->setData('estimatenumber', $estimateNumber);
                 $order->addStatusToHistory($order->getStatus(), 'Estimate Number: ' . $estimateNumber);     # Add Comment to Order History
                 $order->save();
-
-                //generating magento invoice
-                if ($order->canInvoice()) {
-                    $invoice = $this->_invoiceService->prepareInvoice($order);
-                    $invoice->register();
-                    $invoice->save();
-                    $transactionSave = $this->_transaction->addObject($invoice)->addObject($invoice->getOrder());
-                    $transactionSave->save();
-                }
 
                 //logging audit log
                 $this->auditLog->saveAuditLog([
@@ -388,22 +371,26 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
          */
         $order = $this->_orderRepository->get($orderId);
         foreach ($order->getAllItems() as $orderItem) {
-            if ($orderItem->getParentItemId() == null) {
-                $orderItemsLocation[$orderItem->getItemId()] = $this->_arInvoiceHelper->assignInventoryLocation($orderItem);
-                if ($orderItemsLocation[$orderItem->getItemId()] == "k") {
-                    $orderItems[$orderItem->getItemId()] = array(
-                        "ProductId" => $orderItem->getProductId(),
-                        "ItemQty" => $orderItem->getQtyOrdered()
-                    );
-                    unset($orderItemsLocation[$orderItem->getItemId()]);
+            if (!$orderItem->getIsVirtual()) {
+                if ($orderItem->getParentItemId() == null) {
+                    $orderItemsLocation[$orderItem->getItemId()] = $this->_arInvoiceHelper->assignInventoryLocation($orderItem);
+                    if ($orderItemsLocation[$orderItem->getItemId()] == "k") {
+                        $orderItems[$orderItem->getItemId()] = array(
+                            "ProductId" => $orderItem->getProductId(),
+                            "ItemQty" => $orderItem->getQtyOrdered()
+                        );
+                        unset($orderItemsLocation[$orderItem->getItemId()]);
+                    }
                 }
             }
         }
+
         if (!empty($orderItems)) {
             $groupedItemsLocation = $this->_arInvoiceHelper->getGroupedLocation($order,$orderItems);
             $orderItemsLocation = $orderItemsLocation + $groupedItemsLocation;
             ksort($orderItemsLocation);
         }
+
         return $orderItemsLocation;
     }
 }

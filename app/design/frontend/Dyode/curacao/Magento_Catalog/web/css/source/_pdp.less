@@ -375,6 +375,33 @@
                   font-size: 20px;
                 }
               }
+              .product-info-stock-sku{
+                padding-left:0;
+                .stock{
+                  display: none;
+                }
+                .sku{
+                  font-family: "iCuracao-Regular";
+                  color:@sku-color;
+                  font-size:13px;
+                  padding:0;
+                  .type{
+                    display: inline-block;
+                    &:after{
+                      content:'';
+                    }
+                  }
+                  .value{
+                    max-height: initial;
+                    margin-bottom: 0;
+                    overflow: initial;
+                    display: inline-block;
+                  }
+                  .redirect-view-details{
+                    display: none;
+                  }
+                }
+              }
             }
             //Price beat link iconext-decoration: line-through;
             .price-beat-link {

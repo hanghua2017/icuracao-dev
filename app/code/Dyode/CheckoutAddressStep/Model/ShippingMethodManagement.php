@@ -9,12 +9,16 @@
  * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
  * @copyright Copyright © Dyode
  */
+
 namespace Dyode\CheckoutAddressStep\Model;
 
 use Dyode\CheckoutAddressStep\Api\Data\AddressInterface;
 use Dyode\CheckoutAddressStep\Api\ShipmentEstimationInterface;
+use Dyode\StoreLocator\Model\ResourceModel\GeoCoordinate\Collection;
+use Magento\Framework\DataObject;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Model\Quote;
+use Magento\Quote\Model\Quote\Item as QuoteItem;
 use Magento\Catalog\Model\ProductRepository;
 use Aheadworks\StoreLocator\Model\LocationFactory;
 use Dyode\CheckoutAddressStep\Helper\Data;
@@ -34,7 +38,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     /**
      * Zipcodes of all inventory locations of Curacao
      */
-    private $_allLocationsZipcodes = [
+    private $_allLocationsZipCodes = [
         '01' => 90015,
         '09' => 91402,
         '16' => 90280,
@@ -105,11 +109,24 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     protected $shipHelper;
 
     /**
+     * @var \Dyode\StoreLocator\Model\ResourceModel\GeoCoordinate\Collection
+     */
+    protected $geoCoordinateCollection;
+
+    /**
+     * Holds geo-locations corresponds to the available pickup stores.
+     *
+     * @var \Dyode\StoreLocator\Model\ResourceModel\GeoCoordinate\Collection
+     */
+    protected $storeLocations;
+
+    /**
      * ShippingMethodManagement constructor.
      *
-     * @param CartRepositoryInterface $quoteRepository
-     * @param ProductRepository $productRepository
-     * @param LocationFactory $locationFactory
+     * @param \Magento\Quote\Api\CartRepositoryInterface $quoteRepository
+     * @param \Magento\Catalog\Model\ProductRepository $productRepository
+     * @param \Aheadworks\StoreLocator\Model\LocationFactory $locationFactory
+     * @param \Dyode\CheckoutAddressStep\Helper\Data $shipHelper
      * @param \Dyode\ArInvoice\Helper\Data $distHelper
      * @param \Dyode\Pilot\Model\Carrier\Pilot $pilot
      * @param \Dyode\AdsMomentum\Model\Carrier\AdsMomentum $momentum
@@ -118,7 +135,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
      * @param \Magento\Framework\App\ResourceConnection $resourceConnection
      * @param \Magento\Shipping\Model\Config $shippingConfig
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-     * @param \Dyode\CheckoutAddressStep\Helper\Data $shipHelper
+     * @param \Dyode\StoreLocator\Model\ResourceModel\GeoCoordinate\Collection $geoCoordinateCollection
      */
     public function __construct
     (
@@ -133,7 +150,8 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         \Dyode\Checkout\Helper\Data $checkoutHelper,
         \Magento\Framework\App\ResourceConnection $resourceConnection,
         \Magento\Shipping\Model\Config $shippingConfig,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        Collection $geoCoordinateCollection
     ) {
         $this->quoteRepository = $quoteRepository;
         $this->_productRepository = $productRepository;
@@ -147,6 +165,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         $this->_shippingConfig = $shippingConfig;
         $this->_scopeConfig = $scopeConfig;
         $this->shipHelper = $shipHelper;
+        $this->geoCoordinateCollection = $geoCoordinateCollection;
     }
 
     /**
@@ -174,242 +193,69 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     private function collectShippingInfo(Quote $quote, $address)
     {
         $shippingInfo = [];
-        // Get shipping zipcode
-        $zipcode = $address->getZipCode();
-        // Get all quote items 
+        $zipCode = $address->getZipCode();
         $quoteItems = $quote->getAllItems();
-        // Check if quoteitems available
+
         if (!empty($quoteItems)) {
             foreach ($quoteItems as $quoteItem) {
 
-                if($quoteItem->getIsVirtual())  continue;
+                if ($quoteItem->getProductType() === 'virtual') {
+                    continue;
+                }
 
-                # Get the delivery type and  quote item id and decide corresponding logic
                 $quoteItemId = $quoteItem->getItemId();
                 $deliveryType = $quoteItem->getDeliveryType();
 
-                # store shipping/store location details to correponding quote item id
                 if ($deliveryType == self::DELIVERY_OPTION_SHIP_TO_HOME_ID) {
-                    $shippingInfo[$quoteItemId] = $this->getShippingMethods($quoteItem, $zipcode);
+                    $shippingInfo[$quoteItemId] = $this->getShippingMethods($quoteItem, $zipCode);
                 }
 
                 if ($deliveryType == self::DELIVERY_OPTION_STORE_PICKUP_ID) {
-                        $storeId = $quoteItem->getPickupLocation();
-                        $shippingInfo[$quoteItemId] = $this->getPickupStoreDetails($storeId, $quoteItemId);
+                    $storeId = $quoteItem->getPickupLocation();
+                    $shippingInfo[$quoteItemId] = $this->getPickupStoreDetails($storeId, $quoteItemId);
                 }
 
             }
-            # Return shipping method details in JSON format
-            return $shippingInfo;
         }
+
+        return $shippingInfo;
     }
 
     /**
      * Get shipping methods according to the isfreight attribute and Distance
      *
-     * @param $quoteItem
-     * @param $zipcode
+     * @param \Magento\Quote\Model\Quote\Item $quoteItem
+     * @param $zipCode
      * @return array
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    private function getShippingMethods($quoteItem, $zipcode)
+    private function getShippingMethods($quoteItem, $zipCode)
     {
-        // Default Shipment Config
-        $rate = self::DEFAULT_SHIPPING_RATE;
-        // Get shipping carrier details
-        $shippingConfig = $this->getCarriersConfig();
-        // Get Latitude and Longitude of selected Address
-        $shipCoordinates = $this->_locationRepo->getById($zipcode);
-        $shipLat = $shipCoordinates->getLat();
-        $shipLong = $shipCoordinates->getLng();
-       
-        // Get quote item id
-        $quoteItemId = $quoteItem->getItemId();
-        // Get product Id from quote item 
-        $productId = $quoteItem->getProductId();
-        // Load product information using product id 
-        $product = $this->getProductById($productId);
-        $productWeight = $product->getWeight();
-        $productPrice = $product->getPrice();
-        // Check if product is Freight item if so use ADS momentum or Pilot
-        if ($product->getIsfreight()) {
+        $shipCoordinates = $this->_locationRepo->getById($zipCode);
+        $product = $this->getProductById($quoteItem->getProductId());
 
-            /**
-             * Find distance between destination and all store locations
-             * and see if its less than 80 km for any of them.
-             */
-            if ($this->isDomestic($shipLat, $shipLong)) {
-                
-                // ADS Momentum
-                $adsCarrierDetails = $shippingConfig[$this->_momentum->getCode()];
-                $carrierCode = $this->_momentum->getCode();
-                $carrierMethodCode = $this->_momentum->getCode();
-                $carrierTitle = $adsCarrierDetails['title'];
-                $carrierName = $adsCarrierDetails['name'];
-
-                // Check if momentum and calculate rate
-                if ($this->_checkoutHelper->checkMomentum($zipcode) && $productWeight) {
-                    $rate = $this->_checkoutHelper->setQuoteItemPrice($zipcode,$productWeight);
-                }
-            } else {
-                // Pilot
-                $pilotDetails = $shippingConfig[$this->_pilot->getCode()];
-                // Prepare shipment data
-                $carrierCode = $this->_momentum->getCode();
-                $carrierMethodCode = $this->_momentum->getCode();
-                $carrierTitle = $pilotDetails['title'];
-                $carrierName = $pilotDetails['name'];
-                $rate = $this->_pilot->getPilotRatesSoap('90001', $zipcode);
+        if ($product->getFreight()) {
+            if ($this->isDomestic($shipCoordinates->getLat(), $shipCoordinates->getLng())) {
+                return $this->adsMomentumShippingDetails($quoteItem, $product, $zipCode);
             }
-        } else {
-            // Item is not freight so use USPS and UPS 
-            $upsWith = 3;
-            $adsSwitch = 88;
-            $toCity = $shipCoordinates->getCity();
-            $toState = $shipCoordinates->getAbbr();
-            if(in_array($toState, ['CA','NV','AZ'])){
-                $upsWith = 11;
-                $adsSwitch = 133;
-            }
-            //Check for USPS
-            switch(true){
-                case (( $productWeight < $upsWith ) && ($productPrice < self::USPS_PRICE_LIMIT)):
-                    $carrierCode = 'usps';
-                    $carrierMethodCode = 'usps';
-                    $carrierTitle = 'USPS';
-                    $carrierName = 'Priority';
-                    $rate = $this->shipHelper->getUSPSRates($zipcode,$productWeight);
-                    break;
-                case (( $productWeight < $upsWith ) && ($productPrice > self::USPS_PRICE_LIMIT)):
-                    
-                    //Get the shipping methods for ups
-                    $shippingMethods = $this->shipHelper->getUPSRates($zipcode,$productWeight);
-                    $deliverymethods = $this->prepareUpsShippingData($shippingMethods,$quoteItemId);
-                    
-                    return [
-                        'quote_item_id'    => $quoteItemId,
-                        'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
-                        'delivery_methods' => $deliverymethods,
-                    ];
-                    break;
-                case (( $productWeight >= $upsWith ) && $productWeight < $adsSwitch) :
-                     //Get the shipping methods for ups
-                     $shippingMethods = $this->shipHelper->getUPSRates($zipcode,$productWeight);
-                     $deliverymethods = $this->prepareUpsShippingData($shippingMethods,$quoteItemId);
-                     
-                     return [
-                         'quote_item_id'    => $quoteItemId,
-                         'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
-                         'delivery_methods' => $deliverymethods,
-                     ];
-                    break;
-                case (( $productWeight >= $adsSwitch ) && $productWeight < 150 ):
-                     //Get the shipping methods for ups
-                     $shippingMethods = $this->shipHelper->getUPSRates($zipcode,$productWeight);
-                     $deliverymethods = $this->prepareUpsShippingData($shippingMethods,$quoteItemId);
-                     
-                     return [
-                         'quote_item_id'    => $quoteItemId,
-                         'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
-                         'delivery_methods' => $deliverymethods,
-                     ];
-                    break;
-                default:
-                    $shippingMethods = $this->shipHelper->getUPSRates($zipcode,$productWeight);
-                    $deliverymethods  = $this->prepareUpsShippingData($shippingMethods,$quoteItemId);
-                    
-                    return [
-                        'quote_item_id'    => $quoteItemId,
-                        'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
-                        'delivery_methods' => $deliverymethods
-                    ];
 
-                    
-                }
-                      
+            return $this->pilotShippingDetails($quoteItem, $product, $zipCode);
         }
 
-        return [
-            'quote_item_id'    => $quoteItemId,
-            'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
-            'delivery_methods' => [
-                [
-                    'quote_item_id'  => $quoteItemId,
-                    "carrier_code"   => $carrierCode,
-                    "method_code"    => $carrierMethodCode,
-                    "carrier_title"  => $carrierTitle,
-                    "method_title"   => $carrierName,
-                    "amount"         => $rate,
-                    "base_amount"    => $rate,
-                    "available"      => true,
-                    "error_message"  => "",
-                    "price_excl_tax" => 5,
-                    "price_incl_tax" => 5,
-                ],
-            ],
-        ];
+        $upsWith = 3;
+        $toState = $shipCoordinates->getAbbr();
+        if (in_array($toState, ['CA', 'NV', 'AZ'])) {
+            $upsWith = 11;
+        }
+
+        if (($product->getWeight() < $upsWith) && ($product->getPrice() < self::USPS_PRICE_LIMIT)) {
+            return $this->uspsShippingDetails($quoteItem, $product, $zipCode);
+        }
+
+        return $this->upsShippingDetails($quoteItem, $product, $zipCode);
     }
 
-    /**
-    * Prepare Shipping method data for UPS to checkout
-    */
-    protected function prepareUpsShippingData($shippingMethods,$quoteItemId)
-    {
-        $deliverymethods = array();
-        
-        foreach($shippingMethods as $method){
-            switch($method['UPSCode']){
-                case '03':
-                            $deliverymethods[] = [
-                                'quote_item_id'  => $quoteItemId,
-                                "carrier_code"   => 'ups',
-                                "method_code"    => 'GND',
-                                "carrier_title"  => 'UPS',
-                                "method_title"   => 'GROUND',
-                                "amount"         => $method['Rate'],
-                                "base_amount"    => $method['Rate'],
-                                "available"      => true,
-                                "error_message"  => "",
-                                "price_excl_tax" => 5,
-                                "price_incl_tax" => 5,
-                            ];
-                          break;
-                case '12':
-                            $deliverymethods[] = [
-                                'quote_item_id'  => $quoteItemId,
-                                "carrier_code"   => 'ups',
-                                "method_code"    => '2DA',
-                                "carrier_title"  => 'UPS',
-                                "method_title"   => '2nd Day',
-                                "amount"         => $method['Rate'],
-                                "base_amount"    => $method['Rate'],
-                                "available"      => true,
-                                "error_message"  => "",
-                                "price_excl_tax" => 5,
-                                "price_incl_tax" => 5,
-                            ];
-                          break;
-                case '02':
-                            $deliverymethods[] = [
-                                'quote_item_id'  => $quoteItemId,
-                                "carrier_code"   => 'ups',
-                                "method_code"    => '3DS',
-                                "carrier_title"  => 'UPS',
-                                "method_title"   => '3 Days',
-                                "amount"         => $method['Rate'],
-                                "base_amount"    => $method['Rate'],
-                                "available"      => true,
-                                "error_message"  => "",
-                                "price_excl_tax" => 5,
-                                "price_incl_tax" => 5,
-                            ];
-                          break;
-            }
-            
-        }
-        return $deliverymethods;
-    }
     /**
      * Get store locations according to store id
      *
@@ -419,9 +265,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     private function getPickupStoreDetails($store_location_id, $quoteItemId)
     {
         $location = $this->_locationFactory->create();
-        // Get corresponding location Data
         $locationData = $location->load($store_location_id, self::STORE_LOCATION_CODE)->getData();
-        // Return location details as json
 
         return [
             'delivery_option'  => 'store_pickup',
@@ -451,15 +295,12 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
      */
     private function isDomestic($shippingZipCodeLat, $shippingZipCodeLng)
     {
-        foreach ($this->_allLocationsZipcodes as $locationCode => $zipCode) {
-            $query = "SELECT * FROM `locations` WHERE `zip` = $zipCode ";
-            $resourceConnection = $this->_resourceConnection->getConnection();
-            $result = $resourceConnection->fetchAll($query);
-            if ($result) {
-                $storeZipCodeLat = $result[0]['lat'];
-                $storeZipCodeLng = $result[0]['lng'];
+        foreach ($this->_allLocationsZipCodes as $locationCode => $zipCode) {
+            $storeLocation = $this->storeLocationsList()->getItemById($zipCode);
+
+            if ($storeLocation) {
                 $distance = $this->_distHelper->getDistance(
-                    $shippingZipCodeLat, $shippingZipCodeLng, $storeZipCodeLat, $storeZipCodeLng
+                    $shippingZipCodeLat, $shippingZipCodeLng, $storeLocation->getLat(), $storeLocation->getLng()
                 );
 
                 if (round($distance) <= 80) {
@@ -467,6 +308,23 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
                 }
             }
         }
+
+        return false;
+    }
+
+    /**
+     * @return \Dyode\StoreLocator\Model\ResourceModel\GeoCoordinate\Collection
+     */
+    protected function storeLocationsList()
+    {
+        if (!$this->storeLocations) {
+            $this->storeLocations = $this->geoCoordinateCollection
+                ->addFieldToFilter('zip', ['in' => $this->_allLocationsZipCodes])
+                ->setPageSize(count($this->_allLocationsZipCodes))
+                ->setCurPage(1);
+        }
+
+        return $this->storeLocations;
     }
 
     /**
@@ -490,5 +348,227 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     private function getProductById($id)
     {
         return $this->_productRepository->getById($id);
+    }
+
+    /**
+     * Prepare ADS Momentum shipping details.
+     *
+     * @param \Magento\Quote\Model\Quote\Item $quoteItem
+     * @param $product
+     * @param string|int $zipCode
+     * @return array
+     */
+    protected function adsMomentumShippingDetails(QuoteItem $quoteItem, $product, $zipCode)
+    {
+        $shippingConfig = $this->getCarriersConfig();
+        $productWeight = $product->getWeight();
+        $momentumCode = $this->_momentum->getCode();
+        $adsCarrierDetails = $shippingConfig[$momentumCode];
+        $carrierTitle = $adsCarrierDetails['title'];
+        $carrierName = $adsCarrierDetails['name'];
+        $rate = self::DEFAULT_SHIPPING_RATE;
+
+        // Check if momentum and calculate rate
+        if ($this->_checkoutHelper->checkMomentum($zipCode) && $productWeight) {
+            $rate = $this->_checkoutHelper->setQuoteItemPrice($zipCode, $productWeight);
+        }
+
+        $shippingData = new DataObject([
+            'quote_item_id'  => $quoteItem->getItemId(),
+            'carrier_code'   => $momentumCode,
+            'method_code'    => $momentumCode,
+            'carrier_title'  => $carrierTitle,
+            'method_title'   => $carrierName,
+            'amount'         => $rate,
+            'base_amount'    => $rate,
+            'available'      => true,
+            'error_message'  => '',
+            'price_excl_tax' => '',
+            'price_incl_tax' => '',
+
+        ]);
+
+        return $this->prepareShippingInfo($shippingData);
+    }
+
+    /**
+     * Prepare Pilot shipping method details.
+     *
+     * @param \Magento\Quote\Model\Quote\Item $quoteItem
+     * @param \Magento\Catalog\Model\Product $product
+     * @param string|int $zipCode
+     * @return array
+     */
+    protected function pilotShippingDetails(QuoteItem $quoteItem, $product, $zipCode)
+    {
+        $shippingConfig = $this->getCarriersConfig();
+        $pilotCode = $this->_pilot->getCode();
+        $pilotDetails = $shippingConfig[$pilotCode];
+        $carrierTitle = $pilotDetails['title'];
+        $carrierName = $pilotDetails['name'];
+        if($product->getWeight() != null)
+            $productWeight = $product->getWeight();
+               
+        $rate = $this->_pilot->getPilotRatesSoap('90001', $zipCode, $productWeight);
+        
+
+        $shippingData = new DataObject([
+            'quote_item_id'  => $quoteItem->getItemId(),
+            'carrier_code'   => $pilotCode,
+            'method_code'    => $pilotCode,
+            'carrier_title'  => $carrierTitle,
+            'method_title'   => $carrierName,
+            'amount'         => $rate,
+            'base_amount'    => $rate,
+            'available'      => true,
+            'error_message'  => '',
+            'price_excl_tax' => '',
+            'price_incl_tax' => '',
+
+        ]);
+
+        return $this->prepareShippingInfo($shippingData);
+    }
+
+    /**
+     * Prepare USPS shipping method information.
+     *
+     * @param \Magento\Quote\Model\Quote\Item $quoteItem
+     * @param $product
+     * @param string|int $zipCode
+     * @return array
+     */
+    protected function uspsShippingDetails(QuoteItem $quoteItem, $product, $zipCode)
+    {
+        $carrierCode = 'usps';
+        $carrierTitle = __('USPS');
+        $carrierName = __('Priority');
+        $productWeight = $product->getWeight();
+        $rate = $this->shipHelper->getUSPSRates($zipCode, $productWeight);
+
+        $shippingData = new DataObject([
+            'quote_item_id'  => $quoteItem->getItemId(),
+            'carrier_code'   => $carrierCode,
+            'method_code'    => $carrierCode,
+            'carrier_title'  => $carrierTitle,
+            'method_title'   => $carrierName,
+            'amount'         => $rate,
+            'base_amount'    => $rate,
+            'available'      => true,
+            'error_message'  => '',
+            'price_excl_tax' => '',
+            'price_incl_tax' => '',
+
+        ]);
+
+        return $this->prepareShippingInfo($shippingData);
+    }
+
+    /**
+     * Prepare UPS shipping method information.
+     *
+     * @param \Magento\Quote\Model\Quote\Item $quoteItem
+     * @param $product
+     * @param string|int $zipCode
+     * @return array
+     */
+    protected function upsShippingDetails(QuoteItem $quoteItem, $product, $zipCode)
+    {
+        $productWeight = $product->getWeight();
+        $shippingMethods = $this->shipHelper->getUPSRates($zipCode, $productWeight);
+        $deliveryMethods = $this->prepareUpsShippingData($shippingMethods, $quoteItem->getItemId());
+
+        return [
+            'quote_item_id'    => $quoteItem->getItemId(),
+            'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
+            'delivery_methods' => $deliveryMethods,
+        ];
+    }
+
+    /**
+     * Prepare Shipping method data for UPS to checkout
+     *
+     * @param $shippingMethods
+     * @param $quoteItemId
+     * @return array
+     */
+    protected function prepareUpsShippingData($shippingMethods, $quoteItemId)
+    {
+        $deliveryMethods = [];
+
+        foreach ($shippingMethods as $method) {
+            switch ($method['UPSCode']) {
+                case '03':
+                    $deliveryMethods[] = [
+                        'quote_item_id' => $quoteItemId,
+                        "carrier_code"  => 'ups',
+                        "method_code"   => 'GND',
+                        "carrier_title" => 'UPS',
+                        "method_title"  => 'GROUND',
+                        "amount"        => $method['Rate'],
+                        "base_amount"   => $method['Rate'],
+                        "available"     => true,
+                        "error_message" => '',
+                    ];
+                    break;
+                case '12':
+                    $deliveryMethods[] = [
+                        'quote_item_id' => $quoteItemId,
+                        "carrier_code"  => 'ups',
+                        "method_code"   => '2DA',
+                        "carrier_title" => 'UPS',
+                        "method_title"  => '2nd Day',
+                        "amount"        => $method['Rate'],
+                        "base_amount"   => $method['Rate'],
+                        "available"     => true,
+                        "error_message" => '',
+                    ];
+                    break;
+                case '02':
+                    $deliveryMethods[] = [
+                        'quote_item_id' => $quoteItemId,
+                        "carrier_code"  => 'ups',
+                        "method_code"   => '3DS',
+                        "carrier_title" => 'UPS',
+                        "method_title"  => '3 Days',
+                        "amount"        => $method['Rate'],
+                        "base_amount"   => $method['Rate'],
+                        "available"     => true,
+                        "error_message" => '',
+                    ];
+                    break;
+            }
+
+        }
+        return $deliveryMethods;
+    }
+
+    /**
+     * Prepare the shipping array response from the shipping data object.
+     *
+     * @param \Magento\Framework\DataObject $shippingMethodInfo
+     * @return array
+     */
+    protected function prepareShippingInfo(DataObject $shippingMethodInfo)
+    {
+        return [
+            'quote_item_id'    => $shippingMethodInfo->getQuoteItemId(),
+            'delivery_option'  => self::DELIVERY_OPTION_SHIP_TO_HOME,
+            'delivery_methods' => [
+                [
+                    'quote_item_id'  => $shippingMethodInfo->getQuoteItemId(),
+                    "carrier_code"   => $shippingMethodInfo->getCarrierCode(),
+                    "method_code"    => $shippingMethodInfo->getMethodCode(),
+                    "carrier_title"  => $shippingMethodInfo->getCarrierTitle(),
+                    "method_title"   => $shippingMethodInfo->getMethodTitle(),
+                    "amount"         => $shippingMethodInfo->getAmount(),
+                    "base_amount"    => $shippingMethodInfo->getBaseAmount(),
+                    "available"      => $shippingMethodInfo->getAvailable(),
+                    "error_message"  => $shippingMethodInfo->getErrorMessage(),
+                    "price_excl_tax" => $shippingMethodInfo->getPriceExclTax(),
+                    "price_incl_tax" => $shippingMethodInfo->getPriceInclTax(),
+                ],
+            ],
+        ];
     }
 }

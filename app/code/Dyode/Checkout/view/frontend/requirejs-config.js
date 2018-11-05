@@ -24,6 +24,9 @@ var config = {
             },
             'Magento_Checkout/js/view/progress-bar': {
                 'Dyode_Checkout/js/mixin/progress-bar-mixin': true
+            },
+            'Magento_Tax/js/view/checkout/summary/tax': {
+                'Dyode_Checkout/js/mixin/summary/tax-mixin': true
             }
         }
     }

@@ -52,7 +52,6 @@ class Index extends Action {
           $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
           $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
           $connection = $resource->getConnection();
-          $tableName = $resource->getTableName('locations');
           $selectedStore = '';
 
           $storelocTable = $resource->getTableName('aw_storelocator_location');
@@ -63,7 +62,7 @@ class Index extends Action {
           $media_url = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
 
           $address ='';
-          foreach($result as $key=>$value){
+          foreach ($result as $key=>$value) {
              $imageUrl = 'aheadworks/store_locator/'.$value['image'];
              $address .= $value['city'].", ".$value['street'].", ".$value['zip'];
              $selectedStore .= '<div class="left"><img src="'.$media_url.$imageUrl.'"></div>';
@@ -76,7 +75,7 @@ class Index extends Action {
 
           $sql = "UPDATE ". $quoteTable." SET `delivery_type` = '1', `pickup_location` = '".$locationId ."', pickup_location_address = '". $address. "' WHERE `item_id` =".$itemId;
           $result = $connection->query($sql);
-          if($result)
+          if ($result)
             echo json_encode($selectedStore);
           else
             echo 0;
@@ -85,4 +84,3 @@ class Index extends Action {
       endif;
   }
 }
-?>

@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Dyode_BannerSlider Magento2 Module.
+ *
+ * Extending Magestore_Bannerslider
+ *
+ * @package Dyode
+ * @module  Dyode_Catalog
+ * @author  Nithin <nithin@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Dyode_BannerSlider" setup_version="1.0.5">
+        <sequence>
+            <module name="Magestore_Bannerslider" />
+            <module name="Magento_Cms" />
+        </sequence>
+    </module>
+</config>

@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Dyode_CuracaoPayment Magento2 Module.
+ *
+ * Provide the facility: curacao custom payment method
+ *
+ * @package   Dyode
+ * @module    Dyode_CuracaoPayment
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<payment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Payment:etc/payment.xsd">
+	<groups>
+		<group id="offline">
+			<label>Offline Payment Methods</label>
+		</group>
+	</groups>
+	<methods>
+		<method name="curacaofullpayment">
+			<allow_multiple_address>1</allow_multiple_address>
+		</method>
+	</methods>
+</payment>

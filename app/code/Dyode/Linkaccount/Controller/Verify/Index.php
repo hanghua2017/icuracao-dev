@@ -93,13 +93,19 @@ class Index extends Action
     public function execute()
     {
         $postVariables = (array) $this->getRequest()->getPost();
-
+        
         if(!empty($postVariables)){
           
             $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
             $websiteId = $this->_storeManager->getStore()->getWebsiteId();
-            $customerId ='';
             $customerInfo  = $this->_customerSession->getCuracaoInfo();
+            $customerId ='';
+            
+
+            if(empty($customerInfo) && !isset($customerInfo)){
+                $this->messageManager->addErrorMessage('Please enter the Curacao Id');
+                $defaultUrl = $this->urlModel->getUrl('customer/account/create/', ['_secure' => true]);
+            }
 
             //Get Customer Id
             if($this->_customerSession->isLoggedIn()){
@@ -111,20 +117,25 @@ class Index extends Action
             $dob = trim($postVariables['calendar_inputField']);
             $ssnLast = trim($postVariables['ssn-verify']);
             $maidenName = trim($postVariables['link_maiden']);
+            $postData = array();
+            $postData['cust_id']  =  $curacaoCustId;
 
-            
-            $postData = array(
-                'cust_id' => $curacaoCustId,
-                'dob'=>$dob,
-                'amount' => 1,
-                'ssn'=>$ssnLast,
-                'zip'=> $zipCode,
-                'mmaiden'=>$maidenName
-            );
-            
+            if(isset($ssnLast)){
+                $postData['ssn']  =  $ssnLast;
+                $postData['dob']  =  $dob;
+            } else {
+                if(isset($maidenName)){
+                    if(isset($zipCode)){
+                        $postData['zip']  =  $zipCode;
+                    } else if(isset($dob)) {
+                        $postData['dob']  =  $dob;
+                    }
+                } 
+            }
+
             //Verify Credit Account Infm
             $accountInfo   =  $this->_helper->verifyPersonalInfm($postData);
-            $accountInfo = true;
+            
             if($accountInfo == false){
                 // Personal Infm failed
                 //$this->_messageManager->addErrorMessage(__('Verification failed [SSN /ZIP]'));
@@ -168,41 +179,39 @@ class Index extends Action
                 }
                 $customerId = $customer->getId();
              }
-           
              $zipCode  = str_replace('-','',$customerInfo->getZipCode());//clearn up zip code
 
              //assign what region the state is in
-             switch($customerInfo->getState())
-             {
-                     case 'AZ' : $reg_id = 4; break;
-                     case 'CA' : $reg_id = 12; break;
-                     case 'NV' : $reg_id = 39; break;
-                     default   : $reg_id = 12; break;
-             }
+            switch($customerInfo->getState())
+            {
+                case 'AZ' : $reg_id = 4; break;
+                case 'CA' : $reg_id = 12; break;
+                case 'NV' : $reg_id = 39; break;
+                default   : $reg_id = 12; break;
+            }
              //safe information t an array
-             $_custom_address = array(
-                                    'firstname' => $customerInfo->getFirstName(),
-                                    'lastname' => $customerInfo->getFirstName(),
-                                    'street' => array('0' => $customerInfo->getStreet(), '1' => '',),
-                                    'city' => $customerInfo->getCity(),
-                                    'region_id' => $reg_id,
-                                    'postcode' => $zipCode,
-                                    'country_id' => 'US',
-                                    'telephone' => $customerInfo->getTelephone()
-                                );
+            $_custom_address = array(
+                'firstname' => $customerInfo->getFirstName(),
+                'lastname' => $customerInfo->getFirstName(),
+                'street' => array('0' => $customerInfo->getStreet(), '1' => '',),
+                'city' => $customerInfo->getCity(),
+                'region_id' => $reg_id,
+                'postcode' => $zipCode,
+                'country_id' => 'US',
+                'telephone' => $customerInfo->getTelephone()
+            );
 
-                           
             //get the customer address model and update the address information
             if($customerId){
                 $customAddress = $this->_addressFactory->create();
-                $customAddress  ->setData($_custom_address)
-                                ->setCustomerId($customerId)
-                                ->setIsDefaultBilling('1')
-                                ->setIsDefaultShipping('1')
-                                ->setSaveInAddressBook('1');
+                $customAddress->setData($_custom_address)
+                    ->setCustomerId($customerId)
+                    ->setIsDefaultBilling('1')
+                    ->setIsDefaultShipping('1')
+                    ->setSaveInAddressBook('1');
    
                 try{
-                      $customAddress->save();
+                    $customAddress->save();
                     //  $customer->setAddress($customAddress);
                     //  $customer->save();
                      
@@ -213,14 +222,11 @@ class Index extends Action
                     $errorMessage = $e->getMessage();
                     $this->messageManager->addErrorMessage($errorMessage);
                     $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
-       
                 }
             }
             
 
           }
-       return $this->_resultPageFactory->create();
+        return $this->_resultPageFactory->create();
     }
-
-
 }

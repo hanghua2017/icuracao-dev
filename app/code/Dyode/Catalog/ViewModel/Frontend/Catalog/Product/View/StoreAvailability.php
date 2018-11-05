@@ -15,7 +15,8 @@ namespace Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View;
 
 use Aheadworks\StoreLocator\Helper\Image as AheadImageHelper;
 use Aheadworks\StoreLocator\Model\Location;
-use Aheadworks\StoreLocator\Model\LocationFactory;
+//use Aheadworks\StoreLocator\Model\LocationFactory;
+use Aheadworks\StoreLocator\Model\ResourceModel\Location\CollectionFactory;
 use Dyode\ArInvoice\Helper\Data as ArInvoiceHelper;
 use Dyode\StoreLocator\Model\GeoCoordinateRepository;
 use Magento\Customer\Model\Session;
@@ -57,6 +58,11 @@ class StoreAvailability implements ArgumentInterface
     protected $locationFactory;
 
     /**
+     * @var \Aheadworks\StoreLocator\Model\ResourceModel\Location\CollectionFactory
+     */
+    protected $locationCollectionFactory;
+
+    /**
      * @var \Dyode\StoreLocator\Api\Data\GeoCoordinateInterface
      */
     protected $customerGeoCoordinate;
@@ -85,18 +91,19 @@ class StoreAvailability implements ArgumentInterface
      * StoreAvailability constructor.
      *
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-     * @param \Magento\Framework\Api\SearchCriteriaInterface     $searchCriteria
-     * @param \Magento\Customer\Model\Session                    $customerSession
-     * @param \Aheadworks\StoreLocator\Model\LocationFactory     $locationFactory
-     * @param \Dyode\StoreLocator\Model\GeoCoordinateRepository  $geoCoordinateRepository
-     * @param \Dyode\ArInvoice\Helper\Data                       $arInvoiceHelper
-     * @param \Aheadworks\StoreLocator\Helper\Image              $aheadImageHelper
+     * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
+     * @param \Magento\Customer\Model\Session $customerSession
+     * @param \Aheadworks\StoreLocator\Model\ResourceModel\Location\CollectionFactory $locationCollectionFactory
+     * @param \Dyode\StoreLocator\Model\GeoCoordinateRepository $geoCoordinateRepository
+     * @param \Dyode\ArInvoice\Helper\Data $arInvoiceHelper
+     * @param \Aheadworks\StoreLocator\Helper\Image $aheadImageHelper
      */
     public function __construct(
         ScopeConfigInterface $scopeConfig,
         SearchCriteriaInterface $searchCriteria,
         Session $customerSession,
-        LocationFactory $locationFactory,
+        //LocationFactory $locationFactory,
+        CollectionFactory $locationCollectionFactory,
         GeoCoordinateRepository $geoCoordinateRepository,
         ArInvoiceHelper $arInvoiceHelper,
         AheadImageHelper $aheadImageHelper
@@ -104,7 +111,8 @@ class StoreAvailability implements ArgumentInterface
         $this->scopeConfig = $scopeConfig;
         $this->searchCriteria = $searchCriteria;
         $this->customerSession = $customerSession;
-        $this->locationFactory = $locationFactory;
+        //$this->locationFactory = $locationFactory;
+        $this->locationCollectionFactory = $locationCollectionFactory;
         $this->arInvoiceHelper = $arInvoiceHelper;
         $this->geoCoordinateRepository = $geoCoordinateRepository;
         $this->aheadImageHelper = $aheadImageHelper;
@@ -123,6 +131,7 @@ class StoreAvailability implements ArgumentInterface
     /**
      * If customer is not logged in or customer do not have shipping address or there is no stores available,
      * then we dont want to show the nearest store.
+     *locationFactory
      *
      * @return bool
      * @throws \Magento\Framework\Exception\LocalizedException
@@ -268,10 +277,11 @@ class StoreAvailability implements ArgumentInterface
     public function availableStores()
     {
         if (!$this->productStores) {
-            /** @var $storeLocation \Aheadworks\StoreLocator\Model\Location */
-            $storeLocation = $this->locationFactory->create();
+            /** @var $collection \Aheadworks\StoreLocator\Model\ResourceModel\Location\Collection */
+            $collection = $this->locationCollectionFactory->create();
 
-            $this->productStores = $storeLocation->getCollection()->load();
+            //avoid "All Stores" which we don't want to list as a store.
+            $this->productStores = $collection->addFieldToFilter('region_id', ['nin' => [1]]);
         }
 
         return $this->productStores;

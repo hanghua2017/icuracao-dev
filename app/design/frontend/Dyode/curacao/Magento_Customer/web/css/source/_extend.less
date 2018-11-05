@@ -276,7 +276,8 @@ select:focus, input:focus {
           .block-dashboard-addresses,
           .block-addresses-default,
           .block-addresses-list,
-          .block-dashboard-orders{
+          .block-dashboard-orders,
+          .block-reviews-dashboard{
 						padding: 10px;
 						@media only screen and (min-width: 768px){
 							padding: 15px 20px;
@@ -438,7 +439,8 @@ select:focus, input:focus {
 					.block-dashboard-info,
           .block-dashboard-addresses,
           .box-address-shipping,
-          .block-addresses-default{
+          .block-addresses-default,
+          .block-reviews-dashboard{
 						.box{
 							.box-title{
 								span{
@@ -1804,7 +1806,7 @@ select:focus, input:focus {
       .block-dashboard-info{
         margin-bottom: 0 !important;
       }
-      .block-dashboard-info,.block-dashboard-addresses{
+      .block-dashboard-info,.block-dashboard-addresses,.block-reviews-dashboard{
         .block-title{
             margin-bottom: 0 !important;
         }
@@ -1847,7 +1849,7 @@ select:focus, input:focus {
 .customer-account-index,.sales-order-history,.customer-address-form,.newsletter-manage-index,.customer-address-index{
   .columns{
     .column{
-      .dashboard_msg,.block-dashboard-orders,.block-dashboard-info,.block-dashboard-addresses,.orders-history,
+      .dashboard_msg,.block-dashboard-orders,.block-dashboard-info,.block-dashboard-addresses,.block-reviews-dashboard,.orders-history,
       .form-address-edit,.form-newsletter-manage,.block-addresses-default,.block-addresses-list,.actions-toolbar{
         @media all and(max-width: 767px){
               padding: 15px !important;
@@ -1869,7 +1871,7 @@ select:focus, input:focus {
     }
     .column{
       .page-title-wrapper,.table-wrapper,.block-return-details,.returns-details-items,.fieldset,.dashboard_msg,
-      .block-dashboard-orders,.block-dashboard-info,.block-dashboard-addresses,.block-order-details-comments,.order-links,
+      .block-dashboard-orders,.block-dashboard-info,.block-dashboard-addresses,.block-reviews-dashboard,.block-order-details-comments,.order-links,
       .order-details-items,.block-order-details-view,.block-addresses-default,.block-addresses-list,.actions-toolbar,
       .customer-address-form{
           font-family: "iCuracao-Regular";
@@ -3140,6 +3142,37 @@ select:focus, input:focus {
       .control{
         @media all and (max-width: 768px){
           width: 70%;
+        }
+      }
+    }
+  }
+}
+//styling for my product reviews
+.review-customer-index{
+  .products-reviews-toolbar{
+    margin: 0 20px;
+    @media all and(max-width: 767px){
+      padding-bottom: 20px;
+    }
+  }
+}
+//styling for review details
+.review-customer-view{
+  .customer-review{
+    margin:20px 20px 0;
+    @media all and(max-width: 767px){
+     padding-bottom: 20px;
+    }
+    .product-details{
+      @media all and(max-width: 767px){
+        margin-bottom: 30px;
+      }
+      .product-info{
+        h2.product-name{
+         font-size: 24px;
+           @media all and(max-width: 767px){
+             font-size: 20px;
+           }
         }
       }
     }

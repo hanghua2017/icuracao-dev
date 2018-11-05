@@ -7,7 +7,7 @@ use Magento\Eav\Setup\EavSetupFactory;
 use Magento\Framework\Setup\InstallDataInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
- 
+
 /**
  * @codeCoverageIgnore
  */
@@ -19,7 +19,7 @@ class InstallData implements InstallDataInterface
      * @var EavSetupFactory
      */
     private $eavSetupFactory;
- 
+
     /**
      * Init
      *
@@ -29,7 +29,7 @@ class InstallData implements InstallDataInterface
     {
         $this->eavSetupFactory = $eavSetupFactory;
     }
- 
+
     /**
      * {@inheritdoc}
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
@@ -38,77 +38,56 @@ class InstallData implements InstallDataInterface
     {
         /** @var EavSetup $eavSetup */
         $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
-        if (version_compare($context->getVersion(), '1.0.0') < 0){
+        if (version_compare($context->getVersion(), '1.0.0') < 0) {
 
+            $eavSetup->removeAttribute(\Magento\Catalog\Model\Category::ENTITY, 'categorydesktopbanner');
+            $eavSetup->addAttribute(\Magento\Catalog\Model\Category :: ENTITY, 'categorydesktopbanner', [
+                    'type' => 'varchar',
+                    'label' => 'Category Banner (Desktop)',
+                    'input' => 'image',
+                    'backend' => 'Magento\Catalog\Model\Category\Attribute\Backend\Image',
+                    'required' => false,
+                    'sort_order' => 110,
+                    'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
+                    'group' => 'General Information',
+                    "default" => "",
+                    "class" => "",
+                    "note" => ""
+                ]
+            );
 
+            $eavSetup->removeAttribute(\Magento\Catalog\Model\Category::ENTITY, 'categorymobilebanner');
 
+            $eavSetup->addAttribute(\Magento\Catalog\Model\Category :: ENTITY, 'categorymobilebanner', [
+                    'type' => 'varchar',
+                    'label' => 'Category Banner (Mobile)',
+                    'input' => 'image',
+                    'backend' => 'Magento\Catalog\Model\Category\Attribute\Backend\Image',
+                    'required' => false,
+                    'sort_order' => 120,
+                    'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
+                    'group' => 'General Information',
+                    "default" => "",
+                    "class" => "",
+                    "note" => ""
+                ]
+            );
 
+            $eavSetup->removeAttribute(\Magento\Catalog\Model\Category::ENTITY, 'categorybannerlink');
 
-		$eavSetup -> removeAttribute(\Magento\Catalog\Model\Category::ENTITY, 'categorydesktopbanner');
-
-		
-			$eavSetup -> addAttribute(\Magento\Catalog\Model\Category :: ENTITY, 'categorydesktopbanner', [
-                        'type' => 'varchar',
-                        'label' => 'Category Banner (Desktop)',
-                        'input' => 'image',
-                        'backend' => 'Magento\Catalog\Model\Category\Attribute\Backend\Image',
-						'required' => false,
-                        'sort_order' => 110,
-                        'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
-                        'group' => 'General Information',
-						"default" => "",
-						"class"    => "",
-						"note"       => ""
-			]
-			);
-					
-	
-	
-
-		$eavSetup -> removeAttribute(\Magento\Catalog\Model\Category::ENTITY, 'categorymobilebanner');
-
-		
-			$eavSetup -> addAttribute(\Magento\Catalog\Model\Category :: ENTITY, 'categorymobilebanner', [
-                        'type' => 'varchar',
-                        'label' => 'Category Banner (Mobile)',
-                        'input' => 'image',
-                        'backend' => 'Magento\Catalog\Model\Category\Attribute\Backend\Image',
-						'required' => false,
-                        'sort_order' => 120,
-                        'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
-                        'group' => 'General Information',
-						"default" => "",
-						"class"    => "",
-						"note"       => ""
-			]
-			);
-					
-	
-	
-
-		$eavSetup -> removeAttribute(\Magento\Catalog\Model\Category::ENTITY, 'categorybannerlink');
-
-		
-			$eavSetup -> addAttribute(\Magento\Catalog\Model\Category :: ENTITY, 'categorybannerlink', [
-                        'type' => 'varchar',
-                        'label' => 'Category Banner Link',
-                        'input' => 'text',
-						'required' => false,
-                        'sort_order' => 130,
-                        'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
-                        'group' => 'General Information',
-						"default" => "",
-						"class"    => "",
-						"note"       => ""
-			]
-			);
-					
-	
-	
-
-
-
-		}
-
+            $eavSetup->addAttribute(\Magento\Catalog\Model\Category :: ENTITY, 'categorybannerlink', [
+                    'type' => 'varchar',
+                    'label' => 'Category Banner Link',
+                    'input' => 'text',
+                    'required' => false,
+                    'sort_order' => 130,
+                    'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
+                    'group' => 'General Information',
+                    "default" => "",
+                    "class" => "",
+                    "note" => ""
+                ]
+            );
+        }
     }
 }
