@@ -34,9 +34,9 @@
       </block>
     </referenceContainer>
     <!-- google adwords starts -->
-        <referenceBlock name="head.additional">
+        <!-- <referenceBlock name="head.additional">
           <block class="Magento\Framework\View\Element\Template" name="global.site.tag" before="-" template="Magento_Theme::google_site_tag.phtml"/>
-        </referenceBlock>
+        </referenceBlock> -->
     <!--google adwords ends  -->
 
       <referenceContainer name="after.body.start">
