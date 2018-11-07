@@ -215,7 +215,7 @@ class Scrutinize extends Action
             $postData['mmaiden'] = $maidenName;
         }
         if ($dob) {
-            $postData['dob'] = $dob;
+            $postData['dob'] = date("Y-m-d", strtotime ($dob) );
         }
 
         //send api call to collect user info.

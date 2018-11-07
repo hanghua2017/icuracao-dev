@@ -111,10 +111,12 @@ class Index extends Action
             if($this->_customerSession->isLoggedIn()){
                 $customerId    = $this->_customerSession->getCustomer()->getId();
             }
-          
+            
+            if(isset($postVariables['calendar_inputField'])){
+                $dob = date("Y-m-d", strtotime ($postVariables['calendar_inputField']) );
+            }
             $zipCode  = trim($postVariables['link_zipcode']);
             $curacaoCustId = trim($customerInfo->getAccountNumber());
-            $dob = trim($postVariables['calendar_inputField']);
             $ssnLast = trim($postVariables['ssn-verify']);
             $maidenName = trim($postVariables['link_maiden']);
             $postData = array();
