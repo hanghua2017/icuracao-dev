@@ -60,7 +60,7 @@ if ($exist = ($block->getProductCollection() && $block->getProductCollection()->
                                        class="product-item-link">
                                        <?php
                                            $_price= $_item->getPrice();
-                                           $_finalPrice= $_item->getSpecialPrice();
+                                           $_finalPrice= $_item->getFinalPrice();
                                            // $specialPriceFromDate = $_item->getSpecialFromDate();
                                            // $specialPriceToDate = $_item->getSpecialToDate();
                                            // $today =  time();
