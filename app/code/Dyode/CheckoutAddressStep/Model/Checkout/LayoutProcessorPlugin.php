@@ -28,7 +28,7 @@ class LayoutProcessorPlugin
             'additionalClasses' => 'street',
             'children' => [
                 [
-                    'label' => __('Address Lane 1'),
+                    'label' => __('Address Line 1'),
                     'component' => 'Magento_Ui/js/form/element/abstract',
                     'config' => [
                         'customScope' => 'shippingAddress',
@@ -40,7 +40,7 @@ class LayoutProcessorPlugin
                     'validation' => ['required-entry' => true, "min_text_len‌​gth" => 1, "max_text_length" => 255],
                 ],
                 [
-                    'label' => __('Address Lane 2'),
+                    'label' => __('Address Line 2'),
                     'component' => 'Magento_Ui/js/form/element/abstract',
                     'config' => [
                         'customScope' => 'shippingAddress',
