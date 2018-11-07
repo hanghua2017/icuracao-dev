@@ -117,6 +117,45 @@ input[type="radio"] {
           margin-right: 30px !important;
 
         }
+        .customer-signin{
+          display:none !important;
+        }
+        .customer-welcome
+        {
+          height: 50px;
+          right: 16px;
+          position: absolute;
+          top: 36px;
+          z-index: 100000;
+          list-style: none;
+          color: white;
+          width:auto;
+          @media all and (max-width: 1024px)
+          {
+            top: 32px;
+          }
+          @media all and (max-width: 767px)
+          {
+            top: 26px;
+          }
+          @media all and (max-width: 479px)
+          {
+            top: 15px;
+          }
+          .customer-name
+          {
+            display: block;
+            cursor: default;
+            .action
+            {
+              display: none;
+            }
+          }
+          .customer-menu
+          {
+            display: none;
+          }
+        }
       }
       .header-message
       {
@@ -2381,6 +2420,23 @@ input[type="radio"] {
                   }
                 }
               }
+            }
+          }
+        }
+      }
+    }
+  }
+  footer{
+    &.page-footer{
+      .footer{
+        .trust-factor-block{
+          .trust-factor{
+            margin-top:0;
+            @media all and (min-width:992px) and (max-width:1024px){
+              margin-top:20px;
+            }
+            @media all and (max-width:991px){
+              border: none;
             }
           }
         }
