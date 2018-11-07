@@ -29,7 +29,7 @@ class Update extends \Magento\Framework\Model\AbstractModel {
 
 	public function setInventoryUpdate(){
 		try {
-			$clientIP = $_SERVER['REMOTE_ADDR'];
+			$clientIP = "";
 			$domesticLocation = '06';
 			$nonDomesticLocations ='16,33,22,01';
 			$this->updateInventory($domesticLocation, 'domestic');

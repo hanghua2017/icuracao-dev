@@ -31,7 +31,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function checkCustomerStatus($order, $customerId)
     {
         try {
-          $clientIP = $_SERVER['REMOTE_ADDR'];
+          $clientIP = "";
           $Customer_Status = $this->isCustomerActive($customerId);
           $this->soft = $Customer_Status->DATA->SOFT;
           $transactionAllowed = $Customer_Status->OK;

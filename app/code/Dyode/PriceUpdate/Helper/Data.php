@@ -74,7 +74,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function addLogs($action, $description, $module)
     {
-    	$clientIP = $_SERVER['SERVER_ADDR'];
+    	$clientIP = "";
 	    $this->auditLog->saveAuditLog([
             'user_id' => 'admin',
             'action' => $action,
