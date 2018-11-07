@@ -170,7 +170,7 @@ define([
 
             //Inititialize date picker for dob input field.
             $('#curacao-date-of-birth').datepicker({
-                dateFormat: 'yy-mm-dd',
+                dateFormat: 'mm-dd-yy',
                 changeMonth: true,
                 changeYear: true,
                 yearRange: '1850:2020'
@@ -262,7 +262,6 @@ define([
         sendSMSCode: function (model){
             event.preventDefault();
             curacaoServiceProvider.sendSMS().done(function () {
-                console.log("here");
                 if (!curacaoServiceProvider.isResponseError()) {
                         var successMessage = $t('Code send successfully');
 
@@ -284,7 +283,6 @@ define([
          */
         verifyCode: function (model){
             event.preventDefault();
-            console.log("clicked");
 
             // validate the form
             if (this.validateCodeVerifyModalForm(model)) {

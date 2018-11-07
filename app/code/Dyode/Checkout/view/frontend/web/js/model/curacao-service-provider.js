@@ -87,10 +87,8 @@ define([
         */
         sendSMS: function (){
             var self = this;
-
            //userInfo.isAjax = true;
             fullScreenLoader.startLoader();
-            console.log(this.smsUrl());
             return $.ajax({
                 url: this.smsUrl(),
                 type: 'POST',                 
@@ -131,7 +129,7 @@ define([
         scrutinizeVerifyCode: function (codeInfo) {
             var self = this;
 
-            userInfo.isAjax = true;
+            codeInfo.isAjax = true;
             fullScreenLoader.startLoader();
 
             return $.ajax({

@@ -20,8 +20,7 @@
                 <form class="verifyform"
                       data-bind="attr: {id: verifyform}"
                       method="post"
-                      autocomplete="off"
-                      data-mage-init='{"validation":{}}'>
+                      autocomplete="off">
                     <fieldset class="fieldset verify-wrapper">
                         <legend class="legend"><span data-bind="i18n: 'Verify Account by Phone'"></span>:</legend>
                         <br/>
@@ -44,10 +43,9 @@
                         <!--Input validation code-->
                         <div class="field required">
                             <div class="control">
-                                <input type="text"
+                                <input type="number"
                                        name="curacao-verification-code"
-                                       class="input-text"
-                                       data-validate="{required:true}"
+                                       class="input-text required"
                                        data-bind="value: verificationCodeInpValue,
                                             attr: {placeholder: 'Enter Verification Code',id:'curacaoVerifyCode'"}
                                 />
@@ -59,8 +57,8 @@
                         <div class="primary">
                             <button type="submit"
                                     class="action submit primary"
-                                    data-bind="attr: {title: $t('Verify account') , click: verifyCode">
-                                <span data-bind="i18n: 'Verify account'"></span>
+                                    data-bind="attr: {title: $t('Verify Account')}, click: verifyCode">
+                                <span data-bind="i18n: 'Verify Account'"></span>
                             </button>
                         </div>
                     </div>

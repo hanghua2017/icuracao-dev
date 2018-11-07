@@ -320,6 +320,12 @@ class Scrutinize extends Action
     }
 
     /**
+     * Function to return the  credit Limit
+     */
+    public function getCreditLimit(){
+        return $this->creditLimit;
+    }
+    /**
      * Fail response.
      *
      * @return \Magento\Framework\Controller\ResultInterface
@@ -375,7 +381,7 @@ class Scrutinize extends Action
      * @return int
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    protected function collectCuracaoAmountToPass()
+    public function collectCuracaoAmountToPass()
     {
         $curacaoAmount = 1;
         $shippingAmount = 0;
