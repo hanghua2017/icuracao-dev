@@ -314,8 +314,8 @@
 'Enter billing address to process the invoice in case of both "Ship to home" or "Store Pickup".','ngrese la dirección de facturación para procesar la factura en caso de "Enviar a domicilio" o "Recoger en tienda".'
 'Be sure to click "Save this address" when done','
 Asegúrese de hacer clic en "Guardar esta dirección" cuando haya terminado'
-"Address Lane 1","Dirección carril 1"
-"Address Lane 2","Dirección carril 2"
+"Address Line 1","Dirección Línea 1"
+"Address Line 2","Dirección Línea 1"
 "Delivery Method","Método de entrega"
 "Not yet calculated","Aún no calculado"
 "Forgot Your Password?","Olvidó su contraseña?"
