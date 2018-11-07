@@ -40,6 +40,7 @@ define([
     var curacaoPaymentInfo = window.checkoutConfig.curacaoPayment,
         customerInfo = window.checkoutConfig.customerData,
         isUserLinked = !!curacaoPaymentInfo.linked,
+        isZeroDownPayment = !curacaoPaymentInfo.totalNaked,
 
         /**
          * Helper Function
@@ -76,7 +77,12 @@ define([
         smsIconUrl: curacaoPaymentInfo.mediaUrl + '/images/sms-icon.png',
         callIconUrl: curacaoPaymentInfo.mediaUrl + '/images/call-icon.png',
         personalInfoForm: 'pinfm',
+        ssnInputFieldId: 'curacao-ssn-verify',
+        dateOfBirthInpFieldId: 'curacao-date-of-birth',
+        zipInputFieldId: 'curacao-zip-code',
+        maidenNameInpFieldId: 'curacao-maiden-name',
         isUserLinked: ko.observable(isUserLinked),
+        isZeroDownPayment: ko.observable(isZeroDownPayment),
         curacaoAccountIdInpValue: ko.observable(''),
         verificationCodeInpValue: ko.observable(''),
         ssnVerifyInpValue: ko.observable(''),
@@ -92,11 +98,13 @@ define([
          * @inheritdoc
          */
         initialize: function () {
-            this._super()
-                .observe({
-                    ApplyDiscount: ko.observable(true)
-                });
+            this._super().observe({
+                ApplyDiscount: ko.observable(true)
+            });
 
+            /**
+             * If the curacao-credit checkox is checked/unchecked, then the update quote totals accordingly.
+             */
             this.ApplyDiscount.subscribe(function (newValue) {
                 if (newValue) {
                     curacaoServiceProvider.collectCuracaoTotals().done(function () {
@@ -119,11 +127,12 @@ define([
                 }
             }, this);
 
-            return this;
-        },
+            this.ssnVerifyInpValue.subscribe(this.applyFormFieldDependencies, this);
+            this.dateOfBirthInpValue.subscribe(this.applyFormFieldDependencies, this);
+            this.zipCodeInpValue.subscribe(this.applyFormFieldDependencies, this);
+            this.maidenNameInpValue.subscribe(this.applyFormFieldDependencies, this);
 
-        getLinkUrl: function () {
-            return Url.build('dyode_checkout/curacao/verify');
+            return this;
         },
 
         /**
@@ -143,25 +152,6 @@ define([
             }
 
             return email;
-        },
-
-        getCuracaoId: function () {
-            if (this.customerData.custom_attributes.curacaocustid) {
-                var curacaoid = this.customerData.custom_attributes.curacaocustid.value;
-                var last4digits = curacaoid.slice(-4);
-
-                return last4digits;
-            }
-
-            return null;
-        },
-
-        getCreditLimit: function () {
-            return this.limit;
-        },
-
-        getDownPayment: function () {
-            return this.downPayment;
         },
 
         /**
@@ -326,6 +316,7 @@ define([
                 var curacaoInfo = curacaoServiceProvider.response().curacaoInfo;
 
                 this.curacaoUserCreditLimit(curacaoInfo.creditLimit);
+                this.isZeroDownPayment(!curacaoInfo.downPaymentNaked);
 
                 if (curacaoInfo.downPayment) {
                     this.curacaoUserDownPayment(curacaoInfo.downPayment);
@@ -333,6 +324,55 @@ define([
                 } else {
                     this.canShowDownPayment(false);
                 }
+            }
+        },
+
+        /**
+         * Validate each field in the curacao modal form as per the user input.
+         *
+         * Condition 1: ssn field is there, then dob is the necessary field.
+         * Condition 2: if maiden name provided, then either zip-code or dob should be filled.
+         */
+        applyFormFieldDependencies: function () {
+            var ssnInputRef = '#' + this.ssnInputFieldId,
+                dobInputRef = '#' + this.dateOfBirthInpFieldId,
+                zipInputRef = '#' + this.zipInputFieldId,
+                maidenInpRef = '#' + this.maidenNameInpFieldId,
+                SSNInput = $(ssnInputRef),
+                DOBInput = $(dobInputRef),
+                ZipInput = $(zipInputRef),
+                MaidenInput = $(maidenInpRef),
+                hasSSN =  this.ssnVerifyInpValue() !== '',
+                hasDOB = this.dateOfBirthInpValue() !== '',
+                hasZIP = this.zipCodeInpValue() !== '',
+                hasMaiden = this.maidenNameInpValue() !== '';
+
+            //SSN Input
+            if (!hasDOB && !hasZIP && !hasMaiden || hasDOB && !hasZIP && !hasMaiden || hasDOB && hasZIP && !hasMaiden) {
+                SSNInput.addClass('required');
+            } else {
+                SSNInput.removeClass('required');
+            }
+
+            //DOB Input
+            if (!hasSSN && !hasMaiden && hasZIP || !hasSSN && hasMaiden && hasZIP) {
+                DOBInput.removeClass('required');
+            } else {
+                DOBInput.addClass('required');
+            }
+
+            //ZIP Input
+            if (!hasDOB && (!hasSSN && !hasMaiden || !hasSSN && hasMaiden || hasSSN && hasMaiden)) {
+                ZipInput.addClass('required');
+            } else {
+                ZipInput.removeClass('required');
+            }
+
+            //Maiden Name Input
+            if (hasSSN) {
+                MaidenInput.removeClass('required');
+            } else {
+                MaidenInput.addClass('required');
             }
         }
     });

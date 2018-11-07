@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Dyode_PriceFormat Magento2 Module.
+ *
+ * Override Magento Price Format
+ *
+ * @package Dyode
+ * @module  Dyode_PriceFormat
+ * @author  Nithin <nithin@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Dyode_PriceFormat" setup_version="1.0.5">
+    </module>
+</config>

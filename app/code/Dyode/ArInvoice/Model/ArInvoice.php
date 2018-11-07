@@ -144,7 +144,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             if (!empty($customerId)) {
                 $customer = $this->_customerRepositoryInterface->getById($customerId);
                 $accountNumber = (!empty($customer->getCustomAttribute("curacaocustid"))) ?
-                    $customer->getCustomAttribute("curacaocustid")->getValue() : null;
+                    $customer->getCustomAttribute("curacaocustid")->getValue() : "";
             }
         }
         # Validating the Account Number
@@ -231,7 +231,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                     "cost" => (double)$itemCost,
                     "taxable" => $taxable,
                     "webvendor" => (int)$vendorId,
-                    "from" => isset($itemsStoreLocation[$itemId]) ? $itemsStoreLocation[$itemId] : null,
+                    "from" => isset($itemsStoreLocation[$itemId]) ? $itemsStoreLocation[$itemId] : "",
                     "pickup" => $pickup,
                     "orditemid" => (int)$itemId,
                     "tax_amt" => (double)$itemTaxAmount,

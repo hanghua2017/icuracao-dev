@@ -3,7 +3,7 @@
     <group id="dyode_inventoryupdate_cron_group">
 	
         <job name="dyode_inventoryupdate_cronjob_inventoryupdate" instance="Dyode\InventoryUpdate\Cron\Inventoryupdate" method="execute">
-            <schedule>*/5 * * * *</schedule>
+            <schedule>0 */3 * * *</schedule>
         </job>
 		 
     </group>

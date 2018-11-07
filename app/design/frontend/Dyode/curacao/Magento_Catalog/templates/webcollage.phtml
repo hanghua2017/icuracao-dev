@@ -1,3 +1,12 @@
+<script>
+ function hide_specs(){
+   document.getElementById("curacao_desc").style.display = 'none';
+   document.getElementById("curacao_spec").style.display = 'none';
+  }
+ function webcollageCallback() {
+   console.log('webcollage');hide_specs();
+ }
+</script>
 <?php $_product = $block->getProduct(); ?>
 <div id="wc-power-page"></div>
 <script>

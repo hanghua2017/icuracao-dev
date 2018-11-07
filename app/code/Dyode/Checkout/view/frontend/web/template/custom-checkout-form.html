@@ -60,6 +60,8 @@
                     </div>
                 </div>
             </div>
+
+            <!-- ko ifnot: isZeroDownPayment -->
             <div class="downpayment">
                 <div class="initial-payment">
                     <div class="label"><!-- ko i18n: 'Initial Payment:' --><!-- /ko --></div>
@@ -70,6 +72,7 @@
                 <div class="label-alert">
                     <!-- ko i18n: 'Please add another payment method for initial amount due today' --><!-- /ko --></div>
             </div>
+            <!-- /ko -->
         </div>
     </div>
 </div>

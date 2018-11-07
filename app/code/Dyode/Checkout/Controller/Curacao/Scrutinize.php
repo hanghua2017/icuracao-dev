@@ -12,6 +12,7 @@
 
 namespace Dyode\Checkout\Controller\Curacao;
 
+use Dyode\ARWebservice\Exception\ArResponseException;
 use Dyode\ARWebservice\Helper\Data as ARWebserviceHelper;
 use Dyode\Checkout\Helper\CuracaoHelper;
 use Dyode\CheckoutDeliveryMethod\Model\DeliveryMethod;
@@ -177,6 +178,15 @@ class Scrutinize extends Action
                 $this->linkUser();
                 $this->collectUserCreditLimit();
                 return $this->successResponse();
+            } catch (ArResponseException $e) {
+                $result = $this->_resultFactory->create(ResultFactory::TYPE_JSON);
+                $result->setData([
+                    'message' => $e->getMessage(),
+                    'type'    => 'error',
+                ]);
+
+                return $result;
+
             } catch (\Exception $exception) {
                 return $this->verificationFailedResponse();
             }
@@ -203,11 +213,20 @@ class Scrutinize extends Action
         $postData = [
             'cust_id' => $curacaoInfo->getAccountNumber(),
             'amount'  => $amount, //this field is mandatory and hence put a sample value;
-            'ssn'     => $ssnLast,
-            'zip'     => $zipCode,
-            'dob'     => $dob,
-            'mmaiden' => $maidenName,
         ];
+
+        if ($ssnLast) {
+            $postData['ssn'] = $ssnLast;
+        }
+        if ($zipCode) {
+            $postData['zip'] = $zipCode;
+        }
+        if ($maidenName) {
+            $postData['mmaiden'] = $maidenName;
+        }
+        if ($dob) {
+            $postData['dob'] = $dob;
+        }
 
         //send api call to collect user info.
         $verifyResult = $this->_helper->verifyPersonalInfm($postData);
@@ -342,6 +361,7 @@ class Scrutinize extends Action
     protected function prepareResponse()
     {
         $output['curacaoInfo']['creditLimit'] = $this->creditLimit;
+        $output['curacaoInfo']['downPaymentNaked'] = $this->downPayment;
         $output['curacaoInfo']['downPayment'] = $this->priceHelper->currency($this->downPayment, true, false);
 
         return $output;
@@ -375,7 +395,7 @@ class Scrutinize extends Action
 
         //calculate total shipping amount by looping through the quote items.
         foreach ($quote->getItems() as $quoteItem) {
-            if ($quoteItem->getIsVirtual()
+            if ($quoteItem->getProductType() === 'virtual'
                 || $quoteItem->getDeliveryType() != DeliveryMethod::DELIVERY_OPTION_SHIP_TO_HOME_ID
             ) {
                 continue;

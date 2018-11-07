@@ -2,6 +2,9 @@
 
 namespace Dyode\InventoryLocation\Model\ResourceModel\Location;
 
+use Dyode\InventoryLocation\Model\Location as InventoryLocationModel;
+use Dyode\InventoryLocation\Model\ResourceModel\Location as InventoryLocationResourceModel;
+
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
 
@@ -12,9 +15,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
      */
     protected function _construct()
     {
-        $this->_init('Dyode\InventoryLocation\Model\Location', 'Dyode\InventoryLocation\Model\ResourceModel\Location');
-        $this->_map['fields']['page_id'] = 'main_table.page_id';
+        $this->_init(InventoryLocationModel::class, InventoryLocationResourceModel::class);
     }
 
 }
-?>
