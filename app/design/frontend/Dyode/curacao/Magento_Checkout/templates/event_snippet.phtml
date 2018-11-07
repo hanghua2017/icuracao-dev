@@ -1,0 +1,17 @@
+<!-- Event snippet for Sales_Conversion conversion page -->
+<?php
+
+$viewmodel = $block->getViewModel();
+$order=$viewmodel->getOrder();
+$orderID=$order->getIncrementId();
+$grandTotal=$order->getGrandTotal();
+?>
+<script>
+    gtag('event', 'conversion', {
+        'send_to': 'AW-984938519/X7RvCMa3s2UQl_DT1QM',
+        'value': '<?php echo $grandTotal;?>',
+        'currency': 'USD',
+        'transaction_id': '<?php echo $orderID; ?>'
+    });
+</script>
+

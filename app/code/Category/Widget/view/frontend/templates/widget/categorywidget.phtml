@@ -1,4 +1,3 @@
-
   <?php
    $Id = $block->getData('id_path');
    $categoryId=filter_var($Id, FILTER_SANITIZE_NUMBER_INT);
@@ -30,7 +29,11 @@
         <a href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>">
           <?php
               $_price= $product->getPrice();
-              $_finalPrice= $product->getSpecialPrice();
+              $_finalPrice= $product->getFinalPrice();
+              $_priceSame = false;
+              if ($_price == $_finalPrice) {
+                $_priceSame = true;
+              }
               // $specialPriceFromDate = $product->getSpecialFromDate();
               // $specialPriceToDate = $product->getSpecialToDate();
               // $today =  time();
@@ -54,13 +57,16 @@
             <img src="<?php echo $image_url;?>" alt="product"/>
           </div>
             <h3><?php echo $product->getName();?></h3>
+              <p class="price">
 
-              <p class="price"><span class="original-price <?php echo $product->getSpecialPrice() ? 'has-special-price' : '' ?>">
-                <?php
-                $originalformattedPrice = $priceHelper->currency($_price, true, false);
-                echo $originalformattedPrice;
-                ?>
-              </span>
+                <?php if (!$_priceSame): ?>
+                  <span class="original-price has-special-price">
+                    <?php
+                      $originalformattedPrice = $priceHelper->currency($_price, true, false);
+                      echo $originalformattedPrice;
+                    ?>
+                  </span>
+                <?php endif; ?>
               <?php if($_finalPrice!=NULL):?>
                 <span class="discount-price">
                   <?php if($_finalPrice!=NULL){
