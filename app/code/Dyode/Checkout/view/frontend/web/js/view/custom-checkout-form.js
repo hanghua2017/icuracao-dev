@@ -77,6 +77,7 @@ define([
         smsIconUrl: curacaoPaymentInfo.mediaUrl + '/images/sms-icon.png',
         callIconUrl: curacaoPaymentInfo.mediaUrl + '/images/call-icon.png',
         personalInfoForm: 'pinfm',
+        verifyform:'verifyform',
         ssnInputFieldId: 'curacao-ssn-verify',
         dateOfBirthInpFieldId: 'curacao-date-of-birth',
         zipInputFieldId: 'curacao-zip-code',
@@ -254,6 +255,86 @@ define([
             }
         },
 
+        /**
+         * 
+         * Function to send SMS
+         */
+        sendSMSCode: function (model){
+            event.preventDefault();
+            curacaoServiceProvider.sendSMS().done(function () {
+                console.log("here");
+                if (!curacaoServiceProvider.isResponseError()) {
+                        var successMessage = $t('Code send successfully');
+
+                        messageList.addSuccessMessage({
+                            message: successMessage
+                        });
+                  
+                } else {
+                    messageList.addErrorMessage({
+                        message: curacaoServiceProvider.message()
+                    });
+                  
+                }
+            });
+
+        },
+        /**
+         * Function for verifying the code 
+         */
+        verifyCode: function (model){
+            event.preventDefault();
+            console.log("clicked");
+
+            // validate the form
+            if (this.validateCodeVerifyModalForm(model)) {
+                var codeInfo = {
+                    quote_id: quote.getQuoteId(),
+                    verify_code: this.verificationCodeInpValue()
+                };
+                
+                $(model.curacaoAccountVerifyModal).modal('closeModal');
+
+                curacaoServiceProvider.scrutinizeVerifyCode(codeInfo).done(function () {
+                    model.curacaoAccountIdInpValue('');
+
+                    if (!curacaoServiceProvider.isResponseError()) {
+
+                        //send collect-totals request with curacao credits.
+                        curacaoServiceProvider.collectCuracaoTotals().done(function () {
+                            var successMessage = $t('Curacao account is linked successfully to the email address') +
+                                ': ' +
+                                model.getUserEmail();
+
+                            messageList.addSuccessMessage({
+                                message: successMessage
+                            });
+                            model.isUserLinked(true);
+                            model.processCuracaoLinkedScenario();
+                        });
+
+                    } else {
+                        messageList.addErrorMessage({
+                            message: curacaoServiceProvider.message()
+                        });
+                        model.isUserLinked(false);
+                    }
+                });
+            }
+
+        },
+        /**
+         * 
+         * @param model 
+         */
+        validateCodeVerifyModalForm(model){
+            var formId = '#' + model.verifyform,
+            verifyform = $(formId);
+
+            verifyform.validate();
+
+            return verifyform.valid();
+        },
         /**
          * Validate curacao id.
          *

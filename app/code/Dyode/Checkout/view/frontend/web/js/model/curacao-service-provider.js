@@ -81,7 +81,107 @@ define([
                 }
             });
         },
+        /**
+        * 
+        * @param 
+        */
+        sendSMS: function (){
+            var self = this;
 
+           //userInfo.isAjax = true;
+            fullScreenLoader.startLoader();
+            console.log(this.smsUrl());
+            return $.ajax({
+                url: this.smsUrl(),
+                type: 'POST',                 
+                success: function (result) {
+                    fullScreenLoader.stopLoader();
+
+                    if (result.type === 'error') {
+                        self.isResponseError(true);
+                        self.message(result.message);
+                    } else {
+                        self.isResponseError(false);
+                        self.response(result.data);
+                    }
+                },
+
+                /**
+                 * Some bad thing happend in Ajax request
+                 */
+                error: function () {
+                    fullScreenLoader.stopLoader();
+                    self.isResponseError(true);
+                    self.response(null);
+                },
+
+                /**
+                 * Ajax request complete
+                 */
+                complete: function () {
+                    fullScreenLoader.stopLoader();
+                }
+            });
+        },
+
+        /**
+         * 
+         * @param {*} CodeInfo 
+         */
+        scrutinizeVerifyCode: function (codeInfo) {
+            var self = this;
+
+            userInfo.isAjax = true;
+            fullScreenLoader.startLoader();
+
+            return $.ajax({
+                url: this.scrutinizeVerifyCodeUrl(),
+                type: 'POST',
+                dataType: 'json',
+                data: codeInfo,
+                /**
+                 * Success
+                 * @param {JSON} result
+                 */
+                success: function (result) {
+                    fullScreenLoader.stopLoader();
+
+                    if (result.type === 'error') {
+                        self.isResponseError(true);
+                        self.message(result.message);
+                        self.isUserLinked(false);
+                    } else {
+                        self.isResponseError(false);
+                        self.response(result.data);
+                        self.isUserLinked(true);
+                    }
+                },
+
+                /**
+                 * Some bad thing happend in Ajax request
+                 */
+                error: function () {
+                    fullScreenLoader.stopLoader();
+                    self.isResponseError(true);
+                    self.response(null);
+                },
+
+                /**
+                 * Ajax request complete
+                 */
+                complete: function () {
+                    fullScreenLoader.stopLoader();
+                }
+            });
+        },
+
+        /**
+         * 
+         * @param {*} codeInfo 
+         */
+        scrutinizeVerifyCodeUrl: function () {
+            return Url.build('dyode_checkout/curacao/codeverify');
+        },
         /**
          * Scrutinize user information in order to make sure user is a valid curacao user.
          *
@@ -186,6 +286,13 @@ define([
          */
         scrutinizeCuracaoUserUrl: function () {
             return Url.build('dyode_checkout/curacao/scrutinize');
+        },
+
+        /**
+         * SMS sending URL
+        */
+        smsUrl: function () {
+            return Url.build('dyode_checkout/curacao/phoneverify');
         },
 
         /**

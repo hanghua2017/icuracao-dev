@@ -194,6 +194,7 @@ class Verify extends Action
             'zip_code'       => $accountInfo->ZIP,
             'previous_page'  => 'checkout',
             'password'       => $this->mathRandom->getRandomString(8),
+            'phone'          => $accountInfo->PHONE,
         ]);
 
         return $curacaoInfo;

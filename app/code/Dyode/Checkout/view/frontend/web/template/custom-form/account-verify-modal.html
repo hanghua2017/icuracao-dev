@@ -18,7 +18,7 @@
             <!--Verification code entry form-->
             <div class="verify-phone">
                 <form class="verifyform"
-                      id="verifyform"
+                      data-bind="attr: {id: verifyform}"
                       method="post"
                       autocomplete="off"
                       data-mage-init='{"validation":{}}'>
@@ -31,7 +31,7 @@
 
                         <!--Buttons to choose from sms verification or call verification-->
                         <div class="contact-wrapper">
-                            <button id="sendtext" name="sendtext" value="Text" data-bind="i18n: 'SMS'"></button>
+                            <button id="sendtext" name="sendtext" value="Text" data-bind="i18n: 'SMS', click: sendSMSCode"></button>
                             <div class="contact-icon1">
                                 <img data-bind="attr: {src: smsIconUrl}" alt="sms icon"/>
                             </div>
@@ -44,13 +44,12 @@
                         <!--Input validation code-->
                         <div class="field required">
                             <div class="control">
-                                <input id="curacao-verification-code"
-                                       type="text"
+                                <input type="text"
                                        name="curacao-verification-code"
                                        class="input-text"
                                        data-validate="{required:true}"
                                        data-bind="value: verificationCodeInpValue,
-                                            attr: {placeholder: 'Enter Verification Code'"}
+                                            attr: {placeholder: 'Enter Verification Code',id:'curacaoVerifyCode'"}
                                 />
                             </div>
                         </div>
@@ -60,8 +59,7 @@
                         <div class="primary">
                             <button type="submit"
                                     class="action submit primary"
-                                    data-bind="attr: {title: $t('Verify account')"
-                            >
+                                    data-bind="attr: {title: $t('Verify account') , click: verifyCode">
                                 <span data-bind="i18n: 'Verify account'"></span>
                             </button>
                         </div>
