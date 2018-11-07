@@ -1,4 +1,3 @@
-
   <?php
    $Id = $block->getData('id_path');
    $categoryId=filter_var($Id, FILTER_SANITIZE_NUMBER_INT);
@@ -30,7 +29,7 @@
         <a href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>">
           <?php
               $_price= $product->getPrice();
-              $_finalPrice= $product->getSpecialPrice();
+              $_finalPrice= $product->getFinalPrice();
               // $specialPriceFromDate = $product->getSpecialFromDate();
               // $specialPriceToDate = $product->getSpecialToDate();
               // $today =  time();
@@ -55,7 +54,7 @@
           </div>
             <h3><?php echo $product->getName();?></h3>
 
-              <p class="price"><span class="original-price <?php echo $product->getSpecialPrice() ? 'has-special-price' : '' ?>">
+              <p class="price"><span class="original-price <?php echo $product->getFinalPrice() ? 'has-special-price' : '' ?>">
                 <?php
                 $originalformattedPrice = $priceHelper->currency($_price, true, false);
                 echo $originalformattedPrice;
