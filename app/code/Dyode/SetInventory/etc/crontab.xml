@@ -2,7 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
     <group id="dyode_setinventory_cron_group">
         <job name="dyode_setinventory_cronjob_setinventory" instance="Dyode\SetInventory\Cron\Setinventory" method="execute">
-            <schedule>0 */3 * * *</schedule>
+            <schedule>*/5 */3 * * *</schedule>
         </job>
     </group>
 </config>
