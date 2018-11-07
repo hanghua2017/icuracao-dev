@@ -408,9 +408,9 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         $carrierName = $pilotDetails['name'];
         if($product->getWeight() != null)
             $productWeight = $product->getWeight();
-               
+
         $rate = $this->_pilot->getPilotRatesSoap('90001', $zipCode, $productWeight);
-        
+
 
         $shippingData = new DataObject([
             'quote_item_id'  => $quoteItem->getItemId(),
@@ -442,7 +442,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     {
         $carrierCode = 'usps';
         $carrierTitle = __('USPS');
-        $carrierName = __('Priority');
+        $carrierName = __('Standard');
         $productWeight = $product->getWeight();
         $rate = $this->shipHelper->getUSPSRates($zipCode, $productWeight);
 
