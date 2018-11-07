@@ -339,7 +339,7 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
         //street 2
         $jsLayout['components']['checkout']['children']['steps']['children']['address-step']
         ['children']['shippingAddress']['children']['shipping-address-fieldset']['children']
-        ['street']['children'][1]['placeholder'] = __('Apartment, Suit, Building');
+        ['street']['children'][1]['placeholder'] = __('Apartment, Suite, Building');
 
         //telephone
         $jsLayout["components"]["checkout"]["children"]["steps"]["children"]["address-step"]["children"]
@@ -370,7 +370,7 @@ class CheckoutAddressStepLayoutProcessor implements LayoutProcessorInterface
         //street 2
         $jsLayout['components']['checkout']['children']['steps']['children']['address-step']['children']
         ['shippingAddress']['children']['billing-address']['children']['form-fields']['children']
-        ['street']['children'][1]['placeholder'] = __('Apartment, Suit, Building');
+        ['street']['children'][1]['placeholder'] = __('Apartment, Suite, Building');
 
         //telephone
         $jsLayout['components']['checkout']['children']['steps']['children']['address-step']['children']
