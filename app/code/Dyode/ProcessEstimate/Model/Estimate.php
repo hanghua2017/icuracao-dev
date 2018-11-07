@@ -21,7 +21,7 @@ class Estimate extends \Magento\Framework\Model\AbstractModel
 	//fetch and process orders
 	public function getOrders() {
 		try {
-			$clientIP = $_SERVER['SERVER_ADDR'];
+			$clientIP = "";
 			///fetch orders with status 'process estimate'
 		    $orders = $this->_orderCollectionFactory->create()->addFieldToSelect('*')->addFieldToFilter(
 		        'status',

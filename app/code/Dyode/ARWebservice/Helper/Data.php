@@ -391,7 +391,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             'user_id'     => "",
             'action'      => $action,
             'description' => $description,
-            'client_ip'   => $_SERVER['REMOTE_ADDR'],
+            'client_ip'   => "",
             'module_name' => "Dyode_ARWebservice",
         ]);
     }
