@@ -7,6 +7,7 @@
 
 namespace Dyode\Checkout\Model;
 
+use Dyode\ARWebservice\Exception\ArResponseException;
 use Dyode\ARWebservice\Helper\Data as ARWebserviceHelper;
 use Dyode\Checkout\Helper\CheckoutConfigHelper;
 use Dyode\Checkout\Helper\CuracaoHelper;
@@ -254,8 +255,13 @@ class ConfigProvider implements ConfigProviderInterface
             return $downPayment;
         }
 
-        $params = ['cust_id' => $curaAccId, 'amount' => $this->collectCuracaoAmountToPass()];
-        $response = $this->_helper->verifyPersonalInfm($params);
+        try {
+            $params = ['cust_id' => $curaAccId, 'amount' => $this->collectCuracaoAmountToPass()];
+            $response = $this->_helper->verifyPersonalInfm($params);
+        } catch (ArResponseException $e) {
+            $response = false;
+        }
+
 
         if (!$response) {
             return $downPayment;

@@ -11,12 +11,12 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
     <group id="dyode_approved_fraud_orders_cron_group">
         <job name="approved_fraud_orders_cronjob" instance="Dyode\ArInvoice\Cron\ApprovedFraudOrders" method="execute">
-            <schedule>* * * * *</schedule>
+            <schedule>*/6 * * * *</schedule>
         </job>
     </group>
     <group id="dyode_generate_invoice_cron_group">
         <job name="generate_invoice_cronjob" instance="Dyode\ArInvoice\Cron\GenerateInvoice" method="execute">
-            <schedule>* * * * *</schedule>
+            <schedule>*/7 * * * *</schedule>
         </job>
     </group>
 </config>
