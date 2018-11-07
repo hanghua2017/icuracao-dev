@@ -11,12 +11,12 @@
       </arguments>
     </block>
     <!-- google tag manager code starts -->
-    <!-- <referenceContainer name="head.additional">
+    <referenceContainer name="head.additional">
       <block class="Magento\Framework\View\Element\Template" name="gtm.head" before="-" template="Magento_Theme::html/gtm_head.phtml"/>
     </referenceContainer>
     <referenceContainer name="after.body.start">
       <block class="Magento\Framework\View\Element\Template" name="gtm.body" before="-" template="Magento_Theme::html/gtm_body.phtml"/>
-    </referenceContainer> -->
+    </referenceContainer>
     <!-- google tag manager code ends -->
     <!-- Top panel wrapper with sign in and create an account if want to remove -->
     <!-- <referenceBlock name="header.panel.wrapper" remove="true" /> -->
@@ -32,9 +32,12 @@
           <argument name="css_class" xsi:type="string">header links</argument>
         </arguments>
       </block>
+    </referenceContainer>
+    <!-- google adwords starts -->
         <referenceBlock name="head.additional">
           <block class="Magento\Framework\View\Element\Template" name="global.site.tag" before="-" template="Magento_Theme::google_site_tag.phtml"/>
         </referenceBlock>
+    <!--google adwords ends  -->
 
       <referenceContainer name="after.body.start">
           <!--  check url if it is checkout to Success  start -->
