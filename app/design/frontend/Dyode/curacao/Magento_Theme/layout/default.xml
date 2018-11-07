@@ -13,8 +13,7 @@
         </arguments>
       </block>
         <referenceBlock name="head.additional">
-            <block class="Magento\Framework\View\Element\Template" name="google.analytics" before="-" template="Magento_Theme::google_analytics.phtml"/>
-            <block class="Magento\Framework\View\Element\Template" name="global.site.tag" before="-" template="Magento_Theme::google_site_tag.phtml"/>
+          <block class="Magento\Framework\View\Element\Template" name="global.site.tag" before="-" template="Magento_Theme::google_site_tag.phtml"/>
         </referenceBlock>
 
       <referenceContainer name="after.body.start">
