@@ -115,6 +115,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         $writer = new \Zend\Log\Writer\Stream(BP . "/var/log/ordercancellation.log");
 		$logger = new \Zend\Log\Logger();
         $logger->addWriter($writer);
+        $logger->info("inside create invoice");
 
         $order = $this->getOrderInfo($orderId);
         $paymentMethod = $order->getPayment()->getMethod();
@@ -147,9 +148,10 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                     $customer->getCustomAttribute("curacaocustid")->getValue() : "";
             }
         }
+        $logger->info("validate account number start");
         # Validating the Account Number
         $accountNumber = $this->_arInvoiceHelper->validateAccountNumber($accountNumber);
-
+        $logger->info("validate account number stop");
         if (($accountNumber !== "500-8555")) {
             # Getting the Check Customer Status - num 54421729
             $customerStatusResponse = $this->_customerStatusHelper->checkCustomerStatus($order, $accountNumber);
@@ -158,7 +160,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
 
         # Prepare Order Items
         $itemsStoreLocation = $this->prepareOrderItems($orderId);
-
+        $logger->info("before order value setting");
         # Getting Order Values
         $incrementId = $order->getIncrementId();
         $createdDate = date('Y-m-d', strtotime($order->getData("created_at")));
@@ -181,7 +183,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         $discountDescription = ($order->getData("discount_description") !== null) ? $order->getData("discount_description") : "";
 
         $shippingDiscount = $order->getShippingDiscountAmount();
-
+        $logger->info("after order value setting");
         # Assigning values to input Array
         $inputArray = array(
             "CustomerID" => $accountNumber,
