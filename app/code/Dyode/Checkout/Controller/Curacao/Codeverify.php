@@ -14,41 +14,41 @@ namespace Dyode\Checkout\Controller\Curacao;
 
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
-use Dyode\Checkout\Controller\Curacao\Scrutinize;
 use Dyode\Checkout\Helper\CuracaoHelper;
 use Magento\Customer\Model\Session;
 use Dyode\ARWebservice\Helper\Data;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Pricing\Helper\Data as PriceHelper;
 
-class Codeverify extends Action {
+class Codeverify extends Action
+{
 
     /**
-    * @param $scrutinize \Dyode\Checkout\Controller\Curacao\Scrutinize
-    */ 
+     * @param $scrutinize \Dyode\Checkout\Controller\Curacao\Scrutinize
+     */
     protected $_scrutinize;
 
     /**
-    * @var \Magento\Framework\Controller\ResultFactory
-    */
+     * @var \Magento\Framework\Controller\ResultFactory
+     */
     protected $_resultFactory;
 
-     /**
+    /**
      * @var \Dyode\Checkout\Helper\CuracaoHelper
      */
     protected $_curacaoHelper;
 
     /**
-    * @param $customerSession \Magento\Customer\Model\Session
-    */
+     * @param $customerSession \Magento\Customer\Model\Session
+     */
     protected $_customerSession;
 
-     /**
+    /**
      * @var Dyode\ARWebservice\Helper\Data
      */
     protected $helper;
 
-     /**
+    /**
      * @var boolean|string
      */
     protected $downPayment;
@@ -64,10 +64,16 @@ class Codeverify extends Action {
     protected $priceHelper;
 
     /**
-    * Constructor
-    * @param \Magento\Framework\App\Action\Context  $context
-    * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
-    */
+     * Codeverify constructor.
+     *
+     * @param \Magento\Framework\App\Action\Context $context
+     * @param \Magento\Framework\Controller\ResultFactory $resultFactory
+     * @param \Dyode\Checkout\Controller\Curacao\Scrutinize $scrutinize
+     * @param \Magento\Customer\Model\Session $customerSession
+     * @param \Dyode\Checkout\Helper\CuracaoHelper $curacaoHelper
+     * @param \Magento\Framework\Pricing\Helper\Data $priceHelper
+     * @param \Dyode\ARWebservice\Helper\Data $helper
+     */
     public function __construct(
         Context $context,
         ResultFactory $resultFactory,
@@ -88,30 +94,31 @@ class Codeverify extends Action {
 
     public function execute()
     {
-            $postVariables = (array)$this->getRequest()->getPost();
+        $postVariables = (array)$this->getRequest()->getPost();
 
-            if (!empty($postVariables)) {
-                try {
-                    $this->validateCode();
-                    $this->_scrutinize->linkUser();
-                    $this->_scrutinize->collectUserCreditLimit();
-                    return $this->successResponse();
-                } catch (ArResponseException $e) {
-                    $result = $this->_resultFactory->create(ResultFactory::TYPE_JSON);
-                    $result->setData([
-                        'message' => $e->getMessage(),
-                        'type'    => 'error',
-                    ]);
+        if (!empty($postVariables)) {
+            try {
+                $this->validateCode();
+                $this->_scrutinize->linkUser();
+                $this->_scrutinize->collectUserCreditLimit();
+                return $this->successResponse();
+            } catch (ArResponseException $e) {
+                $result = $this->_resultFactory->create(ResultFactory::TYPE_JSON);
+                $result->setData([
+                    'message' => $e->getMessage(),
+                    'type'    => 'error',
+                ]);
 
-                    return $result;
+                return $result;
 
-                } catch (\Exception $exception) {
-                    return $this->verificationFailedResponse();
-                }
+            } catch (\Exception $exception) {
+                return $this->verificationFailedResponse();
             }
+        }
 
         return $this->verificationFailedResponse();
     }
+
     /**
      * Send ARWebservice API request in order to verify user information.
      *
@@ -124,7 +131,7 @@ class Codeverify extends Action {
         $curacaoInfo = $this->_curacaoHelper->getCuracaoSessionInformation();
 
         $verificationCode = $this->getRequest()->getParam('verify_code', false);
-        $encodeCode = $this->_customerSession->getEncCode();
+        $encodeCode = $this->_curacaoHelper->getCuracaoSessionInformation()->getEncCode();
         $amount = $this->_scrutinize->collectCuracaoAmountToPass();
         $postData = [
             'cust_id' => $curacaoInfo->getAccountNumber(),
@@ -132,7 +139,7 @@ class Codeverify extends Action {
         ];
 
         // Check if code is good 0 good -1 no good
-        $checkResult =   $this->helper->verifyCode($encodeCode, $verificationCode);
+        $checkResult = $this->helper->verifyCode($encodeCode, $verificationCode);
 
         //If Result is verified then link the Curacao account with Magento
         if ($checkResult != 0) {
@@ -140,6 +147,7 @@ class Codeverify extends Action {
             $this->_curacaoHelper->updateCuracaoSessionDetails(['is_user_linked' => false]);
             throw new \Exception('Code verification failed');
         } else {
+
             //send api call to collect user info.
             $verifyResult = $this->helper->verifyPersonalInfm($postData);
 
@@ -157,7 +165,7 @@ class Codeverify extends Action {
         return $this;
     }
 
-     /**
+    /**
      * Success response.
      *
      * @return \Magento\Framework\Controller\ResultInterface

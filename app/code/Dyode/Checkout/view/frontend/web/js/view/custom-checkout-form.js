@@ -77,7 +77,7 @@ define([
         smsIconUrl: curacaoPaymentInfo.mediaUrl + '/images/sms-icon.png',
         callIconUrl: curacaoPaymentInfo.mediaUrl + '/images/call-icon.png',
         personalInfoForm: 'pinfm',
-        verifyform:'verifyform',
+        verifyform: 'verifyform',
         ssnInputFieldId: 'curacao-ssn-verify',
         dateOfBirthInpFieldId: 'curacao-date-of-birth',
         zipInputFieldId: 'curacao-zip-code',
@@ -94,6 +94,9 @@ define([
         curacaoUserCreditLimit: ko.observable(curacaoPaymentInfo.limit),
         curacaoUserDownPayment: curacaoDataProvider.downPayment,
         canShowDownPayment: ko.observable(true),
+        phoneVerificationStatus: ko.observable(false),
+        curacaoUserPhoneNumber: ko.observable(false),
+        curacaoUserPhoneStatus: ko.observable(false),
 
         /**
          * @inheritdoc
@@ -196,6 +199,9 @@ define([
 
                 curacaoServiceProvider.verifyCuracaoId(payload).done(function () {
                     if (!curacaoServiceProvider.isResponseError()) {
+                        model.curacaoUserPhoneStatus(false);
+                        model.curacaoUserPhoneNumber(false);
+                        model.phoneVerificationStatus(false);
                         $(model.curacaoAccountVerifyModal).modal('openModal');
                     } else {
                         model.curacaoAccountIdInpValue('');
@@ -256,56 +262,63 @@ define([
         },
 
         /**
-         * 
+         *
          * Function to send SMS
          */
-        placeCall: function (model){
+        placeCall: function (model) {
             event.preventDefault();
             curacaoServiceProvider.placeCall().done(function () {
                 if (!curacaoServiceProvider.isResponseError()) {
-                        var successMessage = $t('Placed call successfully');
-                        
-                        messageList.addSuccessMessage({
-                            message: successMessage
-                        });
-                  
+                    var successMessage = $t('Placed call successfully');
+
+                    messageList.addSuccessMessage({
+                        message: successMessage
+                    });
+
                 } else {
                     messageList.addErrorMessage({
                         message: curacaoServiceProvider.message()
                     });
-                  
+
                 }
             });
 
         },
 
         /**
-         * 
+         *
          * Function to send SMS
+         *
+         * @param {This} model
          */
-        sendSMSCode: function (model){
+        sendSMSCode: function (model) {
             event.preventDefault();
-            curacaoServiceProvider.sendSMS().done(function () {
-                if (!curacaoServiceProvider.isResponseError()) {
-                        var successMessage = $t('Code send successfully');
+            model.phoneVerificationStatus(true);
 
-                        messageList.addSuccessMessage({
-                            message: successMessage
-                        });
-                  
+            curacaoServiceProvider.sendSMS().done(function () {
+                model.phoneVerificationStatus(false);
+
+                if (!curacaoServiceProvider.isResponseError()) {
+                    model.curacaoUserPhoneStatus(false);
+
+                    if (curacaoServiceProvider.response() && curacaoServiceProvider.response().curacaoInfo) {
+                        var phone = curacaoServiceProvider.response().curacaoInfo.phone,
+                            last4 = phone.substring(phone.length - 4);
+
+                        model.curacaoUserPhoneNumber('XXX-XXX-' + last4);
+                    }
                 } else {
-                    messageList.addErrorMessage({
-                        message: curacaoServiceProvider.message()
-                    });
-                  
+                    model.curacaoUserPhoneStatus(true);
+                    model.curacaoUserPhoneNumber(false);
                 }
             });
 
         },
+
         /**
-         * Function for verifying the code 
+         * Function for verifying the code
          */
-        verifyCode: function (model){
+        verifyCode: function (model) {
             event.preventDefault();
 
             // validate the form
@@ -314,7 +327,7 @@ define([
                     quote_id: quote.getQuoteId(),
                     verify_code: this.verificationCodeInpValue()
                 };
-                
+
                 $(model.curacaoAccountVerifyModal).modal('closeModal');
 
                 curacaoServiceProvider.scrutinizeVerifyCode(codeInfo).done(function () {
@@ -345,18 +358,20 @@ define([
             }
 
         },
+
         /**
-         * 
-         * @param model 
+         *
+         * @param model
          */
-        validateCodeVerifyModalForm(model){
+        validateCodeVerifyModalForm(model) {
             var formId = '#' + model.verifyform,
-            verifyform = $(formId);
+                verifyform = $(formId);
 
             verifyform.validate();
 
             return verifyform.valid();
         },
+
         /**
          * Validate curacao id.
          *
@@ -445,7 +460,7 @@ define([
                 DOBInput = $(dobInputRef),
                 ZipInput = $(zipInputRef),
                 MaidenInput = $(maidenInpRef),
-                hasSSN =  this.ssnVerifyInpValue() !== '',
+                hasSSN = this.ssnVerifyInpValue() !== '',
                 hasDOB = this.dateOfBirthInpValue() !== '',
                 hasZIP = this.zipCodeInpValue() !== '',
                 hasMaiden = this.maidenNameInpValue() !== '';

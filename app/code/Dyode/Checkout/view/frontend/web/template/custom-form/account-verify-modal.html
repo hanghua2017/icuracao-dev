@@ -9,7 +9,8 @@
  * @copyright Copyright © Dyode
  */
 -->
-<div id="curacao-verify-modal" class="linkaccount-container" data-bind="afterRender: initiateCuracaoVerifyModal" style="display:none;">
+<div id="curacao-verify-modal" class="linkaccount-container" data-bind="afterRender: initiateCuracaoVerifyModal"
+     style="display:none;">
     <div class="linkaccount-inner-container">
         <div class="verifymsg"></div>
 
@@ -30,7 +31,8 @@
 
                         <!--Buttons to choose from sms verification or call verification-->
                         <div class="contact-wrapper">
-                            <button id="sendtext" name="sendtext" value="Text" data-bind="i18n: 'SMS', click: sendSMSCode"></button>
+                            <button id="sendtext" name="sendtext" value="Text"
+                                    data-bind="i18n: 'SMS', click: sendSMSCode"></button>
                             <div class="contact-icon1">
                                 <img data-bind="attr: {src: smsIconUrl}" alt="sms icon"/>
                             </div>
@@ -40,8 +42,24 @@
                             </div>
                         </div>
 
+                        <div class="sms-sending-in-progress" data-bind="if: phoneVerificationStatus">
+                            <span data-bind="i18n: 'Verification is in progress. Please wait a moment...'"></span>
+                        </div>
+
+                        <div class="sms-success-msg" data-bind="if: curacaoUserPhoneNumber">
+                            <span data-bind="i18n: 'Please enter the code that sent to your phone number: '"></span>
+                            <span data-bind="text: curacaoUserPhoneNumber"></span>
+                        </div>
+
+                        <div class="sms-error-msg" data-bind="if: curacaoUserPhoneStatus">
+                            <!-- ko i18n:
+                                'Unfortunately, we could not successfully send verification code to your phone.'
+                            --><!-- /ko -->
+                            <!-- ko i18n: 'Please try other verification options available.'--><!-- /ko -->
+                        </div>
+
                         <!--Input validation code-->
-                        <div class="field required">
+                        <div class="field required" data-bind="if: curacaoUserPhoneNumber">
                             <div class="control">
                                 <input type="number"
                                        name="curacao-verification-code"
@@ -53,7 +71,7 @@
                         </div>
                     </fieldset>
                     <!--Submit form-->
-                    <div class="actions-toolbar">
+                    <div class="actions-toolbar" data-bind="if: curacaoUserPhoneNumber">
                         <div class="primary">
                             <button type="submit"
                                     class="action submit primary"
@@ -63,7 +81,7 @@
                         </div>
                     </div>
                     <div class="disclaimer">
-                      <p>If you don't recognize the number on file, please call 877-287-2226</p>
+                        <p data-bind="i18n: 'If you don\'t recognize the number on file, please call 877-287-2226'"></p>
                     </div>
                 </form>
             </div>
@@ -115,7 +133,8 @@
                             </div>
                         </div>
                         <div class="field">
-                            <label for="curacao-zip-code" class="label"><span data-bind="i18n: 'Zipcode'"></span></label>
+                            <label for="curacao-zip-code" class="label"><span
+                                    data-bind="i18n: 'Zipcode'"></span></label>
                             <div class="control">
                                 <input id="curacao-zip-code"
                                        type="text"

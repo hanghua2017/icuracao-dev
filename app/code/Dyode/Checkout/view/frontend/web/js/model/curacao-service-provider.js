@@ -81,57 +81,19 @@ define([
                 }
             });
         },
+
         /**
-        * 
-        * @param 
-        */
-        sendSMS: function (){
+         * Send sms to curacao user.
+         */
+        sendSMS: function () {
             var self = this;
-           //userInfo.isAjax = true;
+            //userInfo.isAjax = true;
+
             fullScreenLoader.startLoader();
+
             return $.ajax({
                 url: this.smsUrl(),
-                type: 'POST',                 
-                success: function (result) {
-                    fullScreenLoader.stopLoader();
-
-                    if (result.type === 'error') {
-                        self.isResponseError(true);
-                        self.message(result.message);
-                    } else {
-                        self.isResponseError(false);
-                        self.response(result.data);
-                    }
-                },
-
-                /**
-                 * Some bad thing happend in Ajax request
-                 */
-                error: function () {
-                    fullScreenLoader.stopLoader();
-                    self.isResponseError(true);
-                    self.response(null);
-                },
-
-                /**
-                 * Ajax request complete
-                 */
-                complete: function () {
-                    fullScreenLoader.stopLoader();
-                }
-            });
-        },
-
-         /**
-        * 
-        * @param 
-        */
-        placeCall: function (){
-            var self = this;
-            fullScreenLoader.startLoader();
-            return $.ajax({
-                url: this.callUrl(),
-                type: 'POST',                 
+                type: 'POST',
                 success: function (result) {
                     fullScreenLoader.stopLoader();
 
@@ -163,8 +125,50 @@ define([
         },
 
         /**
-         * 
-         * @param {*} CodeInfo 
+         * Call curacao user.
+         */
+        placeCall: function () {
+            var self = this;
+
+            fullScreenLoader.startLoader();
+
+            return $.ajax({
+                url: this.callUrl(),
+                type: 'POST',
+                success: function (result) {
+                    fullScreenLoader.stopLoader();
+
+                    if (result.type === 'error') {
+                        self.isResponseError(true);
+                        self.message(result.message);
+                    } else {
+                        self.isResponseError(false);
+                        self.response(result.data);
+                    }
+                },
+
+                /**
+                 * Some bad thing happend in Ajax request
+                 */
+                error: function () {
+                    fullScreenLoader.stopLoader();
+                    self.isResponseError(true);
+                    self.response(null);
+                },
+
+                /**
+                 * Ajax request complete
+                 */
+                complete: function () {
+                    fullScreenLoader.stopLoader();
+                }
+            });
+        },
+
+        /**
+         * Checks the given code is correct for the curacao user.
+         *
+         * @param {Json} codeInfo
          */
         scrutinizeVerifyCode: function (codeInfo) {
             var self = this;
@@ -177,6 +181,7 @@ define([
                 type: 'POST',
                 dataType: 'json',
                 data: codeInfo,
+
                 /**
                  * Success
                  * @param {JSON} result
@@ -214,12 +219,12 @@ define([
         },
 
         /**
-         * 
-         * @param {*} codeInfo 
+         * Url for curacao user verifying via code request.
          */
         scrutinizeVerifyCodeUrl: function () {
             return Url.build('dyode_checkout/curacao/codeverify');
         },
+
         /**
          * Scrutinize user information in order to make sure user is a valid curacao user.
          *
@@ -328,14 +333,14 @@ define([
 
         /**
          * SMS sending URL
-        */
+         */
         smsUrl: function () {
             return Url.build('dyode_checkout/curacao/phoneverify');
         },
 
-         /**
+        /**
          * SMS sending URL
-        */
+         */
         callUrl: function () {
             return Url.build('dyode_checkout/curacao/phonecall');
         },
