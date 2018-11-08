@@ -12,7 +12,6 @@
 
 namespace Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View;
 
-
 use Aheadworks\StoreLocator\Helper\Image as AheadImageHelper;
 use Aheadworks\StoreLocator\Model\Location;
 use Aheadworks\StoreLocator\Model\ResourceModel\Location\CollectionFactory;
@@ -26,9 +25,10 @@ use Magento\Framework\Api\Search\FilterGroup;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\DataObject;
+use Magento\Framework\Registry;
+use Magento\Framework\Serialize\Serializer\Json as JsonHelper;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Store\Model\ScopeInterface;
-use Magento\Framework\Serialize\Serializer\Json as JsonHelper;
 
 class StoreAvailability implements ArgumentInterface
 {
@@ -100,6 +100,13 @@ class StoreAvailability implements ArgumentInterface
     protected $jsonHelper;
 
     /**
+     * Core registry
+     *
+     * @var \Magento\Framework\Registry
+     */
+    protected $coreRegistry;
+
+    /**
      * @var []
      */
     protected $productAvailStores = [];
@@ -113,6 +120,7 @@ class StoreAvailability implements ArgumentInterface
      * @param \Aheadworks\StoreLocator\Model\ResourceModel\Location\CollectionFactory $locationCollectionFactory
      * @param \Dyode\InventoryLocation\Model\ResourceModel\Location\CollectionFactory $inventoryLocationCollectionFactory
      * @param \Dyode\StoreLocator\Model\GeoCoordinateRepository $geoCoordinateRepository
+     * @param \Magento\Framework\Registry $registry
      * @param \Magento\Framework\Serialize\Serializer\Json $jsonHelper
      * @param \Dyode\ArInvoice\Helper\Data $arInvoiceHelper
      * @param \Aheadworks\StoreLocator\Helper\Image $aheadImageHelper
@@ -124,6 +132,7 @@ class StoreAvailability implements ArgumentInterface
         CollectionFactory $locationCollectionFactory,
         InventoryLocationCollectionFactory $inventoryLocationCollectionFactory,
         GeoCoordinateRepository $geoCoordinateRepository,
+        Registry $registry,
         JsonHelper $jsonHelper,
         ArInvoiceHelper $arInvoiceHelper,
         AheadImageHelper $aheadImageHelper
@@ -135,6 +144,7 @@ class StoreAvailability implements ArgumentInterface
         $this->inventoryLocationCollectionFactory = $inventoryLocationCollectionFactory;
         $this->arInvoiceHelper = $arInvoiceHelper;
         $this->geoCoordinateRepository = $geoCoordinateRepository;
+        $this->coreRegistry = $registry;
         $this->aheadImageHelper = $aheadImageHelper;
         $this->jsonHelper = $jsonHelper;
     }
@@ -288,9 +298,6 @@ class StoreAvailability implements ArgumentInterface
     /**
      * Collect stores in which product is available.
      *
-     * @todo Right now we are loading all locations available. This needs to be changed once
-     *       product based store locations are implemented.
-     *
      * @return \Aheadworks\StoreLocator\Model\ResourceModel\Location\Collection
      */
     public function availableStores()
@@ -350,7 +357,13 @@ class StoreAvailability implements ArgumentInterface
      */
     public function customerZipCode()
     {
-        return $this->getCustomer()->getDefaultShippingAddress()->getPostcode();
+        $postCode = '';
+
+        if ($this->customerSession->isLoggedIn()) {
+            $postCode = $this->getCustomer()->getDefaultShippingAddress()->getPostcode();
+        }
+
+        return $postCode;
     }
 
     /**
@@ -368,7 +381,7 @@ class StoreAvailability implements ArgumentInterface
      * @return array
      */
     public function productAvailableStores($product)
-    { //product = 107389;2514
+    {
         $productId = $product;
         if ($product instanceof Product) {
             $productId = $product->getId();
@@ -402,5 +415,34 @@ class StoreAvailability implements ArgumentInterface
         $this->productAvailStores[$productId] = $productAvailStores;
 
         return $this->productAvailStores[$productId];
+    }
+
+    /**
+     * Provide JSData to the dyode.storeAvailability jQuery Widget.
+     *
+     * @return bool|false|string
+     */
+    public function storeAvailabilityJsData()
+    {
+        $jsData = [
+            'customer' => [
+                'zip' => $this->customerZipCode(),
+            ],
+            'product'  => [
+                'id' => $this->getCurrentProduct()->getId(),
+            ],
+        ];
+
+        return $this->jsonHelper->serialize($jsData);
+    }
+
+    /**
+     * Retrieve current product model
+     *
+     * @return \Magento\Catalog\Model\Product
+     */
+    public function getCurrentProduct()
+    {
+        return $this->coreRegistry->registry('product');
     }
 }
