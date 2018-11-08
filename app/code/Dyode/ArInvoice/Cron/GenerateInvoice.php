@@ -70,7 +70,7 @@ class GenerateInvoice
             $collection->addFieldToFilter('status', 'pending');
             foreach ($collection as $salesOrder) {
                 if($salesOrder->getShippingAddress()== null || $salesOrder->getBillingAddress()== null){
-                    return true;   
+                    continue;   
                 }
                 $cronStatus = $this->_arInvoiceModel->createInvoice($salesOrder->getId());
                 $cronStatus = $this->_arInvoiceHelper->linkAppleCare($salesOrder);
