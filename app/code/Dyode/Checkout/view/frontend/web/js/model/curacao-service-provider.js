@@ -122,6 +122,46 @@ define([
             });
         },
 
+         /**
+        * 
+        * @param 
+        */
+        placeCall: function (){
+            var self = this;
+            fullScreenLoader.startLoader();
+            return $.ajax({
+                url: this.callUrl(),
+                type: 'POST',                 
+                success: function (result) {
+                    fullScreenLoader.stopLoader();
+
+                    if (result.type === 'error') {
+                        self.isResponseError(true);
+                        self.message(result.message);
+                    } else {
+                        self.isResponseError(false);
+                        self.response(result.data);
+                    }
+                },
+
+                /**
+                 * Some bad thing happend in Ajax request
+                 */
+                error: function () {
+                    fullScreenLoader.stopLoader();
+                    self.isResponseError(true);
+                    self.response(null);
+                },
+
+                /**
+                 * Ajax request complete
+                 */
+                complete: function () {
+                    fullScreenLoader.stopLoader();
+                }
+            });
+        },
+
         /**
          * 
          * @param {*} CodeInfo 
@@ -291,6 +331,13 @@ define([
         */
         smsUrl: function () {
             return Url.build('dyode_checkout/curacao/phoneverify');
+        },
+
+         /**
+         * SMS sending URL
+        */
+        callUrl: function () {
+            return Url.build('dyode_checkout/curacao/phonecall');
         },
 
         /**

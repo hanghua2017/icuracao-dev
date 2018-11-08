@@ -700,27 +700,112 @@
               }
             }
             //Check store box
-            .check-store {
-              padding-bottom: 10px;
-              padding-top: 10px;
-              float: left;
-              clear: both;
-              width: 100%;
-              @media all and (max-width: 767px) {
-                text-align: center;
+            #store-availability{
+              clear:both;
+              .check-store {
+                padding-bottom: 10px;
+                padding-top: 10px;
+                float: left;
+                clear: both;
+                width: 100%;
+                @media all and (max-width: 767px) {
+                  text-align: center;
+                }
+
+                a {
+                  border: 1px solid @content-light-grey;
+                  color: @link-blue;
+                  font-size: 14px;
+                  font-weight: 500;
+                  font-family: 'iCuracao-Medium';
+                  padding: 5px 30px;
+                  text-transform: uppercase;
+
+                  &:hover {
+                    text-decoration: none;
+                  }
+                }
               }
+              .store-availability-form{
+                clear:both;
+                margin-bottom: 20px;
+                .title{
+                  color: @link-blue;
+                  font-size: 14px;
+                  font-weight: 500;
+                  font-family: 'iCuracao-Medium';
+                  padding: 10px 0;
+                  text-transform: uppercase;
+                }
+                .messages{
+                  color: #e02b27;
+                  font-size: 1.4rem;
+                  margin-bottom: 5px;
+                }
+                .form-field-container{
+                  display:flex;
+                  align-items:center;
+                  .form-field{
+                    height:32px;
+                    margin-right:5px;
+                    input[type="number"]{
+                      width: 200px;
+                      font-size: 14px;
+                      font-family: "iCuracao-Regular";
+                      ::-webkit-input-placeholder {
+                        /* Chrome/Opera/Safari */
+                        font-family: 'iCuracao-Light';
+                        color: #a6a6a6;
+                        line-height: 1;
+                        font-style: italic;
+                      }
 
-              a {
-                border: 1px solid @content-light-grey;
-                color: @link-blue;
-                font-size: 14px;
-                font-weight: 500;
-                font-family: 'iCuracao-Medium';
-                padding: 5px 30px;
-                text-transform: uppercase;
+                      ::-moz-placeholder {
+                        /* Firefox 19+ */
+                        font-family: 'iCuracao-Light';
+                        color: #a6a6a6;
+                        line-height: 1;
+                        font-style: italic;
+                      }
 
-                &:hover {
-                  text-decoration: none;
+                      :-ms-input-placeholder {
+                        /* IE 10+ */
+                        font-family: 'iCuracao-Light';
+                        color: #a6a6a6;
+                        line-height: 1;
+                        font-style: italic;
+                      }
+
+                      :-moz-placeholder {
+                        /* Firefox 18- */
+                        font-family: 'iCuracao-Light';
+                        color: #a6a6a6;
+                        line-height: 1;
+                        font-style: italic;
+                      }
+                    }
+                    .submit{
+                      background: @theme-color;
+                      color: white;
+                      border: none;
+                      font-size: 14px;
+                      font-weight: 500;
+                      font-family: 'iCuracao-Medium';
+                      box-shadow: none;
+                      height: 32px;
+                    }
+                    .close{
+                      background: transparent;
+                      border: none;
+                      cursor: pointer;
+                      color: @link-blue;
+                      font-size: 14px;
+                      margin:0 0 0 10px;
+                      font-weight: 500;
+                      line-height: 32px;
+                      font-family: 'iCuracao-Medium';
+                    }
+                  }
                 }
               }
             }

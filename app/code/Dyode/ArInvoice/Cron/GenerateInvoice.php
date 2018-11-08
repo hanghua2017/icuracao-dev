@@ -69,11 +69,11 @@ class GenerateInvoice
             $collection = $this->_orderCollectionFactory->create()->addAttributeToSelect('*');
             $collection->addFieldToFilter('status', 'pending');
             foreach ($collection as $salesOrder) {
-                $logger->info("Inside Salesorderloop");
+                if($salesOrder->getShippingAddress()== null || $salesOrder->getBillingAddress()== null){
+                    return true;   
+                }
                 $cronStatus = $this->_arInvoiceModel->createInvoice($salesOrder->getId());
-                $logger->info("create invoice completed");
                 $cronStatus = $this->_arInvoiceHelper->linkAppleCare($salesOrder);
-                $logger->info("link apple care completed");
             }
 
             if ($cronStatus) {
