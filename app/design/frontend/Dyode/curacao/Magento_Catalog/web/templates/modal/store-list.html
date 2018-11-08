@@ -1,0 +1,27 @@
+<div class="modal-body-content">
+    <div class="store-zipcode-outer">
+        <label><%= customerZipCode %></label>
+    </div>
+    <h4><%= modalTitle %><span class="store-count">(<%= _.size(stores) %>)</span>
+    </h4>
+    <div class="avail-store-outer">
+
+        <% _.each(stores, function(store){ %>
+        <div class="avail-store-item">
+            <div class="avail-store-image">
+                <img src="<%- store.imgUrl %>"
+                     alt="<%- store.title %>"
+                />
+                <p class="store-distance"><%= store.miles %>mi</p>
+            </div>
+            <div class="avail-store-details">
+                <ul>
+                    <% _.each(store.address, function(addressLine){ %>
+                    <li class="store-location"><%= addressLine %></li>
+                    <% }); %>
+                </ul>
+            </div>
+        </div>
+        <% }); %>
+    </div>
+</div>

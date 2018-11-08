@@ -6,6 +6,8 @@
  * @copyright Copyright © Dyode
  */
 
+'use strict';
+
 /**
  * This defines a new jquery widget dyode.warranty
  * It also initialize warranty-details-modal and warranty-addtocart-prompt-modal.
@@ -23,14 +25,12 @@ define([
     'Magento_Catalog/product/view/validation',
     'mage/mage'
 ], function ($, $t) {
-    'use strict';
 
     /**
      ////////////////////////////////////////////////////////////////////
      //////                WARRANTY DETAILS MODAL                  //////
      ////////////////////////////////////////////////////////////////////
      */
-
 
     /**
      * Warranty Details Modal initializer
@@ -94,7 +94,6 @@ define([
         });
     }
 
-
     /**
      ////////////////////////////////////////////////////////////////////
      //////                WARRANTY ADD-TO-CART MODAL              //////
@@ -107,7 +106,6 @@ define([
     function initializeWarrantyAddToCartModal() {
         var addToCartModal = $('#addtocartModal'),
             addToCartButton = $('#product-addtocart-button'),
-            needToRedirectInput = $('#addtocart_modal_need_to_redirect'),
             messageBlock = addToCartModal.find('.message'),
             modalCheckboxes = addToCartModal.find('input[type="checkbox"]');
 
@@ -176,7 +174,6 @@ define([
         initializeWarrantyDetailsModal();
         initializeWarrantyAddToCartModal();
     });
-
 
     /**
      ////////////////////////////////////////////////////////////////////
@@ -304,7 +301,7 @@ define([
         },
 
         /**
-         * Update warrany details modal content.
+         * Update warranty details modal content.
          * @param {String} warrantyId - Warranty product id
          */
         updateModalContent: function (warrantyId) {
