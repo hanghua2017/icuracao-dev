@@ -17,7 +17,6 @@ use Dyode\StoreLocator\Model\GeoCoordinateRepository;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\Result\JsonFactory;
-use Magento\Framework\Exception\NoSuchEntityException;
 
 class Getstores extends Action
 {
@@ -40,10 +39,10 @@ class Getstores extends Action
     /**
      * Getstores constructor.
      *
-     * @param \Magento\Framework\App\Action\Context                                    $context
-     * @param \Dyode\StoreLocator\Model\GeoCoordinateRepository                        $geoCoordinateRepository
+     * @param \Magento\Framework\App\Action\Context $context
+     * @param \Dyode\StoreLocator\Model\GeoCoordinateRepository $geoCoordinateRepository
      * @param \Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\StoreAvailability $storeViewModel
-     * @param \Magento\Framework\Controller\Result\JsonFactory                         $resultJsonFactory
+     * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
      */
     public function __construct(
         Context $context,
@@ -69,10 +68,9 @@ class Getstores extends Action
             try {
                 $productStores = $this->collectProductStores($productId);
                 $sortedStores = $this->sortStoresByZipCode($productStores, $zipCode);
-            } catch (NoSuchEntityException $exception) {
-                return $this->resultJson()->setData(['error' => $exception->getMessage()]);
+
             } catch (\Exception $e) {
-                return $this->resultJson()->setData(['error' => 'No stores available']);
+                return $this->resultJson()->setData(['error' => __('No stores available')]);
             }
 
             return $this->sendResponse($sortedStores);
@@ -104,7 +102,7 @@ class Getstores extends Action
      * Sort stores basis on the distance b/w the store and the zip-code provided.
      *
      * @param \Aheadworks\StoreLocator\Model\ResourceModel\Location\Collection $stores
-     * @param string|integer                                                   $zipCode
+     * @param string|integer $zipCode
      * @return array $storeData
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -143,7 +141,7 @@ class Getstores extends Action
     public function sendResponse($stores)
     {
         if (!$stores || !is_array($stores) || count($stores) === 0) {
-            return $this->resultJson()->setData(['error' => 'No stores available']);
+            return $this->resultJson()->setData(['error' => __('No stores available')]);
         }
 
         $response = [];
@@ -154,12 +152,12 @@ class Getstores extends Action
                 'image'   => $this->storeViewModel->storeLocationImgHelper()->getImagePath($store->getImage()),
                 'miles'   => $distance . 'mi',
                 'address' => [
-                    'title'  => $store->getTitle(),
-                    'street' => $store->getStreet(),
-                    'city'   => $store->getCity(),
+                    'title'       => $store->getTitle(),
+                    'street'      => $store->getStreet(),
+                    'city'        => $store->getCity(),
                     'region_code' => $store->getRegionId(),
-                    'zip'    => $store->getZip(),
-                    'phone'  => $store->getPhone(),
+                    'zip'         => $store->getZip(),
+                    'phone'       => $store->getPhone(),
                 ],
             ];
         }

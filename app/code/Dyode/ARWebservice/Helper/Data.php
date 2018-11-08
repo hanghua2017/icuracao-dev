@@ -189,7 +189,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
             return false;
         }
-        $this->arErrorLogs("GetCustomerContact", "Obtained Customer Details for id " . $cu_account);
+        $this->arErrorLogs("GetCustomerContact", "Obtained Customer Details for id "  . $restResponse->getBody());
 
         $custInfo = $result->DATA;
         return $custInfo;
@@ -247,6 +247,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $salt = 'ag#A\J9.u=j^v}X3';
         $code = rand(10000, 99999);
 
+        $_phonenumber  = '(832)977-1260';
+
         $licenseKey = $this->getConfig('linkaccount/curacao/licensekey');
         $callerID = $this->getConfig('linkaccount/curacao/callerid');
         $wsdlUrl = $this->getConfig('linkaccount/curacao/phonewsdlurl');
@@ -254,6 +256,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $countryCode = '1';
         $valuesToDelete = ['(', ')', '-', ' '];
         $phoneNumber = str_replace($valuesToDelete, '', $_phonenumber);
+        $extension = '';
+        $extensionPauseTime = '';
 
         if ($_type == 1) {
 
@@ -267,7 +271,21 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 'ExtensionPauseTime' => '',
             ];
 
-            // $URL = $wsdlUrl . "PlaceCall?CountryCode=" . $countryCode . "&PhoneNumber=" . $phoneNumber . "&Extension=" . $extension . "&ExtensionPauseTime=" . $extensionPauseTime . "&VerificationCode=" . $verifyCode . "&CallerID=" . $callerID . "&Language=" . $language . "&LicenseKey=" . $licenseKey;
+            // $URL = $wsdlUrl . "PlaceCall?CountryCode=" . $countryCode . "&PhoneNumber=" . $phoneNumber. "&VerificationCode=" . $verifyCode . "&CallerID=" . $callerID . "&Language=" . $language . "&LicenseKey=" . $licenseKey;
+
+            // try{
+
+            //     $this->zendClient->reset();
+            //     $this->zendClient->setUri($wsdlUrl . "/PlaceCall");
+            //     $this->zendClient->setMethod(\Zend\Http\Request::METHOD_POST);
+            //     $this->zendClient->setParameterPost($params);
+            //     $this->zendClient->send();
+            //     return trim(md5($salt . $code));
+
+            // } catch (\Zend\Http\Exception\RuntimeException $runtimeException) {
+            //     $this->arErrorLogs("Call", "Failed to place a call to " . $phoneNumber);
+            //     return -1;
+            // }
 
             // Get cURL resource
             // $curl = curl_init();
@@ -285,9 +303,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             //     return -1;
             // }
 
-            $soapClient = new \SoapClient($wsdlUrl . "?WSDL", ["trace" => 1]);
-            $response = $soapClient->__soapCall("PlaceCall", [$params]);
-
+            $soapClient = new \SoapClient($wsdlUrl . "?WSDL/", ["trace" => 1]);
+            $response = $soapClient->__soapCall("PlaceCall", $params);
+            $this->arErrorLogs("SMS", "Successfully placed call to " . $phoneNumber);    
 
             // $response = $soapClient->PlaceCall($params);
             // $result= $response->PlaceCallResult;
@@ -296,7 +314,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 return -1;
             }
 
-            return trim(md5($salt . $code));
+           
 
         } else {
 
@@ -315,6 +333,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 $this->zendClient->setMethod(\Zend\Http\Request::METHOD_POST);
                 $this->zendClient->setParameterPost($params);
                 $this->zendClient->send();
+                $this->arErrorLogs("SMS", "Successfully send SMS to " . $phoneNumber);
                 return trim(md5($salt . $code));
 
             } catch (\Zend\Http\Exception\RuntimeException $runtimeException) {
