@@ -259,6 +259,30 @@ define([
          * 
          * Function to send SMS
          */
+        placeCall: function (model){
+            event.preventDefault();
+            curacaoServiceProvider.placeCall().done(function () {
+                if (!curacaoServiceProvider.isResponseError()) {
+                        var successMessage = $t('Placed call successfully');
+                        
+                        messageList.addSuccessMessage({
+                            message: successMessage
+                        });
+                  
+                } else {
+                    messageList.addErrorMessage({
+                        message: curacaoServiceProvider.message()
+                    });
+                  
+                }
+            });
+
+        },
+
+        /**
+         * 
+         * Function to send SMS
+         */
         sendSMSCode: function (model){
             event.preventDefault();
             curacaoServiceProvider.sendSMS().done(function () {
