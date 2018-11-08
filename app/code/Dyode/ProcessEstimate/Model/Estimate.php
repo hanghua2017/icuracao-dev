@@ -1,6 +1,8 @@
 <?php
 namespace Dyode\ProcessEstimate\Model;
 
+use Magento\Sales\Model\Order;
+
 class Estimate extends \Magento\Framework\Model\AbstractModel
 {
 
@@ -34,7 +36,8 @@ class Estimate extends \Magento\Framework\Model\AbstractModel
 		    		$Signify_Required = true;
 		    		$orderTotal = $order->getGrandTotal(); //order total
 		    		$payment = $order->getPayment();
-		    		$amountPaid = $payment->getAmountPaid(); //total amount paid by the customer
+		    		($payment->getAmountPaid()) ? $amountPaid =  $payment->getAmountPaid() : $amountPaid = $payment->getAmountAuthorized();
+ 					//total amount paid by the customer
 		    		if ($amountPaid >= $orderTotal) {
 		    			$Cash_Amount = $amountPaid;
 		    		} else {
@@ -47,7 +50,10 @@ class Estimate extends \Magento\Framework\Model\AbstractModel
 		    		}    			
 		    	} else {
 		    		$this->setSupplyInvoice($order);
-		    	}			
+		    	}	
+		    	$orderState = Order::STATE_PROCESSING;
+				$order->setState($orderState)->setStatus(Order::STATE_PROCESSING);
+				$order->save();		
 			}
 	        $this->auditLog->saveAuditLog([
 	            'user_id' => 'admin',

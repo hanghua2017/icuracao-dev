@@ -115,13 +115,15 @@ class Update extends \Magento\Framework\Model\AbstractModel {
         				$model->setArinventory($AR_items_inventory);
         				$model->setProductid($product->getID());
         				$model->setProductsku($product->getSku());
+        				$model->setFinalinventory(json_encode($previous));
         				$saveData = $model->save();	
 					} else {
 						$locationInventory->addData([
 						"productid" => $product->getID(),
 						"productsku" => $product->getSku(),
 						"isset" => 1,
-						"arinventory" => $AR_items_inventory
+						"arinventory" => $AR_items_inventory,
+						"finalinventory" => json_encode($previous)
 						]);
 						$saveData = $locationInventory->save();
 					}
