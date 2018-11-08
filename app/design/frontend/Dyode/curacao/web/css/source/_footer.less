@@ -590,14 +590,9 @@ html[lang="es"] {
             form {
               .newsletter {
                 .control {
-                  @media all and (max-width: 420px) {
-                    input {
-                      &:-ms-input-placeholder,
-                      &::-moz-placeholder,
-                      &::-webkit-input-placeholder,
-                      &::placeholder {
-                        font-size: 11px;
-                      }
+                  input {
+                    @media all and (max-width: 420px) {
+                      font-size:11px;
                     }
                   }
                 }
