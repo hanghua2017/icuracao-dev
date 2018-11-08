@@ -83,13 +83,10 @@ class Estimate extends \Magento\Framework\Model\AbstractModel
 
 	//process Post Downpayment API
 	public function postDownPayment($order){
-		$customerID = $order->getCustomerID();
-		$invoice_details = $order->getInvoiceCollection();
-		foreach ($invoice_details as $invoice) {
-		 $invoiceNumber = $invoice->getIncrementId();
-		}
+		$customerID = (!empty($order->getData('curacaocustomernumber'))) ? $order->getData('curacaocustomernumber') : '';
+		$invoiceNumber = (!empty($order->getData('estimatenumber'))) ? $order->getData('estimatenumber') : '';
 		$payment = $order->getPayment();
-	    $amountPaid = $payment->getAmountPaid();
+	    ($payment->getAmountPaid()) ? $amountPaid =  $payment->getAmountPaid() : $amountPaid = $payment->getAmountAuthorized();
 	    $referenceID = $order->getIncrementId();
 	    //calls webDownPayment helper function for the API response
 	    $this->helper->webDownPayment($customerID,$amountPaid,$invoiceNumber,$referenceID);
@@ -101,7 +98,7 @@ class Estimate extends \Magento\Framework\Model\AbstractModel
 		$lastName = (!empty($order->getCustomerLastname())) ? $order->getCustomerLastname() : $order->getShippingAddress()->getLastname();
 		$email = $order->getCustomerEmail();
 
-		$invoiceNumber = (!empty($order->getData('estimatenumber'))) ? $order->getData('estimatenumber') : null;
+		$invoiceNumber = (!empty($order->getData('estimatenumber'))) ? $order->getData('estimatenumber') : '';
 
 		/*
 		$invoice_details = $order->getInvoiceCollection();
