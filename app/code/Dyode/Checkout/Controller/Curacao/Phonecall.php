@@ -19,12 +19,8 @@ use Dyode\ARWebservice\Helper\Data;
 use Magento\Framework\Controller\ResultFactory;
 use Dyode\Checkout\Helper\CuracaoHelper;
 
-class Phonecall extends Action{
-
-    /**
-    * @param $customerSession \Magento\Customer\Model\Session
-    */
-    protected $_customerSession;
+class Phonecall extends Action
+{
 
     /**
      * @var \Magento\Framework\Controller\ResultFactory
@@ -32,63 +28,68 @@ class Phonecall extends Action{
     protected $_resultFactory;
 
     /**
-    * @var Dyode\ARWebservice\Helper\Data
-    */
+     * @var Dyode\ARWebservice\Helper\Data
+     */
     protected $_helper;
-     /**
+
+    /**
      * @var \Dyode\Checkout\Helper\CuracaoHelper
      */
     protected $curacaoHelper;
 
     /**
-     * Constructor
-     * @param \Magento\Framework\App\Action\Context  $context
+     * Phonecall constructor.
+     *
+     * @param \Magento\Framework\App\Action\Context $context
+     * @param \Magento\Framework\Controller\ResultFactory $resultFactory
      * @param \Dyode\ARWebservice\Helper\Data $helper
-     * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
+     * @param \Dyode\Checkout\Helper\CuracaoHelper $curacaoHelper
      */
     public function __construct(
         Context $context,
-        Session $customerSession,
         ResultFactory $resultFactory,
         Data $helper,
         CuracaoHelper $curacaoHelper
-     ) {
+    ) {
         parent::__construct($context);
         $this->_resultFactory = $resultFactory;
-        $this->_customerSession = $customerSession;
         $this->_helper = $helper;
         $this->curacaoHelper = $curacaoHelper;
-     }
- 
+    }
 
-    public function execute(){
+    /**
+     * Main entry point.
+     *
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface
+     */
+    public function execute()
+    {
         $customerInfo = $this->curacaoHelper->getCuracaoSessionInformation();
         $result = $this->_resultFactory->create(ResultFactory::TYPE_JSON);
         $output = [];
 
         if ($customerInfo != null) {
             $phone = $customerInfo->getPhone();
-            $resultData = '';
             $resultData = $this->_helper->phoneVerifyCode($phone, 1, 1);
             $result = $this->_resultFactory->create(ResultFactory::TYPE_JSON);
             $output['curacaoInfo']['phone'] = $phone;
 
-            if($resultData != -1){
-                $this->_customerSession->setEncCode($resultData);               
-                $output['curacaoInfo']['code']  = $resultData;
+            if ($resultData != -1) {
+                $this->curacaoHelper->updateCuracaoSessionDetails(['enc_code' => $resultData]);
+                $output['curacaoInfo']['code'] = $resultData;
                 $result->setData([
                     'data' => $output,
                     'type' => 'success',
                 ]);
                 return $result;
             }
-            
-            $result->setData([
-                'data' => $output,
-                'type' => 'error',
-            ]);
-
-            return $result;
         }
+
+        $result->setData([
+            'data' => $output,
+            'type' => 'error',
+        ]);
+
+        return $result;
     }
 }
