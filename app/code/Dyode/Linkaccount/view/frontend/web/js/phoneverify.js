@@ -16,13 +16,14 @@ define([
                         data: {verifytype:0},
                         success:function(response){
                           if(response == -1){
-                            msg = '<p class="error">Failed to send the code..</p>';
+                            msg = '<p class="error">Unfortunately, we could not successfully send verification code to your phone.</p>';
                           }
                           else{
-                            msg = '<p class="success">Successfully send the code</p>';
+                            $(".codeverify").css('display','block');
+                            msg = '<p class="success">Please enter the code that sent to your phone number:</p>';
                           }
                           $(".messages").html('');
-                          $(".verifymsg").html(msg);
+                          $(".phoneverify").html(msg);
                         }
                     });
 
@@ -38,13 +39,14 @@ define([
                           data: {verifytype:1},
                           success:function(response){
                             if(response == -1){
-                              msg = '<p class="error">Failed to call..</p>';
+                              msg = '<p class="error">Unfortunately, we could not place a call to your phone.</p>';             
                             }
                             else{
-                              msg = '<p class="success">Verified...</p>';
+                              $(".codeverify").css('display','block');
+                              msg = '<p class="success">Please enter the code for completing the verification : </p>';
                             }
                             $(".messages").html('');
-                            $(".verifymsg").html(msg);
+                            $(".phoneverify").html(msg);
                           }
                       });
 

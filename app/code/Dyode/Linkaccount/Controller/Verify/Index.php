@@ -122,18 +122,28 @@ class Index extends Action
             $postData = array();
             $postData['cust_id']  =  $curacaoCustId;
             $postData['amount'] = 1;
+            $verify = 0;
 
-            if(isset($ssnLast)){
+            if(isset($ssnLast)  && ($ssnLast != '')){
                 $postData['ssn']  =  $ssnLast;
                 $postData['dob']  =  $dob;
-            } else {
-                if(isset($maidenName)){
-                    if(isset($zipCode)){
-                        $postData['zip']  =  $zipCode;
-                    } else if(isset($dob)) {
-                        $postData['dob']  =  $dob;
-                    }
-                } 
+                $verify = 1;
+            } 
+            if(isset($maidenName) && ($maidenName != '') ){
+                $postData['mmaiden']  =  $maidenName;
+                if(isset($zipCode)){
+                    $postData['zip']  =  $zipCode;
+                    $verify =1;
+                } else if(isset($dob)) {
+                    $postData['dob']  =  $dob;
+                    $verify = 1;
+                }
+            } 
+            
+            if($verify ==0 ){
+                $this->_messageManager->addErrorMessage("Please enter SSN and DOB OR Mothers Maiden Name and Zipcode OR Mothers Maiden Name and DOB");
+                $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
+                return $resultRedirect->setUrl($defaultUrl);
             }
 
             //Verify Credit Account Infm
@@ -205,8 +215,7 @@ class Index extends Action
                 'city' => $customerInfo->getCity(),
                 'region_id' => $reg_id,
                 'postcode' => $zipCode,
-                'country_id' => 'US',
-                'telephone' => $customerInfo->getTelephone()
+                'country_id' => 'US'
             );
 
             //get the customer address model and update the address information
