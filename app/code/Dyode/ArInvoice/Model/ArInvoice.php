@@ -128,7 +128,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             $orderTotal = $order->getGrandTotal();
             if ($amountAuthorized >= $orderTotal) {
                 $cashAmount = $amountAuthorized;
-                $accountNumber = '500-8555';
+                // $accountNumber = '500-8555';
                 $orderType = "full_credit_card";
             } else {
                 $cashAmount = $amountAuthorized;
