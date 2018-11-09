@@ -132,6 +132,7 @@ class Codeverify extends Action
 
         $verificationCode = $this->getRequest()->getParam('verify_code', false);
         $encodeCode = $this->_curacaoHelper->getCuracaoSessionInformation()->getEncCode();
+        $this->_curacaoHelper->getCuracaoSessionInformation()->unsEncCode();
         $amount = $this->_scrutinize->collectCuracaoAmountToPass();
         $postData = [
             'cust_id' => $curacaoInfo->getAccountNumber(),

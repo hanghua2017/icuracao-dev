@@ -1,9 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: terrific
- * Date: 11/9/18
- * Time: 3:43 PM
+ * Dyode_Catalog Magento2 Module.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package   Dyode
+ * @module    Dyode_Catalog
+ * @author    Rajeev K Tomy <rajeev.ktomy@dyode.com>
+ * @copyright Copyright © Dyode
  */
 
 namespace Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View;

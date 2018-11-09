@@ -186,6 +186,11 @@ class Verify extends Action
     {
         $accountNumber = $this->getRequest()->getParam('curacao_account', false);
         $customerEmail = $this->getRequest()->getParam('email_address', false);
+        if(isset($accountInfo->PHONE) && ($accountInfo->PHONE != '')){
+            $phone  =  $accountInfo->PHONE;
+          } else {
+            $phone  =  $accountInfo->CELL;
+          }
         $curacaoInfo = new DataObject([
             'account_number' => $accountNumber,
             'email_address'  => $customerEmail,
@@ -194,7 +199,7 @@ class Verify extends Action
             'zip_code'       => $accountInfo->ZIP,
             'previous_page'  => 'checkout',
             'password'       => $this->mathRandom->getRandomString(8),
-            'phone'          => $accountInfo->PHONE,
+            'phone'          => $phone,
         ]);
 
         return $curacaoInfo;

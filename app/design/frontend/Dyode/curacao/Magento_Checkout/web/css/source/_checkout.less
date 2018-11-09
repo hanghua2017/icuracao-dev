@@ -224,6 +224,11 @@ input[type="radio"] {
         }
       }
       .apply-credit-ad {
+        &:after{
+          clear: both;
+          display: table;
+          content: '';
+        }
         .desktop-view, .mobile-view {
           .apply-card {
             background: @theme-color;

@@ -377,6 +377,9 @@ class StoreAvailability implements ArgumentInterface
     }
 
     /**
+     * Collect product store codes corresponding to a product from store_inventory level table which is updating
+     * via a cron job.
+     *
      * @param string|integer|\Magento\Catalog\Model\Product $product
      * @return array
      */
@@ -398,12 +401,8 @@ class StoreAvailability implements ArgumentInterface
         $inventoryCollection = $this->inventoryLocationCollectionFactory->create();
         $inventoryCollection->addFieldToFilter('productid', $productId)->setPageSize(1)->setCurPage(1);
 
-        //if product is a "set product", then the inventory details should be taken from ARWebservice.
         foreach ($inventoryCollection->getItems() as $inventory) {
             $storesList = $this->jsonHelper->unserialize($inventory->getFinalinventory());
-            if ($inventory->getIsset()) {
-                $storesList = $this->jsonHelper->unserialize($inventory->getArinventory());
-            }
         }
 
         foreach ($storesList as $store => $inventoryLevel) {
