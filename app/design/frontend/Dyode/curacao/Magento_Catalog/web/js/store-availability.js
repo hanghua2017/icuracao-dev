@@ -22,11 +22,10 @@ define([
     'mage/translate',
     'mage/template',
     'mage/url',
-    'Magento_Checkout/js/model/full-screen-loader',
     'text!Magento_Catalog/templates/modal/store-list.html',
     'jquery/validate',
     'Magento_Ui/js/modal/modal'
-], function ($, $t, mageTemplate, Url, fullScreenLoader, storeListTemplate) {
+], function ($, $t, mageTemplate, Url, storeListTemplate) {
 
     $.widget('dyode.storeAvailability', {
 
@@ -171,7 +170,7 @@ define([
                 url = Url.build('dyode_catalog/product_stores/listbyzip');
 
             userInfo.isAjax = true;
-            fullScreenLoader.startLoader();
+            $('body').trigger('processStart');
 
             return $.ajax({
                 url: url,
@@ -184,7 +183,7 @@ define([
                  * @param {JSON} result
                  */
                 success: function (result) {
-                    fullScreenLoader.stopLoader();
+                    $('body').trigger('processStop');
 
                     if (result.type === 'error') {
                         self.isRequestSuccess = false;
@@ -201,7 +200,7 @@ define([
                  * Some bad thing happend in Ajax request
                  */
                 error: function () {
-                    fullScreenLoader.stopLoader();
+                    $('body').trigger('processStop');
                     self.isRequestSuccess = false;
                     self.errorMessage = $t('Something went wrong. Please try later');
                     self.storesInfo = [];
@@ -211,7 +210,7 @@ define([
                  * Ajax request complete
                  */
                 complete: function () {
-                    fullScreenLoader.stopLoader();
+                    $('body').trigger('processStop');
                 }
             });
         }

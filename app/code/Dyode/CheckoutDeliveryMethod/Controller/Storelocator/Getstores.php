@@ -89,7 +89,7 @@ class Getstores extends Action
         $storesFilter = $this->storeViewModel->productAvailableStores($productId);
 
         if (count($storesFilter) === 0) {
-            throw new \Exception(__('No stores available.'));
+            throw new \Exception(__('No stores available'));
         }
 
         return $this->storeViewModel->availableStores()
