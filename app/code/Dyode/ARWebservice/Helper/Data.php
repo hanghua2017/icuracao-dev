@@ -247,8 +247,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $salt = 'ag#A\J9.u=j^v}X3';
         $code = rand(10000, 99999);
 
-        $_phonenumber  = '(832)977-1260';
-
         $licenseKey = $this->getConfig('linkaccount/curacao/licensekey');
         $callerID = $this->getConfig('linkaccount/curacao/callerid');
         $wsdlUrl = $this->getConfig('linkaccount/curacao/phonewsdlurl');

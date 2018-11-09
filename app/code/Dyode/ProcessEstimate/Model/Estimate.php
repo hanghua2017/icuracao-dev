@@ -83,7 +83,7 @@ class Estimate extends \Magento\Framework\Model\AbstractModel
 
 	//process Post Downpayment API
 	public function postDownPayment($order){
-		$customerID = (!empty($order->getData('curacaocustomernumber'))) ? $order->getData('curacaocustomernumber') : '';
+		$customerID = (!empty($order->getData('curacaocustomernumber'))) ? $order->getData('curacaocustomernumber') : '500-8555';
 		$invoiceNumber = (!empty($order->getData('estimatenumber'))) ? $order->getData('estimatenumber') : '';
 		$payment = $order->getPayment();
 	    ($payment->getAmountPaid()) ? $amountPaid =  $payment->getAmountPaid() : $amountPaid = $payment->getAmountAuthorized();

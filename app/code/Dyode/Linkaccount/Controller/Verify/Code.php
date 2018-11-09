@@ -55,7 +55,7 @@ class Code extends \Magento\Framework\App\Action\Action
         $customerInfo  = $this->_customerSession->getCuracaoInfo();
         $curacaoCustId = trim($customerInfo->getAccountNumber());
         $accountInfo   =  $this->_helper->getARCustomerInfoAction($curacaoCustId);
-        $phone  =  $accountInfo->PHONE;
+        $phone  =  $accountInfo->CELL
 
         $resultData = '';
 
