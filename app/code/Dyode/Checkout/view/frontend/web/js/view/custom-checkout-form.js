@@ -22,6 +22,7 @@ define([
     'Magento_Customer/js/model/customer',
     'Dyode_Checkout/js/model/curacao-service-provider',
     'Dyode_Checkout/js/data/curacao-data-provider',
+    'Magento_Checkout/js/model/full-screen-loader',
     'Magento_Ui/js/modal/modal',
     'mage/calendar'
 ], function (
@@ -35,7 +36,8 @@ define([
     quote,
     customer,
     curacaoServiceProvider,
-    curacaoDataProvider
+    curacaoDataProvider,
+    fullScreenLoader
 ) {
     var curacaoPaymentInfo = window.checkoutConfig.curacaoPayment,
         customerInfo = window.checkoutConfig.customerData,
@@ -257,6 +259,8 @@ define([
                         });
                         model.isUserLinked(false);
                     }
+
+                    fullScreenLoader.stopLoader();
                 });
             }
         },
@@ -265,7 +269,7 @@ define([
          *
          * Function to send SMS
          */
-        placeCall: function (model) {
+        placeCall: function () {
             event.preventDefault();
             curacaoServiceProvider.placeCall().done(function () {
                 if (!curacaoServiceProvider.isResponseError()) {
@@ -354,6 +358,8 @@ define([
                         });
                         model.isUserLinked(false);
                     }
+
+                    fullScreenLoader.stopLoader();
                 });
             }
 
@@ -361,9 +367,9 @@ define([
 
         /**
          *
-         * @param model
+         * @param {Object} model
          */
-        validateCodeVerifyModalForm(model) {
+        validateCodeVerifyModalForm: function (model) {
             var formId = '#' + model.verifyform,
                 verifyform = $(formId);
 

@@ -187,8 +187,6 @@ define([
                  * @param {JSON} result
                  */
                 success: function (result) {
-                    fullScreenLoader.stopLoader();
-
                     if (result.type === 'error') {
                         self.isResponseError(true);
                         self.message(result.message);
@@ -204,15 +202,8 @@ define([
                  * Some bad thing happend in Ajax request
                  */
                 error: function () {
-                    fullScreenLoader.stopLoader();
                     self.isResponseError(true);
                     self.response(null);
-                },
-
-                /**
-                 * Ajax request complete
-                 */
-                complete: function () {
                     fullScreenLoader.stopLoader();
                 }
             });
@@ -248,8 +239,6 @@ define([
                  * @param {JSON} result
                  */
                 success: function (result) {
-                    fullScreenLoader.stopLoader();
-
                     if (result.type === 'error') {
                         self.isResponseError(true);
                         self.message(result.message);
@@ -265,15 +254,8 @@ define([
                  * Some bad thing happend in Ajax request
                  */
                 error: function () {
-                    fullScreenLoader.stopLoader();
                     self.isResponseError(true);
                     self.response(null);
-                },
-
-                /**
-                 * Ajax request complete
-                 */
-                complete: function () {
                     fullScreenLoader.stopLoader();
                 }
             });
