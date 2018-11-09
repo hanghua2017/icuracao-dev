@@ -188,6 +188,9 @@ class Index extends Action
                     $this->_customerSession->setCustomerAsLoggedIn($customer);   
                     $this->_customerSession->setCurAcc($curacaoCustId);                
                     $this->_customerSession->setFname($customerInfo->getFirstName());
+                    $defaultUrl = $this->urlModel->getUrl('linkaccount/verify/success', ['_secure' => true]); 
+                    
+                    return $resultRedirect->setUrl($defaultUrl);
                 }
                 catch(\Exception $e) {
                     $errorMessage = $e->getMessage();
@@ -197,51 +200,51 @@ class Index extends Action
                 }
                 $customerId = $customer->getId();
              }
-             $zipCode  = str_replace('-','',$customerInfo->getZipCode());//clearn up zip code
+            //  $zipCode  = str_replace('-','',$customerInfo->getZipCode());//clearn up zip code
 
-             //assign what region the state is in
-            switch($customerInfo->getState())
-            {
-                case 'AZ' : $reg_id = 4; break;
-                case 'CA' : $reg_id = 12; break;
-                case 'NV' : $reg_id = 39; break;
-                default   : $reg_id = 12; break;
-            }
-             //safe information t an array
-            $_custom_address = array(
-                'firstname' => $customerInfo->getFirstName(),
-                'lastname' => $customerInfo->getFirstName(),
-                'street' => array('0' => $customerInfo->getStreet(), '1' => '',),
-                'city' => $customerInfo->getCity(),
-                'region_id' => $reg_id,
-                'postcode' => $zipCode,
-                'country_id' => 'US'
-            );
+            //  //assign what region the state is in
+            // switch($customerInfo->getState())
+            // {
+            //     case 'AZ' : $reg_id = 4; break;
+            //     case 'CA' : $reg_id = 12; break;
+            //     case 'NV' : $reg_id = 39; break;
+            //     default   : $reg_id = 12; break;
+            // }
+            //  //safe information t an array
+            // $_custom_address = array(
+            //     'firstname' => $customerInfo->getFirstName(),
+            //     'lastname' => $customerInfo->getFirstName(),
+            //     'street' => array('0' => $customerInfo->getStreet(), '1' => '',),
+            //     'city' => $customerInfo->getCity(),
+            //     'region_id' => $reg_id,
+            //     'postcode' => $zipCode,
+            //     'country_id' => 'US'
+            // );
 
-            //get the customer address model and update the address information
-            if($customerId){
-                $customAddress = $this->_addressFactory->create();
-                $customAddress->setData($_custom_address)
-                    ->setCustomerId($customerId)
-                    ->setIsDefaultBilling('1')
-                    ->setIsDefaultShipping('1')
-                    ->setSaveInAddressBook('1');
+            // //get the customer address model and update the address information
+            // if($customerId){
+            //     $customAddress = $this->_addressFactory->create();
+            //     $customAddress->setData($_custom_address)
+            //         ->setCustomerId($customerId)
+            //         ->setIsDefaultBilling('1')
+            //         ->setIsDefaultShipping('1')
+            //         ->setSaveInAddressBook('1');
    
-                try{
-                    $customAddress->save();
-                    //  $customer->setAddress($customAddress);
-                    //  $customer->save();
+            //     try{
+            //         $customAddress->save();
+            //         //  $customer->setAddress($customAddress);
+            //         //  $customer->save();
                      
-                    $defaultUrl = $this->urlModel->getUrl('linkaccount/verify/success', ['_secure' => true]); 
-                    return $resultRedirect->setUrl($defaultUrl);
-                }
-                catch(\Exception $e) {
-                    $errorMessage = $e->getMessage();
-                    $this->messageManager->addErrorMessage($errorMessage);
-                    $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
-                    return $resultRedirect->setUrl($defaultUrl);
-                }
-            }
+            //         $defaultUrl = $this->urlModel->getUrl('linkaccount/verify/success', ['_secure' => true]); 
+            //         return $resultRedirect->setUrl($defaultUrl);
+            //     }
+            //     catch(\Exception $e) {
+            //         $errorMessage = $e->getMessage();
+            //         $this->messageManager->addErrorMessage($errorMessage);
+            //         $defaultUrl = $this->urlModel->getUrl('linkaccount/verify', ['_secure' => true]);
+            //         return $resultRedirect->setUrl($defaultUrl);
+            //     }
+            // }
             
 
           }

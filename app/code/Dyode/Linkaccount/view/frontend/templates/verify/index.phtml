@@ -2,7 +2,7 @@
       <div class="linkaccount-inner-container">
         <div class="wrapper clearfix">
           <div class="verifymsg"></div>
-
+       
 <!--Verification code entry form-->
         <div class="verify-phone">
             <form class="verifyform" id="verifyform" method="post"
@@ -17,12 +17,12 @@
                   <div class="contact-icon1">
                     <img src="<?php echo $block->getViewFileUrl('images/sms-icon.png'); ?>" alt="sms icon" />
                   </div>
-                  <button id="voice" name="voice" value="Voice"> <?php echo __('Call') ?> </button>
+                  <button id="voice" name="voice" value="Voice"> <?php echo __('Voice') ?> </button>
                   <div class="contact-icon2">
                     <img src="<?php echo $block->getViewFileUrl('images/call-icon.png'); ?>" alt="call icon" />
                   </div>
                 </div>
-                <div class="phoneverify"></div>
+               <div class="msg-outer" style="display:none;"> <span class="phoneverify"></span> <?php echo '(XXX)-XXX-'.$block->getCustomerPhone();?></div>
 <!--Input validation code-->
                 <div class="field required codeverify" style="display:none;">
                         <div class="control">

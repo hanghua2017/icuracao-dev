@@ -9,7 +9,7 @@ class Index extends \Magento\Framework\View\Element\Template
     * @var \Magento\Backend\Block\Template\Context
     */
     protected $_storeManager;
-
+    protected $_customerSession;
     /**
      * @var
      */
@@ -23,9 +23,11 @@ class Index extends \Magento\Framework\View\Element\Template
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Backend\Block\Template\Context $context,
+        \Magento\Customer\Model\Session $customerSession,
         array $data = []
     ) {
         $this->_storeManager = $storeManager;
+        $this->_customerSession = $customerSession;
         parent::__construct($context, $data);
     }
 
@@ -52,5 +54,14 @@ class Index extends \Magento\Framework\View\Element\Template
 
         return $baseUrl.'linkaccount/verify/codeverify';
 
+    }
+
+    /**
+     * Fucntion to return the last four digits of the phone number
+     */
+    public function getCustomerPhone(){
+        $customerInfo  = $this->_customerSession->getCuracaoInfo();
+        return substr($customerInfo->getTelephone(),-4);
+        
     }
 }
