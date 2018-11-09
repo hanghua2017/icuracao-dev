@@ -108,7 +108,7 @@ define([
                     self.shipAddressStreetLine2(shippingAddress.street[1]);
                 } else {
                     self.hasShipAddressStreetLine2(false);
-                    self.shipAddressStreetLine1(null);
+                    self.shipAddressStreetLine2(null);
                 }
 
                 if (shippingAddress.region_id) {
@@ -159,7 +159,7 @@ define([
                     self.billAddressStreetLine2(billingAddress.street[1]);
                 } else {
                     self.hasBillAddressStreetLine2(false);
-                    self.billAddressStreetLine1(null);
+                    self.billAddressStreetLine2(null);
                 }
 
                 if (billingAddress.region_id) {

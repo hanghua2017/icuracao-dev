@@ -189,7 +189,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
             return false;
         }
-        $this->arErrorLogs("GetCustomerContact", "Obtained Customer Details for id "  . $restResponse->getBody());
+        $this->arErrorLogs("GetCustomerContact", "Obtained Customer Details for id " . $restResponse->getBody());
 
         $custInfo = $result->DATA;
         return $custInfo;
@@ -248,14 +248,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $code = rand(10000, 99999);
 
         $licenseKey = $this->getConfig('linkaccount/curacao/licensekey');
-        $callerID = $this->getConfig('linkaccount/curacao/callerid');
         $wsdlUrl = $this->getConfig('linkaccount/curacao/phonewsdlurl');
 
         $countryCode = '1';
         $valuesToDelete = ['(', ')', '-', ' '];
         $phoneNumber = str_replace($valuesToDelete, '', $_phonenumber);
-        $extension = '';
-        $extensionPauseTime = '';
 
         if ($_type == 1) {
 
@@ -269,42 +266,25 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 'ExtensionPauseTime' => '',
             ];
 
-            $URL = $wsdlUrl . "PlaceCall?CountryCode=" . $countryCode . "&PhoneNumber=" . $phoneNumber. "&VerificationCode=" . $code . "&CallerID=" . $callerID . "&Language=en" . "&LicenseKey=" . $licenseKey;
+            try {
+                $this->zendClient->reset();
+                $this->zendClient->setUri($wsdlUrl . "/PlaceCall");
+                $this->zendClient->setMethod(\Zend\Http\Request::METHOD_POST);
+                $this->zendClient->setParameterPost($params);
+                $this->zendClient->send();
+                $this->arErrorLogs("Call", "Successfully placed call to " . $phoneNumber);
 
-           // Get cURL resource
-            $curl = curl_init();
-            curl_setopt_array($curl, [
-                CURLOPT_RETURNTRANSFER => 1,
-                CURLOPT_URL            => $URL,
-                CURLOPT_USERAGENT      => 'Service Objects Telephone Verification',
-            ]);
-            curl_setopt($curl, CURLOPT_TIMEOUT, 50); //timeout in seconds
-            // Send the request & save response to $resp
-            $resp = curl_exec($curl);
+                return trim(md5($salt . $code));
 
-            if ($resp == false) {
+            } catch (\Zend\Http\Exception\RuntimeException $runtimeException) {
                 $this->arErrorLogs("Call", "Failed to place a call to " . $phoneNumber);
-                curl_close($curl);
+
                 return -1;
             }
-            $this->arErrorLogs("SMS", "Successfully placed call to " . $phoneNumber); 
-
-            // $soapClient = new \SoapClient($wsdlUrl . "?WSDL/", ["trace" => 1]);
-            // $response = $soapClient->__soapCall("PlaceCall", $params);
-              
-
-            // $response = $soapClient->PlaceCall($params);
-            // $result= $response->PlaceCallResult;
-            if (isset($result->Error)) {
-                   return -1;
-            }
-            return true;
-           
 
         } else {
 
             $message = 'Your Curacao verification code is ' . $code . '.';
-
             $params = [
                 'CountryCode' => $countryCode,
                 'PhoneNumber' => $phoneNumber,

@@ -23,7 +23,7 @@
     button{
       font-family: 'iCuracao-Medium';
       font-size: 14px;
-      background-color: @curacao-green !important;
+      background-color: #f26722 !important;
       color: @white;
       width: 252px;
       min-height: 45px;
@@ -121,7 +121,7 @@
           font-family: 'iCuracao-Light';
           color:@input-color;
         }
-        @media all and(max-width: 991px){
+        @media all and(max-width: 1024px){
           width: 200px;
           width: 100%;
         }
@@ -238,6 +238,9 @@
               }
             }
           }
+          .sms-sending-in-progress{
+            color: #006400;
+          }
           .actions-toolbar{
             margin-bottom: 20px;
             .primary{
@@ -311,7 +314,7 @@
             width: 425px;
             text-align: left;
             padding-left: 38px;
-            @media all and(max-width: 1025px){
+            @media all and(max-width: 1024px){
               padding-left: 0px;
               width: 100%;
             }
@@ -332,13 +335,10 @@
         }
         .ssn-field{
           text-align: left;
-          padding-left: 106px;
+          padding-left: 90px;
           padding-top: 30px;
-          @media all and(max-width: 991px){
-            padding-left: 60px;
-          }
-          @media all and(max-width: 991px){
-            padding-left: 15px;
+          @media all and(max-width: 1024px){
+            padding-left: 0px;
           }
           label{
             padding-left: 0;
@@ -579,7 +579,7 @@
                 width: 100%;
                 min-height:40px;
                 padding-left: 30px;
-                background-color: @curacao-green !important;
+                background-color: #f26722 !important;
                 border: none !important;
                 outline: none !important;
                 text-transform: capitalize;

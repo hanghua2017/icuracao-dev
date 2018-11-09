@@ -2,7 +2,7 @@
       <div class="linkaccount-inner-container">
         <div class="wrapper clearfix">
           <div class="verifymsg"></div>
-
+       
 <!--Verification code entry form-->
         <div class="verify-phone">
             <form class="verifyform" id="verifyform" method="post"
@@ -17,13 +17,14 @@
                   <div class="contact-icon1">
                     <img src="<?php echo $block->getViewFileUrl('images/sms-icon.png'); ?>" alt="sms icon" />
                   </div>
-                  <button id="voice" name="voice" value="Voice"> <?php echo __('Call') ?> </button>
+                  <button id="voice" name="voice" value="Voice"> <?php echo __('Voice') ?> </button>
                   <div class="contact-icon2">
                     <img src="<?php echo $block->getViewFileUrl('images/call-icon.png'); ?>" alt="call icon" />
                   </div>
                 </div>
+               <div class="msg-outer" style="display:none;"> <span class="phoneverify"></span> <?php echo '(XXX)-XXX-'.$block->getCustomerPhone();?></div>
 <!--Input validation code-->
-                <div class="field required">
+                <div class="field required codeverify" style="display:none;">
                         <div class="control">
                             <input id="verification_code" type="text"
                             name="verification_code" value="" placeholder="Enter Verification Code"
@@ -32,7 +33,7 @@
                 </div>
             </fieldset>
 <!--Submit form-->
-            <div class="actions-toolbar">
+            <div class="actions-toolbar codeverify" style="display:none;">
                     <div class="primary">
                         <button type="submit" class="action submit primary"
                         title="<?php  echo __('Verify Account') ?>" id="verifycode"><span><?php echo __('Verify Account') ?></span>
@@ -40,7 +41,7 @@
                     </div>
                 </div>
                 <div class="disclaimer">
-                  <p>If you don't recognize the number on file, please call 877-287-2226</p>
+                  <p><?php echo __("If you don't recognize the number on file, please call 877-287-2226"); ?></p>
                 </div>
             </form>
         </div>
@@ -75,7 +76,7 @@
                       <div class="control">
                       <input type="text" class="input-text"
                       id="calendar_inputField" name="calendar_inputField"
-                      placeholder="Enter Date of Birth" />
+                      placeholder="mm-dd-yyyy" />
                       </div>
                   </div>
                   <div class="field">

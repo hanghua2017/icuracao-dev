@@ -111,7 +111,7 @@ class VerifyCuracaoId
                
                 //Verify Credit Account Infm
                 $accountInfo   =  $this->helper->getARCustomerInfoAction($curacaoId);
-
+               
                 if ($accountInfo == false) {
                     // Personal Infm failed
                     $this->messageManager->addErrorMessage('Please enter valid details / contact customer support');
@@ -144,6 +144,11 @@ class VerifyCuracaoId
         $accountNumber = $registerPost->getRequest()->getParam('curacaocustid',false);
         $customerEmail = $registerPost->getRequest()->getParam('email', false);
         $password      = $registerPost->getRequest()->getParam('password', false);
+        if(isset($accountInfo->PHONE)  && ($accountInfo->PHONE != '')){
+            $phone  =  $accountInfo->PHONE;
+          } else {
+            $phone  =  $accountInfo->CELL;
+          }
         
         $curacaoInfo = new DataObject([
             'account_number' => $accountNumber,
@@ -156,9 +161,9 @@ class VerifyCuracaoId
             'zip_code'       => $accountInfo->ZIP,
             'previous_page'  => 'create',
             'password'       => $password,
-            'telephone'      => $accountInfo->PHONE
+            'telephone'      => $phone
         ]);
-
+            
         $this->customerSession->setCuracaoInfo($curacaoInfo);
 
         return $this;
