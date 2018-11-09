@@ -277,7 +277,7 @@ Configuration,Configuración,module,Magento_Analytics
 "This service provides a dynamic suite of reports with rich insights about your business.
                 Your reports can be accessed securely on a personalized dashboard outside of the admin panel by clicking on the
                 ""Go to Advanced Reporting"" link. </br> For more information, see our
-                <a href=""https://magento.com/legal/terms/privacy"">terms and conditions</a>.","Este servicio provee un paquete dinámico de informes con información valiosa acerca de tu negocio. 
+                <a href=""https://magento.com/legal/terms/privacy"">terms and conditions</a>.","Este servicio provee un paquete dinámico de informes con información valiosa acerca de tu negocio.
                 Podrás tener acceso a tus informes de forma segura a través de un panel de control personalizado externo al panel de administración pulsando en el enlace ""Ir a informes avanzados"". Par amas información, vea nuestros <a href=""https://magento.com/legal/terms/privacy"">términos y condiciones</a>.",module,Magento_Analytics
 "Advanced Reporting Service","Servicio de informes avanzados",module,Magento_Analytics
 Industry,"Tipo de negocio",module,Magento_Analytics
@@ -6791,7 +6791,7 @@ Options,Opciones,module,Magento_Multishipping
 "Failed Messages Lifetime","Tiempo de vida de mensajes fallados",module,Magento_MysqlMq
 "New Messages Lifetime","Tiempo de vida de nuevos mensajes",module,Magento_MysqlMq
 "No New Relic Application ID configured, cannot continue with Cron Event reporting","No esta configurada la nueva ID de aplicación Relic, no se puede continuar con el reporte de Eventos Cron",module,Magento_NewRelicReporting
-"The New Relic integration requires the newrelic-php5 agent, which is not installed. More 
+"The New Relic integration requires the newrelic-php5 agent, which is not installed. More
                         information on installing the agent is available <a target=""_blank"" href=""%1"">here</a>.","La nueva integración Relic requiere al agente newrelic-php5 que no está instalado. Más información sobre cómo instalar el agente está disponible <a target=""_blank"" href=""%1""> aquí</a>.",module,Magento_NewRelicReporting
 "New Relic Reporting Section","Nueva sección de informes de reliquia",module,Magento_NewRelicReporting
 "New Relic Reporting","Nuevos informes de reliquia",module,Magento_NewRelicReporting
@@ -7098,6 +7098,7 @@ Shipping,Envío,module,Magento_Payment
 "The credit card number doesn't match the credit card type.","El Número de la tarjeta de crédito no corresponde al tipo de la tarjeta.",module,Magento_Payment
 "Invalid Credit Card Number","El número de tarjeta es inválido",module,Magento_Payment
 "This credit card type is not allowed for this payment method.","Este tipo de tarjeta no se acepta para este método de pago.",module,Magento_Payment
+"This credit card type is not allowed for this payment method. Please enter a valid CVV. Invalid credit card expiration date.","Este tipo de tarjeta de crédito no está permitido para este método de pago. Por favor, introduzca un CVV válido. Fecha de vencimiento de la tarjeta de crédito no válida.",module,Magento_Payment
 "Please enter a valid credit card verification number.","Por favor, introduzca el número de verificación de tarjeta válido.",module,Magento_Payment
 "Please enter a valid credit card expiration date.","Por favor, introduzca una fecha de caducidad de tarjeta de crédito que está válida.",module,Magento_Payment
 "%1 class doesn't implement \Magento\Payment\Model\MethodInterface","Clade %1 no implementa \Magento\Payment\Model\MethodInterface",module,Magento_Payment
@@ -9403,6 +9404,7 @@ Authorization,Autorización,module,Magento_Sales
 "Sold to:","Vendido a:",module,Magento_Sales
 "Ship to:","Enviar a:",module,Magento_Sales
 "Payment Method:","Método de pago:",module,Magento_Sales
+"Credit or Debit Cards","tarjetas de credito o debito",module,Magento_Sales
 "Shipping Method:","Método de envío:",module,Magento_Sales
 "Total Shipping Charges","Gastos de envío",module,Magento_Sales
 Title,Título,module,Magento_Sales
@@ -10720,7 +10722,7 @@ Save,Guardar,module,Magento_Staging
 "This update not exists.","Esta actualización no existe.",module,Magento_Staging
 "Content Staging Dashboard","Panel contenido puesta en escena",module,Magento_Staging
 "The Start Time of this Update cannot be changed. It's been already started.","La hora de inicio de esta actualización no se puede cambiar. Ya ha comenzado.",module,Magento_Staging
-"Future Update in this time range already exists. 
+"Future Update in this time range already exists.
                             Select a different range to add a new Future Update.","Futura actualización en este intervalo de tiempo, ya existe.                              Seleccionar un rango diferente para agregar una nueva actualización de futuro.",module,Magento_Staging
 "Cannot save Update.","No se puede guardar la actualización.",module,Magento_Staging
 "Edit Existing Update","Editar actualización existente",module,Magento_Staging
