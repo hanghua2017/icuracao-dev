@@ -2915,6 +2915,7 @@
 "Options Details","Detalles de las opciones",module,Magento_Checkout
 "Remove","Eliminar",module,Magento_Checkout
 "Cart Subtotal","Subtotal del carrito",module,Magento_Checkout
+"Cart Subtotal","Total parcial",module,Magento_Checkout
 "Payment Information","Información de pago",module,Magento_Checkout
 "No Payment method available.","Ningún método de pago está disponible.",module,Magento_Checkout
 "You can track your order status by creating an account.","Puedes verificar el estado de tu orden creando una cuenta.",module,Magento_Checkout
