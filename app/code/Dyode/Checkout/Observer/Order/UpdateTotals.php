@@ -166,8 +166,10 @@ class UpdateTotals implements ObserverInterface
     {
         if ($this->curacaoHelper->hasCuracaoCreditUsed()) {
             $curacaoCredit = $this->curacaoHelper->getCuracaoDownPayment();
+            $curacaoSessionInfo = $this->curacaoHelper->getCuracaoSessionInformation();
             $this->order->setIsCuracaoCreditUsed(true);
             $this->order->setCuracaoDownPayment((float)$curacaoCredit);
+            $this->order->setCuracaocustomernumber($curacaoSessionInfo->getAccountNumber());
 
             //if downPayment = 0, paymentMethod  = curacaoFullPayment; No need to update totalDue in that case.
             if (!$curacaoCredit) {
