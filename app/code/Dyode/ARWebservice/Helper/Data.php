@@ -247,7 +247,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $salt = 'ag#A\J9.u=j^v}X3';
         $code = rand(10000, 99999);
 
-        $_phonenumber  = '(832)977-1260';
+       // $_phonenumber  = '(832)977-1260';
 
         $licenseKey = $this->getConfig('linkaccount/curacao/licensekey');
         $callerID = $this->getConfig('linkaccount/curacao/callerid');
@@ -272,20 +272,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             ];
 
             // $URL = $wsdlUrl . "PlaceCall?CountryCode=" . $countryCode . "&PhoneNumber=" . $phoneNumber. "&VerificationCode=" . $verifyCode . "&CallerID=" . $callerID . "&Language=" . $language . "&LicenseKey=" . $licenseKey;
-
-            // try{
-
-            //     $this->zendClient->reset();
-            //     $this->zendClient->setUri($wsdlUrl . "/PlaceCall");
-            //     $this->zendClient->setMethod(\Zend\Http\Request::METHOD_POST);
-            //     $this->zendClient->setParameterPost($params);
-            //     $this->zendClient->send();
-            //     return trim(md5($salt . $code));
-
-            // } catch (\Zend\Http\Exception\RuntimeException $runtimeException) {
-            //     $this->arErrorLogs("Call", "Failed to place a call to " . $phoneNumber);
-            //     return -1;
-            // }
 
             // Get cURL resource
             // $curl = curl_init();
