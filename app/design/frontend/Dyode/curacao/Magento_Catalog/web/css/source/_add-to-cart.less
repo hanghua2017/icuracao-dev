@@ -707,3 +707,29 @@
   }
   // End Common styling for warranty popup and addtocart popup
 }
+//scroll for store locator pop up
+.store-availability-modal{
+  .modal-inner-wrap{
+    margin: 5rem auto;
+    height: 80vh;
+    overflow-y: scroll;
+  }
+  .modal-inner-wrap::-webkit-scrollbar {
+    width: 8px;
+  }
+  /* Track */
+  .modal-inner-wrap::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 8px #ebebeb;
+    background: #ebebeb;
+    border-radius: 10px;
+  }
+  /* Handle */
+  .modal-inner-wrap::-webkit-scrollbar-thumb {
+    background: #d0d0d0;
+    border-radius: 10px;
+  }
+  /* Handle on hover */
+  .modal-inner-wrap::-webkit-scrollbar-thumb:hover {
+    background: #d0d0d0;
+  }
+}

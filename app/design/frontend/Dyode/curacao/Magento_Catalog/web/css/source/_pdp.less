@@ -745,14 +745,24 @@
                 .form-field-container{
                   display:flex;
                   align-items:center;
+                  @media all and (max-width:479px){
+                    flex-direction: column;
+                  }
                   .form-field{
                     height:32px;
                     margin-right:5px;
+                    @media all and (max-width:479px){
+                      margin:0 0 10px;
+                      width:100%;
+                    }
                     input[type="number"]{
                       width: 200px;
                       font-size: 14px;
                       font-family: "iCuracao-Regular";
-                      ::-webkit-input-placeholder {
+                      @media all and (max-width:479px){
+                        width: 100%;
+                      }
+                      &::-webkit-input-placeholder {
                         /* Chrome/Opera/Safari */
                         font-family: 'iCuracao-Light';
                         color: #a6a6a6;
@@ -760,7 +770,7 @@
                         font-style: italic;
                       }
 
-                      ::-moz-placeholder {
+                      &::-moz-placeholder {
                         /* Firefox 19+ */
                         font-family: 'iCuracao-Light';
                         color: #a6a6a6;
@@ -768,7 +778,7 @@
                         font-style: italic;
                       }
 
-                      :-ms-input-placeholder {
+                      &:-ms-input-placeholder {
                         /* IE 10+ */
                         font-family: 'iCuracao-Light';
                         color: #a6a6a6;
@@ -776,7 +786,7 @@
                         font-style: italic;
                       }
 
-                      :-moz-placeholder {
+                      &:-moz-placeholder {
                         /* Firefox 18- */
                         font-family: 'iCuracao-Light';
                         color: #a6a6a6;
@@ -793,6 +803,10 @@
                       font-family: 'iCuracao-Medium';
                       box-shadow: none;
                       height: 32px;
+                      @media all and (max-width:479px){
+                        width:100%;
+                        margin:5px 0 0;
+                      }
                     }
                     .close{
                       background: transparent;
@@ -804,6 +818,9 @@
                       font-weight: 500;
                       line-height: 32px;
                       font-family: 'iCuracao-Medium';
+                      @media all and (max-width:479px){
+                        margin:0 0 10px;
+                      }
                     }
                   }
                 }
