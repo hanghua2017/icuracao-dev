@@ -148,6 +148,9 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                     $customer->getCustomAttribute("curacaocustid")->getValue() : "";
             }
         }
+        if(empty($accountNumber)){
+            $accountNumber = '500-8555';
+        }
         $logger->info("validate account number start");
         # Validating the Account Number
         $accountNumber = $this->_arInvoiceHelper->validateAccountNumber($accountNumber);
