@@ -391,56 +391,57 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                     $set = $product->getData('set');
 
                     if ($set == "1") {
-                        $setItems = json_decode($this->getSetItems($itemSku));
-                        $pendingArray = $this->getPendingEstimate($itemSku);
-                        if (count($pendingArray) > 0) {
-                            $pendingValue = $pendingArray[0]['pending'];
-                        } else {
-                            $pendingValue = 0;
-                        }
-                        $availableInventory = array();
+                        // $setItems = json_decode($this->getSetItems($itemSku));
+                        // $pendingArray = $this->getPendingEstimate($itemSku);
+                        // if (count($pendingArray) > 0) {
+                        //     $pendingValue = $pendingArray[0]['pending'];
+                        // } else {
+                        //     $pendingValue = 0;
+                        // }
+                        // $availableInventory = array();
 
-                        if ($setItems->OK) {
-                            $itemsArray = array();
-                            $setItemsQty = array();
-                            $pending = array();
-                            foreach ($setItems->LIST as $setItem) {
-                                array_push($itemsArray, $setItem->ITEM_ID);
-                                $setItemsQty[$setItem->ITEM_ID] = $setItem->QTY;
-                                $pending[$setItem->ITEM_ID] = $pendingValue * $setItemsQty[$setItem->ITEM_ID];
+                        // if ($setItems->OK) {
+                        //     $itemsArray = array();
+                        //     $setItemsQty = array();
+                        //     $pending = array();
+                        //     foreach ($setItems->LIST as $setItem) {
+                        //         array_push($itemsArray, $setItem->ITEM_ID);
+                        //         $setItemsQty[$setItem->ITEM_ID] = $setItem->QTY;
+                        //         $pending[$setItem->ITEM_ID] = $pendingValue * $setItemsQty[$setItem->ITEM_ID];
 
-                                $setItemProduct = $this->getProductBySku($setItem->ITEM_ID);
+                        //         $setItemProduct = $this->getProductBySku($setItem->ITEM_ID);
 
-                                $resultSetItem = $this->getProductInventory($setItemProduct->getId());
+                        //         $resultSetItem = $this->getProductInventory($setItemProduct->getId());
 
-                                $setItemInventoryLevel = (!empty($resultSetItem)) ?
-                                    json_decode($resultSetItem[0]['finalinventory']) : [];
-                                if (!empty($setItemInventoryLevel)) {
-                                    foreach ($setItemInventoryLevel as $key => $value) {
-                                        $stockAvailable = $value - $pending[$setItem->ITEM_ID];
-                                        $stockOrdered = $itemQty * $setItemsQty[$setItem->ITEM_ID];
-                                        if (empty($availableInventory[$key])) {
-                                            $availableInventory[$key] = array();
-                                        }
-                                        if ($stockAvailable > $stockOrdered) {
-                                            array_push($availableInventory[$key], $setItem->ITEM_ID);
-                                        }
-                                    }
-                                }
-                            }
+                        //         $setItemInventoryLevel = (!empty($resultSetItem)) ?
+                        //             json_decode($resultSetItem[0]['finalinventory']) : [];
+                        //         if (!empty($setItemInventoryLevel)) {
+                        //             foreach ($setItemInventoryLevel as $key => $value) {
+                        //                 $stockAvailable = $value - $pending[$setItem->ITEM_ID];
+                        //                 $stockOrdered = $itemQty * $setItemsQty[$setItem->ITEM_ID];
+                        //                 if (empty($availableInventory[$key])) {
+                        //                     $availableInventory[$key] = array();
+                        //                 }
+                        //                 if ($stockAvailable > $stockOrdered) {
+                        //                     array_push($availableInventory[$key], $setItem->ITEM_ID);
+                        //                 }
+                        //             }
+                        //         }
+                        //     }
 
-                        }
-                        $setLocationFound = 0;
-                        foreach ($availableInventory as $locations => $items) {
-                            if (count($itemsArray) == count($items)) {
-                                $setLocationFound = 1;
-                                return $locations;
-                            }
-                        }
-                        if ($setLocationFound != 1) {
-                            # Send Out of Stock Notification
-                            return 01;
-                        }
+                        // }
+                        // $setLocationFound = 0;
+                        // foreach ($availableInventory as $locations => $items) {
+                        //     if (count($itemsArray) == count($items)) {
+                        //         $setLocationFound = 1;
+                        //         return $locations;
+                        //     }
+                        // }
+                        // if ($setLocationFound != 1) {
+                        //     # Send Out of Stock Notification
+                        //     return 01;
+                        // }
+                        return 01;
                     } else {
 
                         return "k";
