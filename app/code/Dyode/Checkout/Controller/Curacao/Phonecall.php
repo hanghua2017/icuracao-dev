@@ -17,6 +17,7 @@ use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Dyode\ARWebservice\Helper\Data;
 use Magento\Framework\Controller\ResultFactory;
+use Dyode\Checkout\Helper\CuracaoHelper;
 
 class Phonecall extends Action{
 
@@ -34,6 +35,10 @@ class Phonecall extends Action{
     * @var Dyode\ARWebservice\Helper\Data
     */
     protected $_helper;
+     /**
+     * @var \Dyode\Checkout\Helper\CuracaoHelper
+     */
+    protected $curacaoHelper;
 
     /**
      * Constructor
@@ -45,20 +50,24 @@ class Phonecall extends Action{
         Context $context,
         Session $customerSession,
         ResultFactory $resultFactory,
-        Data $helper
+        Data $helper,
+        CuracaoHelper $curacaoHelper
      ) {
         parent::__construct($context);
         $this->_resultFactory = $resultFactory;
         $this->_customerSession = $customerSession;
         $this->_helper = $helper;
+        $this->curacaoHelper = $curacaoHelper;
      }
  
 
     public function execute(){
-        $customerInfo  = $this->_customerSession->getCuracaoInfo();
-     
-        if($customerInfo != null){
-            $phone = $customerInfo->getTelephone();
+        $customerInfo = $this->curacaoHelper->getCuracaoSessionInformation();
+        $result = $this->_resultFactory->create(ResultFactory::TYPE_JSON);
+        $output = [];
+
+        if ($customerInfo != null) {
+            $phone = $customerInfo->getPhone();
             $resultData = '';
             $resultData = $this->_helper->phoneVerifyCode($phone, 1, 1);
             $result = $this->_resultFactory->create(ResultFactory::TYPE_JSON);

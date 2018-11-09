@@ -247,8 +247,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $salt = 'ag#A\J9.u=j^v}X3';
         $code = rand(10000, 99999);
 
-       // $_phonenumber  = '(832)977-1260';
-
         $licenseKey = $this->getConfig('linkaccount/curacao/licensekey');
         $callerID = $this->getConfig('linkaccount/curacao/callerid');
         $wsdlUrl = $this->getConfig('linkaccount/curacao/phonewsdlurl');
@@ -271,35 +269,36 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 'ExtensionPauseTime' => '',
             ];
 
-            // $URL = $wsdlUrl . "PlaceCall?CountryCode=" . $countryCode . "&PhoneNumber=" . $phoneNumber. "&VerificationCode=" . $verifyCode . "&CallerID=" . $callerID . "&Language=" . $language . "&LicenseKey=" . $licenseKey;
+            $URL = $wsdlUrl . "PlaceCall?CountryCode=" . $countryCode . "&PhoneNumber=" . $phoneNumber. "&VerificationCode=" . $code . "&CallerID=" . $callerID . "&Language=en" . "&LicenseKey=" . $licenseKey;
 
-            // Get cURL resource
-            // $curl = curl_init();
-            // curl_setopt_array($curl, [
-            //     CURLOPT_RETURNTRANSFER => 1,
-            //     CURLOPT_URL            => $URL,
-            //     CURLOPT_USERAGENT      => 'Service Objects Telephone Verification',
-            // ]);
-            // curl_setopt($curl, CURLOPT_TIMEOUT, 50); //timeout in seconds
-            // // Send the request & save response to $resp
-            // $resp = curl_exec($curl);
+           // Get cURL resource
+            $curl = curl_init();
+            curl_setopt_array($curl, [
+                CURLOPT_RETURNTRANSFER => 1,
+                CURLOPT_URL            => $URL,
+                CURLOPT_USERAGENT      => 'Service Objects Telephone Verification',
+            ]);
+            curl_setopt($curl, CURLOPT_TIMEOUT, 50); //timeout in seconds
+            // Send the request & save response to $resp
+            $resp = curl_exec($curl);
 
-            // if ($resp == false) {
-            //     curl_close($curl);
-            //     return -1;
-            // }
+            if ($resp == false) {
+                $this->arErrorLogs("Call", "Failed to place a call to " . $phoneNumber);
+                curl_close($curl);
+                return -1;
+            }
+            $this->arErrorLogs("SMS", "Successfully placed call to " . $phoneNumber); 
 
-            $soapClient = new \SoapClient($wsdlUrl . "?WSDL/", ["trace" => 1]);
-            $response = $soapClient->__soapCall("PlaceCall", $params);
-            $this->arErrorLogs("SMS", "Successfully placed call to " . $phoneNumber);    
+            // $soapClient = new \SoapClient($wsdlUrl . "?WSDL/", ["trace" => 1]);
+            // $response = $soapClient->__soapCall("PlaceCall", $params);
+              
 
             // $response = $soapClient->PlaceCall($params);
             // $result= $response->PlaceCallResult;
             if (isset($result->Error)) {
-                $this->arErrorLogs("Call", "Failed to place a call to " . $phoneNumber);
-                return -1;
+                   return -1;
             }
-
+            return true;
            
 
         } else {
