@@ -34,7 +34,17 @@ $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIE
           <?php foreach ($_productCollection as $_product): ?>
               <?= /* @escapeNotVerified */ ($iterator++ == 1) ? '<li class="item product product-item">' : '</li><li class="item product product-item">' ?>
               <div class="product-item-info" data-container="product-grid">
-                  <?php
+                <?php
+                $originalPrice = $_product->getPrice();
+                $finalPrice = $_product->getFinalPrice();
+                ?>
+                <?php
+                if ($finalPrice && ($_product->getPrice()>$_product->getFinalPrice())):?>
+                <p class="price-off"><?php echo $this->helper('Discount\Discountpercentage\Helper\Data')->DisplayDiscountLabel($_product); ?></p>
+                <!-- End Static content for price off -->
+                <?php
+              endif;
+               ?>                  <?php
                   $productImage = $block->getImage($_product, $image);
                   if ($pos != null) {
                       $position = ' style="left:' . $productImage->getWidth() . 'px;'
@@ -43,7 +53,9 @@ $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIE
                   ?>
                   <?php // Product Image ?>
                   <a href="<?= /* @escapeNotVerified */ $_product->getProductUrl() ?>" class="product photo product-item-photo" tabindex="-1">
-                      <?= $productImage->toHtml() ?>
+
+                <?= $productImage->toHtml() ?>
+
                   </a>
                   <div class="product details product-item-details">
                       <?php
@@ -52,7 +64,9 @@ $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIE
                       <strong class="product name product-item-name">
                           <a class="product-item-link"
                              href="<?= /* @escapeNotVerified */ $_product->getProductUrl() ?>">
+
                               <?= /* @escapeNotVerified */ $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+
                           </a>
                       </strong>
                       <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
