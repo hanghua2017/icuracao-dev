@@ -30,6 +30,6 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
         </select>
     </div>
     <span class="limiter-text"><?= /* @escapeNotVerified */ __('per page') ?></span>
-    <span class="page-indicator">Page <?php echo __($block->getCurrentPage());?> 
-of <?php echo __($block->getLastPageNum());?></span>
+    <span class="page-indicator"><?php echo __('Page');?> <?php echo $block->getCurrentPage();?>
+<?php echo __('of');?> <?php echo $block->getLastPageNum();?></span>
 </div>
