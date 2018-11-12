@@ -193,16 +193,16 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             "CreateDate" => $createdDate,
             "CreateTime" => $createdTime,
             "WebReference" => $incrementId,
-            "SubTotal" => $subTotal,
-            "TaxAmount" => (double)$taxAmount,
+            "SubTotal" => (float)$subTotal,
+            "TaxAmount" => (float)$taxAmount,
             "DestinationZip" => $postCode,
-            "ShipCharge" => (double)$shippingAmount,
+            "ShipCharge" => (float)$shippingAmount,
             "ShipDescription" => $shippingDescription,
-            "DownPmt" => (double)$downPaymentAmount,
+            "DownPmt" => (float)$downPaymentAmount,
             "EmpID" => "",
-            "DiscountAmount" => (double)$discountAmount,
+            "DiscountAmount" => (float)$discountAmount,
             "DiscountDescription" => $discountDescription,
-            "ShippingDiscount" => (double)$shippingDiscount,
+            "ShippingDiscount" => (float)$shippingDiscount,
         );
         $items = array();
 
@@ -232,15 +232,15 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                     "model" => end($explodeItemSku),
                     "itemset" => $itemSet,
                     "qty" => (int)$itemQty,
-                    "price" => (double)$itemPrice,
-                    "cost" => (double)$itemCost,
+                    "price" => (float)$itemPrice,
+                    "cost" => (float)$itemCost,
                     "taxable" => $taxable,
                     "webvendor" => (int)$vendorId,
                     "from" => isset($itemsStoreLocation[$itemId]) ? $itemsStoreLocation[$itemId] : "",
                     "pickup" => $pickup,
                     "orditemid" => (int)$itemId,
-                    "tax_amt" => (double)$itemTaxAmount,
-                    "tax_rate" => (double)$itemTaxRate
+                    "tax_amt" => (float)$itemTaxAmount,
+                    "tax_rate" => (float)$itemTaxRate
                 )
             );
         }
