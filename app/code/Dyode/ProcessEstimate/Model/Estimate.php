@@ -89,7 +89,7 @@ class Estimate extends \Magento\Framework\Model\AbstractModel
 	    ($payment->getAmountPaid()) ? $amountPaid =  $payment->getAmountPaid() : $amountPaid = $payment->getAmountAuthorized();
 	    $referenceID = $order->getIncrementId();
 	    //calls webDownPayment helper function for the API response
-	    $this->helper->webDownPayment($customerID,$amountPaid,$invoiceNumber,$referenceID);
+	    $this->helper->webDownPayment($customerID,(float)$amountPaid,$invoiceNumber,$referenceID);
 	}
 
 	//process Supply Invoice API
