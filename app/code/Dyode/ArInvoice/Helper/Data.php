@@ -362,7 +362,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
          */
         $result = $this->getProductInventory($productId);
 
-        $inventoryLocations = (!empty($result)) ? json_decode($result[0]['finalinventory']) : [];
+        $inventoryLocations = (!empty($result)) ? json_decode($result[0]['finalinventory'], true) : [];
 
         if ($vendorId != '2139') {  # If the vendor is not Curacao
             return '33';
