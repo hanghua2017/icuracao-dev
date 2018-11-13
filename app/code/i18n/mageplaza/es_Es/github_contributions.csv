@@ -1254,7 +1254,7 @@
 "Settlement declined","Establecimiento declinado",module,Magento_BraintreeTwo
 "Settlement pending","Establecimiento pendiente",module,Magento_BraintreeTwo
 "Settlement confirmed","Establecimiento confirmado",module,Magento_BraintreeTwo
-"Sale","Venta",module,Magento_BraintreeTwo
+"Sale","Especials",module,Magento_BraintreeTwo
 "Credit","Crédito",module,Magento_BraintreeTwo
 "Credit Card Type","Tipo de tarjeta de crédito",module,Magento_BraintreeTwo
 "Credit Card Number","Número de tarjeta de crédito",module,Magento_BraintreeTwo
@@ -7372,7 +7372,7 @@
 "Shortcut","Acceso directo",module,Magento_Paypal
 "Acceptance Mark Image","Imagen de señal de aceptación",module,Magento_Paypal
 "Authorization","Autorización",module,Magento_Paypal
-"Sale","Venta",module,Magento_Paypal
+"Sale","Especials",module,Magento_Paypal
 "Yes","Sí",module,Magento_Paypal
 "No","No",module,Magento_Paypal
 "For Virtual Quotes Only","Solo para presupuestos en línea",module,Magento_Paypal
