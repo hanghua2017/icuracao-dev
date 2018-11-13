@@ -47,9 +47,8 @@ $shippingDaysLabel = $viewModel->shippingDaysLabel();
                 <input type="number"
                        class="zip-field required zipUS"
                        placeholder="<?= __('Please enter your zipcode') ?>"
-                       maxlength="5"
                        id="store-availability-zip-field"
-                />
+                        onKeyPress="if(this.value.length==5) return false;" />
             </div>
             <div class="form-field">
                 <button class="submit" type="button"><span><?= __('Check') ?></span></button>
