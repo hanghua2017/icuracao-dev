@@ -4,9 +4,20 @@ namespace Dyode\Shipstation\Model\Action;
 
 use Exception;
 
-class Export
+class Export extends \Auctane\Api\Model\Action\Export
 {
 
+    public function __construct(
+        \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $order,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Directory\Model\CountryFactory $countryFactory,
+        \Magento\Eav\Model\Config $eavConfig,
+        \Auctane\Api\Helper\Data $dataHelper,
+        \Magento\GiftMessage\Helper\Message $giftMessage
+    ) {
+        parent::__construct($order, $scopeConfig, $countryFactory, $eavConfig, $dataHelper, $giftMessage);
+    }
+     
     /**
      * Write the order in xml file
      *
@@ -153,7 +164,7 @@ class Export
                     $this->_addFieldToXML("Weight", $weight);
                     $this->_addFieldToXML("UnitPrice", $price);
                     $location = (!empty($orderItem->getData('pickup_location'))) ? $orderItem->getData('pickup_location') : '';
-                    $this->_addFieldToXML("CustomField3", $location);
+                    $this->_addFieldToXML("Location", $location);
                     $this->_addFieldToXML(
                         "Quantity",
                         intval($orderItem->getQtyOrdered())
