@@ -55,10 +55,10 @@ class Code extends \Magento\Framework\App\Action\Action
         $customerInfo  = $this->_customerSession->getCuracaoInfo();
         $curacaoCustId = trim($customerInfo->getAccountNumber());
         $accountInfo   =  $this->_helper->getARCustomerInfoAction($curacaoCustId);
-        if(isset($accountInfo->PHONE)  && ($accountInfo->PHONE != '')){
-          $phone  =  $accountInfo->PHONE;
-        } else {
+        if(isset($accountInfo->CELL)  && ($accountInfo->CELL != '')){
           $phone  =  $accountInfo->CELL;
+        } else {
+          $phone  =  $accountInfo->PHONE;
         }
         
 
