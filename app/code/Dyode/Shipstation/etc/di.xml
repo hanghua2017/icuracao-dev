@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+ * Dyode_Shipstation Module
+ *
+ * Override Shipstation Export File (Auctane)
+ *
+ * @package Dyode
+ * @module  Dyode_Shipstation
+ * @author  Nithin 
+ * @copyright Copyright © Dyode
+ */ 
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+<preference for="Auctane\Api\Model\Action\Export" type="Dyode\Shipstation\Model\Action\Export" />
+</config>

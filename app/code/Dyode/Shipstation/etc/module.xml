@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+ * Dyode_Shipstation Module
+ *
+ * Override Shipstation Export File (Auctane)
+ *
+ * @package Dyode
+ * @module  Dyode_Shipstation
+ * @author  Nithin 
+ * @copyright Copyright © Dyode
+ */ 
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/Module/etc/module.xsd">
+    <module name="Dyode_Shipstation" setup_version="1.0.0"></module>
+</config>
