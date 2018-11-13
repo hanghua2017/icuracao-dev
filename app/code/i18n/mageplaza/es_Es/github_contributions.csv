@@ -11808,7 +11808,7 @@
 "Select All on This Page","Seleccionar todo en esta página",module,Magento_Ui
 "Deselect All on This Page","Anular la selección en esta página",module,Magento_Ui
 "On","Activado",module,Magento_Ui
-"Off","Apagado",module,Magento_Ui
+"Off","Ahorra",module,Magento_Ui
 "Go to Details Page","Ir a la página de detalles",module,Magento_Ui
 "New View","Nueva vista",module,Magento_Ui
 "Default View","Vista predeterminada",module,Magento_Ui
@@ -12637,7 +12637,7 @@
 "Add Products","Añadir productos",module,Magento_VisualMerchandiser
 "Save and Close","Guardar y Cerrar",module,Magento_VisualMerchandiser
 "On","En",module,Magento_VisualMerchandiser
-"Off","Apagado",module,Magento_VisualMerchandiser
+"Off","Ahorra",module,Magento_VisualMerchandiser
 "Visual Merchandiser Options","Opciones de Visual Merchandiser",module,Magento_VisualMerchandiser
 "Visual Merchandiser","Visual Merchandiser",module,Magento_VisualMerchandiser
 "General Options","Opciones generales",module,Magento_VisualMerchandiser
