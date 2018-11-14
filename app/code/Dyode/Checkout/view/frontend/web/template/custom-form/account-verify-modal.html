@@ -28,7 +28,8 @@
                         <!-- <br/> -->
                         <p class="confirm-acct"
                            data-bind="i18n: 'To confirm your account, we will send you a security code.'"></p>
-                        <p data-bind="Please select one of the following options."></p>
+                        <!-- <p data-bind="Please select one of the following options."></p> -->
+                          <p data-bind="to the number ending in xxx-xxx-1234."></p>
 
                         <!--Buttons to choose from sms verification or call verification-->
                         <div class="contact-wrapper">
@@ -101,8 +102,9 @@
                         <!-- <legend class="legend"><span data-bind="i18n: 'Verify Personal Information'"></span>:</legend> -->
                         <br/>
                         <p>
-                            <!-- ko i18n: 'To confirm your account, please complete' --><!-- /ko --><br/>
-                            <!-- ko i18n: 'the following information.' --><!-- /ko -->
+                            <!-- ko i18n: 'To verify your account, please use one of the following' --><!-- /ko --><br/>
+                            <!-- ko i18n: 'combinations: SSN plus DOB, Mothers Maiden name plus' --><!-- /ko --><br/>
+                            <!-- ko i18n: 'Zipcode, DOB plus Mother Maiden Name.' --><!-- /ko -->
                         </p>
                         <div class="field ssn-field">
                             <label for="curacao-ssn-verify" class="label">

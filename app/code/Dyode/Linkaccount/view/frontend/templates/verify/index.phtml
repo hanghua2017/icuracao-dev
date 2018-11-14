@@ -11,7 +11,8 @@
             <fieldset class="fieldset verify-wrapper">
                 <!-- <legend class="legend"><span><?php /* echo __('Verify Account by Phone') */ ?>:</span></legend><br/> -->
                 <p class="confirm-acct"><?php echo __('To confirm your account, we will send you a security code')?>.</p>
-                <p><?php echo __('Please select one of the following options')?>.</p>
+                <!-- <p><?php /*echo __('Please select one of the following options')*/?>.</p> -->
+                  <p><?php echo __('to the number ending in xxx-xxx-1234')?>.</p>
 <!--Buttons to choose from sms verification or call verification-->
                 <div class="contact-wrapper">
                   <button id="sendtext" name="sendtext" value="Text"> <?php echo __('SMS') ?> </button>
@@ -58,7 +59,8 @@
 <!--Enter fields required for verification - ssn no:,dob,zipcode and maiden name-->
           <fieldset class="fieldset">
               <!-- <legend class="legend"><span><?php /* echo __('Verify Personal Information') */?>:</span></legend><br/> -->
-              <p><?php echo __('To confirm your account, please complete')?><br /><?php echo __('the following information.')?> </p>
+              <!-- <p><?php /* echo __('To confirm your account, please complete')*/?><br /><?php /*echo __('the following information.')*/?> </p> -->
+              <p><?php  echo __('To verify your account, please use one of the following')?><br /><?php echo __('combinations: SSN plus DOB, Mothers Maiden name plus')?><br /><?php echo __('Zipcode, DOB plus Mother Maiden Name.')?></p>
                 <span class="errormsg"> </span>
                 <div class="verifymsg_docs" style="display:none;"><?php echo __("Please enter details for verification"); ?></div>
 
@@ -95,7 +97,7 @@
                           data-validate="{'letters-only':true}" placeholder="Enter Mother's Maiden name">
                       </div>
                   </div>
-                  <p><?php echo __('Please enter SSN and DOB OR Mothers Maiden Name and Zipcode OR Mothers Maiden Name and DOB'); ?></p>
+                  <!-- <p><?php /*echo __('Please enter SSN and DOB OR Mothers Maiden Name and Zipcode OR Mothers Maiden Name and DOB'); */?></p> -->
           </fieldset>
 <!--Submit form-->
           <div class="actions-toolbar">
