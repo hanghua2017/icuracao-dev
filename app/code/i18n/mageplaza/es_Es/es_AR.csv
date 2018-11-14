@@ -648,7 +648,7 @@ Username,"Nombre de usuario",module,Magento_Backend
 "user name","nombre de usuario",module,Magento_Backend
 Password,Contraseña,module,Magento_Backend
 password,contraseña,module,Magento_Backend
-"Sign in","Iniciar sesión",module,Magento_Backend
+"Sign in","Iniciar Sesión",module,Magento_Backend
 "Select Range:","Seleccionar Rango:",module,Magento_Backend
 "No Data Found","No se encontraron datos",module,Magento_Backend
 "Chart is disabled. To enable the chart, click <a href=""%1"">here</a>.","El gráfico está deshabilitado. Para activar el gráfico, haga clic <a href=""%1"">aquí</a>.",module,Magento_Backend
@@ -2793,7 +2793,7 @@ Total:,Total:,module,Magento_Checkout
 "Shipping Method:","Método de envío:",module,Magento_Checkout
 "Payment Method:","Forma de pago:",module,Magento_Checkout
 "Date & Time:","Fecha y hora:",module,Magento_Checkout
-"Sign In","Iniciar sesión",module,Magento_Checkout
+"Sign In","Iniciar Sesión",module,Magento_Checkout
 "Email Address","Correo Electrónico",module,Magento_Checkout
 Password,Contraseña,module,Magento_Checkout
 "Forgot Your Password?","¿Olvidaste tu contraseña?",module,Magento_Checkout
@@ -3516,7 +3516,7 @@ Email,"Correo electrónico",module,Magento_CustomAttributeManagement
 "Normalize Date","Normalizar la fecha",module,Magento_CustomAttributeManagement
 "The attribute code is invalid. Please use only letters (a-z), numbers (0-9) or underscores (_) in this field. The first character should be a letter.","El código del atributo no es válido. Por favor, usa solo letras (a-z), números (0-9) o guion bajo (_) en este campo. El primer carácter debe ser una letra.",module,Magento_CustomAttributeManagement
 "Sign Out","Cerrar sesión",module,Magento_Customer
-"Sign In","Iniciar sesión",module,Magento_Customer
+"Sign In","Iniciar Sesión",module,Magento_Customer
 "You are subscribed to our newsletter.","Usted está suscrito a nuestro boletín de noticias.",module,Magento_Customer
 "You aren't subscribed to our newsletter.","Usted no está suscrito a nuestro boletín de noticias.",module,Magento_Customer
 "You have not set a default shipping address.","No ha establecido una dirección de envío predeterminada.",module,Magento_Customer
@@ -3853,7 +3853,7 @@ Country,País,module,Magento_Customer
 "Please enter your email below and we will send you the confirmation link.","Introduce tu email debajo y te enviaremos el enlace de confirmación.",module,Magento_Customer
 Email,"Correo electrónico",module,Magento_Customer
 "Send confirmation link","Enviar enlace de confirmación",module,Magento_Customer
-"Back to Sign In","Volver a iniciar sesión",module,Magento_Customer
+"Back to Sign In","Volver a iniciar Sesión",module,Magento_Customer
 "Change Email","Cambiar correo electrónico",module,Magento_Customer
 "Change Email and Password","Cambio de Email y contraseña",module,Magento_Customer
 "Current Password","Contraseña actual",module,Magento_Customer

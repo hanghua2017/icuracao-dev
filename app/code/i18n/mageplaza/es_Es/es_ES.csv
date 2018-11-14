@@ -662,7 +662,7 @@
 "user name","nombre de usuario",module,Magento_Backend
 "Password","Contraseña",module,Magento_Backend
 "password","contraseña",module,Magento_Backend
-"Sign in","Iniciar sesión",module,Magento_Backend
+"Sign in","Iniciar Sesión",module,Magento_Backend
 "Select Range:","Seleccionar Rango:",module,Magento_Backend
 "No Data Found","No se encontraron datos",module,Magento_Backend
 "Chart is disabled. To enable the chart, click <a href=""%1"">here</a>.","El gráfico está deshabilitado. Para activar el gráfico, haga clic <a href=""%1""> aquí</a>.",module,Magento_Backend
@@ -2898,7 +2898,7 @@
 "Shipping Method:","Método de envío:",module,Magento_Checkout
 "Payment Method:","Método de pago:",module,Magento_Checkout
 "Date & Time:","Fecha y hora:",module,Magento_Checkout
-"Sign In","Iniciar sesión",module,Magento_Checkout
+"Sign In","Iniciar Sesión",module,Magento_Checkout
 "Email Address","Dirección de correo electrónico",module,Magento_Checkout
 "Password","Contraseña",module,Magento_Checkout
 "Forgot Your Password?","¿Olvidó su contraseña?",module,Magento_Checkout
@@ -2910,7 +2910,7 @@
 "Estimated Total","Total estimado",module,Magento_Checkout
 "You can create an account after checkout.","Puede crear una cuenta después del cobro.",module,Magento_Checkout
 "You already have an account with us. Sign in or continue as guest.","Ya tienes una cuenta con nosotros. Ingresar o continuar como invitado.",module,Magento_Checkout
-"Login","Iniciar sesión",module,Magento_Checkout
+"Login","Iniciar Sesión",module,Magento_Checkout
 "See Details","Ver información",module,Magento_Checkout
 "Options Details","Detalles de las opciones",module,Magento_Checkout
 "Remove","Eliminar",module,Magento_Checkout
@@ -4148,7 +4148,7 @@
 "Normalize Date","Normalizar la fecha",module,Magento_CustomAttributeManagement
 "The attribute code is invalid. Please use only letters (a-z), numbers (0-9) or underscores (_) in this field. The first character should be a letter.","El código del atributo no es válido. Por favor, usa solo letras (a-z), números (0-9) o guion bajo (_) en este campo. El primer carácter debe ser una letra.",module,Magento_CustomAttributeManagement
 "Sign Out","Cerrar sesión",module,Magento_Customer
-"Sign In","Iniciar sesión",module,Magento_Customer
+"Sign In","Iniciar Sesión",module,Magento_Customer
 "You are subscribed to our newsletter.","Está suscrito a nuestro boletín de noticias.",module,Magento_Customer
 "You aren't subscribed to our newsletter.","No está suscrito a nuestro boletín de noticias.",module,Magento_Customer
 "You have not set a default shipping address.","No ha establecido una dirección de envío predeterminada.",module,Magento_Customer
