@@ -1,0 +1,22 @@
+{
+    "name": "dyode/module-seko",
+    "description": "Shipping method",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "email":"kavitha@dyode.com",
+            "name": "Dyode"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Dyode\\Seko\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}

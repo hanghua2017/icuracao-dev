@@ -186,10 +186,10 @@ class Verify extends Action
     {
         $accountNumber = $this->getRequest()->getParam('curacao_account', false);
         $customerEmail = $this->getRequest()->getParam('email_address', false);
-        if(isset($accountInfo->PHONE) && ($accountInfo->PHONE != '')){
-            $phone  =  $accountInfo->PHONE;
-          } else {
+        if(isset($accountInfo->CELL)  && ($accountInfo->CELL != '')){
             $phone  =  $accountInfo->CELL;
+          } else {
+            $phone  =  $accountInfo->PHONE;
           }
         $curacaoInfo = new DataObject([
             'account_number' => $accountNumber,

@@ -34,6 +34,13 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     const STORE_LOCATION_CODE = 'store_location_code';
     const USPS_WITH = 3;
     const USPS_PRICE_LIMIT = 200;
+    
+
+    protected $usps_std_rate;
+
+    protected $ups_std_rate;
+
+    protected $set_usps;
 
     /**
      * Zipcodes of all inventory locations of Curacao
@@ -240,19 +247,22 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
                 return $this->adsMomentumShippingDetails($quoteItem, $product, $zipCode);
             }
 
-            return $this->pilotShippingDetails($quoteItem, $product, $zipCode);
+            // Return the SEKO rate
+            return $this->sekoShippingDetails($quoteItem,$product,$zipCode);
         }
 
-        $upsWith = 3;
-        $toState = $shipCoordinates->getAbbr();
-        if (in_array($toState, ['CA', 'NV', 'AZ'])) {
-            $upsWith = 11;
-        }
+        // $upsWith = 3;
+        // $toState = $shipCoordinates->getAbbr();
+        // if (in_array($toState, ['CA', 'NV', 'AZ'])) {
+        //     $upsWith = 11;
+        // }
 
-        if (($product->getWeight() < $upsWith) && ($product->getPrice() < self::USPS_PRICE_LIMIT)) {
-            return $this->uspsShippingDetails($quoteItem, $product, $zipCode);
-        }
+        // if (($product->getWeight() < $upsWith) && ($product->getPrice() < self::USPS_PRICE_LIMIT)) {
+        //     return $this->uspsShippingDetails($quoteItem, $product, $zipCode);
+        // }
 
+        //Get UPS price details
+        $uspsDetails = $this->uspsShippingDetails($quoteItem, $product, $zipCode);
         return $this->upsShippingDetails($quoteItem, $product, $zipCode);
     }
 
@@ -391,6 +401,45 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         return $this->prepareShippingInfo($shippingData);
     }
 
+     /**
+     * Prepare SEKO shipping method information.
+     *
+     * @param \Magento\Quote\Model\Quote\Item $quoteItem
+     * @param $product
+     * @param string|int $zipCode
+     * @return array
+     */
+    protected function sekoShippingDetails(QuoteItem $quoteItem, $product, $zipCode)
+    {
+        $carrierCode = 'sekoshipping';
+        $productWeight = $product->getWeight();       
+
+        $shippingConfig = $this->getCarriersConfig();
+        $sekoDetails  = $shippingConfig[$carrierCode];
+        $carrierTitle = $sekoDetails['title'];
+        $carrierName = $sekoDetails['name'];
+
+        $rate = $sekoDetails['price'];
+
+
+        $shippingData = new DataObject([
+            'quote_item_id'  => $quoteItem->getItemId(),
+            'carrier_code'   => $carrierCode,
+            'method_code'    => $carrierCode,
+            'carrier_title'  => $carrierTitle,
+            'method_title'   => $carrierName,
+            'amount'         => $rate,
+            'base_amount'    => $rate,
+            'available'      => true,
+            'error_message'  => '',
+            'price_excl_tax' => '',
+            'price_incl_tax' => '',
+
+        ]);
+
+        return $this->prepareShippingInfo($shippingData);
+    }
+
     /**
      * Prepare Pilot shipping method details.
      *
@@ -446,6 +495,8 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         $productWeight = $product->getWeight();
         $rate = $this->shipHelper->getUSPSRates($zipCode, $productWeight);
 
+        $this->usps_std_rate = $rate;
+
         $shippingData = new DataObject([
             'quote_item_id'  => $quoteItem->getItemId(),
             'carrier_code'   => $carrierCode,
@@ -499,38 +550,56 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         foreach ($shippingMethods as $method) {
             switch ($method['UPSCode']) {
                 case '03':
-                    $deliveryMethods[] = [
-                        'quote_item_id' => $quoteItemId,
-                        "carrier_code"  => 'ups',
-                        "method_code"   => 'GND',
-                        "carrier_title" => 'UPS',
-                        "method_title"  => 'GROUND',
-                        "amount"        => $method['Rate'],
-                        "base_amount"   => $method['Rate'],
-                        "available"     => true,
-                        "error_message" => '',
-                    ];
+                    //Check UPS price is less than USPS
+                    $this->ups_std_rate = $method['Rate'];
+                    $result = $this->findStandardDeliveryRate();
+
+                    if($result == 0) {
+                        $deliveryMethods[] = [
+                            'quote_item_id' => $quoteItemId,
+                            "carrier_code"  => 'ups',
+                            "method_code"   => 'GND',
+                            "carrier_title" => 'UPS',
+                            "method_title"  => 'Standard Delivery',
+                            "amount"        => $method['Rate'],
+                            "base_amount"   => $method['Rate'],
+                            "available"     => true,
+                            "error_message" => '',
+                        ];
+                    } else {
+                        $deliveryMethods[] = [
+                            'quote_item_id' => $quoteItemId,
+                            "carrier_code"  => 'usps',
+                            "method_code"   => 'usps',
+                            "carrier_title" => 'Standard Delivery',
+                            "method_title"  => 'Standard Delivery',
+                            "amount"        => $this->usps_std_rate,
+                            "base_amount"   => $this->usps_std_rate,
+                            "available"     => true,
+                            "error_message" => '',
+                        ];
+                    }
                     break;
-                case '12':
-                    $deliveryMethods[] = [
-                        'quote_item_id' => $quoteItemId,
-                        "carrier_code"  => 'ups',
-                        "method_code"   => '2DA',
-                        "carrier_title" => 'UPS',
-                        "method_title"  => '2nd Day',
-                        "amount"        => $method['Rate'],
-                        "base_amount"   => $method['Rate'],
-                        "available"     => true,
-                        "error_message" => '',
-                    ];
-                    break;
+                // case '12':
+                //     $deliveryMethods[] = [
+                //         'quote_item_id' => $quoteItemId,
+                //         "carrier_code"  => 'ups',
+                //         "method_code"   => '2DA',
+                //         "carrier_title" => 'UPS',
+                //         "method_title"  => '2nd Day',
+                //         "amount"        => $method['Rate'],
+                //         "base_amount"   => $method['Rate'],
+                //         "available"     => true,
+                //         "error_message" => '',
+                //     ];
+                //     break;
                 case '02':
                     $deliveryMethods[] = [
                         'quote_item_id' => $quoteItemId,
                         "carrier_code"  => 'ups',
                         "method_code"   => '3DS',
                         "carrier_title" => 'UPS',
-                        "method_title"  => '3 Days',
+                        "method_title"  => 'Expedited',
                         "amount"        => $method['Rate'],
                         "base_amount"   => $method['Rate'],
                         "available"     => true,
@@ -570,5 +639,21 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
                 ],
             ],
         ];
+    }
+    /**
+     * Find the lowest price for standard delivery for UPS and USPS
+     * @param USPSRates
+     * @param UPSRates
+     * @return array
+     */
+    public function findStandardDeliveryRate()
+    {
+        $this->set_usps = 0;
+        
+        if($this->usps_std_rate < $this->ups_std_rate){
+            $this->set_usps = 1;
+        }
+        
+        return $this->set_usps;
     }
 }
