@@ -639,7 +639,7 @@ Order,Pedido,module,Magento_Backend
 "You need more permissions to access this.","Necesita más permisos para acceder a esto.",module,Magento_Backend
 "Sorry, you need permissions to view this content.","Lo sentimos, necesita permisos para ver este contenido.",module,Magento_Backend
 "Next steps","Siguientes pasos",module,Magento_Backend
-"If you think this is an error, try signing out and signing in again.","Si cree que se trata de un error, intente cerrar sesión e iniciar sesión nuevamente.",module,Magento_Backend
+"If you think this is an error, try signing out and signing in again.","Si cree que se trata de un error, intente cerrar sesión e Iniciar Sesión nuevamente.",module,Magento_Backend
 "Contact a system administrator or store owner to gain permissions.","Póngase en contacto con un administrador del sistema o dueño de la tienda para obtener permisos.",module,Magento_Backend
 "Return to","Volver a",module,Magento_Backend
 "previous page","página anterior",module,Magento_Backend
@@ -814,12 +814,12 @@ Admin,Administrador,module,Magento_Backend
 "Make sure that base URL ends with '/' (slash), e.g. http://yourdomain/magento/","Asegúrese de que la dirección URL base termina con '/' (barra diagonal), ej.: http://yourdomain/magento/",module,Magento_Backend
 "Use Custom Admin Path","Utilizar ruta de acceso de administrador personalizada",module,Magento_Backend
 "Custom Admin Path","Ruta de administración personalizada",module,Magento_Backend
-"You will have to sign in after you save your custom admin path.","Tendrá que iniciar sesión después de guardar su ruta del administrador personalizada.",module,Magento_Backend
+"You will have to sign in after you save your custom admin path.","Tendrá que Iniciar Sesión después de guardar su ruta del administrador personalizada.",module,Magento_Backend
 Security,Seguridad,module,Magento_Backend
 "Recovery Link Expiration Period (hours)","Período de expiración del enlace de recuperación (horas)",module,Magento_Backend
 "Please enter a number 1 or greater in this field.","Por favor, introduzca el número 1 o mayor en este campo.",module,Magento_Backend
 "Add Secret Key to URLs","Agregar clave secreta a las direcciones URL",module,Magento_Backend
-"Login is Case Sensitive","Se distinguen mayúsculas al iniciar sesión",module,Magento_Backend
+"Login is Case Sensitive","Se distinguen mayúsculas al Iniciar Sesión",module,Magento_Backend
 "Admin Session Lifetime (seconds)","Duración de la sesión del administrador (segundos)",module,Magento_Backend
 "Please enter at least 60 and at most 31536000 (one year).","Introduce por lo menos 60 a más 31536000 (un año).",module,Magento_Backend
 "Enable Charts","Activar gráficos",module,Magento_Backend
@@ -1384,7 +1384,7 @@ SKU,SKU,module,Magento_BundleStaging
 Quantity,Cantidad,module,Magento_BundleStaging
 Price,Precio,module,Magento_BundleStaging
 Always,Siempre,module,Magento_Captcha
-"After number of attempts to login","Tras varios intentos de iniciar sesión",module,Magento_Captcha
+"After number of attempts to login","Tras varios intentos de Iniciar Sesión",module,Magento_Captcha
 "Provided form does not exist","El formulario proporcionado no existe",module,Magento_Captcha
 "Incorrect CAPTCHA","CAPTCHA incorrecto",module,Magento_Captcha
 "Incorrect CAPTCHA.","CAPTCHA incorrecto.",module,Magento_Captcha
@@ -1399,7 +1399,7 @@ CAPTCHA,CAPTCHA,module,Magento_Captcha
 Font,Fuente,module,Magento_Captcha
 Forms,Formularios,module,Magento_Captcha
 "Displaying Mode","Modo de visualización",module,Magento_Captcha
-"Number of Unsuccessful Attempts to Login","Número de intentos fallidos de iniciar sesión",module,Magento_Captcha
+"Number of Unsuccessful Attempts to Login","Número de intentos fallidos de Iniciar Sesión",module,Magento_Captcha
 "If 0 is specified, CAPTCHA on the Login form will be always available.","Si se especifica 0, el CAPTCHA siempre estará disponible en el formulario de inicio de sesión.",module,Magento_Captcha
 "CAPTCHA Timeout (minutes)","Tiempo de expiración del CAPTCHA (en minutos)",module,Magento_Captcha
 "Number of Symbols","Número de símbolos",module,Magento_Captcha
@@ -3853,7 +3853,7 @@ Country,País,module,Magento_Customer
 "Please enter your email below and we will send you the confirmation link.","Introduce tu email debajo y te enviaremos el enlace de confirmación.",module,Magento_Customer
 Email,"Correo electrónico",module,Magento_Customer
 "Send confirmation link","Enviar enlace de confirmación",module,Magento_Customer
-"Back to Sign In","Volver a iniciar Sesión",module,Magento_Customer
+"Back to Sign In","Volver a Iniciar Sesión",module,Magento_Customer
 "Change Email","Cambiar correo electrónico",module,Magento_Customer
 "Change Email and Password","Cambio de Email y contraseña",module,Magento_Customer
 "Current Password","Contraseña actual",module,Magento_Customer
@@ -3888,7 +3888,7 @@ Name,Nombre,module,Magento_Customer
 "Welcome to %store_name","Bienvenido a %store_name",module,Magento_Customer
 "%name,","%name,",module,Magento_Customer
 "Welcome to %store_name.","Bienvenido a %store_name.",module,Magento_Customer
-"To sign in to our site, use these credentials during checkout or on the <a href=""%customer_url"">My Account</a> page:","Para iniciar sesión, utiliza estas credenciales durante el proceso de compra o en la página <a href=""%customer_url"">Mi cuenta</a>:",module,Magento_Customer
+"To sign in to our site, use these credentials during checkout or on the <a href=""%customer_url"">My Account</a> page:","Para Iniciar Sesión, utiliza estas credenciales durante el proceso de compra o en la página <a href=""%customer_url"">Mi cuenta</a>:",module,Magento_Customer
 Email:,"Correo electrónico:",module,Magento_Customer
 Password:,Contraseña:,module,Magento_Customer
 "Password you set when creating account","Contraseña que ingresaste al crear la cuenta",module,Magento_Customer
@@ -3998,7 +3998,7 @@ Strong,Fuerte,module,Magento_Customer
 "Show Company","Mostrar Empresa",module,Magento_Customer
 "Show Fax","Mostrar Fax",module,Magento_Customer
 "Login Options","Opciones para el acceso",module,Magento_Customer
-"Redirect Customer to Account Dashboard after Logging in","Redirigir a los clientes al Panel de Control de la cuenta después de iniciar sesión",module,Magento_Customer
+"Redirect Customer to Account Dashboard after Logging in","Redirigir a los clientes al Panel de Control de la cuenta después de Iniciar Sesión",module,Magento_Customer
 "Customer will stay on the current page if ""No"" is selected.","El cliente permanecerá en la página actual si se elige «No».",module,Magento_Customer
 "Address Templates","Plantillas para direcciones",module,Magento_Customer
 "Online Customers Options","Opciones para clientes conectados",module,Magento_Customer
@@ -6378,7 +6378,7 @@ IP-Address,"Dirección IP",module,Magento_Logging
 "X-Forwarded For","X-reenviada por",module,Magento_Logging
 "Error Message","Mensaje de error",module,Magento_Logging
 "Related Changes","Cambios relacionados",module,Magento_Logging
-Logging,"Iniciar sesión",module,Magento_Logging
+Logging,"Iniciar Sesión",module,Magento_Logging
 "Action Log","Registro de acciones",module,Magento_Logging
 Archive,Archivo,module,Magento_Logging
 "Action Logs","Registros de acción",module,Magento_Logging
@@ -8425,7 +8425,7 @@ Back,Volver,module,Magento_Review
 "%1 %2","%1 %2",module,Magento_Review
 Summary,Resumen,module,Magento_Review
 "Submit Review","Transmitir reseña del cliente",module,Magento_Review
-"Only registered users can write reviews. Please <a href=""%1"">Sign in</a> or <a href=""%2"">create an account</a>","Solo usuarios registrados pueden escribir comentarios. Por favor, <a href=""%1""> iniciar sesión</a> o <a href=""%2""> crear una cuenta</a>",module,Magento_Review
+"Only registered users can write reviews. Please <a href=""%1"">Sign in</a> or <a href=""%2"">create an account</a>","Solo usuarios registrados pueden escribir comentarios. Por favor, <a href=""%1""> Iniciar Sesión</a> o <a href=""%2""> crear una cuenta</a>",module,Magento_Review
 "Add Your Review","Añadir Su reseña",module,Magento_Review
 "%1 Review(s)","%1 reseña(s)",module,Magento_Review
 "Review by","Comentario por",module,Magento_Review
@@ -11538,7 +11538,7 @@ Hour,Hora,module,Magento_Theme
 Minute,Minuto,module,Magento_Theme
 "%name,","%name,",module,Magento_Theme
 "Welcome to %store_name.","Bienvenido a %store_name.",module,Magento_Theme
-"To sign in to our site, use these credentials during checkout or on the <a href=""%customer_url"">My Account</a> page:","Para iniciar sesión, utiliza estas credenciales durante el proceso de compra o en la página <a href=""%customer_url"">Mi cuenta</a>:",module,Magento_Theme
+"To sign in to our site, use these credentials during checkout or on the <a href=""%customer_url"">My Account</a> page:","Para Iniciar Sesión, utiliza estas credenciales durante el proceso de compra o en la página <a href=""%customer_url"">Mi cuenta</a>:",module,Magento_Theme
 Email:,"Correo electrónico:",module,Magento_Theme
 Password:,Contraseña:,module,Magento_Theme
 "Password you set when creating account","Contraseña que ingresaste al crear la cuenta",module,Magento_Theme
@@ -12054,7 +12054,7 @@ username,usuario,module,Magento_User
 "Enter your email address.  You will receive an email with a link to reset your password.","Introduzca su dirección de correo electrónico.  Usted recibirá un correo electrónico con un enlace para restablecer tu contraseña.",module,Magento_User
 "Email address","Dirección de correo electrónico",module,Magento_User
 "Retrieve Password","Recuperar contraseña",module,Magento_User
-"Back to Sign in","Volver a iniciar sesión",module,Magento_User
+"Back to Sign in","Volver a Iniciar Sesión",module,Magento_User
 "Forgot your password?","¿Olvidaste tu contraseña?",module,Magento_User
 "Reset a Password","Reinicializar contraseña",module,Magento_User
 "Confirm New Password","Confirmar contraseña nueva",module,Magento_User
@@ -12743,7 +12743,7 @@ Action,Acción,module,Magento_Wishlist
 Configure,Configurar,module,Magento_Wishlist
 Delete,Eliminar,module,Magento_Wishlist
 "Product Details and Comment","Detalles del artículo y comentarios",module,Magento_Wishlist
-"You must login or register to add items to your wishlist.","Debes iniciar sesión o registrarte para agregar elementos a tu lista de deseos.",module,Magento_Wishlist
+"You must login or register to add items to your wishlist.","Debes Iniciar Sesión o registrarte para agregar elementos a tu lista de deseos.",module,Magento_Wishlist
 "Credit card type","Tipo de tarjeta de crédito",module,Magento_Worldpay
 "CVV result","Resultado CVV",module,Magento_Worldpay
 "Postcode AVS check","Comprobación código postal AVS",module,Magento_Worldpay
@@ -12814,7 +12814,7 @@ Remove,Quitar,theme,frontend/Magento/luma
 "Welcome to %store_name","Bienvenido a %store_name",theme,frontend/Magento/luma
 "%name,","%name,",theme,frontend/Magento/luma
 "Welcome to %store_name.","Bienvenido a %store_name.",theme,frontend/Magento/luma
-"To sign in to our site, use these credentials during checkout or on the <a href=""%customer_url"">My Account</a> page:","Para iniciar sesión, utiliza estas credenciales durante el proceso de compra o en la página <a href=""%customer_url"">Mi cuenta</a>:",theme,frontend/Magento/luma
+"To sign in to our site, use these credentials during checkout or on the <a href=""%customer_url"">My Account</a> page:","Para Iniciar Sesión, utiliza estas credenciales durante el proceso de compra o en la página <a href=""%customer_url"">Mi cuenta</a>:",theme,frontend/Magento/luma
 Email:,"Correo electrónico:",theme,frontend/Magento/luma
 Password:,Contraseña:,theme,frontend/Magento/luma
 "Password you set when creating account","Contraseña que ingresaste al crear la cuenta",theme,frontend/Magento/luma
