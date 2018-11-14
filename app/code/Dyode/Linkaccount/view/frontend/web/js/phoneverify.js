@@ -22,7 +22,7 @@ define([
                           }
                           else{
                             $(".codeverify").css('display','block');
-                            msg = '<p class="success">'+ $t('Please enter the code that sent to your phone number: ')+'</p>';
+                            msg = '<p class="success">'+ $t('To confirm your account, we will send you a security code to the number ending in')+'</p>';
                           }
                           $(".messages").html('');
                           $(".phoneverify").html(msg);
@@ -42,7 +42,7 @@ define([
                           success:function(response){
                             $(".msg-outer").css('display','block');
                             if(response == -1){
-                              msg = '<p class="error">'+$t('Unfortunately, we could not place a call to your phone.')+'</p>';             
+                              msg = '<p class="error">'+$t('Unfortunately, we could not place a call to your phone.')+'</p>';
                             }
                             else{
                               $(".codeverify").css('display','block');
