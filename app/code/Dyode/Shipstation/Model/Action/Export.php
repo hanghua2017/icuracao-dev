@@ -163,7 +163,7 @@ class Export extends \Auctane\Api\Model\Action\Export
                     $this->_addFieldToXML("ImageUrl", $imageUrl);
                     $this->_addFieldToXML("Weight", $weight);
                     $this->_addFieldToXML("UnitPrice", $price);
-                    $location = (!empty($orderItem->getData('pickup_location'))) ? $orderItem->getData('pickup_location') : '';
+                    $location = (!empty($orderItem->getData('pickup_location'))) ? $orderItem->getData('pickup_location') : '01';
                     $this->_addFieldToXML("Location", $location);
                     $this->_addFieldToXML(
                         "Quantity",

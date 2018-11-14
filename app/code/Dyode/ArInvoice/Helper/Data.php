@@ -46,6 +46,16 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     protected $_customerRepositoryInterface;
 
     /**
+     * @var \Magento\Sales\Model\Service\InvoiceService
+     */
+    protected $_invoiceService;
+ 
+    /**
+     * @var \Magento\Framework\DB\Transaction
+     */
+    protected $_transaction;
+
+    /**
      * Constructor
      *
      * @param \Magento\Sales\Model\OrderRepository $orderRepository
@@ -59,7 +69,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Framework\App\ResourceConnection $resourceConnection,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
         \Dyode\ARWebservice\Helper\Data $arWebServiceHelper,
-        \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog
+        \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
+        \Magento\Sales\Model\Service\InvoiceService $invoiceService,
+        \Magento\Framework\DB\Transaction $transaction
     ) {
         $this->_orderRepository = $orderRepository;
         $this->_productRepository = $productRepository;
@@ -67,6 +79,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $this->_customerRepositoryInterface = $customerRepositoryInterface;
         $this->arWebServiceHelper = $arWebServiceHelper;
         $this->auditLog = $auditLog;
+        $this->_invoiceService = $invoiceService;
+        $this->_transaction = $transaction;
     }
 
     /**
@@ -689,6 +703,33 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
                 return false;
             }
+        }
+    }
+
+    /**
+     * Create default magento order invoice 
+     *
+     */    
+    public function createInvoice($orderId)
+    {
+        $order = $this->_orderRepository->get($orderId);
+        if($order->canInvoice()) {
+            $invoice = $this->_invoiceService->prepareInvoice($order);
+            $invoice->register();
+            $invoice->save();
+            $transactionSave = $this->_transaction->addObject(
+                $invoice
+            )->addObject(
+                $invoice->getOrder()
+            );
+            $transactionSave->save();
+            $this->invoiceSender->send($invoice);
+            //send notification code
+            $order->addStatusHistoryComment(
+                __('Notified customer about invoice #%1.', $invoice->getId())
+            )
+            ->setIsCustomerNotified(true)
+            ->save();
         }
     }
 }
