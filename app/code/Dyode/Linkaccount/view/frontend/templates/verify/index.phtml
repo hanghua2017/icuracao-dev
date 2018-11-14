@@ -1,14 +1,15 @@
  <div class="linkaccount-container">
       <div class="linkaccount-inner-container">
+        <legend class="legend"><span><?php echo __('Verify Account by Phone OR by Personal Information') ?>:</span></legend>
         <div class="wrapper clearfix">
           <div class="verifymsg"></div>
-       
+
 <!--Verification code entry form-->
         <div class="verify-phone">
             <form class="verifyform" id="verifyform" method="post"
             autocomplete="off" action="<?php echo $block->getCodeFormAction(); ?>" data-mage-init='{"validation":{}}'>
             <fieldset class="fieldset verify-wrapper">
-                <legend class="legend"><span><?php echo __('Verify Account by Phone') ?>:</span></legend><br/>
+                <!-- <legend class="legend"><span><?php /* echo __('Verify Account by Phone') */ ?>:</span></legend><br/> -->
                 <p class="confirm-acct"><?php echo __('To confirm your account, we will send you a security code')?>.</p>
                 <p><?php echo __('Please select one of the following options')?>.</p>
 <!--Buttons to choose from sms verification or call verification-->
@@ -56,7 +57,7 @@
           action="<?php echo $block->getFormAction(); ?>" data-mage-init='{"validation":{}}'>
 <!--Enter fields required for verification - ssn no:,dob,zipcode and maiden name-->
           <fieldset class="fieldset">
-              <legend class="legend"><span><?php echo __('Verify Personal Information') ?>:</span></legend><br/>
+              <!-- <legend class="legend"><span><?php /* echo __('Verify Personal Information') */?>:</span></legend><br/> -->
               <p><?php echo __('To confirm your account, please complete')?><br /><?php echo __('the following information.')?> </p>
                 <span class="errormsg"> </span>
                 <div class="verifymsg_docs" style="display:none;"><?php echo __("Please enter details for verification"); ?></div>
