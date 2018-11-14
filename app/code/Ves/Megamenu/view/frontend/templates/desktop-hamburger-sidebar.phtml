@@ -10,7 +10,7 @@
 <nav class="sidebar" id="sidebar">
   <div class="sidebar-container">
     <h2><?php echo __("Hello").","?>
-      <?= strlen($displayName) > 7 ? substr($displayName,0,7)."..." : $displayName ?><span class="sidebar__btn-close" id="sidebarBtnClose"><span></h2>
+      <?= strlen($displayName) > 15 ? substr($displayName,0,10)."..." : $displayName ?><span class="sidebar__btn-close" id="sidebarBtnClose"><span></h2>
   </div>
   <?php
       echo $block->getLayout()
