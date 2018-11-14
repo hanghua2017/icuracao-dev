@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * @package   Dyode_Seko
+ * @author    kavitha@dyode.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<carriers>
+			<sekoshipping>
+				<model>Dyode\Seko\Model\Carrier\Sekoshipping</model>
+				<active>0</active>
+				<title>Sekoshipping</title>
+				<name>Sekoshipping</name>
+				<price>10.28</price>
+				<specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.</specificerrmsg>
+				<sallowspecific>0</sallowspecific>
+				<delivery_message>3-7 Business Days</delivery_message>
+			</sekoshipping>
+		</carriers>
+	</default>
+</config>

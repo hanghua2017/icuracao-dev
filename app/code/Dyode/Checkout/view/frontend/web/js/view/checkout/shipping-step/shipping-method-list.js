@@ -287,7 +287,10 @@ define([
                 deliveryMessage = $t('Within 2 Days');
 
             } else if (carrierCode === 'ups' && methodCode === '3DS') {
-                deliveryMessage = $t('Within 3 Days');
+                deliveryMessage = $t('1-3 Business Days');
+
+            } else if (carrierCode === 'sekoshipping') {
+                deliveryMessage = $t('3-7 Business Days');
 
             } else if (_.contains(carriersWithMessages, carrierCode)) {
                 deliveryMessage = this.shippingMethodDeliveryMessages[carrierCode];

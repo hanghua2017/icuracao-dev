@@ -13,16 +13,16 @@
 				<active>0</active>
 				<title>AdsMomentum</title>
 				<name>AdsMomentum</name>
-				<price>0.00</price>
+				<price>99.00</price>
 				<specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.</specificerrmsg>
 				<sallowspecific>0</sallowspecific>
-				<delivery_message>3-5 business days</delivery_message>
+				<delivery_message>2-5 business days</delivery_message>
 			</adsmomentum>
 			<ups>
-				<delivery_message>3-5 business day</delivery_message>
+				<delivery_message>2-5 business day</delivery_message>
 			</ups>
 			<usps>
-				<delivery_message>3-5 business day</delivery_message>
+				<delivery_message>2-5 business day</delivery_message>
 			</usps>
 		</carriers>
 	</default>

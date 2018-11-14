@@ -136,8 +136,8 @@
 ## enable rewrites
 
     Options +FollowSymLinks
-    RewriteEngine on
-
+    RewriteEngine On
+  ##  RewriteRule ^en/(.*)$ /$1 [L,R=301,QSA]     
 ############################################
 ## you can put here your magento root folder
 ## path relative to web root
@@ -155,7 +155,7 @@
 
     RewriteCond %{REQUEST_METHOD} ^TRAC[EK]
     RewriteRule .* - [L,R=405]
-
+  
 ############################################
 ## redirect for mobile user agents
 
@@ -174,7 +174,7 @@
 ## rewrite everything else to index.php
 
     RewriteRule .* index.php [L]
-
+  
 </IfModule>
 
 
