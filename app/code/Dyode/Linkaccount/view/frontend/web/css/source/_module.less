@@ -225,6 +225,9 @@
             margin: 0 auto;
             padding: 20px 0px 40px 0;
             position: relative;
+            @media all and(max-width: 767px){
+              padding: 20px 0px 20px 0;
+            }
             @media all and(max-width: 375px){
               width: 235px;
             }
@@ -686,6 +689,12 @@
         }
         p{
           font-size: 14px;
+          @media all and(max-width: 425px){
+            font-size: 12px;
+          }
+          @media all and(max-width: 340px){
+            font-size: 11px;
+          }
         }
       }
     }
