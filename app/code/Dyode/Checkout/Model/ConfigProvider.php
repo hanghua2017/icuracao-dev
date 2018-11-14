@@ -312,6 +312,7 @@ class ConfigProvider implements ConfigProviderInterface
                     $this->curacaoHelper->updateCuracaoSessionDetails([
                         'is_user_linked' => true,
                         'is_credit_used' => true,
+                        'account_number' => $curaAccId,
                     ]);
 
                     return $curaAccId;
