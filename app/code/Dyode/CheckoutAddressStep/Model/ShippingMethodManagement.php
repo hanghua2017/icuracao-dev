@@ -376,12 +376,12 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         $adsCarrierDetails = $shippingConfig[$momentumCode];
         $carrierTitle = $adsCarrierDetails['title'];
         $carrierName = $adsCarrierDetails['name'];
-        $rate = self::DEFAULT_SHIPPING_RATE;
+        $rate = $adsCarrierDetails['price'];
 
         // Check if momentum and calculate rate
-        if ($this->_checkoutHelper->checkMomentum($zipCode) && $productWeight) {
-            $rate = $this->_checkoutHelper->setQuoteItemPrice($zipCode, $productWeight);
-        }
+        // if ($this->_checkoutHelper->checkMomentum($zipCode) && $productWeight) {
+        //     $rate = $this->_checkoutHelper->setQuoteItemPrice($zipCode, $productWeight);
+        // }
 
         $shippingData = new DataObject([
             'quote_item_id'  => $quoteItem->getItemId(),
