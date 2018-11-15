@@ -736,3 +736,32 @@
     }
   }
 }
+.catalog-product-view{
+  .warranty-addtocart-popup{
+    .modal-inner-wrap{
+      .modal-header{
+        background-color: @popup-header !important;
+        padding: 5px 0;
+        overflow: hidden;
+        color: @black;
+        border-bottom: 1px solid @content-light-grey;
+        .action-close{
+          &:before{
+            color: #757575;
+          }
+        }
+      }
+      .modal-content{
+        .product-details{
+          padding: 10px 25px;
+          @media all and (max-width:479px){
+            padding:10px 20px;
+          }
+        }
+      }
+      .modal-footer{
+        display: block;
+      }
+    }
+  }
+}
