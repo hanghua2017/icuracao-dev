@@ -649,12 +649,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     public function findStandardDeliveryRate()
     {
         $this->set_usps = 0;
-        $writer = new \Zend\Log\Writer\Stream(BP . "/var/log/standardDelivery.log");
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info("UPS Std Rate". $this->ups_std_rate);
-        $logger->info("USPS Std Rate". $this->usps_std_rate);
-
+      
         if($this->usps_std_rate < $this->ups_std_rate){
             $this->set_usps = 1;
         }
