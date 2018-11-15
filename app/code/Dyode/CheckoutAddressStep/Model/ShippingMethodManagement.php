@@ -376,12 +376,12 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         $adsCarrierDetails = $shippingConfig[$momentumCode];
         $carrierTitle = $adsCarrierDetails['title'];
         $carrierName = $adsCarrierDetails['name'];
-        $rate = self::DEFAULT_SHIPPING_RATE;
+        $rate = $adsCarrierDetails['price'];
 
         // Check if momentum and calculate rate
-        if ($this->_checkoutHelper->checkMomentum($zipCode) && $productWeight) {
-            $rate = $this->_checkoutHelper->setQuoteItemPrice($zipCode, $productWeight);
-        }
+        // if ($this->_checkoutHelper->checkMomentum($zipCode) && $productWeight) {
+        //     $rate = $this->_checkoutHelper->setQuoteItemPrice($zipCode, $productWeight);
+        // }
 
         $shippingData = new DataObject([
             'quote_item_id'  => $quoteItem->getItemId(),
@@ -649,12 +649,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     public function findStandardDeliveryRate()
     {
         $this->set_usps = 0;
-        $writer = new \Zend\Log\Writer\Stream(BP . "/var/log/standardDelivery.log");
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info("UPS Std Rate". $this->ups_std_rate);
-        $logger->info("USPS Std Rate". $this->usps_std_rate);
-
+      
         if($this->usps_std_rate < $this->ups_std_rate){
             $this->set_usps = 1;
         }
