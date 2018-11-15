@@ -402,7 +402,7 @@ void,vacío,module,Magento_Authorizenet
 Enabled,Habilitado,module,Magento_Authorizenet
 "Payment Action","Acción de pago",module,Magento_Authorizenet
 Title,Título,module,Magento_Authorizenet
-"API Login ID","ID de inicio de sesión en API",module,Magento_Authorizenet
+"API Login ID","ID de inicio de Sesión en API",module,Magento_Authorizenet
 "Transaction Key","Clave de transacción",module,Magento_Authorizenet
 "Merchant MD5","Händler MD5",module,Magento_Authorizenet
 "New Order Status","Estado de Nuevo Pedido",module,Magento_Authorizenet
@@ -560,7 +560,7 @@ Submit,Enviar,module,Magento_Backend
 "Unknown block type","Tipo de bloque desconocido",module,Magento_Backend
 "Please correct the tab configuration and try again. Tab Id should be not empty","Por favor, corrija la configuración de pestaña y vuelva a intentarlo. El campo Id no debe estar vacío",module,Magento_Backend
 "Please correct the tab configuration and try again.","Por favor corregir la configuración de la ficha y vuelva a intentarlo.",module,Magento_Backend
-"You have logged out.","Has cerrado la sesión.",module,Magento_Backend
+"You have logged out.","Has cerrado la Sesión.",module,Magento_Backend
 "Specified cache type(s) don't exist: %1","El tipo de caché especificada no existe: %1",module,Magento_Backend
 "The image cache was cleaned.","Se ha limpiado el caché de la imagen.",module,Magento_Backend
 "An error occurred while clearing the image cache.","Error al borrar la caché de imagen.",module,Magento_Backend
@@ -632,18 +632,18 @@ YTD,YTD,module,Magento_Backend
 "Authentication storage is incorrect.","La autentificación de almacenamiento es incorrecta.",module,Magento_Backend
 "You did not sign in correctly or your account is temporarily disabled.","Usted no se inscribió correctamente o su cuenta se ha desactivado temporalmente.",module,Magento_Backend
 "Authentication error occurred.","Ocurrió un error de autenticación.",module,Magento_Backend
-"Admin session lifetime must be less than or equal to 31536000 seconds (one year)","Duración de sesión del Admin debe ser menor o igual a 31536000 segundos (un año)",module,Magento_Backend
-"Admin session lifetime must be greater than or equal to 60 seconds","La duración de la sesión de Admin debe ser mayor o igual a 60 segundos",module,Magento_Backend
+"Admin session lifetime must be less than or equal to 31536000 seconds (one year)","Duración de Sesión del Admin debe ser menor o igual a 31536000 segundos (un año)",module,Magento_Backend
+"Admin session lifetime must be greater than or equal to 60 seconds","La duración de la Sesión de Admin debe ser mayor o igual a 60 segundos",module,Magento_Backend
 Order,Pedido,module,Magento_Backend
 "Order #%1","Pedido #%1",module,Magento_Backend
 "You need more permissions to access this.","Necesita más permisos para acceder a esto.",module,Magento_Backend
 "Sorry, you need permissions to view this content.","Lo sentimos, necesita permisos para ver este contenido.",module,Magento_Backend
 "Next steps","Siguientes pasos",module,Magento_Backend
-"If you think this is an error, try signing out and signing in again.","Si cree que se trata de un error, intente cerrar sesión e Iniciar Sesión nuevamente.",module,Magento_Backend
+"If you think this is an error, try signing out and signing in again.","Si cree que se trata de un error, intente cerrar Sesión e Iniciar Sesión nuevamente.",module,Magento_Backend
 "Contact a system administrator or store owner to gain permissions.","Póngase en contacto con un administrador del sistema o dueño de la tienda para obtener permisos.",module,Magento_Backend
 "Return to","Volver a",module,Magento_Backend
 "previous page","página anterior",module,Magento_Backend
-"Welcome, please sign in","Bienvenido, por favor inicie sesión",module,Magento_Backend
+"Welcome, please sign in","Bienvenido, por favor inicie Sesión",module,Magento_Backend
 Username,"Nombre de usuario",module,Magento_Backend
 "user name","nombre de usuario",module,Magento_Backend
 Password,Contraseña,module,Magento_Backend
@@ -666,7 +666,7 @@ Magento,Magento,module,Magento_Backend
 "Magento Admin Panel","Panel de administración de Magento",module,Magento_Backend
 "Account Setting","Configuración de la cuenta",module,Magento_Backend
 "Customer View","Vista de cliente",module,Magento_Backend
-"Sign Out","Cerrar sesión",module,Magento_Backend
+"Sign Out","Cerrar Sesión",module,Magento_Backend
 "About the calendar","Sobre el calendario",module,Magento_Backend
 Close,Cerrar,module,Magento_Backend
 "Go Today",Hoy,module,Magento_Backend
@@ -820,7 +820,7 @@ Security,Seguridad,module,Magento_Backend
 "Please enter a number 1 or greater in this field.","Por favor, introduzca el número 1 o mayor en este campo.",module,Magento_Backend
 "Add Secret Key to URLs","Agregar clave secreta a las direcciones URL",module,Magento_Backend
 "Login is Case Sensitive","Se distinguen mayúsculas al Iniciar Sesión",module,Magento_Backend
-"Admin Session Lifetime (seconds)","Duración de la sesión del administrador (segundos)",module,Magento_Backend
+"Admin Session Lifetime (seconds)","Duración de la Sesión del administrador (segundos)",module,Magento_Backend
 "Please enter at least 60 and at most 31536000 (one year).","Introduce por lo menos 60 a más 31536000 (un año).",module,Magento_Backend
 "Enable Charts","Activar gráficos",module,Magento_Backend
 Web,Web,module,Magento_Backend
@@ -852,13 +852,13 @@ Web,Web,module,Magento_Backend
 "Default Pages","Páginas (predeterminado)",module,Magento_Backend
 "Default Web URL","URL de web (predeterminado)",module,Magento_Backend
 "Default No-route URL","Dirección URL de ruta No predeterminada",module,Magento_Backend
-"Session Validation Settings","Ajustes de validación de sesión",module,Magento_Backend
+"Session Validation Settings","Ajustes de validación de Sesión",module,Magento_Backend
 "Validate REMOTE_ADDR","Validar REMOTE_ADDR",module,Magento_Backend
 "Validate HTTP_VIA","Validar HTTP_VIA",module,Magento_Backend
 "Validate HTTP_X_FORWARDED_FOR","Validar HTTP_X_FORWARDED_FOR",module,Magento_Backend
 "Validate HTTP_USER_AGENT","Validar HTTP_USER_AGENT",module,Magento_Backend
 "Use SID on Storefront","Usar SID en la tienda",module,Magento_Backend
-"Allows customers to stay logged in when switching between different stores.","Permitir que los clientes sigan con su sesión abierta al pasar de una tienda a otra.",module,Magento_Backend
+"Allows customers to stay logged in when switching between different stores.","Permitir que los clientes sigan con su Sesión abierta al pasar de una tienda a otra.",module,Magento_Backend
 "Cache Type",Cache-Art,module,Magento_Backend
 Description,Descripción,module,Magento_Backend
 Tags,Etiquetas,module,Magento_Backend
@@ -938,7 +938,7 @@ FTP,FTP,module,Magento_Backup
 "Use FTP Connection","Usar conexión FTP",module,Magento_Backup
 "FTP credentials","Credenciales FTP",module,Magento_Backup
 "FTP Host","FTP Server",module,Magento_Backup
-"FTP Login","Inicio de sesión de FTP",module,Magento_Backup
+"FTP Login","Inicio de Sesión de FTP",module,Magento_Backup
 "FTP Password","Contraseña de FTP",module,Magento_Backup
 "Magento root directory","Directorio de raíz de Magento",module,Magento_Backup
 "Create Backup","Crear copia de seguridad",module,Magento_Backup
@@ -1400,7 +1400,7 @@ Font,Fuente,module,Magento_Captcha
 Forms,Formularios,module,Magento_Captcha
 "Displaying Mode","Modo de visualización",module,Magento_Captcha
 "Number of Unsuccessful Attempts to Login","Número de intentos fallidos de Iniciar Sesión",module,Magento_Captcha
-"If 0 is specified, CAPTCHA on the Login form will be always available.","Si se especifica 0, el CAPTCHA siempre estará disponible en el formulario de inicio de sesión.",module,Magento_Captcha
+"If 0 is specified, CAPTCHA on the Login form will be always available.","Si se especifica 0, el CAPTCHA siempre estará disponible en el formulario de inicio de Sesión.",module,Magento_Captcha
 "CAPTCHA Timeout (minutes)","Tiempo de expiración del CAPTCHA (en minutos)",module,Magento_Captcha
 "Number of Symbols","Número de símbolos",module,Magento_Captcha
 "Please specify 8 symbols at the most. Range allowed (e.g. 3-5)","Especifique un máximo de 8 símbolos. Se permiten intervalos (por ejemplo 3-5)",module,Magento_Captcha
@@ -2696,7 +2696,7 @@ State/Province,Estado/Provincia,module,Magento_Checkout
 "My Cart","Mi carrito",module,Magento_Checkout
 "For delivery questions.","Para preguntas de entrega.",module,Magento_Checkout
 "Customer is already registered","Cliente ya está registrado",module,Magento_Checkout
-"Your session has expired","Su sesión ha caducado",module,Magento_Checkout
+"Your session has expired","Su Sesión ha caducado",module,Magento_Checkout
 "A letter with further instructions will be sent to your email.","Se enviará más información a su correo electrónico.",module,Magento_Checkout
 "You added %1 to your shopping cart.","Añadiste %1 a tu carrito de compras.",module,Magento_Checkout
 "We can't add this item to your shopping cart right now.","No podemos añadir este artículo a su carrito de compras en este momento.",module,Magento_Checkout
@@ -3515,7 +3515,7 @@ Email,"Correo electrónico",module,Magento_CustomAttributeManagement
 "Escape HTML Entities","Escapar de entidades HTML",module,Magento_CustomAttributeManagement
 "Normalize Date","Normalizar la fecha",module,Magento_CustomAttributeManagement
 "The attribute code is invalid. Please use only letters (a-z), numbers (0-9) or underscores (_) in this field. The first character should be a letter.","El código del atributo no es válido. Por favor, usa solo letras (a-z), números (0-9) o guion bajo (_) en este campo. El primer carácter debe ser una letra.",module,Magento_CustomAttributeManagement
-"Sign Out","Cerrar sesión",module,Magento_Customer
+"Sign Out","Cerrar Sesión",module,Magento_Customer
 "Sign In","Iniciar Sesión",module,Magento_Customer
 "You are subscribed to our newsletter.","Usted está suscrito a nuestro boletín de noticias.",module,Magento_Customer
 "You aren't subscribed to our newsletter.","Usted no está suscrito a nuestro boletín de noticias.",module,Magento_Customer
@@ -3530,7 +3530,7 @@ region,región,module,Magento_Customer
 "Delete Customer","Borrar cliente",module,Magento_Customer
 "Reset Password","Restablecer contraseña",module,Magento_Customer
 "Are you sure you want to revoke the customer's tokens?","¿Está seguro que desea revocar el token del cliente?",module,Magento_Customer
-"Force Sign-In","Forzar inicio de sesión",module,Magento_Customer
+"Force Sign-In","Forzar inicio de Sesión",module,Magento_Customer
 "New Customer","Nuevo cliente",module,Magento_Customer
 "Save and Continue Edit","Guardar y continuar editando",module,Magento_Customer
 Back,Volver,module,Magento_Customer
@@ -3637,7 +3637,7 @@ Download,Descargar,module,Magento_Customer
 "If you are a registered VAT customer, please <a href=""%1"">click here</a> to enter your billing address for proper VAT calculation.","Si eres un cliente registrado de IVA, por favor haga clic <a href=""%1""> aquí</a> para ingresar su dirección de envío para el adecuado cálculo del IVA.",module,Magento_Customer
 "Account Information","Información de la cuenta",module,Magento_Customer
 "You saved the account information.","Ha guardado la información de cuenta.",module,Magento_Customer
-"You did not sign in correctly or your account is temporarily disabled.","No ha iniciado sesión correctamente o su cuenta está temporalmente deshabilitada.",module,Magento_Customer
+"You did not sign in correctly or your account is temporarily disabled.","No ha iniciado Sesión correctamente o su cuenta está temporalmente deshabilitada.",module,Magento_Customer
 "Password confirmation doesn't match entered password.","La confirmación de la contraseña no coincide con la contraseña introducida.",module,Magento_Customer
 "The password doesn't match this account.","La contraseña no coincide con la de esta cuenta.",module,Magento_Customer
 "Please correct the email address.","Corrija la dirección de correo electrónico.",module,Magento_Customer
@@ -3687,8 +3687,8 @@ Customers,Clientes,module,Magento_Customer
 "Customers Now Online","Los clientes ahora en línea",module,Magento_Customer
 "Please define Wish List item ID.","Por favor definir lista artículo ID.",module,Magento_Customer
 "Please load Wish List item.","Por favor cargar la lista de elemento deseos.",module,Magento_Customer
-"Login successful.","Inicio de sesión exitoso.",module,Magento_Customer
-"Invalid login or password.","Inicio de sesión o contraseña inválida.",module,Magento_Customer
+"Login successful.","Inicio de Sesión exitoso.",module,Magento_Customer
+"Invalid login or password.","Inicio de Sesión o contraseña inválida.",module,Magento_Customer
 """%1"" section source is not supported","no se admite la fuente de la sección de ""%1""",module,Magento_Customer
 "%1 doesn't extend \Magento\Customer\CustomerData\SectionSourceInterface","%1 no extiende a \Magento\Customer\CustomerData\SectionSourceInterface",module,Magento_Customer
 "No confirmation needed.","No es necesitada la confirmación.",module,Magento_Customer
@@ -3802,8 +3802,8 @@ Customer,Cliente,module,Magento_Customer
 "No item specified.","Sin elemento especificado.",module,Magento_Customer
 "Are you sure you want to remove this item?","¿Está seguro de que quiere eliminar este elemento?",module,Magento_Customer
 "Personal Information","Información Personal",module,Magento_Customer
-"Last Logged In:","Último inicio de sesión:",module,Magento_Customer
-"Last Logged In (%1):","Último inicio de sesión (%1):",module,Magento_Customer
+"Last Logged In:","Último inicio de Sesión:",module,Magento_Customer
+"Last Logged In (%1):","Último inicio de Sesión (%1):",module,Magento_Customer
 "Account Lock:","Bloqueo de cuenta:",module,Magento_Customer
 "Confirmed email:","Correo electrónico confirmado:",module,Magento_Customer
 "Account Created:","Cuenta creada:",module,Magento_Customer
@@ -3865,18 +3865,18 @@ Save,Guardar,module,Magento_Customer
 "Please enter your email address below to receive a password reset link.","Por favor introduzca su dirección de correo electrónico para recibir un enlace de restablecimiento de contraseña.",module,Magento_Customer
 "Reset My Password","Restablecer mi contraseña",module,Magento_Customer
 "Registered Customers","Clientes registrados",module,Magento_Customer
-"If you have an account, sign in with your email address.","Si tiene una cuenta, inicie sesión con su dirección de correo electrónico.",module,Magento_Customer
+"If you have an account, sign in with your email address.","Si tiene una cuenta, inicie Sesión con su dirección de correo electrónico.",module,Magento_Customer
 Password,Contraseña,module,Magento_Customer
 "Forgot Your Password?","¿Olvidaste tu contraseña?",module,Magento_Customer
 "Subscription option","Opciones de suscripción",module,Magento_Customer
 "General Subscription","Suscripción general",module,Magento_Customer
 "Sign Up for Newsletter","Suscribirse al boletín",module,Magento_Customer
 "Address Information","Información de dirección",module,Magento_Customer
-"Sign-in Information","Información de inicio de sesión",module,Magento_Customer
+"Sign-in Information","Información de inicio de Sesión",module,Magento_Customer
 "Confirm Password","Confirmar contraseña",module,Magento_Customer
 "Create an Account","Crear una Cuenta",module,Magento_Customer
 "Set a New Password","Establecer nueva contraseña",module,Magento_Customer
-"You have signed out and will go to our homepage in 5 seconds.","Usted ha cerrado la sesión y irá a su página de inicio en 5 segundos.",module,Magento_Customer
+"You have signed out and will go to our homepage in 5 seconds.","Usted ha cerrado la Sesión y irá a su página de inicio en 5 segundos.",module,Magento_Customer
 "New Customers","Nuevos Clientes",module,Magento_Customer
 "Creating an account has many benefits: check out faster, keep more than one address, track orders and more.","Crear una cuenta tiene muchos beneficios: Paga más rápido, puede guardar más de una dirección, seguimiento de pedidos y mucho más.",module,Magento_Customer
 Company,Empresa,module,Magento_Customer
@@ -3893,7 +3893,7 @@ Email:,"Correo electrónico:",module,Magento_Customer
 Password:,Contraseña:,module,Magento_Customer
 "Password you set when creating account","Contraseña que ingresaste al crear la cuenta",module,Magento_Customer
 "Forgot your account password? Click <a href=""%reset_url"">here</a> to reset it.","¿Olvidó la contraseña de su cuenta? Haga clic <a href=""%reset_url""> aquí</a> para restablecerla.",module,Magento_Customer
-"When you sign in to your account, you will be able to:","Cuando inicie sesión en su cuenta, usted será capaz de:",module,Magento_Customer
+"When you sign in to your account, you will be able to:","Cuando inicie Sesión en su cuenta, usted será capaz de:",module,Magento_Customer
 "Proceed through checkout faster","Proceder a través de pago más rápido",module,Magento_Customer
 "Check the status of orders","Compruebe el estado de los pedidos",module,Magento_Customer
 "View past orders","Ver órdenes anteriores",module,Magento_Customer
@@ -3972,7 +3972,7 @@ Strong,Fuerte,module,Magento_Customer
 "Number of Required Character Classes","Número de clases de caracteres requerido",module,Magento_Customer
 "Number of different character classes required in password: Lowercase, Uppercase, Digits, Special Characters.","Número de clases de personajes diferentes en contraseña: minúsculas, mayúsculas, dígitos, caracteres especiales.",module,Magento_Customer
 "Minimum Password Length","Longitud mínima de la contraseña",module,Magento_Customer
-"Maximum Login Failures to Lockout Account","Máximo de fallas Inicio de sesión antes de bloqueo de cuenta",module,Magento_Customer
+"Maximum Login Failures to Lockout Account","Máximo de fallas Inicio de Sesión antes de bloqueo de cuenta",module,Magento_Customer
 "Use 0 to disable account locking.","Utilice 0 para desactivar el bloqueo de cuenta.",module,Magento_Customer
 "Lockout Time (minutes)","Tiempo de bloqueo (minutos)",module,Magento_Customer
 "Enable Autocomplete on login/forgot password forms","Habilitar Autocompletar en formularios login/olvido de contraseña",module,Magento_Customer
@@ -4038,7 +4038,7 @@ Addresses,Direcciones,module,Magento_Customer
 "Edit Account Information","Editar información de la cuenta",module,Magento_Customer
 "Password forgotten","Recordatorio de contraseña",module,Magento_Customer
 "My Dashboard","Mi panel de control",module,Magento_Customer
-"You are signed out","Has cerrado la sesión",module,Magento_Customer
+"You are signed out","Has cerrado la Sesión",module,Magento_Customer
 "Associate to Website","Asociado al sitio web",module,Magento_Customer
 Prefix,Prefijo,module,Magento_Customer
 "Middle Name/Initial","Segundo Nombre/Inicial",module,Magento_Customer
@@ -4241,7 +4241,7 @@ Email,"Correo electrónico",module,Magento_CustomerCustomAttributes
 "Personal Information","Información Personal",module,Magento_CustomerCustomAttributes
 "Sign Up for Newsletter","Suscribirse al boletín de noticias",module,Magento_CustomerCustomAttributes
 "Address Information","Información de dirección",module,Magento_CustomerCustomAttributes
-"Sign-in Information","Información de inicio de sesión",module,Magento_CustomerCustomAttributes
+"Sign-in Information","Información de inicio de Sesión",module,Magento_CustomerCustomAttributes
 Password,Contraseña,module,Magento_CustomerCustomAttributes
 "Confirm Password","Confirmar contraseña",module,Magento_CustomerCustomAttributes
 "Create an Account","Crear una Cuenta",module,Magento_CustomerCustomAttributes
@@ -6162,7 +6162,7 @@ OAuth,OAuth,module,Magento_Integration
 "OAuth consumer credentials HTTP Post maxredirects","OAuth consumidores credenciales maxredirects HTTP Post",module,Magento_Integration
 "OAuth consumer credentials HTTP Post timeout","Tiempo de espera de OAuth consumidores credenciales HTTP Post",module,Magento_Integration
 "Authentication Locks","Cerraduras de autenticación",module,Magento_Integration
-"Maximum Login Failures to Lock Out Account","Máximas fallas de inicio de sesión para bloquear la cuenta",module,Magento_Integration
+"Maximum Login Failures to Lock Out Account","Máximas fallas de inicio de Sesión para bloquear la cuenta",module,Magento_Integration
 "Lockout Time (seconds)","Tiempo de bloqueo (segundos)",module,Magento_Integration
 "Integrations Configuration","Configuración de integraciones",module,Magento_Integration
 "Integration configuration file","Archivo de configuración de integración",module,Magento_Integration
@@ -6423,7 +6423,7 @@ Create,Crear,module,Magento_Logging
 "Catalog Reviews","Comentarios de catálogo",module,Magento_Logging
 "Catalog Attributes","Atributos de catálogo",module,Magento_Logging
 "Catalog Product Templates","Plantillas de catálogo de producto",module,Magento_Logging
-"Admin Sign In","En sesión de administrador",module,Magento_Logging
+"Admin Sign In","En Sesión de administrador",module,Magento_Logging
 "CMS Pages","Páginas CMS",module,Magento_Logging
 "CMS Blocks","Bloques CMS",module,Magento_Logging
 Customers,Clientes,module,Magento_Logging
@@ -6609,7 +6609,7 @@ Customers,Clientes,module,Magento_MultipleWishlist
 "Please enter a valid email address.","Por favor, ingrese una dirección de correo electrónico válida.",module,Magento_MultipleWishlist
 "Please enter at least 2 letters of the first name.","Por favor introduzca al menos 2 letras del nombre.",module,Magento_MultipleWishlist
 "Please enter at least 2 letters of the last name.","Por favor introduzca al menos 2 Letras del apellido.",module,Magento_MultipleWishlist
-"Sign in to edit wish lists.","Inicia sesión para editar las listas de deseos.",module,Magento_MultipleWishlist
+"Sign in to edit wish lists.","Inicia Sesión para editar las listas de deseos.",module,Magento_MultipleWishlist
 "The wish list is not assigned to your account and can't be edited.","La lista de deseos no está asignada a su cuenta y no se puede editar.",module,Magento_MultipleWishlist
 "Provide the wish list name.","Proporciona el nombre de la lista de deseos.",module,Magento_MultipleWishlist
 "Wish list ""%1"" already exists.","Lista de deseos ""%1"" ya existe.",module,Magento_MultipleWishlist
@@ -7752,8 +7752,8 @@ User,Usuario,module,Magento_Paypal
 "To check out, please sign in using your email address.","Para hacer check out, por favor ingrese usando su cuenta de correo.",module,Magento_Persistent
 "Remember Me",Recordarme,module,Magento_Persistent
 "What's this?","¿Qué es esto?",module,Magento_Persistent
-"Check &quot;Remember Me&quot; to access your shopping cart on this computer even if you are not signed in.","Selecciona \'Recordarme\' para accesar a tu carrito de compras en esta computadora incluso si no has iniciado sesión.",module,Magento_Persistent
-"Check 'Remember Me' to access your shopping cart on this computer even if you are not signed in.","Selecciona 'Recuérdame' para acceder a tu carrito de compra en esta computadora, incluso sin una sesión iniciada.",module,Magento_Persistent
+"Check &quot;Remember Me&quot; to access your shopping cart on this computer even if you are not signed in.","Selecciona \'Recordarme\' para accesar a tu carrito de compras en esta computadora incluso si no has iniciado Sesión.",module,Magento_Persistent
+"Check 'Remember Me' to access your shopping cart on this computer even if you are not signed in.","Selecciona 'Recuérdame' para acceder a tu carrito de compra en esta computadora, incluso sin una Sesión iniciada.",module,Magento_Persistent
 "Persistent Shopping Cart","Carrito de compras persistente",module,Magento_Persistent
 "General Options","Opciones generales",module,Magento_Persistent
 "Enable Persistence","Activar persistencia",module,Magento_Persistent
@@ -8479,7 +8479,7 @@ Direction,Richtung,module,Magento_Reward
 Rate,Tasa,module,Magento_Reward
 "Use your reward points; %1 are available.","Utilice sus puntos de recompensa; %1 están disponibles.",module,Magento_Reward
 "Learn more","Más información",module,Magento_Reward
-"This applies only to registered users and may vary when a user is logged in.","Esto se aplica sólo a usuarios registrados y puede variar cuando un usuario inicia sesión.",module,Magento_Reward
+"This applies only to registered users and may vary when a user is logged in.","Esto se aplica sólo a usuarios registrados y puede variar cuando un usuario inicia Sesión.",module,Magento_Reward
 "You removed the orphan points.","Quita los puntos huérfanos.",module,Magento_Reward
 Customers,Clientes,module,Magento_Reward
 "Manage Reward Exchange Rates","Administrar tipos de cambio de la recompensas",module,Magento_Reward
@@ -10033,7 +10033,7 @@ Coupon,Cupón,module,Magento_SalesRule
 "If you select and save the rule you will be able to generate multiple coupon codes.","Si selecciona y guarda la regla, podrá generar múltiples códigos de cupón.",module,Magento_SalesRule
 "Use Auto Generation","Utilizar generación automática",module,Magento_SalesRule
 "Uses per Coupon","Usos por cupón",module,Magento_SalesRule
-"Usage limit enforced for logged in customers only.","Se aplica un límite de uso únicamente para los usuarios que inician sesión.",module,Magento_SalesRule
+"Usage limit enforced for logged in customers only.","Se aplica un límite de uso únicamente para los usuarios que inician Sesión.",module,Magento_SalesRule
 "Uses per Customer","Usos por cliente",module,Magento_SalesRule
 From,De,module,Magento_SalesRule
 To,Para,module,Magento_SalesRule
@@ -10331,11 +10331,11 @@ Website,"Sitio web",module,Magento_Search
 "Search Terms","Búsquedas populares",module,Magento_SearchStaging
 "Account Activity","Actividad de la cuenta",module,Magento_Security
 "All other open sessions for this account were terminated.","Otras de las sesiones abiertas de esta cuenta fueron terminadas.",module,Magento_Security
-"We couldn't logout because of an error.","No podíamos cerrar la sesión debido a un error.",module,Magento_Security
-"Someone logged into this account from another device or browser. Your current session is terminated.","Alguien está en esta cuenta desde otro dispositivo o navegador. Se termina la sesión actual.",module,Magento_Security
-"Your current session is terminated by another user of this account.","La sesión actual finaliza con otro usuario de esta cuenta.",module,Magento_Security
+"We couldn't logout because of an error.","No podíamos cerrar la Sesión debido a un error.",module,Magento_Security
+"Someone logged into this account from another device or browser. Your current session is terminated.","Alguien está en esta cuenta desde otro dispositivo o navegador. Se termina la Sesión actual.",module,Magento_Security
+"Your current session is terminated by another user of this account.","La Sesión actual finaliza con otro usuario de esta cuenta.",module,Magento_Security
 "Your account is temporarily disabled.","Su cuenta está temporalmente desactivada.",module,Magento_Security
-"Your current session has been expired.","Expiró la sesión actual.",module,Magento_Security
+"Your current session has been expired.","Expiró la Sesión actual.",module,Magento_Security
 "By IP and Email","Por IP y correo electrónico",module,Magento_Security
 "By IP","Por IP",module,Magento_Security
 "By Email","Por correo electrónico",module,Magento_Security
@@ -10344,9 +10344,9 @@ None,Ninguno,module,Magento_Security
 "Incorrect Security Checker class. It has to implement SecurityCheckerInterface","Clase de Comprobador de seguridad incorrecta. Tiene que implementar SecurityCheckerInterface",module,Magento_Security
 "some error","algún error",module,Magento_Security
 "This administrator account is open in more than one location. Note that other locations might be different browsers or sessions on the same computer.","Esta cuenta de administrador está abierta en más de una ubicación. Tenga en cuenta que podrían ser diferentes navegadores o sesiones en el mismo equipo.",module,Magento_Security
-"Concurrent session information:","Información de sesión concurrente:",module,Magento_Security
+"Concurrent session information:","Información de Sesión concurrente:",module,Magento_Security
 "IP Address","Dirección IP",module,Magento_Security
-"Time of session start","Tiempo de inicio de sesión",module,Magento_Security
+"Time of session start","Tiempo de inicio de Sesión",module,Magento_Security
 "Are you sure that you want to log out all other sessions?","¿Está seguro que desea desconectarse de todas las otras sesiones?",module,Magento_Security
 "Log out all other sessions","Desconectarse de otras sesiones",module,Magento_Security
 "This computer is using IP address %1.","Este equipo utiliza IP dirección %1.",module,Magento_Security
@@ -11543,7 +11543,7 @@ Email:,"Correo electrónico:",module,Magento_Theme
 Password:,Contraseña:,module,Magento_Theme
 "Password you set when creating account","Contraseña que ingresaste al crear la cuenta",module,Magento_Theme
 "Forgot your account password? Click <a href=""%reset_url"">here</a> to reset it.","¿Olvidaste la contraseña de tu cuenta? Hacé clic <a href=""%reset_url""> aquí</a> para restablecerla.",module,Magento_Theme
-"When you sign in to your account, you will be able to:","Cuando inicie sesión en su cuenta, usted será capaz de:",module,Magento_Theme
+"When you sign in to your account, you will be able to:","Cuando inicie Sesión en su cuenta, usted será capaz de:",module,Magento_Theme
 "Proceed through checkout faster","Procede a través del checkout más rápido",module,Magento_Theme
 "Check the status of orders","Compruebe el estado de pedidos",module,Magento_Theme
 "View past orders","Ver órdenes anteriores",module,Magento_Theme
@@ -11730,8 +11730,8 @@ Ok,Aceptar,module,Magento_Ui
 "Label Actions One","Etiquetas acciones Una",module,Magento_Ui
 "Label Actions Two","Acciones de etiqueta Dos",module,Magento_Ui
 "Some Dynamic Actions","Algunas acciones dinámicas",module,Magento_Ui
-"Log JS Errors to Session Storage","Errores JS de registro para almacenamiento de sesión",module,Magento_Ui
-"Log JS Errors to Session Storage Key","Errores JS de registro para almacenamiento de clave de sesión",module,Magento_Ui
+"Log JS Errors to Session Storage","Errores JS de registro para almacenamiento de Sesión",module,Magento_Ui
+"Log JS Errors to Session Storage Key","Errores JS de registro para almacenamiento de clave de Sesión",module,Magento_Ui
 settings/label,settings/label,module,Magento_Ui
 settings/confirm/title,configuración/confirmar/título,module,Magento_Ui
 settings/confirm/message,configuración/confirmar/mensaje,module,Magento_Ui
@@ -11983,7 +11983,7 @@ Users,Usuarios,module,Magento_User
 "Save User","Guardar usuario",module,Magento_User
 "Delete User","Eliminar usuario",module,Magento_User
 "Are you sure you want to revoke the user's tokens?","¿Está seguro que desea revocar el token del cliente?",module,Magento_User
-"Force Sign-In","Forzar inicio de sesión",module,Magento_User
+"Force Sign-In","Forzar inicio de Sesión",module,Magento_User
 "Edit User '%1'","Editar usuario '%1'",module,Magento_User
 "New User","Nuevo usuario",module,Magento_User
 "Account Information","Información de la cuenta",module,Magento_User
@@ -12082,7 +12082,7 @@ Resources,Recursos,module,Magento_User
 "User Roles","Rol del usuario",module,Magento_User
 "User Notification Template","Plantilla de notificación de usuario",module,Magento_User
 "Email template chosen based on theme fallback when ""Default"" option is selected.","Plantilla de correo electrónico elegida basada en la suplencia de tema cuando está seleccionada la opción ""Predeterminado"".",module,Magento_User
-"Maximum Login Failures to Lockout Account","Máximo de fallas Inicio de sesión antes de bloqueo de cuenta",module,Magento_User
+"Maximum Login Failures to Lockout Account","Máximo de fallas Inicio de Sesión antes de bloqueo de cuenta",module,Magento_User
 "We will disable this feature if the value is empty.","Desactivará esta función si el valor está vacío.",module,Magento_User
 "Lockout Time (minutes)","Tiempo de bloqueo (minutos)",module,Magento_User
 "Password Lifetime (days)","Tiempo de vida de password (dias)",module,Magento_User
@@ -12091,7 +12091,7 @@ Resources,Recursos,module,Magento_User
 Unlock,Desbloquear,module,Magento_User
 ID,ID,module,Magento_User
 Username,"Nombre de usuario",module,Magento_User
-"Last login","Última sesión",module,Magento_User
+"Last login","Última Sesión",module,Magento_User
 Failures,Fallos,module,Magento_User
 Unlocked,Desbloqueado,module,Magento_User
 "First-Class Mail Large Envelope","Correo de primera clase envolvente grande",module,Magento_Usps
@@ -12513,7 +12513,7 @@ Message,Mensaje,module,Magento_Webapi
 "503 Service Unavailable","503 Servicio no disponible",module,Magento_WebsiteRestriction
 "200 OK","200 OK",module,Magento_WebsiteRestriction
 "Website Closed","Sitio web cerrado",module,Magento_WebsiteRestriction
-"Private Sales: Login Only","Ventas privadas: Inicio de sesión sólo",module,Magento_WebsiteRestriction
+"Private Sales: Login Only","Ventas privadas: Inicio de Sesión sólo",module,Magento_WebsiteRestriction
 "Private Sales: Login and Register","Ventas privadas: Login y registro",module,Magento_WebsiteRestriction
 "To login form (302 Found)","A formulario de login (302 Found)",module,Magento_WebsiteRestriction
 "To landing page (302 Found)","A la página de aterrizaje (302 Found)",module,Magento_WebsiteRestriction
@@ -12819,7 +12819,7 @@ Email:,"Correo electrónico:",theme,frontend/Magento/luma
 Password:,Contraseña:,theme,frontend/Magento/luma
 "Password you set when creating account","Contraseña que ingresaste al crear la cuenta",theme,frontend/Magento/luma
 "Forgot your account password? Click <a href=""%reset_url"">here</a> to reset it.","¿Olvidaste la contraseña de tu cuenta? Hacé clic <a href=""%reset_url""> aquí</a> para restablecerla.",theme,frontend/Magento/luma
-"When you sign in to your account, you will be able to:","Cuando inicie sesión en su cuenta, usted será capaz de:",theme,frontend/Magento/luma
+"When you sign in to your account, you will be able to:","Cuando inicie Sesión en su cuenta, usted será capaz de:",theme,frontend/Magento/luma
 "Quick Checkout","Checkout rápido",theme,frontend/Magento/luma
 "Proceed through checkout faster","Proceder a través de pago más rápido",theme,frontend/Magento/luma
 "Order Status","Estado de pedido",theme,frontend/Magento/luma
