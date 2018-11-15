@@ -149,7 +149,9 @@ class Listbyzip extends Action
         }
 
         ksort($storeData);
-        return $storeData;
+        
+
+        return array_slice($storeData, 0, 3);
     }
 
     /**

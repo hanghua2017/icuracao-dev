@@ -71,6 +71,7 @@ define([
          * Proceeds to the next step
          */
         navigateToNextStep: function () {
+            $("#discount-code-error").remove();
             this.performAjaxUpdates().done(
                 function () {
                     stepNavigator.next();
