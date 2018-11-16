@@ -451,7 +451,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $dist = acos($dist);
         $dist = rad2deg($dist);
         $miles = $dist * 60 * 1.1515;
-        return $miles;
+        return strtoupper($miles);
     }
 
     /**
