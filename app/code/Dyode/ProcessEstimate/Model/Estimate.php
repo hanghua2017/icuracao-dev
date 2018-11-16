@@ -10,14 +10,21 @@ class Estimate extends \Magento\Framework\Model\AbstractModel
 
    protected $orders;
 
+   /**
+    * @var \Dyode\ArInvoice\Helper\Data $arInvoiceHelper
+    **/
+    protected $_arInvoiceHelper;
+
    public function __construct( 
 	\Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory, 
 	\Dyode\ProcessEstimate\Helper\Data $helper,
-	\Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog
+	\Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
+	\Dyode\ArInvoice\Helper\Data $arInvoiceHelper
 	) {
 	    $this->_orderCollectionFactory = $orderCollectionFactory;
 	    $this->helper = $helper;
-	    $this->auditLog = $auditLog;
+		$this->auditLog = $auditLog;
+		$this->_arInvoiceHelper = $arInvoiceHelper;
 	}
 
 	//fetch and process orders
@@ -53,7 +60,9 @@ class Estimate extends \Magento\Framework\Model\AbstractModel
 		    	}	
 		    	$orderState = Order::STATE_PROCESSING;
 				$order->setState($orderState)->setStatus(Order::STATE_PROCESSING);
-				$order->save();		
+				$order->save();	
+				 //create default magento order invoice
+				 $this->_arInvoiceHelper->createInvoice($order->getId());
 			}
 	        $this->auditLog->saveAuditLog([
 	            'user_id' => 'admin',

@@ -13,7 +13,6 @@
         <script src="js/cms-accordion.js"/>
         <script src="js/custom.js" />
         <script src="js/custom-select.js" />
-        <css src="css/source/common.css"/>
     </head>
     <body>
         <referenceContainer name="after.body.start">

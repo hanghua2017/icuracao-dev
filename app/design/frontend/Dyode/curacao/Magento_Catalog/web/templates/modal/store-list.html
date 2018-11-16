@@ -16,8 +16,12 @@
             </div>
             <div class="avail-store-details">
                 <ul>
-                    <% _.each(store.address, function(addressLine){ %>
-                    <li class="store-location"><%= addressLine %></li>
+                    <% _.each(store.address, function(addressLine, index){ %>
+                        <% if (index === 'title'){ %>
+                            <li class="store-location"><%= addressLine %></li>
+                        <% } else { %>
+                            <li><%= addressLine %></li>
+                        <% } %>
                     <% }); %>
                 </ul>
             </div>

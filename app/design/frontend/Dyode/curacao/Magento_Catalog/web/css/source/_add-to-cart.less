@@ -712,24 +712,56 @@
   .modal-inner-wrap{
     margin: 5rem auto;
     height: 80vh;
-    overflow-y: scroll;
+    .modal-content{
+      height: 100%;
+      overflow-y: scroll;
+    }
+    .modal-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    /* Track */
+    .modal-content::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 8px #ebebeb;
+      background: #ebebeb;
+      border-radius: 10px;
+    }
+    /* Handle */
+    .modal-content::-webkit-scrollbar-thumb {
+      background: #d0d0d0;
+      border-radius: 10px;
+    }
+    /* Handle on hover */
+    .modal-content::-webkit-scrollbar-thumb:hover {
+      background: #d0d0d0;
+    }
   }
-  .modal-inner-wrap::-webkit-scrollbar {
-    width: 8px;
-  }
-  /* Track */
-  .modal-inner-wrap::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 8px #ebebeb;
-    background: #ebebeb;
-    border-radius: 10px;
-  }
-  /* Handle */
-  .modal-inner-wrap::-webkit-scrollbar-thumb {
-    background: #d0d0d0;
-    border-radius: 10px;
-  }
-  /* Handle on hover */
-  .modal-inner-wrap::-webkit-scrollbar-thumb:hover {
-    background: #d0d0d0;
+}
+.catalog-product-view{
+  .warranty-addtocart-popup{
+    .modal-inner-wrap{
+      .modal-header{
+        background-color: @popup-header !important;
+        padding: 5px 0;
+        overflow: hidden;
+        color: @black;
+        border-bottom: 1px solid @content-light-grey;
+        .action-close{
+          &:before{
+            color: #757575;
+          }
+        }
+      }
+      .modal-content{
+        .product-details{
+          padding: 10px 25px;
+          @media all and (max-width:479px){
+            padding:10px 20px;
+          }
+        }
+      }
+      .modal-footer{
+        display: block;
+      }
+    }
   }
 }

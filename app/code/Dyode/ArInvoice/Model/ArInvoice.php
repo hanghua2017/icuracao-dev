@@ -236,7 +236,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                     "cost" => (float)$itemCost,
                     "taxable" => $taxable,
                     "webvendor" => (int)$vendorId,
-                    "from" => isset($itemsStoreLocation[$itemId]) ? $itemsStoreLocation[$itemId] : "",
+                    "from" => isset($itemsStoreLocation[$itemId]) ? (string)$itemsStoreLocation[$itemId] : '01',
                     "pickup" => $pickup,
                     "orditemid" => (int)$itemId,
                     "tax_amt" => (float)$itemTaxAmount,
@@ -248,7 +248,10 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         $inputArray["items"] = $items;
 
         $createInvoiceResponse = $this->_arInvoiceHelper->createRevInvoice($inputArray);    # Creating Invoice using API CreateInvoiceRev
-
+        //assign location to pickup_location field
+        $assignedLocation = isset($itemsStoreLocation[$itemId]) ? (string)$itemsStoreLocation[$itemId] : '01';
+        $item->setData('pickup_location', $assignedLocation);
+        $item->save();
         if (empty($createInvoiceResponse)) {
 			$logger->info("Order Id : " . $order->getIncrementId());
 			$logger->info("API Response not Found.");
@@ -269,7 +272,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                 $order->setState("processing")->setStatus("estimate_issue");    # Change the Order Status and Order State
                 $order->addStatusToHistory($order->getStatus(), 'Estimate not Issued');   # Add Comment to Order History
                 $order->save();     # Save the Changes in Order Status & History
-
                 //logging audit log
                 $this->auditLog->saveAuditLog([
                     'user_id' => "",
@@ -311,6 +313,8 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                 } else {
                     $order->setState("processing")->setStatus("processing");    # Change the Order Status and Order State
                     $order->save();     # Save the Changes in Order Status & History
+                    //create default magento order invoice
+                    $this->_arInvoiceHelper->createInvoice($orderId);
                     $referId = $incrementId;
 
                     if ($downPaymentAmount !== '0') {
