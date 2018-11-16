@@ -483,6 +483,9 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         $carrierTitle = __('USPS');
         $carrierName = __('Standard');
         $productWeight = $product->getWeight();
+        if ( $productWeight <= 0) {
+            $productWeight = 10;
+        }
         $rate = $this->shipHelper->getUSPSRates($zipCode, $productWeight);
 
         $this->usps_std_rate = $rate;
@@ -516,6 +519,9 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     protected function upsShippingDetails(QuoteItem $quoteItem, $product, $zipCode)
     {
         $productWeight = $product->getWeight();
+        if ( $productWeight <= 0) {
+            $productWeight = 10;
+        }
         $shippingMethods = $this->shipHelper->getUPSRates($zipCode, $productWeight);
         $deliveryMethods = $this->prepareUpsShippingData($shippingMethods, $quoteItem->getItemId());
 
