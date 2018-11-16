@@ -27,6 +27,10 @@
                     <item name="class" xsi:type="string">Dyode\Catalog\Ui\DataProvider\Product\Form\Modifier\CustomOptions</item>
                     <item name="sortOrder" xsi:type="number">155</item>
                 </item>
+                <item name="soldout_prdts" xsi:type="array">
+                    <item name="class" xsi:type="string">Dyode\Catalog\Ui\DataProvider\Product\Form\Modifier\SoldoutProduct</item>
+                    <item name="sortOrder" xsi:type="number">160</item>
+                </item>
             </argument>
         </arguments>
     </virtualType>
