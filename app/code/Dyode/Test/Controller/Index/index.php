@@ -8,16 +8,34 @@ class Index extends \Magento\Framework\App\Action\Action
 	public function __construct(
 		\Magento\Framework\App\Action\Context $context,
 		\Magento\Framework\View\Result\PageFactory $pageFactory,
+		\Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
+        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
 		\Dyode\SetInventory\Model\Update $update)
 	{
 		$this->update = $update;
 		$this->_pageFactory = $pageFactory;
+		$this->productCollectionFactory = $productCollectionFactory;
+        $this->productRepository = $productRepository;
 		return parent::__construct($context);
 	}
 
 	public function execute()
 	{
-		echo "string";
+		$productCollection = $this->productCollectionFactory->create();
+        /** Apply filters here */
+        $productCollection->addAttributeToSelect('*');
+        $count = 0;
+        foreach ($productCollection as $product) {
+			$product->setStoreId(0);
+			$product->setSpecialPrice('');
+			$product->setSpecialFromDate('');
+			$product->setSpecialToDate('');
+			$product->save();
+         $count++;   
+		}
+		echo $count;
+		
+		echo "all special price dates updated";exit;
 		$customer_firstname = 'Nithin';
 		$increment_id = '1234567890';
 		$estimate_number = 'ZSWERDF';
