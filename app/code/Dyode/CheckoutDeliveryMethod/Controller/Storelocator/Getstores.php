@@ -115,7 +115,7 @@ class Getstores extends Action
             $storeLocationGeoCoordinate = $this->storeViewModel->findStoreLocationGeoCoordiante($store);
 
             if ($storeLocationGeoCoordinate) {
-                $storeDistance = intval($this->storeViewModel->arInvoiceHelper()->getDistance(
+                $storeDistance = round($this->storeViewModel->arInvoiceHelper()->getDistance(
                     $zipGeoCoordinate->getLat(),
                     $zipGeoCoordinate->getLng(),
                     $storeLocationGeoCoordinate->getLat(),

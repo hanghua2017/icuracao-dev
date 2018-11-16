@@ -135,7 +135,7 @@ class Listbyzip extends Action
             $storeLocationGeoCoordinate = $this->storesViewModel->findStoreLocationGeoCoordiante($store);
 
             if ($storeLocationGeoCoordinate) {
-                $storeDistance = intval($this->storesViewModel->arInvoiceHelper()->getDistance(
+                $storeDistance = round($this->storesViewModel->arInvoiceHelper()->getDistance(
                     $zipGeoCoordinate->getLat(),
                     $zipGeoCoordinate->getLng(),
                     $storeLocationGeoCoordinate->getLat(),
