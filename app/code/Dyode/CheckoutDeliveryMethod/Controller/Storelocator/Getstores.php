@@ -115,12 +115,12 @@ class Getstores extends Action
             $storeLocationGeoCoordinate = $this->storeViewModel->findStoreLocationGeoCoordiante($store);
 
             if ($storeLocationGeoCoordinate) {
-                $storeDistance = (float)$this->storeViewModel->arInvoiceHelper()->getDistance(
+                $storeDistance = intval($this->storeViewModel->arInvoiceHelper()->getDistance(
                     $zipGeoCoordinate->getLat(),
                     $zipGeoCoordinate->getLng(),
                     $storeLocationGeoCoordinate->getLat(),
                     $storeLocationGeoCoordinate->getLng()
-                );
+                ));
 
                 $store->setDistanceFromZip($storeDistance);
 
@@ -129,7 +129,8 @@ class Getstores extends Action
         }
 
         ksort($storeData);
-        return $storeData;
+
+        return array_slice($storeData, 0, 3);
     }
 
     /**
@@ -150,7 +151,7 @@ class Getstores extends Action
                 'id'      => $store->getLocationId(),
                 'name'    => $store->getTitle(),
                 'image'   => $this->storeViewModel->storeLocationImgHelper()->getImagePath($store->getImage()),
-                'miles'   => $distance . 'mi',
+                'miles'   => $store->getDistanceFromZip() . 'mi',
                 'address' => [
                     'title'       => $store->getTitle(),
                     'street'      => $store->getStreet(),
