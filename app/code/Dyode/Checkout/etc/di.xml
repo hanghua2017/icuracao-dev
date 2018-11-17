@@ -13,4 +13,7 @@
       <type name="Magento\Checkout\Model\GuestPaymentInformationManagement">
             <plugin name="afterGetPaymentInformation" type="Dyode\Checkout\Plugin\Model\GuestPaymentInformationManagementPlugin" />
       </type>
+      <type name="Magento\Checkout\Model\PaymentInformationManagement">
+            <plugin name="afterGetPaymentInformation" type="Dyode\Checkout\Plugin\Model\PaymentInformationManagementPlugin" />
+      </type>
 </config>
