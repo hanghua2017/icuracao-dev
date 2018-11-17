@@ -535,9 +535,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         if ( $productWeight >= 150 ) {
             $productWeight = 147;
         }
-        if ( $productWeight >= 150 ){
-           $productWeight = 147;
-        }
+       
         $shippingMethods = $this->shipHelper->getUPSRates($zipCode, $productWeight);
         $deliveryMethods = $this->prepareUpsShippingData($shippingMethods, $quoteItem->getItemId());
 
