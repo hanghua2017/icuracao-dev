@@ -242,15 +242,24 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         $shipCoordinates = $this->_locationRepo->getById($zipCode);
         $product = $this->getProductById($quoteItem->getProductId());
 
+        //Condition for Freight Items
         if ($product->getFreight()) {
             if ($this->isDomestic($shipCoordinates->getLat(), $shipCoordinates->getLng())) {
                 return $this->adsMomentumShippingDetails($quoteItem, $product, $zipCode);
             }
-
             // Return the SEKO rate
             return $this->sekoShippingDetails($quoteItem,$product,$zipCode);
         }
        
+        //Condition for Shiprate Items is Domestic
+        if ($product->getShprate() == 'Domestic') {
+            if ($this->isDomestic($shipCoordinates->getLat(), $shipCoordinates->getLng())) {
+                return $this->adsMomentumShippingDetails($quoteItem, $product, $zipCode);
+            }
+            // Return the SEKO rate
+            return $this->sekoShippingDetails($quoteItem,$product,$zipCode);
+        }
+
         //if product weight is less than 70lbs add usps also
         if ( $product->getWeight() <= 70 ) {
             //Get UPS price details
@@ -521,7 +530,10 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     {
         $productWeight = $product->getWeight();
         if ( $productWeight <= 0) {
-            $productWeight = 10;
+            $productWeight = 1;
+        }
+        if ( $productWeight >= 150 ) {
+            $productWeight = 147;
         }
         if ( $productWeight >= 150 ){
            $productWeight = 147;
