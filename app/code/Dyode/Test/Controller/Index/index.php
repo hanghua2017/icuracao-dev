@@ -9,18 +9,50 @@ class Index extends \Magento\Framework\App\Action\Action
 		\Magento\Framework\App\Action\Context $context,
 		\Magento\Framework\View\Result\PageFactory $pageFactory,
 		\Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
-        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
+		\Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
+		\Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
+		\Magento\Catalog\Api\ProductRepositoryInterfaceFactory $productRepositoryFactory,
+		\Dyode\Emarsys\Model\Order $emarsysOrder,
 		\Dyode\SetInventory\Model\Update $update)
 	{
 		$this->update = $update;
 		$this->_pageFactory = $pageFactory;
 		$this->productCollectionFactory = $productCollectionFactory;
-        $this->productRepository = $productRepository;
+		$this->productRepository = $productRepository;
+		$this->$emarsys = $emarsysOrder;
+		$this->orderRepository = $orderRepository;
+		$this->_productRepositoryFactory = $productRepositoryFactory;
 		return parent::__construct($context);
 	}
 
 	public function execute()
 	{
+		$id = isset($_GET['id']) ? $_GET['id'] : null;
+		if($id == '1'){
+			$order = $this->orderRepository->get('1000071667');
+			$this->$emarsys->sendConfirmationEmail('1000071667');
+			$this->$emarsys->customerRequestCancellationNotification ('1000071667', 'nithinl4life@gmail.com', 'Nithin');
+			$this->$emarsys->outofstockCancellationNotification ('1000071667', 'Test', 'nithinl4life@gmail.com', 'Nithin');
+			$ordered_items = $order->getAllItems();
+    		foreach ($ordered_items as $item) {
+				$this->$emarsys->sendOutofstockNotification ($order, $item);
+			}
+		
+		}
+        $product = $this->_productRepositoryFactory->create()->getById('127043');
+		if($id == '2'){
+			$product->setStoreId(0);
+			$product->setStatus(0);
+			$product->setVisibiity(1);
+			$product->save();
+		}
+
+		if($id == '3'){
+			$product->setStatus(1);
+			$product->setVisibiity(1);
+			$product->save();
+		}
+		
 		$productCollection = $this->productCollectionFactory->create();
         /** Apply filters here */
         $productCollection->addAttributeToSelect('*');
