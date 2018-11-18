@@ -242,27 +242,30 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         $shipCoordinates = $this->_locationRepo->getById($zipCode);
         $product = $this->getProductById($quoteItem->getProductId());
 
+        //Condition for Freight Items
         if ($product->getFreight()) {
             if ($this->isDomestic($shipCoordinates->getLat(), $shipCoordinates->getLng())) {
                 return $this->adsMomentumShippingDetails($quoteItem, $product, $zipCode);
             }
-
+            // Return the SEKO rate
+            return $this->sekoShippingDetails($quoteItem,$product,$zipCode);
+        }
+       
+        //Condition for Shiprate Items is Domestic
+        if ($product->getShprate() == 'Domestic') {
+            if ($this->isDomestic($shipCoordinates->getLat(), $shipCoordinates->getLng())) {
+                return $this->adsMomentumShippingDetails($quoteItem, $product, $zipCode);
+            }
             // Return the SEKO rate
             return $this->sekoShippingDetails($quoteItem,$product,$zipCode);
         }
 
-        // $upsWith = 3;
-        // $toState = $shipCoordinates->getAbbr();
-        // if (in_array($toState, ['CA', 'NV', 'AZ'])) {
-        //     $upsWith = 11;
-        // }
-
-        // if (($product->getWeight() < $upsWith) && ($product->getPrice() < self::USPS_PRICE_LIMIT)) {
-        //     return $this->uspsShippingDetails($quoteItem, $product, $zipCode);
-        // }
-
-        //Get UPS price details
-        $uspsDetails = $this->uspsShippingDetails($quoteItem, $product, $zipCode);
+        //if product weight is less than 70lbs add usps also
+        if ( $product->getWeight() <= 70 ) {
+            //Get UPS price details
+            $uspsDetails = $this->uspsShippingDetails($quoteItem, $product, $zipCode);
+        }
+       
         return $this->upsShippingDetails($quoteItem, $product, $zipCode);
     }
 
@@ -378,10 +381,6 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         $carrierName = $adsCarrierDetails['name'];
         $rate = $adsCarrierDetails['price'];
 
-        // Check if momentum and calculate rate
-        // if ($this->_checkoutHelper->checkMomentum($zipCode) && $productWeight) {
-        //     $rate = $this->_checkoutHelper->setQuoteItemPrice($zipCode, $productWeight);
-        // }
 
         $shippingData = new DataObject([
             'quote_item_id'  => $quoteItem->getItemId(),
@@ -493,6 +492,9 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         $carrierTitle = __('USPS');
         $carrierName = __('Standard');
         $productWeight = $product->getWeight();
+        if ( $productWeight <= 0) {
+            $productWeight = 10;
+        }
         $rate = $this->shipHelper->getUSPSRates($zipCode, $productWeight);
 
         $this->usps_std_rate = $rate;
@@ -526,6 +528,12 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     protected function upsShippingDetails(QuoteItem $quoteItem, $product, $zipCode)
     {
         $productWeight = $product->getWeight();
+        if ( $productWeight <= 0) {
+            $productWeight = 1;
+        }
+        if ( $productWeight >= 150 ) {
+            $productWeight = 147;
+        }
         $shippingMethods = $this->shipHelper->getUPSRates($zipCode, $productWeight);
         $deliveryMethods = $this->prepareUpsShippingData($shippingMethods, $quoteItem->getItemId());
 
@@ -552,7 +560,11 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
                 case '03':
                     //Check UPS price is less than USPS
                     $this->ups_std_rate = $method['Rate'];
-                    $result = $this->findStandardDeliveryRate();
+                    $result = 0;
+
+                    if(isset($this->usps_std_rate)) {
+                        $result = $this->findStandardDeliveryRate();
+                    }
 
                     if($result == 0) {
                         $deliveryMethods[] = [

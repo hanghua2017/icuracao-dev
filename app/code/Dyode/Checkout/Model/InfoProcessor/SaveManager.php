@@ -127,6 +127,7 @@ class SaveManager
      * @param \Dyode\Checkout\Api\Data\ShippingInformationInterface $addressInformation
      * @param bool $includeCuracaoTotal
      * @return \Magento\Checkout\Api\Data\PaymentDetailsInterface
+     * @throws \Dyode\ARWebservice\Exception\ArResponseException
      */
     public function updateShippingTotal(
         $paymentDetails,

@@ -1,11 +1,9 @@
 <?xml version="1.0" ?>
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+	        <title>Verify your Curacao Account</title>
+	    </head>
 	<body>
-		<referenceBlock name="page.title">
-			<action method="setPageTitle">
-				<argument name="pageTitle" xsi:type="string">Verify your Curacao Account</argument>
-			</action>
-		</referenceBlock>
 		<referenceContainer name="content">
 			<block class="Dyode\Linkaccount\Block\Verify\Index" name="phoneverify" after="requirejs" template="Dyode_Linkaccount::verify/js.phtml"/>
 			<block class="Dyode\Linkaccount\Block\Verify\Index" name="verify.index" template="Dyode_Linkaccount::verify/index.phtml"/>
