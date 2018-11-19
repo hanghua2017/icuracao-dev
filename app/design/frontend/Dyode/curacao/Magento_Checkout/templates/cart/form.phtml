@@ -95,3 +95,15 @@
 </form>
 <?= $block->getChildHtml('checkout.cart.order.actions') ?>
 <?= $block->getChildHtml('shopping.cart.table.after') ?>
+
+<script>
+     require([
+          "jquery"
+     ], function($){
+            $(".checkout").on('click',function(e){
+                e.preventDefault();
+                alert("here");
+                window.location.href = "/maintenance";
+            });
+       });
+</script>
