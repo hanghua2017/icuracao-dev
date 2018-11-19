@@ -14,9 +14,6 @@
  * @var $block \Magento\Customer\Block\Form\Register
  */
 ?>
-<div class="right-back-msg" style="display:none;">
-    <span> <?php echo __("we will right back ...");?> </span>
-</div>
 <?= $block->getChildHtml('form_fields_before') ?>
 <?php /* Extensions placeholder */ ?>
 <?= $block->getChildHtml('customer.form.register.extra') ?>
@@ -165,7 +162,7 @@
                }
             });
             $("#create").on('click',function(){
-                $(".right-back-msg").css('display','block');
+                window.location.href = "/maintenance";
             });
        });
 </script>
