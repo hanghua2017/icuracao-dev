@@ -19,7 +19,7 @@ class Index extends \Magento\Framework\App\Action\Action
 		$this->_pageFactory = $pageFactory;
 		$this->productCollectionFactory = $productCollectionFactory;
 		$this->productRepository = $productRepository;
-		$this->$emarsys = $emarsysOrder;
+		$this->emarsys = $emarsysOrder;
 		$this->orderRepository = $orderRepository;
 		$this->_productRepositoryFactory = $productRepositoryFactory;
 		return parent::__construct($context);
@@ -30,12 +30,12 @@ class Index extends \Magento\Framework\App\Action\Action
 		$id = isset($_GET['id']) ? $_GET['id'] : null;
 		if($id == '1'){
 			$order = $this->orderRepository->get('1000071667');
-			$this->$emarsys->sendConfirmationEmail('1000071667');
-			$this->$emarsys->customerRequestCancellationNotification ('1000071667', 'nithinl4life@gmail.com', 'Nithin');
-			$this->$emarsys->outofstockCancellationNotification ('1000071667', 'Test', 'nithinl4life@gmail.com', 'Nithin');
+			$this->emarsys->sendConfirmationEmail('1000071667');
+			$this->emarsys->customerRequestCancellationNotification ('1000071667', 'nithinl4life@gmail.com', 'Nithin');
+			$this->emarsys->outofstockCancellationNotification ('1000071667', 'Test', 'nithinl4life@gmail.com', 'Nithin');
 			$ordered_items = $order->getAllItems();
     		foreach ($ordered_items as $item) {
-				$this->$emarsys->sendOutofstockNotification ($order, $item);
+				$this->emarsys->sendOutofstockNotification ($order, $item);
 			}
 		
 		}
