@@ -23,6 +23,6 @@ class SoldoutDataProvider extends AbstractDataProvider
      */
     protected function getLinkType()
     {
-        return Link::LINK_CODE;
+        return Link::LINK_SOLDOUT_CODE;
     }
 }
