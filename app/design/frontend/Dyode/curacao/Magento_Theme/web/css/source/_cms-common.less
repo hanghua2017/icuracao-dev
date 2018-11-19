@@ -40,7 +40,8 @@ select {
 .cms-privacy-policy,
 .cms-return-policy,
 .cms-shipping-information,
-.cms-terms-and-conditions {
+.cms-terms-and-conditions,
+.cms-maintenance {
   main {
     background: url("../images/Order-returns-BG.png");
     background-size: 100%;
@@ -240,6 +241,91 @@ select {
       p, ul {
         margin-bottom: 15px;
         font-size: 14px;
+      }
+    }
+  }
+}
+.cms-maintenance{
+  .page-main{
+    .columns{
+      .column{
+        .maintenance-container{
+          width: 800px;
+          margin: 60px auto;
+          background-color: @white;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
+          text-align: center;
+          padding: 60px 0;
+          @media all and(max-width: 991px) {
+            width: 600px;
+          }
+          @media all and (max-width: 767px) {
+            width: 100%;
+            box-shadow: none;
+            margin:30px 0;
+            padding: 30px 15px;
+          }
+          .image-block{
+            img{
+              width:300px;
+            }
+          }
+          .content-block{
+            .title{
+              font-family: 'iCuracao-Medium';
+              color: #000;
+              font-size: 28px;
+              line-height: 1;
+              margin: 15px 0;
+              @media all and (max-width: 991px) {
+                font-size: 24px;
+              }
+              @media all and (max-width: 767px) {
+                font-size: 20px;
+              }
+              @media all and (max-width: 479px) {
+                font-size: 18px;
+              }
+            }
+            h2.back-soon {
+              font-family: 'iCuracao-Medium';
+              font-size: 20px;
+              color: #d6d6d6;
+              margin-top: 0;
+              margin-bottom: 30px;
+              @media all and (max-width: 991px) {
+                font-size: 18px;
+              }
+              @media all and (max-width: 767px) {
+                font-size: 16px;
+              }
+              @media all and (max-width: 479px) {
+                font-size: 15px;
+                margin-bottom: 20px;
+                margin-bottom: 20px;
+              }
+            }
+            a {
+              .go-home {
+                color: #fff;
+                background-color: @maintenance-btn-orange;
+                border-radius: 3px;
+                padding: 12px 20px;
+                width: auto;
+                box-shadow: none;
+                border:none;
+                text-transform: capitalize;
+                @media all and (max-width: 767px) {
+                  width: 100%;
+                }
+              }
+
+              &:hover {
+                text-decoration: none;
+              }
+            }
+          }
+        }
       }
     }
   }
