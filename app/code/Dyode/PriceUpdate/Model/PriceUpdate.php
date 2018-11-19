@@ -174,28 +174,33 @@ class PriceUpdate extends \Magento\Framework\Model\AbstractModel
                     $sku = $item['sku'];
                     $iqi = $item['iqi'];
                     $ar_status = $item['ar_status'];
-
-                    $rebated_price = $price - $customer_rebate;
                     $cost = $cost - $vendor_rebate;
+                    
+                    if(!isset($customer_rebate)){
+                        $customer_rebate = 0;
+                        $special_price = '';
+                    }
+                    $rebated_price = $price - $customer_rebate;
                     if (($special_price == 0) || ($rebated_price < $special_price)){
                         $special_price = $rebated_price;
                     }
                     if (0 < $special_price && $special_price < $price) {
                         $specialprice = $special_price;
-                        $specialfromdate = $special_from_date;
-                        $specialtodate = $special_to_date;
+                        // $specialfromdate = $special_from_date;
+                        // $specialtodate = $special_to_date;
                     } else {
                         $specialprice = '';
-                        $specialfromdate = '';
-                        $specialtodate = '';
+                        // $specialfromdate = '';
+                        // $specialtodate = '';
                     }
                     $product = $this->productRepository->getById($entity_id);
+                    $product->setStoreId(0);
                     $product->setPrice($price);
                     $product->setSpecialPrice($specialprice);
                     $product->setCost($cost);
                     $product->setArStatus($ar_status);
-                    $product->setSpecialFromDate($specialfromdate);
-                    $product->setSpecialToDate($specialtodate);
+                    //$product->setSpecialFromDate($specialfromdate);
+                    //$product->setSpecialToDate($specialtodate);
                     $product->setMsrp($msrp);
                     $product->setIqi($iqi);
                     $product->setRecyclingprice($recycling_price);

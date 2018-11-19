@@ -114,7 +114,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper{
     /**
      * Function to return the rate using USPS
      */
-    public function getUSPSRates($toZip, $weight = 1){
+    public function getUSPSRates($toZip, $weight = 10){
         
         $this->upsUrl = $this->getUSPSUrl();
         $this->uspsId = $this->getUSPSId();

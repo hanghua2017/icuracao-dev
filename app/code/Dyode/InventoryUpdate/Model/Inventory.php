@@ -227,7 +227,7 @@ class Inventory extends \Magento\Framework\Model\AbstractModel {
                $saveData = $locationInventory->save();
             }
             $stockItem=$this->_stockRegistry->getStockItem($product->getID());
-
+            $product->setStoreId(0);
             if ($product->getArStatus() =='D') {
                $product->setStatus(0);
                $product->setVisibiity(1);

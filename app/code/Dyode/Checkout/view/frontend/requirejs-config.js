@@ -27,6 +27,9 @@ var config = {
             },
             'Magento_Tax/js/view/checkout/summary/tax': {
                 'Dyode_Checkout/js/mixin/summary/tax-mixin': true
+            },
+            'ParadoxLabs_Authnetcim/js/view/payment/method-renderer/authnetcim': {
+                'Dyode_Checkout/js/mixin/payment/method-renderer/authnetcim-mixin': true
             }
         }
     }
