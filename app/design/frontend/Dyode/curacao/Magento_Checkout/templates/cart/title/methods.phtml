@@ -20,3 +20,13 @@
         <?php endforeach; ?>
     </ul>
 <?php endif; ?>
+<script>
+     require([
+          "jquery"
+     ], function($){
+            $(".checkout").on('click',function(e){
+                e.preventDefault();
+                window.location.href = "/maintenance";
+            });
+       });
+</script>
