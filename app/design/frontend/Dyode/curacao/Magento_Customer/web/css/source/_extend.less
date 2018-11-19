@@ -2264,7 +2264,7 @@ select:focus, input:focus {
 }
 
 //Forget Password styling
-.customer-account-forgotpassword {
+.customer-account-forgotpassword,.customer-account-createpassword {
   .page-wrapper {
     #maincontent {
       background-image: url(../images/login-background.png);
@@ -2360,7 +2360,7 @@ select:focus, input:focus {
               }
             }
             .field {
-              &.email {
+              &.email,&.password,.confirmation {
                 border-top: 1px solid #b4b4b4;
                 border-top-left-radius: 3px;
                 border-top-right-radius: 3px;
