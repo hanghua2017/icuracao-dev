@@ -181,7 +181,7 @@ class PriceUpdate extends \Magento\Framework\Model\AbstractModel
                         $special_price = '';
                     }
                     $rebated_price = $price - $customer_rebate;
-                    if (($special_price == 0) || ($rebated_price < $special_price)){
+                    if (($special_price == 0) || ($rebated_price < $special_price) && $customer_rebate != 0){
                         $special_price = $rebated_price;
                     }
                     if (0 < $special_price && $special_price < $price) {
