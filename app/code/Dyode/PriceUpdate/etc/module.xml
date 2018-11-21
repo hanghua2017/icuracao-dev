@@ -3,7 +3,7 @@
     <module name="Dyode_PriceUpdate" setup_version="1.0.0"></module>
         <sequence>
             <module name="Magento_Backend"/>
-             <module name="Magento_Sales"/>
+            <module name="Magento_Sales"/>
             <module name="Magento_Quote"/>
             <module name="Magento_Checkout"/>
         </sequence>
