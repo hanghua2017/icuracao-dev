@@ -550,7 +550,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         $holidayStart = strtotime('2018-11-21 00:00:00 ');
         $holidayEnd = strtotime('2018-11-27 23:59:59');
         $deliveryMethods = [
-        		'quote_item_id' => 100,
+        		'quote_item_id' => $quoteItem->getItemId(),
         		"carrier_code"  => 'ups',
         		"method_code"   => 'GND',
         		"carrier_title" => 'UPS',
