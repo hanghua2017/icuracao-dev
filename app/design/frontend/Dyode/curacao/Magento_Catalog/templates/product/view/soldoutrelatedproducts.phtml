@@ -44,6 +44,15 @@ $product = $block->getProduct();
         </div>
         <div class="outofstock-related-block owl-carousel out-of-stock-carousel">
               <?php foreach($soldoutProducts as $soldoutProduct) { ?>
+                <?php 
+                    //to remove double slashes in product image URL
+                    $routeName =$viewModel->getProductImageUrl($soldoutProduct);
+                    $routeNamePart1 = substr( $routeName, 0 , strpos($routeName,'//') +4 );
+                    $routeNamePart2 = substr( $routeName, strpos($routeName,'//') + 4);
+                    $routeNamePart2 = str_replace('//', '/' , $routeNamePart2);
+                    $soldImage = $routeNamePart1 . $routeNamePart2;
+
+                    ?>
                   <!-- Static content for price off -->
                   <?php
                       $finalPrice = $soldoutProduct->getFinalPrice();
@@ -51,7 +60,7 @@ $product = $block->getProduct();
                   <div class="item">
                       <a href="<?php echo $soldoutProduct->getProductUrl();?>">
                           <div class="productimage-container">
-                              <img src="<?= $imageURL ?>" alt="product">
+                              <img src="<?= $soldImage ?>" alt="product">
                           </div>
                           <h3><?= $block->escapeHtml($soldoutProduct->getName()) ?></h3>
                           <p class="price"><span class="discount-price"><?= $viewModel->formattedPrice($soldoutProduct) ?></span></p>
