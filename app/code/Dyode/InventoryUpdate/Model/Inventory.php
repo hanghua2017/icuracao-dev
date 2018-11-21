@@ -87,7 +87,6 @@ class Inventory extends \Magento\Framework\Model\AbstractModel {
    //get product collection
    public function getProducts() {
       $productCollection = $this->_productCollectionFactory->create()
-            ->addAttributeToSelect('*')
             ->addAttributeToFilter('inventorylookup', 500)
             ->addAttributeToFilter('set', 0)
             ->addAttributeToFilter('vendorId', 2139); 
@@ -232,7 +231,7 @@ class Inventory extends \Magento\Framework\Model\AbstractModel {
                $product->setStatus(0);
                $product->setVisibiity(1);
                $product->setInventorylookup('499');
-               //$product->setCron('15');
+               $product->setCron('492');
                $product->save();
                continue;
             }
