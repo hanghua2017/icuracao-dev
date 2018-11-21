@@ -18,6 +18,7 @@
  * @var $viewModel \Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\Addtocart
  */
 $_product = $block->getProduct();
+$stockItem = $_product->getExtensionAttributes()->getStockItem();
 $buttonTitle = __('Add to Cart');
 $viewModel = $block->getViewModel();
 $qtySelectLimit = 10;
@@ -25,10 +26,11 @@ if ($viewModel) {
     $qtySelectLimit = $viewModel->getQtyLimit();
 }
 ?>
-<?php if($_product->getQty() <= 0):?>
+
+<?php if($stockItem->getQty() <= 0):?>
   <div class="soldout-message">
-    <h3> <?php echo __("Sold out"); ?> </h3>
-    <p> <?php echo __("This item is curretly out of stock");?> </p>
+    <h3> <?php echo __("Sold Out Online"); ?> </h3>
+    <p> <?php echo __("This Black Friday Deal Sold Out Online");?> </p>
   </div>
 <?php else: ?>
     <?php if ($_product->isSaleable()): ?>
@@ -72,7 +74,7 @@ if ($viewModel) {
                 </div>
             </div>
         </div>
-    <?php endif; ?>
+    <?php endif;?>
 <?php endif; ?>
 <script type="text/x-magento-init">
     {
