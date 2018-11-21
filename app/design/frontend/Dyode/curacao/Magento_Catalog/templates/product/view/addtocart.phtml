@@ -25,7 +25,7 @@ if ($viewModel) {
     $qtySelectLimit = $viewModel->getQtyLimit();
 }
 ?>
-<?php if($qtySelectLimit <= 0):?>
+<?php if($_product->getQty() <= 0):?>
     <span> <?php echo __("Sold out"); ?> </span>
     <span> <?php echo __("This item is curretly out of stock");?> </span>
 <?php else: ?>

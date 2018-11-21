@@ -11,6 +11,10 @@
  */
 ?>
 <?php
+$_objectManager =  \Magento\Framework\App\ObjectManager::getInstance();
+$priceHelper = $_objectManager->create('Magento\Framework\Pricing\Helper\Data'); // Instance of Pricing Helpe
+?>
+<?php
 /**
  * @var $block     \Magento\Catalog\Block\Product\View
  * @var $viewModel \Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\Soldout
@@ -51,12 +55,11 @@ $product = $block->getProduct();
                           </div>
                           <h3><?= $block->escapeHtml($soldoutProduct->getName()) ?></h3>
                           <p class="price"><span class="discount-price"><?= $viewModel->formattedPrice($soldoutProduct) ?></span></p>
-                          <?php /*$emi = $viewModelEmi->monthlyEmi($finalPrice);?>
+                          <?php $emi = $viewModelEmi->monthlyEmi($finalPrice);?>
                           <?php if($emi != 0):?>
                               <?php $formattedEmi = $priceHelper->currency($emi, true, false);?>
-                              <p class="emi-stat"> <?php echo __('Or as low as'); ?> <span><?php echo __($formattedEmi); ?>/<?php echo __('month');?></span></p>
-                          <?php endif;*/?>
-                          <p class="subtext">Or as low as<span class="amount emi-amount">$43.00/month</span></p>
+                              <p class="subtext">Or as low as<span class="amount emi-amount"><?php echo __($formattedEmi);?>/<?php echo __('month');?></span></p>
+                          <?php endif;?>
                       </a>
                   </div>
               <?php } ?>
