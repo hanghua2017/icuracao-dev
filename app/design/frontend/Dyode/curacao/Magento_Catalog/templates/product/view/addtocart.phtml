@@ -26,8 +26,10 @@ if ($viewModel) {
 }
 ?>
 <?php if($_product->getQty() <= 0):?>
-    <span> <?php echo __("Sold out"); ?> </span>
-    <span> <?php echo __("This item is curretly out of stock");?> </span>
+  <div class="soldout-message">
+    <h3> <?php echo __("Sold out"); ?> </h3>
+    <p> <?php echo __("This item is curretly out of stock");?> </p>
+  </div>
 <?php else: ?>
     <?php if ($_product->isSaleable()): ?>
         <div class="box-tocart">

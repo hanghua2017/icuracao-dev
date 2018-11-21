@@ -4,7 +4,7 @@
 @gray-text:rgba(51,51,51,255);
 @orange-off: #ff4200;
 @box-orange: #f26722;
-@content-light-grey: #c3c3c3;
+@stock-light-grey: #9c9c9c;
 .catalog-product-view{
   .outer-messsage{
     width: 100%;
@@ -40,6 +40,24 @@
           color:@orange-off;
           font-family: 'iCuracao-Medium';
         }
+      }
+    }
+  }
+  .product-add-form{
+    .soldout-message{
+      h3{
+        font-size: 36px;
+        color:@black;
+        font-weight: normal;
+        font-family: "iCuracao-Medium";
+        margin-bottom: 5px;
+      }
+      p{
+        font-size: 18px;
+        color:@stock-light-grey;
+        font-weight: normal;
+        font-family: "iCuracao-Medium";
+        margin-bottom: 10px;
       }
     }
   }
