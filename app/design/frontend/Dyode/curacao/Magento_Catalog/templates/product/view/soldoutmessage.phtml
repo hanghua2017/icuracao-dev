@@ -1,1 +1,33 @@
-test
+<?php
+/**
+ * Dyode_curacao theme.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package   Dyode
+ * @module    Dyode_curacao
+ * @author    Kavitha <kavitha@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+?>
+<?php
+/**
+ * @var $block     \Magento\Catalog\Block\Product\View
+ * @var $viewModel \Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\Soldout
+ * @var $soldoutProduct \Magento\Catalog\Model\Product
+ */
+$viewModel = $block->getViewModel();
+$product = $block->getProduct();
+?>
+
+
+<?php if ($viewModel->canShowSoldout($product)): ?>
+    <div class="outer-messsage">
+        <div class="out-of-stock">
+            <span class="first-part"> 
+                <?php echo __("Sorry, this product is temporarily");?>
+                <span class="outofstock"> <?php echo __("Out of Stock !");?> </span>
+            </span>
+        </div>
+    </div>
+<?php endif; ?>

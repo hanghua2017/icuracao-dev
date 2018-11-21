@@ -24,6 +24,7 @@ use Magento\Framework\DataObject;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Framework\Pricing\Helper\Data as PriceHelper;
 use Magento\Review\Model\Review;
+use Magento\CatalogInventory\Api\StockRegistryInterface;
 
 /**
  * Sold Out Related Products View Model Class
@@ -65,9 +66,14 @@ class Soldout implements ArgumentInterface
      * @var [\Magento\Catalog\Model\Product]
      */
     protected $soldoutProducts;
+    
+    /**
+    * @var \Magento\CatalogInventory\Api\StockRegistryInterface
+    */
+    private $stockRegistry;
 
     /**
-     * Fbt constructor.
+     * Soldout constructor.
      *
      * @param \Magento\Catalog\Api\ProductRepositoryInterface     $productRepository
      * @param \Magento\Catalog\Api\ProductLinkRepositoryInterface $productLinkRepository
@@ -75,6 +81,7 @@ class Soldout implements ArgumentInterface
      * @param \Magento\Review\Model\Review                        $review
      * @param \Magento\Catalog\Helper\Product                     $catalogHelper
      * @param \Magento\Framework\Pricing\Helper\Data              $priceHelper
+     * @param \Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
@@ -82,7 +89,8 @@ class Soldout implements ArgumentInterface
         SearchCriteriaBuilder $searchCriteriaBuilder,
         Review $review,
         ProductHelper $catalogHelper,
-        PriceHelper $priceHelper
+        PriceHelper $priceHelper,
+        StockRegistryInterface $stockRegistry
 
     ) {
         $this->productRepository = $productRepository;
@@ -91,6 +99,17 @@ class Soldout implements ArgumentInterface
         $this->reviewModel = $review;
         $this->catalogHelper = $catalogHelper;
         $this->priceHelper = $priceHelper;
+        $this->stockRegistry = $stockRegistry;
+    }
+
+    /**
+    * Get the product stock data and methods.
+    *
+    * @return \Magento\CatalogInventory\Api\StockRegistryInterface
+    */
+    public function getStockRegistry()
+    {
+        return $this->stockRegistry;
     }
 
     /**
@@ -110,18 +129,26 @@ class Soldout implements ArgumentInterface
             return false;
         }
 
+        //Check the product is in stock
+
+        /** @var \Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry */
+        $stockRegistry = $this->getStockRegistry();
+        
+        // Get stock data for given product.
+        $productStock = $stockRegistry->getStockItem($product->getId());
+
+        // Get quantity of product.
+        $productQty = $productStock->getQty();
+
+        if($productQty > 0) {
+            return false;
+        }
+
         $soldoutProducts = $this->soldoutProducts($product);
 
         //make sure fbt products exists.
         if (count($soldoutProducts) <= 0) {
             return false;
-        }
-
-        //make sure all fbt products are simple
-        foreach ($soldoutProducts as $soldoutProduct) {
-            if ($soldoutProduct->getTypeId() !== 'simple') {
-                return false;
-            }
         }
 
         return true;
@@ -191,120 +218,6 @@ class Soldout implements ArgumentInterface
     public function formattedPrice(Product $product)
     {
         return $this->priceHelper->currency($product->getFinalPrice(), true, false);
-    }
-
-    /**
-     * Rating summary (normalized to five) of the product
-     *
-     * @param \Magento\Catalog\Model\Product $product
-     * @return string
-     */
-    public function productRatingSummary(Product $product)
-    {
-        if (!$product->getRatingSummary()) {
-            $this->_attachReviewToProduct($product);
-        }
-
-        $rating = $product->getRatingSummary()->getRatingSummary();
-        return number_format(($rating / 100) * 5, 1);
-    }
-
-    /**
-     * Checks whether the product has customer rating associated with it.
-     *
-     * @param \Magento\Catalog\Model\Product $product
-     * @return bool
-     */
-    public function productHasRating(Product $product)
-    {
-        if (!$product->getRatingSummary()) {
-            $this->_attachReviewToProduct($product);
-        }
-        return (bool)$product->getRatingSummary()->getReviewsCount();
-    }
-
-    /**
-     * Provide associated FBT products final price total.
-     *
-     * @param \Magento\Catalog\Model\Product $product
-     * @param bool                           $format
-     * @return float|int|string
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
-     */
-    public function getAddonPriceTotal(Product $product, $format = false)
-    {
-        $total = 0;
-
-        foreach ($this->fbtProducts($product) as $fbtProduct) {
-            $total += $fbtProduct->getFinalPrice();
-        }
-
-        if ($format) {
-            return $this->priceHelper->currency($total, true, false);
-        }
-
-        return $total;
-    }
-
-    /**
-     * Provide total of FBT section, including the current product.
-     *
-     * @param \Magento\Catalog\Model\Product $product
-     * @param bool                           $format
-     * @return float|int|string
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
-     */
-    public function getFbtProductsTotal(Product $product, $format = false)
-    {
-        $total = $product->getFinalPrice() + $this->getAddonPriceTotal($product);
-
-        if ($format) {
-            return $this->priceHelper->currency($total, true, false);
-        }
-
-        return $total;
-    }
-
-    /**
-     * Prepare fbt details as json in order to use in jquery widget.
-     *
-     * @param \Magento\Catalog\Model\Product $product
-     * @return bool|string
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
-     */
-    public function getJsData(Product $product)
-    {
-        $productData = [
-            'product' => [
-                'id'    => (int)$product->getId(),
-                'price' => (float)$product->getFinalPrice(),
-            ],
-        ];
-
-        $fbtData = [];
-        foreach ($this->fbtProducts($product) as $fbtProduct) {
-            $fbtData[(string)$fbtProduct->getId()] = [
-                'id'    => (int)$fbtProduct->getId(),
-                "price" => (float)$fbtProduct->getFinalPrice(),
-            ];
-        }
-        $fbtProductsData = [
-            'fbtProducts' => $fbtData,
-        ];
-
-        $jsObject = new DataObject(array_merge($productData, $fbtProductsData));
-
-        return $jsObject->toJson();
-    }
-
-    /**
-     * Add review summary data to the product.
-     *
-     * @param \Magento\Catalog\Model\Product $product
-     */
-    protected function _attachReviewToProduct(Product $product)
-    {
-        $this->reviewModel->getEntitySummary($product, $product->getStoreId());
     }
 
     /**
