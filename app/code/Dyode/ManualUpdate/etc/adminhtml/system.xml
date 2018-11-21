@@ -16,7 +16,7 @@
 		        <field id="manualupdate_file_upload" translate="label" type="Magento\Config\Block\System\Config\Form\Field\File" sortOrder="6" showInDefault="1" showInWebsite="1" >
 		            <label>Upload file</label>
 		            <backend_model>Dyode\ManualUpdate\Model\Csv</backend_model>
-                    <upload_dir>pub/media/uploads</upload_dir>    
+                    <upload_dir>uploads</upload_dir>    
 		        </field>
 		    </group>
 		</section>
