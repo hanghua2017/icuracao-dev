@@ -76,7 +76,9 @@
                         </arguments>
                     </block>
                 </referenceBlock>
-
+                <referenceContainer name="product.info.media">
+                <block class= "Magento\Catalog\Block\Product\View" name="soldoutlabel" template="Magento_Catalog::product/view/media/soldoutlabel.phtml" before="-"/>
+                </referenceContainer>
                 <referenceBlock name="product.info.addtocart.additional">
                     <arguments>
                         <argument name="view_model" xsi:type="object">Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\Addtocart</argument>
