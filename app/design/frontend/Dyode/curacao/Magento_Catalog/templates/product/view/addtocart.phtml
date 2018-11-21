@@ -56,16 +56,24 @@ if ($viewModel) {
                 <?php endif; ?>
 
                 <?= $block->getChildHtml('warranty_options') ?>
-
                 <div class="add-to-cart-block">
                     <div class="actions">
+                    <!-- Check attribute 'not for sale' to hide 'add to cart' button and show 'In store only'  -->
+					<?php if ($_product->getNotForSale()): ?>
+                        <div
+                            id="product-instoreonly-button">
+                            <img src="<?php echo $this->getViewFileUrl('images/cart-button.png'); ?>" />
+                            <span><?= __('In Store Only') ?></span>
+                        </div>					
+					<?php else: ?>
                         <button type="button"
                                 title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
                                 class="custom-button action tocart"
                                 id="product-addtocart-button">
                             <img src="<?php echo $this->getViewFileUrl('images/cart-button.png'); ?>" />
                             <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
-                        </button>
+                        </button>					
+					<?php endif; ?>                    
                     </div>
 
                     <?= $block->getChildHtml('store_availability') ?>
