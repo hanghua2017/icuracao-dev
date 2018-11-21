@@ -1,5 +1,7 @@
 <?php
-$_product = $block->getProduct();?>
-<?php if($_product->getQty() <= 0):?>
+$_product = $block->getProduct();
+$stockItem = $_product->getExtensionAttributes()->getStockItem();
+?>
+<?php  if($stockItem->getQty() <= 0):?>
     <div class="img-soldout-message"> <?php echo __("Out Of Stock"); ?> </div>
-    <?php endif?>
+<?php endif; ?>
