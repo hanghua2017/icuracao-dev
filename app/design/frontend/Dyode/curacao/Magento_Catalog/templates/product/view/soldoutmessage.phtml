@@ -24,9 +24,11 @@ $product = $block->getProduct();
 <?php if ($viewModel->canShowSoldout($product)): ?>
     <div class="outer-messsage">
         <div class="out-of-stock">
-            <span class="first-part"> 
+            <img src="<?php echo $block->getViewFileUrl('images/out-of-stock-box.png'); ?>" alt="Out Of Stock" />
+            <span class="first-part">
                 <?php echo __("Sorry, this product is temporarily");?>
-                <span class="outofstock"> <?php echo __("Out of Stock !");?> </span>
+                <span class="outofstock"> <?php echo __("Out of Stock ");?> </span>
+                <?php echo __("!");?>
             </span>
         </div>
     </div>
