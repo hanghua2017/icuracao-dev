@@ -40,11 +40,11 @@ $product = $block->getProduct();
     ?>
     <div class="outofstock-related-items" id="soldout-section">
         <div class="slider-title">
-            <h2 class='widget-title'><?= __("Similar products selling fast") ?></h2>
+            <h2 class='widget-title'><?= __("Hurry")?>,<?php echo __("Check Out These Similar Black Friday Deals Before They Sell Out") ?></h2>
         </div>
         <div class="outofstock-related-block owl-carousel out-of-stock-carousel">
               <?php foreach($soldoutProducts as $soldoutProduct) { ?>
-                <?php 
+                <?php
                     //to remove double slashes in product image URL
                     $routeName =$viewModel->getProductImageUrl($soldoutProduct);
                     $routeNamePart1 = substr( $routeName, 0 , strpos($routeName,'//') +4 );
