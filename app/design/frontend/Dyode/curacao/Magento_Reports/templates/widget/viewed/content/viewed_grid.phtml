@@ -65,7 +65,9 @@ if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedPr
                                              if ($_finalPrice && ($_item->getPrice()>$_item->getFinalPrice())):
                                                    $_savePercent = 100-round(($_finalPrice / $_price) * 100);
                                               ?>
+                                              <?php if($_savePercent>0):?>
                                                <span class="discount-flag"><?php echo $_savePercent;?>%<?php echo __('Off');?></span>
+                                             <?php endif ?>
                                                <?php
                                              endif;
                                        ?>

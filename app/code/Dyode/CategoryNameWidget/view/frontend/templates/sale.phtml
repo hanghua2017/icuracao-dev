@@ -40,7 +40,10 @@ $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIE
                 ?>
                 <?php
                 if ($finalPrice && ($_product->getPrice()>$_product->getFinalPrice())):?>
+                <?php $discount=$this->helper('Discount\Discountpercentage\Helper\Data')->DisplayDiscountLabel($_product);
+                if($discount>0):?>
                 <p class="price-off"><?php echo $this->helper('Discount\Discountpercentage\Helper\Data')->DisplayDiscountLabel($_product); ?></p>
+              <?php endif?>
                 <!-- End Static content for price off -->
                 <?php
               endif;
