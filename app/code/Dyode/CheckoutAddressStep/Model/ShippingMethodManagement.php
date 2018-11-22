@@ -495,8 +495,16 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         if ( $productWeight <= 0) {
             $productWeight = 10;
         }
-
-        $rate = $this->shipHelper->getUSPSRates($zipCode, $productWeight);
+		
+        // This code was added only for free shipping site-wide for black friday and will be removed
+        date_default_timezone_set('America/Los_Angeles');
+        $now = strtotime(date('Y-m-d H:i:s'));
+        $holidayStart = strtotime('2018-11-21 00:00:00 ');
+        $holidayEnd = strtotime('2018-11-27 23:59:59');
+        $rate = 0;
+        if ($now < $holidayStart || $now > $holidayEnd){
+        	$rate = $this->shipHelper->getUSPSRates($zipCode, $productWeight);
+        }
 
         $this->usps_std_rate = $rate;
 
@@ -536,8 +544,27 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
             $productWeight = 147;
         }
        
-        $shippingMethods = $this->shipHelper->getUPSRates($zipCode, $productWeight);
-        $deliveryMethods = $this->prepareUpsShippingData($shippingMethods, $quoteItem->getItemId());
+        // This code was added only for free shipping site-wide for black friday and will be removed
+        date_default_timezone_set('America/Los_Angeles');
+        $now = strtotime(date('Y-m-d H:i:s'));
+        $holidayStart = strtotime('2018-11-21 00:00:00 ');
+        $holidayEnd = strtotime('2018-11-27 23:59:59');
+        $deliveryMethods = [
+        		'quote_item_id' => $quoteItem->getItemId(),
+        		"carrier_code"  => 'ups',
+        		"method_code"   => 'GND',
+        		"carrier_title" => 'UPS',
+        		"method_title"  => 'Standard Delivery',
+        		"amount"        => 0,
+        		"base_amount"   => 0,
+        		"available"     => true,
+        		"error_message" => '',
+        ];
+        if ($now < $holidayStart || $now > $holidayEnd){
+        	$shippingMethods = $this->shipHelper->getUPSRates($zipCode, $productWeight);
+        	$deliveryMethods = $this->prepareUpsShippingData($shippingMethods, $quoteItem->getItemId());        	 
+        }
+        
 
         return [
             'quote_item_id'    => $quoteItem->getItemId(),
