@@ -34,7 +34,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     const STORE_LOCATION_CODE = 'store_location_code';
     const USPS_WITH = 3;
     const USPS_PRICE_LIMIT = 200;
-    
+
 
     protected $usps_std_rate;
 
@@ -250,7 +250,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
             // Return the SEKO rate
             return $this->sekoShippingDetails($quoteItem,$product,$zipCode);
         }
-       
+
         //Condition for Shiprate Items is Domestic
         if ($product->getShprate() == 'Domestic') {
             if ($this->isDomestic($shipCoordinates->getLat(), $shipCoordinates->getLng())) {
@@ -265,7 +265,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
             //Get UPS price details
             $uspsDetails = $this->uspsShippingDetails($quoteItem, $product, $zipCode);
         }
-       
+
         return $this->upsShippingDetails($quoteItem, $product, $zipCode);
     }
 
@@ -411,7 +411,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     protected function sekoShippingDetails(QuoteItem $quoteItem, $product, $zipCode)
     {
         $carrierCode = 'sekoshipping';
-        $productWeight = $product->getWeight();       
+        $productWeight = $product->getWeight();
 
         $shippingConfig = $this->getCarriersConfig();
         $sekoDetails  = $shippingConfig[$carrierCode];
@@ -495,7 +495,7 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         if ( $productWeight <= 0) {
             $productWeight = 10;
         }
-		
+
         // This code was added only for free shipping site-wide for black friday and will be removed
         date_default_timezone_set('America/Los_Angeles');
         $now = strtotime(date('Y-m-d H:i:s'));
@@ -543,13 +543,13 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         if ( $productWeight >= 150 ) {
             $productWeight = 147;
         }
-       
+
         // This code was added only for free shipping site-wide for black friday and will be removed
         date_default_timezone_set('America/Los_Angeles');
         $now = strtotime(date('Y-m-d H:i:s'));
-        $holidayStart = strtotime('2018-11-21 00:00:00 ');
+        $holidayStart = strtotime('2018-11-21 00:00:00');
         $holidayEnd = strtotime('2018-11-27 23:59:59');
-        $deliveryMethods = [
+        $deliveryMethods[] = [
         		'quote_item_id' => $quoteItem->getItemId(),
         		"carrier_code"  => 'ups',
         		"method_code"   => 'GND',
@@ -562,9 +562,9 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
         ];
         if ($now < $holidayStart || $now > $holidayEnd){
         	$shippingMethods = $this->shipHelper->getUPSRates($zipCode, $productWeight);
-        	$deliveryMethods = $this->prepareUpsShippingData($shippingMethods, $quoteItem->getItemId());        	 
+        	$deliveryMethods = $this->prepareUpsShippingData($shippingMethods, $quoteItem->getItemId());
         }
-        
+
 
         return [
             'quote_item_id'    => $quoteItem->getItemId(),
@@ -690,11 +690,11 @@ class ShippingMethodManagement implements ShipmentEstimationInterface
     public function findStandardDeliveryRate()
     {
         $this->set_usps = 0;
-      
+
         if($this->usps_std_rate < $this->ups_std_rate){
             $this->set_usps = 1;
         }
-        
+
         return $this->set_usps;
     }
 }
