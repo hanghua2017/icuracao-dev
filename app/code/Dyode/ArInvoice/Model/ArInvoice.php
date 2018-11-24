@@ -224,6 +224,13 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             $vendorId = $product->getData('vendorid');
             $itemType = ($product->getData('vendorid') == 2139) ? "CUR" : "";
             $explodeItemSku = explode("-", $itemSku);
+            
+            //prepend leading zero before single digit number
+            if(isset($itemsStoreLocation[$itemId])){
+                $storeLocation = $itemsStoreLocation[$itemId];
+                if($storeLocation < 10)
+                $itemsStoreLocation[$itemId] = '0'.$storeLocation;
+            }
 
             array_push($items, array(
                     "itemtype" => $itemType,
@@ -268,6 +275,12 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             /**
              * Create Invoice Response Validation
              */
+            if (!$createInvoiceResponse->OK) { 
+                $order->setState("processing")->setStatus("estimate_issue");    # Change the Order Status and Order State
+                $order->addStatusToHistory($order->getStatus(), $createInvoiceResponse->INFO);   # Add Comment to Order History
+                $order->save(); 
+                return true;
+            }
             if ((!empty($createInvoiceResponse->OK)) && $createInvoiceResponse->OK != true) {   # Create Invoice Response is false
                 $order->setState("processing")->setStatus("estimate_issue");    # Change the Order Status and Order State
                 $order->addStatusToHistory($order->getStatus(), 'Estimate not Issued');   # Add Comment to Order History
