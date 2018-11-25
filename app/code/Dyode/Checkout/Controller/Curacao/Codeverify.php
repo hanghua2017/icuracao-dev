@@ -51,6 +51,11 @@ class Codeverify extends Action
     /**
      * @var boolean|string
      */
+    protected $canCharge;
+
+    /**
+     * @var boolean|string
+     */
     protected $downPayment;
 
     /**
@@ -145,6 +150,7 @@ class Codeverify extends Action
         //If Result is verified then link the Curacao account with Magento
         if ($checkResult != 0) {
             $this->downPayment = false;
+            $this->canCharge = false;
             $this->_curacaoHelper->updateCuracaoSessionDetails(['is_user_linked' => false]);
             throw new \Exception('Code verification failed');
         } else {
@@ -154,10 +160,12 @@ class Codeverify extends Action
 
             if ($verifyResult == false) {
                 $this->downPayment = false;
+                $this->canCharge = false;
                 $this->_curacaoHelper->updateCuracaoSessionDetails(['is_user_linked' => false]);
                 throw new \Exception('Api failed');
             } else {
                 $downPayment = (float)$verifyResult->DOWNPAYMENT;
+                $this->canCharge = $verifyResult->CANCHARGE;
                 $this->_curacaoHelper->updateCuracaoSessionDetails(['down_payment' => $downPayment]);
                 $this->downPayment = $downPayment;
             }
@@ -193,6 +201,7 @@ class Codeverify extends Action
     {
         $output['curacaoInfo']['creditLimit'] = $this->_scrutinize->getCreditLimit();
         $output['curacaoInfo']['downPaymentNaked'] = $this->downPayment;
+        $output['curacaoInfo']['canCharge'] = $this->canCharge;
         $output['curacaoInfo']['downPayment'] = $this->priceHelper->currency($this->downPayment, true, false);
 
         return $output;

@@ -93,6 +93,11 @@ class Scrutinize extends Action
     protected $downPayment;
 
     /**
+    * @var boolean|string
+    */
+    protected $canCharge;
+
+    /**
      * @var string
      */
     protected $creditLimit;
@@ -232,6 +237,7 @@ class Scrutinize extends Action
         $verifyResult = $this->_helper->verifyPersonalInfm($postData);
 
         if ($verifyResult == false) {
+            $this->canCharge = false;
             $this->downPayment = false;
             $this->curacaoHelper->updateCuracaoSessionDetails(['is_user_linked' => false]);
             throw new \Exception('Api failed');
@@ -239,6 +245,7 @@ class Scrutinize extends Action
             $downPayment = (float)$verifyResult->DOWNPAYMENT;
             $this->curacaoHelper->updateCuracaoSessionDetails(['down_payment' => $downPayment]);
             $this->downPayment = $downPayment;
+            $this->canCharge = $verifyResult->CANCHARGE;
         }
 
         return $this;
@@ -369,7 +376,8 @@ class Scrutinize extends Action
         $output['curacaoInfo']['creditLimit'] = $this->creditLimit;
         $output['curacaoInfo']['downPaymentNaked'] = $this->downPayment;
         $output['curacaoInfo']['downPayment'] = $this->priceHelper->currency($this->downPayment, true, false);
-
+        $output['curacaoInfo']['canCharge'] = $this->canCharge;
+        
         return $output;
     }
 
