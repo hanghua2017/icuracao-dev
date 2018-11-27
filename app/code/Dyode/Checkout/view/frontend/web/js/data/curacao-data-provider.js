@@ -14,10 +14,11 @@ define(['ko'], function (ko) {
 
     var curacaoPaymentInfo = window.checkoutConfig.curacaoPayment,
         isUserLinked = !!curacaoPaymentInfo.linked,
+        canCuracaoCreditCharged = curacaoPaymentInfo.canCharge,
         initialDownPayment = curacaoPaymentInfo.total;
 
     return {
-        hasCuracaoCreditApplied: ko.observable(isUserLinked),
+        hasCuracaoCreditApplied: ko.observable(isUserLinked && canCuracaoCreditCharged),
         isZeroDownPayment: ko.observable(false),
         downPayment: ko.observable(initialDownPayment),
 

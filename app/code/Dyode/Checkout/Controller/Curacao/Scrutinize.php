@@ -32,6 +32,7 @@ use Zend\Serializer\Adapter\Json;
 
 class Scrutinize extends Action
 {
+
     /**
      * @var \Dyode\ARWebservice\Helper\Data
      */
@@ -93,9 +94,9 @@ class Scrutinize extends Action
     protected $downPayment;
 
     /**
-    * @var boolean|string
-    */
-    protected $canCharge;
+     * @var boolean|string
+     */
+    protected $canCharge = true;
 
     /**
      * @var string
@@ -121,6 +122,8 @@ class Scrutinize extends Action
      * @var string
      */
     protected $curacaoIdAttribute = 'curacaocustid';
+
+    protected $last4digits;
 
     /**
      * Scrutinize constructor.
@@ -182,6 +185,7 @@ class Scrutinize extends Action
                 $this->validateUserInformation();
                 $this->linkUser();
                 $this->collectUserCreditLimit();
+
                 return $this->successResponse();
             } catch (ArResponseException $e) {
                 $result = $this->_resultFactory->create(ResultFactory::TYPE_JSON);
@@ -230,7 +234,7 @@ class Scrutinize extends Action
             $postData['mmaiden'] = $maidenName;
         }
         if ($dob) {
-            $postData['dob'] = date("Y-m-d", strtotime ($dob) );
+            $postData['dob'] = date("Y-m-d", strtotime($dob));
         }
 
         //send api call to collect user info.
@@ -243,9 +247,19 @@ class Scrutinize extends Action
             throw new \Exception('Api failed');
         } else {
             $downPayment = (float)$verifyResult->DOWNPAYMENT;
+            $this->canCharge = (bool)$verifyResult->CANCHARGE;
+            $isCreditUsed = true;
+            if (!$this->canCharge) {
+                $isCreditUsed = false;
+            }
             $this->curacaoHelper->updateCuracaoSessionDetails(['down_payment' => $downPayment]);
+            $this->curacaoHelper->updateCuracaoSessionDetails([
+                'down_payment'   => $downPayment,
+                'can_charge'     => $this->canCharge,
+                'is_credit_used' => $isCreditUsed,
+            ]);
             $this->downPayment = $downPayment;
-            $this->canCharge = $verifyResult->CANCHARGE;
+
         }
 
         return $this;
@@ -302,7 +316,8 @@ class Scrutinize extends Action
         }
 
         $this->_customerSession->setCuracaoCustomerId($this->customer->getId());
-        $this->curacaoHelper->updateCuracaoSessionDetails(['is_user_linked' => true, 'is_credit_used' => true]);
+        $this->curacaoHelper->updateCuracaoSessionDetails(['is_user_linked' => true]);
+
         return $this;
     }
 
@@ -329,9 +344,11 @@ class Scrutinize extends Action
     /**
      * Function to return the  credit Limit
      */
-    public function getCreditLimit(){
+    public function getCreditLimit()
+    {
         return $this->creditLimit;
     }
+
     /**
      * Fail response.
      *
@@ -361,6 +378,7 @@ class Scrutinize extends Action
             'data' => $output,
             'type' => 'success',
         ]);
+
         return $result;
     }
 
@@ -373,11 +391,15 @@ class Scrutinize extends Action
      */
     protected function prepareResponse()
     {
+        /** @var \Magento\Framework\DataObject $curacaoInfo */
+        $curacaoInfo = $this->curacaoHelper->getCuracaoSessionInformation();
+        $accountNumber = $curacaoInfo->getAccountNumber();
         $output['curacaoInfo']['creditLimit'] = $this->creditLimit;
         $output['curacaoInfo']['downPaymentNaked'] = $this->downPayment;
         $output['curacaoInfo']['downPayment'] = $this->priceHelper->currency($this->downPayment, true, false);
         $output['curacaoInfo']['canCharge'] = $this->canCharge;
-        
+        $output['curacaoInfo']['last4digits'] = substr($accountNumber, -4);
+
         return $output;
     }
 

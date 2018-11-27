@@ -28,6 +28,7 @@ use Magento\Quote\Api\CartRepositoryInterface;
  */
 class SaveManager
 {
+
     /**
      * @var \Magento\Quote\Model\Quote
      */
@@ -127,6 +128,7 @@ class SaveManager
      * @param \Dyode\Checkout\Api\Data\ShippingInformationInterface $addressInformation
      * @param bool $includeCuracaoTotal
      * @return \Magento\Checkout\Api\Data\PaymentDetailsInterface
+     * @throws \Dyode\ARWebservice\Exception\ArResponseException
      */
     public function updateShippingTotal(
         $paymentDetails,
@@ -154,7 +156,11 @@ class SaveManager
 
                 if ($verifyResult) {
                     $curacaoDiscount = (float)$verifyResult->DOWNPAYMENT;
-                    $this->curacaoHelper->updateCuracaoSessionDetails(['down_payment' => $curacaoDiscount]);
+                    if ($verifyResult->CANCHARGE) {
+                        $this->curacaoHelper->updateCuracaoSessionDetails(['down_payment' => $curacaoDiscount]);
+                    } else {
+                        $this->curacaoHelper->updateCuracaoSessionDetails(['down_payment' => $grandTotal]);
+                    }
                 }
             }
         }

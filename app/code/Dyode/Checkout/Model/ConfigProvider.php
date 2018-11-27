@@ -19,9 +19,12 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Pricing\Helper\Data as PriceHelper;
 use Magento\Framework\View\Asset\Repository as AssetRepository;
 use Magento\Framework\View\LayoutInterface;
+use Magento\Store\Model\ScopeInterface;
 
 class ConfigProvider implements ConfigProviderInterface
 {
+
+    const CUSTOMER_CARE_NUMBER_PATH = '';
 
     /**
      * @var \Magento\Framework\View\LayoutInterface
@@ -52,11 +55,6 @@ class ConfigProvider implements ConfigProviderInterface
      * @var \Magento\Framework\Pricing\Helper\Data
      */
     protected $_priceHelper;
-
-    /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
-     */
-    protected $_scopeConfig;
 
     /**
      * @var \Magento\Framework\View\Asset\Repository
@@ -125,6 +123,16 @@ class ConfigProvider implements ConfigProviderInterface
     protected $isCreditUsed = false;
 
     /**
+     * @var bool
+     */
+    protected $canCharge = true;
+
+    /**
+     * @var bool|string
+     */
+    protected $last4digits = false;
+
+    /**
      * ConfigProvider constructor.
      *
      * @param \Magento\Framework\Pricing\Helper\Data $priceHelper
@@ -133,7 +141,6 @@ class ConfigProvider implements ConfigProviderInterface
      * @param \Dyode\ARWebservice\Helper\Data $helper
      * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface
      * @param \Magento\Framework\View\LayoutInterface $layout
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\Framework\View\Asset\Repository $assetRepository
      * @param \Dyode\Checkout\Helper\CuracaoHelper $curacaoHelper
      * @param \Dyode\Checkout\Helper\CheckoutConfigHelper $checkoutConfigHelper
@@ -146,7 +153,6 @@ class ConfigProvider implements ConfigProviderInterface
         ARWebserviceHelper $helper,
         CustomerRepositoryInterface $customerRepositoryInterface,
         LayoutInterface $layout,
-        ScopeConfigInterface $scopeConfig,
         AssetRepository $assetRepository,
         CuracaoHelper $curacaoHelper,
         CheckoutConfigHelper $checkoutConfigHelper,
@@ -158,7 +164,6 @@ class ConfigProvider implements ConfigProviderInterface
         $this->_helper = $helper;
         $this->_customerRepositoryInterface = $customerRepositoryInterface;
         $this->_priceHelper = $priceHelper;
-        $this->_scopeConfig = $scopeConfig;
         $this->_assetRepository = $assetRepository;
         $this->curacaoHelper = $curacaoHelper;
         $this->checkoutConfigHelper = $checkoutConfigHelper;
@@ -175,6 +180,7 @@ class ConfigProvider implements ConfigProviderInterface
     {
         $block = $this->_layout->createBlock('Magento\Cms\Block\Block')
             ->setBlockId($blockId)->toHtml();
+
         return $block;
     }
 
@@ -189,10 +195,12 @@ class ConfigProvider implements ConfigProviderInterface
         ]);
 
         $configArr['curacaoPayment']['canApply'] = $this->_canApply;
+        $configArr['curacaoPayment']['last4digits'] = $this->last4digits;
         $configArr['curacaoPayment']['limit'] = $this->getLimit();
         $configArr['curacaoPayment']['total'] = $this->getDownPayment();
         $configArr['curacaoPayment']['totalNaked'] = $this->downPayment;
         $configArr['curacaoPayment']['linked'] = $this->_linked;
+        $configArr['curacaoPayment']['canCharge'] = $this->canCharge;
         $configArr['curacaoPayment']['mediaUrl'] = $this->_assetRepository->getUrl('');
         $configArr['cms_block'] = $this->_cmsBlock;
         $configArr['terms_and_condition'] = $this->checkoutConfigHelper->termsAndConditionsLink();
@@ -262,13 +270,26 @@ class ConfigProvider implements ConfigProviderInterface
             $response = false;
         }
 
-
         if (!$response) {
             return $downPayment;
         }
 
         $result = $response->DOWNPAYMENT;
-        $this->curacaoHelper->updateCuracaoSessionDetails(['down_payment' => $result]);
+        $canCharge = (bool)$response->CANCHARGE;
+        $isCreditUsed = true;
+
+        if (!$canCharge) {
+            $isCreditUsed = false;
+        }
+
+        $this->canCharge = $canCharge;
+        $this->isCreditUsed = $isCreditUsed;
+
+        $this->curacaoHelper->updateCuracaoSessionDetails([
+            'down_payment'   => $result,
+            'can_charge'     => $canCharge,
+            'is_credit_used' => $isCreditUsed,
+        ]);
 
         $this->downPayment = $result;
         $downPayment = $this->_priceHelper->currency($result, true, false);
@@ -308,16 +329,16 @@ class ConfigProvider implements ConfigProviderInterface
 
                 if ($curaAccId) {
                     $this->_linked = true;
-                    $this->isCreditUsed = true;
+                    $this->last4digits = substr($curaAccId, -4);
                     $this->curacaoHelper->updateCuracaoSessionDetails([
                         'is_user_linked' => true,
-                        'is_credit_used' => true,
                     ]);
 
                     return $curaAccId;
 
                 } else {
                     $this->_linked = false;
+
                     return false;
                 }
             }

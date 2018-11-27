@@ -39,33 +39,32 @@ define([
     curacaoDataProvider,
     fullScreenLoader
 ) {
-    var curacaoPaymentInfo = window.checkoutConfig.curacaoPayment,
+
+    /**
+     * Calculate whether initial payment block has to be shown.
+     *
+     * It has to be shown only when there is no zero down payment and the
+     * canCharge status is true.
+     *
+     * @param {Boolean} zpp - is Zero Down Payment
+     * @param {Boolean} ccc - can Curacao Credit Charged
+     * @returns {Boolean} paymentFlag
+     */
+    var calculateShowInitialPayment = function (zpp, ccc) {
+            var paymentFlag = zpp === false && ccc === true;
+
+            return paymentFlag;
+        },
+        curacaoPaymentInfo = window.checkoutConfig.curacaoPayment,
         customerInfo = window.checkoutConfig.customerData,
         isUserLinked = !!curacaoPaymentInfo.linked,
         isZeroDownPayment = !curacaoPaymentInfo.totalNaked,
-
-        /**
-         * Helper Function
-         *
-         * Find last 4 digits of a string.
-         * @param {String} string
-         * @returns {String}
-         */
-        getLast4 = function (string) {
-            if (string) {
-                string = string.toString(); //make sure the value is string.
-
-                if (string.length <= 4) {
-                    return string;
-                }
-
-                return string.substring(string.length - 4);
-            }
-
-            return '';
-        },
-
-        curacaoLast4Digit = getLast4(curacaoPaymentInfo.curacaoId);
+        curacaoLast4Digit = curacaoPaymentInfo.last4digits,
+        canCuracaoCreditCharged = curacaoPaymentInfo.canCharge,
+        customerCareNumber =  curacaoPaymentInfo.customerCareNumber,
+        canShowInitialPayment = calculateShowInitialPayment(
+            isZeroDownPayment, canCuracaoCreditCharged
+        );
 
     return Component.extend({
 
@@ -84,8 +83,9 @@ define([
         dateOfBirthInpFieldId: 'curacao-date-of-birth',
         zipInputFieldId: 'curacao-zip-code',
         maidenNameInpFieldId: 'curacao-maiden-name',
+        curacaoUserDownPayment: curacaoDataProvider.downPayment,
+        customerCareNumber: customerCareNumber,
         isUserLinked: ko.observable(isUserLinked),
-        isZeroDownPayment: ko.observable(isZeroDownPayment),
         curacaoAccountIdInpValue: ko.observable(''),
         verificationCodeInpValue: ko.observable(''),
         ssnVerifyInpValue: ko.observable(''),
@@ -94,18 +94,19 @@ define([
         maidenNameInpValue: ko.observable(''),
         curacaoIdLast4Digit: ko.observable(curacaoLast4Digit),
         curacaoUserCreditLimit: ko.observable(curacaoPaymentInfo.limit),
-        curacaoUserDownPayment: curacaoDataProvider.downPayment,
         canShowDownPayment: ko.observable(true),
         phoneVerificationStatus: ko.observable(false),
         curacaoUserPhoneNumber: ko.observable(false),
         curacaoUserPhoneStatus: ko.observable(false),
+        canCuracaoCreditCharged: ko.observable(canCuracaoCreditCharged),
+        canShowInitialPayment: ko.observable(canShowInitialPayment),
 
         /**
          * @inheritdoc
          */
         initialize: function () {
             this._super().observe({
-                ApplyDiscount: ko.observable(true)
+                ApplyDiscount: ko.observable(canCuracaoCreditCharged)
             });
 
             /**
@@ -434,19 +435,34 @@ define([
          * We need to show down payment details in this case.
          */
         processCuracaoLinkedScenario: function () {
-            curacaoDataProvider.hasCuracaoCreditApplied(true);
+            var canCharge = true,
+                downPayment = false,
+                curacaoInfo = false;
 
-            if (curacaoServiceProvider.response() && curacaoServiceProvider.response().curacaoInfo) {
-                var curacaoInfo = curacaoServiceProvider.response().curacaoInfo;
+            if (curacaoServiceProvider.response() &&
+                curacaoServiceProvider.response().curacaoInfo
+            ) {
+                curacaoInfo = curacaoServiceProvider.response().curacaoInfo;
+                isZeroDownPayment = !curacaoInfo.downPaymentNaked;
+                canCharge = curacaoInfo.canCharge;
+                canShowInitialPayment = calculateShowInitialPayment(
+                    isZeroDownPayment, canCharge
+                );
 
                 this.curacaoUserCreditLimit(curacaoInfo.creditLimit);
-                this.isZeroDownPayment(!curacaoInfo.downPaymentNaked);
+                this.curacaoIdLast4Digit(curacaoInfo.last4digits);
+                this.canCuracaoCreditCharged(canCharge);
+                this.canShowInitialPayment(canShowInitialPayment);
 
-                if (curacaoInfo.downPayment) {
-                    this.curacaoUserDownPayment(curacaoInfo.downPayment);
-                    this.canShowDownPayment(true);
-                } else {
-                    this.canShowDownPayment(false);
+                if (canShowInitialPayment) {
+                    downPayment = curacaoInfo.downPayment;
+                }
+
+                this.curacaoUserDownPayment(downPayment);
+                curacaoDataProvider.hasCuracaoCreditApplied(canCharge);
+
+                if (this.ApplyDiscount() !== canCharge) {
+                    this.ApplyDiscount(canCharge);
                 }
             }
         },
