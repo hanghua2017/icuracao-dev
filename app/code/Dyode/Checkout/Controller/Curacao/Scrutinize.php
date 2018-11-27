@@ -252,7 +252,7 @@ class Scrutinize extends Action
             if (!$this->canCharge) {
                 $isCreditUsed = false;
             }
-            $this->curacaoHelper->updateCuracaoSessionDetails(['down_payment' => $downPayment]);
+
             $this->curacaoHelper->updateCuracaoSessionDetails([
                 'down_payment'   => $downPayment,
                 'can_charge'     => $this->canCharge,

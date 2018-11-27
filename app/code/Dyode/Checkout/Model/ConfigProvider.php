@@ -15,16 +15,12 @@ use Magento\Checkout\Model\ConfigProviderInterface;
 use Magento\Checkout\Model\Session as CheckoutSession;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Model\Session as CustomerSession;
-use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Pricing\Helper\Data as PriceHelper;
 use Magento\Framework\View\Asset\Repository as AssetRepository;
 use Magento\Framework\View\LayoutInterface;
-use Magento\Store\Model\ScopeInterface;
 
 class ConfigProvider implements ConfigProviderInterface
 {
-
-    const CUSTOMER_CARE_NUMBER_PATH = '';
 
     /**
      * @var \Magento\Framework\View\LayoutInterface
