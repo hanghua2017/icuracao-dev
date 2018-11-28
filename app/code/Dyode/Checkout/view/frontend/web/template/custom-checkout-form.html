@@ -41,10 +41,10 @@
             <div class="curacao-credit-logo"></div>
         </h2>
         <div class="curacao-account-info">
-            <div class="curacao-details">
+            <div class="curacao-details" data-bind="css: {'cannot-charged': canCuracaoCreditCharged() === false}">
                 <div class="curacao-checkbox">
                     <input type="checkbox" id="curacao-pay-checkbox" name="curacao-pay" value="custom-discount"
-                           data-bind='checked: ApplyDiscount'/>
+                           data-bind='checked: ApplyDiscount, enable: canCuracaoCreditCharged'/>
                     <label class="checkbox-label" for="curacao-pay-checkbox">
                         <div class="credit-card-logo"></div>
                     </label>
@@ -61,7 +61,7 @@
                 </div>
             </div>
 
-            <!-- ko ifnot: isZeroDownPayment -->
+            <!-- ko if: canShowInitialPayment -->
             <div class="downpayment">
                 <div class="initial-payment">
                     <div class="label"><!-- ko i18n: 'Initial Payment:' --><!-- /ko --></div>
@@ -71,6 +71,17 @@
                 </div>
                 <div class="label-alert">
                     <!-- ko i18n: 'Please add another payment method for initial amount due today' --><!-- /ko --></div>
+            </div>
+            <!-- /ko -->
+
+            <!-- ko ifnot: canCuracaoCreditCharged -->
+            <div class="downpayment cannot-charged">
+                <div class="initial-payment">
+                    <div class="label">
+                        <!-- ko i18n: 'You cannot make payment through Curacao Credit. Please contact customer care for more details.' -->
+                        <!-- /ko -->
+                    </div>
+                </div>
             </div>
             <!-- /ko -->
         </div>

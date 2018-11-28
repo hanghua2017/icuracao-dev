@@ -159,4 +159,21 @@ class CuracaoHelper
 
         return false;
     }
+
+     /**
+     * Provide curacao canCharge value only if curacao user is linked.
+     *
+     * @return float|int $curacaoDownPayment
+     */
+    public function canChargeCredit()
+    {
+        $canCharge = false;
+        $curacaoInfo = $this->checkoutSession->getCuracaoInfo();
+
+        if ($curacaoInfo && $curacaoInfo->getIsUserLinked()) {
+            $canCharge = $curacaoInfo->getCanCharge();
+        }
+
+        return $canCharge;
+    }
 }
