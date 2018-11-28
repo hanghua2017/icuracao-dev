@@ -178,6 +178,10 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             $customerStatus = json_decode($customerStatusResponse);
         }
 
+        if($order->isCanceled()){
+            return true;
+        }
+
         # Prepare Order Items
         $itemsStoreLocation = $this->prepareOrderItems($orderId);
         $logger->info("before order value setting");
@@ -251,11 +255,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                 $itemsStoreLocation[$itemId] = '0'.$storeLocation;
                 else
                 $itemsStoreLocation[$itemId] = $storeLocation;
-            }
-
-            if(isset($itemsStoreLocation[$itemId])){
                 $itemsStoreLocation[$itemId] = str_replace("00","0",$itemsStoreLocation[$itemId]);
-                print_r($itemsStoreLocation[$itemId]);
             }
 
             array_push($items, array(
@@ -304,7 +304,6 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             if (!$createInvoiceResponse->OK) { 
                 $order->setState("processing")->setStatus("estimate_issue");    # Change the Order Status and Order State
                 $order->addStatusToHistory($order->getStatus(), $createInvoiceResponse->INFO);   # Add Comment to Order History
-                print_r($createInvoiceResponse->INFO);
                 $order->save(); 
                 return true;
             }
@@ -344,6 +343,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                  * Customer Status Validation
                  */
                 if ((!empty($customerStatus)) && ($customerStatus->customerstatus == false || $customerStatus->addressmismatch == true || $customerStatus->soft == true)) {
+                    
                     $order->setState("pending_payment")->setStatus("creditreview");    # Change the Order Status and Order State
                     $order->addStatusToHistory($order->getStatus(), 'Your Credit is being Reviewed');     # Add Comment to Order History
                     $order->save();     # Save the Changes in Order Status & History
