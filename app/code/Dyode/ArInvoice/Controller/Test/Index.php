@@ -43,12 +43,14 @@ class Index extends \Magento\Framework\App\Action\Action
         \Magento\Sales\Model\OrderRepository $orderRepository,
         \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
         \Magento\Catalog\Model\ProductRepository $productRepository,
+        \Dyode\ProcessEstimate\Model\Estimate $estimateModel,
         \Dyode\ArInvoice\Helper\Data $arInvoiceHelper
     ) {
         $this->arInvoice = $arInvoice;
         $this->_orderCollectionFactory = $orderCollectionFactory;
         $this->_orderRepository = $orderRepository;
         $this->_arInvoiceHelper = $arInvoiceHelper;
+        $this->estimateModel = $estimateModel;
         $this->_productRepository = $productRepository;
         parent::__construct($context);
     }
@@ -62,7 +64,28 @@ class Index extends \Magento\Framework\App\Action\Action
         $logger->info("Cron Works");
 
         $collection = $this->_orderCollectionFactory->create()->addAttributeToSelect('*');
-        $collection->addFieldToFilter('status', 'pending');
+        $collection->addFieldToFilter(
+            'status',
+            ['in' => array('pending')]
+        );
+
+        if($orderId == 'supply'){
+            $orders = $this->_orderCollectionFactory->create()->addFieldToSelect('*')->addFieldToFilter(
+		        'status',
+		        ['in' => array('processing')]
+            );
+            $i = 0;
+            foreach ($orders as $order) {
+                if(empty($order->getData('estimatenumber'))){
+                    $order->setStatus("pending");    # Change the Order Status and Order State
+                    $order->save();
+                    $i++;
+                } else {
+                    //$this->estimateModel->setSupplyInvoice($order);
+                }
+            }
+            var_dump($i.' updated');exit;
+        }    
 
         if (!empty($orderId)) {
             $order = $this->_orderRepository->get($orderId);
