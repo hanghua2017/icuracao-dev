@@ -81,6 +81,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             //Cancel order with reason 'UA-014'
             $order->cancel();
             $order->addStatusHistoryComment('UA-014');
+            $order->setState('canceled');
+            $order->setStatus("canceled");
             $order->save();
             //Notify Customer
         }

@@ -83,6 +83,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         \Dyode\AuditLog\Model\ResourceModel\AuditLog $auditLog,
         \Magento\Sales\Model\Service\InvoiceService $invoiceService,
         \Magento\Framework\DB\Transaction $transaction,
+        \Dyode\ProcessEstimate\Model\Estimate $estimateModel,
         \Magento\Framework\Registry $data
     ) {
         $this->_orderCollectionFactory = $orderCollectionFactory;
@@ -96,6 +97,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         $this->auditLog = $auditLog;
         $this->_invoiceService = $invoiceService;
         $this->_transaction = $transaction;
+        $this->estimateModel = $estimateModel;
 		return parent::__construct($context, $data);
 	}
 
@@ -119,6 +121,21 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
 
         $order = $this->getOrderInfo($orderId);
         $paymentMethod = $order->getPayment()->getMethod();
+        $flaag = 0;
+        foreach ($order->getAllItems() as $item)
+        {
+            try {
+                $product = $this->_productRepository->getById($item->getProductId());
+            } catch (\Magento\Framework\Exception\NoSuchEntityException $e){
+                $flaag = 1;
+                $order->setState("processing")->setStatus("estimate_issue"); 
+                $order->addStatusToHistory($item->getProductId().' was not found');   # Add Comment to Order History
+                $order->save(); 
+            }
+        } 
+        if($flaag == 1){
+            return true;
+        }   
         /**
          * Validating the Payment Method
          */
@@ -159,6 +176,10 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             # Getting the Check Customer Status - num 54421729
             $customerStatusResponse = $this->_customerStatusHelper->checkCustomerStatus($order, $accountNumber);
             $customerStatus = json_decode($customerStatusResponse);
+        }
+
+        if($order->isCanceled()){
+            return true;
         }
 
         # Prepare Order Items
@@ -228,8 +249,13 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             //prepend leading zero before single digit number
             if(isset($itemsStoreLocation[$itemId])){
                 $storeLocation = $itemsStoreLocation[$itemId];
+                if(!is_array($storeLocation))
+                $storeLocation = (string)$storeLocation;
                 if($storeLocation < 10)
                 $itemsStoreLocation[$itemId] = '0'.$storeLocation;
+                else
+                $itemsStoreLocation[$itemId] = $storeLocation;
+                $itemsStoreLocation[$itemId] = str_replace("00","0",$itemsStoreLocation[$itemId]);
             }
 
             array_push($items, array(
@@ -243,7 +269,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                     "cost" => (float)$itemCost,
                     "taxable" => $taxable,
                     "webvendor" => (int)$vendorId,
-                    "from" => isset($itemsStoreLocation[$itemId]) ? (string)$itemsStoreLocation[$itemId] : '01',
+                    "from" => isset($itemsStoreLocation[$itemId]) ? $itemsStoreLocation[$itemId] : '01',
                     "pickup" => $pickup,
                     "orditemid" => (int)$itemId,
                     "tax_amt" => (float)$itemTaxAmount,
@@ -256,7 +282,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
 
         $createInvoiceResponse = $this->_arInvoiceHelper->createRevInvoice($inputArray);    # Creating Invoice using API CreateInvoiceRev
         //assign location to pickup_location field
-        $assignedLocation = isset($itemsStoreLocation[$itemId]) ? (string)$itemsStoreLocation[$itemId] : '01';
+        $assignedLocation = isset($itemsStoreLocation[$itemId]) ? $itemsStoreLocation[$itemId] : '01';
         $item->setData('pickup_location', $assignedLocation);
         $item->save();
         if (empty($createInvoiceResponse)) {
@@ -317,6 +343,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                  * Customer Status Validation
                  */
                 if ((!empty($customerStatus)) && ($customerStatus->customerstatus == false || $customerStatus->addressmismatch == true || $customerStatus->soft == true)) {
+                    
                     $order->setState("pending_payment")->setStatus("creditreview");    # Change the Order Status and Order State
                     $order->addStatusToHistory($order->getStatus(), 'Your Credit is being Reviewed');     # Add Comment to Order History
                     $order->save();     # Save the Changes in Order Status & History
@@ -328,6 +355,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                     $order->save();     # Save the Changes in Order Status & History
                     //create default magento order invoice
                     $this->_arInvoiceHelper->createInvoice($orderId);
+                    //$this->estimateModel->setSupplyInvoice($order);
                     $referId = $incrementId;
 
                     if ($downPaymentAmount !== '0') {

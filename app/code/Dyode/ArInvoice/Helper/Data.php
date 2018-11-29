@@ -142,7 +142,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $inputArray = array(
             "cust_id" => $custId,
             "amount" => $amount,
-            "inv_no" => $invNo,
+            "inv_no" => (float)$invNo,
             "referID" => $referId
         );
 
@@ -723,13 +723,13 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 $invoice->getOrder()
             );
             $transactionSave->save();
-            $this->invoiceSender->send($invoice);
+            //$this->invoiceSender->send($invoice);
             //send notification code
-            $order->addStatusHistoryComment(
-                __('Notified customer about invoice #%1.', $invoice->getId())
-            )
-            ->setIsCustomerNotified(true)
-            ->save();
+            //$order->addStatusHistoryComment(
+            //    __('Notified customer about invoice #%1.', $invoice->getId())
+            //)
+            //->setIsCustomerNotified(true)
+            $order->save();
         }
     }
 }
