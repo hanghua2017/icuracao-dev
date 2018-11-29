@@ -18,7 +18,18 @@
       <block class="Magento\Catalog\Block\Product\View" name="webcollage_script" template="webcollage_script.phtml"/>
     </referenceBlock>
         <referenceContainer name="content">
-            <container name="product.info-block" htmlTag="div" htmlClass="product-info-block" before="-">
+            <block class="Magento\Catalog\Block\Product\View" name="products.soldout.msg" template="Magento_Catalog::product/view/soldoutmessage.phtml" before="-">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\Soldout</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Catalog\Block\Product\View" name="soldout.related.product" template="Magento_Catalog::product/view/soldoutrelatedproducts.phtml" after="products.soldout.msg">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\Soldout</argument>
+                    <argument name="view_model_emi" xsi:type="object">Dyode\Core\ViewModel\Emi</argument>
+                </arguments>
+            </block>
+            <container name="product.info-block" htmlTag="div" htmlClass="product-info-block" after="soldout.related.product">
                 <referenceContainer name="product.info.main">
                     <block template="Magento_Catalog::product/view/price-beat.phtml" before="product.info.price">
                         <arguments>
@@ -65,7 +76,9 @@
                         </arguments>
                     </block>
                 </referenceBlock>
-
+                <referenceContainer name="product.info.media">
+                <block class= "Magento\Catalog\Block\Product\View" name="soldoutlabel" template="Magento_Catalog::product/view/media/soldoutlabel.phtml" before="-"/>
+                </referenceContainer>
                 <referenceBlock name="product.info.addtocart.additional">
                     <arguments>
                         <argument name="view_model" xsi:type="object">Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\Addtocart</argument>

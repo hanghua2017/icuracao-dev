@@ -132,9 +132,19 @@ define([
                     products = ko.observableArray([]);
 
                 _.each(quoteItemData, function (quoteItem) {
+                    var showPickupOption = true,
+                        pdtFreight = quoteItem.product.freight,
+                        pdtShipRate = quoteItem.product.shprate,
+                        productIsFreight = !!(pdtFreight && pdtFreight === '1'),
+                        productIsDomestic = !!(pdtShipRate && pdtShipRate.toLowerCase() === 'domestic');
 
                     if (quoteItem.product_type === 'virtual') {
                         return false;
+                    }
+
+                    //if product is freight or domestic, then store pickup option should not show.
+                    if (productIsFreight || productIsDomestic) {
+                        showPickupOption = false;
                     }
 
                     products.push({
@@ -173,6 +183,7 @@ define([
                         storeResponseError: ko.observable(false),
                         storeModals: [],
                         storeList: self.storeList,
+                        showPickupOption: showPickupOption,
 
                         //function associated
                         collectStores: self.selectLocation,

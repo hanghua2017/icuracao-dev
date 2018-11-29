@@ -144,11 +144,11 @@ class VerifyCuracaoId
         $accountNumber = $registerPost->getRequest()->getParam('curacaocustid',false);
         $customerEmail = $registerPost->getRequest()->getParam('email', false);
         $password      = $registerPost->getRequest()->getParam('password', false);
-        if(isset($accountInfo->PHONE)  && ($accountInfo->PHONE != '')){
-            $phone  =  $accountInfo->PHONE;
-          } else {
+        if(isset($accountInfo->CELL)  && ($accountInfo->CELL != '')){
             $phone  =  $accountInfo->CELL;
-          }
+        } else {
+            $phone  =  $accountInfo->PHONE;
+        }
         
         $curacaoInfo = new DataObject([
             'account_number' => $accountNumber,

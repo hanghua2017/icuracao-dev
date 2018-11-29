@@ -13,6 +13,7 @@
 @import "_add-to-cart";
 @import "_pdpbreadcrumbs";
 @import "_short-description";
+@import "_out-of-stock";
 
 .price-label-font {
   font-size: 16px;
@@ -718,7 +719,7 @@
                   font-size: 14px;
                   font-weight: 500;
                   font-family: 'iCuracao-Medium';
-                  padding: 5px 30px;
+                  padding: 5px 20px;
                   text-transform: uppercase;
 
                   &:hover {
@@ -902,6 +903,11 @@
           }
         }
       }
+    }
+  }
+  .fotorama-item{
+    &.fotorama--fullscreen{
+      z-index: 100000 !important;
     }
   }
 }

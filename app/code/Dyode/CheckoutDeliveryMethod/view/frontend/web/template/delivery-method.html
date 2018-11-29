@@ -67,7 +67,7 @@
                     </div>
 
                     <!-- Radio Button: Store Pickup -->
-                    <div class="radio-button">
+                    <div class="radio-button" data-bind="if: showPickupOption">
                         <input type="radio"
                                data-bind="attr: {name: deliveryRadioInputName, id: deliveryRadioInputStoreId},
                                     checked: deliveryRadioStoreChecked,

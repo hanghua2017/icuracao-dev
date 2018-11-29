@@ -1,12 +1,17 @@
 <?php
 /**
- * @package   Dyode
+ * 
+ * Extending Magento_Customer
+ *  
+ * @package   Dyode_Linkaccount
  * @author    kavitha@dyode.com
  * Date       17/09/2018
  */
  
 namespace Dyode\Linkaccount\Model;
+
 use Dyode\AuditLog\Model\ResourceModel\AuditLog;
+use Magento\Customer\Model\Session;
 
 class LinkAccount extends \Magento\Framework\Model\AbstractModel
 {
@@ -20,6 +25,11 @@ class LinkAccount extends \Magento\Framework\Model\AbstractModel
      */
     protected $customerFactory;
 
+	 /**
+     * @var \Magento\Customer\Model\Session
+     */
+	protected $customerSession;
+	
 	/**
      *
      * @var type \Magento\Framework\Message\ManagerInterface
@@ -38,12 +48,14 @@ class LinkAccount extends \Magento\Framework\Model\AbstractModel
 		\Magento\Framework\Model\Context $context,
 		\Magento\Store\Model\StoreManagerInterface $storeManager,
 		\Magento\Customer\Model\CustomerFactory $customerFactory,
+		Session $customerSession,
 		AuditLog $auditLog,
 		\Magento\Framework\Registry $data
 	) {
 		$this->storeManager     = $storeManager;
 		$this->auditLog = $auditLog;
 		$this->customerFactory  = $customerFactory;
+		$this->customerSession = $customerSession;
 		return parent::__construct($context, $data);
 	}
 
@@ -70,6 +82,9 @@ class LinkAccount extends \Magento\Framework\Model\AbstractModel
 			// $customer->setCustomAttribute("curacaocustid", "12463468");
 			// Save data
 			$customer->save();
+			$this->customerSession->setCustomerAsLoggedIn($customer);
+			$this->customerSession->setCurAcc($curacaoCustId);
+						 
 		} catch (\Exception $e) {}
 
 		if (empty($e)) {

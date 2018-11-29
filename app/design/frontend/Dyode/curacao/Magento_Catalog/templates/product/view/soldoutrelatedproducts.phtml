@@ -1,0 +1,107 @@
+<?php
+/**
+ * Dyode_curacao theme.
+ *
+ * Extending Magento_Catalog
+ *
+ * @package   Dyode
+ * @module    Dyode_curacao
+ * @author    Kavitha <kavitha@dyode.com>
+ * @copyright Copyright © Dyode
+ */
+?>
+<?php
+$_objectManager =  \Magento\Framework\App\ObjectManager::getInstance();
+$priceHelper = $_objectManager->create('Magento\Framework\Pricing\Helper\Data'); // Instance of Pricing Helpe
+?>
+<?php
+/**
+ * @var $block     \Magento\Catalog\Block\Product\View
+ * @var $viewModel \Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\Soldout
+ * @var $soldoutProduct \Magento\Catalog\Model\Product
+ */
+$viewModel = $block->getViewModel();
+$viewModelEmi = $block->getViewModelEmi();
+$product = $block->getProduct();
+?>
+
+<?php if ($viewModel->canShowSoldout($product)): ?>
+
+    <?php
+        $soldoutProducts = $viewModel->soldoutProducts($product);
+        $discount = $viewModel->productDiscount($product);
+
+        //to remove double slashes in product image URL
+        $routeName =$viewModel->getProductImageUrl($product);
+        $routeNamePart1 = substr( $routeName, 0 , strpos($routeName,'//') +4 );
+        $routeNamePart2 = substr( $routeName, strpos($routeName,'//') + 4);
+        $routeNamePart2 = str_replace('//', '/' , $routeNamePart2);
+        $imageURL = $routeNamePart1 . $routeNamePart2;
+    ?>
+    <div class="outofstock-related-items" id="soldout-section">
+        <div class="slider-title">
+            <h2 class='widget-title'><?= __("Hurry")?>,<?php echo __("Check Out These Similar Black Friday Deals Before They Sell Out") ?></h2>
+        </div>
+        <div class="outofstock-related-block owl-carousel out-of-stock-carousel">
+              <?php foreach($soldoutProducts as $soldoutProduct) { ?>
+                <?php
+                    //to remove double slashes in product image URL
+                    $routeName =$viewModel->getProductImageUrl($soldoutProduct);
+                    $routeNamePart1 = substr( $routeName, 0 , strpos($routeName,'//') +4 );
+                    $routeNamePart2 = substr( $routeName, strpos($routeName,'//') + 4);
+                    $routeNamePart2 = str_replace('//', '/' , $routeNamePart2);
+                    $soldImage = $routeNamePart1 . $routeNamePart2;
+
+                    ?>
+                  <!-- Static content for price off -->
+                  <?php
+                      $finalPrice = $soldoutProduct->getFinalPrice();
+                  ?>
+                  <div class="item">
+                      <a href="<?php echo $soldoutProduct->getProductUrl();?>">
+                          <div class="productimage-container">
+                              <img src="<?= $soldImage ?>" alt="product">
+                          </div>
+                          <h3><?= $block->escapeHtml($soldoutProduct->getName()) ?></h3>
+                          <p class="price"><span class="discount-price"><?= $viewModel->formattedPrice($soldoutProduct) ?></span></p>
+                          <?php $emi = $viewModelEmi->monthlyEmi($finalPrice);?>
+                          <?php if($emi != 0):?>
+                              <?php $formattedEmi = $priceHelper->currency($emi, true, false);?>
+                              <p class="subtext"><?php echo __('Or as low as');?>&nbsp;<span class="amount emi-amount"><?php echo __($formattedEmi);?>/<?php echo __('month');?></span></p>
+                          <?php endif;?>
+                      </a>
+                  </div>
+              <?php } ?>
+        </div>
+    </div>
+<?php endif;?>
+
+<script type="text/x-magento-init">
+    {
+    ".out-of-stock-carousel": {
+        "OwlCarousel": {
+        "dots":false,
+        "loop": false,
+        "nav":true,
+        "margin": 0,
+        "navText": ["<div class='custom-prev'><div class='left'></div></div>", "<div class='custom-next'><div class='right'></div></div>"],
+        "responsive": {
+            "0": {
+            "items": 1,
+            "stagePadding":40
+            },
+            "400": {
+            "items": 2,
+            "stagePadding":40
+            },
+            "768": {
+            "items": 3
+            },
+            "1045": {
+            "items": 4
+            }
+        }
+        }
+    }
+    }
+</script>

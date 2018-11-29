@@ -224,6 +224,13 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             $vendorId = $product->getData('vendorid');
             $itemType = ($product->getData('vendorid') == 2139) ? "CUR" : "";
             $explodeItemSku = explode("-", $itemSku);
+            
+            //prepend leading zero before single digit number
+            if(isset($itemsStoreLocation[$itemId])){
+                $storeLocation = $itemsStoreLocation[$itemId];
+                if($storeLocation < 10)
+                $itemsStoreLocation[$itemId] = '0'.$storeLocation;
+            }
 
             array_push($items, array(
                     "itemtype" => $itemType,
@@ -236,7 +243,7 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                     "cost" => (float)$itemCost,
                     "taxable" => $taxable,
                     "webvendor" => (int)$vendorId,
-                    "from" => isset($itemsStoreLocation[$itemId]) ? $itemsStoreLocation[$itemId] : "",
+                    "from" => isset($itemsStoreLocation[$itemId]) ? (string)$itemsStoreLocation[$itemId] : '01',
                     "pickup" => $pickup,
                     "orditemid" => (int)$itemId,
                     "tax_amt" => (float)$itemTaxAmount,
@@ -248,7 +255,10 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
         $inputArray["items"] = $items;
 
         $createInvoiceResponse = $this->_arInvoiceHelper->createRevInvoice($inputArray);    # Creating Invoice using API CreateInvoiceRev
-
+        //assign location to pickup_location field
+        $assignedLocation = isset($itemsStoreLocation[$itemId]) ? (string)$itemsStoreLocation[$itemId] : '01';
+        $item->setData('pickup_location', $assignedLocation);
+        $item->save();
         if (empty($createInvoiceResponse)) {
 			$logger->info("Order Id : " . $order->getIncrementId());
 			$logger->info("API Response not Found.");
@@ -265,11 +275,16 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
             /**
              * Create Invoice Response Validation
              */
+            if (!$createInvoiceResponse->OK) { 
+                $order->setState("processing")->setStatus("estimate_issue");    # Change the Order Status and Order State
+                $order->addStatusToHistory($order->getStatus(), $createInvoiceResponse->INFO);   # Add Comment to Order History
+                $order->save(); 
+                return true;
+            }
             if ((!empty($createInvoiceResponse->OK)) && $createInvoiceResponse->OK != true) {   # Create Invoice Response is false
                 $order->setState("processing")->setStatus("estimate_issue");    # Change the Order Status and Order State
                 $order->addStatusToHistory($order->getStatus(), 'Estimate not Issued');   # Add Comment to Order History
                 $order->save();     # Save the Changes in Order Status & History
-
                 //logging audit log
                 $this->auditLog->saveAuditLog([
                     'user_id' => "",
@@ -311,6 +326,8 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                 } else {
                     $order->setState("processing")->setStatus("processing");    # Change the Order Status and Order State
                     $order->save();     # Save the Changes in Order Status & History
+                    //create default magento order invoice
+                    $this->_arInvoiceHelper->createInvoice($orderId);
                     $referId = $incrementId;
 
                     if ($downPaymentAmount !== '0') {

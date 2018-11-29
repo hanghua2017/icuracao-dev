@@ -8,7 +8,7 @@
             <block class="Magento\Framework\View\Element\Html\Link\Current" ifconfig="rma/frontend/is_active" name="customer-account-navigation-rma-link">
                 <arguments>
                     <argument name="path" xsi:type="string">rma/rma/list</argument>
-                    <argument name="label" xsi:type="string">RMA</argument>
+                    <argument name="label" xsi:type="string">My Returns</argument>
                 </arguments>
             </block>
         </referenceBlock>

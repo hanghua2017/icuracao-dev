@@ -60,6 +60,9 @@ class UpgradeData implements UpgradeDataInterface
         if (version_compare($context->getVersion(), "1.0.2", "<")) {
             $this->upgradeDataOneZeroTwo($setup);
         }
+        if (version_compare($context->getVersion(), "1.0.6", "<")) {
+            $this->upgradeDataOneZeroSix($setup);
+        }
     }
 
     /**
@@ -129,5 +132,42 @@ class UpgradeData implements UpgradeDataInterface
                 'group'                   => 'General',
             ]
         );
+    }
+
+    /**
+     * Create "warranty" relation for catalog product entity.
+     *
+     * @param \Magento\Framework\Setup\ModuleDataSetupInterface $setup
+     */
+
+    public function upgradeDataOneZeroSix(ModuleDataSetupInterface $setup) {
+        /**
+        * Install product link type: SOLDOut
+        */
+        $data = [
+            [
+                'link_type_id' => Link::LINK_TYPE_SOLDOUT,
+                'code'         => Link::LINK_SOLDOUT_CODE,
+            ],
+        ];
+
+        foreach ($data as $bind) {
+            $setup->getConnection()
+                ->insertForce($setup->getTable('catalog_product_link_type'), $bind);
+        }
+
+        /**
+         * install product link attributes
+         */
+        $data = [
+            [
+                'link_type_id'                => Link::LINK_TYPE_SOLDOUT,
+                'product_link_attribute_code' => 'position',
+                'data_type'                   => 'int',
+            ],
+        ];
+
+        $setup->getConnection()
+            ->insertMultiple($setup->getTable('catalog_product_link_attribute'), $data);
     }
 }

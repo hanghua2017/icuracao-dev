@@ -1,0 +1,7 @@
+<?php
+$_product = $block->getProduct();
+$stockItem = $_product->getExtensionAttributes()->getStockItem();
+?>
+<?php  if($stockItem->getQty() <= 0):?>
+    <div class="img-soldout-message"> <?php echo __("Sold Out Online"); ?> </div>
+<?php endif; ?>

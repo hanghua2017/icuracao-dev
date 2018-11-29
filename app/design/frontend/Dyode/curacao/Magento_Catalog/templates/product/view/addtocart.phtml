@@ -18,6 +18,7 @@
  * @var $viewModel \Dyode\Catalog\ViewModel\Frontend\Catalog\Product\View\Addtocart
  */
 $_product = $block->getProduct();
+$stockItem = $_product->getExtensionAttributes()->getStockItem();
 $buttonTitle = __('Add to Cart');
 $viewModel = $block->getViewModel();
 $qtySelectLimit = 10;
@@ -25,47 +26,63 @@ if ($viewModel) {
     $qtySelectLimit = $viewModel->getQtyLimit();
 }
 ?>
-<?php if ($_product->isSaleable()): ?>
-<div class="box-tocart">
-    <div class="fieldset">
 
-        <?php if ($block->shouldRenderQuantity()): ?>
-        <div class="field qty">
-            <label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
-            <div class="control">
-                <select
-                        name="qty"
-                        id="qty"
-                        title="<?= /* @escapeNotVerified */ __('Qty') ?>"
-                        class="input-text qty"
-                        data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>">
+<?php if($stockItem->getQty() <= 0):?>
+  <div class="soldout-message">
+    <h3> <?php echo __("Sold Out Online"); ?> </h3>
+    <p> <?php echo __("This Black Friday Deal Sold Out Online");?> </p>
+  </div>
+<?php else: ?>
+    <?php if ($_product->isSaleable()): ?>
+        <div class="box-tocart">
+            <div class="fieldset">
 
-                  <?php for($qtyIncr = 1; $qtyIncr <= $qtySelectLimit; $qtyIncr++): ?>
-                      <option value="<?= $qtyIncr ?>" <?= ($qtyIncr === 1) ? 'selected': '' ?>><?= $qtyIncr ?></option>
-                  <?php endfor; ?>
+                <?php if ($block->shouldRenderQuantity()): ?>
+                <div class="field qty">
+                    <label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
+                    <div class="control">
+                        <select
+                                name="qty"
+                                id="qty"
+                                title="<?= /* @escapeNotVerified */ __('Qty') ?>"
+                                class="input-text qty"
+                                data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>">
 
-                </select>
+                        <?php for($qtyIncr = 1; $qtyIncr <= $qtySelectLimit; $qtyIncr++): ?>
+                            <option value="<?= $qtyIncr ?>" <?= ($qtyIncr === 1) ? 'selected': '' ?>><?= $qtyIncr ?></option>
+                        <?php endfor; ?>
+
+                        </select>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?= $block->getChildHtml('warranty_options') ?>
+                <div class="add-to-cart-block">
+                    <div class="actions">
+                    <!-- Check attribute 'not for sale' to hide 'add to cart' button and show 'In store only'  -->
+					<?php if ($_product->getNotForSale()): ?>
+                        <div
+                            id="product-instoreonly-button">
+                            <img src="<?php echo $this->getViewFileUrl('images/cart-button.png'); ?>" />
+                            <span><?= __('In Store Only') ?></span>
+                        </div>					
+					<?php else: ?>
+                        <button type="button"
+                                title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
+                                class="custom-button action tocart"
+                                id="product-addtocart-button">
+                            <img src="<?php echo $this->getViewFileUrl('images/cart-button.png'); ?>" />
+                            <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
+                        </button>					
+					<?php endif; ?>                    
+                    </div>
+
+                    <?= $block->getChildHtml('store_availability') ?>
+                </div>
             </div>
         </div>
-        <?php endif; ?>
-
-        <?= $block->getChildHtml('warranty_options') ?>
-
-        <div class="add-to-cart-block">
-            <div class="actions">
-                <button type="button"
-                        title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
-                        class="custom-button action tocart"
-                        id="product-addtocart-button">
-                    <img src="<?php echo $this->getViewFileUrl('images/cart-button.png'); ?>" />
-                    <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
-                </button>
-            </div>
-
-            <?= $block->getChildHtml('store_availability') ?>
-        </div>
-    </div>
-</div>
+    <?php endif;?>
 <?php endif; ?>
 <script type="text/x-magento-init">
     {

@@ -135,12 +135,12 @@ class Listbyzip extends Action
             $storeLocationGeoCoordinate = $this->storesViewModel->findStoreLocationGeoCoordiante($store);
 
             if ($storeLocationGeoCoordinate) {
-                $storeDistance = (float)$this->storesViewModel->arInvoiceHelper()->getDistance(
+                $storeDistance = round($this->storesViewModel->arInvoiceHelper()->getDistance(
                     $zipGeoCoordinate->getLat(),
                     $zipGeoCoordinate->getLng(),
                     $storeLocationGeoCoordinate->getLat(),
                     $storeLocationGeoCoordinate->getLng()
-                );
+                ))  ;
 
                 $store->setDistanceFromZip($storeDistance);
 
@@ -149,7 +149,8 @@ class Listbyzip extends Action
         }
 
         ksort($storeData);
-        return $storeData;
+
+        return array_slice($storeData, 0, 3);
     }
 
     /**
@@ -180,7 +181,7 @@ class Listbyzip extends Action
                 'id'      => $store->getLocationId(),
                 'title'   => __($store->getTitle()),
                 'imgUrl'  => $this->urlBuilder->getUrl($imagePath),
-                'miles'   => $distance,
+                'miles'   => $store->getDistanceFromZip(),
                 'address' => [
                     'title'       => __($store->getTitle()),
                     'street'      => __($store->getStreet()),

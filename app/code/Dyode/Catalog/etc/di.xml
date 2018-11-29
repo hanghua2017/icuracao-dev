@@ -18,6 +18,7 @@
             <argument name="linkTypes" xsi:type="array">
                 <item name="fbt" xsi:type="const">Dyode\Catalog\Model\Product\Link::LINK_TYPE_FBT</item>
                 <item name="warranty" xsi:type="const">Dyode\Catalog\Model\Product\Link::LINK_TYPE_WARRANTY</item>
+                <item name="soldout" xsi:type="const">Dyode\Catalog\Model\Product\Link::LINK_TYPE_SOLDOUT</item>
             </argument>
         </arguments>
     </type>
@@ -26,6 +27,7 @@
             <argument name="providers" xsi:type="array">
                 <item name="fbt" xsi:type="object">Dyode\Catalog\Model\ProductLink\CollectionProvider\Fbt</item>
                 <item name="warranty" xsi:type="object">Dyode\Catalog\Model\ProductLink\CollectionProvider\Warranty</item>
+                <item name="soldout" xsi:type="object">Dyode\Catalog\Model\ProductLink\CollectionProvider\Soldout</item>            
             </argument>
         </arguments>
     </type>

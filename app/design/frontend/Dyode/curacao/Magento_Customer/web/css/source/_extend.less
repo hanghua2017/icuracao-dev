@@ -2264,7 +2264,7 @@ select:focus, input:focus {
 }
 
 //Forget Password styling
-.customer-account-forgotpassword {
+.customer-account-forgotpassword,.customer-account-createpassword {
   .page-wrapper {
     #maincontent {
       background-image: url(../images/login-background.png);
@@ -2331,7 +2331,7 @@ select:focus, input:focus {
             }
           }
         }
-        form.forget.password {
+        form.forget.password,form.reset.password {
           min-width: auto;
           width: 75%;
           margin: 0 auto;
@@ -2360,7 +2360,7 @@ select:focus, input:focus {
               }
             }
             .field {
-              &.email {
+              &.email,&.password,&.confirmation {
                 border-top: 1px solid #b4b4b4;
                 border-top-left-radius: 3px;
                 border-top-right-radius: 3px;
@@ -2487,7 +2487,7 @@ select:focus, input:focus {
 
 
 //Common styling for captcha section in login and forget password
-.customer-account-login, .customer-account-forgotpassword {
+.customer-account-login, .customer-account-forgotpassword,.customer-account-createpassword {
   .page-wrapper {
     #maincontent {
       .page.messages {

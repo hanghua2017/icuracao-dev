@@ -1,0 +1,250 @@
+/*for mobile style*/
+
+@media only screen and (min-width: 320px) and (max-width: 1024px) {
+  *{
+    box-sizing: border-box;
+  }
+  #header{
+    height: auto;
+  }
+  html, body {
+    margin: 0px;
+    padding: 0px;
+    
+  }
+  #preapp-content {
+    position: relative;
+    margin: 20px 0px 20px 0px;
+  }
+  #preapp-round {
+    border-radius: 8px;
+    background: #ffc800;
+    box-shadow: 3px 3px 5px darkgrey;
+    padding: 15px;
+    position: relative;
+    overflow: hidden;
+  }
+  #preapp-round2 {
+    margin-top: 10px;
+    border-radius: 8px;
+    background: #ffc800;
+    box-shadow: 3px 3px 5px darkgrey;
+    padding: 15px;
+    position: relative;
+    overflow: hidden;
+  }
+  .preapp-hr {
+    height: 1px;
+    background-color: black;
+    margin: 10px 0px;
+  }
+  #preapp-fieldset {
+    border: none;
+    width: 100%;
+  }
+  #vid {
+    width: calc(100% - 86px);
+    border-radius: 2px;
+    border: 1px solid #008ecf;
+    padding: 6px;
+  }
+  #submit1 {
+    width: 80px;
+    background: #f26722;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFFFFF;
+    cursor: pointer;
+  }
+  #preapp-saying {
+    font-family: arial;
+    font-size: 14px;
+    font-weight: bold;
+    color: #f26722;
+    margin: 0px 0px 10px 0px;
+  }
+  #preapp-msg {
+    display: block;
+    font-family: arial;
+    font-size: 14px;
+  }
+  #preapp-text {
+    float: right;
+    margin-right: 5px;
+    background: #008ecf;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFFFFF;
+    cursor: pointer;
+  }
+  #preapp-voice {
+    float: right;
+    background: #008ecf;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFFFFF;
+    cursor: pointer;
+  }
+  #preapp-edit {
+    cursor: pointer;
+    color: #f26722;
+    font-size: 12px;
+  }
+  #preapp-phone {
+    font-family: arial;
+    font-size: 14px;
+    padding-right: 5px;
+  }
+  #preapp-header {
+    color: #008ecf;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: arial;
+    margin: 0px 0px 10px 10px;
+  }
+  .loading-image {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    z-index: 100000000;
+  }
+  .cartOverlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99999999;
+  }
+}
+
+
+/*for desktop style*/
+
+@media only screen and (min-width: 1025px) {
+  html, body {
+    margin: 0px;
+    padding: 0px;
+  }
+  #preapp-content {
+    background: transparent url('/ci_media/images/preapprove/back.jpg') no-repeat 0px 0px;
+    width: 990px;
+    height: 590px;
+    position: relative;
+    margin-top: 25px;
+  }
+  #preapp-round {
+    border-radius: 8px;
+    background: #ffc800;
+    box-shadow: 3px 3px 5px darkgrey;
+    padding: 15px;
+    position: relative;
+    overflow: hidden;
+  }
+  #preapp-round2 {
+    margin-top: 10px;
+    border-radius: 8px;
+    background: #ffc800;
+    box-shadow: 3px 3px 5px darkgrey;
+    padding: 15px;
+    position: relative;
+    overflow: hidden;
+  }
+  .preapp-hr {
+    height: 1px;
+    background-color: black;
+    margin: 10px 0px;
+  }
+  #preapp-fieldset {
+    border: none;
+    width: 450px;
+    position: absolute;
+    right: 20px;
+    top: 75px;
+  }
+  #vid {
+    border-radius: 2px;
+    border: 1px solid #008ecf;
+    padding: 6px;
+  }
+  #submit1 {
+    width: 80px;
+    background: #f26722;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFFFFF;
+    cursor: pointer;
+    float: right;
+  }
+  #preapp-saying {
+    font-family: arial;
+    font-size: 14px;
+    font-weight: bold;
+    color: #f26722;
+    margin: 0px 0px 10px 0px;
+  }
+  #preapp-msg {
+    display: block;
+    font-family: arial;
+    font-size: 14px;
+  }
+  #preapp-text {
+    float: right;
+    margin-right: 5px;
+    background: #008ecf;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFFFFF;
+    cursor: pointer;
+  }
+  #preapp-voice {
+    float: right;
+    background: #008ecf;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFFFFF;
+    cursor: pointer;
+  }
+  #preapp-edit {
+    cursor: pointer;
+    color: #f26722;
+    font-size: 12px;
+  }
+  #preapp-phone {
+    font-family: arial;
+    font-size: 14px;
+    padding-right: 5px;
+  }
+  #preapp-header {
+    color: #008ecf;
+    font-size: 50px;
+    font-weight: bold;
+    font-family: arial;
+    position: absolute;
+    top: 10px;
+    left: 20px;
+  }
+}

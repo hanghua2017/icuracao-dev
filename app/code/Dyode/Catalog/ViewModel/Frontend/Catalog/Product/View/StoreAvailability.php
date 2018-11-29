@@ -355,12 +355,20 @@ class StoreAvailability implements ArgumentInterface
      *
      * @return string
      */
+    /**
+     * Customer shipping address zip code.
+     *
+     * @return string
+     */
     public function customerZipCode()
     {
         $postCode = '';
 
         if ($this->customerSession->isLoggedIn()) {
-            $postCode = $this->getCustomer()->getDefaultShippingAddress()->getPostcode();
+            $shippingAddress = $this->getCustomer()->getDefaultShippingAddress();
+            if ($shippingAddress && $shippingAddress->getPostcode()) {
+                $postCode = $shippingAddress->getPostcode();
+            }
         }
 
         return $postCode;
