@@ -109,6 +109,12 @@ class Export
     private $_typeBundle = '';
 
     /**
+     * Estimate number 
+     * @var \Magento\Sales\Model\ResourceModel\Order
+     */
+    protected $_estimateNumber;
+
+    /**
      * Export class constructor
      *
      * @param \CollectionFactory    $order          order
@@ -286,6 +292,11 @@ class Export
             $orderShipping = $order->getShippingAmount();
         }
 
+        //Check Estimate number 
+        if($order->getEstimatenumber() != null) {
+            $this->_estimateNumber = $order->getEstimatenumber();
+            $this->_addFieldToXML("EstimateNumber", $order->getEstimatenumber());
+        }
         $this->_addFieldToXML("OrderTotal", $orderTotal);
         $this->_addFieldToXML("TaxAmount", $orderTax);
         $this->_addFieldToXML("ShippingAmount", $orderShipping);
@@ -459,6 +470,7 @@ class Export
     {
         if (!empty($order->getItems())) {
             $imageUrl = '';
+            $count = 1;
             foreach ($order->getItems() as $orderItem) {
                 $type = $orderItem->getProductType();
                 $isVirtual = $orderItem->getIsVirtual();
@@ -535,6 +547,7 @@ class Export
                     $this->_addFieldToXML("ImageUrl", $imageUrl);
                     $this->_addFieldToXML("Weight", $weight);
                     $this->_addFieldToXML("UnitPrice", $price);
+                    $this->_addFieldToXML("lineItemKey", $this->_estimateNumber."_".$count);
                     $location = (!empty($orderItem->getData('pickup_location'))) ? $orderItem->getData('pickup_location') : '01';
                     $this->_addFieldToXML("Location", $location);
                     $this->_addFieldToXML(
@@ -586,6 +599,7 @@ class Export
                     $this->_xmlData .= "\t</Options>\n";
                     $this->_xmlData .= "\t</Item>\n";
                 }
+                $count++;
             }
         }
     }
