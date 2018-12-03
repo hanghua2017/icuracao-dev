@@ -493,7 +493,7 @@
         }
       }
     }
-/*styling for the plp section on the sale page starts here*/
+    /*styling for the plp section on the sale page starts here*/
     .products.wrapper{
       margin-bottom: 30px;
       @media all and (min-width:768px){
@@ -561,8 +561,11 @@
           .product-item-details {
             .product-item-name {
               overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
+  						text-overflow: ellipsis;
+  						display: -webkit-box;
+  						-webkit-box-orient: vertical;
+  						-webkit-line-clamp: 4;
+  						max-height: 90px;
 
               a {
                 font-size: 16px;
@@ -645,12 +648,48 @@
           padding:0;
           @media all and (max-width:1024px){
             width:33.33%;
+            height: 430px;
+          }
+          @media all and (max-width: 920px) {
+            height: 400px;
           }
           @media all and (max-width:900px) {
             width: 50%;
             border-bottom: 1px solid rgba(197,197,197,.21) !important;
             border-right: 1px solid rgba(197,197,197,.21) !important;
+            height: 510px;
           }
+          @media all and (max-width: 860px) {
+            height: 490px
+          }
+          @media all and (max-width: 810px) {
+            height: 460px
+          }
+          @media all and (max-width:767px) {
+            height: 520px;
+          }
+          @media all and (max-width:660px) {
+            height: 490px;
+          }
+          @media all and (max-width:599px) {
+            height: 470px;
+          }
+          @media all and (max-width:540px) {
+            height: 450px;
+          }
+          @media all and (max-width:480px) {
+            height: 420px;
+          }
+          @media all and (max-width:410px) {
+            height: 400px;
+          }
+          @media all and (max-width:370px) {
+            height: 380px;
+          }
+          @media all and (max-width:320px) {
+            height: 360px;
+          }
+
 
           &:nth-child(even) {
             @media all and (max-width:767px) {
@@ -669,7 +708,7 @@
               .product-image-photo {
                 margin: 0 auto;
                 position: static;
-                max-width: 150px;
+                max-width: 85%;
                 transition: all 0.2s;
 
                 &:hover {
