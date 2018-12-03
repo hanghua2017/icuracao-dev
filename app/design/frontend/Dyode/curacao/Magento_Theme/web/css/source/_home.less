@@ -748,10 +748,13 @@
 											text-align: center;
 											width: 200px;
 											margin: 15px auto;
-											white-space: nowrap;
+											line-height: 21px;
 											overflow: hidden;
 											text-overflow: ellipsis;
-											line-height: 21px;
+											display: -webkit-box;
+											-webkit-box-orient: vertical;
+											-webkit-line-clamp: 4;
+											max-height: 90px;
 											@media screen and (max-width: 768px) {
 												font-size: 14px;
 												margin: 10px auto;
