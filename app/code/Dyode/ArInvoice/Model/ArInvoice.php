@@ -251,6 +251,12 @@ class ArInvoice extends \Magento\Framework\Model\AbstractModel
                 $storeLocation = $itemsStoreLocation[$itemId];
                 if(!is_array($storeLocation))
                 $storeLocation = (string)$storeLocation;
+                else{
+                    foreach ( $storeLocation as $key => $value ) {
+                        $storeLocation = $key;
+                        break;
+                    }
+                }
                 if($storeLocation < 10)
                 $itemsStoreLocation[$itemId] = '0'.$storeLocation;
                 else
