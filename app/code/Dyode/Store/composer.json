@@ -1,0 +1,22 @@
+{
+    "name": "dyode/module-store",
+    "description": "",
+    "type": "magento2-module",
+    "license": "dyode",
+    "authors": [
+        {
+            "email":"kavitha@dyode.com",
+            "name": "Dyode"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Dyode\\Store\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}
