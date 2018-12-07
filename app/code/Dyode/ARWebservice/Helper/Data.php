@@ -183,7 +183,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
         $result = json_decode($restResponse->getBody());
 
-        if ($result->OK != true) {
+        if (!$result || $result->OK != true) {
             $this->arErrorLogs("GetCustomerContact",
                 "Failed to get customer contact details " . $restResponse->getBody());
 
@@ -216,7 +216,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
         $result = json_decode($restResponse->getBody());
 
-        if ($result->OK != true) {
+        if (!$result || $result->OK != true) {
             $this->arErrorLogs("ValidateDP", "Failed to Verify Customer Details" . $restResponse->getBody());
 
             $error = $this->getErrorCodes($result->INFO);
@@ -349,7 +349,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
         $result = json_decode($restResponse->getBody());
 
-        if ($result->OK != 1) {
+        if (!$result || $result->OK != 1) {
             $this->arErrorLogs("AR Customer Credit Limit",
                 "AR Customer Credit Limit Failed" . $restResponse->getBody());
 
