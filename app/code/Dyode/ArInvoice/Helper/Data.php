@@ -141,8 +141,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         # Input Array
         $inputArray = array(
             "cust_id" => $custId,
-            "amount" => $amount,
-            "inv_no" => (float)$invNo,
+            "amount" => (float)$amount,
+            "inv_no" => $invNo,
             "referID" => $referId
         );
 
