@@ -22,4 +22,7 @@
            <argument name="blockId" xsi:type="string">icuracao_credit_card_ad</argument>
        </arguments>
     </type>
+    <type name="Magento\Checkout\Block\Onepage\Link">
+        <plugin name="Dyode_Checkout_Link" type="Dyode\Checkout\Plugin\Link" sortOrder="5" />
+    </type>
 </config>

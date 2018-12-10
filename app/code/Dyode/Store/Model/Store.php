@@ -13,6 +13,11 @@ namespace Dyode\Store\Model;
 
 class Store extends \Magento\Store\Model\Store
 {
+      /**
+     * @var StoreManagerInterface
+     */
+    private $_storeManager;
+    
 
      /**
      * Add store code to url in case if it is enabled in configuration
@@ -30,5 +35,21 @@ class Store extends \Magento\Store\Model\Store
         }
         return $url;
     }
-
+     /**
+     * Retrieve url using store configuration specific
+     *
+     * @param   string $route
+     * @param   array $params
+     * @return  string
+     */
+    // public function getUrl($route = '', $params = [])
+    // {
+    //     /** @var $url UrlInterface */
+    //     $url = $this->_url->setScope($this);
+    //     if ($this->_storeManager->getStore()->getId() != $this->getId()) {
+    //         $params['_scope_to_url'] = true;
+    //     }
+    //     echo $url->getUrl($route, $params);
+    //     return $url->getUrl($route, $params);
+    // }
 }

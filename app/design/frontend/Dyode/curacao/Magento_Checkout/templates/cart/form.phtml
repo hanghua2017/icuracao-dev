@@ -65,7 +65,7 @@
           <?= $block->getChildHtml('checkout.bottom.button') ?>
             <?php if ($block->getContinueShoppingUrl()): ?>
                 <a class="action continue"
-                   href="<?= $block->escapeUrl($block->getContinueShoppingUrl()) ?>"
+                   href="<?= $block->escapeUrl(str_replace("/default/","/",$block->getContinueShoppingUrl())) ?>"
                    title="<?= $block->escapeHtml(__('Continue Shopping')) ?>">
                     <span><?= /* @escapeNotVerified */ __('Continue Shopping') ?></span>
                 </a>

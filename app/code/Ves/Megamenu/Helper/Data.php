@@ -363,6 +363,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 		if ($href == '#') $target = '';
 
 		if ($item['name']!='' || $item['icon']) {
+			$href = str_replace("/default/","/",$href);
 			$html .= '<a href="' . $href . '" title="' . strip_tags($item['name']) . '" ' . $target . ' ' . $attr . ' ' . $style . ' ' . $class . '>';
 		}
 
@@ -472,7 +473,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 			if ($this->endsWith($link, '/')) {
 				$link = substr_replace($link, "", -1);	
 			}
-
+			
 			if ($hasChildren) {
 				$class .= ' parent';
 			}
@@ -625,7 +626,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 							$total = count($children);
 
 							if(!$this->isMobileDevice()) {
-								$html .= '<div class="dorgin-items ' . (isset($item['tab_position'])?'dynamic-' . $item['tab_position']:'') . ' row hidden-sm hidden-xs">';
+								$html .= '<div class="dorgin-items test' . (isset($item['tab_position'])?'dynamic-' . $item['tab_position']:'') . ' row hidden-sm hidden-xs">';
 
 								$html .= '<div class="dynamic-items ';
 								if (!isset($item['tab_position']) || (isset($item['tab_position']) && $item['tab_position'] != 'top')) {
