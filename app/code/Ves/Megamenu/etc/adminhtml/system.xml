@@ -39,7 +39,6 @@
 				</field>
 				<field id="backup_version" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Number Backup Version</label>
-					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 					<depends><field id="enable_backup">1</field></depends>
 					<validate>validate-number</validate>
 				</field>
@@ -50,6 +49,27 @@
 					<label>Enable Cache</label>
 					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 					<comment><![CDATA[Allow Cache The Generated Megamenu Html Into Database.]]></comment>
+				</field>
+				<field id="enable_cache_file" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Cache File</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<comment><![CDATA[Allow Cache The Generated Megamenu Html Into Cache File.]]></comment>
+					<depends><field id="enable_cache">1</field></depends>
+				</field>
+				<field id="cache_time" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Caching Time (Lifetime for caching file)</label>
+					<depends><field id="enable_cache_file">1</field></depends>
+					<comment><![CDATA[Empty to set cache forever.]]></comment>
+				</field>
+				<field id="enable_check_mobile" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Check Mobile Device When Generate Menu On Frontend</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<comment><![CDATA[Enable/Disable To Check Mobile Device When Generate Menu HTML On Frontend.]]></comment>
+				</field>
+				<field id="enable_admin_ajax" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Admin Ajax Load Catalog Categories</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<comment><![CDATA[Allow load list catalog categories via ajax when edit menu on backend. If the site have larger catalog categories, you should enable the option.]]></comment>
 				</field>
 			</group>
 		</section>

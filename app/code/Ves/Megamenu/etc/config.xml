@@ -28,6 +28,10 @@
 				<backup_version>10</backup_version>
 				<enable_cache>1</enable_cache>
 				<enable_minify>0</enable_minify>
+				<enable_admin_ajax>0</enable_admin_ajax>
+				<enable_cache_file>0</enable_cache_file>
+				<enable_check_mobile>0</enable_check_mobile>
+				<cache_time>86400</cache_time>
 			</general_settings>
 		</vesmegamenu>
 	</default>
