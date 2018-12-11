@@ -152,7 +152,6 @@
         <!-- <referenceContainer name="product.info.stock.sku" remove="true" /> -->
         <referenceBlock name="product.info.mailto" remove="true" />
         <referenceBlock name="catalog.product.related" remove="true" />
-
-
+        <referenceBlock name="related_products_impression" remove="true" />
     </body>
 </page>
