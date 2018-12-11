@@ -79,7 +79,7 @@ class CronJobDataProvider extends AbstractDataProvider
         $this->loadedData = $this->jobHelper->getJobData();
         $jobCode = $this->request->getParam('job_code');
         if (!empty($jobCode)) {
-            if (isset($this->loadedData[$jobCode])) {
+            if (isset($this->loadedData[$jobCode]) && isset($this->loadedData[$jobCode]['schedule'])) {
                 $this->loadedData[$jobCode]['oldexpressionvalue'] = $this->loadedData[$jobCode]['schedule'];
             }
         }
