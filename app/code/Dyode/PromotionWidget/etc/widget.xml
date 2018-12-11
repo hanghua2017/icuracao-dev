@@ -10,11 +10,11 @@
                   <description>Enter block title</description>
               </parameter>
                 <!-- dropdown -->
-              <parameter name="select_type" xsi:type="select" required="true" source_model="Dyode\PromotionWidget\Model\Config\Source\Select" visible="true" sort_order="8" >
+              <parameter name="select_type" xsi:type="select" required="false" source_model="Dyode\PromotionWidget\Model\Config\Source\Select" visible="true" sort_order="8" >
                 <label translate="true">Select option</label>
                  <description>Select type option</description>
               </parameter>
-              <parameter name="class_name_single" xsi:type="text"  visible="true" required="true" sort_order="8">
+              <parameter name="class_name_single" xsi:type="text"  visible="true" required="false" sort_order="8">
                 <label translate="true">class name</label>
                  <description>Enter class</description>
                   <!-- added dependent parameter -->
@@ -23,7 +23,7 @@
                    </depends>
               </parameter>
               <!-- Desktop image for dropdown value= single-->
-              <parameter name="desktop_image" xsi:type="block" visible="true" required="true" sort_order="10">
+              <parameter name="desktop_image" xsi:type="block" visible="true" required="false" sort_order="10">
                  <label translate="true">Desktop image</label>
                   <description>Upload Image for desktop view</description>
                    <!-- added dependent parameter  -->
@@ -55,7 +55,7 @@
             </block>
         </parameter>
         <!--Reference url   for dropdown value=single-->
-        <parameter name="imageurl" xsi:type="text"  visible="true" required="true" sort_order="12">
+        <parameter name="imageurl" xsi:type="text"  visible="true" required="false" sort_order="12">
            <label translate="true">URL</label>
             <description>Enter reference url</description>
               <!-- added dependent parameter -->
@@ -63,7 +63,7 @@
                 <parameter name="select_type" value="single" />
                </depends>
          </parameter>
-         <parameter name="class_name_double" xsi:type="text"  visible="true" required="true" sort_order="12">
+         <parameter name="class_name_double" xsi:type="text"  visible="true" required="false" sort_order="12">
            <label translate="true">class name</label>
               <description>Enter class</description>
                <!-- added dependent parameter -->
@@ -72,7 +72,7 @@
                 </depends>
             </parameter>
       <!--  first Desktop image for dropdown value=double-->
-        <parameter name="desktop_image_double_first" xsi:type="block" visible="true" required="true" sort_order="13">
+        <parameter name="desktop_image_double_first" xsi:type="block" visible="true" required="false" sort_order="13">
           <label translate="true">Desktop image 1</label>
             <description>Upload Image for desktop view</description>
               <!-- added dependent parameter  -->
@@ -88,7 +88,7 @@
            </block>
      </parameter>
      <!-- first mobile image chooser for dropdown value=double -->
-     <parameter name="mobile_image_double_first" xsi:type="block" required="true" visible="true" sort_order="14">
+     <parameter name="mobile_image_double_first" xsi:type="block" required="false" visible="true" sort_order="14">
        <label translate="true">Mobile Image 1</label>
          <description>Upload Image for Mobile view</description>
           <!-- added dependen parameter -->
@@ -104,7 +104,7 @@
       </block>
    </parameter>
    <!--Reference url -->
-   <parameter name="imageurl_double_first" xsi:type="text"  visible="true" required="true" sort_order="15">
+   <parameter name="imageurl_double_first" xsi:type="text"  visible="true" required="false" sort_order="15">
       <label translate="true">URL</label>
         <description>Enter reference url</description>
           <!-- added dependent parameter -->
@@ -113,7 +113,7 @@
             </depends>
      </parameter>
       <!-- second Desktop image for dropdown value=double-->
-    <parameter name="desktop_image_double_second" xsi:type="block" visible="true" required="true" sort_order="16">
+    <parameter name="desktop_image_double_second" xsi:type="block" visible="true" required="false" sort_order="16">
       <label translate="true">Desktop image 2</label>
         <description>Upload Image for desktop view</description>
           <!-- added dependent parameter  -->
@@ -130,7 +130,7 @@
     </parameter>
 
      <!-- second mobile image chooser for dropdown value=double -->
-    <parameter name="mobile_image_double_second" xsi:type="block" required="true" visible="true" sort_order="17">
+    <parameter name="mobile_image_double_second" xsi:type="block" required="false" visible="true" sort_order="17">
       <label translate="true">Mobile Image 2</label>
        <description>Upload Image for Mobile view</description>
          <!-- added dependen parameter -->
@@ -146,7 +146,7 @@
                </block>
        </parameter>
      <!--Reference url -->
-    <parameter name="imageurl_double_second" xsi:type="text"  visible="true" required="true" sort_order="18">
+    <parameter name="imageurl_double_second" xsi:type="text"  visible="true" required="false" sort_order="18">
      <label translate="true">URL</label>
           <description>Enter reference url</description>
                <!-- added dependent parameter -->
@@ -154,7 +154,7 @@
                   <parameter name="select_type" value="double" />
                </depends>
     </parameter>
-   <parameter name="class_name_triple" xsi:type="text"  visible="true" required="true" sort_order="18">
+   <parameter name="class_name_triple" xsi:type="text"  visible="true" required="false" sort_order="18">
        <label translate="true">class name</label>
          <description>Enter class</description>
             <!-- added dependent parameter -->
@@ -163,7 +163,7 @@
                  </depends>
      </parameter>
              <!-- first Desktop image for dropdown value=triple-->
-    <parameter name="desktop_image_triple_first" xsi:type="block" visible="true" required="true" sort_order="19">
+    <parameter name="desktop_image_triple_first" xsi:type="block" visible="true" required="false" sort_order="19">
   <label translate="true">Desktop image 1</label>
   <description>Upload Image for desktop view</description>
   <!-- added dependent parameter  -->
@@ -179,7 +179,7 @@
  </block>
 </parameter>
      <!-- first mobile image chooser for dropdown value=triple -->
-      <parameter name="mobile_image_triple_first" xsi:type="block" required="true" visible="true" sort_order="20">
+      <parameter name="mobile_image_triple_first" xsi:type="block" required="false" visible="true" sort_order="20">
          <label translate="true">Mobile Image 1</label>
             <description>Upload Image for Mobile view</description>
               <!-- added dependen parameter -->
@@ -195,7 +195,7 @@
                  </block>
        </parameter>
                      <!--Reference url -->
-      <parameter name="imageurl_trile_first" xsi:type="text"  visible="true" required="true" sort_order="21">
+      <parameter name="imageurl_trile_first" xsi:type="text"  visible="true" required="false" sort_order="21">
          <label translate="true">URL</label>
              <description>Enter reference url</description>
           <!-- added dependent parameter -->
@@ -204,7 +204,7 @@
           </depends>
    </parameter>
         <!-- second Desktop image for dropdown value=triple-->
-   <parameter name="desktop_image_triple_second" xsi:type="block" visible="true" required="true" sort_order="22">
+   <parameter name="desktop_image_triple_second" xsi:type="block" visible="true" required="false" sort_order="22">
         <label translate="true">Desktop image 2</label>
                    <description>Upload Image for desktop view</description>
                         <!-- added dependent parameter  -->
@@ -221,7 +221,7 @@
       </parameter>
 
             <!-- second mobile image chooser for dropdown value=triple -->
-        <parameter name="mobile_image_triple_second" xsi:type="block" required="true" visible="true" sort_order="23">
+        <parameter name="mobile_image_triple_second" xsi:type="block" required="false" visible="true" sort_order="23">
            <label translate="true">Mobile Image 2</label>
                <description>Upload Image for Mobile view</description>
                   <!-- added dependen parameter -->
@@ -237,7 +237,7 @@
                 </block>
       </parameter>
            <!--Reference url -->
-       <parameter name="imageurl_triple_second" xsi:type="text"  visible="true" required="true" sort_order="24">
+       <parameter name="imageurl_triple_second" xsi:type="text"  visible="true" required="false" sort_order="24">
           <label translate="true">URL</label>
           <description>Enter reference url</description>
            <!-- added dependent parameter -->
@@ -246,7 +246,7 @@
             </depends>
      </parameter>
             <!-- third Desktop image for dropdown value=triple-->
-    <parameter name="desktop_image_triple_third" xsi:type="block" visible="true" required="true" sort_order="25">
+    <parameter name="desktop_image_triple_third" xsi:type="block" visible="true" required="false" sort_order="25">
       <label translate="true">Desktop image 3</label>
        <description>Upload Image for desktop view</description>
             <!-- added dependent parameter  -->
@@ -262,7 +262,7 @@
           </block>
     </parameter>
      <!-- third mobile image chooser for dropdown value=triple -->
-  <parameter name="mobile_image_triple_third" xsi:type="block" required="true" visible="true" sort_order="26">
+  <parameter name="mobile_image_triple_third" xsi:type="block" required="false" visible="true" sort_order="26">
     <label translate="true">Mobile Image 3</label>
 <description>Upload Image for Mobile view</description>
 <!-- added dependen parameter -->
@@ -278,7 +278,7 @@
 </block>
 </parameter>
 <!--Reference url -->
-<parameter name="imageurl_triple_third" xsi:type="text"  visible="true" required="true" sort_order="27">
+<parameter name="imageurl_triple_third" xsi:type="text"  visible="true" required="false" sort_order="27">
 <label translate="true">URL</label>
 <description>Enter reference url</description>
 <!-- added dependent parameter -->
@@ -286,7 +286,7 @@
      <parameter name="select_type" value="triple" />
    </depends>
 </parameter>
-<parameter name="class_name_quadruple" xsi:type="text"  visible="true" required="true" sort_order="27">
+<parameter name="class_name_quadruple" xsi:type="text"  visible="true" required="false" sort_order="27">
   <label translate="true">class name</label>
   <description>Enter class</description>
   <!-- added dependent parameter -->
@@ -295,7 +295,7 @@
       </depends>
 </parameter>
 <!-- first Desktop image for dropdown value=quadruple-->
-<parameter name="desktop_image_quadruple_first" xsi:type="block" visible="true" required="true" sort_order="28">
+<parameter name="desktop_image_quadruple_first" xsi:type="block" visible="true" required="false" sort_order="28">
   <label translate="true">Desktop image 1</label>
   <description>Upload Image for desktop view</description>
   <!-- added dependent parameter  -->
@@ -311,7 +311,7 @@
  </block>
 </parameter>
 <!-- first mobile image chooser for dropdown value=quadruple -->
-<parameter name="mobile_image_quadruple_first" xsi:type="block" required="true" visible="true" sort_order="29">
+<parameter name="mobile_image_quadruple_first" xsi:type="block" required="false" visible="true" sort_order="29">
 <label translate="true">Mobile Image 1</label>
 <description>Upload Image for Mobile view</description>
 <!-- added dependen parameter -->
@@ -327,7 +327,7 @@
 </block>
 </parameter>
 <!--Reference url -->
-<parameter name="imageurl_quadruple_first" xsi:type="text"  visible="true" required="true" sort_order="30">
+<parameter name="imageurl_quadruple_first" xsi:type="text"  visible="true" required="false" sort_order="30">
 <label translate="true">URL</label>
 <description>Enter reference url</description>
 <!-- added dependent parameter -->
@@ -336,7 +336,7 @@
    </depends>
 </parameter>
 <!-- second Desktop image for dropdown value=quadruple-->
-<parameter name="desktop_image_quadruple_second" xsi:type="block" visible="true" required="true" sort_order="31">
+<parameter name="desktop_image_quadruple_second" xsi:type="block" visible="true" required="false" sort_order="31">
   <label translate="true">Desktop image 2</label>
   <description>Upload Image for desktop view</description>
   <!-- added dependent parameter  -->
@@ -353,7 +353,7 @@
 </parameter>
 
 <!-- second mobile image chooser for dropdown value=quadruple -->
-<parameter name="mobile_image_quadruple_second" xsi:type="block" required="true" visible="true" sort_order="32">
+<parameter name="mobile_image_quadruple_second" xsi:type="block" required="false" visible="true" sort_order="32">
 <label translate="true">Mobile Image 2</label>
 <description>Upload Image for Mobile view</description>
 <!-- added dependen parameter -->
@@ -369,7 +369,7 @@
 </block>
 </parameter>
 <!--Reference url -->
-<parameter name="imageurl_quadruple_second" xsi:type="text"  visible="true" required="true" sort_order="33">
+<parameter name="imageurl_quadruple_second" xsi:type="text"  visible="true" required="false" sort_order="33">
 <label translate="true">URL</label>
 <description>Enter reference url</description>
 <!-- added dependent parameter -->
@@ -378,7 +378,7 @@
    </depends>
 </parameter>
 <!-- third Desktop image for dropdown value=quadruple-->
-<parameter name="desktop_image_quadruple_third" xsi:type="block" visible="true" required="true" sort_order="34">
+<parameter name="desktop_image_quadruple_third" xsi:type="block" visible="true" required="false" sort_order="34">
   <label translate="true">Desktop image 3</label>
   <description>Upload Image for desktop view</description>
   <!-- added dependent parameter  -->
@@ -395,7 +395,7 @@
 </parameter>
 
 <!-- third mobile image chooser for dropdown value=quadruple -->
-<parameter name="mobile_image_quadruple_third" xsi:type="block" required="true" visible="true" sort_order="35">
+<parameter name="mobile_image_quadruple_third" xsi:type="block" required="false" visible="true" sort_order="35">
 <label translate="true">Mobile Image 3</label>
 <description>Upload Image for Mobile view</description>
 <!-- added dependen parameter -->
@@ -411,7 +411,7 @@
 </block>
 </parameter>
 <!--Reference url -->
-<parameter name="imageurl_quadruple_third" xsi:type="text"  visible="true" required="true" sort_order="36">
+<parameter name="imageurl_quadruple_third" xsi:type="text"  visible="true" required="false" sort_order="36">
 <label translate="true">URL</label>
 <description>Enter reference url</description>
 <!-- added dependent parameter -->
@@ -420,7 +420,7 @@
    </depends>
 </parameter>
 <!-- fourth Desktop image for dropdown value=quadruple-->
-<parameter name="desktop_image_quadruple_fourth" xsi:type="block" visible="true" required="true" sort_order="37">
+<parameter name="desktop_image_quadruple_fourth" xsi:type="block" visible="true" required="false" sort_order="37">
   <label translate="true">Desktop image 4</label>
   <description>Upload Image for desktop view</description>
   <!-- added dependent parameter  -->
@@ -437,7 +437,7 @@
 </parameter>
 
 <!-- fourth mobile image chooser for dropdown value=quadruple -->
-<parameter name="mobile_image_quadruple_fourth" xsi:type="block" required="true" visible="true" sort_order="38">
+<parameter name="mobile_image_quadruple_fourth" xsi:type="block" required="false" visible="true" sort_order="38">
 <label translate="true">Mobile Image 4</label>
 <description>Upload Image for Mobile view</description>
 <!-- added dependen parameter -->
@@ -453,7 +453,7 @@
 </block>
 </parameter>
 <!--Reference url -->
-<parameter name="imageurl_quadruple_fourth" xsi:type="text"  visible="true" required="true" sort_order="39">
+<parameter name="imageurl_quadruple_fourth" xsi:type="text"  visible="true" required="false" sort_order="39">
 <label translate="true">URL</label>
 <description>Enter reference url</description>
 <!-- added dependent parameter -->
